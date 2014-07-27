@@ -1,0 +1,20 @@
+{
+  "name": "Synthesise",
+  "version": "3.0.0",
+  "author": "Fabian Mundt",
+  "description": "Interactive Web-App for Higher Education",
+  "homepage": "http://www.inventionate.de",
+  "devDependencies": {
+    "grunt": ">0.4.3",
+    "grunt-notify": "~0.2.14",
+    "grunt-contrib-uglify": "~0.2.5",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-less": "~0.8.1",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-open": "~0.2.2",
+    "matchdep": "~0.3.0",
+    "grunt-shell": "~0.5.0"
+  }
+}

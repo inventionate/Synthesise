@@ -1,0 +1,26 @@
+actor: Tester
+paths:
+    tests: app/tests
+    log: app/tests/_output
+    data: app/tests/_data
+    helpers: app/tests/_support
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+coverage:
+    enabled: true
+    include:
+       - app/*
+    exclude:
+        - app/config/*
+        - app/database/*
+        - app/lang/*
+        - app/start/*
+        - app/storage/*
+        - app/tests/*
+modules:
+    config:
+        Db:
+            dsn: 'sqlite:memory'
+            dump: app/tests/_data/dump.sqlite
