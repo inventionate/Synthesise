@@ -4,9 +4,9 @@
   "dependencies": {
     "jquery": "~2.1.0",
     "modernizr": "latest",
-    "add-to-homescreen": "git://github.com/cubiq/add-to-homescreen.git#~2.0.11",
+    "add-to-homescreen": "git://github.com/cubiq/add-to-homescreen.git#~3.0.7",
     "respond": "~1.4.0",
-    "bootstrap": "~3.0.0",
+    "bootstrap": "~3.2.0",
     "html5-boilerplate": "~4.3.0",
     "flowplayer": "http://releases.flowplayer.org/5.4.6/commercial/flowplayer.commercial-5.4.6.zip",
     "livereload": "git://github.com/livereload/livereload-js",

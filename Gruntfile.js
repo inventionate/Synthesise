@@ -151,9 +151,12 @@ module.exports = function (grunt) {
 
       less: {
         files: ['app/assets/less/*.less'],
-        tasks: ['compile:less'],
+        tasks: ['compile:less']
+      },
+      tests: {
+        files: ['app/tests/unit/*.php', 'app/tests/functional/*.php', 'app/models/*.php', 'app/controllers/*.php', 'app/views/*.php', 'app/classes/*.php', 'app/*.php'],
+        tasks: ['shell:runtests']
       }
-
     },
 
     // grunt-open will open your browser at the project's URL
@@ -192,6 +195,10 @@ module.exports = function (grunt) {
 
       createFilesystem: {
         command: "sshpass -p <%= secret.password %>  sftp  <%= secret.username %>@<%= secret.host %> <<< $'mkdir synthesise\n mkdir public_html\n exit'"
+      },
+      
+      runtests: {
+        command: "vendor/bin/codecept run"
       },
 
       deployAll: {
@@ -279,7 +286,8 @@ module.exports = function (grunt) {
       },
 
       options: {
-        stdout: true
+        stdout: true,
+        failOnError: true
       }
 
     },
@@ -402,6 +410,11 @@ module.exports = function (grunt) {
   grunt.registerTask('server', [
     'open',
     'shell:server'
+  ]);
+  
+  // RUN TESTS
+  grunt.registerTask('tests', [
+    'watch:tests'
   ]);
 
   //  ASSET PUBLISH

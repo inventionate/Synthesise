@@ -13,5 +13,9 @@
 
 Route::get('/', function()
 {
-	echo("<h1>Hi</h1>");
+	$url = "1966 war ein gutes Jahr!";
+	
+	$normalurl = Parser::normalizeURL($url);
+	
+	return $normalurl;
 });

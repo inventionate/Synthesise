@@ -4,12 +4,12 @@ use \UnitTester;
 class PaperCest
 {             
     
-    public function tryToCreateANewPaper(UnitTester $I)
+    public function createANewPaper(UnitTester $I)
     {
-        $paper = new Paper;
+        $I->canCreate('Paper');
     }
     
-    public function tryToCheckIfNoteRelationshipExits(UnitTester $I)
+    public function checkIfNoteRelationshipExits(UnitTester $I)
     {
         $paper = new Paper;
         $I->seeMethod($paper,'notes');

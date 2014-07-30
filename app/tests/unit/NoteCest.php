@@ -16,30 +16,18 @@ class NoteCest
     }
     
     // tests
-    public function tryToCreateANewNote(UnitTester $I)
+    public function createANewNote(UnitTester $I)
     {
-        // $note = new Note;
-        
-        // Virtuelle Datenbank generieren
-        // Test::double('Users', ['name' => 'test']);
-        
-        $user = 'test';
-        
-        // Operationen ausführen
-        
-        // Vergleichen
-        
-        $I->assertTrue($user == 'test');  
-        
+        $I->canCreate('Note');
     }
     
-    public function tryToCheckIfPaperRelationshipExits(UnitTester $I)
+    public function checkIfPaperRelationshipExits(UnitTester $I)
     {
         $note = new Note;
         $I->seeMethod($note,'paper');
     }
     
-    public function tryToCreateTransactionsRecord(UnitTester $I)
+    public function createTransactionsRecord(UnitTester $I)
     {
         $user_id = $I->haveRecord('users', [
             'username' => 'Davert',

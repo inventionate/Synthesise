@@ -1,0 +1,7 @@
+<?php namespace Inventionate\Parsers;
+
+class Parsers {
+	public static function normalizeURL {
+		
+	}
+}
