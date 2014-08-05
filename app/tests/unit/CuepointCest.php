@@ -3,14 +3,11 @@ use \UnitTester;
 
 class CuepointCest
 {
-    public function _before()
-    {
-    }
 
-    public function _after()
-    {
-    }
-
+    /**
+    * Testet, ob ein Cuepoint Objekt generiert werden kann.
+    * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+    */
     public function createANewCuepoint(UnitTester $I)
     {
        $I->canCreate('Cuepoint');

@@ -15,18 +15,29 @@ class NoteCest
         Test::clean();
     }
     
-    // tests
+    /**
+    * Testet, ob ein Note Objekt generiert werden kann.
+    * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+    */
     public function createANewNote(UnitTester $I)
     {
         $I->canCreate('Note');
     }
     
+    /**
+    * Testet, ob die Datenbankverknüpfuung Note-Paper definiert wurde
+    * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+    */
     public function checkIfPaperRelationshipExits(UnitTester $I)
     {
         $note = new Note;
         $I->seeMethod($note,'paper');
     }
     
+    /**
+    * Testet, ob ein virtueller Datenbankeintrag erzeugt werden kann
+    * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+    */
     public function createTransactionsRecord(UnitTester $I)
     {
         $user_id = $I->haveRecord('users', [

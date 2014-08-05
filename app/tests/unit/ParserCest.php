@@ -12,7 +12,7 @@ class ParserCest
     
     /**
     * Testet ob ein Pareser Objekt erzeugt werden kann.
-    * @todo Überprüfen, ob es eine legenatere Testvariante gibt.
+    * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
     */
     public function createANewParser(UnitTester $I)
     {
@@ -21,6 +21,7 @@ class ParserCest
     
     /**
     * Testet die normalisierte Rückgabe.
+    * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
     * @todo Besser ausformulieren!
     */
     public function normalizeAnURL(UnitTester $I)

@@ -16,6 +16,5 @@ class UnitHelper extends \Codeception\Module
 	{
 		$this->assertNotNull(new $class);
 	}
-
-
+	
 }

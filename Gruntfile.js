@@ -413,7 +413,7 @@ module.exports = function (grunt) {
   ]);
   
   // RUN TESTS
-  grunt.registerTask('tests', [
+  grunt.registerTask('test', [
     'watch:tests'
   ]);
 

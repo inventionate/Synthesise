@@ -16,7 +16,7 @@ return array(
 	*/
 
 	'driver' => 'eloquent',
-
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Authentication Model
@@ -66,6 +66,6 @@ return array(
 
 		'expire' => 60,
 
-	),
+	)
 
 );

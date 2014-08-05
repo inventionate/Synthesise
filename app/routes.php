@@ -13,9 +13,13 @@
 
 Route::get('/', function()
 {
-	$url = "1966 war ein gutes Jahr!";
 	
-	$normalurl = Parser::normalizeURL($url);
+	// Nächste Aufgabe:
 	
-	return $normalurl;
+	echo "Du musst jetzt die LDAP Auth mit Eloquent verquicken!";
+	echo "<br><br>";
+	echo "Meinst du ein Paket würde Sinn machen?";
+	echo "<br><br>";
+	echo "Wohl kaum, da die Klassen ja sowieso gesondert liegen und es nur ein großer Mehraufwand wäre.";
+	
 });
