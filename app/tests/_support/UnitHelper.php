@@ -6,7 +6,7 @@ namespace Codeception\Module;
 
 class UnitHelper extends \Codeception\Module
 {
-
+	
 	public function seeMethod($object, $method)
 	{
 		$this->assertTrue(method_exists($object, $method));

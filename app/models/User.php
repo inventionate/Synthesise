@@ -22,5 +22,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var array
 	 */
 	protected $hidden = array('password', 'remember_token');
+	
+	/**
+	 * Durchsucht die Datenbank nach einem übergebenen Nutzernamen
+	 * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+	 */
+	public static function findByUsername(
+		$username,
+		$columns = array('*')
+	) {
+		if ( ! is_null($user = static::whereUsername($username)->first($columns))) {
+			return $user;
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 }
