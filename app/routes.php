@@ -21,5 +21,7 @@ Route::get('/', function()
 	echo "Meinst du ein Paket würde Sinn machen?";
 	echo "<br><br>";
 	echo "Wohl kaum, da die Klassen ja sowieso gesondert liegen und es nur ein großer Mehraufwand wäre.";
+	echo "<br><br>";	
+	echo App::environment();
 	
 });
