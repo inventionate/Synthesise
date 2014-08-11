@@ -1,0 +1,184 @@
+//@import (less) "bootstrap.css";
+
+// NOTE Bootstrap individual compile
+
+// NOTE Core variables and mixins
+@import "variables.less";
+@grid-float-breakpoint:		@screen-md-min;
+@import "mixins.less";
+
+// NOTE Reset
+@import "normalize.less";
+@import "print.less";
+
+// NOTE Core CSS
+@import "scaffolding.less";
+@import "type.less";
+@import "code.less";
+@import "grid.less";
+@import "tables.less";
+@import "forms.less";
+@import "buttons.less";
+
+// NOTE Components
+@import "component-animations.less";
+@import "glyphicons.less";
+@import "dropdowns.less";
+@import "button-groups.less";
+@import "input-groups.less";
+@import "navs.less";
+@import "navbar.less";
+//@import "breadcrumbs.less";
+@import "pagination.less";
+//@import "pager.less";
+@import "labels.less";
+@import "badges.less";
+//@import "jumbotron.less";
+@import "thumbnails.less";
+@import "alerts.less";
+@import "progress-bars.less";
+@import "media.less";
+@import "list-group.less";
+@import "panels.less";
+//@import "wells.less";
+//@import "close.less";
+
+// NOTE Components w/ JavaScript
+@import "modals.less";
+@import "tooltip.less";
+//@import "popovers.less";
+//@import "carousel.less";
+
+// NOTE Utility classes
+@import "utilities.less";
+@import "responsive-utilities.less";
+
+
+// NOTE Styles
+
+@import "helpers";
+
+@import "typography";
+
+@import "colour";
+
+@import "layout";
+
+@import "print";
+
+// NOTE JS required
+
+.js .alert-js {
+  display: none !important;
+  visibility: hidden;
+}
+
+.no-js #notes {	
+	display: none !important;
+	visibility: hidden;
+}
+
+// NOTE Video-Embed
+
+.flowplayer {
+	.fp-embed {
+   		display: none
+   }
+	// Cuepoints
+	.fp-timeline {
+	
+	}	
+	.fp-cuepoint {
+		display: inline-block;
+		position: absolute;
+		width: 1.5%;
+		height: 10px;
+		background-color: @red;
+		top: 0;
+	}
+	a.fp-cuepoint:hover {
+		height: 20px;
+		top: -5px;
+		.transition(0.5s, ease-out);
+	}
+	.active-cue {
+		height:  20px;
+		top: -5px;
+	}
+	.fp-logo {
+		display: block;
+		opacity: .5 !important;
+		width: 50px;
+	}
+}
+
+// Deaktivieren der Noitizen auf Mobilgeräten kleiner als das iPad (horizontal)
+
+//@media (max-width: 768px) {
+//	.flowplayer {
+//		.fp-cuepoint {
+//			position: absolute;
+//			top: -9999px;
+//			left: -9999px;
+//		}
+//	}
+//}
+
+
+// NOTE Ajax Feedback
+
+#save-info {
+	p {
+		font-size: 0.3em;
+	}
+}
+
+#save-info.request {
+	background-color: @brown;
+}
+
+#save-info.success {
+	background-color: @green;
+}
+
+// Notizformular
+
+#note-content {
+	resize: none;
+}
+
+// Formulare
+
+form#login, form#feedback, form#support {
+	.btn.btn-primary {
+		margin-top: 15px;
+	}
+	#feedbackMessage, #supportMessage {
+		resize: none;
+	}
+}
+
+// NOTE Navigation
+
+nav.navbar a.btn {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+// NOTE Buttons
+
+.btn-block {
+	overflow: hidden;
+	text-overflow: ellipsis;
+ 	padding-left: 12px;
+ 	padding-right: 20px;
+}
+
+#current-lection {
+	.btn-block {
+	 	padding-left: 0;
+	 	padding-right: 0;
+	}	
+}

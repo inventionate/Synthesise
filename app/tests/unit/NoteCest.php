@@ -46,8 +46,9 @@ class NoteCest
             'firstname' => 'Monja',
             'lastname' => 'Santner',
             'role' => 'Wife',
-            'created_at' => 'NOW',
-            'updated_at' => 'NOW'
+            'created_at' => '0000-00-00 00:00:00',
+            'updated_at' => '0000-00-00 00:00:00',
+            'permissions' => 'Test'
             ]);
         $I->seeRecord('users', array('username' => 'Davert'));
     }

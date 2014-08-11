@@ -11,9 +11,9 @@ class ParserCest
     }
     
     /**
-    * Testet ob ein Pareser Objekt erzeugt werden kann.
-    * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
-    */
+     * Testet ob ein Pareser Objekt erzeugt werden kann.
+     * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+     */
     public function createANewParser(UnitTester $I)
     {
         $I->canCreate('Parser');
@@ -21,9 +21,9 @@ class ParserCest
     
     /**
     * Testet die normalisierte Rückgabe.
-    * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
-    * @todo Besser ausformulieren!
-    */
+     * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+     * @todo Besser ausformulieren!
+     */
     public function normalizeAnURL(UnitTester $I)
     {
         $url = "test me";

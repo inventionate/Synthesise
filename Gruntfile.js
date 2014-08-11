@@ -43,7 +43,7 @@ module.exports = function (grunt) {
           banner: '/*! <%= pkg.name %> jQuery iFrame Fix <%= grunt.template.today("dd-mm-yyyy") %> */\n'
         },
         files: {
-          'public/js/iframe.min.js': ['bower_components/iframe-auto-height-jquery-plugin/Src/iframeheight.js']
+          'public/js/iframe.min.js': ['bower_components/iframe-resizer/src/iframeResizer.js']
         }
       },
 
@@ -52,7 +52,7 @@ module.exports = function (grunt) {
           banner: '/*! <%= pkg.name %> add2Home function <%= grunt.template.today("dd-mm-yyyy") %> */\n'
         },
         files: {
-          'public/js/add2home.min.js': ['bower_components/add-to-homescreen/src/add2home.js']
+          'public/js/add2home.min.js': ['bower_components/add-to-homescreen/src/addtohomescreen.js']
         }
       },
 
@@ -96,7 +96,7 @@ module.exports = function (grunt) {
           cleancss: true
         },
         files: {
-          'public/css/add2home.css': 'bower_components/add-to-homescreen/style/add2home.css'
+          'public/css/add2home.css': 'bower_components/add-to-homescreen/style/addtohomescreen.css'
         }
       }
 

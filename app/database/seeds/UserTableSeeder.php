@@ -8,42 +8,16 @@ class UserTableSeeder extends Seeder {
 
 		User::create(array(
 			'id' => 1,
-			'username' => 'fab',
-			'password' => Hash::make('etpM'),
-			'firstname' => 'Fabian',
-			'lastname' => 'Mundt',
-			'role' => 'Student'
+			'username' => 'Zelda',
+			'password' => Hash::make('Hyrule'),
+			'firstname' => 'Test',
+			'lastname' => 'User',
+			'role' => 'Student',
+			'permissions' => 'all'
 		));	
-
+		
 		User::create(array(
 			'id' => 2,
-			'username' => 'mundtka',
-			'password' => Hash::make('etpM'),
-			'firstname' => 'Fabian',
-			'lastname' => 'Mundt',
-			'role' => 'Teacher'
-		));	
-
-		User::create(array(
-			'id' => 3,
-			'username' => 'hartmannka',
-			'password' => Hash::make('hartmannka'),
-			'firstname' => 'Mutfried',
-			'lastname' => 'Hartmann',
-			'role' => 'Teacher'
-		));	
-
-		User::create(array(
-			'id' => 4,
-			'username' => 'bolleka',
-			'password' => Hash::make('bolleka'),
-			'firstname' => 'Rainer',
-			'lastname' => 'Bolle',
-			'role' => 'Teacher'
-		));	
-
-		User::create(array(
-			'id' => 7,
 			'username' => 'hoyerka',
 			'password' => Hash::make('etpM'),
 			'firstname' => 'Timo',
@@ -52,13 +26,42 @@ class UserTableSeeder extends Seeder {
 		));	
 
 		User::create(array(
-			'id' => 9,
+			'id' => 3,
+			'username' => 'mundtka',
+			'password' => Hash::make('etpM'),
+			'firstname' => 'Fabian',
+			'lastname' => 'Mundt',
+			'role' => 'Teacher'
+		));	
+
+		User::create(array(
+			'id' => 4,
 			'username' => 'weigandka',
-			'password' => Hash::make('weigandka'),
+			'password' => Hash::make('etpM'),
 			'firstname' => 'Gabriele',
 			'lastname' => 'Weigand',
 			'role' => 'Teacher'
 		));	
+
+		User::create(array(
+			'id' => 5,
+			'username' => 'hartmannka',
+			'password' => Hash::make('etpM'),
+			'firstname' => 'Mutfried',
+			'lastname' => 'Hartmann',
+			'role' => 'Teacher'
+		));	
+
+		User::create(array(
+			'id' => 6,
+			'username' => 'bolleka',
+			'password' => Hash::make('etpM'),
+			'firstname' => 'Rainer',
+			'lastname' => 'Bolle',
+			'role' => 'Teacher'
+		));	
+
+
 		
 	}
 }

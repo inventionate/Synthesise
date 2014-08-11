@@ -239,7 +239,10 @@ class UnitTester extends \Codeception\Actor
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
-     *
+     * Überprüft ob eine Methode existiert
+	 * Codeception Helper 
+	 *
+	 * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
      * Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\UnitHelper::seeMethod()
      */
@@ -249,7 +252,10 @@ class UnitTester extends \Codeception\Actor
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
-     *
+     * Überprüft ob eine Methode existiert
+	 * Codeception Helper 
+	 *
+	 * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
      * @see \Codeception\Module\UnitHelper::seeMethod()
      */
     public function seeMethod($object, $method) {
@@ -260,7 +266,10 @@ class UnitTester extends \Codeception\Actor
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
-     *
+     * Übrpüft ob ein Objekt erzeugt werden kann
+	 * Codeception Helper
+	 * 
+	 * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
      * @see \Codeception\Module\UnitHelper::canCreate()
      */
     public function canCreate($class) {

@@ -1,0 +1,123 @@
+// Farben
+
+// PH Corporate Design
+
+@light-green: #8cd000; 	// HKS 67
+
+@red: #f33b1d;			// HKS 12
+
+@yellow: #eae000;		// HKS 69
+
+@orange: #f0a930;		// HKS 71
+
+@brown:	#cb5e24;		// HKS 81
+
+@light-blue: #00acd3;	// HKS 47
+
+@turquoise: #006651;	// HKS 56
+
+@blue: #2c57d2;			// HKS 43
+
+// Erweiterungsfarben
+
+@green: #5ebc3b;		// PH Website
+
+@dark-green: #248900;	// PH Website
+
+@white: #fff;
+
+@black: #000;
+
+@gray: #555;
+
+@light-gray: #ddd;
+
+@bs-blue: #428bca;
+
+
+.green {
+	color: @green;
+}
+
+.red {
+	color: @red;
+}
+
+table td a.green:hover {
+	color: darken(@green, 10%)
+}
+
+table td a.red:hover {
+	color: darken(@red, 10%)
+}
+
+// Navigation ----------------------------------
+
+nav.navbar {
+	background-color: fade(@green,90%);
+	h1 a:hover {
+		background-color: transparent;
+	}
+	a {
+		color: @white;
+	}
+	a.navbar-brand:hover {
+		background: none;
+		color: @light-gray;
+	}
+	a.nav-event-title:hover {
+		background: none;
+	}
+	a:hover {
+		background-color: fade(@dark-green,80%);
+		color: @light-gray;
+		.caret {
+			border-top-color: @light-gray;
+			border-bottom-color: @light-gray;
+		}
+	}
+	a.btn:hover {
+		color: @white;
+		background-color: #3276b1;
+		border-color: #285e8e;
+	}
+	.active a {
+		background-color: fade(@dark-green,80%);
+		color: @light-gray;
+	}
+	.caret {
+		border-top-color: @white;
+		border-bottom-color: @white;
+	}
+	.icon-bar {
+		background-color: @white;
+	}
+	button.navbar-toggle:hover {
+		background-color: fade(@black,30%);
+	}
+	// Untermenüs
+	li.open > a, li.open > a:hover, li.open > a:focus{
+		background-color: fade(@dark-green,90%);
+	}
+	.dropdown-menu {
+		background-color: @white;
+		a {
+			background-color: @white;
+			color: fade(@dark-green,80%);
+		}
+		a:hover {
+			background-color: transparent;
+			color: fade(@dark-green,100%);
+			text-decoration: underline;
+		}
+		.rechtshinweise {
+			color: @blue;
+		}
+		.rechtshinweise:hover {
+			color: darken(@blue,10%);
+		}
+	}
+	.dropdown-header {
+		color: @gray;
+	}
+}

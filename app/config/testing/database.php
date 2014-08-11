@@ -10,7 +10,7 @@ return array(
 
 		'sqlite' => array(
 			'driver'    => 'sqlite',
-			'database'  => ':memory:',
+			'database'  => __DIR__.'/../../database/test.sqlite',
 			'prefix'    => ''
 		)
 	)

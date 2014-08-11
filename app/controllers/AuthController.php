@@ -12,7 +12,7 @@ class AuthController extends \BaseController {
 		}
 	
 	/**
-	 * Loginlofik
+	 * Loginlogik
 	 * Validieren der Daten, LDAP Server checken und schließlich auf das Dashboard weiterleiten
 	 * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
 	 */
@@ -32,7 +32,7 @@ class AuthController extends \BaseController {
 			{
 				return Redirect::route('home');
 			}
-			else 
+			else
 			{
 				// 4. Wenn Anmeldung problematisch Datenbank-Passwort aktualisieren mit LDAP Passwort ( über den eindeutigen uid user->save() )	
 				$user = User::findByUsername($credentials['username']);
@@ -52,8 +52,13 @@ class AuthController extends \BaseController {
 				}
 			}
 		}
-		else 
+		// Für Nicht-LDAP Accounts eine weitere prüfung durchführen
+		elseif( Auth::attempt($credentials) )
 		{
+			return Redirect::route('home');
+		}
+		else
+		{	
 			return Redirect::route('login')->with('login_errors', true);
 		}
 	}
