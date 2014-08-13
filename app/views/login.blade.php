@@ -8,36 +8,49 @@
 <link rel="stylesheet" href="{{ asset('css/add2home.css') }}">
 @stop 
 
-@section('body')
+@section('content')
+<div id="login-content">
 
-<h1 class="visible-print">Login</h1>
+<section class="jumbotron text-center">
+	<h1>e:t:p:M</h1>
+	<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
+	<p class="lead">Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</p>
+</section>
 
-<div class="alert alert-info">Zugang zur Modul 1 Veranstaltung des Instituts für Allgemeine und Historische Erziehungswissenschaft.</div>
-
-@if (Session::has('errors') || Session::has('login_errors'))
-	<div class="alert alert-danger">Ihre Zugangsdaten waren nicht korrekt.</div>  
-@endif
-
-{{ Form::open(array('url' => 'login','class' => 'form-horizontal', 'id' => 'login')) }}
-	{{-- Eingabe des Benutzernamens -----------------------------}} 
-<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
-	{{ Form::label('username', 'Benutzername', array('class' => 'col-lg-2 col-md-3 control-label')) }}
-	<div class="col-lg-3 col-md-3">
-	{{ Form::text('username', '', array('class' => 'form-control', 'placeholder' => 'LSF Benutzername')) }} 
+{{ Form::open(array('url' => 'login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form')) }}
+<div class="@if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) animated zoomIn @else animated shake @endif">
+	
+	{{-- Eingabe des Benutzernamens --}} 
+	<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
+		{{ Form::label('username', 'Benutzername', array('class' => 'sr-only')) }}
+		<div class="input-group input-group-lg">
+			{{ Form::text('username', '', array('class' => 'form-control', 'placeholder' => 'LSF Benutzername')) }} 
+			<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+		</div>
 	</div>
-</div>
-	{{-- Eingabe des Passworts ----------------------------------}}
-<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
-	{{ Form::label('password', 'Passwort', array('class' => 'col-lg-2 col-md-3 control-label')) }}
-	<div class="col-lg-3 col-md-3">
-	{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'LSF Passwort')) }} 
-
-	{{-- Anmelde Button -----------------------------------------}}
-
-	{{ Form::submit('Anmelden', array('class' => 'btn btn-primary')) }}
+	
+	{{-- Eingabe des Passworts --}}
+	<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
+		{{ Form::label('password', 'Passwort', array('class' => 'sr-only')) }}
+		<div class="input-group input-group-lg">
+			{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'LSF Passwort')) }} 
+			<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+		</div>
 	</div>
+	
+	{{-- Remember me 
+	<div class="checkbox">
+		<label>
+			<input type="checkbox"> Remember me
+		</label>
+	</div> --}}				
+
+	{{-- Anmelde Button --}}
+	{{ Form::submit('Anmelden', array('class' => 'btn btn-primary btn-lg', 'role' => 'button')) }}
 </div>
 {{ Form::close() }}
+
+</div>
 
 @stop
 

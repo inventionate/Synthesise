@@ -25,6 +25,8 @@
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100" >
 		{{-- Haupt-CSS laden --}}
 		<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+		{{-- Animate.css laden --}}
+		<link rel="stylesheet" href="{{ asset('css/animate.css') }}">
 
 		<script src="{{ asset('js/init.min.js') }}"></script>
 
@@ -33,21 +35,21 @@
 		@endif
 
 	</head>
-	<body class="container" id="etpM-de">
+	<body id="etpM-de">
 		<!--[if lt IE 9]>
 			<p class="alert alert-danger browsehappy">Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
 		<![endif]-->
 
 		<div class="alert alert-danger alert-js">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
-
+		@if ( Auth::check() )
+		
 		<nav class="navbar navbar-fixed-top" role="navigation">
 
 		<div class="container">
 			{{-- Brand and toggle get grouped for better mobile display --}}
 			  <div class="navbar-header">
-				<a class="etpM navbar-brand @if (URL::current() === url('/')) active @endif" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
-				@if (Auth::check())  	
+				<a class="etpM navbar-brand @if (URL::current() === url('/')) active @endif" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>	
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 				  <span class="sr-only">Toggle navigation</span>
 				  <span class="icon-bar"></span>
@@ -55,13 +57,9 @@
 				  <span class="icon-bar"></span>
 				</button>
 				<h1 class="nav-event-title hidden-md hidden-lg"><a href="{{ url('') }}">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
-				@else
-				<h1 class="nav-event-title"><a href="{{ url('') }}">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
-				@endif
 			  </div>
 
-			{{-- Collect the nav links, forms, and other content for toggling --}}
-			@if (Auth::check())  	
+			{{-- Collect the nav links, forms, and other content for toggling --}}	
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
 				<li @if (URL::current() === url('dashboard'))class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
@@ -90,42 +88,24 @@
 				</li>
 				<li @if (strpos(URL::current(),"hgf")) class="active" @endif ><a href="{{ url('hgf') }}">Häufig gestellte Fragen</a></li>
 				<li @if (URL::current() === url('kontakt')) class="active" @endif ><a href="{{ url('kontakt') }}">Kontakt</a></li>
-			  {{--
-			   @if ( Auth::user()->username === 'fab' || Auth::user()->username === 'hoyerka' ) 
-				<li @if (URL::current() === url('evaluation')) class="active" @endif ><a href="{{ url('evaluation') }}">Evaluation</a></li>
-			   @endif
-			  --}}
 			</ul>
 
 			<a href="{{ url('logout') }}" class="btn btn-primary btn-block navbar-right hidden-print">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} abmelden</a>
-
-
-			{{--
-			<ul class="nav navbar-nav navbar-right">
-			<li>
-			  	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Angemeldet als {{Auth::user()->firstname . ' ' . Auth::user()->lastname}} <b class="caret"></b></a>
-			  	<ul class="dropdown-menu">
-			  			  <li><a href="{{ url('profil') }}">Passwort ändern</a></li>
-			  			  <li><a href="{{ url('logout') }}">Abmelden</a></li>
-			  	 </ul>
-			</li>
-			</ul>
-			--}}
+			
 			</div>
-			@endif
 			</div>
 		</nav>
+		
+		@endif
+		
 		<section id="main-content">
-		{{--
-		<div class="alert alert-danger">
-		Wir sind sehr an Ihrer Meinung interessiert. Bitte geben Sie uns eine Rückmeldung und nehmen Sie an unserer <a class="alert-link" href="{{ url('evaluation') }}">Evaluation</a> teil. Der Fragebogen ist bis zum 2. Februar online freigeschaltet. Ihre Angaben erfolgen anonym.
-		</div>
-		--}}
-			@yield('body')
+			@yield('content')
 		</section>
+
 		<hr>
 
-		<footer>
+		<footer class="container">
+			
 			<p>
 			<small>
 			© 2012–2014 Gesamtkonzeption <span class="etpM"><b>e:t:p:M</b></span> Timo Hoyer | 
@@ -141,7 +121,7 @@
 			{{-- Standardskripte (jQuery, Bootstrap, Console) laden und ggf. später ergänzen --}}
 
 			{{-- jQuery extern laden --}}
-			{{--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>--}}
+			{{--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>--}}
 			{{--<script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery.min.js') }}"><\/script>')</script>--}}
 			{{-- jQuery über die Web-App laden, damit eine bessere Kontrolle möglich wird. Da wiederkehrende Nutzer die Regel sind, dürften die Auswirkungen auf die Performance gering sein --}}
 			<script src="{{ asset('js/vendor/jquery.min.js') }}"></script>

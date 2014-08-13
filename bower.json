@@ -10,6 +10,7 @@
     "html5-boilerplate": "~4.3.0",
     "flowplayer": "http://releases.flowplayer.org/5.4.6/commercial/flowplayer.commercial-5.4.6.zip",
     "livereload": "git://github.com/livereload/livereload-js",
-    "iframe-resizer": "~2.5.2"
+    "iframe-resizer": "~2.5.2",
+    "animate.css": "git://github.com/daneden/animate.css.git#~3.2.0"
   }
 }

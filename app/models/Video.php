@@ -104,47 +104,14 @@ class Video extends Eloquent {
 	public static function getAllFlagnames($videoname)
 	{
 		$cuepoints = Video::find($videoname)->cuepoints;
-
-
-		$meta = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head>
-				<style>
-				h1,h2,h3 {
-					font-family: Helvetica;
-				}
-				p {
-					font-family: CharisSIL;
-				}
-				#header {
-				  position: fixed;
-				  top: -25px;
-				  left: 0px;
-				  right: 0px;
-				  text-align: right;
-				  font-size: 12px;
-				}
-				#footer {
-				  position: fixed;
-				  bottom: 0px;
-				  left: 0px;
-				  right: 0px;
-				  height: 40px;
-				  text-align: right;
-				  font-size: 14px;
-				}
-				.pagenum:before {
-				  content: counter(page);
-				}
-				</style><body>';		
-		$title = 'Fähnchen zu ' . $videoname;
-		$html = $meta .'<h1>' . $title . '</h1>';
-		$html .= '<div id="header"><p>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns – WS 2013/2014 – PH Karlsruhe</p></div>';
-		$html .= '<div id="footer"><p>Seite <span class="pagenum"></span></p></div>';
+		
+		
 		foreach ($cuepoints as $cuepoint) {
-			$html .= '<h2 style="height:250px;">' . $cuepoint->content . '</h2>';
+			$cuepointsHtml .= '<h2 style="height:250px;">' . $cuepoint->content . '</h2>';
 		}
-		$html .= '</body></html>';
 
-		return $html;
+		return Parser::cuepointHtmlMarkup($videoname, $cuepointsHtml);
+		
 	}
 
 }

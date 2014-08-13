@@ -98,6 +98,15 @@ module.exports = function (grunt) {
         files: {
           'public/css/add2home.css': 'bower_components/add-to-homescreen/style/addtohomescreen.css'
         }
+      },
+      
+      animate: {
+        options: {
+          cleancss: true
+        },
+        files: {
+          'public/css/animate.css': 'bower_components/animate.css/animate.css'
+        }
       }
 
     },
@@ -112,7 +121,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             flatten: true,
-            src: ['bower_components/jquery/jquery.min.js'],
+            src: ['bower_components/jquery/dist/jquery.min.js'],
             dest: 'public/js/vendor/'
           },
 
@@ -426,6 +435,7 @@ module.exports = function (grunt) {
     'uglify:add2home',
     'less:main',
     'less:add2home',
+    'less:animate',
     'notify:assets'
   ]);
 

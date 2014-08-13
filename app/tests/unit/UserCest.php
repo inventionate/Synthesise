@@ -3,24 +3,7 @@ use \UnitTester;
 
 class UserCest
 {
-    
-    /**
-     * Testnutzer definieren
-     * 
-     * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
-     */
-    protected $testuser1 = array(
-                                'username' => 'vturner',
-                                'password' => 'Betwixt',
-                                'firstname' => 'Victor',
-                                'lastname' => 'Turner',
-                                'role' => 'Student',
-                                'created_at' => '2014-09-17 17:00:00',
-                                'updated_at' => '2014-09-17 17:00:00',
-                                'permissions' => 'none',
-                                'remember_token' => ''
-                                );
-    
+   
     /**
      * Bereitet die virtuelle Datenbank und virtuelle E-Mails vor
      * 
@@ -56,12 +39,16 @@ class UserCest
     public function testFindUserByUsername(UnitTester $I)
     {
         $I->wantTo('find a user by username');
+        
+        $testuser = TestCommons::testuser();
+        $testuser['username'] = 'otard';
+        $testuser['firstname'] = 'Baron';
     
-        $I->haveRecord('users', $this->testuser1);
+        $I->haveRecord('users', $testuser);
         
-        $user = User::findByUsername('vturner');
+        $user = User::findByUsername('otard');
         
-        $I->AssertEquals($user->firstname,'Victor');
+        $I->AssertEquals($user->firstname,'Baron');
     }
     
 }

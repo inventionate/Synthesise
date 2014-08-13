@@ -33,7 +33,7 @@
 //@import "pager.less";
 @import "labels.less";
 @import "badges.less";
-//@import "jumbotron.less";
+@import "jumbotron.less";
 @import "thumbnails.less";
 @import "alerts.less";
 @import "progress-bars.less";
@@ -65,6 +65,8 @@
 @import "layout";
 
 @import "print";
+
+@import "animation";
 
 // NOTE JS required
 
@@ -149,10 +151,11 @@
 
 // Formulare
 
-form#login, form#feedback, form#support {
-	.btn.btn-primary {
-		margin-top: 15px;
-	}
+form#login {
+	margin: 50px 0;
+}
+
+form#feedback, form#support {
 	#feedbackMessage, #supportMessage {
 		resize: none;
 	}

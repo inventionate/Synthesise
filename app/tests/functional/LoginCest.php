@@ -48,7 +48,7 @@ class LoginCest
     {
         
         $I->am('Student');
-        $I->wantTo('can login without ldap credentials');
+        $I->wantTo('login without ldap credentials');
     
         $I->seeRecord('users', ['username' => 'Zelda']);
     
