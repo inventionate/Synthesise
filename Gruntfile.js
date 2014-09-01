@@ -150,9 +150,6 @@ module.exports = function (grunt) {
     // WATCH FILES AND RELOAD BROWSER
 
     watch: {
-      options: {
-        livereload: true
-      },
       scripts: {
         files: ['app/assets/coffee/*.coffee'],
         tasks: ['compile:coffee']
@@ -163,16 +160,20 @@ module.exports = function (grunt) {
         tasks: ['compile:less']
       },
       tests: {
-        files: ['app/tests/unit/*.php', 'app/tests/functional/*.php', 'app/models/*.php', 'app/controllers/*.php', 'app/views/*.php', 'app/classes/*.php', 'app/*.php'],
+        files: ['tests/unit/*.php', 'tests/functional/*.php', 'app/models/*.php', 'app/controllers/*.php', 'app/views/*.php', 'app/classes/*.php', 'app/*.php'],
         tasks: ['shell:runtests']
-      }
+      },
+      livereload: {
+        options: { livereload: true },
+        files: ['public/**','app/models/*.php', 'app/controllers/*.php', 'app/views/**', 'app/classes/*.php', 'app/*.php']
+      },
     },
 
     // grunt-open will open your browser at the project's URL
     open: {
       all: {
         // Gets the port from the connect configuration
-        path: 'http://localhost:8000'
+        path: 'http://synthesise.local:8000'
       }
     },
 
@@ -188,7 +189,7 @@ module.exports = function (grunt) {
 
     secret: grunt.file.readJSON('secret.json'),
 
-    localDir: '/Users/fabianmundt/Dropbox/Inventionate/Projekte/Synthesise\\ 2',
+    localDir: '/Users/fabianmundt/Dropbox/Inventionate/Projekte/Synthesise\\ 3',
 
     // SFTP DEPLOY
 

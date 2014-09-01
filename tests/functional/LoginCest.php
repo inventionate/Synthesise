@@ -30,13 +30,14 @@ class LoginCest
         $I->dontSeeRecord('users', ['username' => 'Luke']);
     
         $I->amOnPage('/login');
-        $I->see('Login','h1');
+        $I->see('e:t:p:M','h1');
+        $I->see('Login','h3');
         $I->fillField('#username','luke');
         $I->fillField('#password','pw');
         $I->click('Anmelden','#login');
         
         $I->seeCurrentUrlEquals('/login');
-        $I->see('Ihre Zugangsdaten waren nicht korrekt.','div');	
+        $I->seeElement('div.form-group.has-error');	
     }
     
     /**
@@ -53,7 +54,8 @@ class LoginCest
         $I->seeRecord('users', ['username' => 'Zelda']);
     
         $I->amOnPage('/login');
-        $I->see('Login','h1');
+        $I->see('e:t:p:M','h1');
+        $I->see('Login','h3');
         $I->fillField('#username','Zelda');
         $I->fillField('#password','Hyrule');
         $I->click('Anmelden','#login');

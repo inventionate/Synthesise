@@ -1,9 +1,9 @@
 actor: Tester
 paths:
-    tests: app/tests
-    log: app/tests/_output
-    data: app/tests/_data
-    helpers: app/tests/_support
+    tests: tests
+    log: tests/_output
+    data: tests/_data
+    helpers: tests/_support
 settings:
     bootstrap: _bootstrap.php
     colors: true
@@ -18,9 +18,8 @@ coverage:
         - app/lang/*
         - app/start/*
         - app/storage/*
-        - app/tests/*
 modules:
     config:
         Db:
             dsn: 'sqlite:memory'
-            dump: app/tests/_data/dump.sqlite
+            dump: tests/_data/dump.sqlite

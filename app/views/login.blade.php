@@ -9,13 +9,13 @@
 @stop 
 
 @section('content')
-<div id="login-content">
-
-<section class="jumbotron text-center">
+<section id="login-content">
+<header class="jumbotron text-center">
 	<h1>e:t:p:M</h1>
 	<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
+	<h3 class="sr-only">Login</h3>
 	<p class="lead">Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</p>
-</section>
+</header>
 
 {{ Form::open(array('url' => 'login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form')) }}
 <div class="@if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) animated zoomIn @else animated shake @endif">
@@ -47,11 +47,8 @@
 
 	{{-- Anmelde Button --}}
 	{{ Form::submit('Anmelden', array('class' => 'btn btn-primary btn-lg', 'role' => 'button')) }}
-</div>
 {{ Form::close() }}
-
-</div>
-
+</section>
 @stop
 
 @section('scripts')

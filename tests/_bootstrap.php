@@ -1,8 +1,8 @@
 <?php
 // Codeception Laravel ausführen lassen
 
-include __DIR__.'/../../vendor/autoload.php';
-$app = require_once __DIR__.'/../../bootstrap/start.php';
+include __DIR__.'/../vendor/autoload.php';
+$app = require_once __DIR__.'/../bootstrap/start.php';
 
 $kernel = \AspectMock\Kernel::getInstance();
 $kernel->init([

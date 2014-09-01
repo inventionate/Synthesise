@@ -64,4 +64,18 @@ class ParserCest
         $I->AssertEquals($html, $parsed);
     }
     
+    /**
+     * Test das Normalisieren von Dateinamen aus Inhaltsnamen
+     * 
+     * @author Fabian Mundt <mundt@ph-karlsruhe.de>
+     */
+     public function normalizeAName(UnitTester $I)
+     {
+         $name = "Testvideo ä ö ü ß ? ! - – —";
+         
+         $normalizedName = Parser::normalizeName($name);
+         
+         $I->AssertEquals("testvideo_ae_oe_ue_ss________",$normalizedName);
+     }
+    
 }

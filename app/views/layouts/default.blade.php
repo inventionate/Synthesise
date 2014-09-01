@@ -39,11 +39,11 @@
 		<!--[if lt IE 9]>
 			<p class="alert alert-danger browsehappy">Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
 		<![endif]-->
-
 		<div class="alert alert-danger alert-js">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
 		@if ( Auth::check() )
 		
+		{{-- HIER BITTE DAS BRANDING BESSER VERARBEITEN!!! --}}
 		<nav class="navbar navbar-fixed-top" role="navigation">
 
 		<div class="container">

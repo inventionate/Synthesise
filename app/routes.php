@@ -66,7 +66,7 @@ Route::get('impressum', array(
 /**
  * Sicherheitsfilter
  * 
- * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+ * @author Fabian Mundt <mundt@ph-karlsruhe.de>
  */
 Route::group(array('before' => 'auth'), function()
 {	

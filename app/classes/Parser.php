@@ -5,7 +5,6 @@ class Parser
 	
 	/**
 	* Normalisiert die übergebenen URL
-	*
 	**/
 	public static function normalizeURL($url) 
 	{
@@ -29,5 +28,14 @@ class Parser
 	 	return $html;
 	 	
 	 }
-	
+	 
+	 /**
+	  * Nomalisiert einen übergebenen Namen
+	  * 
+	  * @author Fabian Mundt <mundt@ph-karlsruhe.de>
+	  */
+	  public static function normalizeName($name)
+	  {
+		  return strtolower(str_replace(array(' ','-','–','—','?','!','ä','ö','ü','ß'),array('_','_','_','_','','','ae','oe','ue','ss'),$name));
+	  }
 }

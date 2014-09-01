@@ -22,60 +22,59 @@
 		<meta name="msapplication-tooltip" content="e:t:p:M – Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns">
 				<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100" >
 				<link rel="stylesheet" href="http://localhost/css/main.css">
+				<link rel="stylesheet" href="http://localhost/css/animate.css">
 
 		<script src="http://localhost/js/init.min.js"></script>
 
 		
 	</head>
-	<body class="container" id="etpM-de">
+	<body id="etpM-de">
 		<!--[if lt IE 9]>
 			<p class="alert alert-danger browsehappy">Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
 		<![endif]-->
-
 		<div class="alert alert-danger alert-js">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
-
-		<nav class="navbar navbar-fixed-top" role="navigation">
-
-		<div class="container">
-						  <div class="navbar-header">
-				<a class="etpM navbar-brand " href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
-								<h1 class="nav-event-title"><a href="http://localhost">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
-							  </div>
-
-									</div>
-		</nav>
+				
 		<section id="main-content">
-					
-<h1 class="visible-print">Login</h1>
+			<section id="login-content">
+<header class="jumbotron text-center">
+	<h1>e:t:p:M</h1>
+	<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
+	<h3 class="sr-only">Login</h3>
+	<p class="lead">Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</p>
+</header>
 
-<div class="alert alert-info">Zugang zur Modul 1 Veranstaltung des Instituts für Allgemeine und Historische Erziehungswissenschaft.</div>
-
-	<div class="alert alert-danger">Ihre Zugangsdaten waren nicht korrekt.</div>  
-
-<form method="POST" action="http://localhost/login" accept-charset="UTF-8" class="form-horizontal" id="login"><input name="_token" type="hidden" value="ozmf1aYDb5hWHCPuNPtp1M7Pu0yYMKOXhAJJDtFm">
-	 
-<div class="form-group  has-error ">
-	<label for="username" class="col-lg-2 col-md-3 control-label">Benutzername</label>
-	<div class="col-lg-3 col-md-3">
-	<input class="form-control" placeholder="LSF Benutzername" name="username" type="text" value="" id="username"> 
-	</div>
-</div>
-	<div class="form-group  has-error ">
-	<label for="password" class="col-lg-2 col-md-3 control-label">Passwort</label>
-	<div class="col-lg-3 col-md-3">
-	<input class="form-control" placeholder="LSF Passwort" name="password" type="password" value="" id="password"> 
-
+<form method="POST" action="http://localhost/login" accept-charset="UTF-8" class="form-inline text-center" id="login" role="form"><input name="_token" type="hidden" value="O3NZRGC2IXsIE3STgHySzBchWY1DdB901Q84GVoi">
+<div class=" animated shake ">
 	
-	<input class="btn btn-primary" type="submit" value="Anmelden">
+	 
+	<div class="form-group  has-error ">
+		<label for="username" class="sr-only">Benutzername</label>
+		<div class="input-group input-group-lg">
+			<input class="form-control" placeholder="LSF Benutzername" name="username" type="text" value="" id="username"> 
+			<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+		</div>
 	</div>
-</div>
-</form>
+	
+		<div class="form-group  has-error ">
+		<label for="password" class="sr-only">Passwort</label>
+		<div class="input-group input-group-lg">
+			<input class="form-control" placeholder="LSF Passwort" name="password" type="password" value="" id="password"> 
+			<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+		</div>
+	</div>
+	
+					
 
+		<input class="btn btn-primary btn-lg" role="button" type="submit" value="Anmelden">
+</form>
+</section>
 		</section>
+
 		<hr>
 
-		<footer>
+		<footer class="container">
+			
 			<p>
 			<small>
 			© 2012–2014 Gesamtkonzeption <span class="etpM"><b>e:t:p:M</b></span> Timo Hoyer | 
