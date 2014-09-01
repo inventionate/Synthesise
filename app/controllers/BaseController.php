@@ -17,7 +17,7 @@ class BaseController extends Controller {
 		$tablet = $detect->isTablet();
 	
 		View::share('mobile', $mobile);
-		View::share('tablet', $tablet);	
+		View::share('tablet', $tablet);
 	}
 
 

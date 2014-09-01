@@ -1,3 +1,5 @@
+{{-- @todo BRANDING ÜBERARBEITEN, DAS LOGO MUSS BESSER ZUR GELTUNG KOMMEN! --}}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="de"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="de"> <![endif]-->
@@ -43,8 +45,10 @@
 
 		@if ( Auth::check() )
 		
-		{{-- HIER BITTE DAS BRANDING BESSER VERARBEITEN!!! --}}
-		<nav class="navbar navbar-fixed-top" role="navigation">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+ 		
+ 		
+ 		{{-- BRANDING ÜBERARBEITEN --}}
 
 		<div class="container">
 			{{-- Brand and toggle get grouped for better mobile display --}}
@@ -60,10 +64,10 @@
 			  </div>
 
 			{{-- Collect the nav links, forms, and other content for toggling --}}	
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li @if (URL::current() === url('dashboard'))class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
-				<li class="dropdown @if (strstr(URL::current(), url('online-lektionen'))) active @endif">
+				<li @if ( Request::is('dashboard') ) class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
+				<li class="dropdown @if ( Request::is('online-lektionen') ) active @endif">
 					<a href="{{ url('online-lektionen') }}" class="dropdown-toggle" data-toggle="dropdown">online-Lektionen <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 					  <li role="presentation" class="dropdown-header">Sozialgeschichte der Erziehung und Bildung</li>
@@ -86,8 +90,8 @@
 
 					</ul>
 				</li>
-				<li @if (strpos(URL::current(),"hgf")) class="active" @endif ><a href="{{ url('hgf') }}">Häufig gestellte Fragen</a></li>
-				<li @if (URL::current() === url('kontakt')) class="active" @endif ><a href="{{ url('kontakt') }}">Kontakt</a></li>
+				<li @if ( Request::is('hgf') ) class="active" @endif ><a href="{{ url('hgf') }}">Häufig gestellte Fragen</a></li>
+				<li @if ( Request::is('kontakt') ) class="active" @endif ><a href="{{ url('kontakt') }}">Kontakt</a></li>
 			</ul>
 
 			<a href="{{ url('logout') }}" class="btn btn-primary btn-block navbar-right hidden-print">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} abmelden</a>
@@ -98,10 +102,10 @@
 		
 		@endif
 		
-		<section id="main-content">
+		<section class="main-content-{{ Request::segment(1) }} @if ( !Request::is('login') ) container @endif">
 			@yield('content')
 		</section>
-
+		
 		<hr>
 
 		<footer class="container">

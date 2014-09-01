@@ -1,35 +1,34 @@
 @extends('layouts.default') 
 @section('meta')
 @parent 
-<title>Erziehungswissenschaftliche Grundfragen – Dashboard</title>
+<title>EW M1 – Dashboard</title>
 @stop 
 
 @section('content') 
-
 <h1 class="visible-print-block">Dashboard</h1>
 
 @if($role === 'Teacher')
 <div class="alert alert-info">Sie haben erweiterte Benutzerrechte und können die online-Lektionen bereits früher verwenden.</div>
 @endif
 
-
 <div class="row">
 	<div class="col-lg-6">
 		@include('widgets.currentlection')
 	</div>
-	<div class="col-lg-6">
-		<!-- @inc lude('widget.generalinfo') -->
-	</div>	
+	<section class="col-lg-6">
+		@include('widgets.generalinfo')
+	</section>	
 </div>
 <div class="clearfix visible-lg"></div>
 <div class="row">
 	<div class="col-lg-12">
-		<!-- @inc lude('lection.summary') -->
+		@include('widgets.alllections')
 	</div>
 </div>
 <div class="clearfix visible-lg"></div>
 
 @stop
+
 
   {{-- Piwik Benutzerdefinierte Variablen definieren um den Status abzufragen --}}
   {{-- Es wäre auch möglich den konkreten Nutzernamen zu erfragen um ihn für die Evaluation zu verwenden. Das ist allerdings ethisch bedenklich. --}}

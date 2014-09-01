@@ -9,7 +9,7 @@
 @stop 
 
 @section('content')
-<section id="login-content">
+<section id="main-content-login">
 <header class="jumbotron text-center">
 	<h1>e:t:p:M</h1>
 	<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
