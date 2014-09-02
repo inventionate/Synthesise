@@ -55,7 +55,7 @@
 
   @parent
 
-	@if( ($mobile || $tablet) && (URL::current() === url('login')) )
+	@if( (Agent::isMobile() || Agent::isTablet()) && (Request::is('login')) )
 		{{-- Bookmark bubble laden inkl. Hash-Trick--}}
 		<script type="text/javascript">
 			var addToHomeConfig = {

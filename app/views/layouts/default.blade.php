@@ -53,7 +53,7 @@
 		<div class="container">
 			{{-- Brand and toggle get grouped for better mobile display --}}
 			  <div class="navbar-header">
-				<a class="etpM navbar-brand @if (URL::current() === url('/')) active @endif" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>	
+				<a class="etpM navbar-brand @if (Request::is('/')) active @endif" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>	
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 				  <span class="sr-only">Toggle navigation</span>
 				  <span class="icon-bar"></span>
@@ -133,7 +133,7 @@
 			{{-- Die jQuery Datei und auch die anderen müssen als Fallback nachgeliefert werden! --}}
 
 
-			@if( ($mobile || $tablet) && (URL::current() != url('login')) )
+			@if( (Agent::isMobile() || Agent::isTablet()) && !(Request::is('login')) )
 				{{-- Bookmark bubble modifizieren --}}
 				<script type="text/javascript">
 					var addToHomeConfig = {
@@ -147,7 +147,7 @@
 			<script src="{{ asset('js/plugins.min.js') }}"></script>
 
 
-			@if( ($mobile || $tablet) && (URL::current() != url('login')) )
+			@if( (Agent::isMobile() || Agent::isTablet()) && !(Request::is('login')) )
 				{{-- Bookmark bubble Hash-Trick --}}
 				<script type="text/javascript">
 					function loaded () {

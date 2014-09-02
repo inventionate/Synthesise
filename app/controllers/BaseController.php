@@ -11,10 +11,6 @@ class BaseController extends Controller {
 	
 	public function __construct() 
 	{
-		// Mobile detection
-	
-		View::share('mobile', Agent::isMobile() );
-		View::share('tablet', Agent::isTablet() );
 		
 	}
 
