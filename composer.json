@@ -12,7 +12,7 @@
 		"laravel/framework": "4.2.*",
 		"doctrine/dbal": "2.4.*",
 		"thujohn/pdf": "1.0.*",
-		"mobiledetect/mobiledetectlib": "2.8.*"
+		"jenssegers/agent": "*"
 	},
 	"require-dev": {
 		"way/generators": "2.*",
@@ -27,7 +27,7 @@
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests/unit/TestCase.php"
+			"tests/unit/TestCase.php"
 		]
 	},
 	"scripts": {

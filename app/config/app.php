@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Way\Generators\GeneratorsServiceProvider'
+		'Way\Generators\GeneratorsServiceProvider',
+		'Jenssegers\Agent\AgentServiceProvider'
 	),
 
 	/*
@@ -187,7 +188,8 @@ return array(
 		'Str'             	=> 'Illuminate\Support\Str',
 		'URL'             	=> 'Illuminate\Support\Facades\URL',
 		'Validator'       	=> 'Illuminate\Support\Facades\Validator',
-		'View'            	=> 'Illuminate\Support\Facades\View'
+		'View'            	=> 'Illuminate\Support\Facades\View',
+		'Agent'            => 'Jenssegers\Agent\Facades\Agent'
 	),
 
 );

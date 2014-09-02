@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 
     // VERSION INFO
 
-    WebApp: 'Synthesise 2.1.1',
+    WebApp: 'Synthesise 3.0.0',
 
     // CONCENTRATE AND MINIFY JAVASCRIPT
 

@@ -12,12 +12,10 @@ class BaseController extends Controller {
 	public function __construct() 
 	{
 		// Mobile detection
-		$detect = new Mobile_Detect;
-		$mobile = $detect->isMobile();
-		$tablet = $detect->isTablet();
 	
-		View::share('mobile', $mobile);
-		View::share('tablet', $tablet);
+		View::share('mobile', Agent::isMobile() );
+		View::share('tablet', Agent::isTablet() );
+		
 	}
 
 
