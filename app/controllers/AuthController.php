@@ -24,7 +24,7 @@ class AuthController extends \BaseController {
 						'password' => Input::get('password')	
 					];
 								
-		$ldap = Ldap::authenticate($credentials['username'],$credentials['password']);
+		$ldap = LDAP::authenticate($credentials['username'],$credentials['password']);
 		// 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
 		if ( $ldap ) 
 		{

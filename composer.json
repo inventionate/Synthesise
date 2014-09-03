@@ -27,7 +27,8 @@
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"tests/unit/TestCase.php"
+			"tests/unit/TestCase.php",
+			"app/Extensions"
 		]
 	},
 	"scripts": {

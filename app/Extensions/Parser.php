@@ -1,12 +1,12 @@
-<?php
+<?php namespace Extensions;
 
-class Parser 
+class Parser
 {
 	
 	/**
 	* Normalisiert die übergebenen URL
 	**/
-	public static function normalizeURL($url) 
+	public function normalizeURL($url) 
 	{
 		return urlencode($url);
 	}
@@ -17,9 +17,8 @@ class Parser
 	 *
 	 * @return string des für die PDF-Konvertierung formatierten Markups
 	 *
-	 * @author Fabian Mundt <mundt@ph-karlsruhe.de>
 	 */
-	 public static function htmlMarkup($title, $content)
+	 public function htmlMarkup($title, $content)
 	 {
 	 
 	 	$html = file_get_contents(__DIR__.'/pdf_template/default.html');
@@ -32,9 +31,8 @@ class Parser
 	 /**
 	  * Nomalisiert einen übergebenen Namen
 	  * 
-	  * @author Fabian Mundt <mundt@ph-karlsruhe.de>
 	  */
-	  public static function normalizeName($name)
+	  public function normalizeName($name)
 	  {
 		  return strtolower(str_replace(array(' ','-','–','—','?','!','ä','ö','ü','ß'),array('_','_','_','_','','','ae','oe','ue','ss'),$name));
 	  }

@@ -121,8 +121,23 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		
+		/**
+		 * Extensions ServiceProvides
+		 * Kleine Erweiterungsklassen (keine Pakete) registrieren
+		 * 
+		 */
+		'Extensions\ExtensionsServiceProvider',
+		
+		/**
+		 * ServiceProvider für Pakete
+		 * 
+		 */
 		'Way\Generators\GeneratorsServiceProvider',
-		'Jenssegers\Agent\AgentServiceProvider'
+		'Jenssegers\Agent\AgentServiceProvider',
+		'Thujohn\Pdf\PdfServiceProvider'
+		
+		
 	),
 
 	/*
@@ -189,7 +204,21 @@ return array(
 		'URL'             	=> 'Illuminate\Support\Facades\URL',
 		'Validator'       	=> 'Illuminate\Support\Facades\Validator',
 		'View'            	=> 'Illuminate\Support\Facades\View',
-		'Agent'            => 'Jenssegers\Agent\Facades\Agent'
+		
+		/**
+		 * Extensions Facades
+		 * 
+		 */
+		'LDAP'				=> 'Extensions\Facades\Ldap',
+		'Parser'			=> 'Extensions\Facades\Parser',
+		
+		/**
+		* Facades für Pakete
+		* 
+		*/
+		'Agent'             => 'Jenssegers\Agent\Facades\Agent',
+		'PDF' 				=> 'Thujohn\Pdf\PdfFacade'
+		
 	),
 
 );

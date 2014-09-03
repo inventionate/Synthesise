@@ -1,9 +1,8 @@
-<?php 
+<?php namespace Extensions;
 
-class Ldap 
-{
+class Ldap {
 	
-	public static function authenticate($username, $password, $domain = '193.197.136.102', $baseDn = 'dc=ka,dc=ph-bw,dc=net')
+	public function authenticate($username, $password, $domain = '193.197.136.102', $baseDn = 'dc=ka,dc=ph-bw,dc=net')
 	{
 		/**
 		* LDAP Verbindung aufbauen
