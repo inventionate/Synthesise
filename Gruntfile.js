@@ -2,6 +2,8 @@ module.exports = function (grunt) {
   // Load Grunt tasks declared in the package.json file
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -99,7 +101,7 @@ module.exports = function (grunt) {
           'public/css/add2home.css': 'bower_components/add-to-homescreen/style/addtohomescreen.css'
         }
       },
-      
+
       animate: {
         options: {
           cleancss: true
@@ -122,7 +124,7 @@ module.exports = function (grunt) {
             expand: true,
             flatten: true,
             src: ['bower_components/jquery/dist/jquery.min.js'],
-            dest: 'public/js/vendor/'
+            dest: 'public/js/libs/'
           },
 
           // includes Flowplayer
@@ -139,9 +141,18 @@ module.exports = function (grunt) {
           {
             expand: true,
             flatten: true,
-            cwd: 'bower_components/',
-            src: ['livereload/dist/livereload.js'],
+            src: ['bower_components/livereload/dist/livereload.js'],
             dest: 'public/js'
+          }
+        ]
+      },
+      angular: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: ['bower_components/angular/angular.min.js'],
+            dest: 'public/js/libs/'
           }
         ]
       }
@@ -187,7 +198,7 @@ module.exports = function (grunt) {
 
     // SERVER CONFIG
 
-    secret: grunt.file.readJSON('secret.json'),
+    secret: grunt.file.readJSON('/Users/fabianmundt/Dropbox/Inventionate/Dropbox/Allgemein/Credentials/secret.json'),
 
     localDir: '/Users/fabianmundt/Dropbox/Inventionate/Projekte/Synthesise\\ 3',
 
@@ -206,7 +217,7 @@ module.exports = function (grunt) {
       createFilesystem: {
         command: "sshpass -p <%= secret.password %>  sftp  <%= secret.username %>@<%= secret.host %> <<< $'mkdir synthesise\n mkdir public_html\n exit'"
       },
-      
+
       runtests: {
         command: "vendor/bin/codecept run"
       },
@@ -421,7 +432,7 @@ module.exports = function (grunt) {
     'open',
     'shell:server'
   ]);
-  
+
   // RUN TESTS
   grunt.registerTask('test', [
     'watch:tests'

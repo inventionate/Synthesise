@@ -198,7 +198,8 @@ class Video extends Eloquent {
 
 		$content = '';
 
-		foreach ($cuepoints as $cuepoint) {
+		foreach ($cuepoints as $cuepoint)
+		{
 			$content .= '<h2 style="height:250px;">' . $cuepoint->content . '</h2>';
 		}
 

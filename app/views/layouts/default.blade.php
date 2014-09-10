@@ -128,7 +128,7 @@
 			{{--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>--}}
 			{{--<script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery.min.js') }}"><\/script>')</script>--}}
 			{{-- jQuery über die Web-App laden, damit eine bessere Kontrolle möglich wird. Da wiederkehrende Nutzer die Regel sind, dürften die Auswirkungen auf die Performance gering sein --}}
-			<script src="{{ asset('js/vendor/jquery.min.js') }}"></script>
+			<script src="{{ asset('js/libs/jquery.min.js') }}"></script>
 
 			{{-- Die jQuery Datei und auch die anderen müssen als Fallback nachgeliefert werden! --}}
 
