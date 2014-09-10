@@ -198,7 +198,7 @@ module.exports = function (grunt) {
 
     // SERVER CONFIG
 
-    secret: grunt.file.readJSON('/Users/fabianmundt/Dropbox/Inventionate/Dropbox/Allgemein/Credentials/secret.json'),
+    secret: grunt.file.readJSON('~/Dropbox/Inventionate/Dropbox/Allgemein/Credentials/secret.json'),
 
     localDir: '/Users/fabianmundt/Dropbox/Inventionate/Projekte/Synthesise\\ 3',
 
