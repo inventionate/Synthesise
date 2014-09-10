@@ -19,8 +19,8 @@
 		{{-- Windows Tile Tags --}}
 		<meta name="application-name" content="e:t:p:M – Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns">
 		<meta name="msapplication-TileColor" content="#5ebc3b">
-		<meta name="msapplication-TileImage" content="{{asset('metro-tile.png')}}">		
-		<meta name="msapplication-starturl" content="{{url('home')}}">		
+		<meta name="msapplication-TileImage" content="{{asset('metro-tile.png')}}">
+		<meta name="msapplication-starturl" content="{{url('home')}}">
 		<meta name="msapplication-navbutton-color" content="#5ebc3b">
 		<meta name="msapplication-tooltip" content="e:t:p:M – Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns">
 		{{-- Schriftarten laden --}}
@@ -44,16 +44,16 @@
 		<div class="alert alert-danger alert-js">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
 		@if ( Auth::check() )
-		
+
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
- 		
- 		
+
+
  		{{-- BRANDING ÜBERARBEITEN --}}
 
 		<div class="container">
 			{{-- Brand and toggle get grouped for better mobile display --}}
 			  <div class="navbar-header">
-				<a class="etpM navbar-brand @if (Request::is('/')) active @endif" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>	
+				<a class="etpM navbar-brand @if (Request::is('/')) active @endif" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 				  <span class="sr-only">Toggle navigation</span>
 				  <span class="icon-bar"></span>
@@ -63,7 +63,7 @@
 				<h1 class="nav-event-title hidden-md hidden-lg"><a href="{{ url('') }}">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
 			  </div>
 
-			{{-- Collect the nav links, forms, and other content for toggling --}}	
+			{{-- Collect the nav links, forms, and other content for toggling --}}
 			<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li @if ( Request::is('dashboard') ) class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
@@ -95,30 +95,30 @@
 			</ul>
 
 			<a href="{{ url('logout') }}" class="btn btn-primary btn-block navbar-right hidden-print">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} abmelden</a>
-			
+
 			</div>
 			</div>
 		</nav>
-		
+
 		@endif
-		
+
 		<section class="main-content-{{ Request::segment(1) }} @if ( !Request::is('login') ) container @endif">
 			@yield('content')
 		</section>
-		
+
 		<hr>
 
 		<footer class="container">
-			
+
 			<p>
 			<small>
-			© 2012–2014 Gesamtkonzeption <span class="etpM"><b>e:t:p:M</b></span> Timo Hoyer | 
+			© 2012–2014 Gesamtkonzeption <span class="etpM"><b>e:t:p:M</b></span> Timo Hoyer |
 			Mediengestaltung und Webentwicklung Fabian Mundt<br>
 			<a href="{{ url('impressum') }}">Impressum</a> | <a href="#main-content">Nach oben</a>
 			</small>
 			</p>
 
-		</footer>		
+		</footer>
 
 		@section('scripts')
 
@@ -140,10 +140,10 @@
 						autostart: false,
 						touchIcon: true
 					};
-				</script>		
+				</script>
 			@endif
 
-			{{-- Plugins laden --}}		
+			{{-- Plugins laden --}}
 			<script src="{{ asset('js/plugins.min.js') }}"></script>
 
 
@@ -156,7 +156,7 @@
 							window.location.hash = '#ATHS';
 					}
 					window.addEventListener('load', loaded, false);
-				</script>			
+				</script>
 			@endif
 
 		@show
@@ -166,7 +166,7 @@
 		<script type="text/javascript">
 		  var _paq = _paq || [];
 		  _paq.push(["setCookieDomain", "*.home.ph-karlsruhe.de"]);
-		  _paq.push(["setDomains", ["*.home.ph-karlsruhe.de", "*.m1ew.ph-karlsruhe.de"]]);	  
+		  _paq.push(["setDomains", ["*.home.ph-karlsruhe.de", "*.m1ew.ph-karlsruhe.de"]]);
 		  _paq.push(['trackPageView']);
 		  _paq.push(['enableLinkTracking']);
 		  (function() {

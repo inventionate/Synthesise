@@ -25,39 +25,39 @@ class NoteCest
   }
 
   /**
-  * Testet, ob ein Note Objekt generiert werden kann.
-  *
-  */
+   * Testet, ob ein Note Objekt generiert werden kann.
+   *
+   */
   public function createANewNote(UnitTester $I)
   {
     $I->canCreate('Note');
   }
 
   /**
-  * Testet, ob die Datenbankverknüpfuung Note-Cuepoint definiert wurde.
-  *
-  */
-  public function checkBelongsToCuepoint(UnitTester $I)
+   * Testet, ob die Datenbankverknüpfuung Note-Cuepoint definiert wurde.
+   *
+   */
+  public function checkIfBelongsToCuepointExits(UnitTester $I)
   {
     $note = new Note;
     $I->seeMethod($note,'cuepoint');
   }
 
   /**
-  * Testet, ob die Datenbankverknüpfuung Note-User definiert wurde.
-  *
-  */
-  public function checkBelongsToUser(UnitTester $I)
+   * Testet, ob die Datenbankverknüpfuung Note-User definiert wurde.
+   *
+   */
+  public function checkIfBelongsToUserExits(UnitTester $I)
   {
     $note = new Note;
     $I->seeMethod($note,'user');
   }
 
   /**
-  * Testet, ob die Datenbankverknüpfuung Note-Video definiert wurde.
-  *
-  */
-  public function checkBelongsToPaper(UnitTester $I)
+   * Testet, ob die Datenbankverknüpfuung Note-Video definiert wurde.
+   *
+   */
+  public function checkIfBelongsToPaperExits(UnitTester $I)
   {
       $note = new Note;
       $I->seeMethod($note,'video');
@@ -67,7 +67,7 @@ class NoteCest
 	 * Testet, ob die Notiz ID ausgelesen werden kann.
 	 *
 	 */
-	public function findNodeId(UnitTester $I)
+	public function findNoteId(UnitTester $I)
 	{
 		// Beispieldatensatz generieren
 		$this->dummyNote['user_id'] = 1;
@@ -173,6 +173,5 @@ class NoteCest
 		// Testen
 		$I->AssertEmpty($note);
 	}
-
 
 }

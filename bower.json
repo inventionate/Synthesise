@@ -11,6 +11,7 @@
     "flowplayer": "http://releases.flowplayer.org/5.5.0/commercial/flowplayer.commercial-5.5.0.zip",
     "livereload": "git://github.com/livereload/livereload-js#~v2.0.8",
     "iframe-resizer": ">=2.5.2",
-    "animate.css": "git://github.com/daneden/animate.css.git#~3.2.0"
+    "animate.css": "git://github.com/daneden/animate.css.git#~3.2.0",
+    "angular": "~1.2.24"
   }
 }

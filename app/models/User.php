@@ -42,6 +42,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	/**
 	 * Alle vorhandenen Notizen eines Benutzers ausgeben.
 	 *
+	 * @uses 			Parser::htmlMarkup um das HTML Markup zu generieren.
+	 *
 	 * @param    	int $userId
 	 * @param 		string $videoname
 	 * @return    string Gibt alle Notizen als HTML Markup zurück.

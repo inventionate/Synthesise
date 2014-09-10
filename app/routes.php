@@ -15,7 +15,7 @@
  * Umgang mit Fehlern
  * Wenn die App auf dem Server läuft werden die Fehler in die Logdatei
  * geschrieben und auf standardisierte Fehlerseiten umgeleitet
- * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+ *
  */
 if (App::environment() === 'production')
 {
@@ -26,7 +26,7 @@ if (App::environment() === 'production')
 	});
 
   	// Cookie Error Handler
-	App::error(function(Illuminate\Session\TokenMismatchException $exception) 
+	App::error(function(Illuminate\Session\TokenMismatchException $exception)
 	{
 		Log::error($exception);
 		return View::make('TokenMismatch');
@@ -35,8 +35,7 @@ if (App::environment() === 'production')
 
 /**
  * Login Route
- * 
- * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+ *
  */
 // Anmeldeformular
 Route::get('login', array(
@@ -55,33 +54,31 @@ Route::post('login', array(
 
 /**
  * Impressum
- * 
- * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+ *
  */
-Route::get('impressum', array( 
+Route::get('impressum', array(
 	'uses' => 'ImprintController@index'
 
 ));
 
 /**
  * Sicherheitsfilter
- * 
- * @author Fabian Mundt <mundt@ph-karlsruhe.de>
+ *
  */
 Route::group(array('before' => 'auth'), function()
-{	
+{
 
 	// DOWNLOAD ------------------------------------------------------
-	Route::get('download/{type}/{file}', array( 
+	Route::get('download/{type}/{file}', array(
 		'uses' => 'DownloadController@getFile'
 	));
 
 	// HOME ----------------------------------------------------------
 	Route::get('/', array(
 		'as' => 'home',
-		function() 
+		function()
 		{
-			return Redirect::route('dashboard');	
+			return Redirect::route('dashboard');
 		}
 	));
 
@@ -104,7 +101,7 @@ Route::group(array('before' => 'auth'), function()
 	));
 
 	// ONLINE-LEKTIONEN ----------------------------------------------
-	
+
 	// Einzellektion
 	Route::get('online-lektionen/{videoname}', array(
 		'as' => 'lektion',

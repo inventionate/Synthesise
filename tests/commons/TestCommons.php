@@ -97,5 +97,41 @@ class TestCommons
 		];
 	}
 
+	/**
+	 * Test Dummy "Video" definieren
+	 *
+	 * @return 		array
+	 */
+	public static function dummyVideo()
+	{
+		return [
+			'id' 							=> 1,
+			'videoname' 			=> '9 Leben!',
+			'section' 				=> 'Dokumentarfilm',
+			'author' 					=> 'Paul Hewson',
+			'online' 					=> true,
+			'available_from'	=> '2014-09-17',
+			'available_to'		=> '2014-09-17',
+			'created_at'			=> '2014-09-17 17:00:00',
+			'updated_at' 			=> '2014-09-17 17:00:00'
+		];
+	}
+
+	/**
+	* Test Dummy "Paper" definieren
+	*
+	* @return 		array
+	*/
+	public static function dummyPaper()
+	{
+		return [
+			'id' 							=> 1,
+			'papername' 					=> 'Zeit-Raum Studium',
+			'author' 			=> 'Fabian Mundt',
+			'video_videoname'	=> 'Studentische Leben',
+			'created_at'			=> '2014-09-17 17:00:00',
+			'updated_at' 			=> '2014-09-17 17:00:00'
+		];
+	}
 
 }

@@ -3,17 +3,17 @@
 class Note extends \Eloquent {
 
 	/**
-	* Die Datenbanktabelle des Models.
-	*
-	* @var string
-	*/
+	 * Die Datenbanktabelle des Models.
+	 *
+	 * @var string
+	 */
 	protected $table = 'notes';
 
 	/**
-	* Die veränderbaren Tabellenspalten.
-	*
-	* @var array
-	*/
+	 * Die veränderbaren Tabellenspalten.
+	 *
+	 * @var array
+	 */
 	protected $fillable = ['note','user_id','cuepoint_id','video_videoname'];
 
 	/**
