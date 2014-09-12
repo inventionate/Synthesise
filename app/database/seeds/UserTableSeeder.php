@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Seeder;
+use Synthesise\User;
+
 class UserTableSeeder extends Seeder {
 
 	public function run()
@@ -14,8 +17,8 @@ class UserTableSeeder extends Seeder {
 			'lastname' => 'User',
 			'role' => 'Student',
 			'permissions' => 'all'
-		));	
-		
+		));
+
 		User::create(array(
 			'id' => 2,
 			'username' => 'hoyerka',
@@ -23,7 +26,7 @@ class UserTableSeeder extends Seeder {
 			'firstname' => 'Timo',
 			'lastname' => 'Hoyer',
 			'role' => 'Teacher'
-		));	
+		));
 
 		User::create(array(
 			'id' => 3,
@@ -32,7 +35,7 @@ class UserTableSeeder extends Seeder {
 			'firstname' => 'Fabian',
 			'lastname' => 'Mundt',
 			'role' => 'Teacher'
-		));	
+		));
 
 		User::create(array(
 			'id' => 4,
@@ -41,7 +44,7 @@ class UserTableSeeder extends Seeder {
 			'firstname' => 'Gabriele',
 			'lastname' => 'Weigand',
 			'role' => 'Teacher'
-		));	
+		));
 
 		User::create(array(
 			'id' => 5,
@@ -50,7 +53,7 @@ class UserTableSeeder extends Seeder {
 			'firstname' => 'Mutfried',
 			'lastname' => 'Hartmann',
 			'role' => 'Teacher'
-		));	
+		));
 
 		User::create(array(
 			'id' => 6,
@@ -59,9 +62,7 @@ class UserTableSeeder extends Seeder {
 			'firstname' => 'Rainer',
 			'lastname' => 'Bolle',
 			'role' => 'Teacher'
-		));	
+		));
 
-
-		
 	}
 }

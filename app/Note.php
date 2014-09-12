@@ -1,6 +1,9 @@
-<?php
+<?php namespace Synthesise;
 
-class Note extends \Eloquent {
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
+
+class Note extends Model {
 
 	/**
 	 * Die Datenbanktabelle des Models.
@@ -22,7 +25,7 @@ class Note extends \Eloquent {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('Synthesise\User');
 	}
 
 	/**
@@ -31,7 +34,7 @@ class Note extends \Eloquent {
 	 */
 	public function cuepoint()
 	{
-		return $this->belongsTo('Cuepoint');
+		return $this->belongsTo('Synthesise\Cuepoint');
 	}
 
 	/**
@@ -40,7 +43,7 @@ class Note extends \Eloquent {
 	*/
 	public function video()
 	{
-		return $this->belongsTo('Video','video_videoname');
+		return $this->belongsTo('Synthesise\Video','video_videoname');
 	}
 
 	/**

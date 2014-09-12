@@ -1,7 +1,7 @@
 <?php
 use \UnitTester;
 
-class FAQCest
+class FaqCest
 {
 
   protected $dummyFaq;
@@ -25,7 +25,7 @@ class FAQCest
    */
   public function createANewFaq(UnitTester $I)
   {
-      $I->canCreate('FAQ');
+      $I->canCreate('Faq');
   }
 
   /**

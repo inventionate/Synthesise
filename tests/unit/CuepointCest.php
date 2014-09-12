@@ -1,6 +1,8 @@
 <?php
 use \UnitTester;
 
+use Synthesise\Cuepoint as Cuepoint;
+
 class CuepointCest
 {
 

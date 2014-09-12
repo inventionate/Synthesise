@@ -1,6 +1,8 @@
 <?php
 use \UnitTester;
 
+use Synthesise\Video;
+
 class VideoCest
 {
 

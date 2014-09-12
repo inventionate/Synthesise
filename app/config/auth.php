@@ -16,7 +16,7 @@ return array(
 	*/
 
 	'driver' => 'eloquent',
-	
+
 	/*
 	|--------------------------------------------------------------------------
 	| Authentication Model
@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'model' => 'User',
+	'model' => 'Synthesise\User',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,11 +67,11 @@ return array(
 		'expire' => 60,
 
 	),
-	
+
 	'ldap' => array(
-		
+
 		'domain' => '193.197.136.102',
-		
+
 		'baseDn' => 'dc=ka,dc=ph-bw,dc=net',
 	)
 

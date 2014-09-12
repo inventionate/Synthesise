@@ -1,6 +1,8 @@
-<?php
+<?php namespace Synthesise;
 
-class Paper extends \Eloquent {
+use Illuminate\Database\Eloquent\Model;
+
+class Paper extends Model {
 
 	/**
 	 * Die Datenbanktabelle des Models.

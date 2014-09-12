@@ -1,6 +1,8 @@
 <?php
 use \UnitTester;
 
+use Synthesise\Paper;
+
 class PaperCest
 {
 

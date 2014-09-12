@@ -23,6 +23,7 @@ class UnitHelper extends \Codeception\Module
 	 */
 	public function canCreate($class)
 	{
+		$class = 'Synthesise\\' . $class;
 		$this->assertNotNull(new $class);
 	}
 

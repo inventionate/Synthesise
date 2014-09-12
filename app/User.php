@@ -1,11 +1,17 @@
-<?php
+<?php namespace Synthesise;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
+use Synthesise\Extensions\Facades\Parser;
+use Synthesise\User;
+
+class User extends Model implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
@@ -29,7 +35,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function notes()
 	{
-		return $this->hasMany('Note');
+		return $this->hasMany('Synthesise\Note');
 	}
 
 	/**

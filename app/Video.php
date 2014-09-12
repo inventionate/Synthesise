@@ -1,6 +1,10 @@
-<?php
+<?php namespace Synthesise;
 
-class Video extends Eloquent {
+use Illuminate\Database\Eloquent\Model;
+use Synthesise\Extensions\Facades\Parser;
+use Illuminate\Support\Facades\DB;
+
+class Video extends Model {
 
 	/**
 	 * Die Datenbanktabelle des Models.
@@ -29,7 +33,7 @@ class Video extends Eloquent {
 	 */
 	public function cuepoints()
 	{
-		return $this->hasMany('Cuepoint','video_videoname');
+		return $this->hasMany('Synthesise\Cuepoint','video_videoname');
 	}
 
 	/**
@@ -38,7 +42,7 @@ class Video extends Eloquent {
 	 */
 	public function papers()
 	{
-		return $this->hasMany('Paper','video_videoname');
+		return $this->hasMany('Synthesise\Paper','video_videoname');
 	}
 
 	/**
@@ -47,7 +51,7 @@ class Video extends Eloquent {
 	 */
 	public function notes()
 	{
-		return $this->hasMany('Note','video_videoname');
+		return $this->hasMany('Synthesise\Note','video_videoname');
 	}
 
 

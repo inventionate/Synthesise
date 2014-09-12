@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
 class DatabaseSeeder extends Seeder {
 
 	/**
@@ -13,7 +16,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('UserTableSeeder');
 		$this->command->info('User table seeded!');
-		
+
 	}
 
 }

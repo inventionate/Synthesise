@@ -1,6 +1,9 @@
 <?php
 use \UnitTester;
 
+use Synthesise\User;
+use Synthesise\Note;
+
 class UserCest
 {
 

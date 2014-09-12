@@ -24,11 +24,13 @@
 		"classmap": [
 			"app/commands",
 			"app/controllers",
-			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
 			"tests/unit/TestCase.php",
-			"app/Extensions"
+			"app/Repositories",
+			"app/Repositories/Faq",
+			"app/Extensions",
+			"app"
 		]
 	},
 	"scripts": {

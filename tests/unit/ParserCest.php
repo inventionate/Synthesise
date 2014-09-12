@@ -16,7 +16,7 @@ class ParserCest
      */
     public function createANewParser(UnitTester $I)
     {
-        $I->canCreate('Parser');
+        $I->canCreate('Extensions\Parser');
     }
 
     /**

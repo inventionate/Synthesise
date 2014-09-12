@@ -1,9 +1,12 @@
 <?php
 
+use Synthesise\Video;
+use Synthesise\User;
+
 class DashboardController extends BaseController {
 
 	public function index()
-	{	
+	{
 		if(Video::getCurrentVideo() != false) {
 			$videoname = Video::getCurrentVideo()->videoname;
 			$author = 'von ' . Video::getCurrentVideo()->author;
@@ -21,11 +24,11 @@ class DashboardController extends BaseController {
 		$videos = Video::getVideos();
 
 		// Rolle des Benutzers abfragen
-		$role = Auth::user()->role;			
+		$role = Auth::user()->role;
 
 		// Benutzername
 
-		$username = User::getUsername();			
+		$username = User::getUsername();
 
 		return View::make('dashboard')
 									->with('available',$available)

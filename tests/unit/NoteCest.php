@@ -1,6 +1,9 @@
 <?php
 use \UnitTester;
 
+use Synthesise\Note;
+use Illuminate\Support\Facades\Crypt;
+
 class NoteCest
 {
 

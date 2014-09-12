@@ -121,23 +121,28 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		
+
 		/**
-		 * Extensions ServiceProvides
-		 * Kleine Erweiterungsklassen (keine Pakete) registrieren
-		 * 
+		 * Repositries Service Provider.
 		 */
-		'Extensions\ExtensionsServiceProvider',
-		
+		'Synthesise\Repositories\RepositoriesServiceProvider',
+
 		/**
-		 * ServiceProvider für Pakete
-		 * 
+		 * Extensions ServiceProvides.
+		 * Kleine Erweiterungsklassen (keine Pakete) registrieren.
+		 *
+		 */
+		'Synthesise\Extensions\ExtensionsServiceProvider',
+
+		/**
+		 * ServiceProvider für Pakete.
+		 *
 		 */
 		'Way\Generators\GeneratorsServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
 		'Thujohn\Pdf\PdfServiceProvider'
-		
-		
+
+
 	),
 
 	/*
@@ -191,9 +196,9 @@ return array(
 		'Password'        	=> 'Illuminate\Support\Facades\Password',
 		'Queue'           	=> 'Illuminate\Support\Facades\Queue',
 		'Redirect'        	=> 'Illuminate\Support\Facades\Redirect',
-		'Redis'          	=> 'Illuminate\Support\Facades\Redis',
-		'Request'        	=> 'Illuminate\Support\Facades\Request',
-		'Response'      	=> 'Illuminate\Support\Facades\Response',
+		'Redis'       	   	=> 'Illuminate\Support\Facades\Redis',
+		'Request'     	   	=> 'Illuminate\Support\Facades\Request',
+		'Response'      		=> 'Illuminate\Support\Facades\Response',
 		'Route'           	=> 'Illuminate\Support\Facades\Route',
 		'Schema'          	=> 'Illuminate\Support\Facades\Schema',
 		'Seeder'          	=> 'Illuminate\Database\Seeder',
@@ -204,21 +209,27 @@ return array(
 		'URL'             	=> 'Illuminate\Support\Facades\URL',
 		'Validator'       	=> 'Illuminate\Support\Facades\Validator',
 		'View'            	=> 'Illuminate\Support\Facades\View',
-		
+
 		/**
-		 * Extensions Facades
-		 * 
+		 * Repositories Facades.
+		 *
 		 */
-		'LDAP'				=> 'Extensions\Facades\Ldap',
-		'Parser'			=> 'Extensions\Facades\Parser',
-		
+		'FAQ'								=> 'Synthesise\Repositories\Facades\Faq',
+
 		/**
-		* Facades für Pakete
-		* 
+		 * Extensions Facades.
+		 *
+		 */
+		'LDAP'							=> 'Synthesise\Extensions\Facades\Ldap',
+		'Parser'						=> 'Synthesise\Extensions\Facades\Parser',
+
+		/**
+		* Facades für Pakete.
+		*
 		*/
 		'Agent'             => 'Jenssegers\Agent\Facades\Agent',
-		'PDF' 				=> 'Thujohn\Pdf\PdfFacade'
-		
+		'PDF' 							=> 'Thujohn\Pdf\PdfFacade'
+
 	),
 
 );
