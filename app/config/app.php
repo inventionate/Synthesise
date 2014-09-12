@@ -215,6 +215,9 @@ return array(
 		 *
 		 */
 		'FAQ'								=> 'Synthesise\Repositories\Facades\Faq',
+		'Note'							=> 'Synthesise\Repositories\Facades\Note',
+		'Video'							=> 'Synthesise\Repositories\Facades\Video',
+		'User'							=> 'Synthesise\Repositories\Facades\User',
 
 		/**
 		 * Extensions Facades.

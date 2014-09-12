@@ -1,7 +1,7 @@
 <?php
 
-use Synthesise\Video;
-use Synthesise\User;
+use Synthesise\Repositories\Facades\Video;
+use Synthesise\Repositories\Facades\User;
 
 class DashboardController extends BaseController {
 
