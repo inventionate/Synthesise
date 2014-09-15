@@ -8,6 +8,14 @@
 <!-- <link rel="stylesheet" href="{{ asset('css/add2home.css') }}"> -->
 @stop
 
+@section('assets')
+
+@parent
+
+<script src="{{ Asset::rev('js/animate.js') }}"></script>
+
+@stop
+
 @section('content')
 <section id="main-content-login">
 <header class="jumbotron text-center">
@@ -18,8 +26,7 @@
 </header>
 
 {{ Form::open(array('url' => 'login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form')) }}
-<div class="@if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) animated zoomIn @else animated shake @endif">
-
+<div @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) id="animateZoom" @else id="animateShake" @endif>
 	{{-- Eingabe des Benutzernamens --}}
 	<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
 		{{ Form::label('username', 'Benutzername', array('class' => 'sr-only')) }}

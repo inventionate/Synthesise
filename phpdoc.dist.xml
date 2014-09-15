@@ -16,9 +16,10 @@
 	<template name="clean" />
   </transformations>
   <files>
-	<directory>app/models</directory>
+	<directory>app/</directory>
 	<directory>app/controllers</directory>
-	<directory>app/classes</directory>
-	<directory>app/tests</directory>
+	<directory>app/Extensions</directory>
+  <directory>app/Repositories</directory>
+	<directory>tests</directory>
   </files>
 </phpdoc>

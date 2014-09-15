@@ -154,11 +154,14 @@ gulp.task('coffee:build', function()
 //////////////////////////////////////////////////
 
 gulp.task('less:build', function () {
-  return gulp.src(paths.app.assets + '/less/application.less')
+  return gulp.src([
+    paths.app.assets + '/less/application.less',
+    paths.bower.animate + '/animate.css'])
+    .pipe(concat('application.less'))
     .pipe(less({
       paths: [
         paths.bower.bootstrap + '/less',
-        paths.app.assets + '/less/*.less'
+        paths.app.assets + '/less/*.less',
       ]}))
     .pipe(fingerprint(manifest, {prefix: '../'}))
     .pipe(minifycss())
