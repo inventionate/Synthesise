@@ -1,12 +1,12 @@
 @extends('layouts.default')
 
 @section('meta')
-@parent 
+@parent
 <title>EW M1</title>
 
 {{-- //NOTE iOS Info CSS laden --}}
-<link rel="stylesheet" href="{{ asset('css/add2home.css') }}">
-@stop 
+<!-- <link rel="stylesheet" href="{{ asset('css/add2home.css') }}"> -->
+@stop
 
 @section('content')
 <section id="main-content-login">
@@ -19,31 +19,31 @@
 
 {{ Form::open(array('url' => 'login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form')) }}
 <div class="@if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) animated zoomIn @else animated shake @endif">
-	
-	{{-- Eingabe des Benutzernamens --}} 
+
+	{{-- Eingabe des Benutzernamens --}}
 	<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
 		{{ Form::label('username', 'Benutzername', array('class' => 'sr-only')) }}
 		<div class="input-group input-group-lg">
-			{{ Form::text('username', '', array('class' => 'form-control', 'placeholder' => 'LSF Benutzername')) }} 
+			{{ Form::text('username', '', array('class' => 'form-control', 'placeholder' => 'LSF Benutzername')) }}
 			<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 		</div>
 	</div>
-	
+
 	{{-- Eingabe des Passworts --}}
 	<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
 		{{ Form::label('password', 'Passwort', array('class' => 'sr-only')) }}
 		<div class="input-group input-group-lg">
-			{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'LSF Passwort')) }} 
+			{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'LSF Passwort')) }}
 			<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
 		</div>
 	</div>
-	
-	{{-- Remember me 
+
+	{{-- Remember me
 	<div class="checkbox">
 		<label>
 			<input type="checkbox"> Remember me
 		</label>
-	</div> --}}				
+	</div> --}}
 
 	{{-- Anmelde Button --}}
 	{{ Form::submit('Anmelden', array('class' => 'btn btn-primary btn-lg', 'role' => 'button')) }}
@@ -55,13 +55,13 @@
 
   @parent
 
-	@if( (Agent::isMobile() || Agent::isTablet()) && (Request::is('login')) )
+	<!-- @if( (Agent::isMobile() || Agent::isTablet()) && (Request::is('login')) )
 		{{-- Bookmark bubble laden inkl. Hash-Trick--}}
 		<script type="text/javascript">
 			var addToHomeConfig = {
 				autostart: false,
 				touchIcon: true,
-				startDelay: 500				
+				startDelay: 500
 			};
 		</script>
 
@@ -75,5 +75,5 @@
 			}
 			window.addEventListener('load', loaded, false);
 		</script>
-	@endif
+	@endif -->
 @stop

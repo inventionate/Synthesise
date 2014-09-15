@@ -145,16 +145,6 @@ module.exports = function (grunt) {
             dest: 'public/js'
           }
         ]
-      },
-      angular: {
-        files: [
-          {
-            expand: true,
-            flatten: true,
-            src: ['bower_components/angular/angular.min.js'],
-            dest: 'public/js/libs/'
-          }
-        ]
       }
     },
 

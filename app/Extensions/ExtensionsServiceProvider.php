@@ -7,7 +7,7 @@ class ExtensionsServiceProvider extends ServiceProvider {
 	public function register()
 	{
 
-		$this->app->singleton('ldap', function()
+		$this->app->bindShared('ldap', function()
 		{
 
 			$domain = $this->app['config']->get('auth.ldap.domain');
@@ -18,10 +18,16 @@ class ExtensionsServiceProvider extends ServiceProvider {
 
 		});
 
-		$this->app->singleton('parser', function()
+		$this->app->bindShared('parser', function()
 		{
 			return new Parser;
 		});
+
+		$this->app->bindShared('asset', function()
+		{
+			return new AssetBuilder;
+		});
+
 	}
 
 }

@@ -18,7 +18,8 @@
 		"way/generators": "2.*",
 		"codeception/codeception": "2.*",
 		"codeception/aspect-mock": "*",
-		"phpdocumentor/phpdocumentor": "2.*"
+		"phpdocumentor/phpdocumentor": "2.*",
+		"efficiently/turbolinks": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
@@ -28,7 +29,6 @@
 			"app/database/seeds",
 			"tests/unit/TestCase.php",
 			"app/Repositories",
-			"app/Repositories/Faq",
 			"app/Extensions",
 			"app"
 		]

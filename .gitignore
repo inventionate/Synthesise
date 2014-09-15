@@ -9,4 +9,5 @@ composer.lock
 .DS_Store
 Thumbs.db
 /public/video
+/app/assets/build
 secret.json

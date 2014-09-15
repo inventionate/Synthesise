@@ -25,16 +25,29 @@
 		<meta name="msapplication-tooltip" content="e:t:p:M – Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns">
 		{{-- Schriftarten laden --}}
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100" >
-		{{-- Haupt-CSS laden --}}
+		{{-- Haupt-CSS laden
 		<link rel="stylesheet" href="{{ asset('css/main.css') }}">
-		{{-- Animate.css laden --}}
+		{{-- Animate.css laden
 		<link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+		--}}
 
-		<script src="{{ asset('js/init.min.js') }}"></script>
+
+		<link rel="stylesheet" href="{{ Asset::rev('css/application.css') }}">
+		<script src="{{ Asset::rev('js/application.js') }}"></script>
+
+		{{-- Dieses Skript und Styles, die je neu zu bestimmen sind via Blade! --}}
+		@section('assets')
+
+		<!-- <link rel="stylesheet" href="{{ asset('css/special.css') }}">
+		<script src="{{ asset('js/specialscript.js') }}"></script> -->
+
+		@show
 
 		@if( App::environment() === 'local' )
-		  <script src="http://localhost:35729/livereload.js?snipver=1"></script>
-		@endif
+    	<script src="http://localhost:35729/livereload.js?snipver=1"></script>
+    @endif
+
+		<script src="{{ Asset::rev('js/turbolinks.js') }}"></script>
 
 	</head>
 	<body id="etpM-de">
@@ -45,60 +58,7 @@
 
 		@if ( Auth::check() )
 
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-
-
- 		{{-- BRANDING ÜBERARBEITEN --}}
-
-		<div class="container">
-			{{-- Brand and toggle get grouped for better mobile display --}}
-			  <div class="navbar-header">
-				<a class="etpM navbar-brand @if (Request::is('/')) active @endif" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-				  <span class="sr-only">Toggle navigation</span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				</button>
-				<h1 class="nav-event-title hidden-md hidden-lg"><a href="{{ url('') }}">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
-			  </div>
-
-			{{-- Collect the nav links, forms, and other content for toggling --}}
-			<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li @if ( Request::is('dashboard') ) class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
-				<li class="dropdown @if ( Request::is('online-lektionen') ) active @endif">
-					<a href="{{ url('online-lektionen') }}" class="dropdown-toggle" data-toggle="dropdown">online-Lektionen <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-					  <li role="presentation" class="dropdown-header">Sozialgeschichte der Erziehung und Bildung</li>
-					  <li><a href="{{ route('lektion','Griechisch-römische Antike') }}">Griechisch-römische Antike</a></li>
-					  <li><a href="{{ route('lektion', 'Mittelalter') }}">Mittelalter</a></li>
-					  <li><a href="{{ route('lektion', 'Frühe Neuzeit') }}">Frühe Neuzeit</a></li>
-					  <li role="presentation" class="dropdown-header">Ideen- und Personengeschichte der Pädagogik</li>
-					  <li><a href="{{ route('lektion', 'Jean-Jacques Rousseau') }}">Jean-Jacques Rousseau</a></li>
-					  <li><a href="{{ route('lektion', 'Johann Heinrich Pestalozzi') }}">Johann Heinrich Pestalozzi</a></li>
-					  <li><a href="{{ route('lektion', 'Wilhelm von Humboldt') }}">Wilhelm von Humboldt</a></li>
-					  <li role="presentation" class="dropdown-header">Erziehung und Schule</li>
-					  <li><a href="{{ route('lektion', 'Erziehung und Unterricht') }}">Erziehung und Unterricht</a></li>
-					  <li><a href="{{ route('lektion', 'Heterogenität') }}">Heterogenität</a></li>
-					  <li role="presentation" class="dropdown-header">Bildung – Glück – Gerechtigkeit</li>
-					  <li><a href="{{ route('lektion', 'Wozu ist die Bildung da%3F') }}">Wozu ist die Bildung da?</a></li>
-					  <li><a href="{{ route('lektion', 'Bildung und Glück') }}">Bildung und Glück</a></li>
-					  <li><a href="{{ route('lektion', 'Bildung und Gerechtigkeit') }}">Bildung und Gerechtigkeit</a></li>
-					  <li class="divider"></li>
-					  <li><a class="rechtshinweise" href="{{ url('impressum') . '#rechtshinweise' }}">Rechtshinweise</a></li>
-
-					</ul>
-				</li>
-				<li @if ( Request::is('hgf') ) class="active" @endif ><a href="{{ url('hgf') }}">Häufig gestellte Fragen</a></li>
-				<li @if ( Request::is('kontakt') ) class="active" @endif ><a href="{{ url('kontakt') }}">Kontakt</a></li>
-			</ul>
-
-			<a href="{{ url('logout') }}" class="btn btn-primary btn-block navbar-right hidden-print">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} abmelden</a>
-
-			</div>
-			</div>
-		</nav>
+		@include('layouts.partials.nav')
 
 		@endif
 
@@ -128,7 +88,7 @@
 			{{--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>--}}
 			{{--<script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery.min.js') }}"><\/script>')</script>--}}
 			{{-- jQuery über die Web-App laden, damit eine bessere Kontrolle möglich wird. Da wiederkehrende Nutzer die Regel sind, dürften die Auswirkungen auf die Performance gering sein --}}
-			<script src="{{ asset('js/libs/jquery.min.js') }}"></script>
+			{{--<script src="{{ asset('js/libs/jquery.min.js') }}"></script>--}}
 
 			{{-- Die jQuery Datei und auch die anderen müssen als Fallback nachgeliefert werden! --}}
 
@@ -144,7 +104,7 @@
 			@endif
 
 			{{-- Plugins laden --}}
-			<script src="{{ asset('js/plugins.min.js') }}"></script>
+		  {{--<script src="{{ asset('js/plugins.min.js') }}"></script>--}}
 
 
 			@if( (Agent::isMobile() || Agent::isTablet()) && !(Request::is('login')) )

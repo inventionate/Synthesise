@@ -8,9 +8,9 @@ class AuthController extends \BaseController {
 	 * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
 	 */
 	public function index() {
-			return View::make('login');
+			return View::make('auth.login');
 		}
-	
+
 	/**
 	 * Loginlogik
 	 * Validieren der Daten, LDAP Server checken und schließlich auf das Dashboard weiterleiten
@@ -21,20 +21,20 @@ class AuthController extends \BaseController {
 		// 1. LDAP Check (-> korrekte Daten)
 		$credentials = [
 						'username' => Input::get('username'),
-						'password' => Input::get('password')	
+						'password' => Input::get('password')
 					];
-								
+
 		$ldap = LDAP::authenticate($credentials['username'],$credentials['password']);
 		// 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
-		if ( $ldap ) 
+		if ( $ldap )
 		{
-			if ( Auth::attempt($credentials) ) 
+			if ( Auth::attempt($credentials) )
 			{
 				return Redirect::route('home');
 			}
 			else
 			{
-				// 4. Wenn Anmeldung problematisch Datenbank-Passwort aktualisieren mit LDAP Passwort ( über den eindeutigen uid user->save() )	
+				// 4. Wenn Anmeldung problematisch Datenbank-Passwort aktualisieren mit LDAP Passwort ( über den eindeutigen uid user->save() )
 				$user = User::findByUsername($credentials['username']);
 				// HIER MUSS NOCH EINE SCHLEIFE EINGEBAUT WERDEN; WAS PASSIERT WENN DER NUTZERNAME **NICHT** IN DER DATENBANK GEFUNDEN WIRD
 				if ( isset($user) )
@@ -58,7 +58,7 @@ class AuthController extends \BaseController {
 			return Redirect::route('home');
 		}
 		else
-		{	
+		{
 			return Redirect::route('login')->with('login_errors', true);
 		}
 	}

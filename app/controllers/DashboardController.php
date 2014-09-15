@@ -1,8 +1,5 @@
 <?php
 
-use Synthesise\Repositories\Facades\Video;
-use Synthesise\Repositories\Facades\User;
-
 class DashboardController extends BaseController {
 
 	public function index()
@@ -30,7 +27,7 @@ class DashboardController extends BaseController {
 
 		$username = User::getUsername();
 
-		return View::make('dashboard')
+		return View::make('dashboard.index')
 									->with('available',$available)
 									->with('papers',$papers)
 									->with('role',$role)

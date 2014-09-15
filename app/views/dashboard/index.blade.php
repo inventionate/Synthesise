@@ -1,10 +1,10 @@
-@extends('layouts.default') 
+@extends('layouts.default')
 @section('meta')
-@parent 
+@parent
 <title>EW M1 – Dashboard</title>
-@stop 
+@stop
 
-@section('content') 
+@section('content')
 <h1 class="visible-print-block">Dashboard</h1>
 
 @if($role === 'Teacher')
@@ -13,16 +13,16 @@
 
 <div class="row">
 	<div class="col-lg-6">
-		@include('widgets.currentlection')
+		@include('dashboard.partials.currentlection')
 	</div>
 	<section class="col-lg-6">
-		@include('widgets.generalinfo')
-	</section>	
+		@include('dashboard.partials.generalinfo')
+	</section>
 </div>
 <div class="clearfix visible-lg"></div>
 <div class="row">
 	<div class="col-lg-12">
-		@include('widgets.alllections')
+		@include('dashboard.partials.alllections')
 	</div>
 </div>
 <div class="clearfix visible-lg"></div>
@@ -39,7 +39,7 @@
 
 {{-- Piwik Implementierung--}}
 <script type="text/javascript">
-  var _paq = _paq || []; 
+  var _paq = _paq || [];
   @if($role === 'Teacher')
   	_paq.push(["setCustomVariable", 2, "Status", "MentorIn", "visit"]);
   	_paq.push(["setCustomVariable", 3, "Status", "DozentIn", "visit"]);
@@ -47,7 +47,7 @@
   	_paq.push(["setCustomVariable", 1, "Status", "StudentIn", "visit"]);
   @endif
   </script>
-<noscript><p><img src="http://home.ph-karlsruhe.de/etpM/analytics/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>	
+<noscript><p><img src="http://home.ph-karlsruhe.de/etpM/analytics/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
 {{-- End Piwik Code --}}
 
 @stop

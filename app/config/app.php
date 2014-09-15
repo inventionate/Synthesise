@@ -140,7 +140,8 @@ return array(
 		 */
 		'Way\Generators\GeneratorsServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
-		'Thujohn\Pdf\PdfServiceProvider'
+		'Thujohn\Pdf\PdfServiceProvider',
+		'Efficiently\Turbolinks\TurbolinksServiceProvider'
 
 
 	),
@@ -225,6 +226,7 @@ return array(
 		 */
 		'LDAP'							=> 'Synthesise\Extensions\Facades\Ldap',
 		'Parser'						=> 'Synthesise\Extensions\Facades\Parser',
+		'Asset'							=> 'Synthesise\Extensions\Facades\AssetBuilder',
 
 		/**
 		* Facades für Pakete.
