@@ -8,23 +8,23 @@
 	{{--------------------------------------------------------------------------}}
 	<head>
 
+		{{-- LIVERELOAD DEV SCRIPT -----------------------------------------------}}
+		@if( App::environment() === 'local' )
+			<script src="http://synthesise.local:35729/livereload.js?snipver=1" data-turbolinks-track></script>
+		@endif
+
 		{{-- @include PARTIAL HEAD -----------------------------------------------}}
 		@include('layouts.partials.head')
 
 		{{-- APPLICATION CSS -----------------------------------------------------}}
-		<link rel="stylesheet" href="{{ Asset::rev('css/application.css') }}">
+		<link rel="stylesheet" href="{{ Asset::rev('css/application.css') }}" data-turbolinks-track>
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
-		<script src="{{ Asset::rev('js/application.js') }}"></script>
+		<script src="{{ Asset::rev('js/application.js') }}" data-turbolinks-track></script>
 
 		{{-- @section SCRIPTS ----------------------------------------------------}}
 		@section('scripts')
 		@show
-
-		{{-- LIVERELOAD DEV SCRIPT -----------------------------------------------}}
-		@if( App::environment() === 'local' )
-    	<script src="http://localhost:35729/livereload.js?snipver=1"></script>
-    @endif
 
 		{{-- @todo Diese Skripte in die globale JS Datei aufnehmen --}}
 		<script src="{{ Asset::rev('js/animate.js') }}"></script>

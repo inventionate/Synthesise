@@ -3,21 +3,16 @@
 //////////////////////////////////////////////////
 
 var gulp = require('gulp'),
-
-// JS
-  jshint = require('gulp-jshint'),
+  // JS
   uglify = require('gulp-uglify'),
   coffee = require('gulp-coffee'),
-
-// CSS
+  // CSS
   less = require('gulp-less'),
   prefixer = require('gulp-autoprefixer'),
   minifycss = require('gulp-minify-css'),
-
-// IMAGE
+  // IMAGE
   imagemin = require('gulp-imagemin'),
-
-// UTIL
+  // UTIL
   concat = require('gulp-concat'),
   rename = require('gulp-rename'),
   rev = require('gulp-rev'),
@@ -25,11 +20,12 @@ var gulp = require('gulp'),
   changed = require('gulp-changed'),
   newer = require('gulp-newer'),
   fingerprint = require('gulp-fingerprint'),
-
   // DEV
   notify = require('gulp-notify'),
   livereload = require('gulp-livereload'),
-  ssh = require("gulp-shell");
+  run = require("gulp-run"),
+  codecept = require('gulp-codeception'),
+  watch = require('gulp-watch');
 
 
 //////////////////////////////////////////////////
@@ -41,6 +37,8 @@ var paths = {
     assets: 'app/assets',
     build: 'app/assets/build'
   },
+
+  tests: 'tests',
 
   public: 'public',
 
@@ -111,6 +109,7 @@ var libs = [
 gulp.task('js:vendor', function()
 {
   return gulp.src(libs)
+    .pipe(newer(paths.app.build + '/js/application.js'))
     .pipe(concat('application.js'))
     .pipe(uglify())
     .pipe(gulp.dest(paths.app.build + '/js'));
@@ -159,6 +158,7 @@ gulp.task('less:build', function () {
   return gulp.src([
     paths.app.assets + '/less/application.less',
     paths.bower.animate + '/animate.css'])
+    .pipe(newer(paths.app.build + '/js/application.less'))
     .pipe(concat('application.less'))
     .pipe(less({
       paths: [
@@ -258,8 +258,7 @@ gulp.task('clean:lr', function () {
 // WATCH Tasks
 //////////////////////////////////////////////////
 
-gulp.task('watch', function(){
-  livereload.listen();
+gulp.task('watch:assets', function(){
   gulp.watch([paths.app.assets + '/coffee/**/*.coffee',
               paths.app.assets + '/js/**/*.coffee',
               paths.app.assets + '/less/**/*.less',
@@ -269,29 +268,44 @@ gulp.task('watch', function(){
               paths.app.assets + '/img/**/*.gif',
               './app/views/**/*'],
               ['publish'])
-              .on('change', livereload.changed);
-  // gulp.watch([paths.app.assets + '/img/**/*.png',
-  //             paths.app.assets + '/img/**/*.jpg',
-  //             paths.app.assets + '/img/**/*.gif'],
-  //             ['img:build'])
-  //             .on('change', livereload.changed);
 })
 
+gulp.task('watch:public', ['watch:assets'], function(){
+  livereload.listen();
+  gulp.watch([paths.public + '/js/**/*.js',
+              paths.public + '/css/**/*.css',
+              paths.public + '/img/**/*.png',
+              paths.public + '/img/**/*.jpg',
+              paths.public + '/img/**/*.gif',
+              './app/views/**/*'])
+              .on('change', livereload.changed);
+})
+
+gulp.task('watch:tests', function(){
+  gulp.watch(paths.tests + '/**/*.php', ['codecept'])
+})
+
+ watch('css/**/*.css').pipe(gulp.dest('./dist/'));
+
+gulp.task('watch', ['watch:public']);
+
 //////////////////////////////////////////////////
-// SSH/SFTP Tasks
+// CODECEPTION Tasks
 //////////////////////////////////////////////////
 
-// gulp.task('ssh:test', function () {
-//   ssh.exec({
-//     command: ['uptime', 'ls -a'],
-//     sshConfig: {
-//       host: secret.host,
-//       port: 22,
-//       username: secret.username,
-//       password: secret.password
-//     }
-//   })
-// });
+gulp.task('codecept', function() {
+  var options = {notify: true, testSuite: 'integration'};
+    gulp.src('tests/**/*.php')
+        .pipe(codecept('', options))
+        .on('error', notify.onError({
+            title: "Testing Failed",
+            message: "Error(s) occurred during test."
+        }))
+        .pipe(notify({
+          title: 'Testing Passed',
+          message: 'All tests have passed.',
+        }));
+});
 
 //////////////////////////////////////////////////
 // SHELL Tasks
@@ -301,4 +315,4 @@ gulp.task('watch', function(){
 // DEFAULT Tasks
 //////////////////////////////////////////////////
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['watch:public']);
