@@ -1,1 +1,0 @@
-document.addEventListener("page:change",function(){return document.getElementById("animateZoom").className+="animated zoomIn"}),document.addEventListener("page:fetch",function(){return document.getElementById("animateZoom").className+="animated zoomIn"});

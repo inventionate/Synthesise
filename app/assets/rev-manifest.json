@@ -1,9 +1,10 @@
 {
-  "css/application.css": "css/application-b68151e3.css",
   "img/etpm_logo.png": "img/etpm_logo-b29d4b4d.png",
+  "css/application.css": "css/application-2c159eb7.css",
   "js/addtohomescreen.js": "js/addtohomescreen-c6619ac8.js",
-  "js/animate.js": "js/animate-809be01b.js",
-  "js/application.js": "js/application-aa9d1f2e.js",
+  "js/analytics.js": "js/analytics-d3ff39fc.js",
+  "js/animate.js": "js/animate-584438f5.js",
+  "js/application.js": "js/application-9a37fa9d.js",
   "js/iframeResizer.js": "js/iframeResizer-b595d744.js",
   "js/interactive-videos.js": "js/interactive-videos-f8e4fe7e.js",
   "js/turbolinks.js": "js/turbolinks-04edd20e.js"

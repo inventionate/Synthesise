@@ -56,7 +56,8 @@ var paths = {
     modernizr: 'bower_components/modernizr',
     respond: 'bower_components/respond',
     jqueryTypewatch: 'bower_components/jquery-typewatch',
-    livereload: 'bower_components/livereload/dist/livereload.js'
+    livereload: 'bower_components/livereload/dist/livereload.js',
+    spinjs: 'bower_components/spin.js'
   },
 
   composer: {
@@ -85,6 +86,7 @@ var secret = require('./secret.json');
 var libs = [
   paths.bower.modernizr + '/modernizr.js',
   paths.bower.respond + 'respond.src.js',
+  paths.bower.spinjs + '/spin.js',
   paths.bower.jquery + '/dist/jquery.js',
   paths.composer.turbolinks + '/jquery.turbolinks.js',
   // Specific order required by Bootstrap
@@ -102,13 +104,13 @@ var libs = [
   // paths.bower.bootstrap + '/js/affix.js',
   paths.bower.html5boilerplate + '/js/plugins.js',
   // jQuery Plugins
-  paths.bower.jqueryTypewatch + 'jquery.typewatch.js'
+  paths.bower.jqueryTypewatch + '/jquery.typewatch.js',
+  paths.bower.spinjs + '/jquery.spin.js'
   ];
 
 gulp.task('js:vendor', function()
 {
   return gulp.src(libs)
-    .pipe(newer(paths.app.build + '/js/application.js'))
     .pipe(concat('application.js'))
     .pipe(uglify())
     .pipe(gulp.dest(paths.app.build + '/js'));
@@ -258,10 +260,10 @@ gulp.task('clean:lr', function () {
 
 gulp.task('watch', function(){
   livereload.listen();
-  gulp.watch([paths.app.assets + '/js/**/*.coffee',
+  gulp.watch([paths.app.assets + '/coffee/**/*.coffee',
               paths.app.assets + '/js/**/*.coffee',
               paths.app.assets + '/less/**/*.less',
-              paths.app.assets + '/less/**/*.css',
+              paths.app.assets + '/css/**/*.css',
               paths.app.assets + '/img/**/*.png',
               paths.app.assets + '/img/**/*.jpg',
               paths.app.assets + '/img/**/*.gif',

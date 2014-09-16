@@ -1,8 +1,7 @@
 @extends('layouts.default')
 
-@section('meta')
-@parent
-<title>Erziehungswissenschaftliche Grundfragen – Häufig gestellte Fragen</title>
+@section('title')
+	<title>Erziehungswissenschaftliche Grundfragen – Häufig gestellte Fragen</title>
 @stop
 
 @section('body')

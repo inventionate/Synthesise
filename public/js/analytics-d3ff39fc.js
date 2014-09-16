@@ -1,0 +1,1 @@
+$(document).on("page:change",function(){return null!=window._paq?_paq.push(["trackPageview"]):null!=window.piwikTracker?piwikTracker.trackPageview():void 0});

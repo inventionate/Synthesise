@@ -1,23 +1,12 @@
 @extends('layouts.default')
 
-@section('meta')
-@parent
+@section('title')
 <title>EW M1</title>
-
 {{-- //NOTE iOS Info CSS laden --}}
 <!-- <link rel="stylesheet" href="{{ asset('css/add2home.css') }}"> -->
 @stop
 
-@section('assets')
-
-@parent
-
-<script src="{{ Asset::rev('js/animate.js') }}"></script>
-
-@stop
-
 @section('content')
-<section id="main-content-login">
 <header class="jumbotron text-center">
 	<h1>e:t:p:M</h1>
 	<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
@@ -26,7 +15,7 @@
 </header>
 
 {{ Form::open(array('url' => 'login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form')) }}
-<div @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) id="animateZoom" @else id="animateShake" @endif>
+<div @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) class="animate-zoom-in" @else class="animate-shake" @endif>
 	{{-- Eingabe des Benutzernamens --}}
 	<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
 		{{ Form::label('username', 'Benutzername', array('class' => 'sr-only')) }}
@@ -55,7 +44,6 @@
 	{{-- Anmelde Button --}}
 	{{ Form::submit('Anmelden', array('class' => 'btn btn-primary btn-lg', 'role' => 'button')) }}
 {{ Form::close() }}
-</section>
 @stop
 
 @section('scripts')

@@ -1,7 +1,6 @@
 @extends('layouts.default')
-@section('meta')
-@parent
-<title>EW M1 – Dashboard</title>
+@section('title')
+	<title>EW M1 – Dashboard</title>
 @stop
 
 @section('content')
