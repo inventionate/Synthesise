@@ -8,7 +8,7 @@ var gulp = require('gulp'),
   coffee = require('gulp-coffee'),
   // CSS
   less = require('gulp-less'),
-  prefixer = require('gulp-autoprefixer'),
+  prefix = require('gulp-autoprefixer'),
   minifycss = require('gulp-minify-css'),
   // IMAGE
   imagemin = require('gulp-imagemin'),
@@ -146,7 +146,7 @@ gulp.task('coffee:build', function()
     .pipe(newer(paths.app.build + '/js'))
     .pipe(coffee({bare: true}))
     .pipe(uglify())
-    .pipe(gulp.dest(paths.app.build + '/js'))
+    .pipe(gulp.dest(paths.app.build + '/js'));
 });
 
 
@@ -165,9 +165,10 @@ gulp.task('less:build', function () {
         paths.bower.bootstrap + '/less',
         paths.app.assets + '/less/*.less',
       ]}))
+    .pipe(prefix())
     .pipe(fingerprint(manifest, {prefix: '../'}))
     .pipe(minifycss())
-    .pipe(gulp.dest(paths.app.build + '/css'))
+    .pipe(gulp.dest(paths.app.build + '/css'));
 });
 
 //////////////////////////////////////////////////
@@ -177,7 +178,7 @@ gulp.task('less:build', function () {
 gulp.task('fonts:publish', ['publish:assets'], function () {
   return gulp.src(paths.bower.bootstrap + '/dist/fonts/*.*')
     .pipe(newer(paths.public + '/fonts'))
-    .pipe(gulp.dest(paths.public + '/fonts'))
+    .pipe(gulp.dest(paths.public + '/fonts'));
 });
 
 //////////////////////////////////////////////////
@@ -187,15 +188,14 @@ gulp.task('fonts:publish', ['publish:assets'], function () {
 gulp.task('img:build', function () {
   return gulp.src(paths.app.assets + '/img/*.*')
     .pipe(newer(paths.app.build + '/img'))
-    .pipe(gulp.dest(paths.app.build + '/img'))
+    .pipe(gulp.dest(paths.app.build + '/img'));
 });
 
 //////////////////////////////////////////////////
 // PUBLISHING Tasks
 /////////////////////////////////////////////////
 
-gulp.task('publish:assets',
-         ['clean:public','build:assets'], function ()
+gulp.task('publish:assets', ['clean:public','build:assets'], function ()
 {
   return gulp.src(paths.app.build + '/**')
     .pipe(rev())
@@ -204,7 +204,7 @@ gulp.task('publish:assets',
     .pipe(gulp.dest(paths.app.assets));
 });
 
-gulp.task('publish', ['publish:assets','fonts:publish']);
+gulp.task('publish', ['fonts:publish']);
 
 //////////////////////////////////////////////////
 // CLEAN Tasks
@@ -267,7 +267,7 @@ gulp.task('watch:assets', function(){
               paths.app.assets + '/img/**/*.jpg',
               paths.app.assets + '/img/**/*.gif',
               './app/views/**/*'],
-              ['publish'])
+              ['publish']);
 })
 
 gulp.task('watch:public', ['watch:assets'], function(){
@@ -282,10 +282,8 @@ gulp.task('watch:public', ['watch:assets'], function(){
 })
 
 gulp.task('watch:tests', function(){
-  gulp.watch(paths.tests + '/**/*.php', ['codecept'])
+  gulp.watch(paths.tests + '/**/*.php', ['codecept']);
 })
-
- watch('css/**/*.css').pipe(gulp.dest('./dist/'));
 
 gulp.task('watch', ['watch:public']);
 

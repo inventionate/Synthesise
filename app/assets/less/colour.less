@@ -59,7 +59,16 @@ nav.navbar.navbar-default {
 		background-color: transparent;
 	}
 	a {
-		color: @white;
+		color: @white !important;
+		background-color: transparent !important;
+	}
+	li {
+		background-color: transparent;
+		transition: background 0.5s linear;
+	}
+	li.active {
+		background-color: fade(@dark-green,80%);
+		color: @light-gray;
 	}
 	a.navbar-brand:hover {
 		background: none;
@@ -68,22 +77,21 @@ nav.navbar.navbar-default {
 	a.nav-event-title:hover {
 		background: none;
 	}
-	a:hover {
+	// Statt a:hover li:hover erproben!
+	li:hover {
 		background-color: fade(@dark-green,80%);
-		color: @light-gray;
-		.caret {
+		a.caret {
 			border-top-color: @light-gray;
 			border-bottom-color: @light-gray;
+		}
+		a {
+			color: @light-gray;
 		}
 	}
 	a.btn:hover {
 		color: @white;
 		background-color: #3276b1;
 		border-color: #285e8e;
-	}
-	.active a {
-		background-color: fade(@dark-green,80%);
-		color: @light-gray;
 	}
 	.caret {
 		border-top-color: @white;
