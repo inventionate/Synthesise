@@ -18,14 +18,14 @@ $(document).on 'page:change', ->
   $('.animate-zoom-in').addClass('animated zoomIn')
   $('.animate-shake').addClass('animated shake')
   # Übergangsanimationen zwischen Seiten
-  $('.main.container').addClass('animated fadeIn')
+  $('.change-fade').addClass('animated fadeIn')
 
 $(document).on 'page:fetch', ->
   # Animation der Login Seite
   $('.animate-zoom-in').addClass('animated zoomIn')
   $('.animate-shake').addClass('animated shake')
   # Übergangsanimationen zwischen Seiten
-  $('.main.container').addClass('animated fadeOut')
+  $('.change-fade').addClass('animated fadeOut')
 
 $(document).ready ->
   $('nav.navbar.navbar-default li').click ->

@@ -27,7 +27,8 @@
 		@show
 
 		{{-- @todo Diese Skripte in die globale JS Datei aufnehmen --}}
-		{{--<script src="{{ Asset::rev('js/animate.js') }}"></script>--}}
+		<script src="{{ Asset::rev('js/animate.js') }}"></script>
+		{{-- Spezifische Animationsoptionen --}}
 		<script src="{{ Asset::rev('js/analytics.js') }}"></script>
 
 		{{-- TURBOLINKS SCRIPT ---------------------------------------------------}}
@@ -54,9 +55,7 @@
 		@endif
 
 		{{-- @yield MAIN CONTENT -------------------------------------------------}}
-		<section id="main-content-{{ Request::segment(1) }}" @if ( !Request::is('login') ) class="main container" @endif>
-			@yield('content')
-		</section>
+		@yield('content')
 
 		<hr>
 
@@ -64,7 +63,7 @@
 			@include('layouts.partials.footer')
 
 		{{-- @include ANALYTICS -------------------------------------------------}}
-		{{--@include('layouts.partials.analytics')--}}
+		@include('layouts.partials.analytics')
 	</body>
 
 </html>

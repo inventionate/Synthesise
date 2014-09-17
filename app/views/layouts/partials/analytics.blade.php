@@ -1,4 +1,4 @@
-{{-- Piwik Implementierung--}}
+{{-- Piwik --}}
 <script type="text/javascript">
   var _paq = _paq || [];
   _paq.push(["setCookieDomain", "*.home.ph-karlsruhe.de"]);
@@ -14,4 +14,3 @@
   })();
 </script>
 <noscript><p><img src="http://home.ph-karlsruhe.de/etpM/analytics/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-{{-- End Piwik Code --}}
