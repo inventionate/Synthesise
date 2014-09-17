@@ -1,17 +1,20 @@
-//@import (less) "bootstrap.css";
+//////////////////////////////////////////////////
+// BOOTSTRAP
+//////////////////////////////////////////////////
 
-// NOTE Bootstrap individual compile
-
-// NOTE Core variables and mixins
+// Core variables
 @import "variables.less";
+// Eigene Variableneinstellungen
 @grid-float-breakpoint:		@screen-md-min;
+// Core mixins
 @import "mixins.less";
 
-// NOTE Reset
+// Reset and dependencies
 @import "normalize.less";
 @import "print.less";
+@import "glyphicons.less";
 
-// NOTE Core CSS
+// Core CSS
 @import "scaffolding.less";
 @import "type.less";
 @import "code.less";
@@ -20,9 +23,8 @@
 @import "forms.less";
 @import "buttons.less";
 
-// NOTE Components
+// Components
 @import "component-animations.less";
-@import "glyphicons.less";
 @import "dropdowns.less";
 @import "button-groups.less";
 @import "input-groups.less";
@@ -41,15 +43,15 @@
 @import "list-group.less";
 @import "panels.less";
 //@import "wells.less";
-//@import "close.less";
+@import "close.less";
 
-// NOTE Components w/ JavaScript
+// Components w/ JavaScript
 @import "modals.less";
 @import "tooltip.less";
 //@import "popovers.less";
 //@import "carousel.less";
 
-// NOTE Utility classes
+// Utility classes
 @import "utilities.less";
 @import "responsive-utilities.less";
 
@@ -59,13 +61,11 @@
 
 @import "typography";
 
-@import "colour";
+ @import "colour";
 
 @import "layout";
 
 @import "print";
-
-@import "animation";
 
 // NOTE JS required
 
@@ -100,7 +100,7 @@
 	a.fp-cuepoint:hover {
 		height: 20px;
 		top: -5px;
-		.transition(0.5s, ease-out);
+		transition: 0.5s ease-out;
 	}
 	.active-cue {
 		height:  20px;
@@ -113,20 +113,7 @@
 	}
 }
 
-// Deaktivieren der Noitizen auf Mobilgeräten kleiner als das iPad (horizontal)
-
-//@media (max-width: 768px) {
-//	.flowplayer {
-//		.fp-cuepoint {
-//			position: absolute;
-//			top: -9999px;
-//			left: -9999px;
-//		}
-//	}
-//}
-
-
-// NOTE Ajax Feedback
+// Ajax Feedback
 
 #save-info {
 	p {
@@ -160,7 +147,7 @@ form#feedback, form#support {
 	}
 }
 
-// NOTE Navigation
+// Navigation
 
 nav.navbar a.btn {
 	margin-top: 8px;
@@ -169,7 +156,7 @@ nav.navbar a.btn {
 	padding-bottom: 7px;
 }
 
-// NOTE Buttons
+// Buttons
 
 .btn-block {
 	overflow: hidden;

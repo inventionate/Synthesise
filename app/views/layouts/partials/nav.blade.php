@@ -2,8 +2,8 @@
   <div class="container">
     {{-- Brand and toggle get grouped for better mobile display --}}
       <div class="navbar-header">
-        <a class="etpM navbar-brand @if (Request::is('/')) active @endif" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <a class="etpM navbar-brand" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -12,7 +12,7 @@
         <h1 class="nav-event-title hidden-md hidden-lg"><a href="{{ url('') }}">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
       </div>
     {{-- Collect the nav links, forms, and other content for toggling --}}
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
         <li @if ( Request::is('dashboard') ) class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
         <li class="dropdown @if ( Request::is('online-lektionen') ) active @endif">
@@ -35,7 +35,6 @@
             <li><a href="{{ route('lektion', 'Bildung und Gerechtigkeit') }}">Bildung und Gerechtigkeit</a></li>
             <li class="divider"></li>
             <li><a class="rechtshinweise" href="{{ url('impressum') . '#rechtshinweise' }}">Rechtshinweise</a></li>
-
           </ul>
         </li>
         <li @if ( Request::is('hgf') ) class="active" @endif ><a href="{{ url('hgf') }}">Häufig gestellte Fragen</a></li>

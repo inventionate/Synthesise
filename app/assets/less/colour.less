@@ -1,7 +1,8 @@
-// Farben
+// Colours
 
-// PH Corporate Design
-
+//////////////////////////////////////////////////
+// PH CORPORATE DESIGN FARBEN
+//////////////////////////////////////////////////
 @light-green: #8cd000; 	// HKS 67
 
 @red: #f33b1d;			// HKS 12
@@ -34,7 +35,6 @@
 
 @bs-blue: #428bca;
 
-
 .green {
 	color: @green;
 }
@@ -43,6 +43,9 @@
 	color: @red;
 }
 
+//////////////////////////////////////////////////
+// TABELLEN
+//////////////////////////////////////////////////
 table td a.green:hover {
 	color: darken(@green, 10%)
 }
@@ -51,41 +54,76 @@ table td a.red:hover {
 	color: darken(@red, 10%)
 }
 
-// Navigation ----------------------------------
-
+//////////////////////////////////////////////////
+// NAVIGATION
+//////////////////////////////////////////////////
 nav.navbar.navbar-default {
 	background-color: fade(@green,90%);
 	h1 a:hover {
 		background-color: transparent;
 	}
-	a {
-		color: @white !important;
-		background-color: transparent !important;
-	}
-	li {
-		background-color: transparent;
-		transition: background 0.5s linear;
-	}
-	li.active {
-		background-color: fade(@dark-green,80%);
-		color: @light-gray;
-	}
-	a.navbar-brand:hover {
-		background: none;
-		color: @light-gray;
-	}
-	a.nav-event-title:hover {
-		background: none;
-	}
-	// Statt a:hover li:hover erproben!
-	li:hover {
-		background-color: fade(@dark-green,80%);
-		a.caret {
-			border-top-color: @light-gray;
-			border-bottom-color: @light-gray;
-		}
+	ul.nav.navbar-nav {
 		a {
+			color: @white;
+			background-color: transparent;
+		}
+		li {
+			background-color: transparent;
+			transition: background 0.5s linear;
+			ul.dropdown-menu {
+				background-color: @white;
+				a {
+					background-color: @white;
+					color: fade(@dark-green,80%);
+				}
+				li {
+					white-space: normal;
+				}
+				li:hover {
+					background-color: transparent;
+					a {
+						color: fade(@dark-green,100%);
+						text-decoration: underline;
+					}
+				}
+				.divider {
+					background-color: #e5e5e5;
+				}
+				.rechtshinweise {
+					color: @blue;
+				}
+				.rechtshinweise:hover {
+					color: darken(@blue,10%);
+				}
+			}
+		}
+		li.active {
+			background-color: fade(@dark-green,80%);
 			color: @light-gray;
+		}
+		li:hover {
+			background-color: fade(@dark-green,80%);
+			.caret {
+				border-top-color: @light-gray;
+				border-bottom-color: @light-gray;
+			}
+			a {
+				color: @light-gray;
+			}
+		}
+		a.navbar-brand:hover {
+			background: none;
+			color: @light-gray;
+		}
+		a.nav-event-title:hover {
+			background: none;
+		}
+		// Untermenüs
+		li.open > a, li.open > a:hover, li.open > a:focus{
+			background-color: fade(@dark-green,90%);
+		}
+		.dropdown-header {
+			color: @gray;
 		}
 	}
 	a.btn:hover {
@@ -103,29 +141,24 @@ nav.navbar.navbar-default {
 	button.navbar-toggle:hover {
 		background-color: fade(@black,30%);
 	}
-	// Untermenüs
-	li.open > a, li.open > a:hover, li.open > a:focus{
-		background-color: fade(@dark-green,90%);
-	}
-	.dropdown-menu {
-		background-color: @white;
-		a {
-			background-color: @white;
-			color: fade(@dark-green,80%);
-		}
-		a:hover {
-			background-color: transparent;
-			color: fade(@dark-green,100%);
-			text-decoration: underline;
-		}
-		.rechtshinweise {
-			color: @blue;
-		}
-		.rechtshinweise:hover {
-			color: darken(@blue,10%);
-		}
-	}
-	.dropdown-header {
-		color: @gray;
-	}
+}
+
+//////////////////////////////////////////////////
+// BRANDING
+//////////////////////////////////////////////////
+
+
+.etpM.navbar-brand {
+	background-image: url('img/etpm_logo_long.png');
+	background-repeat: no-repeat;
+	background-size: 140px;
+	width: 47px;
+	display: block;
+	margin: 0 auto;
+	text-indent: -9999px;
+	transition: 0.5s linear;
+}
+
+.etpM.navbar-brand:hover {
+	width: 150px;
 }

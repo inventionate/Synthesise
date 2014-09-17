@@ -84,26 +84,16 @@ var secret = require('./secret.json');
 var libs = [
   paths.bower.modernizr + '/modernizr.js',
   paths.bower.respond + 'respond.src.js',
-  paths.bower.spinjs + '/spin.js',
   paths.bower.jquery + '/dist/jquery.js',
   paths.composer.turbolinks + '/jquery.turbolinks.js',
-  // Specific order required by Bootstrap
-  paths.bower.bootstrap + '/js/transition.js',
-  paths.bower.bootstrap + '/js/alert.js',
-  // paths.bower.bootstrap + '/js/button.js',
-  // paths.bower.bootstrap + '/js/carousel.js',
-  paths.bower.bootstrap + '/js/collapse.js',
-  paths.bower.bootstrap + '/js/dropdown.js',
-  // paths.bower.bootstrap + '/js/modal.js',
-  paths.bower.bootstrap + '/js/tooltip.js',
-  // paths.bower.bootstrap + '/js/popover.js',
-  // paths.bower.bootstrap + '/js/scrollspy.js',
-  // paths.bower.bootstrap + '/js/tab.js',
-  // paths.bower.bootstrap + '/js/affix.js',
   paths.bower.html5boilerplate + '/js/plugins.js',
+  // paths.bower.spinjs + '/spin.js',
+  // Bootstrap
+  // @todo Überlegen welche JS Module gelöscht werden können
+  paths.bower.bootstrap + '/dist/js/bootstrap.js',
   // jQuery Plugins
   paths.bower.jqueryTypewatch + '/jquery.typewatch.js',
-  paths.bower.spinjs + '/jquery.spin.js'
+  // paths.bower.spinjs + '/jquery.spin.js'
   ];
 
 gulp.task('js:vendor', function()
@@ -192,6 +182,19 @@ gulp.task('img:build', function () {
 });
 
 //////////////////////////////////////////////////
+// BUILD Tasks
+//////////////////////////////////////////////////
+
+gulp.task('build:assets', ['js:vendor',
+                           'js:turbolinks',
+                           'js:iframeResizer',
+                           'js:addToHomescreen',
+                           'coffee:build',
+                           'less:build',
+                           'img:build'
+                          ]);
+
+//////////////////////////////////////////////////
 // PUBLISHING Tasks
 /////////////////////////////////////////////////
 
@@ -226,25 +229,13 @@ gulp.task('clean:public', function () {
 });
 
 //////////////////////////////////////////////////
-// BUILD Tasks
-//////////////////////////////////////////////////
-
-gulp.task('build:assets', ['js:vendor',
-                           'js:turbolinks',
-                           'js:iframeResizer',
-                           'js:addToHomescreen',
-                           'coffee:build',
-                           'less:build',
-                           'img:build'
-                          ]);
-
-//////////////////////////////////////////////////
 // LIVERELOAD Tasks
 //////////////////////////////////////////////////
 
 gulp.task('publish:lr', function()
 {
   return gulp.src(paths.bower.livereload)
+    .pipe(newer(paths.public + '/js'))
     .pipe(uglify())
     .pipe(gulp.dest(paths.public + '/js'));
 });
@@ -270,7 +261,7 @@ gulp.task('watch:assets', function(){
               ['publish']);
 })
 
-gulp.task('watch:public', ['watch:assets'], function(){
+gulp.task('watch:public', ['watch:assets','publish:lr'], function(){
   livereload.listen();
   gulp.watch([paths.public + '/js/**/*.js',
               paths.public + '/css/**/*.css',

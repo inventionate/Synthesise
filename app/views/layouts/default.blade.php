@@ -27,7 +27,7 @@
 		@show
 
 		{{-- @todo Diese Skripte in die globale JS Datei aufnehmen --}}
-		<script src="{{ Asset::rev('js/animate.js') }}"></script>
+		{{--<script src="{{ Asset::rev('js/animate.js') }}"></script>--}}
 		<script src="{{ Asset::rev('js/analytics.js') }}"></script>
 
 		{{-- TURBOLINKS SCRIPT ---------------------------------------------------}}
@@ -64,8 +64,7 @@
 			@include('layouts.partials.footer')
 
 		{{-- @include ANALYTICS -------------------------------------------------}}
-		@include('layouts.partials.analytics')
-
+		{{--@include('layouts.partials.analytics')--}}
 	</body>
 
 </html>
