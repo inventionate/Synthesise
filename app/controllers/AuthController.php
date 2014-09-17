@@ -40,6 +40,8 @@ class AuthController extends \BaseController {
 				if ( isset($user) )
 				{
 					$user->password = Hash::make($credentials['password']);
+					// @todo Auch den Vornamen, den Nachnamen und die E-Mail via LDAP Server einlesen.
+					// @todo Durch den StudiIP Import nur noch alle UIDs einlesen.
 					$user->save();
 					Auth::attempt($credentials);
 					return Redirect::route('home');

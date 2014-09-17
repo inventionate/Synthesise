@@ -31,3 +31,6 @@ $(document).ready ->
   $('nav.navbar.navbar-default li').click ->
     $('nav.navbar.navbar-default li').removeClass('active')
     $(this).addClass('active')
+  # @todo Event immer beim Senden der Login Daten ausgeführen.
+  $('#btn-logout').click ->
+    $(this).attr("disabled", "disabled").append('…')

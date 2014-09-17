@@ -44,7 +44,7 @@
 		</div> --}}
 
 		{{-- Anmelde Button --}}
-		{{ Form::submit('Anmelden', array('class' => 'btn btn-primary btn-lg', 'role' => 'button')) }}
+		{{ Form::submit('Anmelden', array('id' => 'btn-login','class' => 'btn btn-primary btn-lg', 'role' => 'button')) }}
 	{{ Form::close() }}
 </section>
 @stop
