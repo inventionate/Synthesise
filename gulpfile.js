@@ -129,15 +129,21 @@ gulp.task('coffee:build', function()
 
 gulp.task('less:build', function () {
   return gulp.src([
+    paths.bower.flowplayer + '/skin/minimalist.css',
     paths.app.assets + '/less/application.less',
-    paths.bower.animate + '/animate.css',
-    paths.bower.flowplayer + '/skin/minimalist.css'])
-    .pipe(newer(paths.app.build + '/js/application.less'))
+    paths.app.assets + '/less/helpers.less',
+    paths.app.assets + '/less/typography.less',
+    paths.app.assets + '/less/colour.less',
+    paths.app.assets + '/less/layout.less',
+    paths.app.assets + '/less/print.less',
+    paths.bower.animate + '/animate.css'
+    ])
+    .pipe(newer(paths.app.build + '/css/application.css'))
     .pipe(concat('application.less'))
     .pipe(less({
       paths: [
         paths.bower.bootstrap + '/less',
-        paths.app.assets + '/less/*.less',
+        paths.app.assets + '/less'
       ]}))
     .pipe(prefix())
     .pipe(fingerprint(manifest, {prefix: '../'}))

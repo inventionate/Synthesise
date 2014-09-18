@@ -23,33 +23,29 @@
   <div class="row">
   <div id="videoplayer" class="col-md-12">
   <div class="flowplayer fixed-controls play-button"
-     data-generate_cuepoints="true"
-     @if( ! (Agent::isMobile() || Agent::isTablet()) )
-	     data-cuepoints="[{{ implode(',',$cuepoints->lists('cuepoint')) }}]"
-	 @endif
-     data-key="$443083014658956"
-     data-logo="{{ asset('apple-touch-icon-precomposed.png') }}"
-     data-swf="{{ asset('flash/flowplayer.swf') }}"
-     title="{{{ $videoname }}}"
-     >
-     <video>
-
-	{{-- VIDEODATEIEN EINBINDEN --}}
-
-	@if( App::environment() === 'production' )
-
-		@if( Agent::isMobile() || Agent::isTablet() )
-			<source type="video/webm" src="{{ $videopath . '_small' }}.webm">
-			<source type="video/mp4" src="{{ $videopath . '_small' }}.mp4">
-		@elseif( !(stristr($_SERVER['HTTP_USER_AGENT'], 'Safari')) || stristr($_SERVER['HTTP_USER_AGENT'], 'Chrome') )
-			<source type="video/webm" src="{{ $videopath }}.webm">
-		@endif
-			<source type="video/mp4" src="{{ $videopath }}.mp4">
-  @else
-      <source type="video/mp4" src="{{ asset('video') . '/' . strtolower(str_replace(array(' ','-','?','ä','ü','ö','ß'),array('_','_','','ae','ue','oe','ss'),$videoname)) }}.mp4">
-  @endif
-
-     </video>
+    data-generate_cuepoints="true"
+    @if( ! (Agent::isMobile() || Agent::isTablet()) )
+      data-cuepoints="[{{ implode(',',$cuepoints->lists('cuepoint')) }}]"
+    @endif
+    data-key="$443083014658956"
+    data-logo="{{ asset('apple-touch-icon-precomposed.png') }}"
+    data-swf="{{ asset('flash/flowplayer.swf') }}"
+    title="{{{ $videoname }}}"
+    >
+    <video>
+      {{-- VIDEODATEIEN EINBINDEN --}}
+      @if( App::environment() === 'production' )
+        @if( Agent::isMobile() || Agent::isTablet() )
+          <source type="video/webm" src="{{ $videopath . '_small' }}.webm">
+          <source type="video/mp4" src="{{ $videopath . '_small' }}.mp4">
+        @elseif( !(stristr($_SERVER['HTTP_USER_AGENT'], 'Safari')) || stristr($_SERVER['HTTP_USER_AGENT'], 'Chrome') )
+          <source type="video/webm" src="{{ $videopath }}.webm">
+        @endif
+        <source type="video/mp4" src="{{ $videopath }}.mp4">
+      @else
+        <source type="video/mp4" src="{{ asset('video') . '/' . strtolower(str_replace(array(' ','-','?','ä','ü','ö','ß'),array('_','_','','ae','ue','oe','ss'),$videoname)) }}.mp4">
+      @endif
+    </video>
   </div>
 
   @if( !(Agent::isMobile() || Agent::isTablet()) )
