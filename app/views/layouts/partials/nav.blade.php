@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
         <li @if ( Request::is('dashboard') ) class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
-        <li class="dropdown @if ( Request::is('online-lektionen') ) active @endif">
+        <li class="dropdown @if ( Request::segment(1) === 'online-lektionen' ) active @endif">
           <a href="{{ url('online-lektionen') }}" class="dropdown-toggle" data-toggle="dropdown">online-Lektionen <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li role="presentation" class="dropdown-header">Sozialgeschichte der Erziehung und Bildung</li>
