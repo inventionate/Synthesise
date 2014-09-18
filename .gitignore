@@ -16,4 +16,5 @@ Thumbs.db
 /public/flash
 /app/assets/build
 /doc
+/tests/_output
 secret.json
