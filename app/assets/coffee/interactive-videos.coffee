@@ -40,14 +40,16 @@ $(document).ready ->
     # In Mobilversionen nur auf dem horizontalen iPad AJAX erlauben.
     # Wenn keine Verbindung besteht warnen.
 
-    $(document).on('mouseenter touchstart','.fp-controls', ->
+    $('.fp-controls:not(.bounded)').addClass('bounded')
+    .on('mouseenter touchstart', ->
       $('.fp-cuepoint').attr('data-toggle','tooltip')
       for cuepoint in cuepoints
         $('.fp-cuepoint' + _i).tooltip
           title: cuepoint
     )
     # Aktiven Cuepoint definieren und Notizformular einblenden
-    $(document).on('click touchstart','.fp-cuepoint', ->
+    $('.fp-timeline:not(.bounded)').addClass('bounded')
+    .on('click touchstart', '.fp-cuepoint', ->
       # Aktuelle Cuepoint Klasse abfragen
       cuepointNumber = $(this).attr('class')
       cuepointId = cuepointNumber.replace( /^\D+/g, '')
@@ -114,7 +116,7 @@ $(document).ready ->
         return
       # wait: The number of milliseconds to wait after the the
   		# last key press before firing the callback
-      wait: 750
+      wait: 500
       # highlight: Highlights the element when it receives focus
       highlight: false
       # captureLength: Minimum # of characters necessary to fire the callback
