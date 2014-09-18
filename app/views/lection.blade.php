@@ -1,7 +1,6 @@
 @extends('layouts.default')
 
 @section('title')
-@parent
 <title>Erziehungswissenschaftliche Grundfragen – {{{ $videoname }}}</title>
 
 {{-- Flowplayer CSS extern laden --}}
@@ -90,7 +89,7 @@
   </div>
   </header>
   {{-- FÜR DIE MOBILVERSION ANPASSEN MIT DEM RECHTSLIEGENDEN --}}
-  <div class="col-md-6 col-sm-7 col-xs-12">
+  <div class="col-md-6 col-sm-7 col-xs-12" data-no-turbolink>
 
   {{-- durch die Texte loopen und Autoren davor setzten --}}
 
@@ -103,7 +102,7 @@
 
   </div>
 
-  <div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-1 col-xs-12 text-right">
+  <div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-1 col-xs-12 text-right" data-no-turbolink>
 
   {{-- Funktionalität beim Note Model hinzufügen (Note::collectContent) --}}
     <a class="btn btn-primary btn-block" href="{{ action('LectionController@getNotesPDF', rawurlencode($videoname))  }}" onclick="javascript:_paq.push(['trackEvent', 'Notizen', 'Downloaded', '{{ $videoname }}'])">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a>
@@ -135,29 +134,30 @@
 
 @section('scripts')
 
-  @parent
-
   {{-- @todo Logik auslagern in eine einize externe lection.coffee und diese laden --}}
 
   {{-- Flowplayer laden --}}
   {{--<script src="//releases.flowplayer.org/5.4.3/flowplayer.min.js"></script>--}}
-  {{-- Da die Performance davon profitiert gilt es den flowplayer direkt mit dem application.js zu laden.}}
-  <script src="{{asset('flowplayer/flowplayer.min.js')}}"></script>
+  {{-- Da die Performance davon profitiert gilt es den flowplayer direkt mit dem application.js zu laden.
+  <script src="{{asset('flowplayer/flowplayer.min.js')}}"></script> --}}
   {{-- Interaktive Videos aktivieren --}}
-
-
-  @if( Agent::isMobile() || Agent::isTablet() )
-	  <script>
-	  	$(document).ready(function() {
-	  	  	return $('.fp-logo').attr('href','http://www.ph-karlsruhe.de/institute/ph/ew/etpm/').attr('target','_blank');
-	  	});
-	  </script>
-  @else
-  	  <script src="{{ Asset::rev('js/interactive-videos.js') }}"></script>
-  @endif
 
   {{-- Flowplayer Piwik Analytics integratiuon --}}
 
+  <!-- {{-- FLOWPLAYER INTERACTIVE VIDEOS --}}
+
+  @if( Agent::isMobile() || Agent::isTablet() )
+    <script>
+      $(document).ready(function() {
+        $('.fp-logo').attr('href','http://www.ph-karlsruhe.de/institute/ph/ew/etpm/').attr('target','_blank');
+      });
+    </script>
+  @else
+      <script src="{{ Asset::rev('js/interactive-videos.js') }}"></script>
+  @endif -->
+
+
+ {{-- DIESEN CODE VIA ON LOAD IN INTERACTIVE VIDEO EINBINDEN!!!! --}}
   <script>
 
 	  $(".flowplayer:first").bind({

@@ -12,6 +12,9 @@
 #
 # Die Turbolink Events nicht innerhalb document.ready
 # oder jQuery Funktionen verwenden!
+#
+# jQuery Turbolink Info
+# Führt das ready Event aus sobald Turbolinks page:load ausgeführt wurde.
 
 $(document).on 'page:change', ->
   # Animation der Login Seite

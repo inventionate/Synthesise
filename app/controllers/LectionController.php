@@ -76,9 +76,9 @@ class LectionController extends \BaseController {
 	 */
 	public function getNotesPDF($videoname)
 	{
-        $videoname = urldecode($videoname);
+    $videoname = urldecode($videoname);
 		$allnotes = User::getAllNotes(Auth::user()->id, $videoname);
-		return PDF::load($allnotes, 'A4', 'portrait')->download('Meine Notizen für ' . $videoname);
+		return Response::download(PDF::load($allnotes, 'A4', 'portrait')->download('Meine Notizen für ' . $videoname));
 	}
 
 	/**
@@ -90,9 +90,9 @@ class LectionController extends \BaseController {
 	 */
 	public function getFlagnamesPDF($videoname)
 	{
-	    $videoname = urldecode($videoname);
-        $allflagnames = Video::getAllFlagnames($videoname);
-		return PDF::load($allflagnames, 'A4', 'portrait')->download('Die Fähnchen für ' . $videoname);
+	  $videoname = urldecode($videoname);
+    $allflagnames = Video::getAllFlagnames($videoname);
+		return Response::download(PDF::load($allflagnames, 'A4', 'portrait')->download('Die Fähnchen für ' . $videoname));
 	}
 
 	/**
@@ -113,7 +113,7 @@ class LectionController extends \BaseController {
 		{
 			return $flagnames;
 			// @TODO Überprüfen ob return "success" benötigt wird.
-			// return "success";
+			//return "success";
 		}
 	}
 

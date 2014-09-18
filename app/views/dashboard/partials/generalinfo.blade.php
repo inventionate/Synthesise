@@ -16,7 +16,7 @@
 	<div id="collapseOne" class="panel-collapse collapse">
 	  <div class="panel-body">
 		<p>
-		Die online-Lektionen vermitteln in verdichteter, visualisierter Form Theoriezugänge zu elementaren Themenfeldern und Forschungszweigen der Allgemeinen und Historischen Erziehungswissenschaft.<br> 
+		Die online-Lektionen vermitteln in verdichteter, visualisierter Form Theoriezugänge zu elementaren Themenfeldern und Forschungszweigen der Allgemeinen und Historischen Erziehungswissenschaft.<br>
 		Die einzelnen Lektionen werden in festgelegten, zumeist wöchentlichen Abständen zugänglich gemacht (Daten der Freischaltung siehe unter »Zugänglich ab« in der Tabelle weiter unten). Die einmal freigeschalteten Lektionen bleiben bis zum Tag der Prüfung geöffnet und können jederzeit angeschaut werden.<br>
 		An den mit roten Fähnchen gekennzeichneten Stellen der online-Lektionen können Sie individuelle Notizen (Stichworte, kurze Erläuterungen, Eselsbrücken, Querverweise etc.) einfügen, die automatisch gespeichert werden und als PDF ausdruckbar sind.<br>
 		<em>Die Lektionen sind <a href="{{ url('impressum') . '#rechtshinweise' }}" target="_blank">urheberrechtlich geschützt</a> und ausschließlich im vorgegebenen Rahmen der Lehrveranstaltung zu nutzen. Der Download oder die Verbreitung in irgendeiner Form ist nicht gestattet.</em>
@@ -38,7 +38,7 @@
 		Digitalisierte Medien sind eine Erweiterung herkömmlicher Lehr-Lern-Medien, sollen diese aber nicht zum Verschwinden bringen. Wissenschaftliche, hermeneutische Textarbeit bleibt eine bedeutsame Praxis, die Studierende gerade in stark von Theoriedebatten geprägten Fächern, wie die Erziehungswissenschaft, erlernen und ausüben müssen.<br>
 		Zu jeder online-Lektion gibt es (mindestens) einen prüfungsrelevanten Text (Primär- oder Sekundärliteratur), der die in der Lektion angesprochenen Themen mit neuen Gesichtspunkten ergänzt, vertieft oder weiterführt. <br>
 		Den Texten sind Bearbeitungsaufgaben und Fragen beigefügt (<a href="{{ url('hgf/T') }}">Hinweise zur Bearbeitung der Texte</a>).<br>
-		In den wöchentlichen Veranstaltungen (Mentoriate) besteht die Gelegenheit, die Inhalte zu reflektieren, Verknüpfungen zwischen Lektion und Text herzustellen sowie Abweichungen, Widersprüche und eigene Erfahrungen zu diskutieren.<br> 
+		In den wöchentlichen Veranstaltungen (Mentoriate) besteht die Gelegenheit, die Inhalte zu reflektieren, Verknüpfungen zwischen Lektion und Text herzustellen sowie Abweichungen, Widersprüche und eigene Erfahrungen zu diskutieren.<br>
 		Allgemeine und weiterführende Literaturhinweise zu den vier großen Themenblöcken der Vorlesung bieten die Möglichkeiten, sich über die Veranstaltung hinaus mit den darin angesprochenen Fragen auseinanderzusetzen.
 		</p>
 	  </div>
@@ -78,12 +78,12 @@
 	<div id="collapseFour" class="panel-collapse collapse">
 	  <div class="panel-body">
 	  <p>
-		Die Modul 1-Veranstaltung wird in der Prüfungswoche mit einer 90minütigen schriftlichen Klausur abgeschlossen, die aus drei gleichwertigen Teilen besteht: Allgemeine und Historische Erziehungswissenschaft, Schulpädagogik, Psychologie.<br> 
+		Die Modul 1-Veranstaltung wird in der Prüfungswoche mit einer 90minütigen schriftlichen Klausur abgeschlossen, die aus drei gleichwertigen Teilen besteht: Allgemeine und Historische Erziehungswissenschaft, Schulpädagogik, Psychologie.<br>
 		Der Teil der Allgemeinen und Historischen Erziehungswissenschaft setzt sich aus Single Choice- und Multiple Choice-Aufgaben zusammen. Die Klausurmodalitäten werden rechtzeitig in einer Vorlesung (siehe Präsenzveranstaltungen) besprochen.<br>
 		Insgesamt sind in der Klausur (die drei Prüfungsteile werden zusammengerechnet) 300 Punkte zu erreichen. Ab einer Gesamtpunktzahl von 150 gilt die Prüfung als bestanden. Über die Ergebnisse der Klausur informiert das Prüfungsamt.<br>
 		Die Klausureinsicht ist anschließend nach Absprache mit dem zuständigen Dozenten möglich. Für Einsicht in den Prüfungsteil der Allgemeinen und Historischen Erziehungswissenschaft wenden Sie sich bitte an <a href="http://www.ph-karlsruhe.de/institute/ph/ew/personen/albert-berger/" target="_blank">Dr. Albert Berger</a>.<br>
 		Weitere allgemeine Informationen zur Akademischen Vorprüfung finden Sie auf der Website des <a href="http://www.ph-karlsruhe.de/studium-lehre/studien-service-zentrum/pruefungsaemter/">Prüfungsamts</a>.
-	  </p>  	  
+	  </p>
 		<!-- <div class="alert alert-info">Die Klausur wird am Freitag, den 14.2.2014 von 18:00 bis 20:00 Uhr im <a class="alert-link" href="http://www.kit.edu/" target="_blank">KIT</a> stattfinden.</div> -->
 	  </div>
 	</div>
@@ -94,6 +94,6 @@
 
 {{-- Download-Controller ausführen --}}
 
-<a class="btn btn-primary btn-block" href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine')) }}" onclick="javascript:_paq.push(['trackEvent', 'Informationsdokument', 'Downloaded', 'Allgemeine Informationen und Termine' ]); ga('send','event','Download','click','Allgemeine Informationen und Termine')">Allgemeine Informationen und Termine <span class="glyphicon glyphicon-file"></span></a>
+<a class="btn btn-primary btn-block" href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine')) }}" onclick="javascript:_paq.push(['trackEvent', 'Informationsdokument', 'Downloaded', 'Allgemeine Informationen und Termine' ]); ga('send','event','Download','click','Allgemeine Informationen und Termine')" data-no-turbolink>Allgemeine Informationen und Termine <span class="glyphicon glyphicon-file"></span></a>
 
 </section>

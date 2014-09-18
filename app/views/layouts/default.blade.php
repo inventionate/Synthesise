@@ -27,6 +27,9 @@
 		{{-- Spezifische Animationsoptionen --}}
 		<script src="{{ Asset::rev('js/analytics.js') }}"></script>
 
+		{{-- FLOWPLAYER INTERACTIVE VIDEOS --}}
+		<script src="{{ Asset::rev('js/interactive-videos.js') }}"></script>
+
 		{{-- TURBOLINKS SCRIPT ---------------------------------------------------}}
 		<script src="{{ Asset::rev('js/turbolinks.js') }}"></script>
 
