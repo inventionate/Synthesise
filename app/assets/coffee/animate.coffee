@@ -19,6 +19,8 @@ $(document).on 'page:change', ->
   $('.animate-shake').addClass('animated shake')
   # Übergangsanimationen zwischen Seiten
   $('.change-fade').addClass('animated fadeIn')
+  $('.change-fade-in').addClass('animated fadeIn')
+
 
 $(document).on 'page:fetch', ->
   # Animation der Login Seite
@@ -26,8 +28,10 @@ $(document).on 'page:fetch', ->
   $('.animate-shake').addClass('animated shake')
   # Übergangsanimationen zwischen Seiten
   $('.change-fade').addClass('animated fadeOut')
+  $('.change-fade-out').addClass('animated fadeOut')
 
 $(document).ready ->
+  # Die active Klasse der Navbar korrekt setzen.
   $('nav.navbar.navbar-default li').click ->
     $('nav.navbar.navbar-default li').removeClass('active')
     $(this).addClass('active')

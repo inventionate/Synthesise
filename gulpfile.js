@@ -44,12 +44,10 @@ var paths = {
 
   bower: {
     // TODO: Automatisch laden
-    addToHomescreen: 'bower_components/add-to-homescreen',
     animate: 'bower_components/animate.css',
     bootstrap: 'bower_components/bootstrap',
     flowplayer: 'bower_components/flowplayer',
     html5boilerplate: 'bower_components/html5-boilerplate',
-    iframeResizer: 'bower_components/iframe-resizer',
     jquery: 'bower_components/jquery',
     modernizr: 'bower_components/modernizr',
     respond: 'bower_components/respond',
@@ -92,6 +90,7 @@ var libs = [
   // @todo Überlegen welche JS Module gelöscht werden können
   paths.bower.bootstrap + '/dist/js/bootstrap.js',
   // jQuery Plugins
+  paths.bower.flowplayer + '/flowplayer.js',
   paths.bower.jqueryTypewatch + '/jquery.typewatch.js',
   // paths.bower.spinjs + '/jquery.spin.js'
   ];
@@ -114,22 +113,6 @@ gulp.task('js:turbolinks', function()
     .pipe(gulp.dest(paths.app.build + '/js'));
 });
 
-gulp.task('js:iframeResizer', function()
-{
-  return gulp.src(paths.bower.iframeResizer + '/src/iframeResizer.js')
-    .pipe(newer(paths.app.build + '/js'))
-    .pipe(uglify())
-    .pipe(gulp.dest(paths.app.build + '/js'));
-});
-
-gulp.task('js:addToHomescreen', function()
-{
-  return gulp.src(paths.bower.addToHomescreen + '/src/addtohomescreen.js')
-    .pipe(newer(paths.public + '/js'))
-    .pipe(uglify())
-    .pipe(gulp.dest(paths.app.build + '/js'));
-});
-
 gulp.task('coffee:build', function()
 {
   return gulp.src(paths.app.assets + '/coffee/*.coffee')
@@ -147,7 +130,8 @@ gulp.task('coffee:build', function()
 gulp.task('less:build', function () {
   return gulp.src([
     paths.app.assets + '/less/application.less',
-    paths.bower.animate + '/animate.css'])
+    paths.bower.animate + '/animate.css',
+    paths.bower.flowplayer + '/skin/minimalist.css'])
     .pipe(newer(paths.app.build + '/js/application.less'))
     .pipe(concat('application.less'))
     .pipe(less({
@@ -157,7 +141,7 @@ gulp.task('less:build', function () {
       ]}))
     .pipe(prefix())
     .pipe(fingerprint(manifest, {prefix: '../'}))
-    .pipe(minifycss())
+    .pipe(minifycss({keepSpecialComments:0}))
     .pipe(gulp.dest(paths.app.build + '/css'));
 });
 
@@ -165,10 +149,20 @@ gulp.task('less:build', function () {
 // FONT Tasks
 //////////////////////////////////////////////////
 
-gulp.task('fonts:publish', ['publish:assets'], function () {
+gulp.task('publish:fonts', ['publish:assets','publish:flash'], function () {
   return gulp.src(paths.bower.bootstrap + '/dist/fonts/*.*')
     .pipe(newer(paths.public + '/fonts'))
     .pipe(gulp.dest(paths.public + '/fonts'));
+});
+
+//////////////////////////////////////////////////
+// COPY Tasks
+//////////////////////////////////////////////////
+
+gulp.task('publish:flash', function () {
+  return gulp.src(paths.bower.flowplayer + '/flowplayer.swf')
+    .pipe(newer(paths.public + '/flash'))
+    .pipe(gulp.dest(paths.public + '/flash'));
 });
 
 //////////////////////////////////////////////////
@@ -176,7 +170,9 @@ gulp.task('fonts:publish', ['publish:assets'], function () {
 //////////////////////////////////////////////////
 
 gulp.task('img:build', function () {
-  return gulp.src(paths.app.assets + '/img/*.*')
+  return gulp.src([
+    paths.app.assets + '/img/*.*',
+    paths.bower.flowplayer +'/skin/img/*.png'])
     .pipe(newer(paths.app.build + '/img'))
     .pipe(gulp.dest(paths.app.build + '/img'));
 });
@@ -187,8 +183,6 @@ gulp.task('img:build', function () {
 
 gulp.task('build:assets', ['js:vendor',
                            'js:turbolinks',
-                           'js:iframeResizer',
-                           'js:addToHomescreen',
                            'coffee:build',
                            'less:build',
                            'img:build'
@@ -207,7 +201,7 @@ gulp.task('publish:assets', ['clean:public','build:assets'], function ()
     .pipe(gulp.dest(paths.app.assets));
 });
 
-gulp.task('publish', ['fonts:publish']);
+gulp.task('publish', ['publish:fonts']);
 
 //////////////////////////////////////////////////
 // CLEAN Tasks

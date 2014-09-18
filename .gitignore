@@ -9,5 +9,11 @@ composer.lock
 .DS_Store
 Thumbs.db
 /public/video
+/public/css
+/public/img
+/public/js
+/public/fonts
+/public/flash
 /app/assets/build
+/doc
 secret.json

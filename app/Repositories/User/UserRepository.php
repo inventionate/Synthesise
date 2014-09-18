@@ -76,6 +76,7 @@ class UserRepository implements UserInterface
   */
   public function getEmail()
   {
+    // @todo Verallgemeinern und ein E-Mail Feld in die Datenbank aufnahemen. Bis dahin ist der pure "ka"-Modus OK.
     return strtolower(str_replace('ka', '', Auth::user()->username)) . '@ph-karlsruhe.de';
   }
 

@@ -18,8 +18,3 @@ coverage:
         - app/lang/*
         - app/start/*
         - app/storage/*
-modules:
-    config:
-        Db:
-            dsn: 'sqlite:memory'
-            dump: tests/_data/dump.sqlite

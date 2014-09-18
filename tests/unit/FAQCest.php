@@ -1,8 +1,7 @@
 <?php
 use \UnitTester;
 
-class FaqCest
-{
+class FaqCest {
 
   /**
    * Testet, ob ein FAQ Objekt generiert werden kann.

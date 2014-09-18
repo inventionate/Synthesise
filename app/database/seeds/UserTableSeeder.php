@@ -11,16 +11,6 @@ class UserTableSeeder extends Seeder {
 
 		User::create(array(
 			'id' => 1,
-			'username' => 'Zelda',
-			'password' => Hash::make('Hyrule'),
-			'firstname' => 'Test',
-			'lastname' => 'User',
-			'role' => 'Student',
-			'permissions' => 'all'
-		));
-
-		User::create(array(
-			'id' => 2,
 			'username' => 'hoyerka',
 			'password' => Hash::make('etpM'),
 			'firstname' => 'Timo',
@@ -29,7 +19,7 @@ class UserTableSeeder extends Seeder {
 		));
 
 		User::create(array(
-			'id' => 3,
+			'id' => 2,
 			'username' => 'mundtka',
 			'password' => Hash::make('etpM'),
 			'firstname' => 'Fabian',
@@ -38,7 +28,7 @@ class UserTableSeeder extends Seeder {
 		));
 
 		User::create(array(
-			'id' => 4,
+			'id' => 3,
 			'username' => 'weigandka',
 			'password' => Hash::make('etpM'),
 			'firstname' => 'Gabriele',
@@ -47,7 +37,7 @@ class UserTableSeeder extends Seeder {
 		));
 
 		User::create(array(
-			'id' => 5,
+			'id' => 4,
 			'username' => 'hartmannka',
 			'password' => Hash::make('etpM'),
 			'firstname' => 'Mutfried',
@@ -56,7 +46,7 @@ class UserTableSeeder extends Seeder {
 		));
 
 		User::create(array(
-			'id' => 6,
+			'id' => 5,
 			'username' => 'bolleka',
 			'password' => Hash::make('etpM'),
 			'firstname' => 'Rainer',

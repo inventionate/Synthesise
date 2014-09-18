@@ -2,8 +2,6 @@
 
 @section('title')
 <title>EW M1</title>
-{{-- //NOTE iOS Info CSS laden --}}
-<!-- <link rel="stylesheet" href="{{ asset('css/add2home.css') }}"> -->
 @stop
 
 @section('content')
@@ -47,31 +45,4 @@
 		{{ Form::submit('Anmelden', array('id' => 'btn-login','class' => 'btn btn-primary btn-lg', 'role' => 'button')) }}
 	{{ Form::close() }}
 </section>
-@stop
-
-@section('scripts')
-
-  @parent
-
-	<!-- @if( (Agent::isMobile() || Agent::isTablet()) && (Request::is('login')) )
-		{{-- Bookmark bubble laden inkl. Hash-Trick--}}
-		<script type="text/javascript">
-			var addToHomeConfig = {
-				autostart: false,
-				touchIcon: true,
-				startDelay: 500
-			};
-		</script>
-
-		<script type="text/javascript" src="{{ asset('js/add2home.min.js') }}"></script>
-
-		<script type="text/javascript">
-			function loaded () {
-				if ( window.location.hash.match('ATHS') ) return;
-					addToHome.show();
-					window.location.hash = '#ATHS';
-			}
-			window.addEventListener('load', loaded, false);
-		</script>
-	@endif -->
 @stop

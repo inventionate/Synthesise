@@ -20,6 +20,18 @@ class DatabaseSeeder extends Seeder {
 		$this->call('FaqTableSeeder');
 		$this->command->info('FAQ table seeded!');
 
+		$this->call('CuepointTableSeeder');
+		$this->command->info('Cuepoint table seeded!');
+
+		$this->call('NoteTableSeeder');
+		$this->command->info('Note table seeded!');
+
+		$this->call('VideoTableSeeder');
+		$this->command->info('Video table seeded!');
+
+		$this->call('PaperTableSeeder');
+		$this->command->info('Paper table seeded!');
+
 	}
 
 }

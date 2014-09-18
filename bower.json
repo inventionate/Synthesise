@@ -4,12 +4,10 @@
   "dependencies": {
     "jquery": ">=2.1.0",
     "modernizr": "latest",
-    "add-to-homescreen": "git://github.com/cubiq/add-to-homescreen.git#~3.0.7",
     "respond": ">=1.4.0",
     "bootstrap": ">=3.2.0",
     "html5-boilerplate": ">=4.3.0",
     "flowplayer": "http://releases.flowplayer.org/5.5.0/commercial/flowplayer.commercial-5.5.0.zip",
-    "iframe-resizer": ">=2.5.2",
     "animate.css": "git://github.com/daneden/animate.css.git#~3.2.0",
     "jquery-typewatch": "*",
     "spin.js": "~2.0.1"

@@ -22,10 +22,6 @@
 		{{-- APPLICATION JS ------------------------------------------------------}}
 		<script src="{{ Asset::rev('js/application.js') }}" data-turbolinks-track></script>
 
-		{{-- @section SCRIPTS ----------------------------------------------------}}
-		@section('scripts')
-		@show
-
 		{{-- @todo Diese Skripte in die globale JS Datei aufnehmen --}}
 		<script src="{{ Asset::rev('js/animate.js') }}"></script>
 		{{-- Spezifische Animationsoptionen --}}
@@ -33,6 +29,12 @@
 
 		{{-- TURBOLINKS SCRIPT ---------------------------------------------------}}
 		<script src="{{ Asset::rev('js/turbolinks.js') }}"></script>
+
+		{{-- @include ANALYTICS --------------------------------------------------}}
+		{{-- @todo dem Problem nachgehen, dass Piwik mehrfach geladen wird.
+			Wo soll es sinnvoll eingebunden werden? HEAD oder BODY, wegen dem mehrfachen
+			laden von piwik.js? Vor oder nach turbolinks.js?  --}}
+		@include('layouts.partials.analytics')
 
 	</head>
 
@@ -62,8 +64,11 @@
 		{{-- @include FOOTER -----------------------------------------------------}}
 			@include('layouts.partials.footer')
 
-		{{-- @include ANALYTICS -------------------------------------------------}}
-		@include('layouts.partials.analytics')
+		{{-- @section SCRIPTS ----------------------------------------------------}}
+		{{-- @todo Alle seitenspezifische Skripts auslagern in eigene CoffeeScript
+			Dateien, die dann ggf. zu einer großen Datei zusammengefügt werden. --}}
+		@section('scripts')
+		@show
 	</body>
 
 </html>

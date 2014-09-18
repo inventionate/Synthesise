@@ -3,9 +3,9 @@
 class AuthController extends \BaseController {
 
 	/**
-	 * Laden des Login-Views
+	 * Loginformular anzeigen.
 	 *
-	 * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+	 * @return auth.login View.
 	 */
 	public function index() {
 			return View::make('auth.login');
@@ -14,7 +14,8 @@ class AuthController extends \BaseController {
 	/**
 	 * Loginlogik
 	 * Validieren der Daten, LDAP Server checken und schließlich auf das Dashboard weiterleiten
-	 * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+	 *
+	 * @return Rederict Entweder zur home Route oder zurück zur Login Route.
 	 */
 	public function login()
 	{
@@ -68,7 +69,7 @@ class AuthController extends \BaseController {
 	/**
 	 * Abmelden
 	 *
-	 * @author Fabian Mundt <f.mundt@ph-karlsruhe.de>
+	 * @return Rederict Zur home Route (nanch der Abmeldung).
 	 */
 	public function logout()
 	{

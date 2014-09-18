@@ -20,7 +20,7 @@ class TestCommons
 	*/
 	public static function dbSeed()
 	{
-		Artisan::call('db:seed');
+		Artisan::call('db:seed', ['--class' => 'TestDatabaseSeeder']);
 	}
 
 	/**

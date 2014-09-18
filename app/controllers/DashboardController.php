@@ -1,7 +1,13 @@
 <?php
 
-class DashboardController extends BaseController {
+class DashboardController extends \BaseController {
 
+	/**
+	 * Dashboard anzeigen.
+	 * GET /dashboard
+	 *
+	 * @return    View
+	 */
 	public function index()
 	{
 		if(Video::getCurrentVideo() != false) {
@@ -27,7 +33,7 @@ class DashboardController extends BaseController {
 
 		$username = User::getUsername();
 
-		return View::make('dashboard.index')
+		return View::make('dashboard.home')
 									->with('available',$available)
 									->with('papers',$papers)
 									->with('role',$role)

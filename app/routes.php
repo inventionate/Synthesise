@@ -29,7 +29,7 @@ if (App::environment() === 'production')
 	App::error(function(Illuminate\Session\TokenMismatchException $exception)
 	{
 		Log::error($exception);
-		return View::make('TokenMismatch');
+		return View::make('errors.tokenmismatch');
 	});
 }
 
@@ -142,15 +142,15 @@ Route::group(array('before' => 'auth'), function()
 		'uses' => 'FaqController@index'
 	));
 
-	// FEEDBACK ------------------------------------------------------
+	// KONTAKT ------------------------------------------------------
 	Route::get('kontakt', array(
 		'as' => 'kontakt',
-		'uses' => 'FeedbackController@index'
+		'uses' => 'ContactController@index'
 	));
 
 	Route::post('kontakt/{send}', array(
 		'before' => 'csrf',
-		'uses' => 'FeedbackController@send'
+		'uses' => 'ContactController@send'
 	));
 
 });

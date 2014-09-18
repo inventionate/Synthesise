@@ -1,8 +1,7 @@
 <?php
 use \IntegrationTester;
 
-class FaqRepositoryCest
-{
+class FaqRepositoryCest {
     protected $dummyFaq;
 
     /**
