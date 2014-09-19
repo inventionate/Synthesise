@@ -2,6 +2,12 @@
 use \IntegrationTester;
 
 class FaqRepositoryCest {
+
+    /**
+     * Eine fiktive Beispielfaq.
+     *
+     * @var     array
+     */
     protected $dummyFaq;
 
     /**

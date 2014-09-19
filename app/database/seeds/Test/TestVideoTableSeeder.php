@@ -10,7 +10,7 @@ class TestVideoTableSeeder extends Seeder {
 		DB::table('videos')->delete();
 
 		Video::create(array(
-			'id' => 99,
+			'id' => 1,
 			'videoname' => 'Sozialgeschichte 1',
 			'section' => 'Sozialgeschichte der Menschheit',
 			'author' => 'Will Turner',

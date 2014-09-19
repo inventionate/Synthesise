@@ -30,7 +30,7 @@
 </section>
 @stop
 
-<!-- @section('scripts') -->
+
 {{-- @todo Dieses Skript in den body Bereich verschieben, da es nur einmal geladen werden soll auf dieser Seite -> überprüfen! --}}
 {{-- Da einmaliges Ausführen genügt, ist es sinnvoll diesen Piwik Code im HAED zu lassen. --}}
 {{-- @todo Beim Implementieren des TRACKING SYSTEM testen und entscheiden. --}}

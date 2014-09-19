@@ -17,30 +17,30 @@ class DashboardCest {
   }
 
   public function seeDashboardPartials(FunctionalTester $I)
-	{
-	  $I->am('Student');
-	  $I->wantTo('see dashboard partials');
+  {
+    $I->am('Student');
+    $I->wantTo('see dashboard partials');
 
     $I->loggedInAsStudent($I);
 
-		$I->amOnPage('/dashboard');
-		$I->see('Aktuelle online-Lektion','h2');
-		$I->see('Allgemeine Informationen','h2');
-		$I->see('Ablaufplan','h2');
-	}
+    $I->amOnPage('/dashboard');
+    $I->see('Aktuelle online-Lektion','h2');
+    $I->see('Allgemeine Informationen','h2');
+    $I->see('Ablaufplan','h2');
+  }
 
-	/**
-	 * @group Student
-	 */
+  /**
+   * @group Student
+   */
   public function seeStudentDashboard(FunctionalTester $I)
   {
-	  $I->am('Student');
-	  $I->wantTo('see student dashboard');
+    $I->am('Student');
+    $I->wantTo('see student dashboard');
 
     $I->loggedInAsStudent($I);
 
-		$I->amOnPage('/dashboard');
-		$I->see('Dashboard','h1');
+    $I->amOnPage('/dashboard');
+    $I->see('Dashboard','h1');
     $I->dontsee('Sie haben erweiterte Benutzerrechte und können die online-Lektionen bereits früher verwenden.','div');
   }
 
@@ -83,10 +83,10 @@ class DashboardCest {
     $I->loggedInAsTeacher($I);
 
     $I->amOnPage('/dashboard');
-		$I->see('Ablaufplan','h2');
-		$I->see('Themenbereich','th');
-		$I->see('online-Lektion','th');
-		$I->see('Studierendenzugang','th');
-		$I->see('Literatur & Notizen','th');
+    $I->see('Ablaufplan','h2');
+    $I->see('Themenbereich','th');
+    $I->see('online-Lektion','th');
+    $I->see('Studierendenzugang','th');
+    $I->see('Literatur & Notizen','th');
   }
 }

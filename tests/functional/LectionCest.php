@@ -92,15 +92,6 @@ class LectionCest {
 		$I->see('title="Sozialgeschichte 1"');
 	}
 
-	public function generateFlagnamesPdfButton(FunctionalTester $I)
-	{
-		$I->am('Student');
-		$I->wantTo('click flags pdf button');
-
-		$I->amOnPage('/online-lektionen/Sozialgeschichte%201');
-		$I->see('Fähnchen herunterladen ');
-	}
-
 	public function generateTextDownloadButton(FunctionalTester $I)
 	{
 		$I->am('Student');

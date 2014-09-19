@@ -3,8 +3,10 @@
 /*
 * Zugangsdaten für die Datenbank laden.
 */
-$secret = json_decode(file_get_contents(__DIR__.'/../../secret_db.json' ), TRUE);
-
+if (file_exists($secretDb = __DIR__.'/../../secret_db.json'))
+{
+	$secret = json_decode(file_get_contents($secretDb), TRUE);
+}
 
 return array(
 
