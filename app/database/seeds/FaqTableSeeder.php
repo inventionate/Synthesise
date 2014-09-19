@@ -215,8 +215,8 @@ class FaqTableSeeder extends Seeder {
 		Faq::create(array(
 			'area' => 'P',
 			'subject' => 'Passwortverlust',
-			'question' => 'Was passiert, wenn ich die Passwörter verliere?',
-			'answer' => 'Bei Verlust des persönlichen Passwortes wenden Sie sich bitte über <a href="http://home.ph-karlsruhe.de/etpM/kontakt">Kontakt-Formular</a> an Fabian Mundt.'
+			'question' => 'Was passiert, wenn ich mich nicht an mein Passwort erinnern kann?',
+			'answer' => 'Bei Verlust des persönlichen Passwortes wenden Sie sich bitte an das ZIM. Die Web-App verwendet Ihre LSF-Zugangsdaten.'
 		));
 
 		Faq::create(array(

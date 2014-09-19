@@ -38,6 +38,12 @@ $(document).ready ->
   $('nav.navbar.navbar-default li').click ->
     $('nav.navbar.navbar-default li').removeClass('active')
     $(this).addClass('active')
-  # @todo Event immer beim Senden der Login Daten ausgeführen.
+  # Das Ausloggen sichtbar machen.
   $('#btn-logout').click ->
     $(this).attr("disabled", "disabled").append('…')
+  # Das Faden auf der FAQ Seite kontrollieren
+  $('a:not(.bounded)').addClass('bounded')
+  .on('click', ->
+    if( ! $(this).hasClass('link-letter') )
+    #if( $(this:not(.link-letter)) )
+      $('#main-content-hgf').addClass('change-fade-out'))

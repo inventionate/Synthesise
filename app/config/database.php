@@ -1,5 +1,11 @@
 <?php
 
+/*
+* Zugangsdaten für die Datenbank laden.
+*/
+$secret = json_decode(file_get_contents(__DIR__.'/../../secret_db.json' ), TRUE);
+
+
 return array(
 
 	/*
@@ -48,16 +54,16 @@ return array(
 
 		'sqlite' => array(
 			'driver'   => 'sqlite',
-			'database' => __DIR__.'/../database/development.sqlite',
+			'database' => __DIR__.'/../database/production.sqlite',
 			'prefix'   => '',
 		),
 
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 's3_database',
-			'username'  => 'root',
-			'password'  => 'mysql',
+			'database'  => $secret['name'],
+			'username'  => $secret['username'],
+			'password'  => $secret['password'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

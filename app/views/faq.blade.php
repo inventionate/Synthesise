@@ -15,12 +15,12 @@
   <p>Bitte wählen Sie einen Fragebereich aus. Sollte sich Ihre Frage nach der Lektüre der hier aufgelisteten Antworten nicht geklärt haben, <a href="{{ url('kontakt') }}">wenden Sie sich bitte direkt an uns</a>. Wir versuchen den »Häufig gestellte Fragen« Katalog ständig zu erweitern und freuen und über Ihre Anregungen und Mitarbeit.</p>
 
   <div class="text-center hidden-print">
-  <ul class="pagination">
-    {{-- @todo Inline PHP Code in Controller auslagern. --}}
-    @for($i = 0; $i < strlen($letters); $i++ )
-      <li class="@if ($letter === substr($letters,$i,1) ) active @endif"><a class="link-letter" href="{{ url('/hgf/' . substr($letters,$i,1)) }}">{{ substr($letters,$i,1) }}</a></li>
-    @endfor
-  </ul>
+    <ul class="pagination">
+      {{-- @todo Inline PHP Code in Controller auslagern. --}}
+      @for($i = 0; $i < strlen($letters); $i++ )
+        <li class="@if ($letter === substr($letters,$i,1) ) active @endif"><a class="link-letter" href="{{ url('/hgf/' . substr($letters,$i,1)) }}">{{ substr($letters,$i,1) }}</a></li>
+      @endfor
+    </ul>
   </div>
 
   <div class="panel-group @if( Request::segment(1) === 'hgf') change-fade @endif" id="accordion">
@@ -29,23 +29,23 @@
       <div class="panel-heading">
         <h4 class="panel-title">
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="{{'#'.$answers->id}}">
-        {{ $answers->subject }}
-      </a>
-      </h4>
-       </div>
-     <div id="{{$answers->id}}" class="panel-collapse collapse">
-       <div class="panel-body">
-         <h5>{{ $answers->question }}</h5>
-         <p>{{ $answers->answer }}</p>
-       </div>
-       </div>
+            {{ $answers->subject }}
+          </a>
+        </h4>
+      </div>
+      <div id="{{$answers->id}}" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h5>{{ $answers->question }}</h5>
+          <p>{{ $answers->answer }}</p>
+        </div>
+      </div>
     </div>
   @endforeach
   </div>
 </section>
 @stop
 
-@section('scripts')
+<!-- @section('scripts')
 {{-- Das Faden der gesamten Seite aktivieren.
 
 wenn auf irgendeinen Link geklickt wird außer auf die Subnav
@@ -66,4 +66,4 @@ $(document).ready(function()
   });
 });
 </script>
-@stop
+@stop -->

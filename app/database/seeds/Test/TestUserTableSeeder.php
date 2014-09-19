@@ -29,5 +29,15 @@ class TestUserTableSeeder extends Seeder {
 			'permissions' => 'all'
 		));
 
+		User::create(array(
+			'id' => 3,
+			'username' => 'adminka',
+			'password' => Hash::make('Link'),
+			'firstname' => 'Test',
+			'lastname' => 'Admin',
+			'role' => 'Admin',
+			'permissions' => 'all'
+		));
+
 	}
 }
