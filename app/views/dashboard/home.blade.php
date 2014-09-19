@@ -30,19 +30,18 @@
 </section>
 @stop
 
-@section('scripts')
+<!-- @section('scripts') -->
 {{-- @todo Dieses Skript in den body Bereich verschieben, da es nur einmal geladen werden soll auf dieser Seite -> überprüfen! --}}
 {{-- Da einmaliges Ausführen genügt, ist es sinnvoll diesen Piwik Code im HAED zu lassen. --}}
 {{-- @todo Beim Implementieren des TRACKING SYSTEM testen und entscheiden. --}}
 {{-- Piwik Benutzerdefinierte Variablen definieren um den Status abzufragen --}}
-<script type="text/javascript">
-var _paq = _paq || [];
-@if($role === 'Teacher')
-	_paq.push(["setCustomVariable", 2, "Status", "MentorIn", "visit"]);
-	_paq.push(["setCustomVariable", 3, "Status", "DozentIn", "visit"]);
-@else
-	_paq.push(["setCustomVariable", 1, "Status", "StudentIn", "visit"]);
-@endif
-</script>
-<noscript><p><img src="http://home.ph-karlsruhe.de/etpM/analytics/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-@stop
+<!-- <script type="text/javascript">
+// var _paq = _paq || [];
+// @if($role === 'Teacher')
+// _paq.push(["setCustomVariable", 2, "Status", "MentorIn", "visit"]);
+// _paq.push(["setCustomVariable", 3, "Status", "DozentIn", "visit"]);
+// @else
+// _paq.push(["setCustomVariable", 1, "Status", "StudentIn", "visit"]);
+// @endif
+</script>-->
+<!-- <noscript><p><img src="http://home.ph-karlsruhe.de/etpM/analytics/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript> -->

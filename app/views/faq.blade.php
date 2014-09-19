@@ -44,26 +44,3 @@
   </div>
 </section>
 @stop
-
-<!-- @section('scripts')
-{{-- Das Faden der gesamten Seite aktivieren.
-
-wenn auf irgendeinen Link geklickt wird außer auf die Subnav
-soll der gesamte Seiteninhalt weg faden.
-
-document ready click a außer wenn a in der subnav ist
-  füge die "animated fadeOut" klasse dem gesamten inhalt hinzu --}}
-<script type="text/javascript">
-
-$(document).ready(function()
-{
-  $('a').click(function()
-  {
-    if ( ! $(this).hasClass('link-letter') )
-    {
-      $('#main-content-hgf').addClass('change-fade-out');
-    }
-  });
-});
-</script>
-@stop -->

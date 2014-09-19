@@ -22,13 +22,6 @@
 		{{-- APPLICATION JS ------------------------------------------------------}}
 		<script src="{{ Asset::rev('js/application.js') }}" data-turbolinks-track></script>
 
-		{{-- @include ANALYTICS --------------------------------------------------}}
-		{{-- @todo dem Problem nachgehen, dass Piwik mehrfach geladen wird.
-			Wo soll es sinnvoll eingebunden werden? HEAD oder BODY, wegen dem mehrfachen
-			laden von piwik.js? Vor oder nach turbolinks.js?  --}}
-		{{-- HIERBEI HANDELT ES SICH UM DEN NORMALEN PIWIK CODE --}}
-		@include('layouts.partials.analytics')
-
 	</head>
 
 	{{--------------------------------------------------------------------------}}
@@ -38,16 +31,20 @@
 
 		{{-- BROWSEHAPPY INFO ----------------------------------------------------}}
 		<!--[if lt IE 9]>
-			<p class="alert alert-danger browsehappy">Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
+			<p class="alert alert-danger browsehappy text-center @if( Request::is('login') ) alert-login @endif" data-no-turbolink>Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
 		<![endif]-->
 
-		{{-- JAVASCRIPT INFO -----------------------------------------------------}}
-		<div class="alert alert-danger alert-js">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
 		{{-- @include NAVIGATION -------------------------------------------------}}
 		@if ( Auth::check() )
 			@include('layouts.partials.nav')
 		@endif
+
+		{{-- JAVASCRIPT INFO -----------------------------------------------------}}
+		<div class="alert alert-danger alert-js text-center @if( Request::is('login') ) alert-login @endif" data-no-turbolink>Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
+
+		{{-- BETA INFO -----------------------------------------------------------}}
+		<div class="alert alert-warning text-center @if( Request::is('login') ) alert-login @endif" data-no-turbolink>Sie nutzen eine <b>Beta Version</b> der »Synthesise« Web-App. Bitte verwenden Sie unseren <a class="alert-link" href="https://bitbucket.org/Inventionate/synthesise/issues/new" target="_blank">Issue Tracker</a> um uns Probleme mitzuteilen. Vielen Dank für Ihre Hilfe!</div>
 
 		{{-- @yield MAIN CONTENT -------------------------------------------------}}
 		@yield('content')
@@ -57,9 +54,8 @@
 		{{-- @include FOOTER -----------------------------------------------------}}
 			@include('layouts.partials.footer')
 
-		{{-- @section SCRIPTS ----------------------------------------------------}}
-		@section('scripts')
-		@show
+		{{-- @include ANALYTICS --------------------------------------------------}}
+		@include('layouts.partials.analytics')
 	</body>
 
 </html>

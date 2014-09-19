@@ -1,4 +1,5 @@
 # Turbolinks Events
+# https://github.com/rails/turbolinks
 # ----------------------------------------------------------------------------
 # page:before-change Sobald ein Link geklickt wurde.
 # page:fetch Eine neue Seite wird via PJAX abgerufen.
@@ -15,6 +16,7 @@
 #
 # jQuery Turbolink Info
 # Führt das ready Event aus sobald Turbolinks page:load ausgeführt wurde.
+# Anscheinend dürfen die Turbolink Events nur einmal ausgeführt werden.
 
 $(document).on 'page:change', ->
   # Animation der Login Seite
@@ -23,27 +25,16 @@ $(document).on 'page:change', ->
   # Übergangsanimationen zwischen Seiten
   $('.change-fade').addClass('animated fadeIn')
   $('.change-fade-in').addClass('animated fadeIn')
-
+  # Piwik Turbolinks
+  if window._paq?
+    _paq.push ['trackPageview']
+  else if window.piwikTracker?
+    piwikTracker.trackPageview()
 
 $(document).on 'page:fetch', ->
   # Animation der Login Seite
   $('.animate-zoom-in').addClass('animated zoomIn')
   $('.animate-shake').addClass('animated shake')
   # Übergangsanimationen zwischen Seiten
-  $('.change-fade').addClass('animated fadeOut')
+  $('.change-fade:not(alert)').addClass('animated fadeOut')
   $('.change-fade-out').addClass('animated fadeOut')
-
-$(document).ready ->
-  # Die active Klasse der Navbar korrekt setzen.
-  $('nav.navbar.navbar-default li').click ->
-    $('nav.navbar.navbar-default li').removeClass('active')
-    $(this).addClass('active')
-  # Das Ausloggen sichtbar machen.
-  $('#btn-logout').click ->
-    $(this).attr("disabled", "disabled").append('…')
-  # Das Faden auf der FAQ Seite kontrollieren
-  $('a:not(.bounded)').addClass('bounded')
-  .on('click', ->
-    if( ! $(this).hasClass('link-letter') )
-    #if( $(this:not(.link-letter)) )
-      $('#main-content-hgf').addClass('change-fade-out'))

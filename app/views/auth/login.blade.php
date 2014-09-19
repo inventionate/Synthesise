@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<section id="main-content-{{ Request::segment(1) }}" class="change-fade">
+<section id="main-content-{{ Request::segment(1) }}">
 
 	<header class="jumbotron text-center">
 		<h1>e:t:p:M</h1>
@@ -34,6 +34,7 @@
 			</div>
 		</div>
 
+		{{-- @todo Remember me Funktion aktivieren! --}}
 		{{-- Remember me
 		<div class="checkbox">
 			<label>

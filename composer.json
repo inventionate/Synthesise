@@ -2,6 +2,7 @@
 	"name": "inventionate/synthesise",
 	"description": "Synthesise Learning System",
 	"keywords": ["learning","video playback","collaboration","lms"],
+	"type": "project",
 	"authors": [
 		{
 			"name": "Fabian Mundt",
