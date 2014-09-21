@@ -1,13 +1,6 @@
 # TURBOLINKS SETTING -------------------------------------------------
 
 $(document).ready ->
-
-  # GLOBAL SETTINGS -------------------------------------------------
-  cuepointNumber = null
-  cuepoints = null
-  cuepointClicked = null
-  notesHidden = true
-
   # URL ÜBERPRÜFEN --------------------------------------------------
   # Aktuelle URL für AJAX Requests und JS Ausfürhungen
   currentURL = document.URL
@@ -40,7 +33,7 @@ $(document).ready ->
     # In Mobilversionen nur auf dem horizontalen iPad AJAX erlauben.
     # Wenn keine Verbindung besteht warnen.
 
-    $('.fp-controls:not(.bounded)').addClass('bounded')
+    $('.fp-controls:not(.fp-controls-bounded)').addClass('fp-controls-bounded')
     .on('mouseenter touchstart', ->
       $('.fp-cuepoint').attr('data-toggle','tooltip')
       for cuepoint in cuepoints
@@ -48,7 +41,7 @@ $(document).ready ->
           title: cuepoint
     )
     # Aktiven Cuepoint definieren und Notizformular einblenden
-    $('.fp-timeline:not(.bounded)').addClass('bounded')
+    $('.fp-timeline:not(.fp-timeline-bounded)').addClass('fp-timeline-bounded')
     .on('click touchstart', '.fp-cuepoint', ->
       # Aktuelle Cuepoint Klasse abfragen
       cuepointNumber = $(this).attr('class')

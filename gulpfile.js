@@ -123,7 +123,7 @@ var jsapp = [
     paths.app.build + '/js/libs/turbolinks.js',
   ];
 
-gulp.task('js:build', ['js:vendor','js:turbolinks','coffee:build'], function() {
+gulp.task('js:build', ['coffee:build','js:vendor','js:turbolinks'], function() {
   gulp.src(jsapp)
     .pipe(newer(paths.app.build + '/js/application.js'))
     .pipe(concat('application.js'))

@@ -17,7 +17,13 @@
 # jQuery Turbolink Info
 # Führt das ready Event aus sobald Turbolinks page:load ausgeführt wurde.
 # Anscheinend dürfen die Turbolink Events nur einmal ausgeführt werden.
+# Genauso ist jedes Event immer als Single Page Event zu interpretieren!
 
+# Um die Geschwindigkeit zu erhöhen den Übergangschache aktivieren.
+# Allerdings problematisch bzgl. dynamischen Inhalten (vgl. Readme)
+# Turbolinks.enableTransitionCache()
+
+# PAGE:CHANGE EVENT - NEUE SEITE IST GERENDERT UND NEU GELADEN
 $(document).on 'page:change', ->
   # Animation der Login Seite
   $('.animate-zoom-in').addClass('animated zoomIn')
@@ -31,6 +37,7 @@ $(document).on 'page:change', ->
   else if window.piwikTracker?
     piwikTracker.trackPageview()
 
+# PAGE:FETCH EVENT - NEUE SEITE WIRD ABGERUFEN
 $(document).on 'page:fetch', ->
   # Animation der Login Seite
   $('.animate-zoom-in').addClass('animated zoomIn')
@@ -38,3 +45,16 @@ $(document).on 'page:fetch', ->
   # Übergangsanimationen zwischen Seiten
   $('.change-fade:not(alert)').addClass('animated fadeOut')
   $('.change-fade-out').addClass('animated fadeOut')
+
+# DOCUEMENT:READY = PAGE:LOAD - LETZTES EVENT DES LADEVORGANGS
+# $(document).ready ->
+  # Das teilweise Faden von Seitenteilen kontrollieren
+  # Im Blade wird change-fade-in für den exakten Request gesetzt.
+  # Danach wird ein Event an alle Links gebunden. Wenn diese die .not-fade
+  # Klasse haben, wird nicht ausgefadet. Sobald ein Link ohne die .not-fade
+  # Klasse angeklickt wird wird die Seite ausgefadet.
+  # Es sind also seitenspezifisch das Blade und ein CoffeeScript zu erstellen.
+  # jQuery Delegated Event Handling verwenden!
+$(document).on 'click', 'a, button', ->
+  if ! $(this).hasClass('fade-not')
+    $('.fade-partial').addClass('change-fade-out')

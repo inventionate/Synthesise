@@ -126,7 +126,8 @@ class LectionController extends \BaseController {
 	 */
 	public function getNotes($videoname)
 	{
-        $videoname = urldecode($videoname);
+    $videoname = urldecode($videoname);
+		
 		// Ajax Request verarbeiten
 		if(Request::ajax())
 		{
@@ -148,7 +149,8 @@ class LectionController extends \BaseController {
 	 */
 	public function postNotes($videoname)
 	{
-        $videoname = urldecode($videoname);
+    $videoname = urldecode($videoname);
+
 		if(Request::ajax())
 		{
 			// Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird

@@ -40,7 +40,7 @@
         <li @if ( Request::segment(1) === 'hgf' ) class="active" @endif ><a href="{{ url('hgf') }}">Häufig gestellte Fragen</a></li>
         <li @if ( Request::is('kontakt') ) class="active" @endif ><a href="{{ url('kontakt') }}">Kontakt</a></li>
       </ul>
-      <a href="{{ url('logout') }}" id="btn-logout" class="btn btn-primary btn-block navbar-right hidden-print" data-no-turbolink>{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} abmelden</a>
+      <a href="{{ url('logout') }}" id="btn-logout" class="btn btn-primary btn-block navbar-right hidden-print">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} abmelden</a>
     </div>
   </div>
 </nav>
