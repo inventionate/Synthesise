@@ -48,7 +48,7 @@ $(document).on 'page:fetch', ->
 
 # DOCUEMENT:READY = PAGE:LOAD - LETZTES EVENT DES LADEVORGANGS
 # $(document).ready ->
-  # Das teilweise Faden von Seitenteilen kontrollieren
+  # Das  teilweise Faden von Seitenteilen kontrollieren
   # Im Blade wird change-fade-in für den exakten Request gesetzt.
   # Danach wird ein Event an alle Links gebunden. Wenn diese die .not-fade
   # Klasse haben, wird nicht ausgefadet. Sobald ein Link ohne die .not-fade

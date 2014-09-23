@@ -5,7 +5,8 @@
 @section('title')
 @show
 {{-- Browser Favicon --}}
-<link rel="shortcut icon" href="{{asset('favicon.ico')}}">
+<link rel="icon" href="{{asset('favicon.png')}}">
+<!--[if IE]><link rel="shortcut icon" href="{{asset('favicon.ico')}}"><![endif]-->
 {{-- Apple und Android Touch Icon --}}
 <link rel="apple-touch-icon-precomposed" href="{{asset('apple-touch-icon-precomposed.png')}}">
 {{-- Windows Tile Tags --}}

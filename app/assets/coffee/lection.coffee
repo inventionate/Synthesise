@@ -1,5 +1,10 @@
 # TURBOLINKS SETTING -------------------------------------------------
 
+cuepointNumber = null
+cuepoints = null
+cuepointClicked = null
+notesHidden = true
+
 $(document).ready ->
   # URL ÜBERPRÜFEN --------------------------------------------------
   # Aktuelle URL für AJAX Requests und JS Ausfürhungen

@@ -1,4 +1,4 @@
-{
+hand{
 	"name": "inventionate/synthesise",
 	"description": "Synthesise Learning System",
 	"keywords": ["learning","video playback","collaboration","lms"],
@@ -19,7 +19,7 @@
 		"way/generators": "2.*",
 		"codeception/codeception": "2.*",
 		"codeception/aspect-mock": "*",
-		"phpdocumentor/phpdocumentor": "2.*",
+		"phpdocumentor/phpdocumentor": "2.7.0",
 		"efficiently/turbolinks": "dev-master"
 	},
 	"autoload": {

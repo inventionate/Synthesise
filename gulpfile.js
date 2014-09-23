@@ -39,7 +39,7 @@ var paths = {
 
   tests: 'tests',
 
-  public: 'public_html',
+  public: 'public',
 
   bower: {
     // @todo Automatisch laden
@@ -118,9 +118,9 @@ gulp.task('coffee:build', function() {
 // Die Reihenfolge ist sehr wichtig!
 
 var jsapp = [
-    paths.app.build + '/js/libs/vendor.js',
-    paths.app.build + '/js/coffee/*.js',
-    paths.app.build + '/js/libs/turbolinks.js',
+    paths.app.build + '/js/libs/*',
+    paths.app.build + '/js/coffee/*',
+    paths.app.build + '/js/libs/*',
   ];
 
 gulp.task('js:build', ['coffee:build','js:vendor','js:turbolinks'], function() {
@@ -185,8 +185,8 @@ gulp.task('publish:flash', function () {
 
 gulp.task('img:build', function () {
   gulp.src([
-    paths.app.assets + '/img/*.*',
-    paths.bower.flowplayer +'/skin/img/*.png'])
+    paths.app.assets + '/img/*',
+    paths.bower.flowplayer +'/skin/img/*'])
     .pipe(newer(paths.app.build + '/img'))
     .pipe(imagemin())
     .pipe(gulp.dest(paths.app.build + '/img'));
