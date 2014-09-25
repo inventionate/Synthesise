@@ -5,28 +5,26 @@ Thumbs.db
 
 #Laravel Dateien
 
-Laravel/bootstrap/compiled.php
-Laravel/vendor
-Laravel/node_modules
-Laravel/bower_components
-Laravel/composer.phar
-Laravel/composer.lock
-Laravel/.env.*.php
-Laravel/.env.php
-Laravel/public/video
-Laravel/doc
-Laravel/tests/_output
-Laravel(secret.json
-Laravel/secret_db.json
+Backend/bootstrap/compiled.php
+Backend/vendor
+Backend/composer.phar
+Backend/composer.lock
+Backend/.env.*.php
+Backend/.env.php
+Backend/public/video
+Backend/doc
+Backend/tests/_output
+Backend/secret.json
+Backend/secret_db.json
 
 # Ember Dateien
-Ember/dist
-Ember/tmp
-Ember/node_modules
-Ember/bower_components
-Ember/.sass-cache
-EMber/connect.lock
-Ember/coverage/*
-Ember/libpeerconnection.log
-Ember/npm-debug.log
-Ember/testem.log
+Frontend/dist
+Frontend/tmp
+Frontend/node_modules
+Frontend/bower_components
+Frontend/.sass-cache
+Frontend/connect.lock
+Frontend/coverage/*
+Frontend/libpeerconnection.log
+Frontend/npm-debug.log
+Frontend/testem.log
