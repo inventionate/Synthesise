@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="de"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="de"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="de"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="de"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Web-App for interactive studies.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hier haben wir noch zu dynamisieren</title>
+        <link rel="icon" href="favicon.png">
+    <!--[if IE]><link rel="shortcut icon" href="{{asset('favicon.ico')}}"><![endif]-->
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+    <meta name="application-name" content="e:t:p:M – Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns">
+    <meta name="msapplication-TileColor" content="#5ebc3b">
+    <meta name="msapplication-TileImage" content="metro-tile.png">
+    <meta name="msapplication-starturl" content="home"><!--Hier müssen wir auch noch ran! -->
+    <meta name="msapplication-navbutton-color" content="#5ebc3b">
+    <meta name="msapplication-tooltip" content="e:t:p:M – Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns">
+
+    {{BASE_TAG}}
+
+    <link rel="stylesheet" href="assets/vendor.css">
+    <link rel="stylesheet" href="assets/frontend.css">
+  </head>
+  <body id="etpM-de">
+    <!--[if lt IE 9]>
+      <p class="alert alert-danger browsehappy text-center @if( Request::is('login') ) alert-login @endif" data-no-turbolink>Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
+    <![endif]-->
+    <script>
+      window.EmberENV = {{EMBER_ENV}};
+    </script>
+    <script src="assets/vendor.js"></script>
+    <script src="assets/frontend.js"></script>
+    <script>
+      window.Frontend = require('frontend/app')['default'].create({{APP_CONFIG}});
+    </script>
+    <!-- LiveReload HOTFIX -->
+    <script type="text/javascript">
+      //<![CDATA[
+      document.write('<script src="' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
+      //]]>
+    </script>
+  </body>
+</html>

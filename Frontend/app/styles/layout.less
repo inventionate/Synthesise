@@ -1,0 +1,143 @@
+// Layout
+
+body {
+	.hyphens;
+	padding-top: 70px;
+}
+
+nav.navbar a.btn.btn-primary.navbar-right {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#current-lection .alert {
+	margin-top: 15px;
+}
+
+// MEDIA QUERIES
+
+@media (min-width: 992px) {
+	nav.navbar a.btn.btn-primary.navbar-right {
+		display: inherit;
+		width: auto;
+		padding-left: 7px;
+		padding-right: 7px;
+	}
+    // Fix für Bootstrap 3.0.3, a hier gilt: Restored the twelfth column's float: left; at all grid tiers.
+    #videoplayer {
+      float: none !important;
+    }
+}
+
+// FOOTER
+footer p {
+	text-align: center;
+}
+
+// Notizen
+
+#notes {
+	margin-top: -7px;
+	margin-bottom: 0px;
+
+}
+
+#note-content {
+	border-radius: 0;
+}
+
+#ajax-info {
+	border-radius: 0;
+	margin-bottom: -10px;
+}
+
+// Zusätzliche Inhalte (Lection)
+
+#additional-content {
+	margin-top: 30px;
+	margin-bottom: 25px;
+	div {
+		padding: 0 12px;
+	}
+}
+
+// Dropdown download
+@media (max-width: 480px) {
+	ul.dropdown-menu.pull-right {
+		width: 250px;
+		li a {
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+}
+
+// Responsive Tabellen
+
+@media (max-width: 768px) {
+
+	// Force table to not be like tables anymore
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	// Hide table headers (but not display: none;, for accessibility)
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr {
+		border: 1px solid @light-gray;
+	}
+
+	.table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+		// Behave  like a "row"
+		border: none;
+		border-bottom: 1px solid @light-gray;
+		position: relative;
+		padding-left: 55%;
+	}
+
+	.table thead > tr > td:last-child, .table tbody > tr > td:last-child, .table tfoot > tr > td:last-child {
+		border-bottom: 3px solid fade(@light-gray,50%);
+	}
+
+	td.themenbereich {
+		background-color: fade(@light-gray,50%);
+	}
+
+	td:before {
+		// Now like a table header
+		position: absolute;
+		// Top/left values mimic padding
+		top: 6px;
+		left: 6px;
+		width: 55%;
+		padding-right: 10px;
+		white-space: nowrap;
+		font-weight: 600;
+	}
+
+	// Label the data
+	td.themenbereich:before {
+		content: "Themenbereich:";
+	}
+	td.online-lektion:before {
+		content: "online-Lektion:";
+	}
+	td.online-status:before {
+		content: "Status:";
+	}
+	td.seminar-datum:before {
+		content: "Zugänglich ab:";
+	}
+	td.seminar-status:before {
+		content: "Status Stud.:";
+	}
+	td.materialien:before {
+		content: "Literatur/Notizen:";
+	}
+
+}
