@@ -140,9 +140,7 @@ return array(
 		 */
 		'Way\Generators\GeneratorsServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
-		'Thujohn\Pdf\PdfServiceProvider',
-		'Efficiently\Turbolinks\TurbolinksServiceProvider'
-
+		'Thujohn\Pdf\PdfServiceProvider'
 
 	),
 

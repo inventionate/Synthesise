@@ -25,6 +25,12 @@ app.import('bower_components/modernizr/modernizr.js');
 // Bootstrap js import.
 app.import('bower_components/bootstrap/dist/js/bootstrap.js');
 
+// Bootstrap css import.
+app.import('bower_components/bootstrap/dist/css/bootstrap.css');
+
+// Animate css import.
+app.import('bower_components/animate.css/animate.css');
+
 // Put the bootstrap fonts in the place that the bootstrap css expects to find them.
 var bootstrapFonts = pickFiles('bower_components/bootstrap/fonts', {
   srcDir: '/',

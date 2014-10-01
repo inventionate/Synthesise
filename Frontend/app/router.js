@@ -7,7 +7,11 @@ var Router = Ember.Router.extend({
 
 
 Router.map(function() {
-    this.route('about');
+  this.resource('faqs', function() {
+    this.route('area', {path: '/:area'});
+  });
+  this.resource('contact');
+  this.route('imprint');
 });
 
 export default Router;

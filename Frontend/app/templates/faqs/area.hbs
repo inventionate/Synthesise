@@ -1,0 +1,19 @@
+<div class="panel-group" id="accordion">
+{{#each}}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="hrefId"}}>
+          {{subject}}
+        </a>
+      </h4>
+    </div>
+    <div {{bind-attr id="id"}} class="panel-collapse collapse">
+      <div class="panel-body">
+        <h5>{{question}}</h5>
+        <p>{{answer}}</p>
+      </div>
+    </div>
+  </div>
+{{/each}}
+</div>
