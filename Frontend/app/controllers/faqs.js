@@ -9,6 +9,6 @@ export default Ember.ArrayController.extend({
     return this.getEach('area');
   }.property("@each.area"),
 
-  unique_areas: Ember.computed.uniq('areas')
-  
+  unique_areas: Ember.computed.uniq('areas'),
+
 });
