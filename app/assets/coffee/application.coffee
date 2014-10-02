@@ -22,8 +22,8 @@
 # Um die Geschwindigkeit zu erhöhen den Übergangschache aktivieren.
 # Allerdings problematisch bzgl. dynamischen Inhalten (vgl. Readme)
 # Turbolinks.enableTransitionCache()
-
 # PAGE:CHANGE EVENT - NEUE SEITE IST GERENDERT UND NEU GELADEN
+
 $(document).on 'page:change', ->
   # Animation der Login Seite
   $('.animate-zoom-in').addClass('animated zoomIn')

@@ -1,5 +1,17 @@
 //////////////////////////////////////////////////
-// REQUIRE
+// GULP ASSET PIPELINE
+//////////////////////////////////////////////////
+
+/**
+ * Gulp based Asset Pipeline.
+ * Support Assets: CoffeeScript, LESS, Images.
+ * No Notify support (incompatible with Vagrant).
+ * Use callbacks for dependent tasks!
+ *
+ * copyright    Fabian Mundt
+ */
+//////////////////////////////////////////////////
+// PLUGINS
 //////////////////////////////////////////////////
 
 var gulp = require('gulp'),
@@ -21,7 +33,6 @@ var gulp = require('gulp'),
     newer = require('gulp-newer'),
     fingerprint = require('gulp-fingerprint'),
     // DEV
-    notify = require('gulp-notify'),
     livereload = require('gulp-livereload'),
     codecept = require('gulp-codeception'),
     watch = require('gulp-watch');
@@ -78,10 +89,8 @@ var secret = require('./secret.json');
 
 var libs = [
     paths.bower.modernizr + '/modernizr.js',
-    paths.bower.respond + 'respond.src.js',
     paths.bower.jquery + '/dist/jquery.js',
     paths.composer.turbolinks + '/jquery.turbolinks.js',
-    paths.bower.html5boilerplate + '/js/plugins.js',
     // paths.bower.spinjs + '/spin.js',
     // Bootstrap
     // @todo Überlegen welche JS Module gelöscht werden können
@@ -92,38 +101,40 @@ var libs = [
     // paths.bower.spinjs + '/jquery.spin.js'
   ];
 
-gulp.task('js:vendor', function() {
+gulp.task('js:vendor', function(done) {
   gulp.src(libs)
     .pipe(newer(paths.app.build + '/js/libs/vendor.js'))
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(paths.app.build + '/js/libs'));
+    .pipe(gulp.dest(paths.app.build + '/js'))
+    .on('end', done);
 });
 
 
-gulp.task('js:turbolinks', function() {
+gulp.task('js:turbolinks', function(done) {
   gulp.src(paths.composer.turbolinks + '/turbolinks.js')
-    .pipe(newer(paths.app.build + '/js/libs/turbolinks.js'))
-    .pipe(gulp.dest(paths.app.build + '/js/libs'));
+    // .pipe(newer(paths.app.build + '/js/libs/turbolinks.js'))
+    .pipe(gulp.dest(paths.app.build + '/js'))
+    .on('end', done);
 });
 
-gulp.task('coffee:build', function() {
+gulp.task('coffee:build', function(done) {
   gulp.src(paths.app.assets + '/coffee/*.coffee')
     .pipe(newer(paths.app.build + '/js/cofee'))
     .pipe(coffee({bare: true}))
-    .pipe(gulp.dest(paths.app.build + '/js/coffee'));
+    .pipe(concat('frontend.js'))
+    .pipe(gulp.dest(paths.app.build + '/js'))
+    .on('end', done);
 });
 
 // Die einzelnen JavaScript Pakete kombinieren
 // Die Reihenfolge ist sehr wichtig!
 
-var jsapp = [
-    paths.app.build + '/js/libs/*',
-    paths.app.build + '/js/coffee/*',
-    paths.app.build + '/js/libs/*',
-  ];
-
 gulp.task('js:build', ['coffee:build','js:vendor','js:turbolinks'], function() {
-  gulp.src(jsapp)
+  gulp.src([
+      paths.app.build + '/js/vendor.js',
+      paths.app.build + '/js/frontend.js',
+      paths.app.build + '/js/turbolinks.js'
+    ])
     .pipe(newer(paths.app.build + '/js/application.js'))
     .pipe(concat('application.js'))
     .pipe(uglify())
@@ -134,22 +145,17 @@ gulp.task('js:build', ['coffee:build','js:vendor','js:turbolinks'], function() {
 // CSS Tasks
 //////////////////////////////////////////////////
 
-gulp.task('less:build', function () {
+gulp.task('less:build', function() {
   gulp.src([
     paths.bower.flowplayer + '/skin/minimalist.css',
+    paths.bower.bootstrap + '/dist/css/bootstrap.css',
     paths.app.assets + '/less/application.less',
-    paths.app.assets + '/less/helpers.less',
-    paths.app.assets + '/less/typography.less',
-    paths.app.assets + '/less/colour.less',
-    paths.app.assets + '/less/layout.less',
-    paths.app.assets + '/less/print.less',
     paths.bower.animate + '/animate.css'
     ])
     .pipe(newer(paths.app.build + '/css/application.css'))
     .pipe(concat('application.less'))
     .pipe(less({
       paths: [
-        paths.bower.bootstrap + '/less',
         paths.app.assets + '/less'
       ]}))
     .pipe(prefix())
@@ -185,9 +191,10 @@ gulp.task('publish:flash', function () {
 gulp.task('img:build', function () {
   gulp.src([
     paths.app.assets + '/img/*',
-    paths.bower.flowplayer +'/skin/img/*'])
+    paths.bower.flowplayer +'/skin/img/*'
+    ])
     .pipe(newer(paths.app.build + '/img'))
-    .pipe(imagemin())
+    // .pipe(imagemin())
     .pipe(gulp.dest(paths.app.build + '/img'));
 });
 
@@ -202,12 +209,11 @@ gulp.task('build:assets', ['js:build','less:build','img:build']);
 /////////////////////////////////////////////////
 
 gulp.task('publish:assets', ['clean:public','build:assets'], function () {
-  return gulp.src([
+  gulp.src([
     paths.app.build + '/**',
-    '!' + paths.app.build + '/js/coffee',
-    '!' + paths.app.build + '/js/coffee/**',
-    '!' + paths.app.build + '/js/libs',
-    '!' + paths.app.build + '/js/libs/**'
+    '!' + paths.app.build + '/js/vendor.js',
+    '!' + paths.app.build + '/js/frontend.js',
+    '!' + paths.app.build + '/js/turbolinks.js'
     ])
     .pipe(rev())
     .pipe(gulp.dest(paths.public))
@@ -215,13 +221,7 @@ gulp.task('publish:assets', ['clean:public','build:assets'], function () {
     .pipe(gulp.dest(paths.app.assets));
 });
 
-gulp.task('publish', ['publish:fonts'], function () {
-  gulp.src('/')
-    .pipe(notify({
-    title: 'Assets veröffentlicht',
-    message: 'Alle Assets wurden erfolgreich veröffentlicht.',
-    }));
-});
+gulp.task('publish', ['publish:fonts']);
 
 //////////////////////////////////////////////////
 // CLEAN Tasks
@@ -229,11 +229,7 @@ gulp.task('publish', ['publish:fonts'], function () {
 
 gulp.task('clean:build', function () {
   gulp.src(paths.app.build,{read: false})
-    .pipe(rimraf())
-    .pipe(notify({
-      title: 'Build Ordner gelöscht',
-      message: 'Alle Build Dateien wurden gelöscht.',
-    }));
+    .pipe(rimraf());
 });
 
 gulp.task('clean:public', function () {
@@ -243,11 +239,7 @@ gulp.task('clean:public', function () {
     paths.public + '/fonts',
     paths.public + '/img'
     ], {read: false})
-    .pipe(rimraf())
-    .pipe(notify({
-      title: 'Public Ordner gelöscht',
-      message: 'Alle veröffentlichten Dateien wurden gelöscht.',
-    }));
+    .pipe(rimraf());
 });
 
 //////////////////////////////////////////////////
@@ -258,11 +250,7 @@ gulp.task('publish:lr', function() {
   gulp.src(paths.bower.livereload)
     .pipe(newer(paths.public + '/js'))
     .pipe(uglify())
-    .pipe(gulp.dest(paths.public + '/js'))
-    .pipe(notify({
-      title: 'Livereload veröffentlicht',
-      message: 'Das Livereload Script wurde veröffentlicht.',
-    }));
+    .pipe(gulp.dest(paths.public + '/js'));
 });
 
 gulp.task('clean:lr', function () {
@@ -274,21 +262,18 @@ gulp.task('clean:lr', function () {
 // WATCH Tasks
 //////////////////////////////////////////////////
 
-gulp.task('watch:assets', function(){
+gulp.task('watch:assets', function() {
   gulp.watch([
     paths.app.assets + '/coffee/**/*.coffee',
-    paths.app.assets + '/js/**/*.coffee',
     paths.app.assets + '/less/**/*.less',
-    paths.app.assets + '/css/**/*.css',
     paths.app.assets + '/img/**/*.png',
     paths.app.assets + '/img/**/*.jpg',
-    paths.app.assets + '/img/**/*.gif',
-    './app/views/**/*'
+    paths.app.assets + '/img/**/*.gif'
     ],
-    ['publish']);
+    ['publish:assets']);
 })
 
-gulp.task('watch:public', ['watch:assets','publish:lr'], function(){
+gulp.task('watch:public', ['watch:assets','publish:lr'], function() {
   livereload.listen();
   gulp.watch([
     paths.public + '/js/**/*.js',
@@ -296,11 +281,12 @@ gulp.task('watch:public', ['watch:assets','publish:lr'], function(){
     paths.public + '/img/**/*.png',
     paths.public + '/img/**/*.jpg',
     paths.public + '/img/**/*.gif',
-    './app/views/**/*'])
+    './app/views/**/*'
+    ])
     .on('change', livereload.changed);
 })
 
-gulp.task('watch:tests', function(){
+gulp.task('watch:tests', function() {
   gulp.watch(paths.tests + '/**/*.php', ['codecept']);
 })
 
@@ -311,17 +297,9 @@ gulp.task('watch', ['watch:public']);
 //////////////////////////////////////////////////
 
 gulp.task('codecept', function() {
-  var options = {notify: true, testSuite: 'integration'};
+  var options = {notify: false, testSuite: 'integration'};
   gulp.src('tests/**/*.php')
-    .pipe(codecept('', options))
-    .on('error', notify.onError({
-      title: "Testing Failed",
-      message: "Error(s) occurred during test."
-    }))
-    .pipe(notify({
-      title: 'Testing Passed',
-      message: 'All tests have passed.',
-    }));
+    .pipe(codecept('', options));
 });
 
 //////////////////////////////////////////////////

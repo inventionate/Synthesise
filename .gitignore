@@ -5,6 +5,7 @@ Thumbs.db
 
 #Laravel Dateien
 
+/app/assets/build
 /bootstrap/compiled.php
 /bower_components
 /doc
