@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+  <title>Synthesise 3 Documentation</title>
+  <parser>
+	<target>doc</target>
+	<markers>
+	  <item>TODO</item>
+	  <item>FIXME</item>
+	  <item>NOTE</item>
+	</markers>
+  </parser>
+  <transformer>
+	<target>doc</target>
+  </transformer>
+  <transformations>
+	<template name="clean" />
+  </transformations>
+  <files>
+	<directory>app/</directory>
+	<directory>app/controllers</directory>
+	<directory>app/Extensions</directory>
+  <directory>app/Repositories</directory>
+	<directory>tests</directory>
+  </files>
+</phpdoc>

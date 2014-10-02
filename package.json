@@ -1,0 +1,31 @@
+{
+  "name": "Synthesise",
+  "version": "2.6.0",
+  "description": "Synthesise ist ein moderner \"Learning Space\", der einen virtuellen Lernraum ermöglicht. Die Applikation ist für den Einsatz in einem Blended-Learning-Szenario optimiert.",
+  "main": "Brocfile.js",
+  "devDependencies": {
+    "gulp": "~3.8.8",
+    "gulp-autoprefixer": "~1.0.0",
+    "gulp-changed": "~1.0.0",
+    "gulp-rimraf": "~0.1.0",
+    "gulp-codeception": "~0.4.3",
+    "gulp-coffee": "~2.2.0",
+    "gulp-concat": "~2.4.0",
+    "gulp-fingerprint": "~0.3.2",
+    "gulp-imagemin": "~1.0.1",
+    "gulp-less": "~1.3.5",
+    "gulp-livereload": "~2.1.1",
+    "gulp-minify-css": "~0.3.8",
+    "gulp-newer": "~0.3.0",
+    "gulp-notify": "~1.6.0",
+    "gulp-rename": "~1.2.0",
+    "gulp-rev": "~1.1.0",
+    "gulp-uglify": "~1.0.1",
+    "gulp-watch": "~1.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/Inventionate/synthesise.git"
+  },
+  "author": "Fabian Mundt"
+}

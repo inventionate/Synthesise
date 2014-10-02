@@ -1,0 +1,15 @@
+{
+  "name": "Synthesise",
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "modernizr": "latest",
+    "bootstrap": ">=3.2.0",
+    "flowplayer": "http://releases.flowplayer.org/5.5.0/commercial/flowplayer.commercial-5.5.0.zip",
+    "animate.css": "git://github.com/daneden/animate.css.git#~3.2.0",
+    "jquery-typewatch": "*",
+    "spin.js": "~2.0.1"
+  },
+  "devDependencies": {
+    "qunit": "~1.15.0"
+  }
+}

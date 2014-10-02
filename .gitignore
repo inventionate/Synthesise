@@ -6,9 +6,17 @@ Thumbs.db
 #Laravel Dateien
 
 /bootstrap/compiled.php
+/bower_components
+/doc
+/node_modules
+/public/css
+/public/flash
+/public/fonts
+/public/img
+/public/js
 /public/video
 /tests/_output
-/doc
+/tmp
 /vendor
 composer.phar
 composer.lock
