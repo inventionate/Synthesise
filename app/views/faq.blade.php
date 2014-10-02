@@ -15,11 +15,7 @@ class="container @if( Request::is('hgf') ) change-fade-in @endif fade-partial">
   @endif
   </h1>
 
-  <p>Bitte wählen Sie einen Fragebereich aus. Sollte sich Ihre Frage nach
-  der Lektüre der hier aufgelisteten Antworten nicht geklärt haben,
-  <a href="{{ url('kontakt') }}">wenden Sie sich bitte direkt an uns</a>.
-  Wir versuchen den »Häufig gestellte Fragen« Katalog ständig zu erweitern
-  und freuen und über Ihre Anregungen und Mitarbeit.</p>
+  <p>Bitte wählen Sie einen Fragebereich aus. Sollte sich Ihre Frage nach der Lektüre der hier aufgelisteten Antworten nicht geklärt haben, <a href="{{ url('kontakt') }}">wenden Sie sich bitte direkt an uns</a>. Wir versuchen den »Häufig gestellte Fragen« Katalog ständig zu erweitern und freuen und über Ihre Anregungen und Mitarbeit.</p>
 
   <div class="text-center hidden-print">
     <ul class="pagination">
