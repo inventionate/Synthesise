@@ -18,28 +18,17 @@
         {{#link-li}}
           {{link-to 'Dashboard' 'index'}}
         {{/link-li}}
+
         <li class="dropdown">
           <a href='#' class="dropdown-toggle" data-toggle="dropdown">online-Lektionen <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li role="presentation" class="dropdown-header">Sozialgeschichte der Erziehung und Bildung</li>
-            <li>{{#link-to 'Griechisch-römische Antike'}}">Griechisch-römische Antike{{/link-to}}</li>
-            <li>{{#link-to 'Mittelalter'}}">Mittelalter{{/link-to}}</li>
-            <li>{{#link-to 'Frühe Neuzeit'}}">Frühe Neuzeit{{/link-to}}</li>
-            <li role="presentation" class="dropdown-header">Ideen- und Personengeschichte der Pädagogik</li>
-            <li>{{#link-to 'Jean-Jacques Rousseau'}}Jean-Jacques Rousseau{{/link-to}}</li>
-            <li>{{#link-to 'Johann Heinrich Pestalozzi'}}Johann Heinrich Pestalozzi{{/link-to}}</li>
-            <li>{{#link-to 'Wilhelm von Humboldt'}}>Wilhelm von Humboldt{{/link-to}}</li>
-            <li role="presentation" class="dropdown-header">Erziehung und Schule</li>
-            <li>{{#link-to 'Erziehung und Unterricht'}}Erziehung und Unterricht{{/link-to}}</li>
-            <li>{{#link-to 'Heterogenität'}}Heterogenität{{/link-to}}</li>
-            <li role="presentation" class="dropdown-header">Bildung – Glück – Gerechtigkeit</li>
-            <li>{{#link-to 'Wozu ist die Bildung da%3F'}}Wozu ist die Bildung da?{{/link-to}}</li>
-            <li>{{#link-to 'Bildung und Glück'}}Bildung und Glück{{/link-to}}</li>
-            <li>{{#link-to 'Bildung und Gerechtigkeit'}}Bildung und Gerechtigkeit{{/link-to}}</li>
-            <li class="divider"></li>
-            <li>{{#link-to 'impressum' class="rechtshinweise"}}Rechtshinweise{{/link-to}}</li>
+
+            {{render 'lection-nav' video}}
+
           </ul>
         </li>
+
+
         {{#link-li}}
           {{link-to 'Häufig gestellte Fragen' 'faqs'}}
         {{/link-li}}
