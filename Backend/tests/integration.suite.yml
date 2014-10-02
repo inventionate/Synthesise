@@ -1,3 +1,0 @@
-class_name: IntegrationTester
-modules:
-    enabled: [IntegrationHelper, Asserts, Laravel4]
