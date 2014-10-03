@@ -79,7 +79,7 @@ $(document).ready ->
       .fail ->
         #alert "ERROR: AJAX REQUEST \"GET NOTES\" POROBLEM!"
         alert "Leider konnte keine Internetverbindung hergestellt werden.
-  			 Überprüfen Sie bitte Ihre Verbindung und wenden Sie sich ggf.
+         Überprüfen Sie bitte Ihre Verbindung und wenden Sie sich ggf.
          den technischen Support."
     )
     # AJAX POST --------------------------------------------------
@@ -104,16 +104,16 @@ $(document).ready ->
           # Google Analytics Event Tracking
           # Todo: Update Piwik!
           # ga('send','event','Notiz','ajax',
-  				# (decodeURIComponent(currentURL.substr(50)) +
-  				# ': Fähnchen ' + cuepointNumber.substr(23)))
+          # (decodeURIComponent(currentURL.substr(50)) +
+          # ': Fähnchen ' + cuepointNumber.substr(23)))
         .fail ->
           #alert "ERROR: AJAX REQUEST \" POST NOTES \" PROBLEM!"
           alert "Leider konnte keine Internetverbindung hergestellt werden.
-  				 Überprüfen Sie bitte Ihre Verbindung und wenden Sie sich ggf. den
+           Überprüfen Sie bitte Ihre Verbindung und wenden Sie sich ggf. den
            technischen Support."
         return
       # wait: The number of milliseconds to wait after the the
-  		# last key press before firing the callback
+      # last key press before firing the callback
       wait: 500
       # highlight: Highlights the element when it receives focus
       highlight: false

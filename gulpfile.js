@@ -14,28 +14,30 @@
 // PLUGINS
 //////////////////////////////////////////////////
 
-var gulp = require('gulp'),
+var gulp        = require('gulp'),
     // JS
-    uglify = require('gulp-uglify'),
-    coffee = require('gulp-coffee'),
+    uglify      = require('gulp-uglify'),
+    coffee      = require('gulp-coffee'),
     // CSS
-    less = require('gulp-less'),
-    prefix = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
+    less        = require('gulp-less'),
+    prefix      = require('gulp-autoprefixer'),
+    minifycss   = require('gulp-minify-css'),
     // IMAGE
-    imagemin = require('gulp-imagemin'),
+    imagemin    = require('gulp-imagemin'),
     // UTIL
-    concat = require('gulp-concat'),
-    rename = require('gulp-rename'),
-    rev = require('gulp-rev'),
-    rimraf = require('gulp-rimraf'),
-    changed = require('gulp-changed'),
-    newer = require('gulp-newer'),
+    concat      = require('gulp-concat'),
+    rename      = require('gulp-rename'),
+    rev         = require('gulp-rev'),
+    rimraf      = require('gulp-rimraf'),
+    changed     = require('gulp-changed'),
+    newer       = require('gulp-newer'),
     fingerprint = require('gulp-fingerprint'),
     // DEV
-    livereload = require('gulp-livereload'),
-    codecept = require('gulp-codeception'),
-    watch = require('gulp-watch');
+    codecept    = require('gulp-codeception'),
+    watch       = require('gulp-watch'),
+    plumber     = require('gulp-plumber'),
+    // Livereload
+    livereload  = require('gulp-livereload');
 
 //////////////////////////////////////////////////
 // PATHS
@@ -193,6 +195,7 @@ gulp.task('img:build', function () {
     paths.app.assets + '/img/*',
     paths.bower.flowplayer +'/skin/img/*'
     ])
+    .pipe(plumber())
     .pipe(newer(paths.app.build + '/img'))
     // .pipe(imagemin())
     .pipe(gulp.dest(paths.app.build + '/img'));
