@@ -97,15 +97,15 @@ $(document).ready ->
         noteContent = $('#note-content').val()
         # Ajax Request starten
         noteContent = $('#note-content').val()
-        $.post(postURL, {note: noteContent, cuepointNumber: cuepointNumber, _token: _csrf})
+        $.post(postURL, {note: noteContent,
+        cuepointNumber: cuepointNumber, _token: _csrf})
         .done ->
           $('#ajax-info').removeClass('progress-striped active')
           $('#ajax-info .progress-bar').addClass('progress-bar-success')
-          # Google Analytics Event Tracking
-          # Todo: Update Piwik!
-          # ga('send','event','Notiz','ajax',
-          # (decodeURIComponent(currentURL.substr(50)) +
-          # ': Fähnchen ' + cuepointNumber.substr(23)))
+          # Piwik Analytics Event Tracking
+          _paq.push(['trackEvent', 'Notiz', 'verändert',
+          (decodeURIComponent(currentURL.substr(50)) +
+          ': Fähnchen ' + cuepointNumber.substr(23))])
         .fail ->
           #alert "ERROR: AJAX REQUEST \" POST NOTES \" PROBLEM!"
           alert "Leider konnte keine Internetverbindung hergestellt werden.

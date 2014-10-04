@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-	<title>EW M1 – Dashboard</title>
+	<title>EWM1 – Dashboard</title>
 @stop
 
 @section('content')

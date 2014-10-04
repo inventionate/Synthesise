@@ -3,7 +3,7 @@
 {{-- @TODO Bitbucket Issue API Form integrieren. --}}
 
 @section('title')
-	<title>Erziehungswissenschaftliche Grundfragen – Kontakt</title>
+	<title>EWM1 – Kontakt</title>
 @stop
 
 @section('content')

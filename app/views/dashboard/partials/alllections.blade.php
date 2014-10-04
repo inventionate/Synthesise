@@ -69,16 +69,16 @@
 				  <ul class="dropdown-menu pull-right" role="menu">
 					@foreach (Video::getPapers($video->videoname) as $paper)
 
-					<li><a href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => str_replace(':','', $paper->papername ))) }}" onclick="javascript:_paq.push(['trackEvent', 'Text', 'Downloaded', '{{ $paper->papername }}'])" data-no-turbolink><small>{{ $paper->author }}</small><br> {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
+					<li><a class="download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => str_replace(':','', $paper->papername ))) }}"  data-no-turbolink><small>{{ $paper->author }}</small><br> {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
 					@endforeach
 
 					@if( Video::available($video->videoname) || $role === 'Teacher' && $video->online)
 					<li class="divider"></li>
-					<li><a href="{{ action('LectionController@getNotesPDF', rawurlencode($video->videoname)) }}" onclick="javascript:_paq.push(['trackEvent', 'Notizen', 'Downloaded', '{{ $video->videoname }}'])" data-no-turbolink>Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a></li>
+					<li><a class="download-note" data-name="{{ $video->videoname }}" href="{{ action('LectionController@getNotesPDF', rawurlencode($video->videoname)) }}" data-no-turbolink>Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a></li>
 					@endif
 					<li class="divider"></li>
 
-					<li><a href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => $video->section)) }}" onclick="javascript:_paq.push(['trackEvent', 'Weiterführende Literaturhinweise', 'Downloaded', '{{ $video->section }}'])" data-no-turbolink><small>Weiterführende Literaturhinweise <span class="glyphicon glyphicon-book"></span></small></a></li>
+					<li><a class="download-further-literature" data-name="{{ $video->section }}" href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => $video->section)) }}"  data-no-turbolink><small>Weiterführende Literaturhinweise <span class="glyphicon glyphicon-book"></span></small></a></li>
 
 				  </ul>
 				  </div>

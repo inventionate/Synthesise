@@ -1,7 +1,7 @@
 {{-- Piwik --}}
 <script type="text/javascript">
   var _paq = _paq || [];
-
+  // ALLE _paq.push überprüfen (ggf. in ein page load integrieren!)
   @if ( Auth::check() )
     @if ( Auth::user()->role === 'Teacher' )
       _paq.push(["setCustomVariable", 2, "Status", "MentorIn", "visit"]);
@@ -12,10 +12,9 @@
     _paq.push(['setUserId', '{{ Auth::user()->username }}']);
   @endif
 
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
   (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://etpm-analytics.ph-karlsruhe.de/";
+    //var u=(("https:" == document.location.protocol) ? "https" : "http") + "://etpm-analytics.ph-karlsruhe.de/";
+    var u="http://etpm-analytics.ph-karlsruhe.de/";
     _paq.push(['setTrackerUrl', u+'piwik.php']);
     _paq.push(['setSiteId', 1]);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';

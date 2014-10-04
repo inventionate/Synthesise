@@ -13,7 +13,7 @@
 			{{-- LEKTION ÖFFNEN --}}
 			<a href="{{ route('lektion', $videoname) }}" class="btn btn-primary">Öffnen</a>
 
-			<a class="btn btn-primary" href="{{ action('LectionController@getNotesPDF', $videoname) }}" onclick="javascript:_paq.push(['trackEvent', 'Notizen', 'Downloaded', '{{ $videoname }}'])">Notizen <span class="glyphicon glyphicon-pencil"></span></a>
+			<a class="btn btn-primary" class="download-note" data-name="{{ $videoname }}" href="{{ action('LectionController@getNotesPDF', $videoname) }}" data-no-turbolink>Notizen <span class="glyphicon glyphicon-pencil"></span></a>
 		</div>
 		{{-- MATERIALIEN DOWNLOADEN --}}
 		  <button type="button" class="btn btn-warning dropdown-toggle btn-block" data-toggle="dropdown">
@@ -21,7 +21,7 @@
 		  </button>
 		  <ul class="dropdown-menu" role="menu">
 		  @foreach ($papers as $paper)
-		  	<li><a href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => $paper->papername)) }}" onclick="javascript:_paq.push(['trackEvent', 'Text', 'Downloaded', '{{ $paper->papername }}'])">{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
+		  	<li><a class="download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => $paper->papername)) }}" data-no-turbolink>{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
 		  @endforeach
 		  </ul>
 	  </div>

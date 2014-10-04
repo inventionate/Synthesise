@@ -13,7 +13,13 @@
 
 App::before(function($request)
 {
-	//
+	if (App::environment() === 'production')
+	{
+		if( ! Request::secure())
+    {
+        return Redirect::secure(Request::path());
+    }
+	}
 });
 
 

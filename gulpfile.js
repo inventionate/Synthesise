@@ -58,10 +58,9 @@ var paths = {
     animate: 'bower_components/animate.css',
     bootstrap: 'bower_components/bootstrap',
     flowplayer: 'bower_components/flowplayer',
-    html5boilerplate: 'bower_components/html5-boilerplate',
     jquery: 'bower_components/jquery',
     modernizr: 'bower_components/modernizr',
-    respond: 'bower_components/respond',
+    qunit: 'bower_components/qunit',
     jqueryTypewatch: 'bower_components/jquery-typewatch',
     livereload: 'bower_components/livereload/dist/livereload.js',
     spinjs: 'bower_components/spin.js'
@@ -159,7 +158,8 @@ gulp.task('less:build', function() {
     .pipe(less({
       paths: [
         paths.app.assets + '/less'
-      ]}))
+      ],
+      }))
     .pipe(prefix())
     .pipe(fingerprint(manifest, {prefix: '../'}))
     .pipe(minifycss({keepSpecialComments:0}))
@@ -303,6 +303,21 @@ gulp.task('codecept', function() {
   var options = {notify: false, testSuite: 'integration'};
   gulp.src('tests/**/*.php')
     .pipe(codecept('', options));
+});
+
+//////////////////////////////////////////////////
+// QUNIT Tasks
+//////////////////////////////////////////////////
+
+gulp.task('publish:qunit', function() {
+  gulp.src(paths.bower.qunit + '/qunit/*')
+    .pipe(newer(paths.public + '/qunit'))
+    .pipe(gulp.dest(paths.public + '/qunit'));
+});
+
+gulp.task('clean:qunit', function () {
+  gulp.src(paths.public + '/qunit',{read: false})
+    .pipe(rimraf());
 });
 
 //////////////////////////////////////////////////
