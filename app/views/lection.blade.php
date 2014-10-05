@@ -91,4 +91,5 @@
 
 @section('scripts')
 	@include('lection.partials.analytics')
+	@parent
 @stop
