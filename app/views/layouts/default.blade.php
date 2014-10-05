@@ -64,9 +64,7 @@
 			@include('layouts.partials.footer')
 
 		{{-- @include ANALYTICS --------------------------------------------------}}
-		@section('scripts')
-			@include('layouts.partials.analytics')
-		@show
+		@include('layouts.partials.analytics')
 
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@if( App::environment() === 'local' )

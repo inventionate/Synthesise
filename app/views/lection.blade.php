@@ -88,8 +88,3 @@
 
 </section>
 @stop
-
-@section('scripts')
-	@include('lection.partials.analytics')
-	@parent
-@stop

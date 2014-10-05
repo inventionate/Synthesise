@@ -21,3 +21,64 @@ $(document).on 'click', '.download-info', ->
 $(document).on 'click', '.download-note', ->
   name = $(this).attr('data-name')
   _paq.push(['trackEvent', 'Notizen', 'Downloaded',name])
+
+$(document).ready ->
+  if $('.flowplayer:first').length
+    videoname = $(".flowplayer:first").attr("title")
+    $(".flowplayer:first").bind
+      resume: (e, api) ->
+        _paq.push [
+          "trackEvent"
+          "Video"
+          "Abgespielt"
+          videoname
+        ]
+      pause: (e, api) ->
+        _paq.push [
+          "trackEvent"
+          "Video"
+          "Pausiert"
+          videoname
+        ]
+      finish: (e, api) ->
+        _paq.push [
+          "trackEvent"
+          "Video"
+          "Komplett angesehen"
+          videoname
+        ]
+      fullscreen: (e, api) ->
+        _paq.push [
+          "trackEvent"
+          "Video"
+          "Vollbild aktivieren"
+          videoname
+        ]
+      "fullscreen-exit": (e, api) ->
+        _paq.push [
+          "trackEvent"
+          "Video"
+          "Vollbild deaktivieren"
+          videoname
+        ]
+      error: (e, api) ->
+        _paq.push [
+          "trackEvent"
+          "Video"
+          "Fehler"
+          videoname
+        ]
+      seek: (e, api) ->
+        _paq.push [
+          "trackEvent"
+          "Video"
+          "Springen"
+          videoname
+        ]
+      speed: (e, api) ->
+        _paq.push [
+          "trackEvent"
+          "Video"
+          "Geschwindigkeit verändert"
+          videoname
+        ]
