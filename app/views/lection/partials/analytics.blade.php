@@ -2,7 +2,7 @@
 <script type="text/javascript">
   $(".flowplayer:first").bind({
   	resume: function(e, api) {
-  	   _paq.push(["trackEvent", "Video", "Abgespielt", "{{ $videoname }}"]);
+  	  _paq.push(["trackEvent", "Video", "Abgespielt", "{{ $videoname }}"]);
   	},
   	pause: function(e, api) {
   		_paq.push(["trackEvent", "Video", "Pausiert", "{{ $videoname }}"]);

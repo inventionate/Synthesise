@@ -1,4 +1,4 @@
- # TURBOLINKS SETTING -------------------------------------------------
+# TURBOLINKS SETTING -------------------------------------------------
 # CUEPOINTS AND NOTES
 
 cuepointNumber = null

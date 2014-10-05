@@ -49,8 +49,7 @@ $(document).on 'page:fetch', ->
   $('.change-fade:not(alert)').addClass('animated fadeOut')
   $('.change-fade-out').addClass('animated fadeOut')
 
-# DOCUEMENT:READY = PAGE:LOAD - LETZTES EVENT DES LADEVORGANGS
-# $(document).ready ->
+# ON:CLICK EVENT - EIN EVENT WIRD BEIM CLICKEN AUSGEFÜHRT
   # Das  teilweise Faden von Seitenteilen kontrollieren
   # Im Blade wird change-fade-in für den exakten Request gesetzt.
   # Danach wird ein Event an alle Links gebunden. Wenn diese die .not-fade
