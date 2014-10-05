@@ -1,4 +1,5 @@
 {
+  "css/application.css": "css/application-db7756a5.css",
   "img/bildung_und_gerechtigkeit.jpg": "img/bildung_und_gerechtigkeit-fa910e02.jpg",
   "img/bildung_und_glueck.jpg": "img/bildung_und_glueck-42778056.jpg",
   "img/black.png": "img/black-2f7fedd3.png",
@@ -38,6 +39,5 @@
   "img/white_rtl@x2.png": "img/white_rtl@x2-ca439946.png",
   "img/wilhelm_von_humboldt.jpg": "img/wilhelm_von_humboldt-a91289c7.jpg",
   "img/wozu_ist_die_bildung_da.jpg": "img/wozu_ist_die_bildung_da-163c3677.jpg",
-  "css/application.css": "css/application-db7756a5.css",
-  "js/application.js": "js/application-24a6de7b.js"
+  "js/application.js": "js/application-96f1fc4b.js"
 }

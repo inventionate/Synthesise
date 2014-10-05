@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-	<title>Erziehungswissenschaftliche Grundfragen – {{{ $videoname }}}</title>
+	<title>EWM1 – {{{ $videoname }}}</title>
 @stop
 
 @section('content')
@@ -87,4 +87,8 @@
   @endif
 
 </section>
+@stop
+
+@section('scripts')
+	@include('lection.partials.analytics')
 @stop

@@ -19,11 +19,17 @@
 		{{-- @include PARTIAL HEAD -----------------------------------------------}}
 		@include('layouts.partials.head')
 
-		{{-- APPLICATION CSS -----------------------------------------------------}}
-		<link rel="stylesheet" href="{{ Asset::rev('css/application.css') }}" data-turbolinks-track>
-
-		{{-- APPLICATION JS ------------------------------------------------------}}
-		<script src="{{ Asset::rev('js/application.js') }}" data-turbolinks-track></script>
+		@if( App::environment() === 'local' )
+			{{-- APPLICATION CSS -----------------------------------------------------}}
+			<link rel="stylesheet" href="{{ asset(Asset::rev('css/application.css')) }}" data-turbolinks-track>
+			{{-- APPLICATION JS ------------------------------------------------------}}
+			<script src="{{ asset(Asset::rev('js/application.js')) }}" data-turbolinks-track></script>
+		@elseif( App::environment() === 'production' )
+			{{-- APPLICATION CSS -----------------------------------------------------}}
+			<link rel="stylesheet" href="{{ secure_asset(Asset::rev('css/application.css')) }}" data-turbolinks-track>
+			{{-- APPLICATION JS ------------------------------------------------------}}
+			<script src="{{ secure_asset(Asset::rev('js/application.js')) }}" data-turbolinks-track></script>
+		@endif
 
 	</head>
 
@@ -58,7 +64,9 @@
 			@include('layouts.partials.footer')
 
 		{{-- @include ANALYTICS --------------------------------------------------}}
-		@include('layouts.partials.analytics')
+		@section('scripts')
+			@include('layouts.partials.analytics')
+		@show
 
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@if( App::environment() === 'local' )
