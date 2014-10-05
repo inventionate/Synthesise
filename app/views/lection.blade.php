@@ -14,7 +14,7 @@
 		{{-- MEDIAPLAYER --}}
 		<div class="row">
 			<div id="videoplayer" class="col-md-12">
-				<div class="flowplayer fixed-controls play-button"
+				<div class="flowplayer fixed-controls play-button is-splash"
 				data-generate_cuepoints="true"
 				@if( ! (Agent::isMobile() || Agent::isTablet()) )
 					data-cuepoints="[{{ implode(',',$cuepoints->lists('cuepoint')) }}]"

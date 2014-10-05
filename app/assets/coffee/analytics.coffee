@@ -23,9 +23,13 @@ $(document).on 'click', '.download-note', ->
   _paq.push(['trackEvent', 'Notizen', 'Downloaded',name])
 
 $(document).ready ->
-  if $('.flowplayer:first').length
+  if $('.flowplayer').length
     videoname = $(".flowplayer:first").attr("title")
     $(".flowplayer:first").bind
+      load: (e, api) ->
+        $('.flowplayer:first').spin()
+      ready: (e, api) ->
+        $('.flowplayer:first').spin(false)
       resume: (e, api) ->
         _paq.push [
           "trackEvent"

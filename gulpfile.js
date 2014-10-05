@@ -55,15 +55,16 @@ var paths = {
 
   bower: {
     // @todo Automatisch laden
-    animate: 'bower_components/animate.css',
-    bootstrap: 'bower_components/bootstrap',
+    animate:    'bower_components/animate.css',
+    bootstrap:  'bower_components/bootstrap',
     flowplayer: 'bower_components/flowplayer',
-    jquery: 'bower_components/jquery',
-    modernizr: 'bower_components/modernizr',
-    qunit: 'bower_components/qunit',
-    jqueryTypewatch: 'bower_components/jquery-typewatch',
+    jquery:     'bower_components/jquery',
+    modernizr:  'bower_components/modernizr',
+    qunit:      'bower_components/qunit',
+    typewatch:  'bower_components/jquery-typewatch',
     livereload: 'bower_components/livereload/dist/livereload.js',
-    spinjs: 'bower_components/spin.js'
+    spinjs:     'bower_components/spin.js',
+    chartjs:    'bower_components/chartjs'
   },
 
   composer: {
@@ -92,14 +93,12 @@ var libs = [
     paths.bower.modernizr + '/modernizr.js',
     paths.bower.jquery + '/dist/jquery.js',
     paths.composer.turbolinks + '/jquery.turbolinks.js',
-    // paths.bower.spinjs + '/spin.js',
-    // Bootstrap
-    // @todo Überlegen welche JS Module gelöscht werden können
+    paths.bower.spinjs + '/spin.js',
     paths.bower.bootstrap + '/dist/js/bootstrap.js',
-    // jQuery Plugins
     paths.bower.flowplayer + '/flowplayer.js',
-    paths.bower.jqueryTypewatch + '/jquery.typewatch.js',
-    // paths.bower.spinjs + '/jquery.spin.js'
+    paths.bower.typewatch + '/jquery.typewatch.js',
+    paths.bower.spinjs + '/jquery.spin.js',
+    paths.bower.chartjs + '/Chart.js'
   ];
 
 gulp.task('js:vendor', function(done) {
@@ -110,10 +109,9 @@ gulp.task('js:vendor', function(done) {
     .on('end', done);
 });
 
-
 gulp.task('js:turbolinks', function(done) {
   gulp.src(paths.composer.turbolinks + '/turbolinks.js')
-    // .pipe(newer(paths.app.build + '/js/libs/turbolinks.js'))
+    .pipe(newer(paths.app.build + '/js/libs/turbolinks.js'))
     .pipe(gulp.dest(paths.app.build + '/js'))
     .on('end', done);
 });
@@ -127,11 +125,9 @@ gulp.task('coffee:build', function(done) {
     .on('end', done);
 });
 
-// Die einzelnen JavaScript Pakete kombinieren
-// Die Reihenfolge ist sehr wichtig!
-
 gulp.task('js:build', ['coffee:build','js:vendor','js:turbolinks'], function() {
   gulp.src([
+      // Die Reihenfolge ist sehr wichtig!
       paths.app.build + '/js/vendor.js',
       paths.app.build + '/js/frontend.js',
       paths.app.build + '/js/turbolinks.js'
