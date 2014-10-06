@@ -24,11 +24,7 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-	'local' => array('Inventionate-iMac-PH','Inventionate-iMac','Inventionate-MacBook', 'homestead')
-
-));
+require __DIR__.'/environment.php';
 
 /*
 |--------------------------------------------------------------------------

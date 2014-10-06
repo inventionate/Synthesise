@@ -11,7 +11,7 @@ class AssetBuilder {
   public function rev($filename)
   {
 
-    $manifest_path = app_path() . '/assets/rev-manifest.json';
+    $manifest_path = base_path() . '/resources/assets/rev-manifest.json';
 
     if (file_exists($manifest_path)) {
       $manifest = json_decode(file_get_contents($manifest_path), TRUE);

@@ -13,8 +13,7 @@ coverage:
     include:
        - app/*
     exclude:
-        - app/config/*
-        - app/database/*
-        - app/lang/*
-        - app/start/*
-        - app/storage/*
+        - config/*
+        - database/*
+        - resources/*
+        - storage/*

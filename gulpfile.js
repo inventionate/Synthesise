@@ -44,10 +44,9 @@ var gulp        = require('gulp'),
 //////////////////////////////////////////////////
 
 var paths = {
-  app: {
-    assets: 'app/assets',
-    build: 'app/assets/build'
-  },
+  assets: 'resources/assets',
+
+  build: 'resources/assets/build',
 
   tests: 'tests',
 
@@ -65,19 +64,14 @@ var paths = {
     livereload: 'bower_components/livereload/dist/livereload.js',
     spinjs:     'bower_components/spin.js',
     chartjs:    'bower_components/chartjs'
-  },
-
-  composer: {
-    turbolinks: 'vendor/helthe/turbolinks/Resources/public/js'
   }
-
 };
 
 //////////////////////////////////////////////////
 // Rev Manifest
 //////////////////////////////////////////////////
 
-var manifest = require('./app/assets/rev-manifest.json');
+var manifest = require( './' + paths.assets + '/rev-manifest.json');
 
 //////////////////////////////////////////////////
 // SSH Secret
@@ -92,7 +86,6 @@ var secret = require('./secret.json');
 var libs = [
     paths.bower.modernizr + '/modernizr.js',
     paths.bower.jquery + '/dist/jquery.js',
-    paths.composer.turbolinks + '/jquery.turbolinks.js',
     paths.bower.spinjs + '/spin.js',
     paths.bower.bootstrap + '/dist/js/bootstrap.js',
     paths.bower.flowplayer + '/flowplayer.js',
@@ -103,39 +96,30 @@ var libs = [
 
 gulp.task('js:vendor', function(done) {
   gulp.src(libs)
-    .pipe(newer(paths.app.build + '/js/libs/vendor.js'))
+    .pipe(newer(paths.build + '/js/libs/vendor.js'))
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(paths.app.build + '/js'))
-    .on('end', done);
-});
-
-gulp.task('js:turbolinks', function(done) {
-  gulp.src(paths.composer.turbolinks + '/turbolinks.js')
-    .pipe(newer(paths.app.build + '/js/libs/turbolinks.js'))
-    .pipe(gulp.dest(paths.app.build + '/js'))
+    .pipe(gulp.dest(paths.build + '/js'))
     .on('end', done);
 });
 
 gulp.task('coffee:build', function(done) {
-  gulp.src(paths.app.assets + '/coffee/*.coffee')
-    .pipe(newer(paths.app.build + '/js/cofee'))
+  gulp.src(paths.assets + '/coffee/*.coffee')
+    .pipe(newer(paths.build + '/js/cofee'))
     .pipe(coffee({bare: true}))
     .pipe(concat('frontend.js'))
-    .pipe(gulp.dest(paths.app.build + '/js'))
+    .pipe(gulp.dest(paths.build + '/js'))
     .on('end', done);
 });
 
-gulp.task('js:build', ['coffee:build','js:vendor','js:turbolinks'], function() {
+gulp.task('js:build', ['coffee:build','js:vendor'], function() {
   gulp.src([
-      // Die Reihenfolge ist sehr wichtig!
-      paths.app.build + '/js/vendor.js',
-      paths.app.build + '/js/frontend.js',
-      paths.app.build + '/js/turbolinks.js'
+      paths.build + '/js/vendor.js',
+      paths.build + '/js/frontend.js'
     ])
-    .pipe(newer(paths.app.build + '/js/application.js'))
+    .pipe(newer(paths.build + '/js/application.js'))
     .pipe(concat('application.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(paths.app.build + '/js'));
+    .pipe(gulp.dest(paths.build + '/js'));
 });
 
 //////////////////////////////////////////////////
@@ -146,20 +130,20 @@ gulp.task('less:build', function() {
   gulp.src([
     paths.bower.flowplayer + '/skin/minimalist.css',
     paths.bower.bootstrap + '/dist/css/bootstrap.css',
-    paths.app.assets + '/less/application.less',
+    paths.assets + '/less/application.less',
     paths.bower.animate + '/animate.css'
     ])
-    .pipe(newer(paths.app.build + '/css/application.css'))
+    .pipe(newer(paths.build + '/css/application.css'))
     .pipe(concat('application.less'))
     .pipe(less({
       paths: [
-        paths.app.assets + '/less'
+        paths.assets + '/less'
       ],
       }))
     .pipe(prefix())
     .pipe(fingerprint(manifest, {prefix: '../'}))
     .pipe(minifycss({keepSpecialComments:0}))
-    .pipe(gulp.dest(paths.app.build + '/css'));
+    .pipe(gulp.dest(paths.build + '/css'));
 });
 
 //////////////////////////////////////////////////
@@ -188,13 +172,13 @@ gulp.task('publish:flash', function () {
 
 gulp.task('img:build', function () {
   gulp.src([
-    paths.app.assets + '/img/*',
+    paths.assets + '/img/*',
     paths.bower.flowplayer +'/skin/img/*'
     ])
     .pipe(plumber())
-    .pipe(newer(paths.app.build + '/img'))
-    // .pipe(imagemin())
-    .pipe(gulp.dest(paths.app.build + '/img'));
+    .pipe(newer(paths.build + '/img'))
+    .pipe(imagemin())
+    .pipe(gulp.dest(paths.build + '/img'));
 });
 
 //////////////////////////////////////////////////
@@ -209,15 +193,14 @@ gulp.task('build:assets', ['js:build','less:build','img:build']);
 
 gulp.task('publish:assets', ['clean:public','build:assets'], function () {
   gulp.src([
-    paths.app.build + '/**',
-    '!' + paths.app.build + '/js/vendor.js',
-    '!' + paths.app.build + '/js/frontend.js',
-    '!' + paths.app.build + '/js/turbolinks.js'
+    paths.build + '/**',
+    '!' + paths.build + '/js/vendor.js',
+    '!' + paths.build + '/js/frontend.js'
     ])
     .pipe(rev())
     .pipe(gulp.dest(paths.public))
     .pipe(rev.manifest())
-    .pipe(gulp.dest(paths.app.assets));
+    .pipe(gulp.dest(paths.assets));
 });
 
 gulp.task('publish', ['publish:fonts']);
@@ -227,7 +210,7 @@ gulp.task('publish', ['publish:fonts']);
 //////////////////////////////////////////////////
 
 gulp.task('clean:build', function () {
-  gulp.src(paths.app.build,{read: false})
+  gulp.src(paths.build,{read: false})
     .pipe(rimraf());
 });
 
@@ -263,11 +246,11 @@ gulp.task('clean:lr', function () {
 
 gulp.task('watch:assets', function() {
   gulp.watch([
-    paths.app.assets + '/coffee/**/*.coffee',
-    paths.app.assets + '/less/**/*.less',
-    paths.app.assets + '/img/**/*.png',
-    paths.app.assets + '/img/**/*.jpg',
-    paths.app.assets + '/img/**/*.gif'
+    paths.assets + '/coffee/**/*.coffee',
+    paths.assets + '/less/**/*.less',
+    paths.assets + '/img/**/*.png',
+    paths.assets + '/img/**/*.jpg',
+    paths.assets + '/img/**/*.gif'
     ],
     ['publish:assets']);
 })

@@ -5,7 +5,6 @@ Thumbs.db
 
 #Laravel Dateien
 
-/app/assets/build
 /bootstrap/compiled.php
 /bower_components
 /doc
@@ -17,8 +16,8 @@ Thumbs.db
 /public/js
 /public/qunit
 /public/video
+/resources/assets/build
 /tests/_output
-/tmp
 /vendor
 composer.phar
 composer.lock

@@ -10,30 +10,26 @@
 		}
 	],
 	"require": {
-		"laravel/framework": "4.2.*",
-		"doctrine/dbal": "2.4.*",
-		"efficiently/turbolinks": "dev-master",
+		"laravel/framework": "5.*",
+		"illuminate/html": "5.0.*@dev",
+		"doctrine/dbal": "2.*",
 		"thujohn/pdf": "1.*",
 		"jenssegers/agent": "2.*"
 	},
 	"require-dev": {
-		"way/generators": "2.*",
+		"way/generators": "3.*",
 		"codeception/codeception": "2.*",
 		"codeception/aspect-mock": "*",
 		"phpdocumentor/phpdocumentor": "2.*"
 	},
 	"autoload": {
 		"classmap": [
-			"app/commands",
-			"app/controllers",
-			"app/database/migrations",
-			"app/database/seeds",
-			"app/database/seeds/Test",
-			"tests/unit/TestCase.php",
-			"app/Repositories",
-			"app/Extensions",
-			"app"
-		]
+			"database",
+			"tests/unit/TestCase.php"
+		],
+		"psr-4": {
+			"Synthesise\\": "app/"
+		}
 	},
 	"scripts": {
 		"post-install-cmd": [
