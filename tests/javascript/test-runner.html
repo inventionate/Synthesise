@@ -1,0 +1,38 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Synthesise JS Unit Testrunner</title>
+        <meta name="description" content="Unit Tests for JS Code.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="../../bower_components/qunit/qunit/qunit.css">
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
+        <script type="text/javascript" src="../../bower_components/qunit/qunit/qunit.js"></script>
+        <script type="text/javascript" src="../../bower_components/spin.js/spin.js"></script>
+        <script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="../../bower_components/flowplayer/flowplayer.min.js"></script>
+        <script type="text/javascript" src="../../bower_components/jquery-typewatch/jquery.typewatch.js"></script>
+        <script type="text/javascript" src="../../bower_components/spin.js/jquery.spin.js"></script>
+        <script type="text/javascript" src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../../bower_components/Chart.min.js"></script>
+        <script type="text/javascript" src="../../bower_components/coffee-script/extras/coffee-script.js"></script>
+
+        <!-- Hier werden alle Skripts aufgelistet -->
+        <script type="text/coffeescript">
+
+          CoffeeScript.load '../../resources/assets/coffee/analytics.coffee', CoffeeScript.load 'analytics_test.coffee'
+          CoffeeScript.load '../../resources/assets/coffee/lection.coffee', CoffeeScript.load 'lection_test.coffee'
+          CoffeeScript.load '../../resources/assets/coffee/nav.coffee', CoffeeScript.load 'nav_test.coffee'
+          CoffeeScript.load '../../resources/assets/coffee/videoplayer.coffee', CoffeeScript.load 'videoplayer_test.coffee'
+
+        </script>
+    </body>
+</html>

@@ -7,10 +7,11 @@
     "flowplayer": "http://releases.flowplayer.org/5.5.0/commercial/flowplayer.commercial-5.5.0.zip",
     "animate.css": "git://github.com/daneden/animate.css.git#~3.2.0",
     "jquery-typewatch": "*",
-    "spin.js": "~2.0.1"
+    "spin.js": "~2.0.1",
+    "chartjs": "~0.2.0"
   },
   "devDependencies": {
     "qunit": "~1.15.0",
-    "chartjs": "~0.2.0"
+    "coffee-script": "~1.8.0"
   }
 }

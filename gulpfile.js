@@ -34,6 +34,7 @@ var gulp        = require('gulp'),
     fingerprint = require('gulp-fingerprint'),
     // DEV
     codecept    = require('gulp-codeception'),
+    qunit       = require('node-qunit-phantomjs'),
     watch       = require('gulp-watch'),
     plumber     = require('gulp-plumber'),
     // Livereload
@@ -288,15 +289,8 @@ gulp.task('codecept', function() {
 // QUNIT Tasks
 //////////////////////////////////////////////////
 
-gulp.task('publish:qunit', function() {
-  gulp.src(paths.bower.qunit + '/qunit/*')
-    .pipe(newer(paths.public + '/qunit'))
-    .pipe(gulp.dest(paths.public + '/qunit'));
-});
-
-gulp.task('clean:qunit', function () {
-  gulp.src(paths.public + '/qunit',{read: false})
-    .pipe(rimraf());
+gulp.task('qunit', function() {
+  qunit(paths.tests + '/javascript/test-runner.html');
 });
 
 //////////////////////////////////////////////////

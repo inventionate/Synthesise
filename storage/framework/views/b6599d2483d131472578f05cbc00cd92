@@ -1,0 +1,3 @@
+<p><?php echo e($name); ?> hat eine Frage bzgl. e:t:p:M gesendet:</p>
+
+<p><?php echo e($content); ?></p>

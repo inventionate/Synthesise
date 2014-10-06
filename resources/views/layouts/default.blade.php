@@ -11,9 +11,6 @@
 		@if( App::environment() === 'local' )
 			{{-- LIVERELOAD DEV SCRIPT ---------------------------------------------}}
 			<script src="http://synthesise.local:35729/livereload.js?snipver=1"></script>
-			{{-- QUNIT DEV SCRIPT ---------------------------------------------}}
- 			{{--		<link rel="stylesheet" href="{{ asset('qunit/qunit.css') }}">
-<script src="{{ asset('qunit/qunit.js') }}"></script> --}}
 		@endif
 
 		{{-- @include PARTIAL HEAD -----------------------------------------------}}
@@ -65,11 +62,4 @@
 
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@include('layouts.partials.analytics')
-
-		{{-- @include ANALYTICS --------------------------------------------------}}
-		@if( App::environment() === 'local' )
-{{-- 			<div id="qunit"></div>
-<div id="qunit-fixture"></div>
-<script src="{{ asset('qunit/tests.js') }}"></script> --}}
-		@endif
 	</body>
