@@ -24,7 +24,7 @@
 				{{-- THEMENBEREICH --}}
 				@if($video->videoname === 'Griechisch-römische Antike')
 					<td rowspan="3" class="themenbereich">
-						{{ $video->section .'<br><small>'.$video->author.'</small>'}}
+						{!! $video->section .'<br><small>'.$video->author.'</small>' !!}
 					</td>
 				@endif
 				@if($video->videoname === 'Jean-Jacques Rousseau')

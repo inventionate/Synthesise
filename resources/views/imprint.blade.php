@@ -43,7 +43,7 @@
       <h4 class="panel-title">Widerspruch</h4>
     </div>
     <div class="panel-body">
-      <iframe style="border: 0; width: 100%" src="http://home.ph-karlsruhe.de/etpM/analytics/index.php?module=CustomOptOut&action=optOut&idSite=1&language=de"></iframe>
+      <iframe style="border: 0; width: 100%;" src="https://etpm-analytics.ph-karlsruhe.de/index.php?module=CustomOptOut&action=optOut&idSite=1&language=de"></iframe>
     </div>
   </div>
 

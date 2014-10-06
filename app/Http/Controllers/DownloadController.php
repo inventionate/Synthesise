@@ -1,5 +1,7 @@
 <?php namespace Synthesise\Http\Controllers;
 
+use Illuminate\Support\Facades\Response;
+
 class DownloadController {
 
 	/**
@@ -14,7 +16,7 @@ class DownloadController {
 	{
 		# @todo Parser Funktion erstellen, die den Namen normalisiert und diese dann Unit testen!
 		$filename = strtolower(str_replace(array(' ','?','ä','ö','ü','ß','-','–',':',',','»','«','É','!','.','Ä','Ö','Ü'),array('_','','ae','oe','ue','ss','','und','','','','','e','','','ae','oe','ue'),urldecode($file)));
-		return Response::download(storage_path().'/'.$type.'/'.$filename.'.'.$type);
+		return Response::download(storage_path().'/app/'.$type.'/'.$filename.'.'.$type);
 	}
 
 }
