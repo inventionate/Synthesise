@@ -1,5 +1,5 @@
-# TURBOLINKS SETTING -------------------------------------------------
 # CUEPOINTS AND NOTES
+
 $(document).ready ->
   # URL ÜBERPRÜFEN --------------------------------------------------
   # Aktuelle URL für AJAX Requests und JS Ausfürhungen
