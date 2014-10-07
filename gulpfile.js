@@ -178,7 +178,7 @@ gulp.task('img:build', function () {
     ])
     .pipe(plumber())
     .pipe(newer(paths.build + '/img'))
-    .pipe(imagemin())
+    // .pipe(imagemin())
     .pipe(gulp.dest(paths.build + '/img'));
 });
 

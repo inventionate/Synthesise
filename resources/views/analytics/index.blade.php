@@ -4,7 +4,24 @@
 @stop
 
 @section('content')
+<main id="main-content-{{ Request::segment(1) }}" class="container animated fadeIn">
 
-<h1>{{ $liveVisitors }}</h1>
+  <h1 class="visible-print-block">Analytics</h1>
 
+  <div class="row">
+    <div class="col-lg-6">
+      @include('analytics.partials.liveVisitors')
+    </div>
+    <div class="col-lg-6">
+      @include('analytics.partials.semesterVisitors')
+    </div>
+    <div class="col-lg-6">
+      @include('analytics.partials.downloads')
+    </div>
+    <div class="col-lg-6">
+      @include('analytics.partials.plays')
+    </div>
+  </div>
+  <div class="clearfix visible-lg"></div>
+</main>
 @stop

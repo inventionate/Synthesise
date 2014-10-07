@@ -4,6 +4,7 @@ use Exception;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Exception\Handler;
+use Illuminate\Support\Facades\View;
 
 class ErrorServiceProvider extends ServiceProvider {
 
@@ -27,7 +28,9 @@ class ErrorServiceProvider extends ServiceProvider {
 		$handler->error(function(Exception $e) use ($log)
 		{
 			$log->error($e);
-			return View::make('errors.tokenmismatch');
+			// @todo hier so konfigurieren, dass die entsprechenden Error angezeigt werden.
+			// @todo außerdem so konfigurieren, dass sie nur in der Produktivumgebung angezeigt werden.
+			//return View::make('errors.tokenmismatch');
 		});
 	}
 

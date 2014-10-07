@@ -3,9 +3,26 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+<main id="main-content-<?php echo e(Request::segment(1)); ?>" class="container animated fadeIn">
 
-<h1><?php echo e($liveVisitors); ?></h1>
+  <h1 class="visible-print-block">Analytics</h1>
 
+  <div class="row">
+    <div class="col-lg-6">
+      <?php echo $__env->make('analytics.partials.liveVisitors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+    <div class="col-lg-6">
+      <?php echo $__env->make('analytics.partials.semesterVisitors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+    <div class="col-lg-6">
+      <?php echo $__env->make('analytics.partials.downloads', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+    <div class="col-lg-6">
+      <?php echo $__env->make('analytics.partials.plays', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+  </div>
+  <div class="clearfix visible-lg"></div>
+</main>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

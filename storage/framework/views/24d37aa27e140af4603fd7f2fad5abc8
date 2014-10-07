@@ -1,0 +1,9 @@
+<section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Angesehene online-Lektionen</h3>
+  </div>
+  <div class="panel-body">
+    <?php echo e($liveVisitors); ?>
+
+  </div>
+</section>

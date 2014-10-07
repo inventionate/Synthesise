@@ -8,7 +8,7 @@
     "animate.css": "git://github.com/daneden/animate.css.git#~3.2.0",
     "jquery-typewatch": "*",
     "spin.js": "~2.0.1",
-    "chartjs": "~0.2.0"
+    "chartjs": "~1.0.1-beta.4"
   },
   "devDependencies": {
     "qunit": "~1.15.0",
