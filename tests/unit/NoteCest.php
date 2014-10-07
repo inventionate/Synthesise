@@ -9,8 +9,10 @@ class NoteCest
    * Testet, ob ein Note Objekt generiert werden kann.
    *
    */
-  public function createANewNote(UnitTester $I)
+  public function testCreateANewNote(UnitTester $I)
   {
+    $I->wantTo('create a new Note');
+
     $I->canCreate('Note');
   }
 
@@ -18,8 +20,10 @@ class NoteCest
    * Testet, ob die Datenbankverknüpfuung Note-Cuepoint definiert wurde.
    *
    */
-  public function checkIfBelongsToCuepointExits(UnitTester $I)
+  public function testCheckIfBelongsToCuepointExits(UnitTester $I)
   {
+    $I->wantTo('check if Note belongs to Cuepoint');
+
     $note = new Note;
     $I->seeMethod($note,'cuepoint');
   }
@@ -28,8 +32,10 @@ class NoteCest
    * Testet, ob die Datenbankverknüpfuung Note-User definiert wurde.
    *
    */
-  public function checkIfBelongsToUserExits(UnitTester $I)
+  public function testCheckIfBelongsToUserExits(UnitTester $I)
   {
+    $I->wantTo('check if Note belongs to User');
+
     $note = new Note;
     $I->seeMethod($note,'user');
   }
@@ -38,8 +44,9 @@ class NoteCest
    * Testet, ob die Datenbankverknüpfuung Note-Video definiert wurde.
    *
    */
-  public function checkIfBelongsToPaperExits(UnitTester $I)
+  public function testCheckIfBelongsToPaperExits(UnitTester $I)
   {
+      $I->wantTo('check if Note belongs to Video');
       $note = new Note;
       $I->seeMethod($note,'video');
   }

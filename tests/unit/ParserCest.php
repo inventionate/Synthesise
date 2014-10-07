@@ -14,8 +14,10 @@ class ParserCest
      * Testet ob ein Pareser Objekt erzeugt werden kann.
      *
      */
-    public function createANewParser(UnitTester $I)
+    public function testCreateANewParser(UnitTester $I)
     {
+        $I->wantTo('create Parser');
+
         $I->canCreate('Extensions\Parser');
     }
 
@@ -23,8 +25,10 @@ class ParserCest
      * Testet die normalisierte Rückgabe.
      *
      */
-    public function normalizeAnURL(UnitTester $I)
+    public function testNormalizeAnURL(UnitTester $I)
     {
+        $I->wantTo('normalize an URL');
+
         $url = "test me";
 
         $normalizedURL = Parser::normalizeURL($url);
@@ -50,8 +54,10 @@ class ParserCest
      *
      *
      */
-    public function generateHtmlMarkup(UnitTester $I)
+    public function testGenerateHtmlMarkup(UnitTester $I)
     {
+        $I->wantTo('generate HTML Markup');
+
         $title = "Rites de Passage";
 
         $content ="<h2>Arnold van Gennep</h2>";

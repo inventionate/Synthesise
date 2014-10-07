@@ -1,4 +1,6 @@
 # CUEPOINTS AND NOTES
+# @todo Code modularisieren und testbar machen
+# @todo Ajax Calls in Funktionen auslagern und diese testen!
 
 $(document).ready ->
   # URL ÜBERPRÜFEN --------------------------------------------------

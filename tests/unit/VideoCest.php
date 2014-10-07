@@ -10,8 +10,10 @@ class VideoCest
    * Testet ob ein Video Objekt erzeugt werden kann.
    *
    */
-  public function createANewVideo(UnitTester $I)
+  public function testCreateANewVideo(UnitTester $I)
   {
+     $I->wantTo('create a new Video');
+
      $I->canCreate('Video');
   }
 
@@ -19,8 +21,10 @@ class VideoCest
    * Testet, ob die Datenbankverknüpfuung Video-Cuepoint definiert wurde.
    *
    */
-  public function checkIfHasManyCuepointsExits(UnitTester $I)
+  public function testCheckIfHasManyCuepointsExits(UnitTester $I)
   {
+    $I->wantTo('check if Video has many Cuepoint');
+
     $video = new Video;
     $I->seeMethod($video,'cuepoints');
   }
@@ -29,8 +33,10 @@ class VideoCest
    * Testet, ob die Datenbankverknüpfuung Video-Paper definiert wurde.
    *
    */
-  public function checkIfHasManyPapersExits(UnitTester $I)
+  public function testCheckIfHasManyPapersExits(UnitTester $I)
   {
+    $I->wantTo('check if Video has many Papers');
+
     $video = new Video;
     $I->seeMethod($video,'papers');
   }
@@ -39,8 +45,10 @@ class VideoCest
    * Testet, ob die Datenbankverknüpfuung Video-Note definiert wurde.
    *
    */
-  public function checkIfHasManyNotesExits(UnitTester $I)
+  public function testCheckIfHasManyNotesExits(UnitTester $I)
   {
+    $I->wantTo('check if Video has many Notes');
+
     $video = new Video;
     $I->seeMethod($video,'notes');
   }

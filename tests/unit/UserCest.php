@@ -21,7 +21,7 @@ class UserCest
    * Testet, ob die Datenbankverknüpfuung User-Note definiert wurde.
    *
    */
-	public function checkHasManyNotes(UnitTester $I)
+	public function testCheckHasManyNotes(UnitTester $I)
 	{
     $I->wantTo('see if hasMay realtionship method exits');
     $user = new User;

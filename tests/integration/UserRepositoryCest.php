@@ -43,7 +43,7 @@ class UserRepositoryCest
    * Testet das Suchen eines Nutzers anhand seines Nutzernamens.
    *
    */
-  public function findUserByUsername(IntegrationTester $I)
+  public function testFindUserByUsername(IntegrationTester $I)
   {
     $I->wantTo('find a user by username');
 
@@ -63,7 +63,7 @@ class UserRepositoryCest
    * Testet die HTML Ausgabe gespeicherter Notizen.
    *
    */
-  public function getNoteAsHTML(IntegrationTester $I)
+  public function testGetNoteAsHTML(IntegrationTester $I)
   {
     $I->wantTo('create a HTML output of a note');
     // Beispieldatensatz generieren
@@ -97,7 +97,7 @@ class UserRepositoryCest
    * Testet die sortierte HTML Ausgabe mehrerer gespeicherten Notizen.
    *
    */
-  public function getAllNotesOrderedAsHTML(IntegrationTester $I)
+  public function testGetAllNotesOrderedAsHTML(IntegrationTester $I)
   {
     $I->wantTo('Get an ordered HTML output of all notes');
 
@@ -153,8 +153,10 @@ class UserRepositoryCest
    * Testet die Abfrage des Nutzernamens.
    *
    */
-  public function getUsername(IntegrationTester $I)
+  public function testGetUsername(IntegrationTester $I)
   {
+    $I->wantTo('get username of authenticated user');
+
     // ARRANGE
     $this->dummyUser['id'] = 1;
     $this->dummyUser['username'] = 'dark';
@@ -177,7 +179,7 @@ class UserRepositoryCest
    * Testet die Abfrage der E-Mail.
    *
    */
-  public function getEmail(IntegrationTester $I)
+  public function testGetEmail(IntegrationTester $I)
   {
     $I->wantTo('get the e-mail of the authenticated user');
 

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="change-fade container">
+<main id="main-content-{{ Request::segment(1) }}" class="container animated fadeIn">
 
 	@if($available || $role === 'Teacher' && $online)
 

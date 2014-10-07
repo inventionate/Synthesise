@@ -30,8 +30,10 @@ class NoteRepositoryCest
      * Testet, ob die Notiz ID ausgelesen werden kann.
      *
      */
-    public function findNoteId(IntegrationTester $I)
+    public function testFindNoteId(IntegrationTester $I)
     {
+      $I->wantTo('find Note ID');
+
       // Beispieldatensatz generieren
       $this->dummyNote['user_id'] = 1;
       $this->dummyNote['cuepoint_id'] = 1;
@@ -48,8 +50,10 @@ class NoteRepositoryCest
      * testet, ob der Inhalt einer Notiz ausgelesen werden kann.
      *
      */
-    public function readNoteContent(IntegrationTester $I)
+    public function testReadNoteContent(IntegrationTester $I)
     {
+      $I->wantTo('read Note content');
+
       // Beispieldatensatz generieren
       $this->dummyNote['id'] = 1;
       $this->dummyNote['note'] = Crypt::encrypt('Darkside');
@@ -78,8 +82,10 @@ class NoteRepositoryCest
      * Testet das Speichern einer neuen Notiz.
      *
      */
-    public function saveNewNote(IntegrationTester $I)
+    public function testSaveNewNote(IntegrationTester $I)
     {
+      $I->wantTo('save new Note');
+
       // Neue Notiz speichern
       $newNote = Note::updateContent('Der neue Inhalt.',1,1,'Sozialgeschichte 1');
 
@@ -94,8 +100,10 @@ class NoteRepositoryCest
      * Testet das Updaten einer Notiz.
      *
      */
-    public function updateNoteContent(IntegrationTester $I)
+    public function testUpdateNoteContent(IntegrationTester $I)
     {
+      $I->wantTo('update Note content');
+
       // Beispieldatensatz generieren
       $this->dummyNote['note'] = Crypt::encrypt('Lightside');
       $this->dummyNote['user_id'] = 1;
@@ -117,8 +125,10 @@ class NoteRepositoryCest
      * Testet das Löschen einer leeren Notiz.
      *
      */
-    public function removeAnEmptyNoteFromDatabase(IntegrationTester $I)
+    public function testRemoveAnEmptyNoteFromDatabase(IntegrationTester $I)
     {
+      $I->wantTo('remove an empty Note from database');
+
       // Beispieldatensatz generieren
       $this->dummyNote['id'] = 1;
       $this->dummyNote['note'] = Crypt::encrypt('Lightside');

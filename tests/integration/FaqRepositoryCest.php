@@ -23,9 +23,10 @@ class FaqRepositoryCest {
       $this->dummyFaq = TestCommons::dummyFaq();
     }
 
-    public function getFaqLetters(IntegrationTester $I)
+    public function testGetFaqLetters(IntegrationTester $I)
     {
 
+      $I->wantTo('get FAQ letters');
       /**
        * Beispieldatensatz generieren
        *
@@ -55,8 +56,10 @@ class FaqRepositoryCest {
      * Testet die Abfrage aller vorhandenen Einträge
      *
      */
-    public function getAllFaqs(IntegrationTester $I)
+    public function testGetAllFaqs(IntegrationTester $I)
     {
+
+      $I->wantTo('get all flags');
 
       /**
        * Beispieldatensatz generieren
@@ -93,8 +96,10 @@ class FaqRepositoryCest {
      * Testet die Abfrage in Abhängigkeit eines Buchstabens (area)
      *
      */
-    public function getFaqsByLetter(IntegrationTester $I)
+    public function testGetFaqsByLetter(IntegrationTester $I)
     {
+
+      $I->wantTo('get flags by letter');
 
       /**
        * Beispieldatensatz generieren

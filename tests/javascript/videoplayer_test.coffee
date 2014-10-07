@@ -1,39 +1,38 @@
-QUnit.module "Videoplayer Testing",
-  setup: ->
-    $('#qunit-fixture').append "<div class='flowplayer'
-    data-key='$443083014658956' title='Star Wars'><video></video>
-    </div>"
+# QUnit.module "Videoplayer Testing",
+#   setup: ->
+#     sinon.spy _paq, 'push'
+#     this.clock = sinon.useFakeTimers()
+#   teardown: ->
+#     _paq.push.restore()
+#     this.clock.restore()
 
-    api = $(".flowplayer").data("flowplayer")
-    sinon.spy _paq, 'push'
-    sinon.spy flowplayer(), 'load'
-  teardown: ->
-    _paq.push.restore()
-    flowplayer().restore()
+# QUnit.asyncTest 'Flowplayer Event fired.', (assert) ->
 
-QUnit.test 'Flowplayer Event fired.', (assert) ->
-
-
+  # expect(1)
   #
-  # <div class="flowplayer fixed-controls play-button is-splash"
-  # data-generate_cuepoints="true"
-  # @if( ! (Agent::isMobile() || Agent::isTablet()) )
-  #   data-cuepoints="[{{ implode(',',$cuepoints->lists('cuepoint')) }}]"
-  # @endif
-  # data-key="$443083014658956"
-  # data-logo="{{ asset('apple-touch-icon-precomposed.png') }}"
-  # data-swf="{{ asset('flash/flowplayer.swf') }}"
-  # title="{{{ $videoname }}}"
-  # >
-  api = flowplayer().resume()
+  # $('#qunit-fixture').append "
+  # <div class='player'>
+  #   <video>
+  #   <source type='video/webm'
+  #   src='https://etpm.ph-karlsruhe.de/video/bildung_und_gerechtigkeit.webm'>
+  #   </video>
+  # </div>"
+  #
+  # $('.player').flowplayer()
+  #
+  # $('.player').trigger('load')
+  #
+  # api = $(".player").data("flowplayer")
+  #
+  # api.resume()
+  #
+  # alert _paq.args
 
-  alert api.args
-
-  ok _paq.push.calledWith([
-      'Text',
-      'Downloaded',
-      'Monja'
-    ]),'Piwik Analytics was pushed.'
+  # ok _paq.push.calledWith([
+  #     'Text',
+  #     'Downloaded',
+  #     'Monja'
+  #   ]),'Piwik Analytics was pushed.'
 
 #
 #   QUnit.start()

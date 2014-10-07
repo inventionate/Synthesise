@@ -28,7 +28,7 @@ var gulp        = require('gulp'),
     concat      = require('gulp-concat'),
     rename      = require('gulp-rename'),
     rev         = require('gulp-rev'),
-    rimraf      = require('gulp-rimraf'),
+    del         = require('del'),
     changed     = require('gulp-changed'),
     newer       = require('gulp-newer'),
     fingerprint = require('gulp-fingerprint'),
@@ -210,19 +210,17 @@ gulp.task('publish', ['publish:fonts']);
 // CLEAN Tasks
 //////////////////////////////////////////////////
 
-gulp.task('clean:build', function () {
-  gulp.src(paths.build,{read: false})
-    .pipe(rimraf());
+gulp.task('clean:build', function (cb) {
+    del([paths.build], cb);
 });
 
-gulp.task('clean:public', function () {
-  gulp.src([
+gulp.task('clean:public', function (cb) {
+  del([
     paths.public + '/css',
     paths.public + '/js',
     paths.public + '/fonts',
     paths.public + '/img'
-    ], {read: false})
-    .pipe(rimraf());
+  ], cb);
 });
 
 //////////////////////////////////////////////////
@@ -236,9 +234,8 @@ gulp.task('publish:lr', function() {
     .pipe(gulp.dest(paths.public + '/js'));
 });
 
-gulp.task('clean:lr', function () {
-  gulp.src(paths.public + '/js/livereload.js',{read: false})
-    .pipe(rimraf());
+gulp.task('clean:lr', function (cb) {
+  del([paths.public + '/js/livereload.js'], cb);
 });
 
 //////////////////////////////////////////////////
