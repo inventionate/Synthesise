@@ -5,4 +5,6 @@
 
 @section('content')
 
+<h1>{{ $liveVisitors }}</h1>
+
 @stop

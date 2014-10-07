@@ -4,8 +4,9 @@ class Parser
 {
 
 	/**
-	* Normalisiert die übergebenen URL
-	**/
+	 * Normalisiert die übergebenen URL
+	 *
+	 */
 	public function normalizeURL($url)
 	{
 		return urlencode($url);

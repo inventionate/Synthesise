@@ -3,6 +3,8 @@
 class AssetBuilder {
 
   /**
+   * Liest die Asset Datei inkl. Revisionstag aus der "manifest" Datei.
+   *
    * @param  string  $filename
    * @return string
    */

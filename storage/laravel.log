@@ -1414,3 +1414,162 @@ Stack trace:
 Stack trace:
 #0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
 #1 {main} [] []
+[2014-10-07 20:13:48] local.ERROR: exception 'ErrorException' with message 'Non-static method Synthesise\Extensions\Analytics::getLiveVisitors() should not be called statically, assuming $this from incompatible context' in /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php:17
+Stack trace:
+#0 /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php(17): Illuminate\Exception\Handler->handleError(8192, 'Non-static meth...', '/home/vagrant/s...', 17, Array)
+#1 [internal function]: Synthesise\Http\Controllers\AnalyticsController->index()
+#2 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(174): call_user_func_array(Array, Array)
+#3 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(132): Illuminate\Routing\Route->runController(Object(Illuminate\Http\Request))
+#4 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(549): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#5 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(517): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#6 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(830): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#7 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(807): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#8 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#9 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#10 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#11 /home/vagrant/synthesise-3/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#12 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(663): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#13 /home/vagrant/synthesise-3/public/index.php(49): Illuminate\Foundation\Application->run()
+#14 {main} [] []
+[2014-10-07 20:13:48] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Providers\View' not found' in /home/vagrant/synthesise-3/app/Providers/ErrorServiceProvider.php:30
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 20:16:25] local.ERROR: exception 'ErrorException' with message 'Non-static method Synthesise\Extensions\Analytics::getLiveVisitors() should not be called statically, assuming $this from incompatible context' in /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php:17
+Stack trace:
+#0 /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php(17): Illuminate\Exception\Handler->handleError(8192, 'Non-static meth...', '/home/vagrant/s...', 17, Array)
+#1 [internal function]: Synthesise\Http\Controllers\AnalyticsController->index()
+#2 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(174): call_user_func_array(Array, Array)
+#3 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(132): Illuminate\Routing\Route->runController(Object(Illuminate\Http\Request))
+#4 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(549): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#5 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(517): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#6 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(830): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#7 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(807): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#8 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#9 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#10 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#11 /home/vagrant/synthesise-3/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#12 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(663): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#13 /home/vagrant/synthesise-3/public/index.php(49): Illuminate\Foundation\Application->run()
+#14 {main} [] []
+[2014-10-07 20:16:25] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Providers\View' not found' in /home/vagrant/synthesise-3/app/Providers/ErrorServiceProvider.php:30
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 20:18:25] local.ERROR: exception 'ErrorException' with message 'Non-static method Synthesise\Extensions\Analytics::getLiveVisitors() should not be called statically, assuming $this from incompatible context' in /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php:17
+Stack trace:
+#0 /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php(17): Illuminate\Exception\Handler->handleError(8192, 'Non-static meth...', '/home/vagrant/s...', 17, Array)
+#1 [internal function]: Synthesise\Http\Controllers\AnalyticsController->index()
+#2 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(174): call_user_func_array(Array, Array)
+#3 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(132): Illuminate\Routing\Route->runController(Object(Illuminate\Http\Request))
+#4 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(549): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#5 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(517): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#6 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(830): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#7 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(807): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#8 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#9 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#10 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#11 /home/vagrant/synthesise-3/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#12 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(663): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#13 /home/vagrant/synthesise-3/public/index.php(49): Illuminate\Foundation\Application->run()
+#14 {main} [] []
+[2014-10-07 20:18:25] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Providers\View' not found' in /home/vagrant/synthesise-3/app/Providers/ErrorServiceProvider.php:30
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 20:31:12] local.ERROR: exception 'ErrorException' with message 'unserialize(): Error at offset 0 of 11 bytes' in /home/vagrant/synthesise-3/app/Extensions/Analytics.php:29
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(8, 'unserialize(): ...', '/home/vagrant/s...', 29, Array)
+#1 /home/vagrant/synthesise-3/app/Extensions/Analytics.php(29): unserialize('{"value":3}')
+#2 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(205): Synthesise\Extensions\Analytics->getLiveVisitors()
+#3 /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php(17): Illuminate\Support\Facades\Facade::__callStatic('getLiveVisitors', Array)
+#4 /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php(17): Synthesise\Extensions\Facades\Analytics::getLiveVisitors()
+#5 [internal function]: Synthesise\Http\Controllers\AnalyticsController->index()
+#6 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(174): call_user_func_array(Array, Array)
+#7 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(132): Illuminate\Routing\Route->runController(Object(Illuminate\Http\Request))
+#8 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(549): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(517): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(830): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(807): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/vagrant/synthesise-3/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(663): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/vagrant/synthesise-3/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-10-07 20:31:12] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Providers\View' not found' in /home/vagrant/synthesise-3/app/Providers/ErrorServiceProvider.php:30
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 20:32:23] local.ERROR: exception 'ErrorException' with message 'unserialize(): Error at offset 0 of 11 bytes' in /home/vagrant/synthesise-3/app/Extensions/Analytics.php:29
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(8, 'unserialize(): ...', '/home/vagrant/s...', 29, Array)
+#1 /home/vagrant/synthesise-3/app/Extensions/Analytics.php(29): unserialize('{"value":3}')
+#2 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(205): Synthesise\Extensions\Analytics->getLiveVisitors()
+#3 /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php(17): Illuminate\Support\Facades\Facade::__callStatic('getLiveVisitors', Array)
+#4 /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php(17): Synthesise\Extensions\Facades\Analytics::getLiveVisitors()
+#5 [internal function]: Synthesise\Http\Controllers\AnalyticsController->index()
+#6 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(174): call_user_func_array(Array, Array)
+#7 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(132): Illuminate\Routing\Route->runController(Object(Illuminate\Http\Request))
+#8 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(549): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(517): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(830): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(807): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/vagrant/synthesise-3/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(663): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/vagrant/synthesise-3/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-10-07 20:32:23] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Providers\View' not found' in /home/vagrant/synthesise-3/app/Providers/ErrorServiceProvider.php:30
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 20:33:26] local.ERROR: exception 'ErrorException' with message 'unserialize(): Error at offset 0 of 11 bytes' in /home/vagrant/synthesise-3/app/Extensions/Analytics.php:29
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(8, 'unserialize(): ...', '/home/vagrant/s...', 29, Array)
+#1 /home/vagrant/synthesise-3/app/Extensions/Analytics.php(29): unserialize('{"value":3}')
+#2 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(205): Synthesise\Extensions\Analytics->getLiveVisitors()
+#3 /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php(17): Illuminate\Support\Facades\Facade::__callStatic('getLiveVisitors', Array)
+#4 /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php(17): Synthesise\Extensions\Facades\Analytics::getLiveVisitors()
+#5 [internal function]: Synthesise\Http\Controllers\AnalyticsController->index()
+#6 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(174): call_user_func_array(Array, Array)
+#7 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(132): Illuminate\Routing\Route->runController(Object(Illuminate\Http\Request))
+#8 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(549): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(517): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(830): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(807): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/vagrant/synthesise-3/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(663): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/vagrant/synthesise-3/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-10-07 20:33:26] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Providers\View' not found' in /home/vagrant/synthesise-3/app/Providers/ErrorServiceProvider.php:30
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 20:51:17] local.ERROR: exception 'ErrorException' with message 'Undefined variable: request' in /home/vagrant/synthesise-3/app/Http/Controllers/AuthController.php:76
+Stack trace:
+#0 /home/vagrant/synthesise-3/app/Http/Controllers/AuthController.php(76): Illuminate\Exception\Handler->handleError(8, 'Undefined varia...', '/home/vagrant/s...', 76, Array)
+#1 [internal function]: Synthesise\Http\Controllers\AuthController->login()
+#2 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(174): call_user_func_array(Array, Array)
+#3 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Route.php(132): Illuminate\Routing\Route->runController(Object(Illuminate\Http\Request))
+#4 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(549): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#5 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Routing/Router.php(517): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#6 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(830): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#7 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(807): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#8 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#9 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#10 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#11 /home/vagrant/synthesise-3/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#12 /home/vagrant/synthesise-3/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(663): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#13 /home/vagrant/synthesise-3/public/index.php(49): Illuminate\Foundation\Application->run()
+#14 {main} [] []
+[2014-10-07 20:51:18] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Providers\View' not found' in /home/vagrant/synthesise-3/app/Providers/ErrorServiceProvider.php:30
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []

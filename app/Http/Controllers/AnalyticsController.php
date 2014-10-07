@@ -1,7 +1,7 @@
 <?php namespace Synthesise\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
-use Synthesise\Extensions\Analytics;
+use Synthesise\Extensions\Facades\Analytics;
 
 class AnalyticsController {
 
@@ -13,7 +13,12 @@ class AnalyticsController {
 	 */
 	public function index()
 	{
-		return View::make('analytics.index');
+
+		$liveVisitors = Analytics::getLiveVisitors();
+
+		return View::make('analytics.index')
+									->with('liveVisitors',$liveVisitors)
+		;
 	}
 
 }

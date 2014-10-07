@@ -60,9 +60,10 @@ class AuthController {
 				}
 				else
 				{
-					// DIE FEHLERMELDUNGEN MÜSSEN NOCH VERBESSERT WERDEN!!!
+					// @todo Fehlermedleungen verbessern
 					// HIER MUSS DANN AUSGEGEBEN WERDEN, DASS KEINE BERECHTIGUNG BESTEHT (ABER DIE ANGABEN STIMMEN)
-					return Redirect::route('login')->with('login_errors', true);
+					// @todo checken ob die withInput Angaben so gehen (auch ohne Passwort except)
+					return Redirect::route('login')->with('login_errors', true)->withInput();
 				}
 			}
 		}
@@ -73,7 +74,7 @@ class AuthController {
 		}
 		else
 		{
-			return Redirect::route('login')->with('login_errors', true);
+			return Redirect::route('login')->with('login_errors', true)->withInput();
 		}
 	}
 
