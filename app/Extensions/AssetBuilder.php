@@ -1,7 +1,5 @@
 <?php namespace Synthesise\Extensions;
 
-use Illuminate\Support\Facades\HTML;
-
 class AssetBuilder {
 
   /**

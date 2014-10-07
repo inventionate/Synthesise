@@ -1,7 +1,7 @@
 <?php namespace Synthesise\Http\Controllers;
 
-
 use Illuminate\Support\Facades\View;
+use Synthesise\Extensions\Analytics;
 
 class AnalyticsController {
 

@@ -5,6 +5,7 @@ use Illuminate\Support\ServiceProvider;
 use Synthesise\Extensions\Ldap;
 use Synthesise\Extensions\Parser;
 use Synthesise\Extensions\AssetBuilder;
+use Synthesise\Extensions\Analytics;
 
 class ExtensionServiceProvider extends ServiceProvider {
 
@@ -25,6 +26,7 @@ class ExtensionServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		// LDAP
 		$this->app->bindShared('ldap', function()
 		{
 
@@ -36,14 +38,22 @@ class ExtensionServiceProvider extends ServiceProvider {
 
 		});
 
+		// PARSER
 		$this->app->bindShared('parser', function()
 		{
 			return new Parser;
 		});
 
+		// ASSET
 		$this->app->bindShared('asset', function()
 		{
 			return new AssetBuilder;
+		});
+
+		// ANALYTICS
+		$this->app->bindShared('analytics', function()
+		{
+			return new Analytics;
 		});
 	}
 
