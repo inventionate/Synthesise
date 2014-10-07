@@ -46,7 +46,7 @@
 		</div> */ ?>
 
 		<?php /* Anmelde Button */ ?>
-		<?php echo Form::submit('Anmelden', ['id' => 'btn-login','class' => 'btn btn-primary btn-lg', 'role' => 'button']); ?>
+		<?php echo Form::submit('Anmelden', ['id' => 'login','class' => 'btn btn-primary btn-lg', 'role' => 'button']); ?>
 
 	<?php echo Form::close(); ?>
 
