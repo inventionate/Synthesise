@@ -15,6 +15,11 @@
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
         <li @if ( Request::is('dashboard') ) class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
+
+        @if ( Auth::user()->role === 'Admin' )
+          @include('dashboard.partials.nav-admin')
+        @endif
+
         <li class="dropdown @if ( Request::segment(1) === 'online-lektionen' ) active @endif">
           <a href="{{ url('online-lektionen') }}" class="dropdown-toggle" data-toggle="dropdown">online-Lektionen <b class="caret"></b></a>
           <ul class="dropdown-menu">

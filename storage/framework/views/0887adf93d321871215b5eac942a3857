@@ -24,7 +24,7 @@
 				<?php /* THEMENBEREICH */ ?>
 				<?php if($video->videoname === 'Griechisch-römische Antike'): ?>
 					<td rowspan="3" class="themenbereich">
-						<?php echo e($video->section .'<br><small>'.$video->author.'</small>'); ?>
+						<?php echo $video->section .'<br><small>'.$video->author.'</small>'; ?>
 
 					</td>
 				<?php endif; ?>

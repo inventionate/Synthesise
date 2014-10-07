@@ -11,9 +11,6 @@
 		<?php if( App::environment() === 'local' ): ?>
 			<?php /* LIVERELOAD DEV SCRIPT -------------------------------------------*/ ?>
 			<script src="http://synthesise.local:35729/livereload.js?snipver=1"></script>
-			<?php /* QUNIT DEV SCRIPT -------------------------------------------*/ ?>
- 			<?php /*		<link rel="stylesheet" href="<?php echo e(asset('qunit/qunit.css')); ?>">
-<script src="<?php echo e(asset('qunit/qunit.js')); ?>"></script> */ ?>
 		<?php endif; ?>
 
 		<?php /* <?php echo $__env->make(, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> PARTIAL HEAD ---------------------------------------------*/ ?>
@@ -65,11 +62,4 @@
 
 		<?php /* <?php echo $__env->make(, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> ANALYTICS ------------------------------------------------*/ ?>
 		<?php echo $__env->make('layouts.partials.analytics', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-
-		<?php /* <?php echo $__env->make(, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> ANALYTICS ------------------------------------------------*/ ?>
-		<?php if( App::environment() === 'local' ): ?>
-<?php /* 			<div id="qunit"></div>
-<div id="qunit-fixture"></div>
-<script src="<?php echo e(asset('qunit/tests.js')); ?>"></script> */ ?>
-		<?php endif; ?>
 	</body>

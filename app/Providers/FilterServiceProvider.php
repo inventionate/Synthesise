@@ -31,6 +31,7 @@ class FilterServiceProvider extends ServiceProvider {
 	protected $filters = [
 		'auth' => 'Synthesise\Http\Filters\AuthFilter',
 		'auth.basic' => 'Synthesise\Http\Filters\BasicAuthFilter',
+		'admin' => 'Synthesise\Http\Filters\AdminFilter',
 		'csrf' => 'Synthesise\Http\Filters\CsrfFilter',
 		'guest' => 'Synthesise\Http\Filters\GuestFilter',
 	];

@@ -15,7 +15,7 @@ class UserTableSeeder extends Seeder {
 			'password' => Hash::make('etpM'),
 			'firstname' => 'Timo',
 			'lastname' => 'Hoyer',
-			'role' => 'Teacher'
+			'role' => 'Admin'
 		));
 
 		User::create(array(
@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder {
 			'password' => Hash::make('etpM'),
 			'firstname' => 'Fabian',
 			'lastname' => 'Mundt',
-			'role' => 'Teacher'
+			'role' => 'Admin'
 		));
 
 		User::create(array(

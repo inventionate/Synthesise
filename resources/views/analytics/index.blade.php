@@ -1,0 +1,1 @@
+/home/vagrant/synthesise-3/resources/views/analytics/index.blade.php

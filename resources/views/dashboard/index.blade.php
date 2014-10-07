@@ -8,8 +8,10 @@
 
 	<h1 class="visible-print-block">Dashboard</h1>
 
-	@if($role === 'Teacher')
-	<div class="alert alert-info">Sie haben erweiterte Benutzerrechte und können die online-Lektionen bereits früher verwenden.</div>
+	@if ( $role === 'Teacher' )
+		<div class="alert alert-info">Sie haben erweiterte Benutzerrechte und können die online-Lektionen bereits früher verwenden.</div>
+	@elseif ( $role === 'Admin' )
+		<div class="alert alert-danger">Sie sind praktisch ein Gott.</div>
 	@endif
 
 	<div class="row">

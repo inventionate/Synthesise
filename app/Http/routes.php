@@ -16,17 +16,17 @@
  *
  */
 // Anmeldeformular
-Route::get('login', array(
+Route::get('login', [
 	'as' => 'login',
 	'before' => 'guest',
 	'uses' => 'AuthController@index'
-));
+]);
 
 // Anmelden
-Route::post('login', array(
+Route::post('login', [
 	'before' => 'csrf',
 	'uses' => 'AuthController@login'
-));
+]);
 
 // Passwort vergessen
 
@@ -34,101 +34,105 @@ Route::post('login', array(
  * Impressum
  *
  */
-Route::get('impressum', array(
+Route::get('impressum', [
 	'uses' => 'ImprintController@index'
-
-));
+]);
 
 /**
  * Sicherheitsfilter
  *
  */
-Route::group(array('before' => 'auth'), function()
+Route::group(['before' => 'auth'], function()
 {
 
 	// DOWNLOAD ------------------------------------------------------
-	Route::get('download/{type}/{file}', array(
+	Route::get('download/{type}/{file}', [
 		'uses' => 'DownloadController@getFile'
-	));
+	]);
 
 	// HOME ----------------------------------------------------------
-	Route::get('/', array(
+	Route::get('/', [
 		'as' => 'home',
-		function()
-		{
+		function() {
 			return Redirect::route('dashboard');
 		}
-	));
+	]);
 
 	// LOGOUT --------------------------------------------------------
-	Route::get('logout', array(
+	Route::get('logout', [
 		'as' => 'logout',
 		'uses' => 'AuthController@logout'
-	));
+	]);
 
 	// DASHBOARD -----------------------------------------------------
-	Route::get('dashboard', array(
+	Route::get('dashboard', [
 		'as' => 'dashboard',
 		'uses' => 'DashboardController@index'
-	));
-
-	// EVALUATION ----------------------------------------------------
-	Route::get('evaluation', array(
-		'as' => 'evaluation',
-		'uses' => 'EvaluationController@index'
-	));
+	]);
 
 	// ONLINE-LEKTIONEN ----------------------------------------------
 
 	// Einzellektion
-	Route::get('online-lektionen/{videoname}', array(
+	Route::get('online-lektionen/{videoname}', [
 		'as' => 'lektion',
 		'uses' => 'LectionController@index'
-	));
+	]);
 
 	// GET PDF NOTES
-	Route::get('online-lektionen/{videoname}/getnotespdf', array(
+	Route::get('online-lektionen/{videoname}/getnotespdf', [
 		'uses' => 'LectionController@getNotesPDF'
-	));
+	]);
 
-	// GET PDF NOTES
-	Route::get('online-lektionen/{videoname}/getflagnamespdf', array(
+	// GET PDF FLAGNAMES
+	Route::get('online-lektionen/{videoname}/getflagnamespdf', [
 		'uses' => 'LectionController@getFlagnamesPDF'
-	));
+	]);
 
 	// AJAX ####################################
 
 	// Ajax GET FLAGS
-	Route::get('online-lektionen/{videoname}/getflags', array(
+	Route::get('online-lektionen/{videoname}/getflags', [
 		'uses' => 'LectionController@getFlags'
-	));
+	]);
 
 	// Ajax GET NOTES
-	Route::get('online-lektionen/{videoname}/getnotes', array(
+	Route::get('online-lektionen/{videoname}/getnotes', [
 		'uses' => 'LectionController@getNotes'
-	));
+	]);
 
 	// Ajax POST NOTES
-	Route::post('online-lektionen/{videoname}/postnotes', array(
+	Route::post('online-lektionen/{videoname}/postnotes', [
 		'before' => 'csrf',
 		'uses' => 'LectionController@postNotes'
-	));
+	]);
 
 	// HgF -----------------------------------------------------------
-	Route::get('hgf/{letter?}', array(
+	Route::get('hgf/{letter?}', [
 		'as' => 'hgf',
 		'uses' => 'FaqController@index'
-	));
+	]);
 
 	// KONTAKT ------------------------------------------------------
-	Route::get('kontakt', array(
-		'as' => 'kontakt',
+	Route::get('kontakt', [
 		'uses' => 'ContactController@index'
-	));
+	]);
 
-	Route::post('kontakt/{send}', array(
+	Route::post('kontakt/{send}', [
 		'before' => 'csrf',
 		'uses' => 'ContactController@send'
-	));
+	]);
+
+});
+
+/**
+* Adminbereich
+*
+*/
+Route::group(['before' => ['auth','admin']], function() {
+
+	// ANALYTICS ------------------------------------------------------
+	Route::get('analytics', [
+		'uses' => 'AnalyticsController@index'
+	]);
 
 });

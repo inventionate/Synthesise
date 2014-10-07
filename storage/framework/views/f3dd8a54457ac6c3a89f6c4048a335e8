@@ -7,8 +7,10 @@
 
 	<h1 class="visible-print-block">Dashboard</h1>
 
-	<?php if($role === 'Teacher'): ?>
-	<div class="alert alert-info">Sie haben erweiterte Benutzerrechte und können die online-Lektionen bereits früher verwenden.</div>
+	<?php if( $role === 'Teacher' ): ?>
+		<div class="alert alert-info">Sie haben erweiterte Benutzerrechte und können die online-Lektionen bereits früher verwenden.</div>
+	<?php elseif( $role === 'Admin' ): ?>
+		<div class="alert alert-danger">Sie sind praktisch ein Gott.</div>
 	<?php endif; ?>
 
 	<div class="row">

@@ -15,6 +15,11 @@
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
         <li <?php if( Request::is('dashboard') ): ?> class="active" <?php endif; ?>><a href="<?php echo e(url('dashboard')); ?>">Dashboard</a></li>
+
+        <?php if( Auth::user()->role === 'Admin' ): ?>
+          <?php echo $__env->make('dashboard.partials.nav-admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php endif; ?>
+
         <li class="dropdown <?php if( Request::segment(1) === 'online-lektionen' ): ?> active <?php endif; ?>">
           <a href="<?php echo e(url('online-lektionen')); ?>" class="dropdown-toggle" data-toggle="dropdown">online-Lektionen <b class="caret"></b></a>
           <ul class="dropdown-menu">
