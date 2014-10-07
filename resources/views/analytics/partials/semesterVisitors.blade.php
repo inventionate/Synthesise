@@ -3,17 +3,15 @@
     <h3 class="panel-title">Besucher in diesem Semester</h3>
   </div>
   <div class="panel-body">
-    <canvas id="myChart" width="500" height="500"></canvas>
+    <canvas id="sChart"></canvas>
   </div>
 </section>
 
 <script>
 
-  var ctx = $("#myChart").get(0).getContext("2d");
+  var sc = $("#sChart").get(0).getContext("2d");
 
-  var myNewChart = new Chart(ctx);
-
-  var options = {responsive: true};
+  var options = {responsive: true, bezierCurve : false,};
 
   var data = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -41,7 +39,7 @@
       ]
     };
 
-  var myBarChart = new Chart(ctx).Line(data, options );
+  var sChart = new Chart(sc).Line(data, options);
 
 
 

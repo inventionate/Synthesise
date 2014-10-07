@@ -3,15 +3,13 @@
     <h3 class="panel-title">Heruntergeladene Dateien</h3>
   </div>
   <div class="panel-body">
-    <canvas id="myChart" width="500" height="500"></canvas>
+    <canvas id="downloadedChart"></canvas>
   </div>
 </section>
 
 <script>
 
-  var ctx = $("#myChart").get(0).getContext("2d");
-
-  var myNewChart = new Chart(ctx);
+  var dlc = $("#downloadedChart").get(0).getContext("2d");
 
   var options = {responsive: true};
 
@@ -38,6 +36,6 @@
     };
 
 
-  var myBarChart = new Chart(ctx).Bar(data, options );
+  var dlChart = new Chart(dlc).Bar(data, options );
 
 </script>

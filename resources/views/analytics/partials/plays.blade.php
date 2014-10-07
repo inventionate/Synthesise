@@ -3,15 +3,13 @@
     <h3 class="panel-title">Angesehene online-Lektionen</h3>
   </div>
   <div class="panel-body">
-    <canvas id="myChart" width="500" height="500"></canvas>
+    <canvas id="playsChart"></canvas>
   </div>
 </section>
 
 <script>
 
-  var ctx = $("#myChart").get(0).getContext("2d");
-
-  var myNewChart = new Chart(ctx);
+  var pc = $("#playsChart").get(0).getContext("2d");
 
   var options = {responsive: true};
 
@@ -41,6 +39,6 @@
       ]
     };
 
-  var myBarChart = new Chart(ctx).Line(data, options );
+  var pChart = new Chart(pc).Line(data, options);
 
 </script>

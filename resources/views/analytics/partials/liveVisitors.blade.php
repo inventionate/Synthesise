@@ -4,15 +4,13 @@
   </div>
   <div class="panel-body">
     {{ $liveVisitors }}
-    <canvas id="myChart" width="500" height="500"></canvas>
+    <canvas id="lChart" height="139px"></canvas>
   </div>
 </section>
 
 <script>
 
-var ctx = $("#myChart").get(0).getContext("2d");
-
-var myNewChart = new Chart(ctx);
+var lc = $("#lChart").get(0).getContext("2d");
 
 var options = {responsive: true};
 
@@ -21,24 +19,22 @@ var data = [
         value: 300,
         color:"#F7464A",
         highlight: "#FF5A5E",
-        label: "Red"
+        label: "StudentInnen"
     },
     {
         value: 50,
         color: "#46BFBD",
         highlight: "#5AD3D1",
-        label: "Green"
+        label: "DozentInnen"
     },
     {
         value: 100,
         color: "#FDB45C",
         highlight: "#FFC870",
-        label: "Yellow"
+        label: "MentorInnen"
     }
 ]
 
-
-
-var myBarChart = new Chart(ctx).Pie(data, options );
+var lChart = new Chart(lc).Pie(data, options);
 
 </script>
