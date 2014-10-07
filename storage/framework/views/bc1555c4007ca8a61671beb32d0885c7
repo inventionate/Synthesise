@@ -3,7 +3,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-<main id="main-content-<?php echo e(Request::segment(1)); ?>" class="change-fade container">
+<main id="main-content-<?php echo e(Request::segment(1)); ?>" class="container animated fadeIn">
 
 	<?php if($available || $role === 'Teacher' && $online): ?>
 

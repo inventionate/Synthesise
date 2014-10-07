@@ -114,6 +114,7 @@ Route::group(['before' => 'auth'], function()
 
 	// KONTAKT ------------------------------------------------------
 	Route::get('kontakt', [
+		'as' => 'kontakt',
 		'uses' => 'ContactController@index'
 	]);
 

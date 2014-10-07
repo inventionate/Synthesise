@@ -17,7 +17,7 @@ class ContactCest {
     $I->loggedInAsStudent($I);
   }
 
-  public function seeFeedbackInfo(FunctionalTester $I)
+  public function testSeeFeedbackInfo(FunctionalTester $I)
   {
   	$I->am('Student');
   	$I->wantTo('see feedback info');
@@ -28,7 +28,7 @@ class ContactCest {
   	$I->see('Bei Verständnisfragen wenden Sie sich bitte direkt an die jeweiligen Dozenten:','p');
   }
 
-	public function sendGeneralQuestion(FunctionalTester $I)
+	public function testSendGeneralQuestion(FunctionalTester $I)
 	{
 		$I->am('Student');
 		$I->wantTo('send a general question');
@@ -40,7 +40,7 @@ class ContactCest {
 		$I->see('Ihre Nachricht wurde erfolgreich gesendet.');
 	}
 
-	public function sendSupportQuestion(FunctionalTester $I)
+	public function testSendSupportQuestion(FunctionalTester $I)
 	{
 		$I->am('Student');
 		$I->wantTo('send a support question');
@@ -52,14 +52,14 @@ class ContactCest {
 	}
 
 
-	public function cantSendEmptyGeneralQuestion(FunctionalTester $I)
+	public function testCantSendEmptyGeneralQuestion(FunctionalTester $I)
 	{
 		$I->am('Student');
 		$I->wantTo('get an general question sending error because the message is empty');
 
 		$I->amOnPage('/kontakt');
 		$I->fillField('#feedbackMessage','');
-		$I->click('Abschicken');
+		$I->click('Abschicken','#feedback');
 		$I->see('Bitte geben Sie eine Nachricht ein.');
 	}
 
@@ -70,7 +70,7 @@ class ContactCest {
 
 		$I->amOnPage('/kontakt');
 		$I->fillField('#supportMessage','');
-		$I->click('Abschicken');
+		$I->click('Abschicken','#support');
 		$I->see('Bitte geben Sie eine Nachricht ein.');
 	}
 }

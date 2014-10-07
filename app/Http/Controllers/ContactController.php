@@ -63,7 +63,7 @@ class ContactController {
 				}
 			});
 
-			return Redirect::to('kontakt')->with($type . '_success',true);
+			return Redirect::route('kontakt')->with($type . '_success',true);
 		}
 	}
 
