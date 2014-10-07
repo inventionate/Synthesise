@@ -1390,3 +1390,27 @@ Stack trace:
 Stack trace:
 #0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
 #1 {main} [] []
+[2014-10-07 19:52:00] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Http\Filters\Auth' not found' in /home/vagrant/synthesise-3/app/Http/Filters/AdminFilter.php:18
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 19:52:56] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Http\Filters\Auth' not found' in /home/vagrant/synthesise-3/app/Http/Filters/AdminFilter.php:18
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 19:53:32] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Cannot redeclare class App\Http\Controllers\AnalyticsController' in /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php:5
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 19:54:23] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Http\Filters\Auth' not found' in /home/vagrant/synthesise-3/app/Http/Filters/AdminFilter.php:18
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 19:56:05] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Cannot redeclare class App\Http\Controllers\AnalyticsController' in /home/vagrant/synthesise-3/app/Http/Controllers/AnalyticsController.php:5
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-10-07 19:57:45] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Synthesise\Http\Filters\Auth' not found' in /home/vagrant/synthesise-3/app/Http/Filters/AdminFilter.php:18
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []

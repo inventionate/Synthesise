@@ -122,16 +122,9 @@ Route::group(['before' => 'auth'], function()
 		'uses' => 'ContactController@send'
 	]);
 
-});
-
-/**
-* Adminbereich
-*
-*/
-Route::group(['before' => ['auth','admin']], function() {
-
 	// ANALYTICS ------------------------------------------------------
 	Route::get('analytics', [
+		'before' => 'admin',
 		'uses' => 'AnalyticsController@index'
 	]);
 
