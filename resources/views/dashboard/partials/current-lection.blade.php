@@ -6,7 +6,7 @@
 @if($available)
 <div class="row">
 	  <div class="col-md-8">
-		<img src="{{ secure_asset(Asset::rev('img/' . Parser::normalizeName($videoname) . '.jpg')) }}" alt="Titelbild online-Lektion"  class="img-responsive img-thumbnail">
+		<img src="{{ asset(Asset::rev('img/' . Parser::normalizeName($videoname) . '.jpg')) }}" alt="Titelbild online-Lektion"  class="img-responsive img-thumbnail">
 		</div>
 	  <div class="col-md-4">
 		<div class="btn-group-vertical btn-block">

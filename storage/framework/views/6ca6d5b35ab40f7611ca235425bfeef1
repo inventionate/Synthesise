@@ -16,17 +16,10 @@
 		<?php /* <?php echo $__env->make(, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> PARTIAL HEAD ---------------------------------------------*/ ?>
 		<?php echo $__env->make('layouts.partials.head', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-		<?php if( App::environment() === 'local' ): ?>
-			<?php /* APPLICATION CSS ---------------------------------------------------*/ ?>
-			<link rel="stylesheet" href="<?php echo e(asset(Asset::rev('css/application.css'))); ?>" data-turbolinks-track>
-			<?php /* APPLICATION JS ----------------------------------------------------*/ ?>
-			<script src="<?php echo e(asset(Asset::rev('js/application.js'))); ?>" data-turbolinks-track></script>
-		<?php elseif( App::environment() === 'production' ): ?>
-			<?php /* APPLICATION CSS ---------------------------------------------------*/ ?>
-			<link rel="stylesheet" href="<?php echo e(secure_asset(Asset::rev('css/application.css'))); ?>" data-turbolinks-track>
-			<?php /* APPLICATION JS ----------------------------------------------------*/ ?>
-			<script src="<?php echo e(secure_asset(Asset::rev('js/application.js'))); ?>" data-turbolinks-track></script>
-		<?php endif; ?>
+		<?php /* APPLICATION CSS ---------------------------------------------------*/ ?>
+		<link rel="stylesheet" href="<?php echo e(asset(Asset::rev('css/application.css'))); ?>">
+		<?php /* APPLICATION JS ----------------------------------------------------*/ ?>
+		<script src="<?php echo e(asset(Asset::rev('js/application.js'))); ?>"></script>
 
 	</head>
 

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\View;
 
 use Synthesise\Repositories\Facades\User;
 use Synthesise\Repositories\Facades\Video;
+use Synthesise\Repositories\Facades\Message;
 
 class DashboardController {
 
@@ -16,6 +17,10 @@ class DashboardController {
 	 */
 	public function index()
 	{
+		// Nachrichten abfragen
+		$messages = Message::getAll();
+
+		// Aktuelles Video abfragen
 		if(Video::getCurrentVideo() != false) {
 			$videoname = Video::getCurrentVideo()->videoname;
 			$author = 'von ' . Video::getCurrentVideo()->author;
@@ -46,7 +51,8 @@ class DashboardController {
 									->with('videos',$videos)
 									->with('username',$username)
 									->with('author',$author)
-									->with('videoname',$videoname);
+									->with('videoname',$videoname)
+									->with('messages',$messages);
 	}
 
 }

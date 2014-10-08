@@ -135,10 +135,10 @@ Route::group(['middleware' => 'auth'], function() {
 | API Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'api/v1', 'middleware' => 'auth'], function() {
+Route::group(['prefix' => 'api/v1','middleware' => 'auth.basic'], function() {
 
 	// Messages ------------------------------------------------------
 
-	Route::resource('messages', 'API\MessageController',['except' => ['create', 'store', 'show', 'edit', 'update', 'destroy']]);
+	Route::resource('messages', 'API\MessageController',['except' => ['create', 'store', 'show', 'edit']]);
 
 });

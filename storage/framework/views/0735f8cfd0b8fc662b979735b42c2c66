@@ -17,7 +17,7 @@
         <li <?php if( Request::is('dashboard') ): ?> class="active" <?php endif; ?>><a href="<?php echo e(url('dashboard')); ?>">Dashboard</a></li>
 
         <?php if( Auth::user()->role === 'Admin' ): ?>
-          <?php echo $__env->make('dashboard.partials.nav-admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+          <?php echo $__env->make('layouts.partials.nav-admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php endif; ?>
 
         <li class="dropdown <?php if( Request::segment(1) === 'online-lektionen' ): ?> active <?php endif; ?>">
@@ -45,7 +45,7 @@
         <li <?php if( Request::segment(1) === 'hgf' ): ?> class="active" <?php endif; ?> ><a href="<?php echo e(url('hgf')); ?>">Häufig gestellte Fragen</a></li>
         <li <?php if( Request::is('kontakt') ): ?> class="active" <?php endif; ?> ><a href="<?php echo e(url('kontakt')); ?>">Kontakt</a></li>
       </ul>
-      <a href="<?php echo e(url('logout')); ?>" id="btn-logout" class="btn btn-primary btn-block navbar-right hidden-print"><?php echo e(Auth::user()->firstname . ' ' . Auth::user()->lastname); ?> abmelden</a>
+      <a href="<?php echo e(url('logout')); ?>" id="btn-logout" class="btn btn-primary btn-block navbar-right hidden-print"><?php echo e(Auth::user()->firstname . ' ' . Auth::user()->lastname); ?> (<b><?php echo e(Auth::user()->role); ?></b>) abmelden</a>
     </div>
   </div>
 </nav>

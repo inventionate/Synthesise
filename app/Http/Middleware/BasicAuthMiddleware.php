@@ -33,7 +33,7 @@ class BasicAuthMiddleware implements Middleware {
 	 */
 	public function handle($request, Closure $next)
 	{
-		return $this->auth->basic() ?: $next($request);
+		return $this->auth->basic('username') ?: $next($request);
 	}
 
 }

@@ -16,17 +16,10 @@
 		{{-- @include PARTIAL HEAD -----------------------------------------------}}
 		@include('layouts.partials.head')
 
-		@if( App::environment() === 'local' )
-			{{-- APPLICATION CSS -----------------------------------------------------}}
-			<link rel="stylesheet" href="{{ asset(Asset::rev('css/application.css')) }}" data-turbolinks-track>
-			{{-- APPLICATION JS ------------------------------------------------------}}
-			<script src="{{ asset(Asset::rev('js/application.js')) }}" data-turbolinks-track></script>
-		@elseif( App::environment() === 'production' )
-			{{-- APPLICATION CSS -----------------------------------------------------}}
-			<link rel="stylesheet" href="{{ secure_asset(Asset::rev('css/application.css')) }}" data-turbolinks-track>
-			{{-- APPLICATION JS ------------------------------------------------------}}
-			<script src="{{ secure_asset(Asset::rev('js/application.js')) }}" data-turbolinks-track></script>
-		@endif
+		{{-- APPLICATION CSS -----------------------------------------------------}}
+		<link rel="stylesheet" href="{{ asset(Asset::rev('css/application.css')) }}">
+		{{-- APPLICATION JS ------------------------------------------------------}}
+		<script src="{{ asset(Asset::rev('js/application.js')) }}"></script>
 
 	</head>
 

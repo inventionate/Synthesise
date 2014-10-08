@@ -130,7 +130,6 @@ gulp.task('js:build', ['coffee:build','js:vendor'], function() {
 gulp.task('less:build', function() {
   gulp.src([
     paths.bower.flowplayer + '/skin/minimalist.css',
-    paths.bower.bootstrap + '/dist/css/bootstrap.css',
     paths.assets + '/less/application.less',
     paths.bower.animate + '/animate.css'
     ])
@@ -138,6 +137,7 @@ gulp.task('less:build', function() {
     .pipe(concat('application.less'))
     .pipe(less({
       paths: [
+        paths.bower.bootstrap + '/less',
         paths.assets + '/less'
       ],
       }))
@@ -229,13 +229,13 @@ gulp.task('clean:public', function (cb) {
 
 gulp.task('publish:lr', function() {
   gulp.src(paths.bower.livereload)
-    .pipe(newer(paths.public + '/js'))
+    .pipe(newer(paths.public + '/'))
     .pipe(uglify())
-    .pipe(gulp.dest(paths.public + '/js'));
+    .pipe(gulp.dest(paths.public + '/'));
 });
 
 gulp.task('clean:lr', function (cb) {
-  del([paths.public + '/js/livereload.js'], cb);
+  del([paths.public + '/livereload.js'], cb);
 });
 
 //////////////////////////////////////////////////

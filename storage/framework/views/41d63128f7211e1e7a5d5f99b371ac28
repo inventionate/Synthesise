@@ -1,0 +1,2 @@
+<?php /*<li <?php if( Request::is('manage') ): ?> class="active" <?php endif; ?>><a href="<?php echo e(url('manage')); ?>">Manage</a></li>*/ ?>
+<li <?php if( Request::is('analytics') ): ?> class="active" <?php endif; ?>><a href="<?php echo e(url('analytics')); ?>">Analytics</a></li>

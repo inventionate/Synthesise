@@ -17,7 +17,7 @@
         <li @if ( Request::is('dashboard') ) class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
 
         @if ( Auth::user()->role === 'Admin' )
-          @include('dashboard.partials.nav-admin')
+          @include('layouts.partials.nav-admin')
         @endif
 
         <li class="dropdown @if ( Request::segment(1) === 'online-lektionen' ) active @endif">
@@ -45,7 +45,7 @@
         <li @if ( Request::segment(1) === 'hgf' ) class="active" @endif ><a href="{{ url('hgf') }}">Häufig gestellte Fragen</a></li>
         <li @if ( Request::is('kontakt') ) class="active" @endif ><a href="{{ url('kontakt') }}">Kontakt</a></li>
       </ul>
-      <a href="{{ url('logout') }}" id="btn-logout" class="btn btn-primary btn-block navbar-right hidden-print">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} abmelden</a>
+      <a href="{{ url('logout') }}" id="btn-logout" class="btn btn-primary btn-block navbar-right hidden-print">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} (<b>{{ Auth::user()->role }}</b>) abmelden</a>
     </div>
   </div>
 </nav>

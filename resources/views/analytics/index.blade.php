@@ -10,10 +10,10 @@
 
   <div class="row">
     <div class="col-lg-6">
-      @include('analytics.partials.liveVisitors')
+      @include('analytics.partials.live-visitors')
     </div>
     <div class="col-lg-6">
-      @include('analytics.partials.semesterVisitors')
+      @include('analytics.partials.semester-visitors')
     </div>
     <div class="col-lg-6">
       @include('analytics.partials.downloads')

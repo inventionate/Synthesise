@@ -13,7 +13,7 @@ class MessageController {
 	public function index()
 	{
 		$messages = Message::getAll();
-
+		// JSON Response
 		return $messages;
 	}
 	//
@@ -63,28 +63,35 @@ class MessageController {
 	// 	//
 	// }
 	//
-	// /**
-	//  * Update the specified resource in storage.
-	//  * PUT /api/message/{id}
-	//  *
-	//  * @param  int  $id
-	//  * @return Response
-	//  */
-	// public function update($id)
-	// {
-	// 	//
-	// }
-	//
-	// /**
-	//  * Remove the specified resource from storage.
-	//  * DELETE /api/message/{id}
-	//  *
-	//  * @param  int  $id
-	//  * @return Response
-	//  */
-	// public function destroy($id)
-	// {
-	// 	//
-	// }
+	/**
+	 * Update the specified resource in storage.
+	 * PUT /api/message/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+			$content = Input::get('messageContent');
+
+			$type = Input::get('messageType');
+
+			Message::updateContent($id,$content,$type);
+
+			// Erfolg zurückmelden
+			return "success";
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 * DELETE /api/message/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
+	}
 
 }

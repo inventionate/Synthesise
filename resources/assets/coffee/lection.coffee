@@ -98,7 +98,6 @@ $(document).ready ->
         # Aktuelle Notizen abfragen
         noteContent = $('#note-content').val()
         # Ajax Request starten
-        noteContent = $('#note-content').val()
         $.post(postURL, {note: noteContent,
         cuepointNumber: cuepointNumber, _token: _csrf})
         .done ->
