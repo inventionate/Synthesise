@@ -16,17 +16,17 @@ class MessageController {
 		// JSON Response
 		return $messages;
 	}
-	//
-	// /**
-	//  * Show the form for creating a new resource.
-	//  * GET /api/message/create
-	//  *
-	//  * @return Response
-	//  */
-	// public function create()
-	// {
-	// 	//
-	// }
+	
+	/**
+	 * Show the form for creating a new resource.
+	 * GET /api/message/create
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		//
+	}
 	//
 	// /**
 	//  * Store a newly created resource in storage.

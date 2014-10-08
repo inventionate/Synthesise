@@ -1,9 +1,9 @@
-<section>
+<section id="messages-manage">
 
   <h2>Nachrichten editieren</h2>
 
   <div id="current-messages">
-  <!-- <?php foreach($messages as $message): ?>
+  <?php foreach($messages as $message): ?>
 
     <div class="alert alert-<?php echo e($message->type); ?>" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -12,7 +12,7 @@
 
         <?php echo Form::label('message-content', 'Messages', ['class' => 'hidden']); ?>
 
-        <?php echo Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'id' => 'message-content']); ?>
+        <?php echo Form::textarea('message', $message->message, ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'id' => 'message-content']); ?>
 
 
         <?php echo Form::label('message-type', 'Messages', ['class' => 'hidden']); ?>
@@ -20,37 +20,39 @@
         <?php echo Form::select('type', ['Information' =>'info', 'Warnung' => 'warning', 'Wichtig' => 'danger']); ?>
 
 
-        <?php echo Form::submit('Aktualisieren'); ?>
-
+        <?php /* Automatisches Senden beim Verändern des Inhalts (vgl. Notes) */ ?>
 
       <?php echo Form::close(); ?>
 
     </div>
 
-  <?php endforeach; ?> -->
+  <?php endforeach; ?>
   </div>
 
   <hr>
 
-  <div class="alert alert-success" role="alert">
-    <?php echo Form::open(['url' => 'messages']); ?>
+  <div id="new-message">
+    <h3>Neue Nachricht</h3>
+    <div class="alert alert-success" role="alert">
+      <?php echo Form::open(['url' => 'messages']); ?>
 
 
-      <?php echo Form::label('message-content', 'Messages', ['class' => 'hidden']); ?>
+        <?php echo Form::label('message-content', 'Messages', ['class' => 'hidden']); ?>
 
-      <?php echo Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-content']); ?>
-
-
-      <?php echo Form::label('message-type', 'Messages', ['class' => 'hidden']); ?>
-
-      <?php echo Form::select('type', ['Information' =>'info', 'Warnung' => 'warning', 'Wichtig' => 'danger']); ?>
+        <?php echo Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-content']); ?>
 
 
-      <?php echo Form::submit('Senden'); ?>
+        <?php echo Form::label('message-type', 'Messages', ['class' => 'hidden']); ?>
+
+        <?php echo Form::select('type', ['Information' =>'info', 'Warnung' => 'warning', 'Wichtig' => 'danger']); ?>
 
 
-    <?php echo Form::close(); ?>
+        <?php echo Form::submit('Erstellen'); ?>
 
-  <div>
+
+      <?php echo Form::close(); ?>
+
+    <div>
+  </div>
 
 </section>

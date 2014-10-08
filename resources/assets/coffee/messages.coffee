@@ -1,25 +1,28 @@
 # MESSAGES
 $(document).ready ->
 
-  if( document.URL.indexOf('dashboard') > -1 )
+  if( document.URL.indexOf('dashboard') > -1 && $('#messages-manage').length )
 
     messages = null
     baseUrl = window.location.origin
 
     # MESSAGES ABFRAGEN ---------------------------------------------------
-    $.getJSON(baseUrl + '/api/v1/messages')
-    .done (data) ->
-      messages = data
-
-      # Messages einblenden
-      for object, key of messages
-        console.log object + '\n' +
-        'id: ' + key.id + '\n' +
-        'Nachricht: ' + key.message + '\n' +
-        'Type:' + key.type
-
-    .fail (data) ->
-      alert "ERROR: AJAX REQUEST \"GET MESSAGES\" PROBLEM!" + JSON.parse(data)
+    # $.getJSON(baseUrl + '/api/v1/messages')
+    # .done (data) ->
+    #   messages = data
+    #   # Messages einblenden
+    #   for object, key of messages
+    #     #object
+    #     $('#current-messages').append "<div id=\"message-#{key.id} \"
+    #     class=\"alert alert-#{key.type}\" role=\"alert\"> #{key.message} </div>"
+    #
+    #     console.log object + '\n' +
+    #     'id: ' + key.id + '\n' +
+    #     'Nachricht: ' + key.message + '\n' +
+    #     'Type:' + key.type
+    #
+    # .fail (data) ->
+    #   alert "ERROR: AJAX REQUEST \"GET MESSAGES\" PROBLEM!" + JSON.parse(data)
 
     # # MESSAGE AKTUALISIEREN --------------------------------------------------
     # # CSRF Token abfragem.
