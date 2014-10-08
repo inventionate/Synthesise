@@ -39,7 +39,7 @@ return [
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Europe/Berlin',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -102,7 +102,6 @@ return [
 		'Synthesise\Providers\ArtisanServiceProvider',
 		'Synthesise\Providers\ErrorServiceProvider',
 		'Synthesise\Providers\EventServiceProvider',
-		'Synthesise\Providers\FilterServiceProvider',
 		'Synthesise\Providers\LogServiceProvider',
 		'Synthesise\Providers\RouteServiceProvider',
 

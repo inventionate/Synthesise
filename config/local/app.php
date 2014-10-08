@@ -17,6 +17,19 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
+	| Application URL
+	|--------------------------------------------------------------------------
+	|
+	| This URL is used by the console to properly generate URLs when using
+	| the Artisan command line tool. You should set this to the root of
+	| your application so that it is used when running Artisan tasks.
+	|
+	*/
+
+	'url' => 'http://localhost',
+
+	/*
+	|--------------------------------------------------------------------------
 	| Autoloaded Service Providers
 	|--------------------------------------------------------------------------
 	|
@@ -35,7 +48,6 @@ return [
 		'Synthesise\Providers\ArtisanServiceProvider',
 		'Synthesise\Providers\ErrorServiceProvider',
 		'Synthesise\Providers\EventServiceProvider',
-		'Synthesise\Providers\FilterServiceProvider',
 		'Synthesise\Providers\LogServiceProvider',
 		'Synthesise\Providers\RouteServiceProvider',
 
@@ -91,6 +103,6 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider'
 
-	]
+	],
 
 ];

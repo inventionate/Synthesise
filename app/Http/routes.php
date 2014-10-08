@@ -18,13 +18,13 @@
 // Anmeldeformular
 Route::get('login', [
 	'as' => 'login',
-	'before' => 'guest',
+	'middleware' => 'guest',
 	'uses' => 'AuthController@index'
 ]);
 
 // Anmelden
 Route::post('login', [
-	'before' => 'csrf',
+	'middleware' => 'csrf',
 	'uses' => 'AuthController@login'
 ]);
 
@@ -42,7 +42,7 @@ Route::get('impressum', [
  * Sicherheitsfilter
  *
  */
-Route::group(['before' => 'auth'], function()
+Route::group(['middleware' => 'auth'], function()
 {
 
 	// DOWNLOAD ------------------------------------------------------
@@ -102,7 +102,7 @@ Route::group(['before' => 'auth'], function()
 
 	// Ajax POST NOTES
 	Route::post('online-lektionen/{videoname}/postnotes', [
-		'before' => 'csrf',
+		'middleware' => 'csrf',
 		'uses' => 'LectionController@postNotes'
 	]);
 
@@ -119,13 +119,13 @@ Route::group(['before' => 'auth'], function()
 	]);
 
 	Route::post('kontakt/{send}', [
-		'before' => 'csrf',
+		'middleware' => 'csrf',
 		'uses' => 'ContactController@send'
 	]);
 
 	// ANALYTICS ------------------------------------------------------
 	Route::get('analytics', [
-		'before' => 'admin',
+		'middleware' => 'admin',
 		'uses' => 'AnalyticsController@index'
 	]);
 

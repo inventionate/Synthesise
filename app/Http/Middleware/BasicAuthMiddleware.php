@@ -1,9 +1,10 @@
-<?php namespace Synthesise\Http\Filters;
+<?php namespace Synthesise\Http\Middleware;
 
+use Closure;
+use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Auth\Authenticator;
-use Illuminate\Http\RedirectResponse;
 
-class GuestFilter {
+class BasicAuthMiddleware implements Middleware {
 
 	/**
 	 * The authenticator implementation.
@@ -24,16 +25,15 @@ class GuestFilter {
 	}
 
 	/**
-	 * Run the request filter.
+	 * Handle an incoming request.
 	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Closure  $next
 	 * @return mixed
 	 */
-	public function filter()
+	public function handle($request, Closure $next)
 	{
-		if ($this->auth->check())
-		{
-			return new RedirectResponse(url('/'));
-		}
+		return $this->auth->basic() ?: $next($request);
 	}
 
 }
