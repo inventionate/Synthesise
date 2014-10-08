@@ -14,6 +14,9 @@ use Synthesise\Repositories\Video\VideoRepository;
 use Synthesise\User;
 use Synthesise\Repositories\User\UserRepository;
 
+use Synthesise\Message;
+use Synthesise\Repositories\Message\MessageRepository;
+
 class RepositoryServiceProvider extends ServiceProvider {
 
 	/**
@@ -51,6 +54,11 @@ class RepositoryServiceProvider extends ServiceProvider {
 		$this->app->bind('user', function()
 		{
 			return new UserRepository(new User());
+		});
+
+		$this->app->bind('message', function()
+		{
+			return new MessageRepository(new Message());
 		});
 	}
 

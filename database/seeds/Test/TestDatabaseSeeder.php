@@ -32,6 +32,9 @@ class TestDatabaseSeeder extends Seeder {
 		$this->call('TestPaperTableSeeder');
 		$this->command->info('Test Paper table seeded!');
 
+		$this->call('TestMessageTableSeeder');
+		$this->command->info('Test Message table seeded!');
+
 	}
 
 }

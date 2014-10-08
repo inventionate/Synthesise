@@ -11,10 +11,12 @@
 |
 */
 
-/**
- * Login Route
- *
- */
+/*
+|--------------------------------------------------------------------------
+| Guest Routes
+|--------------------------------------------------------------------------
+*/
+
 // Anmeldeformular
 Route::get('login', [
 	'as' => 'login',
@@ -30,20 +32,17 @@ Route::post('login', [
 
 // Passwort vergessen
 
-/**
- * Impressum
- *
- */
+// Impressum
 Route::get('impressum', [
 	'uses' => 'ImprintController@index'
 ]);
 
-/**
- * Sicherheitsfilter
- *
- */
-Route::group(['middleware' => 'auth'], function()
-{
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => 'auth'], function() {
 
 	// DOWNLOAD ------------------------------------------------------
 	Route::get('download/{type}/{file}', [
@@ -70,7 +69,7 @@ Route::group(['middleware' => 'auth'], function()
 		'uses' => 'DashboardController@index'
 	]);
 
-	// ONLINE-LEKTIONEN ----------------------------------------------
+	// ONLINE-LEKTIONEN ---------------------------------------------
 
 	// Einzellektion
 	Route::get('online-lektionen/{videoname}', [
@@ -128,5 +127,18 @@ Route::group(['middleware' => 'auth'], function()
 		'middleware' => 'admin',
 		'uses' => 'AnalyticsController@index'
 	]);
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'api/v1', 'middleware' => 'auth'], function() {
+
+	// Messages ------------------------------------------------------
+
+	Route::resource('messages', 'API\MessageController',['except' => ['create', 'store', 'show', 'edit', 'update', 'destroy']]);
 
 });

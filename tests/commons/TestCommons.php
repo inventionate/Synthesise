@@ -126,9 +126,25 @@ class TestCommons
 	{
 		return [
 			'id' 							=> 1,
-			'papername' 					=> 'Zeit-Raum Studium',
-			'author' 			=> 'Fabian Mundt',
+			'papername' 			=> 'Zeit-Raum Studium',
+			'author' 					=> 'Fabian Mundt',
 			'video_videoname'	=> 'Studentische Leben',
+			'created_at'			=> '2014-09-17 17:00:00',
+			'updated_at' 			=> '2014-09-17 17:00:00'
+		];
+	}
+
+	/**
+	* Test Dummy "Message" definieren
+	*
+	* @return 		array
+	*/
+	public static function dummyMessage()
+	{
+		return [
+			'id' 							=> 1,
+			'message' 				=> 'Sie führen einen Integration Test durch!',
+			'type' 						=> 'danger',
 			'created_at'			=> '2014-09-17 17:00:00',
 			'updated_at' 			=> '2014-09-17 17:00:00'
 		];

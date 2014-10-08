@@ -14,9 +14,4 @@ class FaqCest {
       $I->canCreate('Faq');
   }
 
-  /**
-   * Test, ob die Anfangsbuchtaben (area) abgefragt werden können
-   *
-   */
-
 }

@@ -216,6 +216,7 @@ return [
 		'Note'			=> 'Synthesise\Repositories\Facades\Note',
 		'Video'			=> 'Synthesise\Repositories\Facades\Video',
 		'User'			=> 'Synthesise\Repositories\Facades\User',
+		'Message'		=> 'Synthesise\Repositories\Facades\Message',
 
 		/*
 		 * Extensions Facades.
