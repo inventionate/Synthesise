@@ -16,7 +16,7 @@ class DashboardCest {
     TestCommons::dbSeed();
   }
 
-  public function seeDashboardPartials(FunctionalTester $I)
+  public function testSeeDashboardPartials(FunctionalTester $I)
   {
     $I->am('Student');
     $I->wantTo('see dashboard partials');
@@ -32,7 +32,7 @@ class DashboardCest {
   /**
    * @group Student
    */
-  public function seeStudentDashboard(FunctionalTester $I)
+  public function testSeeStudentDashboard(FunctionalTester $I)
   {
     $I->am('Student');
     $I->wantTo('see student dashboard');
@@ -44,10 +44,10 @@ class DashboardCest {
     $I->dontsee('Sie haben erweiterte Benutzerrechte und können die online-Lektionen bereits früher verwenden.','div');
   }
 
-  public function seeStudentTable(FunctionalTester $I)
+  public function testSeeStudentTable(FunctionalTester $I)
   {
     $I->am('Student');
-    $I->wantTo('see student table');
+    $I->wantTo('see Student table');
 
     $I->loggedInAsStudent($I);
 
@@ -64,7 +64,7 @@ class DashboardCest {
   /**
    * @group Teacher
    */
-  public function seeTeacherDashboard(FunctionalTester $I)
+  public function testSeeTeacherDashboard(FunctionalTester $I)
   {
     $I->am('Teacher');
     $I->wantTo('see teacher dashboard');
@@ -72,13 +72,13 @@ class DashboardCest {
     $I->loggedInAsTeacher($I);
 
     $I->amOnPage('/dashboard');
-    $I->see('Sie haben erweiterte Benutzerrechte und können die online-Lektionen bereits früher verwenden.','div');
+    $I->see('Test Teacher (Teacher) abmelden','a');
   }
 
-  public function seeTeacherTableExtraContent(FunctionalTester $I)
+  public function testSeeTeacherTableExtraContent(FunctionalTester $I)
   {
     $I->am('Teacher');
-    $I->wantTo('see teacher table');
+    $I->wantTo('see Teacher table');
 
     $I->loggedInAsTeacher($I);
 
@@ -88,5 +88,19 @@ class DashboardCest {
     $I->see('online-Lektion','th');
     $I->see('Studierendenzugang','th');
     $I->see('Literatur & Notizen','th');
+  }
+
+  /**
+   * @group Admin
+   */
+  public function testSeeAdminDashboard(FunctionalTester $I)
+  {
+    $I->am('Teacher');
+    $I->wantTo('see Admin dashboard');
+
+    $I->loggedInAsAdmin($I);
+
+    $I->amOnPage('/dashboard');
+    $I->see('Test Admin (Admin) abmelden','a');
   }
 }

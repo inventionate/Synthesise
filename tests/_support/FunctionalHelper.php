@@ -23,7 +23,7 @@ class FunctionalHelper extends \Codeception\Module {
   }
 
   /**
-   * Als Dozent einloggen.
+   * Als Mentor einloggen.
    *
    * @param     FunctionalTester $I
    */
@@ -32,6 +32,19 @@ class FunctionalHelper extends \Codeception\Module {
     $I->amOnPage('/login');
     $I->fillField('#username','teacherka');
     $I->fillField('#password','Hyrule');
+    $I->click('Anmelden','#login');
+  }
+
+  /**
+   * Als Admin einloggen.
+   *
+   * @param     FunctionalTester $I
+   */
+  public function loggedInAsAdmin(FunctionalTester $I)
+  {
+    $I->amOnPage('/login');
+    $I->fillField('#username','adminka');
+    $I->fillField('#password','Link');
     $I->click('Anmelden','#login');
   }
 }
