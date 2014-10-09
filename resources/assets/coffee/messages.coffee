@@ -1,7 +1,7 @@
 # MESSAGES
 $(document).ready ->
 
-  if( document.URL.indexOf('dashboard') > -1 && $('#messages-manage').length )
+  if( document.URL.indexOf('/') > -1 && $('#messages-manage').length )
 
     messages = null
     baseUrl = window.location.origin
