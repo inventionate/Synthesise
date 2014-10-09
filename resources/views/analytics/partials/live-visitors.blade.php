@@ -12,7 +12,7 @@
 
 var lc = $("#lChart").get(0).getContext("2d");
 
-var options = {responsive: true};
+var options = {responsive: true, animationEasing: 'easeOut'};
 
 var data = [
     {

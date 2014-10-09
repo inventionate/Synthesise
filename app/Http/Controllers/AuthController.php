@@ -42,7 +42,7 @@ class AuthController {
 		{
 			if ( Auth::attempt($credentials) )
 			{
-				return Redirect::route('home');
+				return Redirect::route('dashboard');
 			}
 			else
 			{
@@ -56,7 +56,7 @@ class AuthController {
 					// @todo Durch den StudiIP Import nur noch alle UIDs einlesen.
 					$user->save();
 					Auth::attempt($credentials);
-					return Redirect::route('home');
+					return Redirect::route('dashboard');
 				}
 				else
 				{
@@ -70,7 +70,7 @@ class AuthController {
 		// Für Nicht-LDAP Accounts eine weitere prüfung durchführen
 		elseif( Auth::attempt($credentials) )
 		{
-			return Redirect::route('home');
+			return Redirect::route('dashboard');
 		}
 		else
 		{
@@ -86,7 +86,7 @@ class AuthController {
 	public function logout()
 	{
 		Auth::logout();
-		return Redirect::route('home');
+		return Redirect::route('dashboard');
 	}
 
 }

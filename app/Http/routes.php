@@ -49,14 +49,6 @@ Route::group(['middleware' => 'auth'], function() {
 		'uses' => 'DownloadController@getFile'
 	]);
 
-	// HOME ----------------------------------------------------------
-	Route::get('/', [
-		'as' => 'home',
-		function() {
-			return Redirect::route('dashboard');
-		}
-	]);
-
 	// LOGOUT --------------------------------------------------------
 	Route::get('logout', [
 		'as' => 'logout',
