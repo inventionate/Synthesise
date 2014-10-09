@@ -9,12 +9,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <h1 class="nav-event-title hidden-md hidden-lg"><a href="{{ url('dashboard') }}">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
+        <h1 class="nav-event-title hidden-md hidden-lg"><a href="{{ url('/') }}">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
       </div>
     {{-- Collect the nav links, forms, and other content for toggling --}}
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
-        <li @if ( Request::is('dashboard') ) class="active" @endif><a href="{{ url('dashboard') }}">Dashboard</a></li>
+        <li @if ( Request::is('/') ) class="active" @endif><a href="{{ url('/') }}">Dashboard</a></li>
 
         @if ( Auth::user()->role === 'Admin' )
           @include('layouts.partials.nav-admin')
