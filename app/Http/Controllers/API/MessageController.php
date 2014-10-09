@@ -1,6 +1,9 @@
 <?php namespace Synthesise\Http\Controllers\API;
 
 use Synthesise\Repositories\Facades\Message;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class MessageController {
 
@@ -16,28 +19,42 @@ class MessageController {
 		// JSON Response
 		return $messages;
 	}
-	
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /api/message/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-	//
+
 	// /**
-	//  * Store a newly created resource in storage.
-	//  * POST /api/message
+	//  * Show the form for creating a new resource.
+	//  * GET /api/message/create
 	//  *
 	//  * @return Response
 	//  */
-	// public function store()
+	// public function create()
 	// {
 	// 	//
 	// }
+	//
+	/**
+	 * Store a newly created resource in storage.
+	 * POST /api/message
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$content = Input::get('message');
+
+		$type = Input::get('type');
+
+		Message::store($content, $type);
+
+		if ( Request::ajax() )
+		{
+			return "sucess";
+		}
+		else
+		{
+			return Redirect::route('dashboard')->with($type . '_success',true);
+		}
+
+	}
 	//
 	// /**
 	//  * Display the specified resource.
@@ -72,14 +89,17 @@ class MessageController {
 	 */
 	public function update($id)
 	{
-			$content = Input::get('messageContent');
+		$content = Input::get('message');
 
-			$type = Input::get('messageType');
+		$type = Input::get('type');
 
-			Message::updateContent($id,$content,$type);
+		Message::update($id,$content,$type);
 
-			// Erfolg zurückmelden
+		// Erfolg zurückmelden
+		if ( Request::ajax() )
+		{
 			return "success";
+		}
 	}
 
 	/**
@@ -91,7 +111,12 @@ class MessageController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Message::delete($id);
+
+		if ( Request::ajax() )
+		{
+			return "success";
+		}
 	}
 
 }

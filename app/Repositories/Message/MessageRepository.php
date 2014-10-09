@@ -16,7 +16,7 @@ class MessageRepository implements MessageInterface
   /**
    * Initziiert die Klasse $messageModel mit dem injizierten Model.
    *
-   * @param     Model $messahe
+   * @param     Model $message
    * @return    MessageRepository
    */
   public function __construct(Model $message)
@@ -34,4 +34,52 @@ class MessageRepository implements MessageInterface
     return $this->messageModel->all()->sortBy('updated_at');
   }
 
+  /**
+   * Eine Nachricht aktualisieren (Inhalt und Typ).
+   *
+   * @param     int $id
+   * @param     string $message
+   * @param     string $type
+   */
+  public function update($id, $newMessage, $newType)
+  {
+    // Zu aktualiserende Nachricht abfragen
+    $toBeUpdatedMessage = $this->messageModel->find($id);
+    // Neue Werte zuweisen
+    $toBeUpdatedMessage->message = $newMessage;
+    $toBeUpdatedMessage->type = $newType;
+    // Aktualisierte Notiz speichern
+    $toBeUpdatedMessage->save();
+  }
+
+  /**
+   * Nachricht löschen
+   *
+   * @param     int $id
+   */
+  public function delete($id)
+  {
+    // Zu löschende Nachricht abfragen
+    $toBeDeletedMessage = $this->messageModel->find($id);
+    // Nachricht löschen
+    $toBeDeletedMessage->delete();
+  }
+
+  /**
+   * Eine neue Nachricht anlegen
+   *
+   * @param     int $id
+   * @param     string $message
+   * @param     string $type
+   */
+  public function store($message, $type)
+  {
+    // Neue Nachrichteninstanz generieren
+    $newMessage = new $this->messageModel;
+    // Nachricht mit Inhalt befüllen
+    $newMessage->message = $message;
+    $newMessage->type = $type;
+    // Notiz speichern
+    $newMessage->save();
+  }
 }

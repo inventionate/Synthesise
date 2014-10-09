@@ -139,6 +139,6 @@ Route::group(['prefix' => 'api/v1','middleware' => 'auth.basic'], function() {
 
 	// Messages ------------------------------------------------------
 
-	Route::resource('messages', 'API\MessageController',['except' => ['store', 'show', 'edit']]);
+	Route::resource('messages', 'API\MessageController',['except' => ['create', 'show', 'edit']]);
 
 });

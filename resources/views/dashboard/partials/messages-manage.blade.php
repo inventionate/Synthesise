@@ -1,19 +1,30 @@
 <section id="messages-manage">
-
-  <h2>Nachrichten editieren</h2>
+  <header>
+    <h1>Nachrichten editieren</h1>
+  <header>
 
   <div id="current-messages">
   @foreach ($messages as $message)
 
     <div class="alert alert-{{ $message->type }}" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      {!! Form::open(['url' => 'messages']) !!}
+      {{Session::reflash()}}
+      {{-- DELETE FORM --}}
+      {!! Form::open(['id' => 'message-delete-'. $message->id, 'url' => 'api/v1/messages/' . $message->id, 'method' => 'DELETE', 'role' => 'form']) !!}
 
-        {!! Form::label('message-content', 'Messages', ['class' => 'hidden']) !!}
-        {!! Form::textarea('message', $message->message, ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'id' => 'message-content']) !!}
+        {!! Form::button('<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>', ['type' => 'button', 'class' => 'close']) !!}
 
-        {!! Form::label('message-type', 'Messages', ['class' => 'hidden']) !!}
-        {!! Form::select('type', ['Information' =>'info', 'Warnung' => 'warning', 'Wichtig' => 'danger']) !!}
+      {!! Form::close() !!}
+
+
+      {{-- UPDATE MESSAGE --}}
+      {!! Form::open(['id' => 'message-update-'. $message->id, 'url' => 'api/v1/messages/' . $message->id, 'method' => 'PATCH', 'role' => 'form']) !!}
+
+        {!! Form::label('message-content-'. $message->id, 'Messages', ['class' => 'hidden']) !!}
+        {!! Form::textarea('message'. $message->id, $message->message, ['id' => 'message-content-'. $message->id, 'rows' => '3', 'maxlength' => '300', 'class' => 'form-control message-update-content']) !!}
+
+        {!! Form::label('message-type'. $message->id, 'Messages', ['class' => 'hidden']) !!}
+        {!! Form::select('type', ['info' =>'Information', 'warning' => 'Warnung', 'danger' => 'Wichtig'], $message->type, ['class' => 'message-update-type']) !!}
+
 
         {{-- Automatisches Senden beim Verändern des Inhalts (vgl. Notes) --}}
 
@@ -29,14 +40,16 @@
 
   <div id="new-message">
     <h3>Neue Nachricht</h3>
-    <div class="alert alert-success" role="alert">
-      {!! Form::open(['url' => 'messages']) !!}
+    <div class="alert alert-info" role="alert">
 
-        {!! Form::label('message-content', 'Messages', ['class' => 'hidden']) !!}
-        {!! Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-content']) !!}
+      {{-- STORE FORM --}}
+      {!! Form::open(['id' => 'message-store', 'url' => 'api/v1/messages','role' => 'form']) !!}
+
+        {!! Form::label('message-new-content', 'Messages', ['class' => 'hidden']) !!}
+        {!! Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-new-content']) !!}
 
         {!! Form::label('message-type', 'Messages', ['class' => 'hidden']) !!}
-        {!! Form::select('type', ['Information' =>'info', 'Warnung' => 'warning', 'Wichtig' => 'danger']) !!}
+        {!! Form::select('type', ['info' =>'Information', 'warning' => 'Warnung', 'danger' => 'Wichtig']) !!}
 
         {!! Form::submit('Erstellen') !!}
 
