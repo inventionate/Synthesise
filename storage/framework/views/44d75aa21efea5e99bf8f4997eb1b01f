@@ -33,12 +33,17 @@
 
         <?php echo Form::select('type', ['info' =>'Information', 'warning' => 'Warnung', 'danger' => 'Wichtig'], $message->type, ['class' => 'message-update-type']); ?>
 
+        <?php echo e($message->type); ?>
 
 
         <?php /* Automatisches Senden beim Verändern des Inhalts (vgl. Notes) */ ?>
 
       <?php echo Form::close(); ?>
 
+
+    </div>
+    <div id="ajax-info" class="progress">
+      <div class="progress-bar progress-bar-success" style="width: 100%"></div>
     </div>
 
   <?php endforeach; ?>

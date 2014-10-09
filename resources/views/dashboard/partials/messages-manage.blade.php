@@ -24,11 +24,15 @@
 
         {!! Form::label('message-type'. $message->id, 'Messages', ['class' => 'hidden']) !!}
         {!! Form::select('type', ['info' =>'Information', 'warning' => 'Warnung', 'danger' => 'Wichtig'], $message->type, ['class' => 'message-update-type']) !!}
-
+        {{ $message->type }}
 
         {{-- Automatisches Senden beim Verändern des Inhalts (vgl. Notes) --}}
 
       {!! Form::close() !!}
+
+    </div>
+    <div id="ajax-info" class="progress">
+      <div class="progress-bar progress-bar-success" style="width: 100%"></div>
     </div>
 
   @endforeach

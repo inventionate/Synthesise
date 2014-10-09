@@ -44,6 +44,7 @@ $(document).ready ->
       # Neue Auswahl auslesen
       selected = 'alert alert-' + $(this).val()
       messageAlert = $(this).parent().parent()
+      select = $(this)
       # Ajax Request starten
       # @todo Refactorn DRY!
       _csrf = $(this).prevAll('input[name="_token"]').val()

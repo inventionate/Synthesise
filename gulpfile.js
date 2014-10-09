@@ -131,6 +131,11 @@ gulp.task('less:build', function() {
   gulp.src([
     paths.bower.flowplayer + '/skin/minimalist.css',
     paths.assets + '/less/application.less',
+    paths.assets + '/less/helpers.less',
+    paths.assets + '/less/typography.less',
+    paths.assets + '/less/colour.less',
+    paths.assets + '/less/layout.less',
+    paths.assets + '/less/print.less',
     paths.bower.animate + '/animate.css'
     ])
     .pipe(newer(paths.build + '/css/application.css'))
