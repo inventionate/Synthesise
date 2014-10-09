@@ -16,9 +16,12 @@ $(document).ready ->
         _csrf = $(this).prevAll('input[name="_token"]').val()
         _method = $(this).prevAll('input[name="_method"]').val()
         url = $(this).parent().attr('action')
+        id = $(this).attr('id').match(/\d+/)[0]
         # Prozess sichtbar machen
-        # $('#ajax-info').addClass('progress-striped active')
-        # $('#ajax-info .progress-bar').removeClass('progress-bar-success')
+        $('.ajax-info-' + id)
+        .addClass('progress-striped active')
+        $('.ajax-info-' + id + ' div:first-child')
+        .removeClass('progress-bar-success')
         # Zu aktualisierende Inhalte abfragen
         message = $(this).val()
         type = $(this).nextAll('select').val()
@@ -26,10 +29,10 @@ $(document).ready ->
         $.post(url,
         {message: message, type: type, _token: _csrf, _method: _method})
         .done ->
-          # $('#ajax-info').removeClass('progress-striped active')
-          # $('#ajax-info .progress-bar').addClass('progress-bar-success')
-          alert "Cool stuff!"
-          # $(this).parent().insert
+          $('.ajax-info-' + id)
+          .removeClass('progress-striped active')
+          $('.ajax-info-' + id + ' div:first-child')
+          .addClass('progress-bar-success')
         .fail ->
           alert "Leider konnte keine Internetverbindung hergestellt werden.
            Überprüfen Sie bitte Ihre Verbindung und wenden Sie sich ggf. den
@@ -45,14 +48,17 @@ $(document).ready ->
       selected = 'alert alert-' + $(this).val()
       messageAlert = $(this).parent().parent()
       select = $(this)
+      id = $(this).attr('id').match(/\d+/)[0]
       # Ajax Request starten
       # @todo Refactorn DRY!
       _csrf = $(this).prevAll('input[name="_token"]').val()
       _method = $(this).prevAll('input[name="_method"]').val()
       url = $(this).parent().attr('action')
       # Prozess sichtbar machen
-      # $('#ajax-info').addClass('progress-striped active')
-      # $('#ajax-info .progress-bar').removeClass('progress-bar-success')
+      $('.ajax-info-' + id)
+      .addClass('progress-striped active')
+      $('.ajax-info-' + id + ' div:first-child')
+      .removeClass('progress-bar-success')
       # Zu aktualisierende Inhalte abfragen
       message = $(this).prevAll('textarea').val()
       type = $(this).val()
@@ -60,8 +66,10 @@ $(document).ready ->
       $.post(url,
       {message: message, type: type, _token: _csrf, _method: _method})
       .done ->
-        # $('#ajax-info').removeClass('progress-striped active')
-        # $('#ajax-info .progress-bar').addClass('progress-bar-success')
+        $('.ajax-info-' + id)
+        .removeClass('progress-striped active')
+        $('.ajax-info-' + id + ' div:first-child')
+        .addClass('progress-bar-success')
         # Auswahl ändern
         messageAlert.removeClass().addClass(selected)
       .fail ->
@@ -75,23 +83,24 @@ $(document).ready ->
 
     $('.close').on 'click', ->
       # Aktuelle Nachricht auswählen
-      messageAlert = $(this).parent().parent()
+      messageAlert = $(this).parent().parent().parent()
       # Ajax Request starten
       # @todo Refactorn DRY!
       _csrf = $(this).prevAll('input[name="_token"]').val()
       _method = $(this).prevAll('input[name="_method"]').val()
       url = $(this).parent().attr('action')
-      # Prozess sichtbar machen
-      # $('#ajax-info').addClass('progress-striped active')
-      # $('#ajax-info .progress-bar').removeClass('progress-bar-success')
       # Ajax Request starten
       $.post(url,
       {_token: _csrf, _method: _method})
       .done ->
-        # $('#ajax-info').removeClass('progress-striped active')
-        # $('#ajax-info .progress-bar').addClass('progress-bar-success')
         # Nachricht aus dem DOM löschen
         messageAlert.detach()
+        # Zähler um eins verringern
+        $('#messages-manage .badge')
+        .text( Number($('#messages-manage .badge').text()) - 1 )
+        if Number($('#messages-manage .badge').text()) == 0
+          $('#collapse-current-messages').collapse()
+          $('#collapse-new-message').collapse()
       .fail ->
         alert "Leider konnte keine Internetverbindung hergestellt werden.
          Überprüfen Sie bitte Ihre Verbindung und wenden Sie sich ggf. den

@@ -51,7 +51,7 @@ class MessageController {
 		}
 		else
 		{
-			return Redirect::route('dashboard')->with($type . '_success',true);
+			return Redirect::back()->with('success',true);
 		}
 
 	}
