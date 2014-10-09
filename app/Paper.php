@@ -15,7 +15,6 @@ class Paper extends Model {
 	 * Hauptschlüssel festlegen um die ORM Suche zu vereinfachen.
 	 *
 	 * @var 		string
-	 * @todo 		Klären warum es Sinn macht einen anderen PK zu definieren.
 	 */
 	protected $primaryKey ='papername';
 
