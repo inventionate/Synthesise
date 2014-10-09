@@ -12,5 +12,5 @@ class MessageCest
       $I->wantTo('create a new Message instance');
 
       $I->canCreate('Message');
-  }
+  }  
 }

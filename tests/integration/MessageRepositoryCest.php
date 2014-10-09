@@ -23,9 +23,13 @@ class MessageRepositoryCest {
       $this->dummyMessage = TestCommons::dummyMessage();
     }
 
+
+    /**
+     * Testet die Abfrage aller Nachrichten.
+     *
+     */
     public function testGetAllMessages(IntegrationTester $I)
     {
-
       $I->wantTo('get all Messages');
       /**
        * Beispieldatensatz generieren
@@ -52,5 +56,86 @@ class MessageRepositoryCest {
        */
       $I->AssertEquals(2, count($messages));
 
+    }
+
+    /**
+     * Testet das Löschen einer Nachricht.
+     *
+     */
+    public function testDeleteMessages(IntegrationTester $I)
+    {
+      $I->wantTo('delete a Message');
+      /**
+       * Beispieldatensatz generieren
+       *
+       */
+      $this->dummyMessage['id'] = 1;
+      $this->dummyMessage['message'] = 'Das ist eine Nachricht.';
+      $this->dummyMessage['type'] = 'info';
+      $I->haveRecord('messages',$this->dummyMessage);
+      /**
+       * Abfrage durchführen
+       *
+       */
+      Message::delete(1);
+      /**
+       * Testergebnis auswerten
+       *
+       */
+      $I->dontSeeRecord('messages',['id' => 1]);
+    }
+
+    /**
+     * Testet das Speichern aller Nachricthten.
+     *
+     */
+    public function testStoreMessages(IntegrationTester $I)
+    {
+      $I->wantTo('store a Message');
+      /**
+       * Beispieldatensatz generieren
+       *
+       */
+      $this->dummyMessage['id'] = 1;
+      $this->dummyMessage['message'] = 'Das ist eine Nachricht.';
+      $this->dummyMessage['type'] = 'info';
+      $I->haveRecord('messages',$this->dummyMessage);
+      /**
+       * Abfrage durchführen
+       *
+       */
+      Message::store('Eine neue Nachricht','warning');
+      /**
+       * Testergebnis auswerten
+       *
+       */
+      $I->seeRecord('messages',['id' => 2, 'message' => 'Eine neue Nachricht', 'type' => 'warning']);
+    }
+
+    /**
+     * Testet das Aktualisieren aller Nachricthten.
+     *
+     */
+    public function testUpdateMessages(IntegrationTester $I)
+    {
+      $I->wantTo('update a Message');
+      /**
+       * Beispieldatensatz generieren
+       *
+       */
+      $this->dummyMessage['id'] = 1;
+      $this->dummyMessage['message'] = 'Das ist eine Nachricht.';
+      $this->dummyMessage['type'] = 'info';
+      $I->haveRecord('messages',$this->dummyMessage);
+      /**
+       * Abfrage durchführen
+       *
+       */
+      Message::update(1, 'Eine neue Nachricht','danger');
+      /**
+       * Testergebnis auswerten
+       *
+       */
+      $I->seeRecord('messages',['id' => 1, 'message' => 'Eine neue Nachricht', 'type' => 'danger']);
     }
 }
