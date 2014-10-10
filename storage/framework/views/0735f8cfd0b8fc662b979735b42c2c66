@@ -9,12 +9,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <h1 class="nav-event-title hidden-md hidden-lg"><a href="<?php echo e(url('dashboard')); ?>">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
+        <h1 class="nav-event-title hidden-md hidden-lg"><a href="<?php echo e(url('/')); ?>">Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</a></h1>
       </div>
     <?php /* Collect the nav links, forms, and other content for toggling */ ?>
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
-        <li <?php if( Request::is('dashboard') ): ?> class="active" <?php endif; ?>><a href="<?php echo e(url('dashboard')); ?>">Dashboard</a></li>
+        <li <?php if( Request::is('/') ): ?> class="active" <?php endif; ?>><a href="<?php echo e(url('/')); ?>">Dashboard</a></li>
 
         <?php if( Auth::user()->role === 'Admin' ): ?>
           <?php echo $__env->make('layouts.partials.nav-admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

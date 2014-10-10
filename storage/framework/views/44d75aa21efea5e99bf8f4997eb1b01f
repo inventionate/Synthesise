@@ -1,14 +1,10 @@
 <section id="messages-manage">
-  <!-- <header>
-    <h1>Nachrichten editieren</h1>
-  <header> -->
 
-
-<div class="panel-group" id="accordion">
+<div class="panel-group" id="accordion-message">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-current-messages">
+        <a data-toggle="collapse" data-parent="#accordion-message" href="#collapse-current-messages">
           Nachrichten editieren <span class="badge"><?php echo e(count($messages)); ?></span>
         </a>
       </h4>
@@ -66,7 +62,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-new-message">
+        <a data-toggle="collapse" data-parent="#accordion-message" href="#collapse-new-message">
           Neue Nachrichten erstellen
         </a>
       </h4>

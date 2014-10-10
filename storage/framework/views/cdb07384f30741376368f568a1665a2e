@@ -28,13 +28,13 @@ class="container <?php if( Request::is('hgf') ): ?> animated fadeIn <?php endif;
   </div>
 
   <div class="panel-group
-  <?php if( Request::segment(1) === 'hgf'): ?> animated fadeIn <?php endif; ?>" id="accordion">
+  <?php if( Request::segment(1) === 'hgf'): ?> animated fadeIn <?php endif; ?>" id="accordion-faq">
   <?php foreach($answersByLetter as $answers): ?>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
           <a class="accordion-toggle" data-toggle="collapse"
-          data-parent="#accordion" href="<?php echo e('#'.$answers->id); ?>">
+          data-parent="#accordion-faq" href="<?php echo e('#'.$answers->id); ?>">
             <?php echo e($answers->subject); ?>
 
           </a>
@@ -43,7 +43,7 @@ class="container <?php if( Request::is('hgf') ): ?> animated fadeIn <?php endif;
       <div id="<?php echo e($answers->id); ?>" class="panel-collapse collapse">
         <div class="panel-body">
           <h5><?php echo e($answers->question); ?></h5>
-          <p><?php echo e($answers->answer); ?></p>
+          <p><?php echo $answers->answer; ?></p>
         </div>
       </div>
     </div>

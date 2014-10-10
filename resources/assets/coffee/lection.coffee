@@ -49,7 +49,7 @@ $(document).ready ->
     )
     # Aktiven Cuepoint definieren und Notizformular einblenden
     $('.fp-timeline:not(.fp-timeline-bounded)').addClass('fp-timeline-bounded')
-    .on('click touchstart', '.fp-cuepoint', ->
+    .on('click', '.fp-cuepoint', ->
       # Aktuelle Cuepoint Klasse abfragen
       cuepointNumber = $(this).attr('class')
       cuepointId = cuepointNumber.replace( /^\D+/g, '')

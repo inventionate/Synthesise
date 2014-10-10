@@ -30,19 +30,19 @@
 				<?php endif; ?>
 				<?php if($video->videoname === 'Jean-Jacques Rousseau'): ?>
 					<td rowspan="3" class="themenbereich">
-						<?php echo e($video->section .'<br><small>'.$video->author.' und Prof. Dr. Gabriele Weigand</small>'); ?>
+						<?php echo $video->section .'<br><small>'.$video->author.' und Prof. Dr. Gabriele Weigand</small>'; ?>
 
 
 				<?php endif; ?>
 				<?php if($video->videoname === 'Erziehung und Unterricht'): ?>
 					<td rowspan="2" class="themenbereich">
-						<?php echo e($video->section .'<br><small>'.$video->author.'</small>'); ?>
+						<?php echo $video->section .'<br><small>'.$video->author.'</small>'; ?>
 
 
 				<?php endif; ?>
 				<?php if($video->videoname === 'Wozu ist die Bildung da?'): ?>
 					<td rowspan="3" class="themenbereich">
-						<?php echo e($video->section .'<br><small>'.$video->author.'</small>'); ?>
+						<?php echo $video->section .'<br><small>'.$video->author.'</small>'; ?>
 
 					</td>
 				<?php endif; ?>

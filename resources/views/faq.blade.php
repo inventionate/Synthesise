@@ -30,13 +30,13 @@ class="container @if( Request::is('hgf') ) animated fadeIn @endif">
   </div>
 
   <div class="panel-group
-  @if( Request::segment(1) === 'hgf') animated fadeIn @endif" id="accordion">
+  @if( Request::segment(1) === 'hgf') animated fadeIn @endif" id="accordion-faq">
   @foreach($answersByLetter as $answers)
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
           <a class="accordion-toggle" data-toggle="collapse"
-          data-parent="#accordion" href="{{'#'.$answers->id}}">
+          data-parent="#accordion-faq" href="{{'#'.$answers->id}}">
             {{ $answers->subject }}
           </a>
         </h4>
@@ -44,7 +44,7 @@ class="container @if( Request::is('hgf') ) animated fadeIn @endif">
       <div id="{{$answers->id}}" class="panel-collapse collapse">
         <div class="panel-body">
           <h5>{{ $answers->question }}</h5>
-          <p>{{ $answers->answer }}</p>
+          <p>{!! $answers->answer !!}</p>
         </div>
       </div>
     </div>

@@ -3,12 +3,11 @@
 <p>Die Lehrveranstaltung »Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns« führt in Themen und Fragestellungen der Allgemeinen und Historischen Erziehungswissenschaft ein. Sie setzt sich folgendermaßen zusammen:
 </p>
 
-<p>
-<div class="panel-group" id="accordion">
+<div class="panel-group" id="accordion-general-info">
   <div class="panel panel-default">
 	<div class="panel-heading">
 	  <h4 class="panel-title">
-		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-general-info" href="#collapseOne">
 			Online-Lektionen
 		</a>
 	  </h4>
@@ -27,7 +26,7 @@
   <div class="panel panel-default">
 	<div class="panel-heading">
 	  <h4 class="panel-title">
-		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-general-info" href="#collapseTwo">
 		  Texte
 		</a>
 	  </h4>
@@ -47,7 +46,7 @@
   <div class="panel panel-default">
 	<div class="panel-heading">
 	  <h4 class="panel-title">
-		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-general-info" href="#collapseThree">
 		  Präsenzveranstaltungen
 		</a>
 	  </h4>
@@ -70,7 +69,7 @@
   <div class="panel panel-default">
 	<div class="panel-heading">
 	  <h4 class="panel-title">
-		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-general-info" href="#collapseFour">
 		  Prüfung
 		</a>
 	  </h4>
@@ -88,7 +87,7 @@
 	</div>
   </div>
 </div>
-</p>
+
 <p>Sie können sich diese Informationen und die Termine der Veranstaltung auch als PDF Dokument herunterladen:</p>
 
 <?php /* Download-Controller ausführen */ ?>

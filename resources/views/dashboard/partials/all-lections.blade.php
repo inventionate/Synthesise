@@ -29,17 +29,17 @@
 				@endif
 				@if($video->videoname === 'Jean-Jacques Rousseau')
 					<td rowspan="3" class="themenbereich">
-						{{ $video->section .'<br><small>'.$video->author.' und Prof. Dr. Gabriele Weigand</small>' }}
+						{!! $video->section .'<br><small>'.$video->author.' und Prof. Dr. Gabriele Weigand</small>' !!}
 
 				@endif
 				@if($video->videoname === 'Erziehung und Unterricht')
 					<td rowspan="2" class="themenbereich">
-						{{ $video->section .'<br><small>'.$video->author.'</small>' }}
+						{!! $video->section .'<br><small>'.$video->author.'</small>' !!}
 
 				@endif
 				@if($video->videoname === 'Wozu ist die Bildung da?')
 					<td rowspan="3" class="themenbereich">
-						{{ $video->section .'<br><small>'.$video->author.'</small>' }}
+						{!! $video->section .'<br><small>'.$video->author.'</small>' !!}
 					</td>
 				@endif
 
