@@ -32,35 +32,43 @@ class Analytics {
   }
 
   /**
-   * Aktuelle Besucher in Echtzeit.
+   * CURL connection Piwik Analytics site.
    *
-   * @param     string
-   * @return    json
+   * @param     $url Eine Piwik API Adresse mit aktiviertem JSON Format.
+   * @return    array Die Daten als PHP Array.
    */
-   public function getLiveVisitors()
+  private function fetchPiwik($url) {
+    // Durchführen der API Abfrage mi CURL.
+    $curl=curl_init();
+    curl_setopt($curl, CURLOPT_URL,$url);
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 2);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_USERAGENT, 'Synthesise 2.7');
+    $content = curl_exec($curl);
+    curl_close($curl);
+    // Dekodieren der Daten.
+    return json_decode($content, TRUE);
+  }
+
+  /**
+   * Summe aller Besuche nach unterschiedlichen Benutzergruppen.
+   *
+   * @param     $periodStart Anfangsdatum des abgefragten Zeitraums.
+   */
+   public function getVisitors($periodStart = '2014-01-01')
    {
+    // Piwik URL. Um diese zu generieren siehe Piwik API Dokumentation.
     $url = $this->baseUrl;
-    $url .= "?module=API&method=DevicesDetection.getType";
-    $url .= "&idSite=1&period=day&date=today";
-    $url .= "&format=json";
-    $url .= "&token_auth=".$this->tokenAuth;
+    $url .= 'index.php?module=API';
+    $url .= '&method=CustomVariables.getCustomVariables';
+    $url .= '&expanded=1';
+    $url .= '&idSite=1&period=range&date='. $periodStart . ',today';
+    $url .= '&format=JSON';
+    $url .= '&token_auth=' . $this->tokenAuth;
 
-    // CURL anstatt fopen verwenden, da durch den Server blockiert.
-    $curl_handle=curl_init();
-    curl_setopt($curl_handle, CURLOPT_URL,$url);
-    curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
-    curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl_handle, CURLOPT_USERAGENT, 'Synthesise 2.7');
-    $content = curl_exec($curl_handle);
-    curl_close($curl_handle);
+    $content = $this->fetchPiwik($url);
 
-    $content = json_decode($content, TRUE);
-
-    $test = $content[0];
-
-
-    return $test['nb_actions'];
-
+    return $content[0]['subtable'][0]['nb_visits'];
    }
 
 }

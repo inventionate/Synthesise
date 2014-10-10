@@ -14,7 +14,7 @@ class AnalyticsController {
 	public function index()
 	{
 
-		$liveVisitors = Analytics::getLiveVisitors();
+		$liveVisitors = Analytics::getVisitors();
 
 		return View::make('analytics.index')
 									->with('liveVisitors',$liveVisitors)

@@ -90,8 +90,8 @@ return [
 	*/
 
 	'analytics' => [
-		'tokenAuth' => '22050cb4e8db16196138632a000ed946',
 		'baseUrl' => 'https://etpm-analytics.ph-karlsruhe.de/',
+		'tokenAuth' => '22050cb4e8db16196138632a000ed946',
 	]
 
 ];

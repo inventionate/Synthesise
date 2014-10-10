@@ -9,7 +9,7 @@
 
   <div class="row">
     <div class="col-lg-6">
-      <?php echo $__env->make('analytics.partials.live-visitors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php echo $__env->make('analytics.partials.visitors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     </div>
     <div class="col-lg-6">
       <?php echo $__env->make('analytics.partials.semester-visitors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
