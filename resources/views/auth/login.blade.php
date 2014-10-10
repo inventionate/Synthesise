@@ -6,8 +6,8 @@
 
 @section('content')
 <main id="main-content-{{ Request::segment(1) }}">
-
-	<header class="jumbotron text-center">
+	{{-- @todo Inline CSS entfernen und bessere Lösung suchen! --}}
+	<header class="jumbotron text-center" style="margin-top: 30px;">
 		<h1>e:t:p:M</h1>
 		<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
 		<h3 class="sr-only">Login</h3>

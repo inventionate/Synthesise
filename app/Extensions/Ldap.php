@@ -2,10 +2,26 @@
 
 class Ldap {
 
+	/**
+	* LDAP server domain.
+	*
+	* @var string
+	*/
 	protected $domain;
 
+	/**
+	* LDAP base DN.
+	*
+	* @var string
+	*/
 	protected $baseDn;
 
+	/**
+	 * LDAP constructor
+	 *
+	 * @param     $domain
+	 * @param 		$baseDn
+	 */
 	public function __construct($domain, $baseDn)
 	{
 		$this->domain = $domain;

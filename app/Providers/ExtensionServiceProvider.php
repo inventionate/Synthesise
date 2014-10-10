@@ -53,7 +53,12 @@ class ExtensionServiceProvider extends ServiceProvider {
 		// ANALYTICS
 		$this->app->bindShared('analytics', function()
 		{
-			return new Analytics;
+
+			$tokenAuth = $this->app['config']->get('auth.analytics.tokenAuth');
+
+			$baseUrl = $this->app['config']->get('auth.analytics.baseUrl');
+
+			return new Analytics($tokenAuth, $baseUrl);
 		});
 	}
 

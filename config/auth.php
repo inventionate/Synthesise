@@ -64,9 +64,34 @@ return [
 		'expire' => 60,
 	],
 
+	/*
+	|--------------------------------------------------------------------------
+	| LDAP Authentication Settings
+	|--------------------------------------------------------------------------
+	|
+	| Here you may set the settings for LDAP server connection. You may get
+	| both information form your university or company.
+	|
+	*/
+
 	'ldap' => [
 		'domain' => '193.197.136.102',
 		'baseDn' => 'dc=ka,dc=ph-bw,dc=net',
+	],
+
+	/*
+	|--------------------------------------------------------------------------
+	| Analytics Settings
+	|--------------------------------------------------------------------------
+	|
+	| Here you may set the settings for Piwik Analytics API. You can find the
+	| auth token and base URL on the API documentation site of your Piwik Site.
+	|
+	*/
+
+	'analytics' => [
+		'tokenAuth' => '22050cb4e8db16196138632a000ed946',
+		'baseUrl' => 'https://etpm-analytics.ph-karlsruhe.de/',
 	]
 
 ];

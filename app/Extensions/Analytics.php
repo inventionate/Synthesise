@@ -8,10 +8,28 @@ class Analytics {
   /**
    * Auth Token der Piwik Analytics API.
    *
+   * @var     string
    */
-   protected $tokenAuth = '22050cb4e8db16196138632a000ed946';
+  protected $tokenAuth;
 
-   protected $baseUrl = 'https://etpm-analytics.ph-karlsruhe.de/';
+  /**
+   * Base URL  der Piwik Analytics API.
+   *
+   * @var     string
+   */
+  protected $baseUrl;
+
+  /**
+   * Constructor.
+   *
+   * @param     $tokenAuth
+   * @param    $baseUrl
+   */
+  public function __construct($tokenAuth, $baseUrl)
+  {
+    $this->tokenAuth = $tokenAuth;
+    $this->baseUrl = $baseUrl;
+  }
 
   /**
    * Aktuelle Besucher in Echtzeit.
