@@ -54,6 +54,7 @@ class Analytics {
    * Summe aller Besuche nach unterschiedlichen Benutzergruppen.
    *
    * @param     $periodStart Anfangsdatum des abgefragten Zeitraums.
+   * @return    array Besucherzahlen total der Admins, Mentoren und Studierenden.
    */
    public function getVisitors($periodStart = '2014-01-01')
    {
@@ -62,13 +63,49 @@ class Analytics {
     $url .= 'index.php?module=API';
     $url .= '&method=CustomVariables.getCustomVariables';
     $url .= '&expanded=1';
-    $url .= '&idSite=1&period=range&date='. $periodStart . ',today';
+    $url .= '&idSite=1';
+    $url .= '&period=range';
+    $url .= '&date='. $periodStart . ',today';
     $url .= '&format=JSON';
     $url .= '&token_auth=' . $this->tokenAuth;
 
     $content = $this->fetchPiwik($url);
 
-    return $content[0]['subtable'][0]['nb_visits'];
+    return [
+      'admins' => $content[0]['subtable'][0]['nb_visits'],
+      'mentors' => $content[0]['subtable'][1]['nb_visits'],
+      'students' => $content[0]['subtable'][2]['nb_visits']
+    ];
    }
 
+  /**
+   * Alle Besucher und Seitenaufrufe innerhalb eines bestimmten Zeitraums.
+   *
+   * @param     $firstMonth Anfangsdatum des abgefragten Zeitraums.
+   * @param     $lastMonth Enddatum des abgefragten Zeitraums.
+   * @return    array Seitenaufrufe und eindeutige Besucherzahlen.
+   */
+  public function getSemesterVisits($firstMonth = '2014-10-01', $lastMonth='2015-02-28')
+  {
+    // Piwik URL. Um diese zu generieren siehe Piwik API Dokumentation.
+    $url = $this->baseUrl;
+    $url .= 'index.php?module=API';
+    $url .= '&method=API.get';
+    $url .= '&expanded=1';
+    $url .= '&idSite=1';
+    $url .= '&period=month';
+    $url .= '&date='. $firstMonth . ',' . $lastMonth;
+    $url .= '&format=JSON';
+    $url .= '&token_auth=' . $this->tokenAuth;
+
+    $content = $this->fetchPiwik($url);
+
+    $visits = array_fetch($content, 'nb_visits');
+    $uniqVisitors = array_fetch($content,'nb_uniq_visitors');
+
+    return [
+      'visits' => $visits,
+      'uniqVisitors' => $uniqVisitors
+    ];
+  }
 }

@@ -13,11 +13,16 @@ class AnalyticsController {
 	public function index()
 	{
 
-		$liveVisitors = Analytics::getVisitors();
+		$visitors = Analytics::getVisitors();
+
+		$semesterVisits = Analytics::getSemesterVisits();
 
 		return view('analytics.index')
-									->with('liveVisitors',$liveVisitors)
-		;
+									->with('admins',$visitors['admins'])
+									->with('mentors',$visitors['mentors'])
+									->with('students', $visitors['students'])
+									->with('visits', json_encode($semesterVisits['visits']))
+									->with('uniqVisitors', json_encode($semesterVisits['uniqVisitors']));
 	}
 
 }

@@ -17,6 +17,7 @@
 				<div class="flowplayer fixed-controls play-button is-splash"
 				data-generate_cuepoints="true"
 				@if( ! (Agent::isMobile() || Agent::isTablet()) )
+					{{-- @todo Auf JSON umstellen und implode ersetzen --}}
 					data-cuepoints="[{{ implode(',',$cuepoints->lists('cuepoint')) }}]"
 				@endif
 				data-key="$443083014658956"
