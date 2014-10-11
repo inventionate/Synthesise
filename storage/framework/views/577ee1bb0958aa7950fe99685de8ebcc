@@ -36,18 +36,18 @@
 				<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
 			</div>
 		</div>
-
-		<?php /* @todo  Remember me Funktion aktivieren! */ ?>
-		<?php /* Remember me
-		<div class="checkbox">
-			<label>
-				<input type="checkbox"> Remember me
-			</label>
-		</div> */ ?>
-
 		<?php /* Anmelde Button */ ?>
 		<?php echo Form::submit('Anmelden', ['id' => 'login','class' => 'btn btn-primary btn-lg', 'role' => 'button']); ?>
 
+		<div class="clearfix">
+		</div>
+		<?php /* Remember me */ ?>
+		<div class="checkbox" style="font-size: 1.2em;">
+			<?php echo Form::label('rememberme', 'Angemeldet bleiben'); ?>
+
+			<?php echo Form::checkbox('rememberme', true, false); ?>
+
+		</div>
 	<?php echo Form::close(); ?>
 
 </main>

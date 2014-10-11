@@ -18,9 +18,10 @@ class AuthController {
 	 *
 	 * @return auth.login View.
 	 */
-	public function index() {
-			return View::make('auth.login');
-		}
+	public function index()
+	{
+		return View::make('auth.login');
+	}
 
 	/**
 	 * Loginlogik
@@ -35,12 +36,15 @@ class AuthController {
 						'username' => Input::get('username'),
 						'password' => Input::get('password')
 					];
+		//Remember me Funktion
+		$rememberme = Input::get('rememberme');
 
+		//LDAP Authentifizierung
 		$ldap = LDAP::authenticate($credentials['username'],$credentials['password']);
 		// 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
 		if ( $ldap )
 		{
-			if ( Auth::attempt($credentials) )
+			if ( Auth::attempt($credentials, $rememberme) )
 			{
 				return Redirect::route('dashboard');
 			}
@@ -55,7 +59,7 @@ class AuthController {
 					// @todo Auch den Vornamen, den Nachnamen und die E-Mail via LDAP Server einlesen.
 					// @todo Durch den StudiIP Import nur noch alle UIDs einlesen.
 					$user->save();
-					Auth::attempt($credentials);
+					Auth::attempt($credentials, $rememberme);
 					return Redirect::route('dashboard');
 				}
 				else
@@ -68,7 +72,7 @@ class AuthController {
 			}
 		}
 		// Für Nicht-LDAP Accounts eine weitere prüfung durchführen
-		elseif( Auth::attempt($credentials) )
+		elseif( Auth::attempt($credentials, $rememberme) )
 		{
 			return Redirect::route('dashboard');
 		}
