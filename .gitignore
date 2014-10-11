@@ -9,12 +9,6 @@ Thumbs.db
 /bower_components
 /doc
 /node_modules
-/public/css
-/public/flash
-/public/fonts
-/public/img
-/public/js
-/public/qunit
 /public/video
 /resources/assets/build
 /tests/_output
