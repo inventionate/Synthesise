@@ -1,7 +1,6 @@
 <?php namespace Synthesise\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
@@ -64,7 +63,7 @@ class LectionController {
 		$videopath = asset('video/'.strtolower(str_replace(array(' ','?','ä','ö','ü','ß','-','–',':',',','»','«','É','!','.','Ä','Ö','Ü'),array('_','','ae','oe','ue','ss','_','und','','','','','e','','','ae','oe','ue'),$videoname)));
 
 		// Standardausgabe VIEW -----------------------------------------
-		return View::make('lection')
+		return view('lection')
 							->with('available', $available)
 							->with('role', $role)
 							->with('cuepoints', $cuepoints)

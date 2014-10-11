@@ -1,7 +1,5 @@
 <?php namespace Synthesise\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
-
 class ImprintController {
 
 	/**
@@ -12,7 +10,7 @@ class ImprintController {
 	 */
 	public function index()
 	{
-		return View::make('imprint');
+		return view('imprint');
 	}
 
 }

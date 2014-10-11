@@ -3,7 +3,6 @@
 // use Illuminate\Routing\Controller;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +19,7 @@ class AuthController {
 	 */
 	public function index()
 	{
-		return View::make('auth.login');
+		return view('auth.login');
 	}
 
 	/**

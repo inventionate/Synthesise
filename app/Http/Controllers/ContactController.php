@@ -1,6 +1,5 @@
 <?php namespace Synthesise\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
@@ -18,7 +17,7 @@ class ContactController {
 	 */
 	public function index()
 	{
-		return View::make('contact');
+		return view('contact');
 	}
 
 	/**

@@ -1,7 +1,5 @@
 <?php namespace Synthesise\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
-
 use Synthesise\Repositories\Facades\Faq;
 
 class FaqController {
@@ -20,7 +18,7 @@ class FaqController {
 
 		$answersByLetter = FAQ::getByLetter($letter);
 
-		return View::make('faq')
+		return view('faq')
 								->with('answersByLetter',$answersByLetter)
 								->with('letter',$letter)
 								->with('letters',$letters)

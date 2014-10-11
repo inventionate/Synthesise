@@ -1,7 +1,6 @@
 <?php namespace Synthesise\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 
 use Synthesise\Repositories\Facades\User;
 use Synthesise\Repositories\Facades\Video;
@@ -44,7 +43,7 @@ class DashboardController {
 
 		$username = User::getUsername();
 
-		return View::make('dashboard.index')
+		return view('dashboard.index')
 									->with('available',$available)
 									->with('papers',$papers)
 									->with('role',$role)
