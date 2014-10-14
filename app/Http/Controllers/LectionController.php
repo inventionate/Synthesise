@@ -9,6 +9,8 @@ use Synthesise\Repositories\Facades\User;
 use Synthesise\Repositories\Facades\Video;
 use Synthesise\Repositories\Facades\Note;
 
+use Thujohn\Pdf\PdfFacade as PDF;
+
 class LectionController {
 
 	/**
