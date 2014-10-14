@@ -1,5 +1,7 @@
 <?php namespace Synthesise\Extensions;
 
+use Illuminate\Support\Facades\URL;
+
 class AssetBuilder {
 
   /**
@@ -23,11 +25,10 @@ class AssetBuilder {
 
     if (array_key_exists($filename, $manifest))
     {
-      return $manifest[$filename];
+      return URL::asset($manifest[$filename]);
     }
 
-    return $filename;
-
+    throw new InvalidArgumentException("File {$filename} not defined in asset manifest.");
   }
 
 }

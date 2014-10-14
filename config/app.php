@@ -233,7 +233,8 @@ return [
 		*/
 		'Agent'     => 'Jenssegers\Agent\Facades\Agent',
 		'PDF' 			=> 'Thujohn\Pdf\PdfFacade',
-		'Form'			=> 'Illuminate\Html\FormFacade'
+		'Form'			=> 'Illuminate\Html\FormFacade',
+		'HTML'			=> 'Illuminate\Html\HtmlFacade'
 
 	]
 

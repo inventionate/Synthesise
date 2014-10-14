@@ -17,9 +17,9 @@
 		@include('layouts.partials.head')
 
 		{{-- APPLICATION CSS -----------------------------------------------------}}
-		<link rel="stylesheet" href="{{ asset(Asset::rev('css/application.css')) }}">
+		<link rel="stylesheet" href="{{ Asset::rev('css/application.css') }}">
 		{{-- APPLICATION JS ------------------------------------------------------}}
-		<script src="{{ asset(Asset::rev('js/application.js')) }}"></script>
+		<script src="{{ Asset::rev('js/application.js') }}"></script>
 
 	</head>
 

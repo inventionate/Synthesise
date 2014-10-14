@@ -1,18 +1,18 @@
-{{-- Piwik --}}
+<?php /* Piwik */ ?>
 <script type="text/javascript">
   var _paq = _paq || [];
 
-  @if ( Auth::check() )
-    @if ( Auth::user()->role === 'Admin' )
+  <?php if( Auth::check() ): ?>
+    <?php if( Auth::user()->role === 'Admin' ): ?>
       _paq.push(["setCustomVariable", 3, "Status", "DozentIn", "visit"]);
-    @elseif ( Auth::user()->role === 'Teacher'  )
+    <?php elseif( Auth::user()->role === 'Teacher'  ): ?>
       _paq.push(["setCustomVariable", 2, "Status", "MentorIn", "visit"]);
-    @elseif ( Auth::user()->role === 'Student'  )
+    <?php elseif( Auth::user()->role === 'Student'  ): ?>
       _paq.push(["setCustomVariable", 1, "Status", "StudentIn", "visit"]);
-    @endif
-    {{-- Verschlüsselt den Nutzernamen mit dem UUencode Algorithmus --}}
-    _paq.push(['setUserId', '{{ convert_uuencode(Auth::user()->username) }}']);
-  @endif
+    <?php endif; ?>
+    <?php /* Verschlüsselt den Nutzernamen mit dem UUencode Algorithmus */ ?>
+    _paq.push(['setUserId', '<?php echo e(convert_uuencode(Auth::user()->username)); ?>']);
+  <?php endif; ?>
 
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
