@@ -10,8 +10,7 @@
     <?php elseif( Auth::user()->role === 'Student'  ): ?>
       _paq.push(["setCustomVariable", 1, "Status", "StudentIn", "visit"]);
     <?php endif; ?>
-    <?php /* Verschlüsselt den Nutzernamen mit dem UUencode Algorithmus */ ?>
-    _paq.push(['setUserId', '<?php echo e(convert_uuencode(Auth::user()->username)); ?>']);
+    _paq.push(['setUserId', '<?php echo e(base64_encode(Auth::user()->username)); ?>']);
   <?php endif; ?>
 
   _paq.push(['trackPageView']);

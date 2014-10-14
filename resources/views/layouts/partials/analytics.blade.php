@@ -10,8 +10,7 @@
     @elseif ( Auth::user()->role === 'Student'  )
       _paq.push(["setCustomVariable", 1, "Status", "StudentIn", "visit"]);
     @endif
-    {{-- Verschlüsselt den Nutzernamen mit dem UUencode Algorithmus --}}
-    _paq.push(['setUserId', '{{ convert_uuencode(Auth::user()->username) }}']);
+    _paq.push(['setUserId', '{{ base64_encode(Auth::user()->username) }}']);
   @endif
 
   _paq.push(['trackPageView']);

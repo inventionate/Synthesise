@@ -39,7 +39,6 @@ class TestCommons
 			'role' 						=> 'Student',
 			'created_at' 			=> '2014-09-17 17:00:00',
 			'updated_at' 			=> '2014-09-17 17:00:00',
-			'permissions' 		=> 'none',
 			'remember_token' 	=> ''
 		];
 	}

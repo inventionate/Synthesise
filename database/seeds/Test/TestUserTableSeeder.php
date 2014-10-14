@@ -15,8 +15,7 @@ class TestUserTableSeeder extends Seeder {
 			'password' => Hash::make('Zelda'),
 			'firstname' => 'Test',
 			'lastname' => 'Student',
-			'role' => 'Student',
-			'permissions' => 'all'
+			'role' => 'Student'
 		));
 
 		User::create(array(
@@ -25,18 +24,16 @@ class TestUserTableSeeder extends Seeder {
 			'password' => Hash::make('Hyrule'),
 			'firstname' => 'Test',
 			'lastname' => 'Teacher',
-			'role' => 'Teacher',
-			'permissions' => 'all'
+			'role' => 'Teacher'
 		));
-		
+
 		User::create(array(
 			'id' => 3,
 			'username' => 'adminka',
 			'password' => Hash::make('Link'),
 			'firstname' => 'Test',
 			'lastname' => 'Admin',
-			'role' => 'Admin',
-			'permissions' => 'all'
+			'role' => 'Admin'
 		));
 
 	}

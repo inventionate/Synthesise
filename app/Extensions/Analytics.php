@@ -99,7 +99,7 @@ class Analytics {
     $url .= '&token_auth=' . $this->tokenAuth;
 
     $content = $this->fetchPiwik($url);
-
+    // dd($content);
     $visits = array_fetch($content, 'nb_visits');
     $uniqVisitors = array_fetch($content,'nb_uniq_visitors');
 
@@ -109,10 +109,88 @@ class Analytics {
     ];
   }
 
+  /**
+   * Heruntergeladene Texte in einem Semester.
+   *
+   * @param     $firstMonth Anfangsdatum des abgefragten Zeitraums.
+   * @param     $lastMonth Enddatum des abgefragten Zeitraums.
+   * @return    array Anzahl der heruntergeladenen Texte.
+   */
+  public function downloadedPapers($firstMonth = '2014-10-01', $lastMonth='2015-02-28')
+  {
+    // Piwik URL. Um diese zu generieren siehe Piwik API Dokumentation.
+    $url = $this->baseUrl;
+    $url .= 'index.php?module=API';
+    $url .= '&method=Events.getCategory';
+    $url .= '&expanded=1';
+    $url .= '&idSite=1';
+    $url .= '&label=Text%20%26gt%3B%20%40Downloaded';
+    $url .= '&period=month';
+    $url .= '&date='. $firstMonth . ',' . $lastMonth;
+    $url .= '&format=JSON';
+    $url .= '&token_auth=' . $this->tokenAuth;
 
+    $months = $this->fetchPiwik($url);
 
-  #https://etpm-analytics.ph-karlsruhe.de/index.php?module=API&method=Events.getCategory&format=JSON&idSite=1&period=month&date=2012-11-01,2014-10-31&expanded=1&label=Text%20%26gt%3B%20%40Downloaded&token_auth=22050cb4e8db16196138632a000ed946&filter_limit=24
+    // @todo Code verbessern!
 
+    $downloadedPapers = [];
 
+    foreach ( $months as $month )
+    {
+      if ( array_fetch($month, 'nb_events') )
+      {
+        $downloadedPapers = array_merge($downloadedPapers, array_fetch($month, 'nb_events'));
+      }
+      else
+      {
+        $downloadedPapers = array_merge($downloadedPapers, [0]);
+      }
+    }
+
+    return json_encode($downloadedPapers);
+  }
+
+  /**
+   * Angesehene Videos in einem Semester.
+   *
+   * @param     $firstMonth Anfangsdatum des abgefragten Zeitraums.
+   * @param     $lastMonth Enddatum des abgefragten Zeitraums.
+   * @return    array Anzahl der Videoplays.
+   */
+  public function playedVideos($firstMonth = '2014-10-01', $lastMonth='2015-02-28')
+  {
+    // Piwik URL. Um diese zu generieren siehe Piwik API Dokumentation.
+    $url = $this->baseUrl;
+    $url .= 'index.php?module=API';
+    $url .= '&method=Events.getCategory';
+    $url .= '&expanded=1';
+    $url .= '&idSite=1';
+    $url .= '&label=Video%20%26gt%3B%20%40Abgespielt';
+    $url .= '&period=month';
+    $url .= '&date='. $firstMonth . ',' . $lastMonth;
+    $url .= '&format=JSON';
+    $url .= '&token_auth=' . $this->tokenAuth;
+
+    $months = $this->fetchPiwik($url);
+
+    // @todo Code verbessern!
+
+    $playedVideos = [];
+
+    foreach ( $months as $month )
+    {
+      if ( array_fetch($month, 'nb_events') )
+      {
+        $playedVideos = array_merge($playedVideos, array_fetch($month, 'nb_events'));
+      }
+      else
+      {
+        $playedVideos = array_merge($playedVideos, [0]);
+      }
+    }
+
+    return json_encode($playedVideos);
+  }
 
 }

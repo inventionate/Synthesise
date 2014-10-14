@@ -2,6 +2,7 @@
 if( document.URL.indexOf('/analytics') > -1 )
   $('document').ready ->
 
+
     # VISITORS CHART -----------------------------------------------------------
     visitorsCanvas = $("#visitorsChart").get(0).getContext("2d")
     visitorsOptions =
@@ -39,6 +40,7 @@ if( document.URL.indexOf('/analytics') > -1 )
     # Chart plotten
     visitorsChart = new Chart(visitorsCanvas)
     .Pie(visitorsData, visitorsOptions)
+
 
     # SEMESTER CHART -----------------------------------------------------------
     semesterCanvas = $("#semesterChart").get(0).getContext("2d")
@@ -85,3 +87,73 @@ if( document.URL.indexOf('/analytics') > -1 )
     # Chart plotten
     semesterChart = new Chart(semesterCanvas)
     .Line(semesterData, semesterOptions)
+
+
+    # DOWNLOADS CHART ----------------------------------------------------------
+    downloadsCanvas = $("#downloadsChart").get(0).getContext("2d")
+    downloadsOptions =
+      responsive: true
+      bezierCurve: false
+    # Daten für Chart.js aufbereiten
+    downloadsData =
+      labels: [
+        "Oktober"
+        "November"
+        "Dezember"
+        "Januar"
+        "Februar"
+      ]
+      datasets: [
+        {
+          label: "Heruntergeladene Texte"
+          fillColor: "rgba(220,220,220,0.2)"
+          strokeColor: "rgba(220,220,220,1)"
+          pointColor: "rgba(220,220,220,1)"
+          pointStrokeColor: "#fff"
+          pointHighlightFill: "#fff"
+          pointHighlightStroke: "rgba(220,220,220,1)"
+          data: null
+        }
+      ]
+    # Daten abfragen
+    downloadedPapers = $('#downloadsChart').attr('data-downloaded-papers')
+    # Werte Zuweisen
+    downloadsData.datasets[0].data = JSON.parse(downloadedPapers)
+    # Chart plotten
+    downloadsChart = new Chart(downloadsCanvas)
+    .Line(downloadsData, downloadsOptions)
+
+
+    # PLAYS CHART --------------------------------------------------------------
+    playsCanvas = $("#playsChart").get(0).getContext("2d")
+    playsOptions =
+      responsive: true
+      bezierCurve: false
+    # Daten für Chart.js aufbereiten
+    playsData =
+      labels: [
+        "Oktober"
+        "November"
+        "Dezember"
+        "Januar"
+        "Februar"
+      ]
+      datasets: [
+        {
+          label: "Abgespielte online-Lektionen"
+          fillColor: "rgba(220,220,220,0.2)"
+          strokeColor: "rgba(220,220,220,1)"
+          pointColor: "rgba(220,220,220,1)"
+          pointStrokeColor: "#fff"
+          pointHighlightFill: "#fff"
+          pointHighlightStroke: "rgba(220,220,220,1)"
+          data: null
+        }
+      ]
+    # Daten abfragen
+    playedVideos = $('#playsChart').attr('data-plays')
+    # Werte Zuweisen
+    playsData.datasets[0].data = JSON.parse(playedVideos)
+    # Chart plotten
+    playsChart = new Chart(playsCanvas)
+    .Line(playsData, playsOptions)
