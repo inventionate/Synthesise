@@ -144,11 +144,11 @@ return [
 		'Illuminate\Pagination\PaginationServiceProvider',
 		'Illuminate\Queue\QueueServiceProvider',
 		'Illuminate\Redis\RedisServiceProvider',
-		'Illuminate\Auth\Reminders\ReminderServiceProvider',
+		'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
 		'Illuminate\Session\SessionServiceProvider',
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
-		'Illuminate\View\ViewServiceProvider'
+		'Illuminate\View\ViewServiceProvider',
 
 	],
 
@@ -233,8 +233,7 @@ return [
 		*/
 		'Agent'     => 'Jenssegers\Agent\Facades\Agent',
 		'PDF' 			=> 'Thujohn\Pdf\PdfFacade',
-		'Form'			=> 'Illuminate\Html\FormFacade',
-		'HTML'			=> 'Illuminate\Html\HtmlFacade'
+		'Form'			=> 'Illuminate\Html\FormFacade'
 
 	]
 

@@ -33,7 +33,6 @@
 			<p class="alert alert-danger browsehappy text-center @if( Request::is('login') ) alert-login @endif" data-no-turbolink>Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
 		<![endif]-->
 
-
 		{{-- @include NAVIGATION -------------------------------------------------}}
 		@if ( Auth::check() )
 			@include('layouts.partials.nav')

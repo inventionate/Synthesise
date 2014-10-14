@@ -13,7 +13,7 @@ class LogServiceProvider extends ServiceProvider {
 	 */
 	public function boot(Log $log)
 	{
-		$log->useFiles(storage_path().'/laravel.log');
+		$log->useFiles(storage_path().'/framework/logs/laravel.log');
 	}
 
 	/**

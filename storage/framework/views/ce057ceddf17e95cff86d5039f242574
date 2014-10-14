@@ -33,7 +33,6 @@
 			<p class="alert alert-danger browsehappy text-center <?php if( Request::is('login') ): ?> alert-login <?php endif; ?>" data-no-turbolink>Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
 		<![endif]-->
 
-
 		<?php /* <?php echo $__env->make(, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> NAVIGATION -----------------------------------------------*/ ?>
 		<?php if( Auth::check() ): ?>
 			<?php echo $__env->make('layouts.partials.nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

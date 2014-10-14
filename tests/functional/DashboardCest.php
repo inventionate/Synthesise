@@ -23,7 +23,7 @@ class DashboardCest {
 
     $I->loggedInAsStudent($I);
 
-    $I->amOnPage('/dashboard');
+    $I->amOnPage('/');
     $I->see('Aktuelle online-Lektion','h2');
     $I->see('Allgemeine Informationen','h2');
     $I->see('Ablaufplan','h2');
@@ -39,7 +39,7 @@ class DashboardCest {
 
     $I->loggedInAsStudent($I);
 
-    $I->amOnPage('/dashboard');
+    $I->amOnPage('/');
     $I->see('Dashboard','h1');
     $I->dontsee('Sie haben erweiterte Benutzerrechte und können die online-Lektionen bereits früher verwenden.','div');
   }
@@ -51,7 +51,7 @@ class DashboardCest {
 
     $I->loggedInAsStudent($I);
 
-    $I->amOnPage('/dashboard');
+    $I->amOnPage('/');
     $I->see('Ablaufplan','h2');
     $I->see('Themenbereich','th');
     $I->see('online-Lektion','th');
@@ -71,8 +71,8 @@ class DashboardCest {
 
     $I->loggedInAsTeacher($I);
 
-    $I->amOnPage('/dashboard');
-    $I->see('Test Teacher (Teacher) abmelden','a');
+    $I->amOnPage('/');
+    $I->see('Teacher','a#btn-logout b');
   }
 
   public function testSeeTeacherTableExtraContent(FunctionalTester $I)
@@ -82,7 +82,7 @@ class DashboardCest {
 
     $I->loggedInAsTeacher($I);
 
-    $I->amOnPage('/dashboard');
+    $I->amOnPage('/');
     $I->see('Ablaufplan','h2');
     $I->see('Themenbereich','th');
     $I->see('online-Lektion','th');
@@ -100,7 +100,7 @@ class DashboardCest {
 
     $I->loggedInAsAdmin($I);
 
-    $I->amOnPage('/dashboard');
-    $I->see('Test Admin (Admin) abmelden','a');
+    $I->amOnPage('/');
+    $I->see('Admin','a#btn-logout b');
   }
 }

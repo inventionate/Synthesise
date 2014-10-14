@@ -11,11 +11,11 @@ Thumbs.db
 /node_modules
 /public/video
 /resources/assets/build
+/storage/framework
 /tests/_output
 /vendor
 composer.phar
 composer.lock
-.env.*.php
-.env.php
+.env
 secret.json
 secret_db.json

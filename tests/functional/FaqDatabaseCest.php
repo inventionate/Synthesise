@@ -34,7 +34,7 @@ class FaqDatabaseCest {
 		$I->wantTo('see Answers for A');
 
 		$I->amOnPage('/hgf/A');
-		$I->seeElement('div#accordion.panel-group');
+		$I->seeElement('div#accordion-faq.panel-group');
 		$I->see('Anwesenheit');
 	}
 }

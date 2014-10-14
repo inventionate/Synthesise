@@ -108,4 +108,11 @@ class Analytics {
       'uniqVisitors' => $uniqVisitors
     ];
   }
+
+
+
+  #https://etpm-analytics.ph-karlsruhe.de/index.php?module=API&method=Events.getCategory&format=JSON&idSite=1&period=month&date=2012-11-01,2014-10-31&expanded=1&label=Text%20%26gt%3B%20%40Downloaded&token_auth=22050cb4e8db16196138632a000ed946&filter_limit=24
+
+
+
 }

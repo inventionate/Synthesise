@@ -47,7 +47,7 @@ class AuthCest {
     $I->fillField('#password','Zelda');
     $I->click('Anmelden','#login');
 
-    $I->seeCurrentUrlEquals('/dashboard');
+    $I->seeCurrentUrlEquals('');
     $I->see('Dashboard','h1');
   }
 

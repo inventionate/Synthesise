@@ -1,6 +1,6 @@
 <?php namespace Synthesise\Http\Controllers;
 
-// use Illuminate\Routing\Controller;
+// @todo Auf das neue Authentifizierungssystem umstellen!
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
