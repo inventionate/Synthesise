@@ -55,6 +55,8 @@ class AuthController {
 				if ( isset($user) )
 				{
 					$user->password = Hash::make($credentials['password']);
+					$user->firstname = $ldap['firstname'];
+					$user->lastname = $ldap['lastname'];
 					// @todo Auch den Vornamen, den Nachnamen und die E-Mail via LDAP Server einlesen.
 					// @todo Durch den StudiIP Import nur noch alle UIDs einlesen.
 					$user->save();

@@ -31,15 +31,12 @@ class Ldap {
 	/**
 	 * LDAP Authentifizierung
 	 *
+	 * @param 		$username
+	 * @param 		$password
+	 * @return		array|false Benutzervorname und Benutzernachname oder FALSE.
 	 */
 	public function authenticate($username, $password)
 	{
-		/**
-		* LDAP Verbindung aufbauen
-		* Gibt wahr oder falsch zurück
-		* @todo try-catch Block einbauen?
-		*/
-
 		// Verbindung zum LDAP Server aufbauen
 		// Der @ Operator setzt die Variable auf 'undefined' wenn sie nicht erzeugt werden kann
 		$ds = ldap_connect($this->domain);
@@ -54,7 +51,11 @@ class Ldap {
 			{
 				if( @ldap_bind( $ds, $result[0]['dn'], $password) )
 				{
-					return true;
+					$data = array_dot($result);
+					return [
+						'firstname' => $data['0.givenname.0'],
+						'lastname' => $data['0.sn.0']
+					];
 				}
 				else
 				{
@@ -63,4 +64,5 @@ class Ldap {
 			}
 		}
 	}
+
 }
