@@ -7,9 +7,9 @@
 @section('content')
 <main id="main-content-{{ Request::segment(1) }}" class="container animated fadeIn">
 
-	@if($available || $role === 'Teacher' && $online)
+	@if($available || $role === 'Teacher' || $role === 'Admin'  && $online)
 
-		<h1>{{{ $section . ': ' . $videoname	}}}</h1>
+		<h1>{{ $section . ': ' . $videoname	}}</h1>
 
 		{{-- MEDIAPLAYER --}}
 		<div class="row">
@@ -36,7 +36,7 @@
 							@endif
 							<source type="video/mp4" src="{{ $videopath }}.mp4">
 						@else
-							<source type="video/mp4" src="{{ asset('video') . '/' . strtolower(str_replace(array(' ','-','?','ä','ü','ö','ß'),array('_','_','','ae','ue','oe','ss'),$videoname)) }}.mp4">
+							<source type="video/mp4" src="{{ asset('video') . '/' . Parser::normalizeName($videoname) }}.mp4">
 						@endif
 					</video>
 				</div>
@@ -69,22 +69,22 @@
 					</div>
 				</header>
 				{{-- FÜR DIE MOBILVERSION ANPASSEN MIT DEM RECHTSLIEGENDEN --}}
-				<div class="col-md-6 col-sm-7 col-xs-12" data-no-turbolink>
+				<div class="col-md-6 col-sm-7 col-xs-12">
 				{{-- durch die Texte loopen und Autoren davor setzten --}}
 					@foreach ($papers as $paper)
-						<a class="btn btn-warning btn-block download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => str_replace(':','', $paper->papername )]) }}" data-no-turbolink>{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a>
+						<a class="btn btn-warning btn-block download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a>
 					@endforeach
 				</div>
-				<div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-1 col-xs-12 text-right" data-no-turbolink>
+				<div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-1 col-xs-12 text-right">
 					{{-- @todo Funktionalität beim Note Repository hinzufügen (Note::collectContent) --}}
-					<a class="btn btn-primary btn-block download-note" data-name="{{ $videoname }}" href="{{ action('LectionController@getNotesPDF', [rawurlencode($videoname)])	}}" data-no-turbolink>Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a>
+					<a class="btn btn-primary btn-block download-note" data-name="{{ $videoname }}" href="{{ action('LectionController@getNotesPDF', [rawurlencode($videoname)])	}}">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a>
 				</div>
 			</section>
 		</div>
 
   @else
     <div class="alert alert-danger"> Die online-Lektion ist noch nicht verfügbar. Bitte wählen Sie eine verfügbare online-Lektion aus.</div>
-    @include('lection.summary')
+    @include('dashboard.partials.all-lections')
   @endif
 
 </main>

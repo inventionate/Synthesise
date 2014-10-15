@@ -27,8 +27,8 @@ class PaperTableSeeder extends Seeder {
 
 		Paper::create(array(
 			'id' => 3,
-			'papername' => 'Primäre Lebensverhältnisse: Familie, Haushalt',
-			'author' => 'Oskar Negt',
+			'papername' => 'Wandel der Erziehungsverhältnisse',
+			'author' => 'Heinz-Elmar Tenorth',
 			'video_videoname' => 'Frühe Neuzeit',
 		));
 
@@ -75,8 +75,8 @@ class PaperTableSeeder extends Seeder {
 
 		Paper::create(array(
 			'id' => 9,
-			'papername' => 'Bildungspanik',
-			'author' => 'Heinz Bude',
+			'papername' => 'Bildung, Halbbildung, Unbildung',
+			'author' => 'Konrad Paul Liessmann',
 			'video_videoname' => 'Wozu ist die Bildung da?',
 		));
 
@@ -89,10 +89,10 @@ class PaperTableSeeder extends Seeder {
 
 		Paper::create(array(
 			'id' => 11,
-			'papername' => 'Bildung zur Gerechtigkeit. Motivgeschichtliche Überlegungen',
-			'author' => 'Timo Hoyer',
+			'papername' => 'Bildungsgerechtigkeit',
+			'author' => 'Krassimir Stojanov',
 			'video_videoname' => 'Bildung und Gerechtigkeit',
-		));	
+		));
 	}
 
 }

@@ -35,6 +35,6 @@ class Parser
 	  */
 	  public function normalizeName($name)
 	  {
-		  return strtolower(str_replace(array(' ','-','–','—','?','!','ä','ö','ü','ß'),array('_','_','_','_','','','ae','oe','ue','ss'),$name));
+		  return strtolower(str_replace([' ','-','–','—','?','!','ä','ö','ü','ß',':','»','«','É','.','Ä','Ö','Ü'],['_','_','_','_','','','ae','oe','ue','ss','','','','e','','ae','oe','ue'],$name));
 	  }
 }

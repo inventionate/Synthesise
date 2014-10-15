@@ -15,8 +15,8 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Sozialgeschichte der Erziehung und Bildung',
 			'author' => 'Apl. Prof. Dr. Timo Hoyer',
 			'online' => '1',
-			'available_from' => '2013-10-30',
-			'available_to' => '2014-02-17'
+			'available_from' => '2014-10-29',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -25,8 +25,8 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Sozialgeschichte der Erziehung und Bildung',
 			'author' => 'Apl. Prof. Dr. Timo Hoyer',
 			'online' => '1',
-			'available_from' => '2013-11-06',
-			'available_to' => '2014-02-17'
+			'available_from' => '2014-11-05',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -35,8 +35,8 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Sozialgeschichte der Erziehung und Bildung',
 			'author' => 'Apl. Prof. Dr. Timo Hoyer',
 			'online' => '1',
-			'available_from' => '2013-11-13',
-			'available_to' => '2014-02-17'
+			'available_from' => '2014-11-12',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -44,9 +44,9 @@ class VideoTableSeeder extends Seeder {
 			'videoname' => 'Jean-Jacques Rousseau',
 			'section' => 'Ideen- und Personengeschichte der Pädagogik',
 			'author' => 'Prof. Dr. Rainer Bolle',
-			'online' => '0',
-			'available_from' => '2013-11-20',
-			'available_to' => '2014-02-17'
+			'online' => '1',
+			'available_from' => '2014-11-19',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -55,8 +55,8 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Ideen- und Personengeschichte der Pädagogik',
 			'author' => 'Prof. Dr. Gabriele Weigand',
 			'online' => '1',
-			'available_from' => '2013-11-27',
-			'available_to' => '2014-02-17'
+			'available_from' => '2014-11-26',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -65,8 +65,8 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Ideen- und Personengeschichte der Pädagogik',
 			'author' => 'Prof. Dr. Gabriele Weigand',
 			'online' => '1',
-			'available_from' => '2013-12-04',
-			'available_to' => '2014-02-17'
+			'available_from' => '2014-12-03',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -75,8 +75,8 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Erziehung und Schule',
 			'author' => 'Dr. Albert Berger',
 			'online' => '1',
-			'available_from' => '2013-12-11',
-			'available_to' => '2014-02-17'
+			'available_from' => '2014-12-10',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -85,8 +85,8 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Erziehung und Schule',
 			'author' => 'Dr. Albert Berger',
 			'online' => '1',
-			'available_from' => '2013-12-18',
-			'available_to' => '2014-02-17'
+			'available_from' => '2014-12-17',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -95,8 +95,8 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Bildung – Glück – Gerechtigkeit',
 			'author' => 'Apl. Prof. Dr. Timo Hoyer',
 			'online' => '1',
-			'available_from' => '2013-12-27',
-			'available_to' => '2014-02-17'
+			'available_from' => '2014-12-24',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -105,8 +105,8 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Bildung – Glück – Gerechtigkeit',
 			'author' => 'Apl. Prof. Dr. Timo Hoyer',
 			'online' => '1',
-			'available_from' => '2013-12-29',
-			'available_to' => '2014-02-17'
+			'available_from' => '2014-12-27',
+			'available_to' => '2015-02-17'
 		));
 
 		Video::create(array(
@@ -115,10 +115,10 @@ class VideoTableSeeder extends Seeder {
 			'section' => 'Bildung – Glück – Gerechtigkeit',
 			'author' => 'Apl. Prof. Dr. Timo Hoyer',
 			'online' => '1',
-			'available_from' => '2013-12-31',
+			'available_from' => '2014-12-31',
 			'available_to' => '2014-02-28'
 		));
-	
+
 	}
 
 }

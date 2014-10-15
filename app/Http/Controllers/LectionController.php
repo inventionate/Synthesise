@@ -10,6 +10,8 @@ use Synthesise\Repositories\Facades\Video;
 use Synthesise\Repositories\Facades\Note;
 
 use Thujohn\Pdf\PdfFacade as PDF;
+use Synthesise\Extensions\Facades\Parser;
+
 
 class LectionController {
 
@@ -62,7 +64,7 @@ class LectionController {
 		$online = Video::getOnline($videoname);
 
 		// Videopfad generieren
-		$videopath = asset('video/'.strtolower(str_replace(array(' ','?','ä','ö','ü','ß','-','–',':',',','»','«','É','!','.','Ä','Ö','Ü'),array('_','','ae','oe','ue','ss','_','und','','','','','e','','','ae','oe','ue'),$videoname)));
+		$videopath = asset('video/' . Parser::normalizeName($videoname));
 
 		// Standardausgabe VIEW -----------------------------------------
 		return view('lection')
@@ -89,7 +91,7 @@ class LectionController {
 	{
     $videoname = urldecode($videoname);
 		$allnotes = User::getAllNotes(Auth::user()->id, $videoname);
-		return Response::download(PDF::load($allnotes, 'A4', 'portrait')->download('Meine Notizen für ' . $videoname));
+		return PDF::load($allnotes, 'A4', 'portrait')->download('Meine Notizen für ' . $videoname);
 	}
 
 	/**
@@ -103,7 +105,7 @@ class LectionController {
 	{
 	  $videoname = urldecode($videoname);
     $allflagnames = Video::getAllFlagnames($videoname);
-		return Response::download(PDF::load($allflagnames, 'A4', 'portrait')->download('Die Fähnchen für ' . $videoname));
+		return PDF::load($allflagnames, 'A4', 'portrait')->download('Die Fähnchen für ' . $videoname);
 	}
 
 	/**
@@ -123,8 +125,6 @@ class LectionController {
 		if(Request::ajax())
 		{
 			return $flagnames;
-			// @TODO Überprüfen ob return "success" benötigt wird.
-			//return "success";
 		}
 	}
 

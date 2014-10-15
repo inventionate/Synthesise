@@ -11,7 +11,7 @@
 				<?php if($role === 'Student'): ?>
 					<th>Zugänglich ab</th>
 					<?php /*<th>Status</th>*/ ?>
-				<?php elseif($role === 'Teacher'): ?>
+				<?php elseif($role === 'Teacher' || $role === 'Admin'): ?>
 					<th>Studierendenzugang</th>
 					<?php /*<th>Status für die Studierende</th>*/ ?>
 				<?php endif; ?>
@@ -48,7 +48,7 @@
 				<?php endif; ?>
 
 				<?php /* ONLINE-LEKTION */ ?>
-				<?php if( Video::available($video->videoname) || $role === 'Teacher' && $video->online): ?>
+				<?php if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online): ?>
 				<td class="online-lektion">
 					<span class="label label-success"><span class="glyphicon glyphicon-eye-open"></span></span>
 					<a class="green" href="<?php echo e(route('lektion', [rawurlencode($video->videoname)])); ?>"><?php echo e($video->videoname); ?></a>
@@ -72,10 +72,10 @@
 				  <ul class="dropdown-menu pull-right" role="menu">
 					<?php foreach(Video::getPapers($video->videoname) as $paper): ?>
 
-					<li><a class="download-paper" data-name="<?php echo e($paper->papername); ?>" href="<?php echo e(action('DownloadController@getFile', ['type' => 'pdf' , 'file' => str_replace(':','', $paper->papername )])); ?>"><small><?php echo e($paper->author); ?></small><br> <?php echo e($paper->papername); ?> <span class="glyphicon glyphicon-align-justify"></span></a></li>
+					<li><a class="download-paper" data-name="<?php echo e($paper->papername); ?>" href="<?php echo e(action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername])); ?>"><small><?php echo e($paper->author); ?></small><br> <?php echo e($paper->papername); ?> <span class="glyphicon glyphicon-align-justify"></span></a></li>
 					<?php endforeach; ?>
 
-					<?php if( Video::available($video->videoname) || $role === 'Teacher' && $video->online): ?>
+					<?php if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online): ?>
 					<li class="divider"></li>
 					<li><a class="download-note" data-name="<?php echo e($video->videoname); ?>" href="<?php echo e(action('LectionController@getNotesPDF', [rawurlencode($video->videoname)])); ?>">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a></li>
 					<?php endif; ?>

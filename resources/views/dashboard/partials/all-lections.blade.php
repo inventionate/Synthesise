@@ -11,7 +11,7 @@
 				@if($role === 'Student')
 					<th>Zugänglich ab</th>
 					{{--<th>Status</th>--}}
-				@elseif($role === 'Teacher')
+				@elseif($role === 'Teacher' || $role === 'Admin')
 					<th>Studierendenzugang</th>
 					{{--<th>Status für die Studierende</th>--}}
 				@endif
@@ -44,7 +44,7 @@
 				@endif
 
 				{{-- ONLINE-LEKTION --}}
-				@if( Video::available($video->videoname) || $role === 'Teacher' && $video->online)
+				@if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online)
 				<td class="online-lektion">
 					<span class="label label-success"><span class="glyphicon glyphicon-eye-open"></span></span>
 					<a class="green" href="{{ route('lektion', [rawurlencode($video->videoname)]) }}">{{ $video->videoname }}</a>
@@ -68,10 +68,10 @@
 				  <ul class="dropdown-menu pull-right" role="menu">
 					@foreach (Video::getPapers($video->videoname) as $paper)
 
-					<li><a class="download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => str_replace(':','', $paper->papername )]) }}"><small>{{ $paper->author }}</small><br> {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
+					<li><a class="download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><small>{{ $paper->author }}</small><br> {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
 					@endforeach
 
-					@if( Video::available($video->videoname) || $role === 'Teacher' && $video->online)
+					@if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online)
 					<li class="divider"></li>
 					<li><a class="download-note" data-name="{{ $video->videoname }}" href="{{ action('LectionController@getNotesPDF', [rawurlencode($video->videoname)]) }}">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a></li>
 					@endif

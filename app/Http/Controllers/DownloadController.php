@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Response;
 
+use Synthesise\Extensions\Facades\Parser;
+
 class DownloadController {
 
 	/**
@@ -14,9 +16,8 @@ class DownloadController {
 	 */
 	public function getFile($type, $file)
 	{
-		# @todo Parser Funktion erstellen, die den Namen normalisiert und diese dann Unit testen!
-		$filename = strtolower(str_replace(array(' ','?','ä','ö','ü','ß','-','–',':',',','»','«','É','!','.','Ä','Ö','Ü'),array('_','','ae','oe','ue','ss','','und','','','','','e','','','ae','oe','ue'),urldecode($file)));
-		return Response::download(storage_path().'/app/'.$type.'/'.$filename.'.'.$type);
+		$filepath = Parser::normalizeName($file);
+		return Response::download(storage_path().'/app/'.$type.'/'.$filepath.'.'.$type, $file . '.' . $type);
 	}
 
 }
