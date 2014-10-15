@@ -21,20 +21,20 @@
 Route::get('login', [
 	'as' => 'login',
 	'middleware' => 'guest',
-	'uses' => 'AuthController@index'
+	'uses' => 'Synthesise\Http\Controllers\AuthController@index'
 ]);
 
 // Anmelden
 Route::post('login', [
 	'middleware' => 'csrf',
-	'uses' => 'AuthController@login'
+	'uses' => 'Synthesise\Http\Controllers\AuthController@login'
 ]);
 
 // Passwort vergessen
 
 // Impressum
 Route::get('impressum', [
-	'uses' => 'ImprintController@index'
+	'uses' => 'Synthesise\Http\Controllers\ImprintController@index'
 ]);
 
 /*
@@ -46,19 +46,19 @@ Route::group(['middleware' => 'auth'], function() {
 
 	// DOWNLOAD ------------------------------------------------------
 	Route::get('download/{type}/{file}', [
-		'uses' => 'DownloadController@getFile'
+		'uses' => 'Synthesise\Http\Controllers\DownloadController@getFile'
 	]);
 
 	// LOGOUT --------------------------------------------------------
 	Route::get('logout', [
 		'as' => 'logout',
-		'uses' => 'AuthController@logout'
+		'uses' => 'Synthesise\Http\Controllers\AuthController@logout'
 	]);
 
 	// DASHBOARD -----------------------------------------------------
 	Route::get('/', [
 		'as' => 'dashboard',
-		'uses' => 'DashboardController@index'
+		'uses' => 'Synthesise\Http\Controllers\DashboardController@index'
 	]);
 
 	// ONLINE-LEKTIONEN ---------------------------------------------
@@ -66,58 +66,58 @@ Route::group(['middleware' => 'auth'], function() {
 	// Einzellektion
 	Route::get('online-lektionen/{videoname}', [
 		'as' => 'lektion',
-		'uses' => 'LectionController@index'
+		'uses' => 'Synthesise\Http\Controllers\LectionController@index'
 	]);
 
 	// GET PDF NOTES
 	Route::get('online-lektionen/{videoname}/getnotespdf', [
-		'uses' => 'LectionController@getNotesPDF'
+		'uses' => 'Synthesise\Http\Controllers\LectionController@getNotesPDF'
 	]);
 
 	// GET PDF FLAGNAMES
 	Route::get('online-lektionen/{videoname}/getflagnamespdf', [
-		'uses' => 'LectionController@getFlagnamesPDF'
+		'uses' => 'Synthesise\Http\Controllers\LectionController@getFlagnamesPDF'
 	]);
 
 	// AJAX ####################################
 
 	// Ajax GET FLAGS
 	Route::get('online-lektionen/{videoname}/getflags', [
-		'uses' => 'LectionController@getFlags'
+		'uses' => 'Synthesise\Http\Controllers\LectionController@getFlags'
 	]);
 
 	// Ajax GET NOTES
 	Route::get('online-lektionen/{videoname}/getnotes', [
-		'uses' => 'LectionController@getNotes'
+		'uses' => 'Synthesise\Http\Controllers\LectionController@getNotes'
 	]);
 
 	// Ajax POST NOTES
 	Route::post('online-lektionen/{videoname}/postnotes', [
 		'middleware' => 'csrf',
-		'uses' => 'LectionController@postNotes'
+		'uses' => 'Synthesise\Http\Controllers\LectionController@postNotes'
 	]);
 
 	// HgF -----------------------------------------------------------
 	Route::get('hgf/{letter?}', [
 		'as' => 'hgf',
-		'uses' => 'FaqController@index'
+		'uses' => 'Synthesise\Http\Controllers\FaqController@index'
 	]);
 
 	// KONTAKT ------------------------------------------------------
 	Route::get('kontakt', [
 		'as' => 'kontakt',
-		'uses' => 'ContactController@index'
+		'uses' => 'Synthesise\Http\Controllers\ContactController@index'
 	]);
 
 	Route::post('kontakt/{send}', [
 		'middleware' => 'csrf',
-		'uses' => 'ContactController@send'
+		'uses' => 'Synthesise\Http\Controllers\ContactController@send'
 	]);
 
 	// ANALYTICS ------------------------------------------------------
 	Route::get('analytics', [
 		'middleware' => 'admin',
-		'uses' => 'AnalyticsController@index'
+		'uses' => 'Synthesise\Http\Controllers\AnalyticsController@index'
 	]);
 
 });
@@ -131,6 +131,6 @@ Route::group(['prefix' => 'api/v1','middleware' => 'auth.basic'], function() {
 
 	// Messages ------------------------------------------------------
 
-	Route::resource('messages', 'API\MessageController',['except' => ['create', 'show', 'edit']]);
+	Route::resource('messages', 'Synthesise\Http\Controllers\API\MessageController',['except' => ['create', 'show', 'edit']]);
 
 });

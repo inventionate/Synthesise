@@ -18,8 +18,6 @@
 
 		{{-- APPLICATION CSS -----------------------------------------------------}}
 		<link rel="stylesheet" href="{{ Asset::rev('css/application.css') }}">
-		{{-- APPLICATION JS ------------------------------------------------------}}
-		<script src="{{ Asset::rev('js/application.js') }}"></script>
 
 	</head>
 
@@ -52,6 +50,10 @@
 		{{-- @include FOOTER -----------------------------------------------------}}
 			@include('layouts.partials.footer')
 
+
+		{{-- APPLICATION JS ------------------------------------------------------}}
+		<script src="{{ Asset::rev('js/application.js') }}"></script>
+		
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@include('layouts.partials.analytics')
 	</body>

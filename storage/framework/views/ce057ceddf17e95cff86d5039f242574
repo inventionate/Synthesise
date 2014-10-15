@@ -18,8 +18,6 @@
 
 		<?php /* APPLICATION CSS ---------------------------------------------------*/ ?>
 		<link rel="stylesheet" href="<?php echo e(Asset::rev('css/application.css')); ?>">
-		<?php /* APPLICATION JS ----------------------------------------------------*/ ?>
-		<script src="<?php echo e(Asset::rev('js/application.js')); ?>"></script>
 
 	</head>
 
@@ -52,6 +50,10 @@
 		<?php /* <?php echo $__env->make(, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> FOOTER ---------------------------------------------------*/ ?>
 			<?php echo $__env->make('layouts.partials.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
+
+		<?php /* APPLICATION JS ----------------------------------------------------*/ ?>
+		<script src="<?php echo e(Asset::rev('js/application.js')); ?>"></script>
+		
 		<?php /* <?php echo $__env->make(, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> ANALYTICS ------------------------------------------------*/ ?>
 		<?php echo $__env->make('layouts.partials.analytics', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	</body>

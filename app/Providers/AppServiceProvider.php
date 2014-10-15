@@ -16,7 +16,6 @@ class AppServiceProvider extends ServiceProvider {
 		'auth.basic' => 'Synthesise\Http\Middleware\BasicAuthMiddleware',
 		'csrf' => 'Synthesise\Http\Middleware\CsrfMiddleware',
 		'guest' => 'Synthesise\Http\Middleware\GuestMiddleware',
-		'admin' => 'Synthesise\Http\Middleware\AdminMiddleware',
 	];
 
 	/**
@@ -30,6 +29,8 @@ class AppServiceProvider extends ServiceProvider {
 		'Illuminate\Cookie\Middleware\Queue',
 		'Illuminate\Session\Middleware\Reader',
 		'Illuminate\Session\Middleware\Writer',
+		'Illuminate\View\Middleware\ErrorBinder',
+		'Synthesise\Http\Middleware\CsrfMiddleware',
 	];
 
 	/**
