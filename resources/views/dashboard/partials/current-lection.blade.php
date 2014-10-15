@@ -30,7 +30,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="alert alert-warning">Die Bearbeitung der Literatur ist eine verpflichtende Arbeitsgrundlage für den Besuch der Mentoriate.</div>
+			<div class="alert alert-warning">Die Bearbeitung der online-Lektion und der Literatur ist eine verpflichtende Arbeitsgrundlage für den Besuch der Mentoriate.</div>
 		</div>
 	</div>
 @endif
