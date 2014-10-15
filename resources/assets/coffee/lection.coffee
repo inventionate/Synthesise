@@ -7,6 +7,9 @@ $(document).ready ->
   # Aktuelle URL für AJAX Requests und JS Ausfürhungen
   currentURL = document.URL
 
+  $('a.btn').on 'click', ->
+    $('#notes').hide()
+
   if( currentURL.indexOf('online-lektionen') > -1 )
 
     cuepointNumber = null
