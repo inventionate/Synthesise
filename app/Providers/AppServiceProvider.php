@@ -12,10 +12,11 @@ class AppServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $middleware = [
-		'auth' => 'Synthesise\Http\Middleware\AuthMiddleware',
-		'auth.basic' => 'Synthesise\Http\Middleware\BasicAuthMiddleware',
-		'csrf' => 'Synthesise\Http\Middleware\CsrfMiddleware',
-		'guest' => 'Synthesise\Http\Middleware\GuestMiddleware',
+		'auth' 				=> 'Synthesise\Http\Middleware\AuthMiddleware',
+		'auth.basic' 	=> 'Synthesise\Http\Middleware\BasicAuthMiddleware',
+		'csrf' 				=> 'Synthesise\Http\Middleware\CsrfMiddleware',
+		'guest' 			=> 'Synthesise\Http\Middleware\GuestMiddleware',
+		'admin' 			=> 'Synthesise\Http\Middleware\AdminMiddleware',
 	];
 
 	/**
