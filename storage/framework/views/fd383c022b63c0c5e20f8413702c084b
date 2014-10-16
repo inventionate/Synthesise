@@ -12,7 +12,7 @@
 		<p class="lead">Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</p>
 	</header>
 
-	<?php echo Form::open(['url' => 'login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form']); ?>
+	<?php echo Form::open(['url' => 'auth/login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form']); ?>
 
 	<div <?php if( !(Session::has('login_errors')) && !(Session::has('errors')) ): ?> class="animated zoomIn" <?php else: ?> class="animated shake" <?php endif; ?>>
 		<?php /* Eingabe des Benutzernamens */ ?>
@@ -20,7 +20,7 @@
 			<?php echo Form::label('username', 'Benutzername', ['class' => 'sr-only']); ?>
 
 			<div class="input-group input-group-lg">
-				<?php echo Form::text('username', '', ['class' => 'form-control', 'placeholder' => 'LSF Benutzername']); ?>
+				<?php echo Form::text('username', '', ['class' => 'form-control', 'placeholder' => 'LSF Benutzername', 'required']); ?>
 
 				<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 			</div>
@@ -31,7 +31,7 @@
 			<?php echo Form::label('password', 'Passwort', ['class' => 'sr-only']); ?>
 
 			<div class="input-group input-group-lg">
-				<?php echo Form::password('password', ['class' => 'form-control', 'placeholder' => 'LSF Passwort']); ?>
+				<?php echo Form::password('password', ['class' => 'form-control', 'placeholder' => 'LSF Passwort', 'required']); ?>
 
 				<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
 			</div>

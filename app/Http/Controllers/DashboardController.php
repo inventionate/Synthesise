@@ -1,18 +1,23 @@
 <?php namespace Synthesise\Http\Controllers;
 
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use Synthesise\Repositories\Facades\User;
 use Synthesise\Repositories\Facades\Video;
 use Synthesise\Repositories\Facades\Message;
 
-class DashboardController {
+/**
+ * @Middleware("auth")
+ */
+class DashboardController extends Controller {
 
 	/**
 	 * Dashboard anzeigen.
-	 * GET /dashboard
 	 *
-	 * @return    View
+	 * @Get("/", as="dashboard")
+	 *
+	 * @return View
 	 */
 	public function index()
 	{

@@ -22,7 +22,7 @@ class AuthCest {
 
     $I->dontSeeRecord('users', ['username' => 'Luke']);
 
-    $I->amOnPage('/login');
+    $I->amOnPage('/auth/login');
     $I->see('e:t:p:M','h1');
     $I->see('Login','h3');
     $I->fillField('#username','luke');
@@ -40,7 +40,7 @@ class AuthCest {
 
     $I->seeRecord('users', ['username' => 'studentka']);
 
-    $I->amOnPage('/login');
+    $I->amOnPage('/auth/login');
     $I->see('e:t:p:M','h1');
     $I->see('Login','h3');
     $I->fillField('#username','studentka');

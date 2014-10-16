@@ -1,10 +1,16 @@
 <?php namespace Synthesise\Http\Controllers;
 
-class ImprintController {
+use Illuminate\Routing\Controller;
+
+/**
+ * @Middleware("auth")
+ */
+class ImprintController extends Controller {
 
 	/**
 	 * Impressum anzeigen.
-	 * GET /impressum
+	 *
+	 * @Get("impressum", as="imprint")
 	 *
 	 * @return    View
 	 */

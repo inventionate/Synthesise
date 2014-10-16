@@ -1,8 +1,8 @@
-<?php namespace Synthesise\Http\Requests\Auth;
+<?php namespace Synthesise\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest {
+class SendRequest extends FormRequest {
 
 	/**
 	 * Get the validation rules that apply to the request.
@@ -12,9 +12,7 @@ class LoginRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-			'username' 		=> 'required|alpha_num',
-			'password' 		=> 'required',
-			'rememberme' 	=> 'boolean'
+			'nachricht' => 'required',
 		];
 	}
 

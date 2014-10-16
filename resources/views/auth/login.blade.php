@@ -14,13 +14,13 @@
 		<p class="lead">Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</p>
 	</header>
 
-	{!! Form::open(['url' => 'login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form']) !!}
+	{!! Form::open(['url' => 'auth/login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form']) !!}
 	<div @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) class="animated zoomIn" @else class="animated shake" @endif>
 		{{-- Eingabe des Benutzernamens --}}
 		<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
 			{!! Form::label('username', 'Benutzername', ['class' => 'sr-only']) !!}
 			<div class="input-group input-group-lg">
-				{!! Form::text('username', '', ['class' => 'form-control', 'placeholder' => 'LSF Benutzername']) !!}
+				{!! Form::text('username', '', ['class' => 'form-control', 'placeholder' => 'LSF Benutzername', 'required']) !!}
 				<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 			</div>
 		</div>
@@ -29,7 +29,7 @@
 		<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
 			{!! Form::label('password', 'Passwort', ['class' => 'sr-only']) !!}
 			<div class="input-group input-group-lg">
-				{!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'LSF Passwort']) !!}
+				{!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'LSF Passwort', 'required']) !!}
 				<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
 			</div>
 		</div>

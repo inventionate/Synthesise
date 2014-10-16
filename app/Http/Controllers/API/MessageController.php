@@ -1,15 +1,18 @@
 <?php namespace Synthesise\Http\Controllers\API;
 
+use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
+use Synthesise\Http\Requests\MessageRequest;
 use Synthesise\Repositories\Facades\Message;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 
-class MessageController {
+/**
+ * @Resource("api/v1/messages", except={"create", "show", "edit"})
+ * @Middleware("auth.basic")
+ */
+class MessageController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /api/message
 	 *
 	 * @return Response
 	 */
@@ -20,83 +23,46 @@ class MessageController {
 		return $messages;
 	}
 
-	// /**
-	//  * Show the form for creating a new resource.
-	//  * GET /api/message/create
-	//  *
-	//  * @return Response
-	//  */
-	// public function create()
-	// {
-	// 	//
-	// }
-	//
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /api/message
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(MessageRequest $request)
 	{
-		$content = Input::get('message');
+		$content = $request->get('message');
 
-		$type = Input::get('type');
+		$type = $request->get('type');
 
 		Message::store($content, $type);
 
-		if ( Request::ajax() )
+		if ( $request->ajax() )
 		{
 			return "sucess";
 		}
 		else
 		{
-			return Redirect::back()->with('success',true);
+			return redirect()->back()->with('success',true);
 		}
 
 	}
-	//
-	// /**
-	//  * Display the specified resource.
-	//  * GET /api/message/{id}
-	//  *
-	//  * @param  int  $id
-	//  * @return Response
-	//  */
-	// public function show($id)
-	// {
-	// 	//
-	// }
-	//
-	// /**
-	//  * Show the form for editing the specified resource.
-	//  * GET /api/message/{id}/edit
-	//  *
-	//  * @param  int  $id
-	//  * @return Response
-	//  */
-	// public function edit($id)
-	// {
-	// 	//
-	// }
-	//
+
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /api/message/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, MessageRequest $request)
 	{
-		$content = Input::get('message');
+		$content = $request->get('message');
 
-		$type = Input::get('type');
+		$type = $request->get('type');
 
 		Message::update($id,$content,$type);
 
 		// Erfolg zurückmelden
-		if ( Request::ajax() )
+		if ( $request->ajax() )
 		{
 			return "success";
 		}
@@ -104,16 +70,15 @@ class MessageController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /api/message/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($id, Request $request)
 	{
 		Message::delete($id);
 
-		if ( Request::ajax() )
+		if ( $request->ajax() )
 		{
 			return "success";
 		}

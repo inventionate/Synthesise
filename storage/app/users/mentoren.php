@@ -26,4 +26,5 @@ $mentoren = [
   "mehlhornnellyka",
   "hurlelaraka",
   "schaeferlisaka",
+  "kaulbersclara"
 ];

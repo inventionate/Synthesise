@@ -45,7 +45,7 @@
         <li <?php if( Request::segment(1) === 'hgf' ): ?> class="active" <?php endif; ?> ><a href="<?php echo e(url('hgf')); ?>">Häufig gestellte Fragen</a></li>
         <li <?php if( Request::is('kontakt') ): ?> class="active" <?php endif; ?> ><a href="<?php echo e(url('kontakt')); ?>">Kontakt</a></li>
       </ul>
-      <a href="<?php echo e(url('logout')); ?>" id="btn-logout" class="btn btn-primary btn-block navbar-right hidden-print"><?php echo e(Auth::user()->firstname . ' ' . Auth::user()->lastname); ?> <?php if( Auth::user()->role != 'Student' ): ?> (<b><?php echo e(Auth::user()->role); ?></b>) <?php endif; ?> abmelden</a>
+      <a href="<?php echo e(url('auth/logout')); ?>" id="btn-logout" class="btn btn-primary btn-block navbar-right hidden-print"><?php echo e(Auth::user()->firstname . ' ' . Auth::user()->lastname); ?> <?php if( Auth::user()->role != 'Student' ): ?> (<b><?php echo e(Auth::user()->role); ?></b>) <?php endif; ?> abmelden</a>
     </div>
   </div>
 </nav>

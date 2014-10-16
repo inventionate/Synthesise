@@ -1,19 +1,20 @@
 <?php namespace Synthesise\Http\Controllers;
 
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Response;
-
+use Illuminate\Http\Request;
+use Synthesise\Http\Requests\NoteRequest;
+use Synthesise\Http\Requests\NoteUpdateRequest;
 use Synthesise\Repositories\Facades\User;
 use Synthesise\Repositories\Facades\Video;
 use Synthesise\Repositories\Facades\Note;
-
-use Thujohn\Pdf\PdfFacade as PDF;
 use Synthesise\Extensions\Facades\Parser;
+use Thujohn\Pdf\PdfFacade as PDF;
 
-
-class LectionController {
+/**
+ * @Middleware("auth")
+ */
+class LectionController extends Controller {
 
 	/**
 	 * Aktuellen Cuepoint zurückgeben.
@@ -30,7 +31,8 @@ class LectionController {
 
 	/**
 	 * Online-Lektion anzeigen.
-	 * GET /online-lektionen/{videoname}
+	 *
+	 * @Get("online-lektionen/{videoname}", as="lektion")
 	 *
 	 * @param 		string $videoname
 	 * @return    View
@@ -82,7 +84,8 @@ class LectionController {
 
 	/**
 	 * Notizen für die Lektion als PDF anzeigen.
-	 * GET /online-lektionen/{videoname}/getnotespdf
+	 *
+	 * @Get("online-lektionen/{videoname}/getnotespdf")
 	 *
 	 * @param     string $videoname
 	 * @return    PDF
@@ -96,7 +99,8 @@ class LectionController {
 
 	/**
 	 * Flagnames (Fähnchen) für die Lektion als PDF anzeigen.
-	 * GET /online-lektionen/{videoname}/getflagnames
+	 *
+	 * @Get("online-lektionen/{videoname}/getflagnames")
 	 *
 	 * @param     string $videoname
 	 * @return    PDF
@@ -110,19 +114,20 @@ class LectionController {
 
 	/**
 	 * Die Fähcnhen für die Lektion ausgeben.
-	 * GET /online-lektionen/{videoname}/getflags
+	 *
+	 * @Get("online-lektionen/{videoname}/getflags")
 	 *
 	 * @param     string $videoname
 	 * @return    array
 	 * @todo 			Überprüfen ob via JSON übertragen wird und ggf. umstellen.
 	 */
-	public function getFlags($videoname)
+	public function getFlags($videoname, Request $request)
 	{
     $videoname = urldecode($videoname);
 		// Fähnchen der Cuepoints abfragen
 		$flagnames = Video::getFlagnames($videoname);
 
-		if(Request::ajax())
+		if ( $request->ajax() )
 		{
 			return $flagnames;
 		}
@@ -130,20 +135,21 @@ class LectionController {
 
 	/**
 	 * Die Notizen für die Lektion ausgeben.
-	 * GET /online-lektionen/{videoname}/getnotes
+	 *
+	 * @Get("online-lektionen/{videoname}/getnotes")
 	 *
 	 * @param     string $videoname
 	 * @return    string Die Notiz zu dem jeweiligen Fähnchen.
 	 */
-	public function getNotes($videoname)
+	public function getNotes($videoname, NoteRequest $request)
 	{
     $videoname = urldecode($videoname);
 
 		// Ajax Request verarbeiten
-		if(Request::ajax())
+		if ( $request->ajax() )
 		{
 			// Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird
-			$cuepointId = $this->currentCuepoint($videoname, Input::get('cuepointNumber'));
+			$cuepointId = $this->currentCuepoint($videoname, $request->get('cuepointNumber'));
 			// Inhalte abfragen
 			$cuepointnotes = Note::getContent(Auth::user()->id,$cuepointId);
 			// Notizen zurückmelden
@@ -153,21 +159,22 @@ class LectionController {
 
 	/**
 	 * Eine neue Notiz zu dem Fähnchen einer Lektion speichern.
-	 * POST /online-lektionen/{videoname}/postnotes
+	 *
+	 * @Post("online-lektionen/{videoname}/postnotes")
 	 *
 	 * @param 		string $videoname
 	 * @return    string "success"
 	 */
-	public function postNotes($videoname)
+	public function postNotes($videoname, NoteUpdateRequest $request)
 	{
     $videoname = urldecode($videoname);
 
-		if(Request::ajax())
+		if ( $request->ajax() )
 		{
 			// Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird
-			$cuepointId = $this->currentCuepoint($videoname, Input::get('cuepointNumber'));
+			$cuepointId = $this->currentCuepoint($videoname, $request->get('cuepointNumber'));
 			// Geänderter oder neuer Inhalt abfragen
-			$noteupdate = Input::get('note');
+			$noteupdate = $request->get('note');
 			// Note updaten
 			Note::updateContent($noteupdate,Auth::user()->id,$cuepointId,$videoname);
 			// Erfolg zurückmelden

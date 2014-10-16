@@ -1,15 +1,20 @@
 <?php namespace Synthesise\Http\Controllers;
 
+use Illuminate\Routing\Controller;
 use Synthesise\Extensions\Facades\Analytics;
 
-class AnalyticsController {
+/**
+ * @Middleware("auth")
+ */
+class AnalyticsController extends Controller {
 
 	/**
-	 * Display a listing of the resource.
-	 * GET /analytics
-	 *
-	 * @return View
-	 */
+	* Zeigt die Analytics an.
+	*
+	* @Get("analytics")
+	*
+	* @return View
+	*/
 	public function index()
 	{
 

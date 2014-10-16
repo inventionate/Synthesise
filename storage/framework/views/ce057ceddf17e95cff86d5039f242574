@@ -37,10 +37,10 @@
 		<?php endif; ?>
 
 		<?php /* JAVASCRIPT INFO ---------------------------------------------------*/ ?>
-		<div class="alert alert-danger alert-js text-center <?php if( Request::is('login') ): ?> alert-login <?php endif; ?>">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
+		<div class="alert alert-danger alert-js text-center <?php if( Request::is('auth/login') ): ?> alert-login <?php endif; ?>">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
 		<?php /* BETA INFO ---------------------------------------------------------*/ ?>
-		<div class="alert alert-warning text-center <?php if( Request::is('login') ): ?> alert-login <?php endif; ?>">Sie nutzen eine <b>Beta Version</b> der »Synthesise« Web-App. Bitte verwenden Sie unseren <a class="alert-link" href="https://bitbucket.org/Inventionate/synthesise/issues/new" target="_blank">Issue Tracker</a> um uns Probleme mitzuteilen. Vielen Dank für Ihre Hilfe!</div>
+		<div class="alert alert-warning text-center <?php if( Request::is('auth/login') ): ?> alert-login <?php endif; ?>">Sie nutzen eine <b>Beta Version</b> der »Synthesise« Web-App. Bitte verwenden Sie unseren <a class="alert-link" href="https://bitbucket.org/Inventionate/synthesise/issues/new" target="_blank">Issue Tracker</a> um uns Probleme mitzuteilen. Vielen Dank für Ihre Hilfe!</div>
 
 		<?php /* <?php echo $__env->yieldContent; ?> MAIN CONTENT -----------------------------------------------*/ ?>
 		<?php echo $__env->yieldContent('content'); ?>
@@ -53,7 +53,7 @@
 
 		<?php /* APPLICATION JS ----------------------------------------------------*/ ?>
 		<script src="<?php echo e(Asset::rev('js/application.js')); ?>"></script>
-		
+
 		<?php /* <?php echo $__env->make(, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> ANALYTICS ------------------------------------------------*/ ?>
 		<?php echo $__env->make('layouts.partials.analytics', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	</body>

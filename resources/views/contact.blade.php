@@ -22,7 +22,7 @@ Session::has( 'feedback_success') || Session::has('support_success')) ) )
 			{{-- Eingabe der Nachricht ----------------------------------}}
 			<div class="form-group @if (Session::has('feedback_errors')) has-error animated fadeIn @endif">
 				{!! Form::label('feedbackMessage', 'Nachricht', ['class' => 'control-label hidden']) !!}
-				{!! Form::textarea('nachricht', '', ['id' => 'feedbackMessage', 'class' => 'form-control', 'placeholder' => 'Ihre Nachricht.', 'rows' => '5','maxlength' => '400']) !!}
+				{!! Form::textarea('nachricht', '', ['id' => 'feedbackMessage', 'class' => 'form-control', 'placeholder' => 'Ihre Nachricht.', 'rows' => '5','maxlength' => '400', 'required']) !!}
 				{{-- Anmelde Button -----------------------------------------}}
 				{!! Form::submit('Abschicken', ['class' => 'btn btn-primary']) !!}
 			</div>
@@ -38,7 +38,7 @@ Session::has( 'feedback_success') || Session::has('support_success')) ) )
 			{{-- Eingabe der Nachricht ----------------------------------}}
 			<div class="form-group @if (Session::has('support_errors')) has-error animated fadeIn @endif">
 				{!! Form::label('supportMessage', 'Nachricht', ['class' => 'control-label hidden']) !!}
-				{!! Form::textarea('nachricht', '', ['id' => 'supportMessage', 'class' => 'form-control', 'placeholder' => 'Ihre Nachricht.', 'rows' => '5','maxlength' => '400']) !!}
+				{!! Form::textarea('nachricht', '', ['id' => 'supportMessage', 'class' => 'form-control', 'placeholder' => 'Ihre Nachricht.', 'rows' => '5','maxlength' => '400', 'required']) !!}
 				{{-- Anmelde Button -----------------------------------------}}
 				{!! Form::submit('Abschicken', ['class' => 'btn btn-primary']) !!}
 			</div>

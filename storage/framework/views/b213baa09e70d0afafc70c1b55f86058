@@ -78,7 +78,7 @@
 
               <?php echo Form::label('message-new-content', 'Messages', ['class' => 'hidden']); ?>
 
-              <?php echo Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-new-content']); ?>
+              <?php echo Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-new-content', 'required']); ?>
 
 
               <?php echo Form::label('message-type', 'Messages', ['class' => 'hidden']); ?>

@@ -52,7 +52,7 @@ class AuthMiddleware implements Middleware {
 			}
 			else
 			{
-				return $this->response->redirectGuest('login');
+				return $this->response->redirectGuest('auth/login');
 			}
 		}
 

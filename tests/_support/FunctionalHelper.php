@@ -16,7 +16,7 @@ class FunctionalHelper extends \Codeception\Module {
    */
   public function loggedInAsStudent(FunctionalTester $I)
   {
-    $I->amOnPage('/login');
+    $I->amOnPage('/auth/login');
     $I->fillField('#username','studentka');
     $I->fillField('#password','Zelda');
     $I->click('Anmelden','#login');
@@ -29,7 +29,7 @@ class FunctionalHelper extends \Codeception\Module {
    */
   public function loggedInAsTeacher(FunctionalTester $I)
   {
-    $I->amOnPage('/login');
+    $I->amOnPage('/auth/login');
     $I->fillField('#username','teacherka');
     $I->fillField('#password','Hyrule');
     $I->click('Anmelden','#login');
@@ -42,7 +42,7 @@ class FunctionalHelper extends \Codeception\Module {
    */
   public function loggedInAsAdmin(FunctionalTester $I)
   {
-    $I->amOnPage('/login');
+    $I->amOnPage('/auth/login');
     $I->fillField('#username','adminka');
     $I->fillField('#password','Link');
     $I->click('Anmelden','#login');
