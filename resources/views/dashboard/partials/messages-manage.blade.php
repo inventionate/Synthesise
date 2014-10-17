@@ -61,19 +61,17 @@
       <div class="panel-body">
         <div id="new-message">
           <div class="alert alert-info" role="alert">
+            {{-- @todo Error visualisieren bei fehlerhafter Validierung --}}
+              {{-- STORE FORM --}}
+              {!! Form::open(['id' => 'message-store', 'url' => 'api/v1/messages','role' => 'form']) !!}
+                {!! Form::label('message-new-content', 'Messages', ['class' => 'hidden']) !!}
+                {!! Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-new-content', 'required']) !!}
 
-            {{-- STORE FORM --}}
-            {!! Form::open(['id' => 'message-store', 'url' => 'api/v1/messages','role' => 'form']) !!}
+                {!! Form::label('message-type', 'Messages', ['class' => 'hidden']) !!}
+                {!! Form::select('type', ['info' =>'Information', 'warning' => 'Warnung', 'danger' => 'Wichtig']) !!}
 
-              {!! Form::label('message-new-content', 'Messages', ['class' => 'hidden']) !!}
-              {!! Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-new-content', 'required']) !!}
-
-              {!! Form::label('message-type', 'Messages', ['class' => 'hidden']) !!}
-              {!! Form::select('type', ['info' =>'Information', 'warning' => 'Warnung', 'danger' => 'Wichtig']) !!}
-
-              {!! Form::submit('Erstellen') !!}
-
-            {!! Form::close() !!}
+                {!! Form::submit('Erstellen') !!}
+              {!! Form::close() !!}
           </div>
         </div>
       </div>

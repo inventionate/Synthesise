@@ -71,25 +71,23 @@
       <div class="panel-body">
         <div id="new-message">
           <div class="alert alert-info" role="alert">
+            <?php /* @todo  Error visualisieren bei fehlerhafter Validierung */ ?>
+              <?php /* STORE FORM */ ?>
+              <?php echo Form::open(['id' => 'message-store', 'url' => 'api/v1/messages','role' => 'form']); ?>
 
-            <?php /* STORE FORM */ ?>
-            <?php echo Form::open(['id' => 'message-store', 'url' => 'api/v1/messages','role' => 'form']); ?>
+                <?php echo Form::label('message-new-content', 'Messages', ['class' => 'hidden']); ?>
 
-
-              <?php echo Form::label('message-new-content', 'Messages', ['class' => 'hidden']); ?>
-
-              <?php echo Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-new-content', 'required']); ?>
-
-
-              <?php echo Form::label('message-type', 'Messages', ['class' => 'hidden']); ?>
-
-              <?php echo Form::select('type', ['info' =>'Information', 'warning' => 'Warnung', 'danger' => 'Wichtig']); ?>
+                <?php echo Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-new-content', 'required']); ?>
 
 
-              <?php echo Form::submit('Erstellen'); ?>
+                <?php echo Form::label('message-type', 'Messages', ['class' => 'hidden']); ?>
+
+                <?php echo Form::select('type', ['info' =>'Information', 'warning' => 'Warnung', 'danger' => 'Wichtig']); ?>
 
 
-            <?php echo Form::close(); ?>
+                <?php echo Form::submit('Erstellen'); ?>
+
+              <?php echo Form::close(); ?>
 
           </div>
         </div>
