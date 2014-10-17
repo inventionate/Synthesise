@@ -66,7 +66,7 @@
             {!! Form::open(['id' => 'message-store', 'url' => 'api/v1/messages','role' => 'form']) !!}
 
               {!! Form::label('message-new-content', 'Messages', ['class' => 'hidden']) !!}
-              {!! Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-new-content']) !!}
+              {!! Form::textarea('message', '', ['rows' => '3', 'maxlength' => '300', 'class' => 'form-control', 'placeholder' => 'Geben Sie eine neue Nachricht ein.', 'id' => 'message-new-content', 'required']) !!}
 
               {!! Form::label('message-type', 'Messages', ['class' => 'hidden']) !!}
               {!! Form::select('type', ['info' =>'Information', 'warning' => 'Warnung', 'danger' => 'Wichtig']) !!}

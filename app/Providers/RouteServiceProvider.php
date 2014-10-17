@@ -18,9 +18,16 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $scan = [
-		// 'Synthesise\Http\Controllers\HomeController',
-		// 'Synthesise\Http\Controllers\AuthController',
-		// 'Synthesise\Http\Controllers\Auth\PasswordController',
+		'Synthesise\Http\Controllers\HomeController',
+		'Synthesise\Http\Controllers\Auth\AuthController',
+		'Synthesise\Http\Controllers\AnalyticsController',
+		'Synthesise\Http\Controllers\DashboardController',
+		'Synthesise\Http\Controllers\DownloadController',
+		'Synthesise\Http\Controllers\ContactController',
+		'Synthesise\Http\Controllers\FaqController',
+		'Synthesise\Http\Controllers\ImprintController',
+		'Synthesise\Http\Controllers\LectionController',
+		'Synthesise\Http\Controllers\API\MessageController',
 	];
 
 	/**
@@ -43,7 +50,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function map(Router $router)
 	{
-		require app_path('Http/routes.php');
+		// require app_path('Http/routes.php');
 	}
 
 }

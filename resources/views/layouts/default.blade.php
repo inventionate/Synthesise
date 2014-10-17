@@ -8,11 +8,6 @@
 	{{--------------------------------------------------------------------------}}
 	<head>
 
-		@if( App::environment() === 'local' )
-			{{-- LIVERELOAD DEV SCRIPT ---------------------------------------------}}
-			<script src="http://synthesise.local:35729/livereload.js?snipver=1"></script>
-		@endif
-
 		{{-- @include PARTIAL HEAD -----------------------------------------------}}
 		@include('layouts.partials.head')
 
@@ -37,10 +32,10 @@
 		@endif
 
 		{{-- JAVASCRIPT INFO -----------------------------------------------------}}
-		<div class="alert alert-danger alert-js text-center @if( Request::is('login') ) alert-login @endif">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
+		<div class="alert alert-danger alert-js text-center @if( Request::is('auth/login') ) alert-login @endif">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
 		{{-- BETA INFO -----------------------------------------------------------}}
-		<div class="alert alert-warning text-center @if( Request::is('login') ) alert-login @endif">Sie nutzen eine <b>Beta Version</b> der »Synthesise« Web-App. Bitte verwenden Sie unseren <a class="alert-link" href="https://bitbucket.org/Inventionate/synthesise/issues/new" target="_blank">Issue Tracker</a> um uns Probleme mitzuteilen. Vielen Dank für Ihre Hilfe!</div>
+		<div class="alert alert-warning text-center @if( Request::is('auth/login') ) alert-login @endif">Sie nutzen eine <b>Beta Version</b> der »Synthesise« Web-App. Bitte verwenden Sie unseren <a class="alert-link" href="https://bitbucket.org/Inventionate/synthesise/issues/new" target="_blank">Issue Tracker</a> um uns Probleme mitzuteilen. Vielen Dank für Ihre Hilfe!</div>
 
 		{{-- @yield MAIN CONTENT -------------------------------------------------}}
 		@yield('content')
@@ -50,10 +45,9 @@
 		{{-- @include FOOTER -----------------------------------------------------}}
 			@include('layouts.partials.footer')
 
-
 		{{-- APPLICATION JS ------------------------------------------------------}}
 		<script src="{{ Asset::rev('js/application.js') }}"></script>
-		
+
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@include('layouts.partials.analytics')
 	</body>

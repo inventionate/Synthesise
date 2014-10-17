@@ -1,19 +1,22 @@
 <?php namespace Synthesise\Http\Controllers;
 
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Routing\Controller;
+use Synthesise\Http\Requests\FeedbackRequest;
+use Synthesise\Http\Requests\SupportRequest;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
-
 use Synthesise\Repositories\Facades\User;
 
-class ContactController {
+/**
+ * @Middleware("auth")
+ */
+class ContactController extends Controller {
 
 	/**
 	 * Kontaktformulare anzeigen.
-	 * GET /kontakt
 	 *
-	 * @return    View
+	 * @Get("kontakt", as="kontakt")
+	 *
+	 * @return View
 	 */
 	public function index()
 	{
@@ -22,48 +25,52 @@ class ContactController {
 
 	/**
 	 * Eine Kontaktnachricht senden.
-	 * POST /kontakt/{send}
 	 *
-	 * @param     string $type
+	 * @Post("kontakt/feedback")
+	 *
 	 * @return    Redirect
 	 */
-	public function send($type)
+	public function sendFeedback(FeedbackRequest $request)
 	{
 		$email = User::getEmail();
 
 		$name = User::getUsername();
 
-		$rules = array(
-		    'nachricht' => 'required'
-		);
-
-		$validator = Validator::make(Input::all(), $rules);
-
-		if ($validator->fails())
+		$data = [
+			'content' => $request->nachricht,
+			'name' => $name
+		];
+		Mail::send('emails.feedback', $data, function($message) use ($email,$name)
 		{
-			return Redirect::route('kontakt')->with($type . '_errors', true);
-		}
-		else
-		{
-			$data = array(
-						'content' => Input::get('nachricht'),
-						'name' => $name
-					);
-			Mail::send('emails.' . $type, $data, function($message) use ($email,$name,$type)
-			{
-				$message->from($email, $name);
-				if ($type === 'feedback')
-				{
-					$message->to('hoyer@ph-karlsruhe.de', 'Timo Hoyer')->subject('Eine neue Anfrage über die e:t:p:M Web-App');
-				}
-				elseif ($type === 'support')
-				{
-					$message->to('mundt@ph-karlsruhe.de', 'Fabian Mundt')->subject('Eine neue Supportanfrage über die e:t:p:M Web-App');
-				}
-			});
+			$message->from($email, $name);
+			$message->to('hoyer@ph-karlsruhe.de', 'Timo Hoyer')->subject('Eine neue Anfrage über die e:t:p:M Web-App');
+		});
+		return redirect('kontakt')->with('feedback_success',true);
+	}
 
-			return Redirect::route('kontakt')->with($type . '_success',true);
-		}
+	/**
+	* Eine Supportnachricht senden.
+	*
+	* @Post("kontakt/support")
+	*
+	* @return    Redirect
+	*/
+	public function sendSupport(SupportRequest $request)
+	{
+		$email = User::getEmail();
+
+		$name = User::getUsername();
+
+		$data = [
+			'content' => $request->nachricht,
+			'name' => $name
+		];
+		Mail::send('emails.support', $data, function($message) use ($email,$name)
+		{
+			$message->from($email, $name);
+			$message->to('mundt@ph-karlsruhe.de', 'Fabian Mundt')->subject('Eine neue Supportanfrage über die e:t:p:M Web-App');
+		});
+		return redirect('kontakt')->with('support_success',true);
 	}
 
 }

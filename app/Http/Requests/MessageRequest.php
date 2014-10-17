@@ -1,8 +1,9 @@
-<?php namespace Synthesise\Http\Requests\Auth;
+<?php namespace Synthesise\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class LoginRequest extends FormRequest {
+class MessageRequest extends FormRequest {
 
 	/**
 	 * Get the validation rules that apply to the request.
@@ -12,9 +13,8 @@ class LoginRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-			'username' 		=> 'required|alpha_num',
-			'password' 		=> 'required',
-			'rememberme' 	=> 'boolean'
+			'message'	=> 'required',
+			'type'		=> 'required|alpha'
 		];
 	}
 
@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest {
 	 */
 	public function authorize()
 	{
-		return true;
+		return Auth::user()->role === 'Admin';
 	}
 
 }

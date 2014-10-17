@@ -1,12 +1,17 @@
 <?php namespace Synthesise\Http\Controllers;
 
+use Illuminate\Routing\Controller;
 use Synthesise\Repositories\Facades\Faq;
 
-class FaqController {
+/**
+ * @Middleware("auth")
+ */
+class FaqController extends Controller {
 
 	/**
 	 * Häufig gestellte Fragen anzeigen.
-	 * GET /hgf/{letter}
+	 *
+	 * @Get("hgf/{letter?}", as="faq")
 	 *
 	 * @param 		string $letter
 	 * @return 		View
