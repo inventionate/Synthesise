@@ -20,6 +20,8 @@ class ArtisanServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->commands('Synthesise\Console\InspireCommand');
+		$this->commands('Synthesise\Console\UpdateUserTableCommand');
+
 	}
 
 	/**
@@ -29,7 +31,10 @@ class ArtisanServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return ['Synthesise\Console\InspireCommand'];
+		return [
+			'Synthesise\Console\InspireCommand',
+			'Synthesise\Console\UpdateUserTableCommand',
+		];
 	}
 
 }
