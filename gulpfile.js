@@ -8,6 +8,8 @@
  * No Notify support (incompatible with Vagrant).
  * Use callbacks for dependent tasks!
  *
+ * @todo Auf Laravel Elixir umstellen und Modernizr im HEAD laden.
+ *
  * copyright    Fabian Mundt
  */
 //////////////////////////////////////////////////
@@ -79,7 +81,6 @@ var manifest = require( './' + paths.assets + '/rev-manifest.json');
 //////////////////////////////////////////////////
 
 var libs = [
-    paths.bower.modernizr + '/modernizr.js',
     paths.bower.jquery + '/dist/jquery.js',
     paths.bower.spinjs + '/spin.js',
     paths.bower.bootstrap + '/dist/js/bootstrap.js',
@@ -91,7 +92,7 @@ var libs = [
 
 gulp.task('js:vendor', function(done) {
   gulp.src(libs)
-    .pipe(newer(paths.build + '/js/libs/vendor.js'))
+    .pipe(newer(paths.build + '/js/vendor.js'))
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest(paths.build + '/js'))
     .on('end', done);
@@ -99,14 +100,21 @@ gulp.task('js:vendor', function(done) {
 
 gulp.task('coffee:build', function(done) {
   gulp.src(paths.assets + '/coffee/*.coffee')
-    .pipe(newer(paths.build + '/js/cofee'))
+    .pipe(newer(paths.build + '/js/frontend.js'))
     .pipe(coffee({bare: true}))
     .pipe(concat('frontend.js'))
     .pipe(gulp.dest(paths.build + '/js'))
     .on('end', done);
 });
 
-gulp.task('js:build', ['coffee:build','js:vendor'], function() {
+gulp.task('js:modernizr', function(done) {
+  gulp.src(paths.bower.modernizr + '/modernizr.js')
+    .pipe(newer(paths.build + '/js/modernizr.js'))
+    .pipe(gulp.dest(paths.build + '/js'))
+    .on('end', done);
+});
+
+gulp.task('js:build', ['coffee:build','js:vendor', 'js:modernizr'], function() {
   gulp.src([
       paths.build + '/js/vendor.js',
       paths.build + '/js/frontend.js'

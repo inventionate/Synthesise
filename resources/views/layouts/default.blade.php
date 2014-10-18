@@ -14,6 +14,9 @@
 		{{-- APPLICATION CSS -----------------------------------------------------}}
 		<link rel="stylesheet" href="{{ Asset::rev('css/application.css') }}">
 
+		{{-- MODERNIZR JS --------------------------------------------------------}}
+		<script src="{{ Asset::rev('js/modernizr.js') }}"></script>
+
 	</head>
 
 	{{--------------------------------------------------------------------------}}
@@ -23,7 +26,7 @@
 
 		{{-- BROWSEHAPPY INFO ----------------------------------------------------}}
 		<!--[if lt IE 9]>
-			<p class="alert alert-danger browsehappy text-center @if( Request::is('login') ) alert-login @endif" data-no-turbolink>Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
+			<p class="alert alert-danger browsehappy text-center @if( Request::is('login') ) alert-login @endif">Sie nutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a>.</p>
 		<![endif]-->
 
 		{{-- @include NAVIGATION -------------------------------------------------}}
@@ -33,9 +36,6 @@
 
 		{{-- JAVASCRIPT INFO -----------------------------------------------------}}
 		<div class="alert alert-danger alert-js text-center @if( Request::is('auth/login') ) alert-login @endif">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
-
-		{{-- BETA INFO -----------------------------------------------------------}}
-		<div class="alert alert-warning text-center @if( Request::is('auth/login') ) alert-login @endif">Sie nutzen eine <b>Beta Version</b> der »Synthesise« Web-App. Bitte verwenden Sie unseren <a class="alert-link" href="https://bitbucket.org/Inventionate/synthesise/issues/new" target="_blank">Issue Tracker</a> um uns Probleme mitzuteilen. Vielen Dank für Ihre Hilfe!</div>
 
 		{{-- @yield MAIN CONTENT -------------------------------------------------}}
 		@yield('content')
