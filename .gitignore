@@ -12,6 +12,7 @@ Thumbs.db
 /public/video
 /resources/assets/build
 /storage/framework
+/storage/app/users
 /tests/_output
 /vendor
 composer.phar

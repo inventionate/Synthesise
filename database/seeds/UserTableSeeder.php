@@ -89,5 +89,25 @@ class UserTableSeeder extends Seeder {
 			$num ++;
 		}
 
+		/**
+		* Studierende über Array einlesen.
+		 *
+		 * @todo Diesen Prozess über das Backend vereinfachen (CSV aus LSF o.ä. hochladen).
+		 */
+		require storage_path() . '/app/users/studierende.php';
+
+		$num = 0;
+
+		foreach ( $studierende as $student )
+		{
+			User::create([
+				'id' => 100 + $num,
+				'username' => $student,
+				'role' => 'Student'
+			]);
+			$num ++;
+		}
+
+
 	}
 }

@@ -57,8 +57,8 @@
 		Digitale oder virtuelle Lektionen können und sollen nicht den realen, zwischenmenschlichen Kontakt ersetzen. Präsenzveranstaltungen sind und bleiben deshalb unverzichtbar. In Vorort-Veranstaltungen finden Gruppen-, Kommunikations-, Aneignungs- und Bildungsprozesse statt, die in einer anregungsreichen, auf wechselseitigen Austausch und gemeinsamen Initiativen fußenden akademischen Lehr-Lern-Kultur von alternativloser Bedeutung sind.<br>
 		Der Einsatz virtueller Medien gestattet die Bildung von kleineren Lehr-Lern-Gruppen, in denen eine unmittelbarere, kommunikative und handlungsorientierte Bearbeitung der Themen möglich ist.  <a href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank"><span class="etpM">e:t:p:M</span></a> beinhaltet folgende Präsensveranstaltungen (<a class="download-info" data-name="Allgemeine Informationen und Termine" href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine')) }}">Informationen zu Terminen und Räumen <span class="glyphicon glyphicon-file"></span></a>):<br>
 		<ol type="a">
-		<li>Einführungsvorlesung und Prüfungsvorbereitung: In der ersten Woche nach der Einführungswoche wird in der Aula über das Format, den Ablauf und den inhaltlichen „roten Faden“ der Gesamtveranstaltung informiert. Gegen Ende der Vorlesungszeit findet eine Vorlesung speziell zum Ablauf der Prüfung statt.</li>
-		<li>HGF-Vorlesungen: Mehrmals im Semester finden Freitags in der Aula »Häufig gestellte Fragen«-Vorlesungen für sämtliche Studierende statt. Hierfür sammeln die Mentoren im Vorfeld inhaltsbezogene Fragen der Studierenden, reichen sie an den Dozenten weiter, der sie in den Vorlesungen bespricht. (Zudem können sich die Studierenden unter <a href="{{url('hgf')}}">»Häufig gestellte Fragen«</a> jederzeit über wesentliche Fragen zum formalen Ablauf der Gesamtveranstaltung und zur Klausur informieren).</li>
+		<li>Einführungsvorlesung und Prüfungsvorbereitung: In der ersten Woche nach der Einführungswoche wird in der Aula über das Format, den Ablauf und den inhaltlichen »roten Faden« der Gesamtveranstaltung informiert. Gegen Ende der Vorlesungszeit findet eine Vorlesung speziell zum Ablauf der Prüfung statt.</li>
+		<li>HGF-Vorlesungen: Mehrmals im Semester finden in der Aula »Häufig gestellte Fragen«-Vorlesungen für sämtliche Studierende statt. Hierfür sammeln die Mentoren im Vorfeld inhaltsbezogene Fragen der Studierenden, reichen sie an den Dozenten weiter, der sie in den Vorlesungen bespricht. (Zudem können sich die Studierenden unter <a href="{{url('hgf')}}">»Häufig gestellte Fragen«</a> jederzeit über wesentliche Fragen zum formalen Ablauf der Gesamtveranstaltung und zur Klausur informieren).</li>
 		<li>Mentoriate: Über das Zuordnungssystem von LSF sind Kleingruppen gebildet worden. Die Gruppen (Mentoriate) treffen sich wöchentlich zu den angegebenen Zeiten. Studentische Mentoren (meistens Tandems), die zusätzlich zu ihrem Lehramtsstudium das <a href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/mentoring/" target="_blank">Zertifikatsstudium Mentoring</a> absolvieren, unterstützen und beraten die Studierenden bei der Aneignung der Stoffe, beim Umgang mit wissenschaftlichen Texten, bei generellen Fragen zum Studium und bei der Prüfungsvorbereitung.</li>
 		</ol>
 		</p>
@@ -89,8 +89,6 @@
 </div>
 
 <p>Sie können sich diese Informationen und die Termine der Veranstaltung auch als PDF Dokument herunterladen:</p>
-
-{{-- Download-Controller ausführen --}}
 
 <a class="btn btn-primary btn-block download-info" data-name="Allgemeine Informationen und Termine" href="{{ action('DownloadController@getFile', array('type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine')) }}">Allgemeine Informationen und Termine <span class="glyphicon glyphicon-file"></span></a>
 
