@@ -43,7 +43,7 @@ class UpdateUserTableCommand extends Command {
 		// Tabelle löschen.
 		User::truncate();
 		// Tabelle befüllen.
-		Artisan::call('db:seed', ['--class' => 'UserTableSeeder', '--force']);
+		Artisan::call('db:seed', ['--force' => true, '--class' => 'UserTableSeeder']);
 		// MySQL Einstellungen rückgängig machen.
 		DB::statement('SET foreign_key_checks=1');
 		$this->comment('User Table updated.');
