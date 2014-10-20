@@ -39,13 +39,13 @@ class UpdateUserTableCommand extends Command {
 	public function fire()
 	{
 		// MySQL Einstellungen zum Ändern der ID festlegen
-		DB::statement('SET foreign_key_checks=0');
+		// DB::statement('SET foreign_key_checks=0');
 		// Tabelle löschen.
 		User::truncate();
 		// Tabelle befüllen.
 		Artisan::call('db:seed', ['--force' => true, '--class' => 'UserTableSeeder']);
 		// MySQL Einstellungen rückgängig machen.
-		DB::statement('SET foreign_key_checks=1');
+		// DB::statement('SET foreign_key_checks=1');
 		$this->comment('User Table updated.');
 	}
 
