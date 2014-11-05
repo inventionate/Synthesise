@@ -74,12 +74,12 @@
 				<div class="col-md-6 col-sm-7 col-xs-12">
 				<?php /* durch die Texte loopen und Autoren davor setzten */ ?>
 					<?php foreach($papers as $paper): ?>
-						<a class="btn btn-warning btn-block download-paper" data-name="<?php echo e($paper->papername); ?>" href="<?php echo e(action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername])); ?>"><?php echo e($paper->author); ?>: <?php echo e($paper->papername); ?> <span class="glyphicon glyphicon-align-justify"></span></a>
+						<a class="btn btn-warning btn-block download-paper" data-name="<?php echo e($paper->papername); ?>" href="<?php echo e(action('Synthesise\Http\Controllers\DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername])); ?>"><?php echo e($paper->author); ?>: <?php echo e($paper->papername); ?> <span class="glyphicon glyphicon-align-justify"></span></a>
 					<?php endforeach; ?>
 				</div>
 				<div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-1 col-xs-12 text-right">
 					<?php /* @todo  Funktionalität beim Note Repository hinzufügen (Note::collectContent) */ ?>
-					<a class="btn btn-primary btn-block download-note" data-name="<?php echo e($videoname); ?>" href="<?php echo e(action('LectionController@getNotesPDF', [rawurlencode($videoname)])); ?>">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a>
+					<a class="btn btn-primary btn-block download-note" data-name="<?php echo e($videoname); ?>" href="<?php echo e(action('Synthesise\Http\Controllers\LectionController@getNotesPDF', [rawurlencode($videoname)])); ?>">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a>
 				</div>
 			</section>
 		</div>

@@ -19,13 +19,14 @@
 	"require-dev": {
 		"way/generators": "3.*",
 		"codeception/codeception": "2.*",
+		"janhenkgerritsen/codeception-laravel5": "*",
 		"codeception/aspect-mock": "*",
 		"phpdocumentor/phpdocumentor": "2.*"
 	},
 	"autoload": {
 		"classmap": [
 			"database",
-			"tests/unit/TestCase.php"
+			"tests/TestCase.php"
 		],
 		"psr-4": {
 			"Synthesise\\": "app/"

@@ -42,46 +42,42 @@ return [
 	'providers' => [
 
 		/*
-		* Application Service Providers...
-		*/
-		'Synthesise\Providers\AppServiceProvider',
-		'Synthesise\Providers\ArtisanServiceProvider',
-		'Synthesise\Providers\ErrorServiceProvider',
+		 * Application Service Providers...
+		 */
 		'Synthesise\Providers\EventServiceProvider',
-		'Synthesise\Providers\LogServiceProvider',
 		'Synthesise\Providers\RouteServiceProvider',
 
 
 		/*
-		* Repositry Service Provider.
-		*/
+		 * Repositry Service Provider.
+		 */
 		'Synthesise\Providers\RepositoryServiceProvider',
 
 		/*
-		* Extensions ServiceProvides.
-		* Kleine Erweiterungsklassen (keine Pakete) registrieren.
-		*
-		*/
+		 * Extensions ServiceProvides.
+		 * Kleine Erweiterungsklassen (keine Pakete) registrieren.
+		 *
+		 */
 		'Synthesise\Providers\ExtensionServiceProvider',
 
 		/*
-		* ServiceProvider für Pakete.
-		*
-		*/
+		 * ServiceProvider für Pakete.
+		 *
+		 */
 		'Jenssegers\Agent\AgentServiceProvider',
 		'Thujohn\Pdf\PdfServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
 
 		/*
-		* Dev ServiceProvider für Pakete.
-		*
-		*/
+		 * Dev ServiceProvider für Pakete.
+		 *
+		 */
 
 		'Way\Generators\GeneratorsServiceProvider',
 
 		/*
-		* Laravel Framework Service Providers...
-		*/
+		 * Laravel Framework Service Providers...
+		 */
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
@@ -93,7 +89,6 @@ return [
 		'Illuminate\Filesystem\FilesystemServiceProvider',
 		'Illuminate\Foundation\Providers\FoundationServiceProvider',
 		'Illuminate\Hashing\HashServiceProvider',
-		'Illuminate\Log\LogServiceProvider',
 		'Illuminate\Mail\MailServiceProvider',
 		'Illuminate\Pagination\PaginationServiceProvider',
 		'Illuminate\Queue\QueueServiceProvider',

@@ -18,8 +18,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $scan = [
-		'Synthesise\Http\Controllers\HomeController',
-		'Synthesise\Http\Controllers\Auth\AuthController',
+		'Synthesise\Http\Controllers\AuthController',
 		'Synthesise\Http\Controllers\AnalyticsController',
 		'Synthesise\Http\Controllers\DashboardController',
 		'Synthesise\Http\Controllers\DownloadController',
@@ -31,11 +30,25 @@ class RouteServiceProvider extends ServiceProvider {
 	];
 
 	/**
+	 * All of the application's route middleware keys.
+	 *
+	 * @var array
+	 */
+	protected $middleware = [
+		'auth'				=> 'Synthesise\Http\Middleware\Authenticated',
+		'auth.basic' 	=> 'Synthesise\Http\Middleware\AuthenticatedWithBasicAuth',
+		'csrf' 				=> 'Synthesise\Http\Middleware\CsrfTokenIsValid',
+		'guest' 			=> 'Synthesise\Http\Middleware\IsGuest',
+		'admin' 			=> 'Synthesise\Http\Middleware\IsAdmin',
+		'secure' 			=> 'Synthesise\Http\Middleware\Secure',
+	];
+
+	/**
 	 * Called before routes are registered.
 	 *
 	 * Register any model bindings or pattern based filters.
 	 *
-	 * @param  Router  $router
+	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
 	public function before(Router $router)
@@ -46,11 +59,15 @@ class RouteServiceProvider extends ServiceProvider {
 	/**
 	 * Define the routes for the application.
 	 *
+	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
 	public function map(Router $router)
 	{
-		// require app_path('Http/routes.php');
+	// 	$router->group(['namespace' => 'Synthesise\Http\Controllers'], function($router)
+	// 	{
+	// 		require app_path('Http/routes.php');
+	// 	});
 	}
 
 }

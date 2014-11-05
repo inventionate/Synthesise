@@ -4,6 +4,6 @@ use Illuminate\Support\Facades\Facade;
 
 class Ldap extends Facade {
 
-	protected static function getFacadeAccessor() { return 'ldap'; }
+	protected static function getFacadeAccessor() { return 'Ldap'; }
 
 }

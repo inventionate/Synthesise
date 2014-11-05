@@ -1,9 +1,8 @@
 <?php namespace Synthesise\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class MessageRequest extends FormRequest {
+class MessageRequest extends Request {
 
 	/**
 	 * Get the validation rules that apply to the request.

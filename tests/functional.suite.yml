@@ -6,4 +6,4 @@
 
 class_name: FunctionalTester
 modules:
-    enabled: [FunctionalHelper, Laravel4]
+    enabled: [FunctionalHelper, Laravel5]

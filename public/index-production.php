@@ -18,7 +18,7 @@
 |
 */
 
-require '/home/etpm/bootstrap/autoload.php';
+require __DIR__.'/home/etpm/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ require '/home/etpm/bootstrap/autoload.php';
 |
 */
 
-$app = require_once '/home/etpm/bootstrap/start.php';
+$app = require_once __DIR__.'/home/etpm/bootstrap/start.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +46,8 @@ $app = require_once '/home/etpm/bootstrap/start.php';
 |
 */
 
-$app->run();
+$response = $app->make('Illuminate\Contracts\Http\Kernel')->handle(
+	Illuminate\Http\Request::capture()
+);
+
+$response->send();

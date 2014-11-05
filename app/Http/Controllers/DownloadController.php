@@ -1,8 +1,6 @@
 <?php namespace Synthesise\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
-
 use Synthesise\Extensions\Facades\Parser;
 
 /**

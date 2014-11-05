@@ -13,7 +13,7 @@
 			<?php /* LEKTION ÖFFNEN */ ?>
 			<a href="<?php echo e(route('lektion', [$videoname])); ?>" class="btn btn-primary">Öffnen</a>
 
-			<a class="btn btn-primary" class="download-note" data-name="<?php echo e($videoname); ?>" href="<?php echo e(action('LectionController@getNotesPDF', [$videoname])); ?>">Notizen <span class="glyphicon glyphicon-pencil"></span></a>
+			<a class="btn btn-primary" class="download-note" data-name="<?php echo e($videoname); ?>" href="<?php echo e(action('Synthesise\Http\Controllers\LectionController@getNotesPDF', [$videoname])); ?>">Notizen <span class="glyphicon glyphicon-pencil"></span></a>
 		</div>
 		<?php /* MATERIALIEN DOWNLOADEN */ ?>
 		  <button type="button" class="btn btn-warning dropdown-toggle btn-block" data-toggle="dropdown">
@@ -21,7 +21,7 @@
 		  </button>
 		  <ul class="dropdown-menu" role="menu">
 		  <?php foreach($papers as $paper): ?>
-		  	<li><a class="download-paper" data-name="<?php echo e($paper->papername); ?>" href="<?php echo e(action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername])); ?>"><?php echo e($paper->author); ?>: <?php echo e($paper->papername); ?> <span class="glyphicon glyphicon-align-justify"></span></a></li>
+		  	<li><a class="download-paper" data-name="<?php echo e($paper->papername); ?>" href="<?php echo e(action('Synthesise\Http\Controllers\DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername])); ?>"><?php echo e($paper->author); ?>: <?php echo e($paper->papername); ?> <span class="glyphicon glyphicon-align-justify"></span></a></li>
 		  <?php endforeach; ?>
 		  </ul>
 	  </div>

@@ -15,6 +15,11 @@ class AuthCest {
     TestCommons::dbSeed();
   }
 
+  public function _after(FunctionalTester $I)
+  {
+    $I->logout();
+  }
+
   public function testLoginError(FunctionalTester $I)
   {
     $I->am('Student');
@@ -29,8 +34,8 @@ class AuthCest {
     $I->fillField('#password','pw');
     $I->click('Anmelden','#login');
 
-    $I->seeCurrentUrlEquals('/login');
-    $I->seeElement('div.form-group.has-error');
+    $I->seeCurrentUrlEquals('/auth/login');
+    $I->seeElement('.form-group.has-error');
   }
 
   public function testNonLdapLogin(FunctionalTester $I)

@@ -68,16 +68,16 @@
 				  <ul class="dropdown-menu pull-right" role="menu">
 					@foreach (Video::getPapers($video->videoname) as $paper)
 
-					<li><a class="download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><small>{{ $paper->author }}</small><br> {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
+					<li><a class="download-paper" data-name="{{ $paper->papername }}" href="{{ action('Synthesise\Http\Controllers\DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><small>{{ $paper->author }}</small><br> {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
 					@endforeach
 
 					@if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online)
 					<li class="divider"></li>
-					<li><a class="download-note" data-name="{{ $video->videoname }}" href="{{ action('LectionController@getNotesPDF', [rawurlencode($video->videoname)]) }}">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a></li>
+					<li><a class="download-note" data-name="{{ $video->videoname }}" href="{{ action('Synthesise\Http\Controllers\LectionController@getNotesPDF', [rawurlencode($video->videoname)]) }}">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a></li>
 					@endif
 					<li class="divider"></li>
 
-					<li><a class="download-further-literature" data-name="{{ $video->section }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $video->section]) }}"><small>Weiterführende Literaturhinweise <span class="glyphicon glyphicon-book"></span></small></a></li>
+					<li><a class="download-further-literature" data-name="{{ $video->section }}" href="{{ action('Synthesise\Http\Controllers\DownloadController@getFile', ['type' => 'pdf' , 'file' => $video->section]) }}"><small>Weiterführende Literaturhinweise <span class="glyphicon glyphicon-book"></span></small></a></li>
 
 				  </ul>
 				  </div>

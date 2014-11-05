@@ -27,7 +27,7 @@ class ExtensionServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		// LDAP
-		$this->app->bindShared('ldap', function()
+		$this->app->bind(['Synthesise\Extensions\Contracts\Ldap','Synthesise\Extensions\Ldap'], function()
 		{
 
 			$domain = $this->app['config']->get('auth.ldap.domain');
@@ -39,19 +39,19 @@ class ExtensionServiceProvider extends ServiceProvider {
 		});
 
 		// PARSER
-		$this->app->bindShared('parser', function()
+		$this->app->bind('parser', function()
 		{
 			return new Parser;
 		});
 
 		// ASSET
-		$this->app->bindShared('asset', function()
+		$this->app->bind('asset', function()
 		{
 			return new AssetBuilder;
 		});
 
 		// ANALYTICS
-		$this->app->bindShared('analytics', function()
+		$this->app->bind('analytics', function()
 		{
 
 			$tokenAuth = $this->app['config']->get('auth.analytics.tokenAuth');

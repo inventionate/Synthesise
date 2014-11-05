@@ -1,6 +1,5 @@
 <?php namespace Synthesise\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Synthesise\Http\Requests\NoteRequest;

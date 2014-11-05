@@ -1,6 +1,8 @@
 <?php namespace Synthesise\Extensions;
 
-class Parser
+use  Synthesise\Extensions\Contracts\Parser as ParserContract;
+
+class Parser implements ParserContract
 {
 
 	/**

@@ -1,9 +1,8 @@
 <?php namespace Synthesise\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class NoteRequest extends FormRequest {
+class NoteRequest extends Request {
 
 	/**
 	 * Get the validation rules that apply to the request.

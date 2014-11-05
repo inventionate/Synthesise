@@ -1,4 +1,4 @@
-<?php namespace Synthesise\Console;
+<?php namespace Synthesise\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;

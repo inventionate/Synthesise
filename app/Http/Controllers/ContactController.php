@@ -1,6 +1,5 @@
 <?php namespace Synthesise\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Synthesise\Http\Requests\FeedbackRequest;
 use Synthesise\Http\Requests\SupportRequest;
 use Illuminate\Support\Facades\Mail;

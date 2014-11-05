@@ -1,14 +1,13 @@
-<?php namespace Synthesise\Http\Controllers\Auth;
+<?php namespace Synthesise\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Hash;
-use Synthesise\Http\Requests\Auth\LoginRequest;
+use Synthesise\Http\Requests\LoginRequest;
 use Synthesise\Repositories\Facades\User;
-use Synthesise\Extensions\Facades\Ldap;
+use Synthesise\Extensions\Contracts\Ldap;
 
 /**
- * @Middleware("guest", except={"logout"})
+ * @Middleware("guest", except={"getLogout"})
  */
 class AuthController extends Controller {
 
@@ -20,14 +19,22 @@ class AuthController extends Controller {
 	protected $auth;
 
 	/**
+	* The LDAP implementation.
+	*
+	* @var Ldap
+	*/
+	protected $ldap;
+
+	/**
 	 * Create a new authentication controller instance.
 	 *
 	 * @param  Guard  $auth
 	 * @return void
 	 */
-	public function __construct(Guard $auth)
+	public function __construct(Guard $auth, Ldap $ldap)
 	{
 		$this->auth = $auth;
+		$this->ldap = $ldap;
 	}
 
 	/**
@@ -37,7 +44,7 @@ class AuthController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function showLoginForm()
+	public function getLogin()
 	{
 		return view('auth.login');
 	}
@@ -50,14 +57,14 @@ class AuthController extends Controller {
 	 * @param  LoginRequest  $request
 	 * @return Response
 	 */
-	public function login(LoginRequest $request)
+	public function postLogin(LoginRequest $request)
 	{
     // 1. LDAP Check (-> korrekte Daten)
 	  $credentials = $request->only('username', 'password');
     $rememberme = $request->rememberme;
 
     //LDAP Authentifizierung
-    $ldap = LDAP::authenticate($credentials['username'],$credentials['password']);
+    $ldap = $this->ldap->authenticate($credentials['username'],$credentials['password']);
     // 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
     if ( $ldap )
     {
@@ -108,7 +115,7 @@ class AuthController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function logout()
+	public function getLogout()
 	{
 		$this->auth->logout();
 

@@ -1,6 +1,5 @@
 <?php namespace Synthesise\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Synthesise\Repositories\Facades\Faq;
 
 /**

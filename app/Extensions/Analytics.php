@@ -1,9 +1,8 @@
 <?php namespace Synthesise\Extensions;
 
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Input;
+use  Synthesise\Extensions\Contracts\Analytics as AnalyticsContract;
 
-class Analytics {
+class Analytics implements AnalyticsContract {
 
   /**
    * Auth Token der Piwik Analytics API.

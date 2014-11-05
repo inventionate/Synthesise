@@ -1,6 +1,8 @@
 <?php namespace Synthesise\Extensions;
 
-class Ldap {
+use  Synthesise\Extensions\Contracts\Ldap as LdapContract;
+
+class Ldap implements LdapContract {
 
 	/**
 	* LDAP server domain.
@@ -39,7 +41,7 @@ class Ldap {
 	{
 		// Verbindung zum LDAP Server aufbauen
 		// Der @ Operator setzt die Variable auf 'undefined' wenn sie nicht erzeugt werden kann
-		$ds = ldap_connect($this->domain);
+		$ds = ldap_connect('193.197.136.102');
 		// Nutzer suchen
 		$r = ldap_search( $ds, $this->baseDn, 'uid=' . $username);
 		// Nur weiter fortfahren, wenn ein Nutzer gefunden wurde
