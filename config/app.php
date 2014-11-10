@@ -113,6 +113,7 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
+		'Synthesise\Providers\AppServiceProvider',
 		'Synthesise\Providers\EventServiceProvider',
 		'Synthesise\Providers\RouteServiceProvider',
 

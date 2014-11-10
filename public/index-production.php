@@ -51,3 +51,5 @@ $response = $app->make('Illuminate\Contracts\Http\Kernel')->handle(
 );
 
 $response->send();
+
+$kernel->terminate($request, $response);

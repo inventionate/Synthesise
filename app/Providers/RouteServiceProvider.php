@@ -37,7 +37,6 @@ class RouteServiceProvider extends ServiceProvider {
 	protected $middleware = [
 		'auth'				=> 'Synthesise\Http\Middleware\Authenticated',
 		'auth.basic' 	=> 'Synthesise\Http\Middleware\AuthenticatedWithBasicAuth',
-		'csrf' 				=> 'Synthesise\Http\Middleware\CsrfTokenIsValid',
 		'guest' 			=> 'Synthesise\Http\Middleware\IsGuest',
 		'admin' 			=> 'Synthesise\Http\Middleware\IsAdmin',
 		'secure' 			=> 'Synthesise\Http\Middleware\Secure',

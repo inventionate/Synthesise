@@ -185,14 +185,14 @@ class UserRepositoryCest
 
     // ARRANGE
     $this->dummyUser['id'] = 1;
-    $this->dummyUser['username'] = 'dark01';
+    $this->dummyUser['username'] = 'dark01ka';
     $this->dummyUser['firstname'] = 'Darth';
     $this->dummyUser['lastname'] = 'Vader';
     $this->dummyUser['password'] = Hash::make('Deathstar');
     $I->haveRecord('users', $this->dummyUser);
 
     // Benutzer authentifizieren
-    $I->amLoggedAs(['username' => 'dark01', 'password' => 'Deathstar']);
+    $I->amLoggedAs(['username' => 'dark01ka', 'password' => 'Deathstar']);
 
     // ACT
     $username = User::getEmail();
