@@ -1,28 +1,27 @@
 <?php namespace Synthesise\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Routing\Middleware;
-use Illuminate\Contracts\Foundation\Application;
 
-class UnderMaintenance {
+class Authenticate implements Middleware {
 
 	/**
-	 * The application implementation.
+	 * The Guard implementation.
 	 *
-	 * @var Application
+	 * @var Guard
 	 */
-	protected $app;
+	protected $auth;
 
 	/**
 	 * Create a new filter instance.
 	 *
-	 * @param  Application  $app
+	 * @param  Guard  $auth
 	 * @return void
 	 */
-	public function __construct(Application $app)
+	public function __construct(Guard $auth)
 	{
-		$this->app = $app;
+		$this->auth = $auth;
 	}
 
 	/**
@@ -34,9 +33,16 @@ class UnderMaintenance {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($this->app->isDownForMaintenance())
+		if ($this->auth->guest())
 		{
-			return new Response('Be right back!', 503);
+			if ($request->ajax())
+			{
+				return response('Unauthorized', 401);
+			}
+			else
+			{
+				return redirect()->guest('auth/login');
+			}
 		}
 
 		return $next($request);

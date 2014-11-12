@@ -72,12 +72,12 @@
 				<div class="col-md-6 col-sm-7 col-xs-12">
 				{{-- durch die Texte loopen und Autoren davor setzten --}}
 					@foreach ($papers as $paper)
-						<a class="btn btn-warning btn-block download-paper" data-name="{{ $paper->papername }}" href="{{ action('Synthesise\Http\Controllers\DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a>
+						<a class="btn btn-warning btn-block download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a>
 					@endforeach
 				</div>
 				<div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-1 col-xs-12 text-right">
 					{{-- @todo Funktionalität beim Note Repository hinzufügen (Note::collectContent) --}}
-					<a class="btn btn-primary btn-block download-note" data-name="{{ $videoname }}" href="{{ action('Synthesise\Http\Controllers\LectionController@getNotesPDF', [rawurlencode($videoname)])	}}">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a>
+					<a class="btn btn-primary btn-block download-note" data-name="{{ $videoname }}" href="{{ action('LectionController@getNotesPDF', [rawurlencode($videoname)])	}}">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a>
 				</div>
 			</section>
 		</div>

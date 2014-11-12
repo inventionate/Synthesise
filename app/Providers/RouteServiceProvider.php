@@ -1,22 +1,16 @@
 <?php namespace Synthesise\Providers;
 
 use Illuminate\Routing\Router;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider {
 
 	/**
-	 * The root namespace to assume when generating URLs to actions.
-	 *
-	 * @var string
-	 */
-	protected $rootUrlNamespace = 'Synthesise\Http\Controllers';
-
-	/**
-	 * The controllers to scan for route annotations.
-	 *
-	 * @var array
-	 */
+	* The controllers to scan for route annotations.
+	*
+	* @var array
+	*/
 	protected $scan = [
 		'Synthesise\Http\Controllers\AuthController',
 		'Synthesise\Http\Controllers\AnalyticsController',
@@ -35,9 +29,9 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $middleware = [
-		'auth'				=> 'Synthesise\Http\Middleware\Authenticated',
-		'auth.basic' 	=> 'Synthesise\Http\Middleware\AuthenticatedWithBasicAuth',
-		'guest' 			=> 'Synthesise\Http\Middleware\IsGuest',
+		'auth' 				=> 'Synthesise\Http\Middleware\Authenticate',
+		'auth.basic' 	=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		'guest' 			=> 'Synthesise\Http\Middleware\RedirectIfAuthenticated',
 		'admin' 			=> 'Synthesise\Http\Middleware\IsAdmin',
 		'secure' 			=> 'Synthesise\Http\Middleware\Secure',
 	];
@@ -48,11 +42,12 @@ class RouteServiceProvider extends ServiceProvider {
 	 * Register any model bindings or pattern based filters.
 	 *
 	 * @param  \Illuminate\Routing\Router  $router
+	 * @param  \Illuminate\Contracts\Routing\UrlGenerator  $url
 	 * @return void
 	 */
-	public function before(Router $router)
+	public function before(Router $router, UrlGenerator $url)
 	{
-		//
+		$url->setRootControllerNamespace('Synthesise\Http\Controllers');
 	}
 
 	/**
@@ -63,10 +58,10 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function map(Router $router)
 	{
-	// 	$router->group(['namespace' => 'Synthesise\Http\Controllers'], function($router)
-	// 	{
-	// 		require app_path('Http/routes.php');
-	// 	});
+		// $router->group(['namespace' => 'App\Http\Controllers'], function($router)
+		// {
+		// 	require app_path('Http/routes.php');
+		// });
 	}
 
 }

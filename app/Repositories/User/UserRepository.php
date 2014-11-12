@@ -76,7 +76,7 @@ class UserRepository implements UserInterface
   */
   public function getEmail()
   {
-    // @todo E-Mail in Datenbank ablegen?
+    // @todo E-Mail in Datenbank ablegen! Da ab sofort Studierende eine andere Adresse als Dozierende haben (noch nicht alle)!
     return substr(Auth::user()->username, 0 , -2) . '@ph-karlsruhe.de';
   }
 

@@ -6,14 +6,14 @@
 @if($available)
 <div class="row">
 	  <div class="col-md-8">
-		<img src="{{ asset(Asset::rev('img/' . Parser::normalizeName($videoname) . '.jpg')) }}" alt="Titelbild online-Lektion"  class="img-responsive img-thumbnail">
+		<img src="{{ Asset::rev('img/' . Parser::normalizeName($videoname) . '.jpg') }}" alt="Titelbild online-Lektion"  class="img-responsive img-thumbnail">
 		</div>
 	  <div class="col-md-4">
 		<div class="btn-group-vertical btn-block">
 			{{-- LEKTION ÖFFNEN --}}
 			<a href="{{ route('lektion', [$videoname]) }}" class="btn btn-primary">Öffnen</a>
 
-			<a class="btn btn-primary" class="download-note" data-name="{{ $videoname }}" href="{{ action('Synthesise\Http\Controllers\LectionController@getNotesPDF', [$videoname]) }}">Notizen <span class="glyphicon glyphicon-pencil"></span></a>
+			<a class="btn btn-primary" class="download-note" data-name="{{ $videoname }}" href="{{ action('LectionController@getNotesPDF', [$videoname]) }}">Notizen <span class="glyphicon glyphicon-pencil"></span></a>
 		</div>
 		{{-- MATERIALIEN DOWNLOADEN --}}
 		  <button type="button" class="btn btn-warning dropdown-toggle btn-block" data-toggle="dropdown">
@@ -21,7 +21,7 @@
 		  </button>
 		  <ul class="dropdown-menu" role="menu">
 		  @foreach ($papers as $paper)
-		  	<li><a class="download-paper" data-name="{{ $paper->papername }}" href="{{ action('Synthesise\Http\Controllers\DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
+		  	<li><a class="download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a></li>
 		  @endforeach
 		  </ul>
 	  </div>
