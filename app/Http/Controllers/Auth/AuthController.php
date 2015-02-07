@@ -4,6 +4,7 @@ use Synthesise\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Synthesise\Http\Requests\LoginRequest;
 use Synthesise\Repositories\Facades\User;
 use Illuminate\Support\Facades\Hash;
 use Synthesise\Extensions\Contracts\Ldap;
@@ -50,7 +51,7 @@ class AuthController extends Controller {
 	 * @param  LoginRequest  $request
 	 * @return Response
 	 */
-	public function postLogin(Requests\Auth\LoginRequest $request)
+	public function postLogin(LoginRequest $request)
 	{
     // 1. LDAP Check (-> korrekte Daten)
 	  $credentials = $request->only('username', 'password');

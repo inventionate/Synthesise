@@ -170,7 +170,7 @@ class UserRepositoryCest
     $I->amLoggedAs(['username' => 'dark', 'password' => 'Deathstar']);
 
     // ACT
-    // $username = User::getUsername();
+    $username = User::getUsername();
 
     // ASSERT
     // $I->AssertEquals($username, 'Darth Vader');
