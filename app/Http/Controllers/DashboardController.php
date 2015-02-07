@@ -5,9 +5,6 @@ use Synthesise\Repositories\Facades\User;
 use Synthesise\Repositories\Facades\Video;
 use Synthesise\Repositories\Facades\Message;
 
-/**
- * @Middleware("auth")
- */
 class DashboardController extends Controller {
 
 	/**
@@ -26,12 +23,11 @@ class DashboardController extends Controller {
 	public function __construct(Guard $auth)
 	{
 		$this->auth = $auth;
+		$this->middleware('auth');
 	}
 
 	/**
 	 * Dashboard anzeigen.
-	 *
-	 * @Get("/", as="dashboard")
 	 *
 	 * @return View
 	 */

@@ -10,9 +10,6 @@ use Synthesise\Repositories\Facades\Note;
 use Synthesise\Extensions\Facades\Parser;
 use Thujohn\Pdf\PdfFacade as PDF;
 
-/**
- * @Middleware("auth")
- */
 class LectionController extends Controller {
 
 	/**
@@ -30,8 +27,6 @@ class LectionController extends Controller {
 
 	/**
 	 * Online-Lektion anzeigen.
-	 *
-	 * @Get("online-lektionen/{videoname}", as="lektion")
 	 *
 	 * @param 		string $videoname
 	 * @return    View
@@ -84,8 +79,6 @@ class LectionController extends Controller {
 	/**
 	 * Notizen für die Lektion als PDF anzeigen.
 	 *
-	 * @Get("online-lektionen/{videoname}/getnotespdf")
-	 *
 	 * @param     string $videoname
 	 * @return    PDF
 	 */
@@ -99,8 +92,6 @@ class LectionController extends Controller {
 	/**
 	 * Flagnames (Fähnchen) für die Lektion als PDF anzeigen.
 	 *
-	 * @Get("online-lektionen/{videoname}/getflagnames")
-	 *
 	 * @param     string $videoname
 	 * @return    PDF
 	 */
@@ -113,8 +104,6 @@ class LectionController extends Controller {
 
 	/**
 	 * Die Fähcnhen für die Lektion ausgeben.
-	 *
-	 * @Get("online-lektionen/{videoname}/getflags")
 	 *
 	 * @param     string $videoname
 	 * @return    array
@@ -134,8 +123,6 @@ class LectionController extends Controller {
 
 	/**
 	 * Die Notizen für die Lektion ausgeben.
-	 *
-	 * @Get("online-lektionen/{videoname}/getnotes")
 	 *
 	 * @param     string $videoname
 	 * @return    string Die Notiz zu dem jeweiligen Fähnchen.
@@ -158,8 +145,6 @@ class LectionController extends Controller {
 
 	/**
 	 * Eine neue Notiz zu dem Fähnchen einer Lektion speichern.
-	 *
-	 * @Post("online-lektionen/{videoname}/postnotes")
 	 *
 	 * @param 		string $videoname
 	 * @return    string "success"

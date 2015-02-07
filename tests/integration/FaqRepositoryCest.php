@@ -92,10 +92,10 @@ class FaqRepositoryCest {
 
     }
 
-    /**
-     * Testet die Abfrage in Abhängigkeit eines Buchstabens (area)
-     *
-     */
+    // /**
+    //  * Testet die Abfrage in Abhängigkeit eines Buchstabens (area)
+    //  *
+    //  */
     public function testGetFaqsByLetter(IntegrationTester $I)
     {
 

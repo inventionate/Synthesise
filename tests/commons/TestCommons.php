@@ -16,20 +16,20 @@ class TestCommons
 	}
 
 	/**
-	* Standardbefehle um Laravel für die Tests zu konfigurieren
-	* Datenbank befüllen
-	*
-	*/
+	 * Standardbefehle um Laravel für die Tests zu konfigurieren
+	 * Datenbank befüllen
+	 *
+	 */
 	public static function dbSeed()
 	{
 		Artisan::call('db:seed', ['--class' => 'TestDatabaseSeeder']);
 	}
 
 	/**
-	* Test Dummy "Nutzer" definieren
-	*
-	* @return 		array
-	*/
+	 * Test Dummy "Nutzer" definieren
+	 *
+	 * @return 		array
+	 */
 	public static function dummyUser()
 	{
 		return [
@@ -39,17 +39,16 @@ class TestCommons
 			'firstname' 			=> 'Victor',
 			'lastname' 				=> 'Turner',
 			'role' 						=> 'Student',
-			'created_at' 			=> '2014-09-17 17:00:00',
-			'updated_at' 			=> '2014-09-17 17:00:00',
-			'remember_token' 	=> ''
+			'created_at' 			=> new DateTime(),
+			'updated_at' 			=> new DateTime(),
 		];
 	}
 
 	/**
-	* Test Dummy "Note" definieren
-	*
-	* @return 		array
-	*/
+	 * Test Dummy "Note" definieren
+	 *
+	 * @return 		array
+	 */
 	public static function dummyNote()
 	{
 		return [
@@ -64,10 +63,10 @@ class TestCommons
 	}
 
 	/**
-	* Test Dummy "Cuepoint" definieren
-	*
-	* @return			array
-	*/
+	 * Test Dummy "Cuepoint" definieren
+	 *
+	 * @return			array
+	 */
 	public static function dummyCuepoint()
 	{
 		return [
@@ -81,10 +80,10 @@ class TestCommons
 	}
 
 	/**
-	* Test Dummy "FAQ" definieren
-	*
-	* @return 		array
-	*/
+	 * Test Dummy "FAQ" definieren
+	 *
+	 * @return 		array
+	 */
 	public static function dummyFaq()
 	{
 		return [

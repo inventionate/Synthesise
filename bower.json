@@ -9,14 +9,5 @@
     "jquery-typewatch": "*",
     "spin.js": "~2.0.1",
     "chartjs": "~1.0.1-beta.4"
-  },
-  "devDependencies": {
-    "qunit": "~1.15.0",
-    "coffee-script": "~1.8.0",
-    "jquery-mockjax": "~1.5.4",
-    "sinon": "~1.10.3",
-    "sinon-qunit": "~2.0.0",
-    "piwik": "~2.7.0",
-    "livereload": "~2.0.8"
   }
 }

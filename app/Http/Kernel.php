@@ -1,6 +1,5 @@
 <?php namespace Synthesise\Http;
 
-use Exception;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel {
@@ -16,27 +15,19 @@ class Kernel extends HttpKernel {
 		'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
 		'Illuminate\Session\Middleware\StartSession',
 		'Illuminate\View\Middleware\ShareErrorsFromSession',
-		'Illuminate\Foundation\Http\Middleware\VerifyCsrfToken',
+		'Synthesise\Http\Middleware\VerifyCsrfToken',
 	];
 
 	/**
-	 * Handle an incoming HTTP request.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function handle($request)
-	{
-		try
-		{
-			return parent::handle($request);
-		}
-		catch (Exception $e)
-		{
-			$this->reportException($e);
-
-			return $this->renderException($request, $e);
-		}
-	}
+	* The application's route middleware.
+	*
+	* @var array
+	*/
+	protected $routeMiddleware = [
+		'auth' => 'Synthesise\Http\Middleware\Authenticate',
+		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		'guest' => 'Synthesise\Http\Middleware\RedirectIfAuthenticated',
+		'admin' => 'Synthesise\Http\Middleware\IsAdmin',
+	];
 
 }

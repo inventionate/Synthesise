@@ -1,22 +1,26 @@
-<?php namespace Synthesise\Http\Controllers;
+<?php namespace Synthesise\Http\Controllers\Auth;
 
+use Synthesise\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Hash;
-use Synthesise\Http\Requests\LoginRequest;
+use Illuminate\Contracts\Auth\Registrar;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Synthesise\Repositories\Facades\User;
+use Illuminate\Support\Facades\Hash;
 use Synthesise\Extensions\Contracts\Ldap;
 
-/**
- * @Middleware("guest", except={"getLogout"})
- */
 class AuthController extends Controller {
 
-	/**
-	 * The Guard implementation.
-	 *
-	 * @var Guard
-	 */
-	protected $auth;
+	/*
+	|--------------------------------------------------------------------------
+	| Registration & Login Controller
+	|--------------------------------------------------------------------------
+	|
+	| This controller handles the registration of new users, as well as the
+	| authentication of existing users. By default, this controller uses
+	| a simple trait to add these behaviors. Why don't you explore it?
+	|
+	*/
+	use AuthenticatesAndRegistersUsers;
 
 	/**
 	* The LDAP implementation.
@@ -28,36 +32,25 @@ class AuthController extends Controller {
 	/**
 	 * Create a new authentication controller instance.
 	 *
-	 * @param  Guard  $auth
+	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
+	 * @param  $ldap
 	 * @return void
 	 */
 	public function __construct(Guard $auth, Ldap $ldap)
 	{
 		$this->auth = $auth;
 		$this->ldap = $ldap;
-	}
 
-	/**
-	 * Show the application login form.
-	 *
-	 * @Get("auth/login")
-	 *
-	 * @return Response
-	 */
-	public function getLogin()
-	{
-		return view('auth.login');
+		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
 	/**
 	 * Handle a login request to the application.
 	 *
-	 * @Post("auth/login")
-	 *
 	 * @param  LoginRequest  $request
 	 * @return Response
 	 */
-	public function postLogin(LoginRequest $request)
+	public function postLogin(Requests\Auth\LoginRequest $request)
 	{
     // 1. LDAP Check (-> korrekte Daten)
 	  $credentials = $request->only('username', 'password');
@@ -106,20 +99,6 @@ class AuthController extends Controller {
     {
       return redirect('auth/login')->with('login_errors', true)->withInput();
     }
-	}
-
-	/**
-	 * Log the user out of the application.
-	 *
-	 * @Get("auth/logout")
-	 *
-	 * @return Response
-	 */
-	public function getLogout()
-	{
-		$this->auth->logout();
-
-		return redirect('/');
 	}
 
 }

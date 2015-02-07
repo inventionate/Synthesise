@@ -78,6 +78,7 @@ class MessageRepositoryCest {
        *
        */
       Message::delete(1);
+
       /**
        * Testergebnis auswerten
        *
@@ -109,7 +110,7 @@ class MessageRepositoryCest {
        * Testergebnis auswerten
        *
        */
-      $I->seeRecord('messages',['id' => 2, 'message' => 'Eine neue Nachricht', 'type' => 'warning']);
+      $I->seeRecord('messages',['message' => 'Eine neue Nachricht', 'type' => 'warning']);
     }
 
     /**

@@ -3,15 +3,10 @@
 use Illuminate\Support\Facades\Response;
 use Synthesise\Extensions\Facades\Parser;
 
-/**
- * @Middleware("auth")
- */
 class DownloadController extends Controller {
 
 	/**
 	 * Laden und standardisieren der angeforderten Dateien.
-	 *
-	 * @Get("download/{type}/{file}")
    *
 	 * @param     string $type Dateityp (PDF, JPG,…).
 	 * @param     string $file Dateiname.

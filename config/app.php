@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'debug' => false,
+	'debug' => env('APP_DEBUG'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'de',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => '5s3VSDp6AQBCU3ejvpiOIHW37pNylP3Z',
+	'key' => env('APP_KEY','5s3VSDp6AQBCU3ejvpiOIHW37pNylP3Z'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -111,37 +111,11 @@ return [
 	'providers' => [
 
 		/*
-		 * Application Service Providers...
-		 */
-		'Synthesise\Providers\AppServiceProvider',
-		'Synthesise\Providers\EventServiceProvider',
-		'Synthesise\Providers\RouteServiceProvider',
-
-		/*
-		 * Repositry Service Provider.
-		 */
-		'Synthesise\Providers\RepositoryServiceProvider',
-
-		/*
-		 * Extensions ServiceProvides.
-		 * Kleine Erweiterungsklassen (keine Pakete) registrieren.
-		 *
-		 */
-		'Synthesise\Providers\ExtensionServiceProvider',
-
-		/*
-		 * ServiceProvider für Pakete.
-		 *
-		 */
-		'Jenssegers\Agent\AgentServiceProvider',
-		'Thujohn\Pdf\PdfServiceProvider',
-		'Illuminate\Html\HtmlServiceProvider',
-
-		/*
 		 * Laravel Framework Service Providers...
 		 */
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
+		'Illuminate\Bus\BusServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
 		'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
 		'Illuminate\Routing\ControllerServiceProvider',
@@ -153,6 +127,7 @@ return [
 		'Illuminate\Hashing\HashServiceProvider',
 		'Illuminate\Mail\MailServiceProvider',
 		'Illuminate\Pagination\PaginationServiceProvider',
+		'Illuminate\Pipeline\PipelineServiceProvider',
 		'Illuminate\Queue\QueueServiceProvider',
 		'Illuminate\Redis\RedisServiceProvider',
 		'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
@@ -162,9 +137,20 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 
 		/*
-		 * Testing Service Provider.
+		 * Application Service Providers...
 		 */
-		'Synthesise\Providers\TestingServiceProvider',
+		'Synthesise\Providers\AppServiceProvider',
+		'Synthesise\Providers\BusServiceProvider',
+		'Synthesise\Providers\ConfigServiceProvider',
+		'Synthesise\Providers\EventServiceProvider',
+		'Synthesise\Providers\RouteServiceProvider',
+		'Synthesise\Providers\RepositoryServiceProvider',
+		'Synthesise\Providers\ExtensionServiceProvider',
+
+		/*
+		 * Package Service Providers...
+		 */
+		'Illuminate\Html\HtmlServiceProvider',
 
 	],
 
@@ -198,19 +184,21 @@ return [
 		'Artisan'   => 'Illuminate\Support\Facades\Artisan',
 		'Auth'      => 'Illuminate\Support\Facades\Auth',
 		'Blade'     => 'Illuminate\Support\Facades\Blade',
+		'Bus'       => 'Illuminate\Support\Facades\Bus',
 		'Cache'     => 'Illuminate\Support\Facades\Cache',
 		'Config'    => 'Illuminate\Support\Facades\Config',
 		'Cookie'    => 'Illuminate\Support\Facades\Cookie',
 		'Crypt'     => 'Illuminate\Support\Facades\Crypt',
 		'DB'        => 'Illuminate\Support\Facades\DB',
+		'Eloquent'  => 'Illuminate\Database\Eloquent\Model',
 		'Event'     => 'Illuminate\Support\Facades\Event',
 		'File'      => 'Illuminate\Support\Facades\File',
 		'Hash'      => 'Illuminate\Support\Facades\Hash',
 		'Input'     => 'Illuminate\Support\Facades\Input',
+		'Inspiring' => 'Illuminate\Foundation\Inspiring',
 		'Lang'      => 'Illuminate\Support\Facades\Lang',
 		'Log'       => 'Illuminate\Support\Facades\Log',
 		'Mail'      => 'Illuminate\Support\Facades\Mail',
-		'Paginator' => 'Illuminate\Support\Facades\Paginator',
 		'Password'  => 'Illuminate\Support\Facades\Password',
 		'Queue'     => 'Illuminate\Support\Facades\Queue',
 		'Redirect'  => 'Illuminate\Support\Facades\Redirect',
@@ -220,13 +208,13 @@ return [
 		'Route'     => 'Illuminate\Support\Facades\Route',
 		'Schema'    => 'Illuminate\Support\Facades\Schema',
 		'Session'   => 'Illuminate\Support\Facades\Session',
+		'Storage'   => 'Illuminate\Support\Facades\Storage',
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
 		/*
-		 * Repositories Facades.
-		 *
+		 * Repositories Facades...
 		 */
 		'FAQ'				=> 'Synthesise\Repositories\Facades\Faq',
 		'Note'			=> 'Synthesise\Repositories\Facades\Note',
@@ -235,8 +223,7 @@ return [
 		'Message'		=> 'Synthesise\Repositories\Facades\Message',
 
 		/*
-		 * Extensions Facades.
-		 *
+		 * Extensions Facades...
 		 */
 		'LDAP'			=> 'Synthesise\Extensions\Facades\Ldap',
 		'Parser'		=> 'Synthesise\Extensions\Facades\Parser',
@@ -244,9 +231,8 @@ return [
 		'Analytics'	=> 'Synthesise\Extensions\Facades\Analytics',
 
 		/**
-		* Facades für Pakete.
-		*
-		*/
+		 * Package Facades...
+		 */
 		'Agent'     => 'Jenssegers\Agent\Facades\Agent',
 		'PDF' 			=> 'Thujohn\Pdf\PdfFacade',
 		'Form'			=> 'Illuminate\Html\FormFacade'
