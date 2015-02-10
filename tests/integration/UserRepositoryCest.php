@@ -9,21 +9,21 @@ class UserRepositoryCest
    *
    * @var     array
    */
-  protected $dummyUser;
+  protected $userAttributes;
 
   /**
    * Ein fiktiver Cuepoint.
    *
    * @var     array
    */
-  protected $dummyCuepoint;
+  protected $cuepointAttributes;
 
   /**
    * Eine fiktiver Notiz.
    *
    * @var     array
    */
-  protected $dummyNote;
+  protected $noteAttributes;
 
   /**
    * Bereitet die virtuelle Datenbank und virtuelle E-Mails vor.
@@ -34,10 +34,9 @@ class UserRepositoryCest
    */
   public function _before()
   {
-      TestCommons::prepareLaravel();
-      $this->dummyUser = TestCommons::dummyUser();
-      $this->dummyCuepoint = TestCommons::dummyCuepoint();
-      $this->dummyNote = TestCommons::dummyNote();
+      $this->userAttributes = TestCommons::$userAttributes;
+      $this->cuepointAttributes = TestCommons::$cuepointAttributes;
+      $this->noteAttributes = TestCommons::$noteAttributes;
   }
 
   /**
@@ -49,9 +48,9 @@ class UserRepositoryCest
     $I->wantTo('find a user by username');
 
     // Beispieldatensatz generieren
-    $this->dummyUser['username'] = 'otard';
-    $this->dummyUser['firstname'] = 'Baron';
-    $I->haveRecord('users', $this->dummyUser);
+    $this->userAttributes['username'] = 'otard';
+    $this->userAttributes['firstname'] = 'Baron';
+    $I->haveRecord('users', $this->userAttributes);
 
     // Methode aufrufen
     $user = User::findByUsername('otard');
@@ -68,19 +67,19 @@ class UserRepositoryCest
   {
     $I->wantTo('create a HTML output of a note');
     // Beispieldatensatz generieren
-    $this->dummyUser['id'] = 1;
-    $I->haveRecord('users', $this->dummyUser);
+    $this->userAttributes['id'] = 1;
+    $I->haveRecord('users', $this->userAttributes);
 
-    $this->dummyCuepoint['id'] = 1;
-    $this->dummyCuepoint['content'] = 'Fähnchen 1';
-    $this->dummyCuepoint['video_videoname'] = 'Sozialgeschichte 1';
-    $I->haveRecord('cuepoints', $this->dummyCuepoint);
+    $this->cuepointAttributes['id'] = 1;
+    $this->cuepointAttributes['content'] = 'Fähnchen 1';
+    $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('cuepoints', $this->cuepointAttributes);
 
-    $this->dummyNote['user_id'] = 1;
-    $this->dummyNote['cuepoint_id'] = 1;
-    $this->dummyNote['note'] = Crypt::encrypt('Erste Notiz.');
-    $this->dummyNote['video_videoname'] = 'Sozialgeschichte 1';
-    $I->haveRecord('notes', $this->dummyNote);
+    $this->noteAttributes['user_id'] = 1;
+    $this->noteAttributes['cuepoint_id'] = 1;
+    $this->noteAttributes['note'] = Crypt::encrypt('Erste Notiz.');
+    $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('notes', $this->noteAttributes);
 
     // Methode aufrufen
     $usernotes = User::getAllNotes('1','Sozialgeschichte 1');
@@ -103,40 +102,40 @@ class UserRepositoryCest
     $I->wantTo('Get an ordered HTML output of all notes');
 
     // Beispieldatensatz generieren
-    $this->dummyUser['id'] = 1;
-    $I->haveRecord('users', $this->dummyUser);
+    $this->userAttributes['id'] = 1;
+    $I->haveRecord('users', $this->userAttributes);
 
-    $this->dummyCuepoint['id'] = 1;
-    $this->dummyCuepoint['content'] = 'Fähnchen 1';
-    $this->dummyCuepoint['video_videoname'] = 'Sozialgeschichte 1';
-    $I->haveRecord('cuepoints', $this->dummyCuepoint);
-    $this->dummyCuepoint['id'] = 2;
-    $this->dummyCuepoint['content'] = 'Fähnchen 2';
-    $this->dummyCuepoint['video_videoname'] = 'Sozialgeschichte 1';
-    $I->haveRecord('cuepoints', $this->dummyCuepoint);
-    $this->dummyCuepoint['id'] = 3;
-    $this->dummyCuepoint['content'] = 'Fähnchen 3';
-    $this->dummyCuepoint['video_videoname'] = 'Sozialgeschichte 1';
-    $I->haveRecord('cuepoints', $this->dummyCuepoint);
+    $this->cuepointAttributes['id'] = 1;
+    $this->cuepointAttributes['content'] = 'Fähnchen 1';
+    $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('cuepoints', $this->cuepointAttributes);
+    $this->cuepointAttributes['id'] = 2;
+    $this->cuepointAttributes['content'] = 'Fähnchen 2';
+    $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('cuepoints', $this->cuepointAttributes);
+    $this->cuepointAttributes['id'] = 3;
+    $this->cuepointAttributes['content'] = 'Fähnchen 3';
+    $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('cuepoints', $this->cuepointAttributes);
 
-    $this->dummyNote['id'] = 1;
-    $this->dummyNote['user_id'] = 1;
-    $this->dummyNote['cuepoint_id'] = 1;
-    $this->dummyNote['note'] = Crypt::encrypt('Erster Cuepoint.');
-    $this->dummyNote['video_videoname'] = 'Sozialgeschichte 1';
-    $I->haveRecord('notes', $this->dummyNote);
-    $this->dummyNote['id'] = 2;
-    $this->dummyNote['user_id'] = 1;
-    $this->dummyNote['cuepoint_id'] = 3;
-    $this->dummyNote['note'] = Crypt::encrypt('Dritter Cuepoint.');
-    $this->dummyNote['video_videoname'] = 'Sozialgeschichte 1';
-    $I->haveRecord('notes', $this->dummyNote);
-    $this->dummyNote['id'] = 3;
-    $this->dummyNote['user_id'] = 1;
-    $this->dummyNote['cuepoint_id'] = 2;
-    $this->dummyNote['note'] = Crypt::encrypt('Zweiter Cuepoint.');
-    $this->dummyNote['video_videoname'] = 'Sozialgeschichte 1';
-    $I->haveRecord('notes', $this->dummyNote);
+    $this->noteAttributes['id'] = 1;
+    $this->noteAttributes['user_id'] = 1;
+    $this->noteAttributes['cuepoint_id'] = 1;
+    $this->noteAttributes['note'] = Crypt::encrypt('Erster Cuepoint.');
+    $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('notes', $this->noteAttributes);
+    $this->noteAttributes['id'] = 2;
+    $this->noteAttributes['user_id'] = 1;
+    $this->noteAttributes['cuepoint_id'] = 3;
+    $this->noteAttributes['note'] = Crypt::encrypt('Dritter Cuepoint.');
+    $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('notes', $this->noteAttributes);
+    $this->noteAttributes['id'] = 3;
+    $this->noteAttributes['user_id'] = 1;
+    $this->noteAttributes['cuepoint_id'] = 2;
+    $this->noteAttributes['note'] = Crypt::encrypt('Zweiter Cuepoint.');
+    $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('notes', $this->noteAttributes);
 
     // Methode aufrufen
     $usernotes = User::getAllNotes('1','Sozialgeschichte 1');
@@ -159,47 +158,57 @@ class UserRepositoryCest
     $I->wantTo('get username of authenticated user');
 
     // ARRANGE
-    $this->dummyUser['id'] = 1;
-    $this->dummyUser['username'] = 'dark';
-    $this->dummyUser['firstname'] = 'Darth';
-    $this->dummyUser['lastname'] = 'Vader';
-    $this->dummyUser['password'] = Hash::make('Deathstar');
-    $I->haveRecord('users', $this->dummyUser);
+    $this->userAttributes['id'] = 1;
+    $this->userAttributes['username'] = 'dark';
+    $this->userAttributes['firstname'] = 'Darth';
+    $this->userAttributes['lastname'] = 'Vader';
+    $this->userAttributes['password'] = Hash::make('Deathstar');
+    $I->haveRecord('users', $this->userAttributes);
 
     // Benutzer authentifizieren
+    $I->dontSeeAuthentication();
     $I->amLoggedAs(['username' => 'dark', 'password' => 'Deathstar']);
+    $I->seeAuthentication();
 
     // ACT
     $username = User::getUsername();
 
     // ASSERT
-    // $I->AssertEquals($username, 'Darth Vader');
+    $I->AssertEquals($username, 'Darth Vader');
+
+    $I->logout();
+    $I->dontSeeAuthentication();
   }
 
   /**
    * Testet die Abfrage der E-Mail.
    *
    */
-  // public function testGetEmail(IntegrationTester $I)
-  // {
-  //   $I->wantTo('get the e-mail of the authenticated user');
-  //
-  //   // ARRANGE
-  //   $this->dummyUser['id'] = 1;
-  //   $this->dummyUser['username'] = 'dark01ka';
-  //   $this->dummyUser['firstname'] = 'Darth';
-  //   $this->dummyUser['lastname'] = 'Vader';
-  //   $this->dummyUser['password'] = Hash::make('Deathstar');
-  //   $I->haveRecord('users', $this->dummyUser);
-  //
-  //   // Benutzer authentifizieren
-  //   $I->amLoggedAs(['username' => 'dark01ka', 'password' => 'Deathstar']);
-  //
-  //   // ACT
-  //   $username = User::getEmail();
-  //
-  //   // ASSERT
-  //   $I->AssertEquals($username, 'dark01@ph-karlsruhe.de');
-  // }
+  public function testGetEmail(IntegrationTester $I)
+  {
+    $I->wantTo('get the e-mail of the authenticated user');
+
+    // ARRANGE
+    $this->userAttributes['id'] = 1;
+    $this->userAttributes['username'] = 'dark01ka';
+    $this->userAttributes['firstname'] = 'Darth';
+    $this->userAttributes['lastname'] = 'Vader';
+    $this->userAttributes['password'] = Hash::make('Deathstar');
+    $I->haveRecord('users', $this->userAttributes);
+
+    // Benutzer authentifizieren
+    $I->dontSeeAuthentication();
+    $I->amLoggedAs(['username' => 'dark01ka', 'password' => 'Deathstar']);
+    $I->seeAuthentication();
+
+    // ACT
+    $username = User::getEmail();
+
+    // ASSERT
+    $I->AssertEquals($username, 'dark01@ph-karlsruhe.de');
+
+    $I->logout();
+    $I->dontSeeAuthentication();
+  }
 
 }

@@ -16,3 +16,5 @@ $kernel->loadFile(__DIR__.'/../bootstrap/autoload.php'); // path to your autoloa
 // Refactoring Test Commons
 
 require_once __DIR__.'/commons/TestCommons.php';
+
+require_once __DIR__.'/_data/TestDatabaseSeeder.php';

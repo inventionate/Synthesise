@@ -10,12 +10,19 @@ class LectionCest {
    * Danach wird der Standardaccount für Studenten eingeloggt.
    *
    */
-  public function _before(FunctionalTester $I)
-  {
-    TestCommons::prepareLaravel();
-    TestCommons::dbSeed();
-    $I->loggedInAsStudent($I);
-  }
+   public function _before(FunctionalTester $I)
+   {
+     $I->seedDatabase($I);
+     $I->dontSeeAuthentication();
+     $I->loggedInAsStudent($I);
+   }
+
+   public function _after(FunctionTester $I)
+   {
+     $I->seeAuthentication();
+     $I->logout();
+     $I->dontSeeAuthentication();
+   }
 
   public function loadCuepoints(FunctionalTester $I)
 	{
