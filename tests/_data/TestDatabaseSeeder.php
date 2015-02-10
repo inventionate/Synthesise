@@ -131,4 +131,119 @@ class TestDatabaseSeeder {
     $I->haveRecord('faqs', $this->faqAttributes);
   }
 
+  /**
+   * Beispiel-Messages generieren.
+   *
+   * @param     FunctionalTester $I
+   */
+  public function seedMessages(FunctionalTester $I)
+  {
+    $this->messageAttributes['id'] = 1;
+    $this->messageAttributes['message'] = 'Das ist eine normale Informationsnachricht.';
+    $this->messageAttributes['type'] = 'info';
+    $I->haveRecord('messages', $this->messageAttributes);
+
+    $this->messageAttributes['id'] = 2;
+    $this->messageAttributes['message'] = 'Das ist eine warnende Informationsnachricht.';
+    $this->messageAttributes['type'] = 'warning';
+    $I->haveRecord('messages', $this->messageAttributes);
+
+    $this->messageAttributes['id'] = 3;
+    $this->messageAttributes['message'] = 'Das ist eine kritische Informationsnachricht.';
+    $this->messageAttributes['type'] = 'danger';
+    $I->haveRecord('messages', $this->messageAttributes);
+  }
+
+  /**
+   * Beispiel-Notes generieren.
+   *
+   * @param     FunctionalTester $I
+   */
+  public function seedNotes(FunctionalTester $I)
+  {
+    $this->noteAttributes['id'] = 1;
+    $this->noteAttributes['note'] = Crypt::encrypt('Das ist die ERSTE Notiz.');
+    $this->noteAttributes['user_id'] = 1;
+    $this->noteAttributes['cuepoint_id'] = 1;
+    $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('notes', $this->noteAttributes);
+
+    $this->noteAttributes['id'] = 2;
+    $this->noteAttributes['note'] = Crypt::encrypt('Das ist die ZWEITE Notiz.');
+    $this->noteAttributes['user_id'] = 1;
+    $this->noteAttributes['cuepoint_id'] = 2;
+    $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('notes', $this->noteAttributes);
+
+    $this->noteAttributes['id'] = 3;
+    $this->noteAttributes['note'] = Crypt::encrypt('Das ist die DRITTE Notiz.');
+    $this->noteAttributes['user_id'] = 2;
+    $this->noteAttributes['cuepoint_id'] = 1;
+    $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('notes', $this->noteAttributes);
+  }
+
+  /**
+   * Beispiel-Papers generieren.
+   *
+   * @param     FunctionalTester $I
+   */
+  public function seedPapers(FunctionalTester $I)
+  {
+    $this->paperAttributes['id'] = 1;
+    $this->paperAttributes['papername'] = Crypt::encrypt('Zeit-Raum Studium!');
+    $this->paperAttributes['author'] = 'Fabian Mundt';
+    $this->paperAttributes['video_videoname'] = 'Sozialgeschichte 1';
+    $I->haveRecord('papers', $this->paperAttributes);
+  }
+
+  /**
+   * Beispiel-Videos generieren.
+   *
+   * @param     FunctionalTester $I
+   */
+  public function seedVideos(FunctionalTester $I)
+  {
+    $this->videoAttributes['id'] = 1;
+    $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
+    $this->videoAttributes['section'] = 'Sozialgeschichte der Menschheit';
+    $this->videoAttributes['author'] = 'Will Turner';
+    $this->videoAttributes['online'] = '0';
+    $this->videoAttributes['available_from'] = '2000-09-10';
+    $this->videoAttributes['available_to'] = '3000-02-08';
+    $I->haveRecord('videos', $this->videoAttributes);
+  }
+
+  /**
+   * Beispiel-User generieren.
+   *
+   * @param     FunctionalTester $I
+   */
+  public function seedUsers(FunctionalTester $I)
+  {
+    $this->userAttributes['id'] = 1;
+    $this->userAttributes['username'] = 'studentka';
+    $this->userAttributes['password'] = Hash::make('Zelda');
+    $this->userAttributes['firstname'] = 'Test';
+    $this->userAttributes['lastname'] = 'Student';
+    $this->userAttributes['role'] = 'Student';
+    $I->haveRecord('users', $this->userAttributes);
+
+    $this->userAttributes['id'] = 2;
+    $this->userAttributes['username'] = 'teacherka';
+    $this->userAttributes['password'] = Hash::make('Hyrule');
+    $this->userAttributes['firstname'] = 'Test';
+    $this->userAttributes['lastname'] = 'Teacher';
+    $this->userAttributes['role'] = 'Teacher';
+    $I->haveRecord('users', $this->userAttributes);
+
+    $this->userAttributes['id'] = 3;
+    $this->userAttributes['username'] = 'adminka';
+    $this->userAttributes['password'] = Hash::make('Link');
+    $this->userAttributes['firstname'] = 'Test';
+    $this->userAttributes['lastname'] = 'Admin';
+    $this->userAttributes['role'] = 'Admin';
+    $I->haveRecord('users', $this->userAttributes);
+  }
+
 }

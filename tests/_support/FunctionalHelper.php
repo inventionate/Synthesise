@@ -69,6 +69,11 @@ class FunctionalHelper extends \Codeception\Module {
   {
     $this->Data->seedCuepoints($I);
     $this->Data->seedFaqs($I);
+    $this->Data->seedMessages($I);
+    $this->Data->seedNotes($I);
+    $this->Data->seedPapers($I);
+    $this->Data->seedUsers($I);
+    $this->Data->seedVideos($I);
   }
 
 }
