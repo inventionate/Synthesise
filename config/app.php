@@ -151,8 +151,8 @@ return [
 		 * Package Service Providers...
 		 */
 		'Illuminate\Html\HtmlServiceProvider',
+		'Barryvdh\DomPDF\ServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
-		// 'Thujohn\Pdf\PdfServiceProvider',
 
 	],
 
@@ -235,9 +235,9 @@ return [
 		/**
 		 * Package Facades...
 		 */
+		'PDF' 			=> 'Barryvdh\DomPDF\Facade',
 		'Agent'     => 'Jenssegers\Agent\Facades\Agent',
-		'PDF' 			=> 'Thujohn\Pdf\PdfFacade',
-		'Form'			=> 'Illuminate\Html\FormFacade'
+		'Form'			=> 'Illuminate\Html\FormFacade',
 
 	]
 

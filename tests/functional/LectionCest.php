@@ -79,14 +79,14 @@ class LectionCest {
 		// Note öffnen
 		$I->amOnPage('/online-lektionen/Sozialgeschichte%201');
 		$I->sendAjaxGetRequest('/online-lektionen/Sozialgeschichte%201/getnotes', ['cuepointNumber' => 'fp-cuepoint fp-cuepoint0']);
-		$I->see('Das ist die ERSTE Notiz.');
+    $I->see('Das ist die ERSTE Notiz.');
 
-    $token = $I->grabValueFrom('#videoplayer.col-md-12 section#notes form input');
 		// Note verändern
-		$I->sendAjaxPostRequest('/online-lektionen/Sozialgeschichte%201/postnotes',
-    ['note' => 'Das ist die VERAENDERTE Notiz.', 'cuepointNumber' => 'fp-cuepoint fp-cuepoint0']);
+    $token = $I->grabValueFrom('#videoplayer.col-md-12 section#notes form input');
+    $I->sendAjaxPostRequest('/online-lektionen/Sozialgeschichte%201/postnotes', ['note' => 'Das ist die VERAENDERTE Notiz.', 'cuepointNumber' => 'fp-cuepoint fp-cuepoint0', '_token' => $token]);
 
 		// Veränderte Note ansehen
+    $I->sendAjaxGetRequest('/online-lektionen/Sozialgeschichte%201/getnotes', ['cuepointNumber' => 'fp-cuepoint fp-cuepoint0']);
 		$I->see('Das ist die VERAENDERTE Notiz.');
 	}
 

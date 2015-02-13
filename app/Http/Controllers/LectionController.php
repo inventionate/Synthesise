@@ -8,7 +8,7 @@ use Synthesise\Repositories\Facades\User;
 use Synthesise\Repositories\Facades\Video;
 use Synthesise\Repositories\Facades\Note;
 use Synthesise\Extensions\Facades\Parser;
-use Thujohn\Pdf\PdfFacade as PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class LectionController extends Controller {
 
@@ -86,20 +86,7 @@ class LectionController extends Controller {
 	{
     $videoname = urldecode($videoname);
 		$allnotes = User::getAllNotes(Auth::user()->id, $videoname);
-		return PDF::load($allnotes, 'A4', 'portrait')->download('Meine Notizen für ' . $videoname);
-	}
-
-	/**
-	 * Flagnames (Fähnchen) für die Lektion als PDF anzeigen.
-	 *
-	 * @param     string $videoname
-	 * @return    PDF
-	 */
-	public function getFlagnamesPDF($videoname)
-	{
-	  $videoname = urldecode($videoname);
-    $allflagnames = Video::getAllFlagnames($videoname);
-		return PDF::load($allflagnames, 'A4', 'portrait')->download('Die Fähnchen für ' . $videoname);
+		return PDF::loadHTML($allnotes)->setPaper('a4')->setWarnings(false)->download('Meine Notizen für ' . $videoname);
 	}
 
 	/**
@@ -159,7 +146,6 @@ class LectionController extends Controller {
 			$cuepointId = $this->currentCuepoint($videoname, $request->cuepointNumber);
 			// Geänderter oder neuer Inhalt abfragen
 			$noteupdate = $request->note;
-			dd($noteupdate);
 			// Note updaten
 			Note::updateContent($noteupdate,Auth::user()->id,$cuepointId,$videoname);
 			// Erfolg zurückmelden
