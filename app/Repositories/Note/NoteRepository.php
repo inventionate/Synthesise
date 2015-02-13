@@ -1,7 +1,6 @@
 <?php namespace Synthesise\Repositories\Note;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Support\Facades\Crypt;
 
 /**

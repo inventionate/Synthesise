@@ -159,6 +159,7 @@ class LectionController extends Controller {
 			$cuepointId = $this->currentCuepoint($videoname, $request->cuepointNumber);
 			// Geänderter oder neuer Inhalt abfragen
 			$noteupdate = $request->note;
+			dd($noteupdate);
 			// Note updaten
 			Note::updateContent($noteupdate,Auth::user()->id,$cuepointId,$videoname);
 			// Erfolg zurückmelden

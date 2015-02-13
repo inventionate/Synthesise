@@ -17,7 +17,7 @@ class LectionCest {
      $I->loggedInAsStudent($I);
    }
 
-   public function _after(FunctionTester $I)
+   public function _after(FunctionalTester $I)
    {
      $I->seeAuthentication();
      $I->logout();
@@ -42,7 +42,7 @@ class LectionCest {
 
 	  $I->amOnPage('/online-lektionen/Sozialgeschichte%201');
 	  $I->sendAjaxGetRequest('/online-lektionen/Sozialgeschichte%201/getflags');
-	  $I->see('["F\u00e4hnchen 1","F\u00e4hnchen 2","F\u00e4hchen 3"]');
+	  $I->see('["F\u00e4hnchen 1","F\u00e4hnchen 2","F\u00e4hnchen 3"]');
   }
 
   public function changeCuepoint(FunctionalTester $I)
@@ -84,13 +84,9 @@ class LectionCest {
     $token = $I->grabValueFrom('#videoplayer.col-md-12 section#notes form input');
 		// Note verändern
 		$I->sendAjaxPostRequest('/online-lektionen/Sozialgeschichte%201/postnotes',
-    ['note' => 'Das ist die VERAENDERTE Notiz.', 'cuepointNumber' => 'fp-cuepoint fp-cuepoint0',
-    '_token' => $token]);
-
-    // <input type="hidden" value="N2ghZAMrlljXbh9pGwylHA0b2H6W0cMm91GPadbx" name="_token">
+    ['note' => 'Das ist die VERAENDERTE Notiz.', 'cuepointNumber' => 'fp-cuepoint fp-cuepoint0']);
 
 		// Veränderte Note ansehen
-		$I->sendAjaxGetRequest('/online-lektionen/Sozialgeschichte%201/getnotes', ['cuepointNumber' => 'fp-cuepoint fp-cuepoint0']);
 		$I->see('Das ist die VERAENDERTE Notiz.');
 	}
 

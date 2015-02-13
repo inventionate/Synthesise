@@ -15,9 +15,8 @@ class AuthCest {
     $I->dontSeeAuthentication();
   }
 
-  public function _after(FunctionTester $I)
+  public function _after(FunctionalTester $I)
   {
-    $I->seeAuthentication();
     $I->logout();
     $I->dontSeeAuthentication();
   }
@@ -35,7 +34,6 @@ class AuthCest {
     $I->fillField('#username','luke');
     $I->fillField('#password','pw');
     $I->click('Anmelden','#login');
-    $I->seeAuthentication();
 
     $I->seeCurrentUrlEquals('/auth/login');
     $I->seeElement('.form-group.has-error');

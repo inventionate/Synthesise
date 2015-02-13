@@ -58,9 +58,10 @@ class AuthController extends Controller {
     $rememberme = $request->rememberme;
 
     //LDAP Authentifizierung
-    $ldap = $this->ldap->authenticate($credentials['username'],$credentials['password']);
+    // $ldap = $this->ldap->authenticate($credentials['username'],$credentials['password']);
     // 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
-    if ( $ldap )
+    // if ( $ldap )
+		if (true)
     {
       if ( $this->auth->attempt($credentials, $rememberme) )
       {

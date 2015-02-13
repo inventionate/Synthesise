@@ -151,6 +151,8 @@ return [
 		 * Package Service Providers...
 		 */
 		'Illuminate\Html\HtmlServiceProvider',
+		'Jenssegers\Agent\AgentServiceProvider',
+		// 'Thujohn\Pdf\PdfServiceProvider',
 
 	],
 

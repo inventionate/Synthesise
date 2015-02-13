@@ -2,8 +2,8 @@
 
 use Synthesise\Http\Requests\FeedbackRequest;
 use Synthesise\Http\Requests\SupportRequest;
-use Illuminate\Support\Facades\Mail;
 use Synthesise\Repositories\Facades\User;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller {
 

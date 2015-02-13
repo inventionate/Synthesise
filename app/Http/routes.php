@@ -81,7 +81,6 @@ Route::group(['middleware' => 'auth'], function()
 	// Ajax POST NOTES
 
 	Route::post('online-lektionen/{videoname}/postnotes', [
-	'middleware' => 'csrf',
 	'uses' => 'LectionController@postNotes'
 	]);
 
@@ -97,9 +96,12 @@ Route::group(['middleware' => 'auth'], function()
 	  'uses' => 'ContactController@index'
 	]);
 
-	Route::post('kontakt/{send}', [
-	  'middleware' => 'csrf',
-	  'uses' => 'ContactController@send'
+	Route::post('kontakt/feedback', [
+	  'uses' => 'ContactController@sendFeedback'
+	]);
+
+	Route::post('kontakt/support', [
+		'uses' => 'ContactController@sendSupport'
 	]);
 
 	// ANALYTICS

@@ -16,7 +16,7 @@ class DashboardCest {
      $I->dontSeeAuthentication();
    }
 
-   public function _after(FunctionTester $I)
+   public function _after(FunctionalTester $I)
    {
      $I->seeAuthentication();
      $I->logout();

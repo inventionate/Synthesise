@@ -162,21 +162,21 @@ class TestDatabaseSeeder {
   public function seedNotes(FunctionalTester $I)
   {
     $this->noteAttributes['id'] = 1;
-    $this->noteAttributes['note'] = Crypt::encrypt('Das ist die ERSTE Notiz.');
+    $this->noteAttributes['note'] = 'Das ist die ERSTE Notiz.';
     $this->noteAttributes['user_id'] = 1;
     $this->noteAttributes['cuepoint_id'] = 1;
     $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
     $I->haveRecord('notes', $this->noteAttributes);
 
     $this->noteAttributes['id'] = 2;
-    $this->noteAttributes['note'] = Crypt::encrypt('Das ist die ZWEITE Notiz.');
+    $this->noteAttributes['note'] = 'Das ist die ZWEITE Notiz.';
     $this->noteAttributes['user_id'] = 1;
     $this->noteAttributes['cuepoint_id'] = 2;
     $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
     $I->haveRecord('notes', $this->noteAttributes);
 
     $this->noteAttributes['id'] = 3;
-    $this->noteAttributes['note'] = Crypt::encrypt('Das ist die DRITTE Notiz.');
+    $this->noteAttributes['note'] = 'Das ist die DRITTE Notiz.';
     $this->noteAttributes['user_id'] = 2;
     $this->noteAttributes['cuepoint_id'] = 1;
     $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
@@ -191,7 +191,7 @@ class TestDatabaseSeeder {
   public function seedPapers(FunctionalTester $I)
   {
     $this->paperAttributes['id'] = 1;
-    $this->paperAttributes['papername'] = Crypt::encrypt('Zeit-Raum Studium!');
+    $this->paperAttributes['papername'] = 'Zeit-Raum Studium!';
     $this->paperAttributes['author'] = 'Fabian Mundt';
     $this->paperAttributes['video_videoname'] = 'Sozialgeschichte 1';
     $I->haveRecord('papers', $this->paperAttributes);
