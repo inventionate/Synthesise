@@ -1,7 +1,6 @@
 <?php namespace Synthesise\Repositories\Note;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Support\Facades\Crypt;
 
 /**
@@ -72,7 +71,6 @@ class NoteRepository implements NoteInterface
   {
 
     $noteId = self::getNoteId($userId,$cuepointId);
-
     // Abfragen ob Note existiert
     if(empty($noteId))
     {

@@ -5,8 +5,6 @@ class ImprintController extends Controller {
 	/**
 	 * Impressum anzeigen.
 	 *
-	 * @Get("impressum", as="imprint")
-	 *
 	 * @return    View
 	 */
 	public function index()

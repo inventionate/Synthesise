@@ -10,12 +10,19 @@ class LectionCest {
    * Danach wird der Standardaccount für Studenten eingeloggt.
    *
    */
-  public function _before(FunctionalTester $I)
-  {
-    TestCommons::prepareLaravel();
-    TestCommons::dbSeed();
-    $I->loggedInAsStudent($I);
-  }
+   public function _before(FunctionalTester $I)
+   {
+     $I->seedDatabase($I);
+     $I->dontSeeAuthentication();
+     $I->loggedInAsStudent($I);
+   }
+
+   public function _after(FunctionalTester $I)
+   {
+     $I->seeAuthentication();
+     $I->logout();
+     $I->dontSeeAuthentication();
+   }
 
   public function loadCuepoints(FunctionalTester $I)
 	{
@@ -35,7 +42,7 @@ class LectionCest {
 
 	  $I->amOnPage('/online-lektionen/Sozialgeschichte%201');
 	  $I->sendAjaxGetRequest('/online-lektionen/Sozialgeschichte%201/getflags');
-	  $I->see('["F\u00e4hnchen 1","F\u00e4hnchen 2","F\u00e4hchen 3"]');
+	  $I->see('["F\u00e4hnchen 1","F\u00e4hnchen 2","F\u00e4hnchen 3"]');
   }
 
   public function changeCuepoint(FunctionalTester $I)
@@ -72,18 +79,14 @@ class LectionCest {
 		// Note öffnen
 		$I->amOnPage('/online-lektionen/Sozialgeschichte%201');
 		$I->sendAjaxGetRequest('/online-lektionen/Sozialgeschichte%201/getnotes', ['cuepointNumber' => 'fp-cuepoint fp-cuepoint0']);
-		$I->see('Das ist die ERSTE Notiz.');
+    $I->see('Das ist die ERSTE Notiz.');
 
-    $token = $I->grabValueFrom('#videoplayer.col-md-12 section#notes form input');
 		// Note verändern
-		$I->sendAjaxPostRequest('/online-lektionen/Sozialgeschichte%201/postnotes',
-    ['note' => 'Das ist die VERAENDERTE Notiz.', 'cuepointNumber' => 'fp-cuepoint fp-cuepoint0',
-    '_token' => $token]);
-
-    // <input type="hidden" value="N2ghZAMrlljXbh9pGwylHA0b2H6W0cMm91GPadbx" name="_token">
+    $token = $I->grabValueFrom('#videoplayer.col-md-12 section#notes form input');
+    $I->sendAjaxPostRequest('/online-lektionen/Sozialgeschichte%201/postnotes', ['note' => 'Das ist die VERAENDERTE Notiz.', 'cuepointNumber' => 'fp-cuepoint fp-cuepoint0', '_token' => $token]);
 
 		// Veränderte Note ansehen
-		$I->sendAjaxGetRequest('/online-lektionen/Sozialgeschichte%201/getnotes', ['cuepointNumber' => 'fp-cuepoint fp-cuepoint0']);
+    $I->sendAjaxGetRequest('/online-lektionen/Sozialgeschichte%201/getnotes', ['cuepointNumber' => 'fp-cuepoint fp-cuepoint0']);
 		$I->see('Das ist die VERAENDERTE Notiz.');
 	}
 

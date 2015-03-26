@@ -2,15 +2,10 @@
 
 use Synthesise\Extensions\Facades\Analytics;
 
-/**
- * @Middleware("auth")
- */
 class AnalyticsController extends Controller {
 
 	/**
 	* Zeigt die Analytics an.
-	*
-	* @Get("analytics")
 	*
 	* @return View
 	*/

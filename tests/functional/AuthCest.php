@@ -9,15 +9,16 @@ class AuthCest {
    * setzt die E-Mail auf 'pretend' um sie in der Logfile zu verzeichnen.
    *
    */
-  public function _before()
+  public function _before(FunctionalTester $I)
   {
-    TestCommons::prepareLaravel();
-    TestCommons::dbSeed();
+    $I->seedDatabase($I);
+    $I->dontSeeAuthentication();
   }
 
   public function _after(FunctionalTester $I)
   {
     $I->logout();
+    $I->dontSeeAuthentication();
   }
 
   public function testLoginError(FunctionalTester $I)
@@ -51,6 +52,7 @@ class AuthCest {
     $I->fillField('#username','studentka');
     $I->fillField('#password','Zelda');
     $I->click('Anmelden','#login');
+    $I->seeAuthentication();
 
     $I->seeCurrentUrlEquals('');
     $I->see('Dashboard','h1');

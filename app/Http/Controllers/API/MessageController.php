@@ -5,10 +5,6 @@ use Illuminate\Http\Request;
 use Synthesise\Http\Requests\MessageRequest;
 use Synthesise\Repositories\Facades\Message;
 
-/**
- * @Resource("api/v1/messages", except={"create", "show", "edit"})
- * @Middleware("auth.basic")
- */
 class MessageController extends Controller {
 
 	/**

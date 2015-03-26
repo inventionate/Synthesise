@@ -2,18 +2,13 @@
 
 use Synthesise\Http\Requests\FeedbackRequest;
 use Synthesise\Http\Requests\SupportRequest;
-use Illuminate\Support\Facades\Mail;
 use Synthesise\Repositories\Facades\User;
+use Illuminate\Support\Facades\Mail;
 
-/**
- * @Middleware("auth")
- */
 class ContactController extends Controller {
 
 	/**
 	 * Kontaktformulare anzeigen.
-	 *
-	 * @Get("kontakt", as="kontakt")
 	 *
 	 * @return View
 	 */
@@ -24,8 +19,6 @@ class ContactController extends Controller {
 
 	/**
 	 * Eine Kontaktnachricht senden.
-	 *
-	 * @Post("kontakt/feedback")
 	 *
 	 * @return    Redirect
 	 */
@@ -49,8 +42,6 @@ class ContactController extends Controller {
 
 	/**
 	* Eine Supportnachricht senden.
-	*
-	* @Post("kontakt/support")
 	*
 	* @return    Redirect
 	*/

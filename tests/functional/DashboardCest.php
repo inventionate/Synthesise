@@ -10,11 +10,18 @@ class DashboardCest {
    * Danach wird der Standardaccount für Studenten eingeloggt.
    *
    */
-  public function _before(FunctionalTester $I)
-  {
-    TestCommons::prepareLaravel();
-    TestCommons::dbSeed();
-  }
+   public function _before(FunctionalTester $I)
+   {
+     $I->seedDatabase($I);
+     $I->dontSeeAuthentication();
+   }
+
+   public function _after(FunctionalTester $I)
+   {
+     $I->seeAuthentication();
+     $I->logout();
+     $I->dontSeeAuthentication();
+   }
 
   public function testSeeDashboardPartials(FunctionalTester $I)
   {

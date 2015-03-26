@@ -3,11 +3,8 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Contracts\Routing\Middleware;
 
-//use Illuminate\Support\Facades\Auth;
-
-class IsAdmin implements Middleware {
+class IsAdmin {
 
 	/**
 	* The Guard implementation.

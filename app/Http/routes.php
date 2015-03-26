@@ -1,12 +1,13 @@
 <?php
 
-/*------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
 | Application Routes
-|-------------------------------------------------------------------------------
+|--------------------------------------------------------------------------
 |
 | Here is where you can register all of the routes for an application.
 | It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
+| and give it the controller to call when that URI is requested.
 |
 */
 
@@ -16,45 +17,13 @@
 |-------------------------------------------------------------------------------
 */
 
-// Anmeldeformular
-
-$router->get('login', [
-
-	'as' => 'login',
-
-	'middleware' => 'guest',
-
-	'uses' => 'Synthesise\Http\Controllers\AuthController@index'
-
-]);
-
-
-
-// Anmelden
-
-$router->post('login', [
-
-	'middleware' => 'csrf',
-
-	'uses' => 'Synthesise\Http\Controllers\AuthController@login'
-
-]);
-
-
-
-// Passwort vergessen
-
-
-
 // Impressum
 
-$router->get('impressum', [
+Route::get('impressum', 'ImprintController@index');
 
-	'uses' => 'Synthesise\Http\Controllers\ImprintController@index'
-
+Route::controllers([
+	'auth' => 'Auth\AuthController'
 ]);
-
-
 
 /*
 |-------------------------------------------------------------------------------
@@ -62,120 +31,84 @@ $router->get('impressum', [
 |--------------------------------------------------------------------------
 */
 
-$router->group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function()
+{
+	// DOWNLOAD
+	Route::get('download/{type}/{file}','DownloadController@getFile');
 
-// DOWNLOAD
+	// LOGOUT
+	Route::get('logout', [
+	  'as' => 'logout',
+	  'uses' => 'AuthController@logout'
+	]);
 
-$router->get('download/{type}/{file}', [
+	// DASHBOARD
+	Route::get('/', [
+	  'as' => 'dashboard',
+	  'uses' => 'DashboardController@index'
+	]);
 
-  'uses' => 'Synthesise\Http\Controllers\DownloadController@getFile'
+	// ONLINE-LEKTIONEN
 
-]);
+	// Einzellektion
+	Route::get('online-lektionen/{videoname}', [
+	  'as' => 'lektion',
+	  'uses' => 'LectionController@index'
+	]);
 
+	// GET PDF NOTES
+	Route::get('online-lektionen/{videoname}/getnotespdf', [
+	  'uses' => 'LectionController@getNotesPDF'
+	]);
 
-// LOGOUT
+	// GET PDF FLAGNAMES
+	Route::get('online-lektionen/{videoname}/getflagnamespdf', [
+	  'uses' => 'LectionController@getFlagnamesPDF'
+	]);
 
-$router->get('logout', [
+	// AJAX
 
-  'as' => 'logout',
-  'uses' => 'Synthesise\Http\Controllers\AuthController@logout'
+	// Ajax GET FLAGS
+	Route::get('online-lektionen/{videoname}/getflags', [
+		'uses' => 'LectionController@getFlags'
+	]);
 
-]);
+	// Ajax GET NOTES
+	Route::get('online-lektionen/{videoname}/getnotes', [
+		'uses' => 'LectionController@getNotes'
+	]);
 
-// DASHBOARD
+	// Ajax POST NOTES
 
-$router->get('/', [
+	Route::post('online-lektionen/{videoname}/postnotes', [
+	'uses' => 'LectionController@postNotes'
+	]);
 
-  'as' => 'dashboard',
-  'uses' => 'Synthesise\Http\Controllers\DashboardController@index'
+	// HgF
+	Route::get('hgf/{letter?}', [
+	  'as' => 'hgf',
+	  'uses' => 'FaqController@index'
+	]);
 
-]);
+	// KONTAKT
+	Route::get('kontakt', [
+	  'as' => 'kontakt',
+	  'uses' => 'ContactController@index'
+	]);
 
-// ONLINE-LEKTIONEN
+	Route::post('kontakt/feedback', [
+	  'uses' => 'ContactController@sendFeedback'
+	]);
 
-// Einzellektion
+	Route::post('kontakt/support', [
+		'uses' => 'ContactController@sendSupport'
+	]);
 
-$router->get('online-lektionen/{videoname}', [
-
-  'as' => 'lektion',
-  'uses' => 'Synthesise\Http\Controllers\LectionController@index'
-
-]);
-
-// GET PDF NOTES
-
-$router->get('online-lektionen/{videoname}/getnotespdf', [
-
-  'uses' => 'Synthesise\Http\Controllers\LectionController@getNotesPDF'
-
-]);
-
-// GET PDF FLAGNAMES
-
-$router->get('online-lektionen/{videoname}/getflagnamespdf', [
-
-  'uses' => 'Synthesise\Http\Controllers\LectionController@getFlagnamesPDF'
-
-]);
-
-// AJAX
-// Ajax GET FLAGS
-
-$router->get('online-lektionen/{videoname}/getflags', [
-
-	'uses' => 'Synthesise\Http\Controllers\LectionController@getFlags'
-
-]);
-
-// Ajax GET NOTES
-$router->get('online-lektionen/{videoname}/getnotes', [
-
-'uses' => 'Synthesise\Http\Controllers\LectionController@getNotes'
-
-]);
-
-// Ajax POST NOTES
-
-$router->post('online-lektionen/{videoname}/postnotes', [
-
-'middleware' => 'csrf',
-'uses' => 'Synthesise\Http\Controllers\LectionController@postNotes'
-
-]);
-
-// HgF
-
-$router->get('hgf/{letter?}', [
-
-  'as' => 'hgf',
-  'uses' => 'Synthesise\Http\Controllers\FaqController@index'
-
-]);
-
-// KONTAKT
-
-$router->get('kontakt', [
-
-  'as' => 'kontakt',
-  'uses' => 'Synthesise\Http\Controllers\ContactController@index'
-
-]);
-
-$router->post('kontakt/{send}', [
-
-  'middleware' => 'csrf',
-  'uses' => 'Synthesise\Http\Controllers\ContactController@send'
-
-]);
-
-// ANALYTICS
-
-$router->get('analytics', [
-
-  'middleware' => 'admin',
-  'uses' => 'Synthesise\Http\Controllers\AnalyticsController@index'
-
-]);
+	// ANALYTICS
+	Route::get('analytics', [
+	  'middleware' => 'admin',
+	  'uses' => 'AnalyticsController@index'
+	]);
 
 });
 
@@ -185,9 +118,8 @@ $router->get('analytics', [
 |--------------------------------------------------------------------------
 */
 
-$router->group(['prefix' => 'api/v1','middleware' => 'auth.basic'], function() {
-
-// Messages
-
-$router->resource('messages', 'Synthesise\Http\Controllers\API\MessageController',['except' => ['create', 'show', 'edit']]);
+Route::group(['prefix' => 'api/v1','middleware' => 'auth.basic'], function()
+{
+	// Messages
+	Route::resource('messages', 'API\MessageController',['except' => ['create', 'show', 'edit']]);
 });

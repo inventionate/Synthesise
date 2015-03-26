@@ -8,7 +8,7 @@ class FaqRepositoryCest {
      *
      * @var     array
      */
-    protected $dummyFaq;
+    protected $faqAttributes;
 
     /**
      * Bereitet die virtuelle Datenbank und virtuelle E-Mails vor
@@ -19,8 +19,7 @@ class FaqRepositoryCest {
      */
     public function _before()
     {
-      TestCommons::prepareLaravel();
-      $this->dummyFaq = TestCommons::dummyFaq();
+      $this->faqAttributes = TestCommons::$faqAttributes;
     }
 
     public function testGetFaqLetters(IntegrationTester $I)
@@ -31,12 +30,12 @@ class FaqRepositoryCest {
        * Beispieldatensatz generieren
        *
        */
-      $this->dummyFaq['id'] = 1;
-      $this->dummyFaq['area'] = 'A';
-      $I->haveRecord('faqs', $this->dummyFaq);
-      $this->dummyFaq['id'] = 2;
-      $this->dummyFaq['area'] = 'V';
-      $I->haveRecord('faqs', $this->dummyFaq);
+      $this->faqAttributes['id'] = 1;
+      $this->faqAttributes['area'] = 'A';
+      $I->haveRecord('faqs', $this->faqAttributes);
+      $this->faqAttributes['id'] = 2;
+      $this->faqAttributes['area'] = 'V';
+      $I->haveRecord('faqs', $this->faqAttributes);
 
       /**
        * Abfrage durchführen
@@ -65,18 +64,18 @@ class FaqRepositoryCest {
        * Beispieldatensatz generieren
        *
        */
-      $this->dummyFaq['id'] = 1;
-      $this->dummyFaq['area'] = 'Z';
-      $I->haveRecord('faqs', $this->dummyFaq);
-      $this->dummyFaq['id'] = 2;
-      $this->dummyFaq['area'] = 'V';
-      $I->haveRecord('faqs', $this->dummyFaq);
-      $this->dummyFaq['id'] = 3;
-      $this->dummyFaq['area'] = 'F';
-      $I->haveRecord('faqs', $this->dummyFaq);
-      $this->dummyFaq['id'] = 4;
-      $this->dummyFaq['area'] = 'A';
-      $I->haveRecord('faqs', $this->dummyFaq);
+      $this->faqAttributes['id'] = 1;
+      $this->faqAttributes['area'] = 'Z';
+      $I->haveRecord('faqs', $this->faqAttributes);
+      $this->faqAttributes['id'] = 2;
+      $this->faqAttributes['area'] = 'V';
+      $I->haveRecord('faqs', $this->faqAttributes);
+      $this->faqAttributes['id'] = 3;
+      $this->faqAttributes['area'] = 'F';
+      $I->haveRecord('faqs', $this->faqAttributes);
+      $this->faqAttributes['id'] = 4;
+      $this->faqAttributes['area'] = 'A';
+      $I->haveRecord('faqs', $this->faqAttributes);
 
       /**
        * Abfrage durchführen
@@ -92,10 +91,10 @@ class FaqRepositoryCest {
 
     }
 
-    /**
-     * Testet die Abfrage in Abhängigkeit eines Buchstabens (area)
-     *
-     */
+    // /**
+    //  * Testet die Abfrage in Abhängigkeit eines Buchstabens (area)
+    //  *
+    //  */
     public function testGetFaqsByLetter(IntegrationTester $I)
     {
 
@@ -105,18 +104,18 @@ class FaqRepositoryCest {
        * Beispieldatensatz generieren
        *
        */
-      $this->dummyFaq['id'] = 1;
-      $this->dummyFaq['area'] = 'A';
-      $I->haveRecord('faqs', $this->dummyFaq);
-      $this->dummyFaq['id'] = 2;
-      $this->dummyFaq['area'] = 'A';
-      $I->haveRecord('faqs', $this->dummyFaq);
-      $this->dummyFaq['id'] = 3;
-      $this->dummyFaq['area'] = 'X';
-      $I->haveRecord('faqs', $this->dummyFaq);
-      $this->dummyFaq['id'] = 4;
-      $this->dummyFaq['area'] = 'B';
-      $I->haveRecord('faqs', $this->dummyFaq);
+      $this->faqAttributes['id'] = 1;
+      $this->faqAttributes['area'] = 'A';
+      $I->haveRecord('faqs', $this->faqAttributes);
+      $this->faqAttributes['id'] = 2;
+      $this->faqAttributes['area'] = 'A';
+      $I->haveRecord('faqs', $this->faqAttributes);
+      $this->faqAttributes['id'] = 3;
+      $this->faqAttributes['area'] = 'X';
+      $I->haveRecord('faqs', $this->faqAttributes);
+      $this->faqAttributes['id'] = 4;
+      $this->faqAttributes['area'] = 'B';
+      $I->haveRecord('faqs', $this->faqAttributes);
 
       /**
        * Abfrage durchführen

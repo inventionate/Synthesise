@@ -2,15 +2,10 @@
 
 use Synthesise\Repositories\Facades\Faq;
 
-/**
- * @Middleware("auth")
- */
 class FaqController extends Controller {
 
 	/**
 	 * Häufig gestellte Fragen anzeigen.
-	 *
-	 * @Get("hgf/{letter?}", as="faq")
 	 *
 	 * @param 		string $letter
 	 * @return 		View

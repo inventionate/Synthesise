@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Synthesise\User;
 
-class UpdateUserTableCommand extends Command {
+class UpdateUserTable extends Command {
 
 	/**
 	 * The console command name.

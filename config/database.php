@@ -1,14 +1,5 @@
 <?php
 
-/*
- * Zugangsdaten für die Datenbank laden.
- * @todo Exception Handler konfigurieren.
- */
-if (file_exists($secretDb = __DIR__.'/../secret_db.json'))
-{
-	$secret = json_decode(file_get_contents($secretDb), TRUE);
-}
-
 return [
 
 	/*
@@ -35,7 +26,7 @@ return [
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' =>  env('DB_DEFAULT','mysql'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -57,38 +48,38 @@ return [
 
 		'sqlite' => [
 			'driver'   => 'sqlite',
-			'database' => storage_path().'/database.sqlite',
+			'database' => storage_path().'/test.sqlite',
 			'prefix'   => '',
 		],
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'      => $secret['host'],
-			'database'  => $secret['name'],
-			'username'  => $secret['username'],
-			'password'  => $secret['password'],
+			'host'      => env('DB_HOST', 'localhost'),
+			'database'  => env('DB_DATABASE', 'forge'),
+			'username'  => env('DB_USERNAME', 'forge'),
+			'password'  => env('DB_PASSWORD', ''),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
+			'strict'    => false,
 		],
 
 		'pgsql' => [
 			'driver'   => 'pgsql',
-			'host'     => 'localhost',
-			'database' => 'forge',
-			'username' => 'forge',
-			'password' => '',
+			'host'     => env('DB_HOST', 'localhost'),
+			'database' => env('DB_DATABASE', 'forge'),
+			'username' => env('DB_USERNAME', 'forge'),
+			'password' => env('DB_PASSWORD', ''),
 			'charset'  => 'utf8',
 			'prefix'   => '',
 			'schema'   => 'public',
 		],
-
 		'sqlsrv' => [
 			'driver'   => 'sqlsrv',
-			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
+			'host'     => env('DB_HOST', 'localhost'),
+			'database' => env('DB_DATABASE', 'forge'),
+			'username' => env('DB_USERNAME', 'forge'),
+			'password' => env('DB_PASSWORD', ''),
 			'prefix'   => '',
 		],
 

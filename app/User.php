@@ -1,28 +1,35 @@
 <?php namespace Synthesise;
 
-use Illuminate\Auth\UserTrait;
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\User as UserContract;
-use Illuminate\Auth\Passwords\CanResetPasswordTrait;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements UserContract, CanResetPasswordContract {
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-	use UserTrait, CanResetPasswordTrait;
+	use Authenticatable, CanResetPassword;
 
 	/**
-	 * Die Datenbanktabelle des Models.
+	 * The database table used by the model.
 	 *
-	 * @var 		string
+	 * @var string
 	 */
 	protected $table = 'users';
 
 	/**
-	* Die veränderbaren Tabellenspalten.
-	*
-	* @var 		array
-	*/
-	protected $fillable = ['username','password','firstname','lastname','role','permissions'];
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	protected $hidden = ['password', 'remember_token'];
+
+	/**
+	 * Die veränderbaren Tabellenspalten.
+	 *
+	 * @var 		array
+	 */
+	protected $fillable = ['username','password','firstname','lastname','role'];
 
 	/**
 	 * Datenbankrelation User hat viele Notes.
@@ -32,12 +39,5 @@ class User extends Model implements UserContract, CanResetPasswordContract {
 	{
 		return $this->hasMany('Synthesise\Note');
 	}
-
-	/**
-	 * Attribute die von der JSON Form des Models ausgeschlossen werden.
-	 *
-	 * @var 		array
-	 */
-	protected $hidden = array('password', 'remember_token');
 
 }

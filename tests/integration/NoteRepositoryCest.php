@@ -11,7 +11,7 @@ class NoteRepositoryCest
      *
      * @var     array
      */
-    protected $dummyNote;
+    protected $noteAttributes;
 
     /**
      * Bereitet die virtuelle Datenbank und virtuelle E-Mails vor.
@@ -22,8 +22,7 @@ class NoteRepositoryCest
      */
     public function _before()
     {
-      TestCommons::prepareLaravel();
-      $this->dummyNote = TestCommons::dummyNote();
+      $this->noteAttributes = TestCommons::$noteAttributes;
     }
 
     /**
@@ -35,9 +34,9 @@ class NoteRepositoryCest
       $I->wantTo('find Note ID');
 
       // Beispieldatensatz generieren
-      $this->dummyNote['user_id'] = 1;
-      $this->dummyNote['cuepoint_id'] = 1;
-      $I->haveRecord('notes', $this->dummyNote);
+      $this->noteAttributes['user_id'] = 1;
+      $this->noteAttributes['cuepoint_id'] = 1;
+      $I->haveRecord('notes', $this->noteAttributes);
 
       // Methode aufrufen
       $noteId = Note::getNoteId(1,1);
@@ -55,21 +54,21 @@ class NoteRepositoryCest
       $I->wantTo('read Note content');
 
       // Beispieldatensatz generieren
-      $this->dummyNote['id'] = 1;
-      $this->dummyNote['note'] = Crypt::encrypt('Darkside');
-      $this->dummyNote['user_id'] = 1;
-      $this->dummyNote['cuepoint_id'] = 1;
-      $I->haveRecord('notes', $this->dummyNote);
-      $this->dummyNote['id'] = 2;
-      $this->dummyNote['note'] = Crypt::encrypt('Lightside');
-      $this->dummyNote['user_id'] = 2;
-      $this->dummyNote['cuepoint_id'] = 1;
-      $I->haveRecord('notes', $this->dummyNote);
-      $this->dummyNote['id'] = 3;
-      $this->dummyNote['note'] = Crypt::encrypt('no side');
-      $this->dummyNote['user_id'] = 1;
-      $this->dummyNote['cuepoint_id'] = 2;
-      $I->haveRecord('notes', $this->dummyNote);
+      $this->noteAttributes['id'] = 1;
+      $this->noteAttributes['note'] = Crypt::encrypt('Darkside');
+      $this->noteAttributes['user_id'] = 1;
+      $this->noteAttributes['cuepoint_id'] = 1;
+      $I->haveRecord('notes', $this->noteAttributes);
+      $this->noteAttributes['id'] = 2;
+      $this->noteAttributes['note'] = Crypt::encrypt('Lightside');
+      $this->noteAttributes['user_id'] = 2;
+      $this->noteAttributes['cuepoint_id'] = 1;
+      $I->haveRecord('notes', $this->noteAttributes);
+      $this->noteAttributes['id'] = 3;
+      $this->noteAttributes['note'] = Crypt::encrypt('no side');
+      $this->noteAttributes['user_id'] = 1;
+      $this->noteAttributes['cuepoint_id'] = 2;
+      $I->haveRecord('notes', $this->noteAttributes);
 
       // Methode aufrufen
       $noteContent = Note::getContent(1,2);
@@ -105,11 +104,11 @@ class NoteRepositoryCest
       $I->wantTo('update Note content');
 
       // Beispieldatensatz generieren
-      $this->dummyNote['note'] = Crypt::encrypt('Lightside');
-      $this->dummyNote['user_id'] = 1;
-      $this->dummyNote['cuepoint_id'] = 1;
-      $this->dummyNote['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('notes', $this->dummyNote);
+      $this->noteAttributes['note'] = Crypt::encrypt('Lightside');
+      $this->noteAttributes['user_id'] = 1;
+      $this->noteAttributes['cuepoint_id'] = 1;
+      $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
+      $I->haveRecord('notes', $this->noteAttributes);
 
       // Neue Notiz speichern
       $updatedNote = Note::updateContent('Der neue Inhalt.',1,1,'Sozialgeschichte 1');
@@ -130,12 +129,12 @@ class NoteRepositoryCest
       $I->wantTo('remove an empty Note from database');
 
       // Beispieldatensatz generieren
-      $this->dummyNote['id'] = 1;
-      $this->dummyNote['note'] = Crypt::encrypt('Lightside');
-      $this->dummyNote['user_id'] = 1;
-      $this->dummyNote['cuepoint_id'] = 1;
-      $this->dummyNote['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('notes', $this->dummyNote);
+      $this->noteAttributes['id'] = 1;
+      $this->noteAttributes['note'] = Crypt::encrypt('Lightside');
+      $this->noteAttributes['user_id'] = 1;
+      $this->noteAttributes['cuepoint_id'] = 1;
+      $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
+      $I->haveRecord('notes', $this->noteAttributes);
 
       // Neue Notiz speichern
       $updatedNote = Note::updateContent('',1,1,'Sozialgeschichte 1');

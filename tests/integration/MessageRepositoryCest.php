@@ -8,7 +8,7 @@ class MessageRepositoryCest {
      *
      * @var     array
      */
-    protected $dummyMessage;
+    protected $messageAttributes;
 
     /**
      * Bereitet die virtuelle Datenbank und virtuelle E-Mails vor
@@ -19,8 +19,7 @@ class MessageRepositoryCest {
      */
     public function _before()
     {
-      TestCommons::prepareLaravel();
-      $this->dummyMessage = TestCommons::dummyMessage();
+      $this->messageAttributes = TestCommons::$messageAttributes;
     }
 
 
@@ -35,14 +34,14 @@ class MessageRepositoryCest {
        * Beispieldatensatz generieren
        *
        */
-      $this->dummyMessage['id'] = 1;
-      $this->dummyMessage['message'] = 'Das ist eine Nachricht.';
-      $this->dummyMessage['type'] = 'info';
-      $I->haveRecord('messages', $this->dummyMessage);
-      $this->dummyMessage['id'] = 2;
-      $this->dummyMessage['message'] = 'Das ist ein Integration Test!';
-      $this->dummyMessage['type'] = 'danger';
-      $I->haveRecord('messages', $this->dummyMessage);
+      $this->messageAttributes['id'] = 1;
+      $this->messageAttributes['message'] = 'Das ist eine Nachricht.';
+      $this->messageAttributes['type'] = 'info';
+      $I->haveRecord('messages', $this->messageAttributes);
+      $this->messageAttributes['id'] = 2;
+      $this->messageAttributes['message'] = 'Das ist ein Integration Test!';
+      $this->messageAttributes['type'] = 'danger';
+      $I->haveRecord('messages', $this->messageAttributes);
 
       /**
        * Abfrage durchführen
@@ -69,15 +68,16 @@ class MessageRepositoryCest {
        * Beispieldatensatz generieren
        *
        */
-      $this->dummyMessage['id'] = 1;
-      $this->dummyMessage['message'] = 'Das ist eine Nachricht.';
-      $this->dummyMessage['type'] = 'info';
-      $I->haveRecord('messages',$this->dummyMessage);
+      $this->messageAttributes['id'] = 1;
+      $this->messageAttributes['message'] = 'Das ist eine Nachricht.';
+      $this->messageAttributes['type'] = 'info';
+      $I->haveRecord('messages',$this->messageAttributes);
       /**
        * Abfrage durchführen
        *
        */
       Message::delete(1);
+
       /**
        * Testergebnis auswerten
        *
@@ -96,10 +96,10 @@ class MessageRepositoryCest {
        * Beispieldatensatz generieren
        *
        */
-      $this->dummyMessage['id'] = 1;
-      $this->dummyMessage['message'] = 'Das ist eine Nachricht.';
-      $this->dummyMessage['type'] = 'info';
-      $I->haveRecord('messages',$this->dummyMessage);
+      $this->messageAttributes['id'] = 1;
+      $this->messageAttributes['message'] = 'Das ist eine Nachricht.';
+      $this->messageAttributes['type'] = 'info';
+      $I->haveRecord('messages',$this->messageAttributes);
       /**
        * Abfrage durchführen
        *
@@ -109,7 +109,7 @@ class MessageRepositoryCest {
        * Testergebnis auswerten
        *
        */
-      $I->seeRecord('messages',['id' => 2, 'message' => 'Eine neue Nachricht', 'type' => 'warning']);
+      $I->seeRecord('messages',['message' => 'Eine neue Nachricht', 'type' => 'warning']);
     }
 
     /**
@@ -123,10 +123,10 @@ class MessageRepositoryCest {
        * Beispieldatensatz generieren
        *
        */
-      $this->dummyMessage['id'] = 1;
-      $this->dummyMessage['message'] = 'Das ist eine Nachricht.';
-      $this->dummyMessage['type'] = 'info';
-      $I->haveRecord('messages',$this->dummyMessage);
+      $this->messageAttributes['id'] = 1;
+      $this->messageAttributes['message'] = 'Das ist eine Nachricht.';
+      $this->messageAttributes['type'] = 'info';
+      $I->haveRecord('messages',$this->messageAttributes);
       /**
        * Abfrage durchführen
        *

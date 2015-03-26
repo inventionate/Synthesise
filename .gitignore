@@ -1,21 +1,10 @@
-# Allgemeine Systemdateien
-
-.DS_Store
-Thumbs.db
-
-#Laravel Dateien
-
 /bootstrap/compiled.php
-/bower_components
 /doc
-/node_modules
 /public/video
 /resources/assets/build
 /storage/app/users
 /tests/_output
-/vendor
-composer.phar
-composer.lock
 .env
+.env.production
 secret.json
 secret_db.json
