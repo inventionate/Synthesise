@@ -16,17 +16,16 @@ elixir(function(mix) {
     mix.less("application.less")
     // Modernizr
     .copy("vendor/bower_components/modernizr/modernizr.js","public/js/modernizr.js")
-    // Scripts
+    // Vendor Scripts
     .scripts([
         "react/react.js",
-        "react/JSXTransformer.js",
         "jquery/dist/jquery.js",
         "semantic-ui/dist/semantic.js",
         "flowplayer/flowplayer.js",
         "jquery-typewatch/jquery.typewatch.js",
         "chartjs/Chart.js"
     ], "public/js/vendor.js", "vendor/bower_components")
-    // React Components
+    // Application Components
     .browserify("application.js","public/js/application.js", "resources/assets/js")
     // Images
     .copy('resources/assets/img', 'public/img')

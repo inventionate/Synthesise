@@ -1,8 +1,13 @@
-var HelloWorld = require("./HelloWorld.jsx");
-var WelcomeAlert = require("./WelcomeAlert.js");
+import HelloWorld from "./HelloWorld.jsx";
+import Analytics from "./Analytics.js";
+import Test from "./Test.js";
 
 React.render(<HelloWorld />, document.getElementById("react"));
 
-$( document ).ready(function() {
-    new WelcomeAlert();
+$( document ).ready( () => {
+    new Analytics();
+    var Mnews = new Test("Monja","Santner-Mundt");
+    alert(Mnews.info());
+    var Fnews = new Test("Fabian","Mundt");
+    alert(Fnews.info());
 });
