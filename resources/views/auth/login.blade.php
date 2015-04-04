@@ -5,15 +5,14 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}">
+<main id="main-content-{{ Request::segment(1) }}" class="ui centered grid">
 	{{-- @todo Inline CSS entfernen und bessere Lösung suchen! --}}
-	<header class="jumbotron text-center" style="margin-top: 30px;">
+	<header class="sixteen wide center aligned column">
 		<h1>e:t:p:M</h1>
 		<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
-		<h3 class="sr-only">Login</h3>
-		<p class="lead">Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</p>
+		<h3>Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</h3>
 	</header>
-
+	<div class="sixteen wide center aligned column">
 	{!! Form::open(['url' => 'auth/login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form']) !!}
 	<div @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) class="animated zoomIn" @else class="animated shake" @endif>
 		{{-- Eingabe des Benutzernamens --}}
@@ -43,5 +42,6 @@
 			{!! Form::checkbox('rememberme', true, false) !!}
 		</div>
 	{!! Form::close() !!}
+	</div>
 </main>
 @stop

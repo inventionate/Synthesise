@@ -12,10 +12,10 @@
 		@include('layouts.partials.head')
 
 		{{-- APPLICATION CSS -----------------------------------------------------}}
-		<link rel="stylesheet" href="{{ Asset::rev('css/application.css') }}">
+		<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
 
 		{{-- MODERNIZR JS --------------------------------------------------------}}
-		<script src="{{ Asset::rev('js/modernizr.js') }}"></script>
+		<script src="{{ elixir("js/modernizr.js") }}"></script>
 
 	</head>
 
@@ -40,14 +40,18 @@
 		{{-- @yield MAIN CONTENT -------------------------------------------------}}
 		@yield('content')
 
+		<div id="react">
+
+		</div>
+
 		<hr>
 
 		{{-- @include FOOTER -----------------------------------------------------}}
 			@include('layouts.partials.footer')
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
-		<script src="{{ Asset::rev('js/application.js') }}"></script>
-
+			<script src="{{ elixir("js/vendor.js") }}"></script>
+			<script src="{{ elixir("js/application.js") }}"></script>
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@include('layouts.partials.analytics')
 	</body>

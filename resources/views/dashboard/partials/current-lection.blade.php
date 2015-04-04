@@ -6,7 +6,8 @@
 @if($available)
 <div class="row">
 	  <div class="col-md-8">
-		<img src="{{ Asset::rev('img/' . Parser::normalizeName($videoname) . '.jpg') }}" alt="Titelbild online-Lektion"  class="img-responsive img-thumbnail">
+			{{-- Hier müssen wor unbedingt noch mal nachbessern, wenn die Elixir Sache läuft --}}
+		<img src="{{ 'img/'. Parser::normalizeName($videoname) .jpg }}" alt="Titelbild online-Lektion"  class="img-responsive img-thumbnail">
 		</div>
 	  <div class="col-md-4">
 		<div class="btn-group-vertical btn-block">

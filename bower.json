@@ -1,13 +1,13 @@
 {
   "name": "Synthesise",
   "dependencies": {
-    "jquery": "~2.1.1",
-    "modernizr": "latest",
-    "bootstrap": ">=3.2.0",
-    "flowplayer": "http://releases.flowplayer.org/5.5.0/commercial/flowplayer.commercial-5.5.0.zip",
-    "animate.css": "git://github.com/daneden/animate.css.git#~3.2.0",
-    "jquery-typewatch": "*",
-    "spin.js": "~2.0.1",
-    "chartjs": "~1.0.1-beta.4"
+    "modernizr": "~2.8.3",
+    "flowplayer": "http://releases.flowplayer.org/5.5.2/commercial/flowplayer.commercial-5.5.2.zip",
+    "jquery-typewatch": "~2.2.1",
+    "chartjs": "~1.0.2",
+    "semantic-ui": "~1.11.6",
+    "react": "~0.13.1",
+    "video.js": "~4.12.5",
+    "videojs-markers": "https://github.com/spchuang/videojs-markers.git#~0.4.0"
   }
 }

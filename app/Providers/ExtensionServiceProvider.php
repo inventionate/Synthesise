@@ -44,12 +44,6 @@ class ExtensionServiceProvider extends ServiceProvider {
 			return new Parser;
 		});
 
-		// ASSET
-		$this->app->bind('asset', function()
-		{
-			return new AssetBuilder;
-		});
-
 		// ANALYTICS
 		$this->app->bind('analytics', function()
 		{
