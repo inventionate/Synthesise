@@ -1,10 +1,7 @@
 /bootstrap/compiled.php
 /doc
 /public/video
-/resources/assets/build
 /storage/app/users
 /tests/_output
 .env
 .env.production
-secret.json
-secret_db.json

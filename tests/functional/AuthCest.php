@@ -30,7 +30,7 @@ class AuthCest {
 
     $I->amOnPage('/auth/login');
     $I->see('e:t:p:M','h1');
-    $I->see('Login','h3');
+    $I->see('Login','h4');
     $I->fillField('#username','luke');
     $I->fillField('#password','pw');
     $I->click('Anmelden','#login');
@@ -48,7 +48,7 @@ class AuthCest {
 
     $I->amOnPage('/auth/login');
     $I->see('e:t:p:M','h1');
-    $I->see('Login','h3');
+    $I->see('Login','h4');
     $I->fillField('#username','studentka');
     $I->fillField('#password','Zelda');
     $I->click('Anmelden','#login');

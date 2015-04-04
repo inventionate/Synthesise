@@ -11,29 +11,31 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir(function(mix) {
-    // Styles
-    mix.less("application.less")
-    // Modernizr
-    .copy("vendor/bower_components/modernizr/modernizr.js","public/js/modernizr.js")
-    // Vendor Scripts
-    .scripts([
-        "react/react.js",
-        "jquery/dist/jquery.js",
-        "semantic-ui/dist/semantic.js",
-        "flowplayer/flowplayer.js",
-        "jquery-typewatch/jquery.typewatch.js",
-        "chartjs/Chart.js"
-    ], "public/js/vendor.js", "vendor/bower_components")
-    // Application Components
-    .browserify("application.js","public/js/application.js", "resources/assets/js")
-    // Images
-    .copy('resources/assets/img', 'public/img')
-    // Version hash
-    .version([
-        "css/application.css",
-        "js/modernizr.js",
-        "js/application.js",
-        "js/vendor.js"
-    ]);
-});
+    elixir( function (mix) {
+        // Styles
+        mix.less("application.less")
+        // Images
+        .copy('resources/assets/img', 'public/img')
+        // Modernizr
+        .copy("vendor/bower_components/modernizr/modernizr.js","public/js/modernizr.js")
+        // Vendor Scripts
+        .scripts([
+            "react/react.js",
+            "jquery/dist/jquery.js",
+            "semantic-ui/dist/semantic.js",
+            "flowplayer/flowplayer.js",
+            "jquery-typewatch/jquery.typewatch.js",
+            "chartjs/Chart.js"
+        ], "public/js/vendor.js", "vendor/bower_components")
+        // Application Components
+        .browserify("application.js","public/js/application.js", "resources/assets/js")
+        // Version hash
+        .version([
+            "css/application.css",
+            "js/modernizr.js",
+            "js/application.js",
+            "js/vendor.js"
+        ])
+        // Fonts
+        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts");
+    });

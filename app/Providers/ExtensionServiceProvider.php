@@ -4,7 +4,6 @@ use Illuminate\Support\ServiceProvider;
 
 use Synthesise\Extensions\Ldap;
 use Synthesise\Extensions\Parser;
-use Synthesise\Extensions\AssetBuilder;
 use Synthesise\Extensions\Analytics;
 
 class ExtensionServiceProvider extends ServiceProvider {

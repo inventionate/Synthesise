@@ -1,13 +1,34 @@
-import HelloWorld from "./HelloWorld.jsx";
-import Analytics from "./Analytics.js";
-import Test from "./Test.js";
-
-React.render(<HelloWorld />, document.getElementById("react"));
+import Charts from "./Components/Charts.js";
+import Lection from "./Components/Lection.js";
+import Messages from "./Components/Messages.js";
+import Analytics from "./Components/Analytics.js";
+import Navigation from "./Components/Navigation.js";
+import Videoplayer from "./Components/Videoplayer.js";
 
 $( document ).ready( () => {
+
+    $('.scale').transition('scale in', 1000);
+
+    $('.shake').transition('shake');
+
+    $('.ui.checkbox').checkbox();
+
     new Analytics();
-    var Mnews = new Test("Monja","Santner-Mundt");
-    alert(Mnews.info());
-    var Fnews = new Test("Fabian","Mundt");
-    alert(Fnews.info());
+
+    new Lection();
+
+    new Navigation();
+
+    new Videoplayer();
+
+    if ( document.URL.indexOf('/analytics') > -1 )
+    {
+        new Charts();
+    }
+
+    if( document.URL.indexOf('/') > -1 && $('#messages-manage').length )
+    {
+        new Messages();
+    }
+
 });

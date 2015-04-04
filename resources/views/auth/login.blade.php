@@ -6,42 +6,55 @@
 
 @section('content')
 <main id="main-content-{{ Request::segment(1) }}" class="ui centered grid">
-	{{-- @todo Inline CSS entfernen und bessere Lösung suchen! --}}
+
 	<header class="sixteen wide center aligned column">
-		<h1>e:t:p:M</h1>
+		<h1 class="logo">e:t:p:M</h1>
 		<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
 		<h3>Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</h3>
+		<h4 class="hide">Login</h4>
 	</header>
-	<div class="sixteen wide center aligned column">
-	{!! Form::open(['url' => 'auth/login','class' => 'form-inline text-center', 'id' => 'login', 'role' => 'form']) !!}
-	<div @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) class="animated zoomIn" @else class="animated shake" @endif>
-		{{-- Eingabe des Benutzernamens --}}
-		<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
-			{!! Form::label('username', 'Benutzername', ['class' => 'sr-only']) !!}
-			<div class="input-group input-group-lg">
-				{!! Form::text('username', '', ['class' => 'form-control', 'placeholder' => 'LSF Benutzername', 'required']) !!}
-				<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-			</div>
-		</div>
 
-		{{-- Eingabe des Passworts --}}
-		<div class="form-group @if (Session::has('errors') || Session::has('login_errors')) has-error @endif">
-			{!! Form::label('password', 'Passwort', ['class' => 'sr-only']) !!}
-			<div class="input-group input-group-lg">
-				{!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'LSF Passwort', 'required']) !!}
-				<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+	<div class="six wide center aligned column">
+
+		{!! Form::open(['url' => 'auth/login','class' => 'ui form', 'id' => 'login', 'role' => 'form']) !!}
+
+			<div class="two fields @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
+
+				{{-- Eingabe des Benutzernamens --}}
+				<div class="required field @if (Session::has('errors') || Session::has('login_errors')) error @endif">
+					{!! Form::label('username', 'Benutzername', ['class' => 'hide']) !!}
+					<div class="ui icon input">
+						{!! Form::text('username', '', ['placeholder' => 'LSF Benutzername', 'required']) !!}
+						<i class="user icon"></i>
+					</div>
+				</div>
+
+				{{-- Eingabe des Passworts --}}
+				<div class="required field @if (Session::has('errors') || Session::has('login_errors')) error @endif">
+					{!! Form::label('password', 'Passwort', ['class' => 'hide']) !!}
+					<div class="ui icon input">
+						{!! Form::password('password', ['placeholder' => 'LSF Passwort', 'required']) !!}
+						<i class="lock icon"></i>
+					</div>
+				</div>
+
 			</div>
-		</div>
-		{{-- Anmelde Button --}}
-		{!! Form::submit('Anmelden', ['id' => 'login','class' => 'btn btn-primary btn-lg', 'role' => 'button']) !!}
-		<div class="clearfix">
-		</div>
-		{{-- Remember me --}}
-		<div class="checkbox" style="font-size: 1.2em;">
-			{!! Form::label('rememberme', 'Angemeldet bleiben') !!}
-			{!! Form::checkbox('rememberme', true, false) !!}
-		</div>
-	{!! Form::close() !!}
+
+			{{-- Anmelde Button --}}
+			<div class="field">
+				{!! Form::submit('Anmelden', ['id' => 'login','class' => 'ui submit button', 'role' => 'button']) !!}
+			</div>
+
+			{{-- Remember me --}}
+			<div class="field">
+				<div class="ui checkbox">
+					{!! Form::label('rememberme', 'Angemeldet bleiben') !!}
+					{!! Form::checkbox('rememberme', true, false) !!}
+				</div>
+			</div>
+
+		{!! Form::close() !!}
 	</div>
+
 </main>
 @stop
