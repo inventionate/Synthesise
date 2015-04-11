@@ -21,7 +21,8 @@ var elixir = require('laravel-elixir');
             "react/react.js",
             "jquery/dist/jquery.js",
             "semantic-ui/dist/semantic.js",
-            "flowplayer/flowplayer.js",
+            "video.js/dist/video-js/video.dev.js",
+            "videojs-markers/dist/videojs-markers.js",
             "jquery-typewatch/jquery.typewatch.js",
             "chartjs/Chart.js"
         ], "public/js/vendor.js", "vendor/bower_components")
@@ -35,5 +36,7 @@ var elixir = require('laravel-elixir');
             "js/vendor.js"
         ])
         // Fonts
-        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts");
+        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts")
+        .copy("vendor/bower_components/video.js/dist/video-js/font","public/build/css/font")
+        .copy("vendor/bower_components/video.js/dist/video-js/video-js.swf","public");
     });

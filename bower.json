@@ -8,6 +8,6 @@
     "semantic-ui": "~1.11.6",
     "react": "~0.13.1",
     "video.js": "~4.12.5",
-    "videojs-markers": "https://github.com/spchuang/videojs-markers.git#~0.4.0"
+    "videojs-markers": "~0.4.0"
   }
 }
