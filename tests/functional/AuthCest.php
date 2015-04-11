@@ -36,7 +36,7 @@ class AuthCest {
     $I->click('Anmelden','#login');
 
     $I->seeCurrentUrlEquals('/auth/login');
-    $I->seeElement('.form-group.has-error');
+    $I->seeElement('.error');
   }
 
   public function testNonLdapLogin(FunctionalTester $I)

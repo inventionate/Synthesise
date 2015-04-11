@@ -13,6 +13,10 @@ $( document ).ready( () => {
 
     $('.ui.checkbox').checkbox();
 
+    $('.dropdown').dropdown({transition: 'drop'});
+
+    $('.ui.accordion').accordion();
+
     new Analytics();
 
     new Lection();

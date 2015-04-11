@@ -14,9 +14,7 @@ var elixir = require('laravel-elixir');
     elixir( function (mix) {
         // Styles
         mix.less("application.less")
-        // Images
-        .copy('resources/assets/img', 'public/img')
-        // Modernizr
+        // Modernizr (Minifizierung einarbeiten über scripts)
         .copy("vendor/bower_components/modernizr/modernizr.js","public/js/modernizr.js")
         // Vendor Scripts
         .scripts([

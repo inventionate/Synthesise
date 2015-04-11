@@ -1,4 +1,4 @@
-// Schriftarten
+// Typography
 
 .etpM
 {
@@ -6,59 +6,48 @@
 	font-weight: 200;
 }
 
-.navbar-brand
-{
-	font-size: 2em;
+.hyphens(@mode: auto) {
+  word-wrap: break-word;
+  hyphens: @mode;
 }
 
-.nav-event-title {
-	font-weight: lighter;
-	margin-top: -5px;
-	padding: 0px 15px;
-	float: left;
-	font-size: 1.2em;
-	line-height: 20px;
+.text.hidden {
+  text-indent: 1000% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
 }
 
-h1.nav-event-title a:hover {
-	text-decoration: none;
-}
-
-@media (min-width: 768px)
-{
-	.nav-event-title
-	{
-		font-size: 1.4em;
-	}
-}
-
-@media (min-width: 992px)
-{
-	.nav-event-title
-	{
-		margin-top: 15px;
-		font-size: 1.5em;
-	}
-}
-
-// Login
-
-#main-content-auth {
-	h1
-	{
-		background-image: url('../../img/etpm_logo.png');
-		background-repeat: no-repeat;
-		background-size: 125px;
-		width: 125px;
-		height: 125px;
-		display: block;
-		margin: 0 auto;
-		text-indent: -9999px;
-	}
-	h2
-	{
-		font-size: 2em;
-	}
-}
-
-// Dashboard
+// .navbar-brand
+// {
+// 	font-size: 2em;
+// }
+//
+// .nav-event-title {
+// 	font-weight: lighter;
+// 	margin-top: -5px;
+// 	padding: 0px 15px;
+// 	float: left;
+// 	font-size: 1.2em;
+// 	line-height: 20px;
+// }
+//
+// h1.nav-event-title a:hover {
+// 	text-decoration: none;
+// }
+//
+// @media (min-width: 768px)
+// {
+// 	.nav-event-title
+// 	{
+// 		font-size: 1.4em;
+// 	}
+// }
+//
+// @media (min-width: 992px)
+// {
+// 	.nav-event-title
+// 	{
+// 		margin-top: 15px;
+// 		font-size: 1.5em;
+// 	}
+// }

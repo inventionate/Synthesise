@@ -5,20 +5,20 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui centered grid">
+<main id="main-content-{{ Request::segment(1) }}" class="ui centered one column grid">
 
-	<header class="sixteen wide center aligned column">
+	<header class="center aligned column">
 		<h1 class="logo">e:t:p:M</h1>
 		<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
 		<h3>Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</h3>
 		<h4 class="hide">Login</h4>
 	</header>
 
-	<div class="six wide center aligned column">
+	<div class="eight wide column @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
 
 		{!! Form::open(['url' => 'auth/login','class' => 'ui form', 'id' => 'login', 'role' => 'form']) !!}
 
-			<div class="two fields @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
+			<div class="three fields">
 
 				{{-- Eingabe des Benutzernamens --}}
 				<div class="required field @if (Session::has('errors') || Session::has('login_errors')) error @endif">
@@ -38,13 +38,14 @@
 					</div>
 				</div>
 
+				{{-- Anmelde Button --}}
+				<div class="field">
+					{!! Form::submit('Anmelden', ['id' => 'login','class' => 'ui fluid submit button', 'role' => 'button']) !!}
+				</div>
+
 			</div>
 
-			{{-- Anmelde Button --}}
-			<div class="field">
-				{!! Form::submit('Anmelden', ['id' => 'login','class' => 'ui submit button', 'role' => 'button']) !!}
-			</div>
-
+		<div class="center aligned column">
 			{{-- Remember me --}}
 			<div class="field">
 				<div class="ui checkbox">
@@ -52,8 +53,11 @@
 					{!! Form::checkbox('rememberme', true, false) !!}
 				</div>
 			</div>
+		</div>
 
 		{!! Form::close() !!}
+	</div>
+
 	</div>
 
 </main>

@@ -35,6 +35,10 @@ $(document).ready(function () {
 
     $(".ui.checkbox").checkbox();
 
+    $(".dropdown").dropdown({ transition: "drop" });
+
+    $(".ui.accordion").accordion();
+
     new _Analytics2["default"]();
 
     new _Lection2["default"]();
