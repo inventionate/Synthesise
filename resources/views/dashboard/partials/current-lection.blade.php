@@ -1,8 +1,11 @@
 <section id="current-lection" class="ui stackable grid">
 
-<h2 class="ui header">Aktuelle online-Lektion</h2>
-
-<h3 class="ui header">{{ $videoname }} <small> {{ $author }}</small></h3>
+	<div class="one column row">
+        <div class="column">
+			<h2 class="ui header">Aktuelle online-Lektion</h2>
+			<h3 class="ui header">{{ $videoname }} <small> {{ $author }}</small></h3>
+		</div>
+	</div>
 
 @if($available)
 

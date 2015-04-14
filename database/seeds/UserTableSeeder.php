@@ -46,18 +46,11 @@ class UserTableSeeder extends Seeder {
 		]);
 
 		User::create([
-			'username' => 'wehnerka',
-			'role' => 'Teacher'
-		]);
-
-		User::create([
-			'username' => 'wulfka',
-			'role' => 'Teacher'
-		]);
-
-		User::create([
-			'username' => 'dummertka',
-			'role' => 'Teacher'
+			'username' => 'dozent',
+			'password' => Hash::make('etpM'),
+			'firstname' => 'Test',
+			'lastname' => 'Benutzer',
+			'role' => 'Admin'
 		]);
 
 

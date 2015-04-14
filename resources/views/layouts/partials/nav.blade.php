@@ -1,4 +1,4 @@
-<nav class="ui fixed large inverted green menu" role="navigation">
+<nav id="mainnav" class="ui fixed large inverted green menu" role="navigation">
 
     <a class="etpM item" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
 
@@ -36,7 +36,7 @@
 
     <a class="item @if ( Request::is('kontakt') ) active @endif" href="{{ url('kontakt') }}">Kontakt</a>
 
-    <div class="right item"><a class="ui submit button" href="{{ url('auth/logout') }}">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} @if ( Auth::user()->role != 'Student' ) (<b>{{ Auth::user()->role }}</b>) @endif abmelden</a></div>
+    <div class="right item"><a class="ui inverted submit button" href="{{ url('auth/logout') }}">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} @if ( Auth::user()->role != 'Student' ) (<b>{{ Auth::user()->role }}</b>) @endif abmelden</a></div>
 </nav>
 
 {{-- EIN SPEZIELLES TABLET UND MOBILE MENU ERSTELLEN --}}

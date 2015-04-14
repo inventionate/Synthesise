@@ -2,7 +2,6 @@
   "name": "Synthesise",
   "dependencies": {
     "modernizr": "~2.8.3",
-    "flowplayer": "http://releases.flowplayer.org/5.5.2/commercial/flowplayer.commercial-5.5.2.zip",
     "jquery-typewatch": "~2.2.1",
     "chartjs": "~1.0.2",
     "semantic-ui": "~1.11.6",

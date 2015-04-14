@@ -1,38 +1,26 @@
-import Charts from "./Components/Charts.js";
-import Lection from "./Components/Lection.js";
-import Messages from "./Components/Messages.js";
+// Vanilla JS
 import Analytics from "./Components/Analytics.js";
-import Navigation from "./Components/Navigation.js";
-import Videoplayer from "./Components/Videoplayer.js";
+import SemanticAnimations from "./Components/SemanticAnimations.js";
+
+// React JS Components
+import Messages from "./Components/Messages.jsx";
+import InterativeVideo from "./Components/InteractiveVideo.jsx";
+import Statistic from "./Components/Statistic.jsx";
 
 $( document ).ready( () => {
 
-    $('.scale').transition('scale in', 1000);
-
-    $('.shake').transition('shake');
-
-    $('.ui.checkbox').checkbox();
-
-    $('.dropdown').dropdown({transition: 'drop'});
-
-    $('.ui.accordion').accordion();
-
     new Analytics();
 
-    new Lection();
+    new SemanticAnimations();
 
-    new Navigation();
+    // @todo Nachrichten AJAX programmieren
+    React.render(<Messages />, document.getElementById("messages-manage"));
 
-    new Videoplayer();
+    // @todo Interaktives Video erstellen
+    React.render(<InteractiveVideo />, document.getElementById("interactive-video"));
 
-    if ( document.URL.indexOf('/analytics') > -1 )
-    {
-        new Charts();
-    }
+    // Statistik ausgeben (mehrere Module mit variablen Einstellungen)
+    React.render(<Statistic />, document.getElementById("statistic-plays"));
 
-    if( document.URL.indexOf('/') > -1 && $('#messages-manage').length )
-    {
-        new Messages();
-    }
 
 });

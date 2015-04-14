@@ -30,7 +30,7 @@ class LectionCest {
 	  $I->wantTo('see online-lecture cuepoints');
 
 	  $I->amOnPage('/online-lektionen/Sozialgeschichte%201');
-	  $I->seeElement('.flowplayer');
+	  $I->seeElement('.video-js');
 
 	  $I->see('data-cuepoints="[100,300,700]"');
   }
@@ -96,7 +96,7 @@ class LectionCest {
 		$I->wantTo('see online-lecture title');
 
 		$I->amOnPage('/online-lektionen/Sozialgeschichte%201');
-		$I->seeElement('.flowplayer');
+		$I->seeElement('.video-js');
 
 		$I->see('title="Sozialgeschichte 1"');
 	}

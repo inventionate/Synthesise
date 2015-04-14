@@ -1,7 +1,5 @@
 class Analytics {
 
-// Dreckige Konvertierung des bestehenden Codes in einen modularen Umgang.
-
     constructor ()
     {
 
