@@ -15,23 +15,8 @@
 		<div class="one column row">
 			<div class="column">
 
-				<div id="videoplayer">
-					<video id="demo" class="video-js vjs-sublime-skin vjs-big-play-centered"
-						poster="/img/ol_title.jpg"
-						data-setup='{ "controls": true, "autoplay": false, "preload": "auto", "width": "100%", "height": "100%" }'>
-						@if( App::environment() === 'production' )
-							@if( Agent::isMobile() || Agent::isTablet() )
-								<source type="video/webm" src="{{ $videopath . '_small' }}.webm">
-								<source type="video/mp4" src="{{ $videopath . '_small' }}.mp4">
-							@elseif( !(stristr($_SERVER['HTTP_USER_AGENT'], 'Safari')) || stristr($_SERVER['HTTP_USER_AGENT'], 'Chrome') )
-								<source type="video/webm" src="{{ $videopath }}.webm">
-							@endif
-							<source type="video/mp4" src="{{ $videopath }}.mp4">
-						@else
-							<source type="video/mp4" src="{{ asset('video') . '/' . Parser::normalizeName($videoname) }}.mp4">
-						@endif
-					</video>
-					<img src="/img/etpm_logo.png">
+				<div id="interactive-video" data-name="{{ $videopath }}" >
+
 				</div>
 
 				{{-- HIER AUF REACT UMSTELLEN! --}}

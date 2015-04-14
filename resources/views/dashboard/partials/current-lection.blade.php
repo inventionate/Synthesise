@@ -27,11 +27,11 @@
 			    Notizen
 			  </a>
 			  <div class="ui top right pointing dropdown button">
-			    <i class="list icon"></i>
+			    <i class="file text icon"></i>
 			    Literatur
 				<div class="menu">
 					@foreach ($papers as $paper)
-						<a class="item download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a>
+						<a class="item download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }}</a>
 					@endforeach
 				</div>
 			  </div>

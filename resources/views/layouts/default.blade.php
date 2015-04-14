@@ -49,20 +49,6 @@
 			<script src="{{ elixir("js/vendor.js") }}"></script>
 			<script src="{{ elixir("js/application.js") }}"></script>
 
-			<script>
-			// initialize video.js
-				var video = videojs('demo');
-				//load the marker plugin
-				video.markers({
-				  markers: [
-				     {time: 60, text: "this"},
-				     {time: 140,  text: "is"},
-				     {time: 400,text: "so"}
-				  ]
-				});
-
-			</script>
-
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@include('layouts.partials.analytics')
 	</body>

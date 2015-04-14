@@ -60,7 +60,7 @@ class LectionController extends Controller {
 		$online = Video::getOnline($videoname);
 
 		// Videopfad generieren
-		$videopath = asset('video/' . Parser::normalizeName($videoname));
+		$videopath = '/video/' . Parser::normalizeName($videoname);
 
 		// Standardausgabe VIEW -----------------------------------------
 		return view('lection')

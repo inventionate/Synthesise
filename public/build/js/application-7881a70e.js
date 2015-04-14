@@ -33,14 +33,17 @@ $(document).ready(function () {
 
     new _SemanticAnimations2["default"]();
 
-    // @todo Nachrichten AJAX programmieren
-    React.render(React.createElement(_Messages2["default"], null), document.getElementById("messages-manage"));
-
-    // @todo Interaktives Video erstellen
-    React.render(React.createElement(InteractiveVideo, null), document.getElementById("interactive-video"));
-
-    // Statistik ausgeben (mehrere Module mit variablen Einstellungen)
-    React.render(React.createElement(_Statistic2["default"], null), document.getElementById("statistic-plays"));
+    // @todo ReactKomponenten ggf. anders laden!
+    if ($("#interactive-video").length) {
+        var name = $("#interactive-video").attr("data-name");
+        React.render(React.createElement(_InterativeVideo2["default"], { name: name }), document.getElementById("interactive-video"));
+    }
+    if ($("#messages-manage").length) {
+        React.render(React.createElement(_Messages2["default"], null), document.getElementById("messages-manage"));
+    }
+    if ($("#statistic-plays").length) {
+        React.render(React.createElement(_Statistic2["default"], null), document.getElementById("statistic-plays"));
+    }
 });
 
 },{"./Components/Analytics.js":2,"./Components/InteractiveVideo.jsx":3,"./Components/Messages.jsx":4,"./Components/SemanticAnimations.js":5,"./Components/Statistic.jsx":6}],2:[function(require,module,exports){
@@ -56,31 +59,17 @@ var Analytics = function Analytics() {
     _classCallCheck(this, Analytics);
 
     $(document).on('click', '.download-paper', function () {
-        var name;
-        name = $(this).attr('data-name');
+        var name = $(this).attr('data-name');
         return _paq.push(['trackEvent', 'Text', 'Downloaded', name]);
-    });
-
-    $(document).on('click', '.download-further-literature', function () {
-        var name;
-        name = $(this).attr('data-name');
+    }).on('click', '.download-further-literature', function () {
+        var name = $(this).attr('data-name');
         return _paq.push(['trackEvent', 'Weiterführende Literaturhinweise', 'Downloaded', name]);
-    });
-
-    $(document).on('click', '.download-info', function () {
-        var name;
-        name = $(this).attr('data-name');
+    }).on('click', '.download-info', function () {
+        var name = $(this).attr('data-name');
         return _paq.push(['trackEvent', 'Informationsdokument', 'Downloaded', name]);
-    });
-
-    $(document).on('click', '.download-note', function () {
-        var name;
-        name = $(this).attr('data-name');
+    }).on('click', '.download-note', function () {
+        var name = $(this).attr('data-name');
         return _paq.push(['trackEvent', 'Notizen', 'Downloaded', name]);
-    });
-
-    $(document).on('click', '.monja', function () {
-        alert('Monja is crying!');
     });
 };
 
@@ -88,120 +77,49 @@ exports['default'] = Analytics;
 module.exports = exports['default'];
 
 },{}],3:[function(require,module,exports){
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
-  value: true
+Object.defineProperty(exports, "__esModule", {
+    value: true
 });
-var SemanticTest = React.createClass({
-  displayName: 'SemanticTest',
+var InteractiveVideo = React.createClass({
+    displayName: "InteractiveVideo",
 
-  componentDidMount: function componentDidMount() {
-    $('#new-message').modal('setting', 'transition', 'vertical flip').modal('attach events', '.new-message.button', 'show');
-  },
+    //Aktuelles Video über ein data-attribut abfragen!
+    getDefaultProps: function getDefaultProps() {
+        return {
+            name: "/video/mittelalter"
+        };
+    },
 
-  render: function render() {
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'div',
-        { className: 'ui top attached segment' },
-        React.createElement(
-          'div',
-          { className: 'ui warning message' },
-          React.createElement('i', { className: 'close icon' }),
-          React.createElement(
-            'div',
-            { className: 'header' },
-            'You must register before you can do that!'
-          ),
-          'Visit our registration page, then try again'
-        ),
-        React.createElement('div', { className: 'ui divider' }),
-        React.createElement(
-          'div',
-          { className: 'ui info message' },
-          React.createElement('i', { className: 'close icon' }),
-          React.createElement(
-            'div',
-            { className: 'header' },
-            'You must register before you can do that!'
-          ),
-          'Visit our registration page, then try again'
-        )
-      ),
-      React.createElement(
-        'div',
-        { className: 'new-message ui bottom attached blue button' },
-        'Neue Nachricht erstellen'
-      ),
-      '// @todo: Eigene Komponente inkl. AJAX Abfragen (CSRF Token über die Meta-Tag Idee).',
-      React.createElement(
-        'div',
-        { id: 'new-message', className: 'ui modal' },
-        React.createElement(
-          'div',
-          { className: 'header' },
-          'Neue Nachricht'
-        ),
-        React.createElement(
-          'div',
-          { className: 'content' },
-          React.createElement(
-            'div',
-            { className: 'ui medium image' },
-            React.createElement('img', { src: '/images/avatar/large/chris.jpg' })
-          ),
-          React.createElement(
-            'div',
-            { className: 'description' },
+    componentDidMount: function componentDidMount() {
+        var videoplayer = videojs("videoplayer");
+        videoplayer.markers({
+            markers: [{ time: 60, text: "this" }, { time: 140, text: "is" }, { time: 400, text: "so" }, { time: 800, text: "cool!" }]
+        });
+    },
+
+    render: function render() {
+        return React.createElement(
+            "div",
+            null,
             React.createElement(
-              'div',
-              { className: 'ui header' },
-              'We\'ve auto-chosen a profile image for you.'
+                "video",
+                { id: "videoplayer", className: "video-js vjs-sublime-skin vjs-big-play-centered",
+                    poster: "/img/ol_title.jpg",
+                    "data-setup": "{ \"controls\": true, \"autoplay\": false, \"preload\": \"auto\", \"width\": \"100%\", \"height\": \"100%\" }"
+                },
+                React.createElement("source", { type: "video/mp4", src: this.props.name.toString() + ".mp4" }),
+                React.createElement("source", { type: "video/webm", src: this.props.name.toString() + ".webm" })
             ),
-            React.createElement(
-              'p',
-              null,
-              'We\'ve grabbed the following image from the ',
-              React.createElement(
-                'a',
-                { href: 'https://www.gravatar.com', target: '_blank' },
-                'gravatar'
-              ),
-              ' image associated with your registered e-mail address.'
-            ),
-            React.createElement(
-              'p',
-              null,
-              'Is it okay to use this photo?'
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'actions' },
-          React.createElement(
-            'div',
-            { className: 'ui black button' },
-            'Abbrechen'
-          ),
-          React.createElement(
-            'div',
-            { className: 'ui positive right labeled icon button' },
-            'Erstellen',
-            React.createElement('i', { className: 'checkmark icon' })
-          )
-        )
-      )
-    );
-  }
+            React.createElement("img", { src: "/img/etpm_logo.png" })
+        );
+    }
 
 });
 
-exports['default'] = SemanticTest;
-module.exports = exports['default'];
+exports["default"] = InteractiveVideo;
+module.exports = exports["default"];
 
 },{}],4:[function(require,module,exports){
 'use strict';

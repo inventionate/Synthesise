@@ -1,68 +1,43 @@
-var SemanticTest = React.createClass({
+var InteractiveVideo = React.createClass({
 
-    componentDidMount: function()
+    //Aktuelles Video über ein data-attribut abfragen!
+    getDefaultProps: function ()
     {
-        $('#new-message')
-            .modal('setting', 'transition', 'vertical flip')
-            .modal('attach events', '.new-message.button', 'show');
+        return {
+            name: '/video/mittelalter'
+        };
     },
 
-    render: function()
+    componentDidMount: function ()
     {
-        return(
+        var videoplayer = videojs("videoplayer");
+		videoplayer.markers({
+			markers: [
+			    {time: 60, text: "this"},
+			    {time: 140,  text: "is"},
+			    {time: 400,text: "so"},
+                {time: 800,text: "cool!"}
+			]
+		});
+
+    },
+
+    render: function ()
+    {
+        return (
         <div>
-            <div className="ui top attached segment">
-
-                <div className="ui warning message">
-              <i className="close icon"></i>
-              <div className="header">
-                You must register before you can do that!
-              </div>
-              Visit our registration page, then try again
-            </div>
-
-            <div className="ui divider"></div>
-
-            <div className="ui info message">
-              <i className="close icon"></i>
-              <div className="header">
-                You must register before you can do that!
-              </div>
-              Visit our registration page, then try again
-            </div>
-
-        </div>
-            <div className="new-message ui bottom attached blue button">Neue Nachricht erstellen</div>
-
-            // @todo: Eigene Komponente inkl. AJAX Abfragen (CSRF Token über die Meta-Tag Idee).
-            <div id="new-message" className="ui modal">
-              <div className="header">
-                Neue Nachricht
-              </div>
-              <div className="content">
-                <div className="ui medium image">
-                  <img src="/images/avatar/large/chris.jpg" />
-                </div>
-                <div className="description">
-                  <div className="ui header">We've auto-chosen a profile image for you.</div>
-                  <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-                  <p>Is it okay to use this photo?</p>
-                </div>
-              </div>
-              <div className="actions">
-                <div className="ui black button">
-                  Abbrechen
-                </div>
-                <div className="ui positive right labeled icon button">
-                  Erstellen
-                  <i className="checkmark icon"></i>
-                </div>
-              </div>
-            </div>
+            <video id="videoplayer" className="video-js vjs-sublime-skin vjs-big-play-centered"
+                poster="/img/ol_title.jpg"
+                data-setup='{ "controls": true, "autoplay": false, "preload": "auto", "width": "100%", "height": "100%" }'
+                >
+                <source type="video/mp4" src={this.props.name.toString() + ".mp4"} />
+                <source type="video/webm" src={this.props.name.toString() + ".webm"} />
+            </video>
+            <img src="/img/etpm_logo.png" />
         </div>
         );
     }
 
 });
 
-export default SemanticTest;
+export default InteractiveVideo;
