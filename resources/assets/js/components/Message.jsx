@@ -1,23 +1,30 @@
 var Message = React.createClass({
-  render: function() {
 
-    var messageClass = "ui " + this.props.colour + " message";
+    deleteMessage: function () {
+        this.props.onDeleteMessage({
+            id: this.props.id
+        });
+    },
 
-    return (
-        <div className="message">
+    render: function () {
 
-            <div className={messageClass}>
-                <i className="close icon"></i>
-                <i className="edit icon"></i>
-                <div className="header">
-                    {this.props.title}
+        var messageClass = "ui " + this.props.colour + " message";
+
+        return (
+            <div className="message">
+
+                <div className={messageClass}>
+                    <i className="close icon" onClick={this.deleteMessage} ></i>
+                    <i className="edit icon"></i>
+                    <div className="header">
+                        {this.props.title}
+                    </div>
+                    {this.props.content}
                 </div>
-                {this.props.content}
-            </div>
 
-        </div>
-    );
-  }
+            </div>
+        );
+    }
 });
 
 export default Message;

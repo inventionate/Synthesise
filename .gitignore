@@ -3,5 +3,7 @@
 /public/video
 /storage/app/users
 /tests/_output
+/public/css
+/public/js
 .env
 .env.production

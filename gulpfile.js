@@ -28,15 +28,18 @@ var elixir = require('laravel-elixir');
         ], "public/js/vendor.js", "vendor/bower_components")
         // Application Components
         .browserify("application.js","public/js/application.js", "resources/assets/js")
-        // Version hash
-        .version([
-            "css/application.css",
-            "js/modernizr.js",
-            "js/application.js",
-            "js/vendor.js"
-        ])
-        // Fonts
-        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts")
-        .copy("vendor/bower_components/video.js/dist/video-js/font","public/build/css/font")
+        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/css/themes/default/assets/fonts")
+        .copy("vendor/bower_components/video.js/dist/video-js/font","public/css/font")
         .copy("vendor/bower_components/video.js/dist/video-js/video-js.swf","public");
+        // Version hash
+        if (elixir.config.production) {
+            mix.version([
+                "css/application.css",
+                "js/modernizr.js",
+                "js/application.js",
+                "js/vendor.js"
+            ])
+            .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts")
+            .copy("vendor/bower_components/video.js/dist/video-js/font","public/build/css/font");
+        }
     });

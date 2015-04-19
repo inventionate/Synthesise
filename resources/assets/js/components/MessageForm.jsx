@@ -2,16 +2,24 @@ var MessageForm = React.createClass({
 
     componentDidMount: function()
     {
-
         // Semantic UI DOM Manipulationen durchführen.
         $("#new-message")
             .modal({
                 detachable: false,
-                transition: 'vertical flip'
-            })
-            .modal('attach events', '.new-message.button', 'show');
+                transition: 'vertical flip',
+                onHidden: function () {
+                    $('#new-message')[0].reset();
+                }
+            });
+            //.modal('attach events', '.new-message.button', 'show');
 
         $('.ui.radio.checkbox').checkbox();
+
+    },
+
+    openModal: function() {
+
+        $("#new-message").modal('show');
 
     },
 
@@ -20,7 +28,9 @@ var MessageForm = React.createClass({
         return (
             <div className="message-form">
 
-                <div className="new-message ui bottom attached teal button">Neue Nachricht erstellen</div>
+                <div className="new-message ui bottom attached teal button" onClick={this.openModal} >Neue Nachricht erstellen</div>
+
+
 
                 <form id="new-message" className="ui modal">
                     <div className="header">
@@ -31,7 +41,7 @@ var MessageForm = React.createClass({
 
                             <div className="required field">
                                 <label className="hide">Titel</label>
-                                <input placeholder="Titel eingeben"/>
+                                <input placeholder="Titel eingeben" defaultValue=""  />
                             </div>
 
                             <div className="required field">
@@ -55,13 +65,13 @@ var MessageForm = React.createClass({
                                 </div>
                                 <div className="field">
                                     <div className="ui radio checkbox">
-                                        <input name="colour" type="radio" />
+                                        <input name="colour" type="radio" value="green" />
                                         <label>Grün</label>
                                     </div>
                                 </div>
                                 <div className="field">
                                     <div className="ui radio checkbox">
-                                        <input name="colour" type="radio" />
+                                        <input name="colour" type="radio" value="blue" />
                                         <label>Blau</label>
                                     </div>
                                 </div>
@@ -95,13 +105,13 @@ var MessageForm = React.createClass({
                         </div>
                     </div>
                     <div className="actions">
-                        <div className="ui black button">
+                        <button className="ui black button" type="reset">
                             Abbrechen
-                        </div>
-                        <div className="ui positive right labeled icon button">
+                        </button>
+                        <button className="ui positive right labeled icon button" type="submit">
                             Erstellen
                             <i className="checkmark icon"></i>
-                        </div>
+                        </button>
                     </div>
                 </form>
 

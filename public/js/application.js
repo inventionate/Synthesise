@@ -132,6 +132,12 @@ Object.defineProperty(exports, "__esModule", {
 var Message = React.createClass({
     displayName: "Message",
 
+    deleteMessage: function deleteMessage() {
+        this.props.onDeleteMessage({
+            id: this.props.id
+        });
+    },
+
     render: function render() {
 
         var messageClass = "ui " + this.props.colour + " message";
@@ -142,7 +148,7 @@ var Message = React.createClass({
             React.createElement(
                 "div",
                 { className: messageClass },
-                React.createElement("i", { className: "close icon" }),
+                React.createElement("i", { className: "close icon", onClick: this.deleteMessage }),
                 React.createElement("i", { className: "edit icon" }),
                 React.createElement(
                     "div",
@@ -179,13 +185,29 @@ var MessageBox = React.createClass({
     displayName: "MessageBox",
 
     getInitialState: function getInitialState() {
-        return { data: [] };
+        return {
+            data: []
+        };
     },
 
-    loadCommentsFromServer: function loadCommentsFromServer() {
+    loadMessagesFromServer: function loadMessagesFromServer() {
         $.ajax({
             url: this.props.url,
             dataType: "json",
+            success: (function (data) {
+                this.setState({ data: data });
+            }).bind(this),
+            error: (function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }).bind(this)
+        });
+    },
+
+    deleteMessageFromServer: function deleteMessageFromServer(message) {
+        $.ajax({
+            url: this.props.url + "/" + message.id,
+            type: "POST",
+            data: { _method: "delete" },
             success: (function (data) {
                 this.setState({ data: data });
             }).bind(this),
@@ -203,9 +225,9 @@ var MessageBox = React.createClass({
             }
         });
 
-        this.loadCommentsFromServer();
+        this.loadMessagesFromServer();
         // @todo Momentan wird "Long Polling" verwendet. Irgendwann wäre es ggf. sinnvoll auf WebSockets umzusteigen.
-        setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+        setInterval(this.loadMessagesFromServer, this.props.pollInterval);
     },
 
     // Hier eine Ajaxabfrage einbauen.
@@ -219,7 +241,7 @@ var MessageBox = React.createClass({
                 { className: "hide" },
                 "Nachrichten"
             ),
-            React.createElement(_MessageList2["default"], { data: this.state.data }),
+            React.createElement(_MessageList2["default"], { data: this.state.data, submitDeleteMessage: this.deleteMessageFromServer }),
             React.createElement(_MessageForm2["default"], null)
         );
     }
@@ -239,14 +261,22 @@ var MessageForm = React.createClass({
     displayName: 'MessageForm',
 
     componentDidMount: function componentDidMount() {
-
         // Semantic UI DOM Manipulationen durchführen.
         $('#new-message').modal({
             detachable: false,
-            transition: 'vertical flip'
-        }).modal('attach events', '.new-message.button', 'show');
+            transition: 'vertical flip',
+            onHidden: function onHidden() {
+                $('#new-message')[0].reset();
+            }
+        });
+        //.modal('attach events', '.new-message.button', 'show');
 
         $('.ui.radio.checkbox').checkbox();
+    },
+
+    openModal: function openModal() {
+
+        $('#new-message').modal('show');
     },
 
     render: function render() {
@@ -255,7 +285,7 @@ var MessageForm = React.createClass({
             { className: 'message-form' },
             React.createElement(
                 'div',
-                { className: 'new-message ui bottom attached teal button' },
+                { className: 'new-message ui bottom attached teal button', onClick: this.openModal },
                 'Neue Nachricht erstellen'
             ),
             React.createElement(
@@ -280,7 +310,7 @@ var MessageForm = React.createClass({
                                 { className: 'hide' },
                                 'Titel'
                             ),
-                            React.createElement('input', { placeholder: 'Titel eingeben' })
+                            React.createElement('input', { placeholder: 'Titel eingeben', defaultValue: '' })
                         ),
                         React.createElement(
                             'div',
@@ -334,7 +364,7 @@ var MessageForm = React.createClass({
                                 React.createElement(
                                     'div',
                                     { className: 'ui radio checkbox' },
-                                    React.createElement('input', { name: 'colour', type: 'radio' }),
+                                    React.createElement('input', { name: 'colour', type: 'radio', value: 'green' }),
                                     React.createElement(
                                         'label',
                                         null,
@@ -348,7 +378,7 @@ var MessageForm = React.createClass({
                                 React.createElement(
                                     'div',
                                     { className: 'ui radio checkbox' },
-                                    React.createElement('input', { name: 'colour', type: 'radio' }),
+                                    React.createElement('input', { name: 'colour', type: 'radio', value: 'blue' }),
                                     React.createElement(
                                         'label',
                                         null,
@@ -419,13 +449,13 @@ var MessageForm = React.createClass({
                     'div',
                     { className: 'actions' },
                     React.createElement(
-                        'div',
-                        { className: 'ui black button' },
+                        'button',
+                        { className: 'ui black button', type: 'reset' },
                         'Abbrechen'
                     ),
                     React.createElement(
-                        'div',
-                        { className: 'ui positive right labeled icon button' },
+                        'button',
+                        { className: 'ui positive right labeled icon button', type: 'submit' },
                         'Erstellen',
                         React.createElement('i', { className: 'checkmark icon' })
                     )
@@ -455,11 +485,17 @@ var _Message2 = _interopRequireWildcard(_Message);
 var MessageList = React.createClass({
     displayName: "MessageList",
 
+    handleDeleteMessage: function handleDeleteMessage(data) {
+        this.props.submitDeleteMessage({
+            id: data.id
+        });
+    },
+
     render: function render() {
 
-        var messageNodes = this.props.data.map(function (message) {
-            return React.createElement(_Message2["default"], { key: message.id, title: message.title, content: message.content, colour: message.colour });
-        });
+        var messageNodes = $.map(this.props.data, (function (message, index) {
+            return React.createElement(_Message2["default"], { key: message.id, id: message.id, title: message.title, content: message.content, colour: message.colour, onDeleteMessage: this.handleDeleteMessage });
+        }).bind(this));
 
         return React.createElement(
             "div",

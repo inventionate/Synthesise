@@ -4,15 +4,32 @@ import MessageForm from "./MessageForm.jsx";
 var MessageBox = React.createClass({
 
     getInitialState: function () {
-        return {data: []};
+        return {
+            data: []
+        };
     },
 
 
-    loadCommentsFromServer: function ()
+    loadMessagesFromServer: function ()
     {
         $.ajax({
             url: this.props.url,
             dataType: 'json',
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+
+    deleteMessageFromServer: function(message)
+    {
+        $.ajax({
+            url: this.props.url + "/" + message.id,
+            type: 'POST',
+            data: {_method: 'delete'},
             success: function(data) {
                 this.setState({data: data});
             }.bind(this),
@@ -31,9 +48,9 @@ var MessageBox = React.createClass({
             }
         });
 
-        this.loadCommentsFromServer();
+        this.loadMessagesFromServer();
         // @todo Momentan wird "Long Polling" verwendet. Irgendwann wäre es ggf. sinnvoll auf WebSockets umzusteigen.
-        setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+        setInterval(this.loadMessagesFromServer, this.props.pollInterval);
     },
 
     // Hier eine Ajaxabfrage einbauen.
@@ -43,7 +60,7 @@ var MessageBox = React.createClass({
         return(
             <div className="message-box">
                 <h1 className="hide">Nachrichten</h1>
-                <MessageList data={this.state.data} />
+                <MessageList data={this.state.data} submitDeleteMessage={this.deleteMessageFromServer} />
                 <MessageForm />
             </div>
         );

@@ -16,7 +16,7 @@ class MessageController extends Controller {
 	{
 		$messages = Message::getAll();
 		// JSON Response
-		return $messages;
+		return $messages;	
 	}
 
 	/**

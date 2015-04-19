@@ -33704,12 +33704,12 @@ main {
 #messages-manage .close.icon + .edit.icon:hover {
   opacity: 1;
 }
-#messages-manage .message-list > .message {
+#messages-manage .message-list .ui.top.attached.segment > .message {
   margin-bottom: 1.5em;
   padding-bottom: 1.5em;
   border-bottom: 1px solid #dddddd;
 }
-#messages-manage .message-list > .message:last-child {
+#messages-manage .message-list .ui.top.attached.segment > .message:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
   border-bottom: none;
