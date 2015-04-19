@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function()
 	// LOGOUT
 	Route::get('logout', [
 	  'as' => 'logout',
-	  'uses' => 'AuthController@logout'
+	  'uses' => 'Auth\AuthController@logout'
 	]);
 
 	// DASHBOARD

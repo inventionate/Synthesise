@@ -1,10 +1,22 @@
-<section id="messages">
+@if ( $role === 'Admin' )
 
-@foreach ($messages as $message)
-    {{-- Message Type in Colour ändern! --}}
-    <div class="ui message {{ $message->type }}" role="alert">
-      {{ $message->message }}
-    </div>
-@endforeach
+    {{-- Die URL noch weiter automatisieren über einen Laravel Helper --}}
+    <section id="messages-manage" data-url="/api/v1/messages" data-poll-interval="10000"></section>
 
-</section>
+    <div class="ui section divider"></div>
+
+@else
+
+    <section id="messages">
+
+        @foreach ($messages as $message)
+            {{-- Message Type in Colour ändern! --}}
+            <div class="ui message {{ $message->type }}" role="alert">
+              {{ $message->message }}
+            </div>
+        @endforeach
+
+    </section>
+
+
+@endif

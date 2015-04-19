@@ -19,6 +19,7 @@
 						{{--<th>Status für die Studierende</th>--}}
 					@endif
 					<th>Literatur & Notizen</th>
+					<th>Editieren</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -78,10 +79,59 @@
 							</div>
 
 						</td>
+
+						<td class="edit">
+							@if ( Auth::user()->role === 'Admin' )
+				                <div class="ui teal small icon button" data-name="{{ $video->videoname }}" data-lecturer="{{ $video->author }}" data-section="{{ $video->section }}">
+				                    <i class="edit icon"></i>
+								</div>
+				            @endif
+						</td>
 					</tr>
 				@endforeach
 			</tbody>
 		</table>
 
 	</div>
+
 </section>
+
+<div id="edit-lection" class="ui modal">
+	<div class="header">
+		online-Lektion bearbeiten
+	</div>
+	<div class="content">
+		<div class="ui form">
+
+			<div class="disabled field">
+				<label>Name</label>
+				<input id="edit-lection-name"  placeholder="" disabled="disabled" type="text">
+			</div>
+
+			<div class="disabled field">
+				<label>Themenbereich</label>
+				<input id="edit-lection-section"  placeholder="" disabled="disabled" type="text">
+			</div>
+
+			<div class="disabled field">
+				<label>Dozent/in</label>
+				<input id="edit-lection-lecturer"  placeholder="" disabled="disabled" type="text">
+			</div>
+
+			<div class="field">
+				<input id="edit-lection-available" type="date" name="available" max="1979-12-31" min="2000-01-02">
+			</div>
+
+
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui black button">
+			Abbrechen
+		</div>
+		<div class="ui positive right labeled icon button">
+			Aktualisieren
+			<i class="checkmark icon"></i>
+		</div>
+	</div>
+</div>

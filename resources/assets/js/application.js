@@ -3,7 +3,7 @@ import Analytics from "./Components/Analytics.js";
 import SemanticAnimations from "./Components/SemanticAnimations.js";
 
 // React JS Components
-import Messages from "./Components/Messages.jsx";
+import MessageBox from "./Components/MessageBox.jsx";
 import InterativeVideo from "./Components/InteractiveVideo.jsx";
 import Statistic from "./Components/Statistic.jsx";
 
@@ -21,7 +21,9 @@ $( document ).ready( () => {
     }
     if ( $("#messages-manage").length )
     {
-        React.render(<Messages />, document.getElementById("messages-manage"));
+        var url = $("#messages-manage").attr('data-url');
+        var pollInterval = $("#messages-manage").attr('data-poll-interval');
+        React.render(<MessageBox url = {url} pollInterval = {pollInterval} />, document.getElementById("messages-manage"));
     }
     if ( $("#statistic-plays").length )
     {

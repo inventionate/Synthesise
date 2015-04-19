@@ -16,3 +16,5 @@
 <meta name="msapplication-starturl" content="{{url('home')}}">
 <meta name="msapplication-navbutton-color" content="#5ebc3b">
 <meta name="msapplication-tooltip" content="e:t:p:M – Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns">
+{{-- CSRF Protection --}}
+<meta name="csrf-token" content="{{ csrf_token() }}" />

@@ -39,7 +39,7 @@ class DashboardController extends Controller {
 		// Aktuelles Video abfragen
 		if(Video::getCurrentVideo() != false) {
 			$videoname = Video::getCurrentVideo()->videoname;
-			$author = 'von ' . Video::getCurrentVideo()->author;
+			$author = Video::getCurrentVideo()->author;
 			$available = true;
 			$papers = Video::getPapers($videoname);
 		}

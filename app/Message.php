@@ -16,6 +16,6 @@ class Message extends Model {
 	*
 	* @var 		array
 	*/
-	protected $fillable = ['message','type'];
+	protected $fillable = ['title','content','colour'];
 
 }

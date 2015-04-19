@@ -1,4 +1,9 @@
+@import "colour";
+
 #messages-manage {
+	.ui.message {
+		min-height: 60px;
+	}
 	.ui.message > .close.icon {
 		top: 0.75em;
 	}
@@ -6,12 +11,24 @@
 		cursor: pointer;
 		position: absolute;
 		margin: 0em;
-		top: 2.15em;
+		top: 2.55em;
 		right: 0.5em;
 		opacity: 0.7;
 		transition: opacity 0.1s linear 0s;
 	}
 	.close.icon + .edit.icon:hover {
 		opacity: 1;
+	}
+	.message-list {
+		> .message {
+			margin-bottom: 1.5em;
+			padding-bottom: 1.5em;
+			border-bottom: 1px solid @light-gray;
+		}
+		> .message:last-child {
+			margin-bottom: 0;
+			padding-bottom: 0;
+			border-bottom: none;
+		}
 	}
 }

@@ -20,24 +20,43 @@
 
         {{-- @todo Inline PHP Code in Controller auslagern. --}}
         {{-- @todo PRINT CSS bearbeiten --}}
-        <div class="ui green pagination menu">
+        <div class="ui pagination menu">
             @for($i = 0; $i < strlen($letters); $i++ )
-              <a class="item @if ($letter === substr($letters,$i,1) ) active @endif" href="{{ url('/hgf/' . substr($letters,$i,1)) }}">
-                  {{ substr($letters,$i,1) }}
-              </a>
+                <a class="item @if ($letter === substr($letters,$i,1) ) active @endif" href="{{ url('/hgf/' . substr($letters,$i,1)) }}">
+                    {{ substr($letters,$i,1) }}
+                </a>
             @endfor
+
+            @if ( Auth::user()->role === 'Admin' )
+
+                <div class="ui teal right attached icon button">
+                    <i class="edit icon"></i>
+                </div>
+
+            @endif
+
         </div>
 
     </div>
 
     @if( $letter != null)
         <div class="left aligned ten wide column">
-            <div class="ui styled fluid accordion">
+            <div id="faq-accordion" class="ui styled fluid accordion">
                 @foreach($answersByLetter as $answers)
 
                     <div class="title">
-                        <i class="dropdown icon"></i>
-                        {{ $answers->subject }}
+                        <div class="ui grid">
+                            <div class="@if ( Auth::user()->role === 'Admin' ) fourteen wide @endif trigger column">
+                                <i class="dropdown icon"></i>
+                                {{ $answers->subject }}
+                            </div>
+                            @if ( Auth::user()->role === 'Admin' )
+                                <div class="two wide right aligned column">
+                                    <a href="#"><i class="edit icon"></i></a>
+                                    <a href="/"><i class="close icon"></i></a>
+                                </div>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="content">

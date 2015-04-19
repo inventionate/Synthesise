@@ -26,6 +26,7 @@
 				</div>
 				{{-- Anmelde Button -----------------------------------------}}
 				{!! Form::submit('Abschicken', ['class' => 'ui fluid submit button']) !!}
+
 			{!! Form::close() !!}
 
 			@if (Session::has('feedback_errors'))
@@ -44,6 +45,7 @@
 				</diV>
 				{{-- Anmelde Button -----------------------------------------}}
 				{!! Form::submit('Abschicken', ['class' => 'ui fluid submit button']) !!}
+
 			{!! Form::close() !!}
 
 			@if (Session::has('support_errors'))

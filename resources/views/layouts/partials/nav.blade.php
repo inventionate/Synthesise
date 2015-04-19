@@ -2,13 +2,13 @@
 
     <a class="etpM item" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
 
+    <a class="item @if ( Request::is('/') ) active @endif" href="{{ url('/') }}">Dashboard</a>
+
     @if ( Auth::user()->role === 'Admin' )
       @include('layouts.partials.nav-admin')
     @endif
 
-    <a class="item @if ( Request::is('/') ) active @endif" href="{{ url('/') }}">Dashboard</a>
-
-    <div class="ui dropdown item @if ( Request::segment(1) === 'online-lektionen' ) active @endif">
+    <div class="ui dropdown item">
       online-Lektionen
       <i class="dropdown icon"></i>
       <div class="green menu">

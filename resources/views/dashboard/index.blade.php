@@ -7,24 +7,14 @@
 <main id="main-content-dashboard" class="ui stackable page grid">
 
 	<div class="one column row">
-	<div class="column">
+		<div class="column">
 
-		<h1 class="hide">Dashboard</h1>
-
-		@if ( $role === 'Admin' )
-
-			<section id="messages-manage"></section>
-
-		@else
+			<h1 class="hide">Dashboard</h1>
 
 			@include('dashboard.partials.messages')
 
-		@endif
-
+		</div>
 	</div>
-	</div>
-
-	<div class="ui section divider"></div>
 
 	<div class="two column row">
 		<div class="column">

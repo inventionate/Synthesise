@@ -19,44 +19,26 @@
 
 				</div>
 
-				{{-- HIER AUF REACT UMSTELLEN! --}}
-				@if( !(Agent::isMobile() || Agent::isTablet()) )
-					{{-- NOTIZEN --}}
-					<section id="notes">
-						<header>
-							<h3>Notizen</h3>
-						</header>
-
-						{!! Form::open(['url' => 'notes']) !!}
-
-						{!! Form::label('note-content', 'Notes', ['class' => 'hidden']) !!}
-						{!! Form::textarea('notes', '', ['rows' => '3', 'maxlength' => '375', 'class' => 'form-control', 'placeholder' => 'Hier können Sie Ihre Notizen hinterlegen.', 'id' => 'note-content']) !!}
-
-						{!! Form::close() !!}
-
-						<div id="ajax-info" class="progress">
-							<div class="progress-bar progress-bar-success" style="width: 100%"></div>
-						</div>
-					</section>
-				@endif
-
 			</div>
 				{{-- ADDITIONAL CONTENT --}}
-				{{--Die Inhalte werden automatisch generiert und das asset geladen. Es setzt sich in dieser manuellen Version aus dem Titel des Textes (Leerzeichen: _) zusammen.--}}
+				{{--Die Inhalte werden automatisch generiert und das Asset geladen. Es setzt sich in dieser manuellen Version aus dem Titel des Textes (Leerzeichen: _) zusammen.--}}
 		</div>
-		<div class="two column row">
-			<section id="additional-content">
-				<header>
-						<h3 class="hidden text">Texte und Notizen</h3>
-				</header>
-				{{-- FÜR DIE MOBILVERSION ANPASSEN MIT DEM RECHTSLIEGENDEN --}}
-				{{-- durch die Texte loopen und Autoren davor setzten --}}
-					@foreach ($papers as $paper)
-						<a class="btn btn-warning btn-block download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a>
-					@endforeach
-					{{-- @todo Funktionalität beim Note Repository hinzufügen (Note::collectContent) --}}
-					<a class="btn btn-primary btn-block download-note" data-name="{{ $videoname }}" href="{{ action('LectionController@getNotesPDF', [rawurlencode($videoname)])	}}">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a>
-			</section>
+		<section id="additional-content" class="two column row">
+			<header class="row">
+				<h3 class="hide">Texte und Notizen</h3>
+			</header>
+			{{-- FÜR DIE MOBILVERSION ANPASSEN MIT DEM RECHTSLIEGENDEN --}}
+			{{-- durch die Texte loopen und Autoren davor setzten --}}
+			<div class="column">
+				@foreach ($papers as $paper)
+					<a class="ui fluid labeled icon blue button download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->papername }}</a>
+				@endforeach
+			</div>
+			<div class="column">
+				{{-- @todo Funktionalität beim Note Repository hinzufügen (Note::collectContent) --}}
+				<a class="ui fluid labeled icon blue button download-note" data-name="{{ $videoname }}" href="{{ action('LectionController@getNotesPDF', [rawurlencode($videoname)])	}}"><i class="square write icon"></i> Notizen herunterladen</a>
+			</div>
+		</section>
 
 		</div>
 

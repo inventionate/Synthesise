@@ -15,9 +15,9 @@ var _SemanticAnimations2 = _interopRequireWildcard(_SemanticAnimations);
 
 // React JS Components
 
-var _Messages = require("./Components/Messages.jsx");
+var _MessageBox = require("./Components/MessageBox.jsx");
 
-var _Messages2 = _interopRequireWildcard(_Messages);
+var _MessageBox2 = _interopRequireWildcard(_MessageBox);
 
 var _InterativeVideo = require("./Components/InteractiveVideo.jsx");
 
@@ -39,14 +39,16 @@ $(document).ready(function () {
         React.render(React.createElement(_InterativeVideo2["default"], { name: name }), document.getElementById("interactive-video"));
     }
     if ($("#messages-manage").length) {
-        React.render(React.createElement(_Messages2["default"], null), document.getElementById("messages-manage"));
+        var url = $("#messages-manage").attr("data-url");
+        var pollInterval = $("#messages-manage").attr("data-poll-interval");
+        React.render(React.createElement(_MessageBox2["default"], { url: url, pollInterval: pollInterval }), document.getElementById("messages-manage"));
     }
     if ($("#statistic-plays").length) {
         React.render(React.createElement(_Statistic2["default"], null), document.getElementById("statistic-plays"));
     }
 });
 
-},{"./Components/Analytics.js":2,"./Components/InteractiveVideo.jsx":3,"./Components/Messages.jsx":4,"./Components/SemanticAnimations.js":5,"./Components/Statistic.jsx":6}],2:[function(require,module,exports){
+},{"./Components/Analytics.js":2,"./Components/InteractiveVideo.jsx":3,"./Components/MessageBox.jsx":5,"./Components/SemanticAnimations.js":8,"./Components/Statistic.jsx":9}],2:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
@@ -122,58 +124,142 @@ exports["default"] = InteractiveVideo;
 module.exports = exports["default"];
 
 },{}],4:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var Message = React.createClass({
+    displayName: "Message",
+
+    render: function render() {
+
+        var messageClass = "ui " + this.props.colour + " message";
+
+        return React.createElement(
+            "div",
+            { className: "message" },
+            React.createElement(
+                "div",
+                { className: messageClass },
+                React.createElement("i", { className: "close icon" }),
+                React.createElement("i", { className: "edit icon" }),
+                React.createElement(
+                    "div",
+                    { className: "header" },
+                    this.props.title
+                ),
+                this.props.content
+            )
+        );
+    }
+});
+
+exports["default"] = Message;
+module.exports = exports["default"];
+
+},{}],5:[function(require,module,exports){
+"use strict";
+
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _MessageList = require("./MessageList.jsx");
+
+var _MessageList2 = _interopRequireWildcard(_MessageList);
+
+var _MessageForm = require("./MessageForm.jsx");
+
+var _MessageForm2 = _interopRequireWildcard(_MessageForm);
+
+var MessageBox = React.createClass({
+    displayName: "MessageBox",
+
+    getInitialState: function getInitialState() {
+        return { data: [] };
+    },
+
+    loadCommentsFromServer: function loadCommentsFromServer() {
+        $.ajax({
+            url: this.props.url,
+            dataType: "json",
+            success: (function (data) {
+                this.setState({ data: data });
+            }).bind(this),
+            error: (function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }).bind(this)
+        });
+    },
+
+    componentDidMount: function componentDidMount() {
+        // CSRF Token abfragenu
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $("meta[name=\"csrf-token\"]").attr("content")
+            }
+        });
+
+        this.loadCommentsFromServer();
+        // @todo Momentan wird "Long Polling" verwendet. Irgendwann wäre es ggf. sinnvoll auf WebSockets umzusteigen.
+        setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+    },
+
+    // Hier eine Ajaxabfrage einbauen.
+
+    render: function render() {
+        return React.createElement(
+            "div",
+            { className: "message-box" },
+            React.createElement(
+                "h1",
+                { className: "hide" },
+                "Nachrichten"
+            ),
+            React.createElement(_MessageList2["default"], { data: this.state.data }),
+            React.createElement(_MessageForm2["default"], null)
+        );
+    }
+
+});
+
+exports["default"] = MessageBox;
+module.exports = exports["default"];
+
+},{"./MessageForm.jsx":6,"./MessageList.jsx":7}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
     value: true
 });
-var SemanticTest = React.createClass({
-    displayName: 'SemanticTest',
+var MessageForm = React.createClass({
+    displayName: 'MessageForm',
 
     componentDidMount: function componentDidMount() {
-        $('#new-message').modal('setting', 'transition', 'vertical flip').modal('attach events', '.new-message.button', 'show');
+
+        // Semantic UI DOM Manipulationen durchführen.
+        $('#new-message').modal({
+            detachable: false,
+            transition: 'vertical flip'
+        }).modal('attach events', '.new-message.button', 'show');
+
+        $('.ui.radio.checkbox').checkbox();
     },
 
     render: function render() {
         return React.createElement(
             'div',
-            null,
+            { className: 'message-form' },
             React.createElement(
                 'div',
-                { className: 'ui top attached segment' },
-                React.createElement(
-                    'div',
-                    { className: 'ui warning message' },
-                    React.createElement('i', { className: 'close icon' }),
-                    React.createElement('i', { className: 'edit icon' }),
-                    React.createElement(
-                        'div',
-                        { className: 'header' },
-                        'You must register before you can do that!'
-                    ),
-                    'Visit our registration page, then try again'
-                ),
-                React.createElement('div', { className: 'ui divider' }),
-                React.createElement(
-                    'div',
-                    { className: 'ui info message' },
-                    React.createElement('i', { className: 'close icon' }),
-                    React.createElement('i', { className: 'edit icon' }),
-                    React.createElement(
-                        'div',
-                        { className: 'header' },
-                        'You must register before you can do that!'
-                    ),
-                    'Visit our registration page, then try again'
-                )
-            ),
-            React.createElement(
-                'div',
-                { className: 'new-message ui bottom attached blue button' },
+                { className: 'new-message ui bottom attached teal button' },
                 'Neue Nachricht erstellen'
             ),
             React.createElement(
-                'div',
+                'form',
                 { id: 'new-message', className: 'ui modal' },
                 React.createElement(
                     'div',
@@ -192,16 +278,26 @@ var SemanticTest = React.createClass({
                             React.createElement(
                                 'label',
                                 { className: 'hide' },
-                                'Text'
+                                'Titel'
                             ),
-                            React.createElement('textarea', null)
+                            React.createElement('input', { placeholder: 'Titel eingeben' })
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'required field' },
+                            React.createElement(
+                                'label',
+                                { className: 'hide' },
+                                'Inhalt'
+                            ),
+                            React.createElement('textarea', { placeholder: 'Nachricht eingeben' })
                         ),
                         React.createElement(
                             'div',
                             { className: 'inline fields' },
                             React.createElement(
                                 'label',
-                                { 'for': 'colour' },
+                                { htmlFor: 'colour' },
                                 'Hintergrundfarbe wählen:'
                             ),
                             React.createElement(
@@ -315,20 +411,6 @@ var SemanticTest = React.createClass({
                                         'Rot'
                                     )
                                 )
-                            ),
-                            React.createElement(
-                                'div',
-                                { className: 'field' },
-                                React.createElement(
-                                    'div',
-                                    { className: 'ui radio checkbox' },
-                                    React.createElement('input', { name: 'colour', type: 'radio' }),
-                                    React.createElement(
-                                        'label',
-                                        null,
-                                        'Aquamarin'
-                                    )
-                                )
                             )
                         )
                     )
@@ -354,10 +436,47 @@ var SemanticTest = React.createClass({
 
 });
 
-exports['default'] = SemanticTest;
+exports['default'] = MessageForm;
 module.exports = exports['default'];
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
+"use strict";
+
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Message = require("./Message.jsx");
+
+var _Message2 = _interopRequireWildcard(_Message);
+
+var MessageList = React.createClass({
+    displayName: "MessageList",
+
+    render: function render() {
+
+        var messageNodes = this.props.data.map(function (message) {
+            return React.createElement(_Message2["default"], { key: message.id, title: message.title, content: message.content, colour: message.colour });
+        });
+
+        return React.createElement(
+            "div",
+            { className: "message-list" },
+            React.createElement(
+                "div",
+                { className: "ui top attached segment" },
+                messageNodes
+            )
+        );
+    }
+});
+
+exports["default"] = MessageList;
+module.exports = exports["default"];
+
+},{"./Message.jsx":4}],8:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
@@ -379,13 +498,33 @@ var SemanticAnimations = function SemanticAnimations() {
 
     $('.ui.accordion').accordion();
 
+    $('#faq-accordion').accordion({
+        selector: {
+            trigger: '.trigger.column'
+        }
+    });
+
     $('.ui.message.shake').transition('shake');
+
+    $('#edit-lection').modal('setting', 'transition', 'vertical flip').modal('attach events', 'td.edit > div.ui.button', 'show');
+
+    $('td.edit > div.ui.button').click(function () {
+
+        var name = $(this).attr('data-name');
+        $('#edit-lection-name').attr('placeholder', name);
+
+        var lecturer = $(this).attr('data-lecturer');
+        $('#edit-lection-lecturer').attr('placeholder', lecturer);
+
+        var section = $(this).attr('data-section');
+        $('#edit-lection-section').attr('placeholder', section);
+    });
 };
 
 exports['default'] = SemanticAnimations;
 module.exports = exports['default'];
 
-},{}],6:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

@@ -2,7 +2,9 @@
 
     <div class="one column row">
         <div class="column">
+
             <h2 class="ui header">Allgemeine Informationen</h2>
+
             <p>
                 Die Lehrveranstaltung »Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns« führt in Themen und Fragestellungen der Allgemeinen und Historischen Erziehungswissenschaft ein. Sie setzt sich folgendermaßen zusammen:
             </p>
@@ -73,8 +75,7 @@
 
             <p>Sie können sich diese Informationen und die Termine der Veranstaltung auch als PDF Dokument herunterladen:</p>
 
-            <a class="ui fluid button download-info" data-name="Allgemeine Informationen und Termine" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
-
+            <a class="fluid ui blue icon labeled button download-info" data-name="Allgemeine Informationen und Termine" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
 
         </div>
     </div>
