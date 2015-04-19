@@ -33689,6 +33689,7 @@ main {
 }
 #messages-manage .ui.message > .close.icon {
   top: 0.75em;
+  color: #009fda;
 }
 #messages-manage .close.icon + .edit.icon {
   cursor: pointer;
@@ -33698,6 +33699,7 @@ main {
   right: 0.5em;
   opacity: 0.7;
   transition: opacity 0.1s linear 0s;
+  color: #009fda;
 }
 #messages-manage .close.icon + .edit.icon:hover {
   opacity: 1;
