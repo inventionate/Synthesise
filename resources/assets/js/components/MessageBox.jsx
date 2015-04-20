@@ -24,14 +24,66 @@ var MessageBox = React.createClass({
         });
     },
 
+    createNewMessageOnServer: function (message)
+    {
+        // Optimistische updates um Geschwindigkeit zu simulieren
+
+        // Aktuelle Daten abfragen
+        var messages = this.state.data;
+
+        var newID = 1;
+
+        console.log(messages.length);
+
+        // Auf aktuelle Daten zugreifen, ID auslesen und erhöhen
+        if ( messages.length > 0 )
+        {
+            newID = messages[messages.length-1].id + 1;
+        }
+
+        // Wahrscheinliche ID der neuen Nachricht hinzufügen
+        message.id = newID;
+
+        // Neue komponente anhängen
+        var newMessages = messages.concat([message]);
+
+        // Datensatz aktualisieren
+        this.setState({data: newMessages});
+
+        // Asynchrone Abfrage
+        $.ajax({
+            url: this.props.url,
+            type: 'POST',
+            dataType: 'json',
+            data: message,
+            success: function(data) {
+                this.loadMessagesFromServer();
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+
     deleteMessageFromServer: function(message)
     {
+        // Optimistische updaten um Geschwindigkeit zu simulieren
+        var messages = this.state.data;
+
+        // Zu löschendes Objekt herausfiltern
+        var newMessages = $.grep(messages, function(e){
+            return e.id != message.id;
+        });
+
+        // Datensatz aktualisieren
+        this.setState({data: newMessages});
+
         $.ajax({
             url: this.props.url + "/" + message.id,
             type: 'POST',
             data: {_method: 'delete'},
             success: function(data) {
-                this.setState({data: data});
+                this.loadMessagesFromServer();
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -61,7 +113,7 @@ var MessageBox = React.createClass({
             <div className="message-box">
                 <h1 className="hide">Nachrichten</h1>
                 <MessageList data={this.state.data} submitDeleteMessage={this.deleteMessageFromServer} />
-                <MessageForm />
+                <MessageForm onSubmitNewMessage={this.createNewMessageOnServer} />
             </div>
         );
     }

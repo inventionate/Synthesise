@@ -203,13 +203,63 @@ var MessageBox = React.createClass({
         });
     },
 
+    createNewMessageOnServer: function createNewMessageOnServer(message) {
+        // Optimistische updates um Geschwindigkeit zu simulieren
+
+        // Aktuelle Daten abfragen
+        var messages = this.state.data;
+
+        var newID = 1;
+
+        console.log(messages.length);
+
+        // Auf aktuelle Daten zugreifen, ID auslesen und erhöhen
+        if (messages.length > 0) {
+            newID = messages[messages.length - 1].id + 1;
+        }
+
+        // Wahrscheinliche ID der neuen Nachricht hinzufügen
+        message.id = newID;
+
+        // Neue komponente anhängen
+        var newMessages = messages.concat([message]);
+
+        // Datensatz aktualisieren
+        this.setState({ data: newMessages });
+
+        // Asynchrone Abfrage
+        $.ajax({
+            url: this.props.url,
+            type: "POST",
+            dataType: "json",
+            data: message,
+            success: (function (data) {
+                this.loadMessagesFromServer();
+            }).bind(this),
+            error: (function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }).bind(this)
+        });
+    },
+
     deleteMessageFromServer: function deleteMessageFromServer(message) {
+        // Optimistische updaten um Geschwindigkeit zu simulieren
+        var messages = this.state.data;
+
+        // Zu löschendes Objekt herausfiltern
+        var newMessages = $.grep(messages, function (e) {
+            return e.id != message.id;
+        });
+
+        // Datensatz aktualisieren
+        this.setState({ data: newMessages });
+
         $.ajax({
             url: this.props.url + "/" + message.id,
             type: "POST",
             data: { _method: "delete" },
             success: (function (data) {
-                this.setState({ data: data });
+                this.loadMessagesFromServer();
             }).bind(this),
             error: (function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -242,7 +292,7 @@ var MessageBox = React.createClass({
                 "Nachrichten"
             ),
             React.createElement(_MessageList2["default"], { data: this.state.data, submitDeleteMessage: this.deleteMessageFromServer }),
-            React.createElement(_MessageForm2["default"], null)
+            React.createElement(_MessageForm2["default"], { onSubmitNewMessage: this.createNewMessageOnServer })
         );
     }
 
@@ -260,23 +310,90 @@ Object.defineProperty(exports, '__esModule', {
 var MessageForm = React.createClass({
     displayName: 'MessageForm',
 
+    getInitialState: function getInitialState() {
+        return {
+            colour: 'default'
+        };
+    },
+
     componentDidMount: function componentDidMount() {
         // Semantic UI DOM Manipulationen durchführen.
         $('#new-message').modal({
             detachable: false,
             transition: 'vertical flip',
+            closable: false,
             onHidden: function onHidden() {
-                $('#new-message')[0].reset();
+                $('.ui.form').form('reset');
             }
         });
-        //.modal('attach events', '.new-message.button', 'show');
 
-        $('.ui.radio.checkbox').checkbox();
+        $('.ui.radio.checkbox').checkbox({
+            onChecked: (function () {
+
+                // Ausgewählte Farbe abfragen und Auswahl zurücksetzen
+                var colour = $('.ui.radio.checkbox.checked input').val();
+                $('.ui.radio.checkbox.checked').removeClass('checked');
+
+                // Farbe festlegen
+                this.setState({
+                    colour: colour
+                });
+            }).bind(this)
+        });
+
+        // Formvalidierung
+        $('.ui.form').form({
+            title: {
+                identifier: 'title',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Bitte geben Sie einen Titel ein.'
+                }]
+            },
+            content: {
+                identifier: 'content',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Bitte geben Sie eine Nachricht ein.'
+                }]
+            }
+        }, {
+            inline: true,
+            on: 'blur',
+            onSuccess: (function () {
+                this.handleSubmit();
+                $('#new-message').modal('hide');
+            }).bind(this)
+        }).submit(function (event) {
+            // Standardevent verhindern (wie wird der event aber übergeben durch Success?)
+            return event.preventDefault();
+        });
     },
 
     openModal: function openModal() {
-
         $('#new-message').modal('show');
+    },
+
+    closeModal: function closeModal() {
+        $('#new-message').modal('hide');
+    },
+
+    handleSubmit: function handleSubmit() {
+        // Variablenwerte auslesen
+        var title = React.findDOMNode(this.refs.title).value.trim();
+        var content = React.findDOMNode(this.refs.content).value.trim();
+
+        // Callback Datensatz
+        this.props.onSubmitNewMessage({
+            title: title,
+            content: content,
+            colour: this.state.colour
+        });
+
+        // Auf den Ausgangsstatus zurücksetzen
+        this.replaceState(this.getInitialState());
+
+        return;
     },
 
     render: function render() {
@@ -289,7 +406,7 @@ var MessageForm = React.createClass({
                 'Neue Nachricht erstellen'
             ),
             React.createElement(
-                'form',
+                'div',
                 { id: 'new-message', className: 'ui modal' },
                 React.createElement(
                     'div',
@@ -300,27 +417,27 @@ var MessageForm = React.createClass({
                     'div',
                     { className: 'content' },
                     React.createElement(
-                        'div',
-                        { className: 'ui form' },
+                        'form',
+                        { className: 'ui form', onSubmit: this.handleSubmit },
                         React.createElement(
                             'div',
                             { className: 'required field' },
                             React.createElement(
                                 'label',
-                                { className: 'hide' },
+                                { htmlFor: 'title', className: 'hide' },
                                 'Titel'
                             ),
-                            React.createElement('input', { placeholder: 'Titel eingeben', defaultValue: '' })
+                            React.createElement('input', { name: 'title', placeholder: 'Titel eingeben.', ref: 'title', type: 'text' })
                         ),
                         React.createElement(
                             'div',
                             { className: 'required field' },
                             React.createElement(
                                 'label',
-                                { className: 'hide' },
+                                { htmlFor: 'content', className: 'hide' },
                                 'Inhalt'
                             ),
-                            React.createElement('textarea', { placeholder: 'Nachricht eingeben' })
+                            React.createElement('textarea', { name: 'content', placeholder: 'Nachricht eingeben.', ref: 'content' })
                         ),
                         React.createElement(
                             'div',
@@ -336,7 +453,7 @@ var MessageForm = React.createClass({
                                 React.createElement(
                                     'div',
                                     { className: 'ui radio checkbox' },
-                                    React.createElement('input', { name: 'colour', checked: '', type: 'radio' }),
+                                    React.createElement('input', { name: 'colour', type: 'radio', value: 'black' }),
                                     React.createElement(
                                         'label',
                                         null,
@@ -350,7 +467,7 @@ var MessageForm = React.createClass({
                                 React.createElement(
                                     'div',
                                     { className: 'ui radio checkbox' },
-                                    React.createElement('input', { name: 'colour', type: 'radio' }),
+                                    React.createElement('input', { name: 'colour', type: 'radio', value: 'yellow' }),
                                     React.createElement(
                                         'label',
                                         null,
@@ -392,7 +509,7 @@ var MessageForm = React.createClass({
                                 React.createElement(
                                     'div',
                                     { className: 'ui radio checkbox' },
-                                    React.createElement('input', { name: 'colour', type: 'radio' }),
+                                    React.createElement('input', { name: 'colour', type: 'radio', value: 'orange' }),
                                     React.createElement(
                                         'label',
                                         null,
@@ -406,7 +523,7 @@ var MessageForm = React.createClass({
                                 React.createElement(
                                     'div',
                                     { className: 'ui radio checkbox' },
-                                    React.createElement('input', { name: 'colour', type: 'radio' }),
+                                    React.createElement('input', { name: 'colour', type: 'radio', value: 'purple' }),
                                     React.createElement(
                                         'label',
                                         null,
@@ -420,7 +537,7 @@ var MessageForm = React.createClass({
                                 React.createElement(
                                     'div',
                                     { className: 'ui radio checkbox' },
-                                    React.createElement('input', { name: 'colour', type: 'radio' }),
+                                    React.createElement('input', { name: 'colour', type: 'radio', value: 'pink' }),
                                     React.createElement(
                                         'label',
                                         null,
@@ -434,7 +551,7 @@ var MessageForm = React.createClass({
                                 React.createElement(
                                     'div',
                                     { className: 'ui radio checkbox' },
-                                    React.createElement('input', { name: 'colour', type: 'radio' }),
+                                    React.createElement('input', { name: 'colour', type: 'radio', value: 'red' }),
                                     React.createElement(
                                         'label',
                                         null,
@@ -442,22 +559,22 @@ var MessageForm = React.createClass({
                                     )
                                 )
                             )
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'buttons' },
+                            React.createElement(
+                                'div',
+                                { className: 'ui black', onClick: this.closeModal },
+                                'Abbrechen'
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'ui positive right labeled submit icon button' },
+                                'Erstellen',
+                                React.createElement('i', { className: 'checkmark icon' })
+                            )
                         )
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'actions' },
-                    React.createElement(
-                        'button',
-                        { className: 'ui black button', type: 'reset' },
-                        'Abbrechen'
-                    ),
-                    React.createElement(
-                        'button',
-                        { className: 'ui positive right labeled icon button', type: 'submit' },
-                        'Erstellen',
-                        React.createElement('i', { className: 'checkmark icon' })
                     )
                 )
             )
@@ -468,6 +585,7 @@ var MessageForm = React.createClass({
 
 exports['default'] = MessageForm;
 module.exports = exports['default'];
+/* Modal */
 
 },{}],7:[function(require,module,exports){
 "use strict";
@@ -485,9 +603,9 @@ var _Message2 = _interopRequireWildcard(_Message);
 var MessageList = React.createClass({
     displayName: "MessageList",
 
-    handleDeleteMessage: function handleDeleteMessage(data) {
+    handleDeleteMessage: function handleDeleteMessage(message) {
         this.props.submitDeleteMessage({
-            id: data.id
+            id: message.id
         });
     },
 

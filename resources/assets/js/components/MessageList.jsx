@@ -2,9 +2,9 @@ import Message from "./Message.jsx";
 
 var MessageList = React.createClass({
 
-    handleDeleteMessage: function (data) {
+    handleDeleteMessage: function (message) {
         this.props.submitDeleteMessage({
-            id: data.id
+            id: message.id
         });
     },
 

@@ -33704,15 +33704,28 @@ main {
 #messages-manage .close.icon + .edit.icon:hover {
   opacity: 1;
 }
-#messages-manage .message-list .ui.top.attached.segment > .message {
+#messages-manage .message-list div > .message {
   margin-bottom: 1.5em;
   padding-bottom: 1.5em;
   border-bottom: 1px solid #dddddd;
 }
-#messages-manage .message-list .ui.top.attached.segment > .message:last-child {
+#messages-manage .message-list div > .message:last-child {
   margin-bottom: 0;
-  padding-bottom: 0;
   border-bottom: none;
+}
+#messages-manage .ui.form .buttons {
+  background: #efefef;
+  padding: 1rem 2rem;
+  border-top: 1px solid rgba(39, 41, 43, 0.15);
+  text-align: right;
+  margin-left: -1.99rem;
+  margin-right: -2rem;
+  margin-bottom: -2rem;
+  border-bottom-left-radius: 0.2857rem;
+  border-bottom-right-radius: 0.2857rem;
+}
+#messages-manage .ui.form .buttons :first-child {
+  margin-right: 1rem;
 }
 #interactive-video {
   width: 100%;

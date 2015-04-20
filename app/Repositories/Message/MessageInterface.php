@@ -11,6 +11,6 @@ interface MessageInterface
 
   public function delete($id);
 
-  public function store($title, $content, $colour);
+  public function store($id, $title, $content, $colour);
 
 }

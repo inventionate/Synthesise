@@ -16,7 +16,7 @@ class MessageController extends Controller {
 	{
 		$messages = Message::getAll();
 		// JSON Response
-		return $messages;	
+		return $messages;
 	}
 
 	/**
@@ -26,20 +26,17 @@ class MessageController extends Controller {
 	 */
 	public function store(MessageRequest $request)
 	{
-		$content = $request->message;
+		$id = $request->id;
 
-		$type = $request->type;
+		$title = $request->title;
 
-		Message::store($content, $type);
+		$content = $request->content;
 
-		if ( $request->ajax() )
-		{
-			return "sucess";
-		}
-		else
-		{
-			return redirect()->back()->with('success',true);
-		}
+		$colour = $request->colour;
+
+		Message::store($id, $title, $content, $colour);
+
+		return ['success' => true];
 
 	}
 
@@ -51,17 +48,15 @@ class MessageController extends Controller {
 	 */
 	public function update($id, MessageRequest $request)
 	{
-		$content = $request->message;
+		$title = $request->title;
 
-		$type = $request->type;
+		$content = $request->content;
 
-		Message::update($id,$content,$type);
+		$colour = $request->colour;
 
-		// Erfolg zurückmelden
-		if ( $request->ajax() )
-		{
-			return "success";
-		}
+		Message::update($id,$content,$title,$colour);
+
+		return ['success' => true];
 	}
 
 	/**
@@ -74,10 +69,7 @@ class MessageController extends Controller {
 	{
 		Message::delete($id);
 
-		if ( $request->ajax() )
-		{
-			return "success";
-		}
+		return ['success' => true];
 	}
 
 }

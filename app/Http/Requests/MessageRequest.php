@@ -12,8 +12,9 @@ class MessageRequest extends Request {
 	public function rules()
 	{
 		return [
-			'message'	=> 'required',
-			'type'		=> 'required|alpha'
+			'title'		=> 'required',
+			'content'	=> 'required',
+			'colour'	=> 'required|alpha'
 		];
 	}
 
