@@ -5,10 +5,12 @@ var MessageBox = React.createClass({
 
     getInitialState: function () {
         return {
-            data: []
+            data: [],
+            latestMessageID: 1,
+            modalType: 'default',
+            editData: []
         };
     },
-
 
     loadMessagesFromServer: function ()
     {
@@ -16,7 +18,16 @@ var MessageBox = React.createClass({
             url: this.props.url,
             dataType: 'json',
             success: function(data) {
-                this.setState({data: data});
+                var id = 1;
+                if ( data.length > 0 )
+                {
+                    id = data[data.length-1].id + 1;
+                }
+                this.setState({
+                    data: data,
+                    modalType: this.state.modalType,
+                    latestMessageID: id
+                });
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -26,42 +37,58 @@ var MessageBox = React.createClass({
 
     createNewMessageOnServer: function (message)
     {
-        // Optimistische updates um Geschwindigkeit zu simulieren
-
-        // Aktuelle Daten abfragen
-        var messages = this.state.data;
-
-        var newID = 1;
-
-        console.log(messages.length);
-
-        // Auf aktuelle Daten zugreifen, ID auslesen und erhöhen
-        if ( messages.length > 0 )
-        {
-            newID = messages[messages.length-1].id + 1;
-        }
-
-        // Wahrscheinliche ID der neuen Nachricht hinzufügen
-        message.id = newID;
-
-        // Neue komponente anhängen
-        var newMessages = messages.concat([message]);
-
-        // Datensatz aktualisieren
-        this.setState({data: newMessages});
+        // Das aktuelle Problem besteht darin, dass die editierte Message angehängt wird anstatt die vorhandene zu ersetzen.
 
         // Asynchrone Abfrage
-        $.ajax({
-            url: this.props.url,
-            type: 'POST',
-            dataType: 'json',
-            data: message,
-            success: function(data) {
-                this.loadMessagesFromServer();
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
+        if ( this.state.visible === 'default' )
+        {
+
+            // Optimistische updates um Geschwindigkeit zu simulieren
+
+            // Aktuelle Daten abfragen
+            var messages = this.state.data;
+
+            // Neue komponente anhängen
+            var newMessages = messages.concat([message]);
+
+            // Datensatz aktualisieren
+            this.setState({data: newMessages});
+
+            $.ajax({
+                url: this.props.url,
+                type: 'POST',
+                dataType: 'json',
+                data: message,
+                success: function(data) {
+                    this.loadMessagesFromServer();
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            });
+        }
+        else
+        {
+            var id = message.id;
+            delete message.id;
+
+            console.log (message);
+
+            $.ajax({
+                url: this.props.url + "/" + id,
+                type: 'PUT',
+                dataType: 'json',
+                data: message,
+                success: function(data) {
+                    this.loadMessagesFromServer();
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            });
+        }
+        this.setState({
+            modalType: 'default'
         });
     },
 
@@ -91,6 +118,23 @@ var MessageBox = React.createClass({
         });
     },
 
+    handleEditMessageForm: function (message) {
+
+        this.setState({
+            modalType: 'edit',
+            editData: message
+        });
+    },
+
+    handleCloseModal: function (status) {
+
+        this.setState({
+            modalType: status,
+            editData: []
+        });
+
+    },
+
     componentDidMount: function ()
     {
         // CSRF Token abfragenu
@@ -102,7 +146,11 @@ var MessageBox = React.createClass({
 
         this.loadMessagesFromServer();
         // @todo Momentan wird "Long Polling" verwendet. Irgendwann wäre es ggf. sinnvoll auf WebSockets umzusteigen.
-        setInterval(this.loadMessagesFromServer, this.props.pollInterval);
+
+        if ( this.state.visible === 'hide' )
+        {
+            setInterval(this.loadMessagesFromServer, this.props.pollInterval);
+        }
     },
 
     // Hier eine Ajaxabfrage einbauen.
@@ -112,8 +160,16 @@ var MessageBox = React.createClass({
         return(
             <div className="message-box">
                 <h1 className="hide">Nachrichten</h1>
-                <MessageList data={this.state.data} submitDeleteMessage={this.deleteMessageFromServer} />
-                <MessageForm onSubmitNewMessage={this.createNewMessageOnServer} />
+                <MessageList
+                    data={this.state.data}
+                    submitDeleteMessage={this.deleteMessageFromServer}
+                    openEditMessageForm={this.handleEditMessageForm} />
+                <MessageForm
+                    onSubmitNewMessage={this.createNewMessageOnServer}
+                    onCloseModal={this.handleCloseModal}
+                    modalType={this.state.modalType}
+                    editData={this.state.editData}
+                    latestMessageID={this.state.latestMessageID} />
             </div>
         );
     }

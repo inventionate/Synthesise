@@ -1,10 +1,10 @@
 var MessageForm = React.createClass({
 
-    getInitialState: function() {
-        return {
-            colour: 'default'
-        };
-    },
+    // getInitialState: function() {
+    //     return {
+    //         colour: 'default'
+    //     };
+    // },
 
     componentDidMount: function()
     {
@@ -21,20 +21,22 @@ var MessageForm = React.createClass({
 
         $('.ui.radio.checkbox')
             .checkbox(
-            {
-                onChecked: function () {
-
-                    // Ausgewählte Farbe abfragen und Auswahl zurücksetzen
-                    var colour = $('.ui.radio.checkbox.checked input').val();
-                    $('.ui.radio.checkbox.checked').removeClass('checked');
-
-                    // Farbe festlegen
-                    this.setState({
-                        colour: colour
-                    });
-
-                }.bind(this)
-            }
+            // {
+            //     onChecked: function () {
+            //
+            //         // Ausgewählte Farbe abfragen und Auswahl zurücksetzen
+            //         var colour = $('.ui.radio.checkbox.checked input').val();
+            //         $('.ui.radio.checkbox.checked').removeClass('checked');
+            //
+            //         // Ein neuer Satus der Farbe, rendert die Komponente neu. D. h., auch Titel und Content Updates müssen gespeichert oder übergeben werden.
+            //
+            //         // Farbe festlegen
+            //         // this.setState({
+            //         //     colour: colour
+            //         // });
+            //
+            //     }.bind(this)
+            // }
         );
 
         // Formvalidierung
@@ -65,7 +67,7 @@ var MessageForm = React.createClass({
                 on: 'blur',
                 onSuccess: function() {
                     this.handleSubmit();
-                    $("#new-message").modal('hide');
+                    this.closeModal();
                 }.bind(this)
             })
             .submit(function(event)
@@ -75,28 +77,79 @@ var MessageForm = React.createClass({
             });
     },
 
+    componentDidUpdate: function () {
+
+        if ( this.props.modalType === 'edit' )
+        {
+            // Initialen Werte mit übergeben, so dass ein neuer Datensatz generiert werden kann, der wieder an die Box gesendet wird.
+
+            // Titel einfügen
+            $("input[name='title']").val(this.props.editData.message.title);
+
+            // Inhalt einfügen
+            $("textarea[name='content']").val(this.props.editData.message.content);
+
+            // Farbauwahl einfügen
+            $("input[value='"+this.props.editData.message.colour+"']").prop("checked", true);
+
+            this.openModal();
+        }
+
+    },
+
     openModal: function () {
+
         $("#new-message").modal('show');
+
     },
 
     closeModal: function () {
+
         $("#new-message").modal('hide');
+
+        $("input[value='"+this.props.editData.message.colour+"']").removeAttr('checked');
+
+        this.props.onCloseModal('default');
     },
 
     handleSubmit: function () {
+
         // Variablenwerte auslesen
         var title = React.findDOMNode(this.refs.title).value.trim();
         var content = React.findDOMNode(this.refs.content).value.trim();
+        var colour = 'default';
+        // var colour = React.findDOMNode(this.refs.colour).
+
+
+        var id = this.props.latestMessageID;
+
+        // Die ausgewählte Farbe bestimmen!
+        //var colour = this.props.props.editData.message.colour;
+
+        // DAS PROBLEM IST DIE ÜBERGABE DER KORREKTEN FARBE (hier weg vom ^ und andere Lösung überlegen!!!!)
+        // AM BESTEN ETWAS MIT findDOMNode oder so…
+
+
+        // var colour = this.state.colour;
+
+        // Ist das Model im Editiermodus
+        if ( this.props.modalType === 'edit' )
+        {
+            console.log ("Es wird gerade editiert.");
+
+            id = this.props.editData.message.id;
+        }
 
         // Callback Datensatz
         this.props.onSubmitNewMessage({
+            id: id,
             title: title,
             content: content,
-            colour: this.state.colour
+            colour: colour
         });
 
-        // Auf den Ausgangsstatus zurücksetzen
-        this.replaceState(this.getInitialState());
+        // Auf den  Ausgangsstatus zurücksetzen
+        // this.replaceState(this.getInitialState());
 
         return;
     },
@@ -116,7 +169,7 @@ var MessageForm = React.createClass({
                     </div>
                     <div className="content">
 
-                        <form className="ui form" onSubmit={this.handleSubmit}>
+                        <form className="ui form">
 
                             <div className="required field">
                                 <label htmlFor="title" className="hide">Titel</label>
@@ -125,7 +178,7 @@ var MessageForm = React.createClass({
 
                             <div className="required field">
                                 <label htmlFor="content" className="hide">Inhalt</label>
-                                <textarea name="content" placeholder="Nachricht eingeben." ref="content" />
+                                <textarea name="content" placeholder="Nachricht eingeben." maxLength="500" ref="content" />
                             </div>
 
                             <div className="inline fields">
@@ -182,7 +235,7 @@ var MessageForm = React.createClass({
 
                             <div className="buttons">
 
-                                <div className="ui black" onClick={this.closeModal}>
+                                <div className="ui black reset button" onClick={this.closeModal}>
                                     Abbrechen
                                 </div>
 

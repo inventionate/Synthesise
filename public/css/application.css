@@ -33724,6 +33724,13 @@ main {
   border-bottom-left-radius: 0.2857rem;
   border-bottom-right-radius: 0.2857rem;
 }
+@media (max-width: 768px) {
+  #messages-manage .ui.form .buttons {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-bottom: -1rem;
+  }
+}
 #messages-manage .ui.form .buttons :first-child {
   margin-right: 1rem;
 }

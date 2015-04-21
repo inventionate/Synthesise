@@ -48,7 +48,7 @@ class MessageRepository implements MessageInterface
     // Neue Werte zuweisen
     $toBeUpdatedMessage->title = $newTitle;
     $toBeUpdatedMessage->content = $newContent;
-    $toBeUpdatedMessage->colour = $newcolour;
+    $toBeUpdatedMessage->colour = $newColour;
     // Aktualisierte Notiz speichern
     $toBeUpdatedMessage->save();
   }

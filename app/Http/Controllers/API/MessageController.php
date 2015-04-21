@@ -54,7 +54,7 @@ class MessageController extends Controller {
 
 		$colour = $request->colour;
 
-		Message::update($id,$content,$title,$colour);
+		Message::update($id, $title, $content, $colour);
 
 		return ['success' => true];
 	}

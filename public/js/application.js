@@ -138,6 +138,15 @@ var Message = React.createClass({
         });
     },
 
+    editMessage: function editMessage() {
+        this.props.onEditMessage({
+            id: this.props.id,
+            title: this.props.title,
+            content: this.props.content,
+            colour: this.props.colour
+        });
+    },
+
     render: function render() {
 
         var messageClass = "ui " + this.props.colour + " message";
@@ -149,7 +158,7 @@ var Message = React.createClass({
                 "div",
                 { className: messageClass },
                 React.createElement("i", { className: "close icon", onClick: this.deleteMessage }),
-                React.createElement("i", { className: "edit icon" }),
+                React.createElement("i", { className: "edit icon", onClick: this.editMessage }),
                 React.createElement(
                     "div",
                     { className: "header" },
@@ -186,7 +195,10 @@ var MessageBox = React.createClass({
 
     getInitialState: function getInitialState() {
         return {
-            data: []
+            data: [],
+            latestMessageID: 1,
+            modalType: "default",
+            editData: []
         };
     },
 
@@ -195,7 +207,15 @@ var MessageBox = React.createClass({
             url: this.props.url,
             dataType: "json",
             success: (function (data) {
-                this.setState({ data: data });
+                var id = 1;
+                if (data.length > 0) {
+                    id = data[data.length - 1].id + 1;
+                }
+                this.setState({
+                    data: data,
+                    modalType: this.state.modalType,
+                    latestMessageID: id
+                });
             }).bind(this),
             error: (function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -204,41 +224,55 @@ var MessageBox = React.createClass({
     },
 
     createNewMessageOnServer: function createNewMessageOnServer(message) {
-        // Optimistische updates um Geschwindigkeit zu simulieren
-
-        // Aktuelle Daten abfragen
-        var messages = this.state.data;
-
-        var newID = 1;
-
-        console.log(messages.length);
-
-        // Auf aktuelle Daten zugreifen, ID auslesen und erhöhen
-        if (messages.length > 0) {
-            newID = messages[messages.length - 1].id + 1;
-        }
-
-        // Wahrscheinliche ID der neuen Nachricht hinzufügen
-        message.id = newID;
-
-        // Neue komponente anhängen
-        var newMessages = messages.concat([message]);
-
-        // Datensatz aktualisieren
-        this.setState({ data: newMessages });
+        // Das aktuelle Problem besteht darin, dass die editierte Message angehängt wird anstatt die vorhandene zu ersetzen.
 
         // Asynchrone Abfrage
-        $.ajax({
-            url: this.props.url,
-            type: "POST",
-            dataType: "json",
-            data: message,
-            success: (function (data) {
-                this.loadMessagesFromServer();
-            }).bind(this),
-            error: (function (xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }).bind(this)
+        if (this.state.visible === "default") {
+
+            // Optimistische updates um Geschwindigkeit zu simulieren
+
+            // Aktuelle Daten abfragen
+            var messages = this.state.data;
+
+            // Neue komponente anhängen
+            var newMessages = messages.concat([message]);
+
+            // Datensatz aktualisieren
+            this.setState({ data: newMessages });
+
+            $.ajax({
+                url: this.props.url,
+                type: "POST",
+                dataType: "json",
+                data: message,
+                success: (function (data) {
+                    this.loadMessagesFromServer();
+                }).bind(this),
+                error: (function (xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }).bind(this)
+            });
+        } else {
+            var id = message.id;
+            delete message.id;
+
+            console.log(message);
+
+            $.ajax({
+                url: this.props.url + "/" + id,
+                type: "PUT",
+                dataType: "json",
+                data: message,
+                success: (function (data) {
+                    this.loadMessagesFromServer();
+                }).bind(this),
+                error: (function (xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }).bind(this)
+            });
+        }
+        this.setState({
+            modalType: "default"
         });
     },
 
@@ -267,6 +301,22 @@ var MessageBox = React.createClass({
         });
     },
 
+    handleEditMessageForm: function handleEditMessageForm(message) {
+
+        this.setState({
+            modalType: "edit",
+            editData: message
+        });
+    },
+
+    handleCloseModal: function handleCloseModal(status) {
+
+        this.setState({
+            modalType: status,
+            editData: []
+        });
+    },
+
     componentDidMount: function componentDidMount() {
         // CSRF Token abfragenu
         $.ajaxSetup({
@@ -277,7 +327,10 @@ var MessageBox = React.createClass({
 
         this.loadMessagesFromServer();
         // @todo Momentan wird "Long Polling" verwendet. Irgendwann wäre es ggf. sinnvoll auf WebSockets umzusteigen.
-        setInterval(this.loadMessagesFromServer, this.props.pollInterval);
+
+        if (this.state.visible === "hide") {
+            setInterval(this.loadMessagesFromServer, this.props.pollInterval);
+        }
     },
 
     // Hier eine Ajaxabfrage einbauen.
@@ -291,8 +344,16 @@ var MessageBox = React.createClass({
                 { className: "hide" },
                 "Nachrichten"
             ),
-            React.createElement(_MessageList2["default"], { data: this.state.data, submitDeleteMessage: this.deleteMessageFromServer }),
-            React.createElement(_MessageForm2["default"], { onSubmitNewMessage: this.createNewMessageOnServer })
+            React.createElement(_MessageList2["default"], {
+                data: this.state.data,
+                submitDeleteMessage: this.deleteMessageFromServer,
+                openEditMessageForm: this.handleEditMessageForm }),
+            React.createElement(_MessageForm2["default"], {
+                onSubmitNewMessage: this.createNewMessageOnServer,
+                onCloseModal: this.handleCloseModal,
+                modalType: this.state.modalType,
+                editData: this.state.editData,
+                latestMessageID: this.state.latestMessageID })
         );
     }
 
@@ -310,11 +371,11 @@ Object.defineProperty(exports, '__esModule', {
 var MessageForm = React.createClass({
     displayName: 'MessageForm',
 
-    getInitialState: function getInitialState() {
-        return {
-            colour: 'default'
-        };
-    },
+    // getInitialState: function() {
+    //     return {
+    //         colour: 'default'
+    //     };
+    // },
 
     componentDidMount: function componentDidMount() {
         // Semantic UI DOM Manipulationen durchführen.
@@ -327,19 +388,7 @@ var MessageForm = React.createClass({
             }
         });
 
-        $('.ui.radio.checkbox').checkbox({
-            onChecked: (function () {
-
-                // Ausgewählte Farbe abfragen und Auswahl zurücksetzen
-                var colour = $('.ui.radio.checkbox.checked input').val();
-                $('.ui.radio.checkbox.checked').removeClass('checked');
-
-                // Farbe festlegen
-                this.setState({
-                    colour: colour
-                });
-            }).bind(this)
-        });
+        $('.ui.radio.checkbox').checkbox();
 
         // Formvalidierung
         $('.ui.form').form({
@@ -362,7 +411,7 @@ var MessageForm = React.createClass({
             on: 'blur',
             onSuccess: (function () {
                 this.handleSubmit();
-                $('#new-message').modal('hide');
+                this.closeModal();
             }).bind(this)
         }).submit(function (event) {
             // Standardevent verhindern (wie wird der event aber übergeben durch Success?)
@@ -370,28 +419,73 @@ var MessageForm = React.createClass({
         });
     },
 
+    componentDidUpdate: function componentDidUpdate() {
+
+        if (this.props.modalType === 'edit') {
+            // Initialen Werte mit übergeben, so dass ein neuer Datensatz generiert werden kann, der wieder an die Box gesendet wird.
+
+            // Titel einfügen
+            $('input[name=\'title\']').val(this.props.editData.message.title);
+
+            // Inhalt einfügen
+            $('textarea[name=\'content\']').val(this.props.editData.message.content);
+
+            // Farbauwahl einfügen
+            $('input[value=\'' + this.props.editData.message.colour + '\']').prop('checked', true);
+
+            this.openModal();
+        }
+    },
+
     openModal: function openModal() {
+
         $('#new-message').modal('show');
     },
 
     closeModal: function closeModal() {
+
         $('#new-message').modal('hide');
+
+        $('input[value=\'' + this.props.editData.message.colour + '\']').removeAttr('checked');
+
+        this.props.onCloseModal('default');
     },
 
     handleSubmit: function handleSubmit() {
+
         // Variablenwerte auslesen
         var title = React.findDOMNode(this.refs.title).value.trim();
         var content = React.findDOMNode(this.refs.content).value.trim();
+        var colour = 'default';
+        // var colour = React.findDOMNode(this.refs.colour).
+
+        var id = this.props.latestMessageID;
+
+        // Die ausgewählte Farbe bestimmen!
+        //var colour = this.props.props.editData.message.colour;
+
+        // DAS PROBLEM IST DIE ÜBERGABE DER KORREKTEN FARBE (hier weg vom ^ und andere Lösung überlegen!!!!)
+        // AM BESTEN ETWAS MIT findDOMNode oder so…
+
+        // var colour = this.state.colour;
+
+        // Ist das Model im Editiermodus
+        if (this.props.modalType === 'edit') {
+            console.log('Es wird gerade editiert.');
+
+            id = this.props.editData.message.id;
+        }
 
         // Callback Datensatz
         this.props.onSubmitNewMessage({
+            id: id,
             title: title,
             content: content,
-            colour: this.state.colour
+            colour: colour
         });
 
-        // Auf den Ausgangsstatus zurücksetzen
-        this.replaceState(this.getInitialState());
+        // Auf den  Ausgangsstatus zurücksetzen
+        // this.replaceState(this.getInitialState());
 
         return;
     },
@@ -418,7 +512,7 @@ var MessageForm = React.createClass({
                     { className: 'content' },
                     React.createElement(
                         'form',
-                        { className: 'ui form', onSubmit: this.handleSubmit },
+                        { className: 'ui form' },
                         React.createElement(
                             'div',
                             { className: 'required field' },
@@ -437,7 +531,7 @@ var MessageForm = React.createClass({
                                 { htmlFor: 'content', className: 'hide' },
                                 'Inhalt'
                             ),
-                            React.createElement('textarea', { name: 'content', placeholder: 'Nachricht eingeben.', ref: 'content' })
+                            React.createElement('textarea', { name: 'content', placeholder: 'Nachricht eingeben.', maxLength: '500', ref: 'content' })
                         ),
                         React.createElement(
                             'div',
@@ -565,7 +659,7 @@ var MessageForm = React.createClass({
                             { className: 'buttons' },
                             React.createElement(
                                 'div',
-                                { className: 'ui black', onClick: this.closeModal },
+                                { className: 'ui black reset button', onClick: this.closeModal },
                                 'Abbrechen'
                             ),
                             React.createElement(
@@ -585,6 +679,23 @@ var MessageForm = React.createClass({
 
 exports['default'] = MessageForm;
 module.exports = exports['default'];
+
+// {
+//     onChecked: function () {
+//
+//         // Ausgewählte Farbe abfragen und Auswahl zurücksetzen
+//         var colour = $('.ui.radio.checkbox.checked input').val();
+//         $('.ui.radio.checkbox.checked').removeClass('checked');
+//
+//         // Ein neuer Satus der Farbe, rendert die Komponente neu. D. h., auch Titel und Content Updates müssen gespeichert oder übergeben werden.
+//
+//         // Farbe festlegen
+//         // this.setState({
+//         //     colour: colour
+//         // });
+//
+//     }.bind(this)
+// }
 /* Modal */
 
 },{}],7:[function(require,module,exports){
@@ -609,10 +720,17 @@ var MessageList = React.createClass({
         });
     },
 
+    handleEditMessage: function handleEditMessage(message) {
+        this.props.openEditMessageForm({
+            message: message
+        });
+    },
+
     render: function render() {
 
         var messageNodes = $.map(this.props.data, (function (message, index) {
-            return React.createElement(_Message2["default"], { key: message.id, id: message.id, title: message.title, content: message.content, colour: message.colour, onDeleteMessage: this.handleDeleteMessage });
+            return React.createElement(_Message2["default"], { key: message.id, id: message.id, title: message.title, content: message.content, colour: message.colour,
+                onDeleteMessage: this.handleDeleteMessage, onEditMessage: this.handleEditMessage });
         }).bind(this));
 
         return React.createElement(

@@ -8,11 +8,18 @@ var MessageList = React.createClass({
         });
     },
 
+    handleEditMessage: function (message) {
+        this.props.openEditMessageForm({
+            message
+        });
+    },
+
     render: function() {
 
         var messageNodes = $.map(this.props.data, function (message, index) {
             return (
-                <Message key={message.id} id={message.id} title={message.title} content={message.content} colour={message.colour} onDeleteMessage={this.handleDeleteMessage} />
+                <Message key={message.id} id={message.id} title={message.title} content={message.content} colour={message.colour}
+                    onDeleteMessage={this.handleDeleteMessage} onEditMessage={this.handleEditMessage} />
             );
         }.bind(this));
 
