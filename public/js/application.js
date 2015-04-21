@@ -229,7 +229,7 @@ var MessageBox = React.createClass({
             // Optimistische updates um Geschwindigkeit zu simulieren
 
             // Aktuelle Daten abfragen
-            var messages = [this.state.data];
+            var messages = this.state.data;
 
             // Neue komponente anhängen
             var newMessages = messages.concat([message]);
@@ -731,8 +731,6 @@ var MessageList = React.createClass({
     },
 
     render: function render() {
-
-        console.log(this.props.data);
 
         var messageNodes = $.map(this.props.data, (function (message, index) {
             return React.createElement(_Message2["default"], { key: message.id, id: message.id, title: message.title, content: message.content, colour: message.colour,

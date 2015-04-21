@@ -16,8 +16,6 @@ var MessageList = React.createClass({
 
     render: function() {
 
-        console.log(this.props.data);
-
         var messageNodes = $.map(this.props.data, function (message, index) {
             return (
                 <Message key={message.id} id={message.id} title={message.title} content={message.content} colour={message.colour}
