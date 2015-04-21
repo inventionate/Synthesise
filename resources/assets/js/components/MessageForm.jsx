@@ -1,13 +1,18 @@
 var MessageForm = React.createClass({
 
-    // getInitialState: function() {
-    //     return {
-    //         colour: 'default'
-    //     };
-    // },
+    getInitialState: function () {
+        return {
+            title: '',
+            content: '',
+            colour: 'default',
+            stopUpdate: 'no'
+        };
+    },
 
     componentDidMount: function()
     {
+        var self = this;
+
         // Semantic UI DOM Manipulationen durchführen.
         $("#new-message")
             .modal({
@@ -20,24 +25,23 @@ var MessageForm = React.createClass({
             });
 
         $('.ui.radio.checkbox')
-            .checkbox(
-            // {
-            //     onChecked: function () {
-            //
-            //         // Ausgewählte Farbe abfragen und Auswahl zurücksetzen
-            //         var colour = $('.ui.radio.checkbox.checked input').val();
-            //         $('.ui.radio.checkbox.checked').removeClass('checked');
-            //
-            //         // Ein neuer Satus der Farbe, rendert die Komponente neu. D. h., auch Titel und Content Updates müssen gespeichert oder übergeben werden.
-            //
-            //         // Farbe festlegen
-            //         // this.setState({
-            //         //     colour: colour
-            //         // });
-            //
-            //     }.bind(this)
-            // }
-        );
+            .checkbox({
+                onChecked: function ()
+                {
+
+                    // Titel und Inhalt updaten
+                    self.updateMessage();
+
+                    // Auswahl aktualisieren
+                    $(this).prop("checked", true);
+
+                    // Farbauswahl setzen
+                    var colour = $(this).val();
+
+                    self.setState({colour: colour});
+
+                }
+            });
 
         // Formvalidierung
         $('.ui.form')
@@ -77,27 +81,59 @@ var MessageForm = React.createClass({
             });
     },
 
+    componentWillReceiveProps: function (nextProps) {
+
+        if ( nextProps.modalType === 'edit' )
+        {
+            // Initalwerte für zu editierende Nachricht setzen
+            this.setState({
+                title: nextProps.editData.message.title,
+                content: nextProps.editData.message.content,
+                colour: nextProps.editData.message.colour
+            });
+        }
+
+    },
+
     componentDidUpdate: function () {
 
-        if ( this.props.modalType === 'edit' )
+        if ( this.props.modalType === 'edit' && this.state.stopUpdate === 'no' )
         {
-            // Initialen Werte mit übergeben, so dass ein neuer Datensatz generiert werden kann, der wieder an die Box gesendet wird.
-
             // Titel einfügen
-            $("input[name='title']").val(this.props.editData.message.title);
+            $("input[name='title']").val(this.state.title);
 
             // Inhalt einfügen
-            $("textarea[name='content']").val(this.props.editData.message.content);
+            $("textarea[name='content']").val(this.state.content);
 
             // Farbauwahl einfügen
-            $("input[value='"+this.props.editData.message.colour+"']").prop("checked", true);
+            $("input[value='"+this.state.colour+"']").prop("checked", true);
 
             this.openModal();
         }
 
     },
 
+    updateMessage: function () {
+
+        // Titel auslesen
+        var title = React.findDOMNode(this.refs.title).value.trim();
+
+        // Inhalt auslesen
+        var content = React.findDOMNode(this.refs.content).value.trim();
+
+        this.setState({
+            title: title,
+            content: content
+        });
+
+    },
+
     openModal: function () {
+
+        // Hier muss eigentlich rein, dass jetzt keine Updates mehr kommen sollen.
+        this.setState({
+            stopUpdate: 'yes'
+        });
 
         $("#new-message").modal('show');
 
@@ -106,51 +142,32 @@ var MessageForm = React.createClass({
     closeModal: function () {
 
         $("#new-message").modal('hide');
-
-        $("input[value='"+this.props.editData.message.colour+"']").removeAttr('checked');
-
         this.props.onCloseModal('default');
+
     },
 
     handleSubmit: function () {
 
-        // Variablenwerte auslesen
-        var title = React.findDOMNode(this.refs.title).value.trim();
-        var content = React.findDOMNode(this.refs.content).value.trim();
-        var colour = 'default';
-        // var colour = React.findDOMNode(this.refs.colour).
+        // Titel und Inhalt aktualisieren
+        this.updateMessage();
 
-
+        // Neue ID festlegen
         var id = this.props.latestMessageID;
-
-        // Die ausgewählte Farbe bestimmen!
-        //var colour = this.props.props.editData.message.colour;
-
-        // DAS PROBLEM IST DIE ÜBERGABE DER KORREKTEN FARBE (hier weg vom ^ und andere Lösung überlegen!!!!)
-        // AM BESTEN ETWAS MIT findDOMNode oder so…
-
-
-        // var colour = this.state.colour;
 
         // Ist das Model im Editiermodus
         if ( this.props.modalType === 'edit' )
         {
-            console.log ("Es wird gerade editiert.");
-
             id = this.props.editData.message.id;
         }
 
         // Callback Datensatz
         this.props.onSubmitNewMessage({
             id: id,
-            title: title,
-            content: content,
-            colour: colour
+            title: this.state.title,
+            content: this.state.content,
+            colour: this.state.colour
         });
-
-        // Auf den  Ausgangsstatus zurücksetzen
-        // this.replaceState(this.getInitialState());
-
+        this.setState( this.getInitialState() );
         return;
     },
 
@@ -181,7 +198,7 @@ var MessageForm = React.createClass({
                                 <textarea name="content" placeholder="Nachricht eingeben." maxLength="500" ref="content" />
                             </div>
 
-                            <div className="inline fields">
+                            <div className="inline fields" ref="colour">
                                 <label htmlFor="colour">Hintergrundfarbe wählen:</label>
                                 <div className="field">
                                     <div className="ui radio checkbox">

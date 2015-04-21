@@ -208,12 +208,12 @@ var MessageBox = React.createClass({
             dataType: "json",
             success: (function (data) {
                 var id = 1;
-                if (data.length > 0) {
-                    id = data[data.length - 1].id + 1;
+                // Länge des JSON Array überprüfen
+                if (Object.keys(data).length > 0) {
+                    id = data[Object.keys(data).length - 1].id + 1;
                 }
                 this.setState({
                     data: data,
-                    modalType: this.state.modalType,
                     latestMessageID: id
                 });
             }).bind(this),
@@ -224,15 +224,12 @@ var MessageBox = React.createClass({
     },
 
     createNewMessageOnServer: function createNewMessageOnServer(message) {
-        // Das aktuelle Problem besteht darin, dass die editierte Message angehängt wird anstatt die vorhandene zu ersetzen.
-
         // Asynchrone Abfrage
-        if (this.state.visible === "default") {
-
+        if (this.state.modalType === "default") {
             // Optimistische updates um Geschwindigkeit zu simulieren
 
             // Aktuelle Daten abfragen
-            var messages = this.state.data;
+            var messages = [this.state.data];
 
             // Neue komponente anhängen
             var newMessages = messages.concat([message]);
@@ -255,8 +252,6 @@ var MessageBox = React.createClass({
         } else {
             var id = message.id;
             delete message.id;
-
-            console.log(message);
 
             $.ajax({
                 url: this.props.url + "/" + id,
@@ -326,14 +321,10 @@ var MessageBox = React.createClass({
         });
 
         this.loadMessagesFromServer();
-        // @todo Momentan wird "Long Polling" verwendet. Irgendwann wäre es ggf. sinnvoll auf WebSockets umzusteigen.
 
-        if (this.state.visible === "hide") {
-            setInterval(this.loadMessagesFromServer, this.props.pollInterval);
-        }
+        // Long Polling problematisch, da es die Editierfunktion überschreibt
+        setInterval(this.loadMessagesFromServer, this.props.pollInterval);
     },
-
-    // Hier eine Ajaxabfrage einbauen.
 
     render: function render() {
         return React.createElement(
@@ -371,13 +362,18 @@ Object.defineProperty(exports, '__esModule', {
 var MessageForm = React.createClass({
     displayName: 'MessageForm',
 
-    // getInitialState: function() {
-    //     return {
-    //         colour: 'default'
-    //     };
-    // },
+    getInitialState: function getInitialState() {
+        return {
+            title: '',
+            content: '',
+            colour: 'default',
+            stopUpdate: 'no'
+        };
+    },
 
     componentDidMount: function componentDidMount() {
+        var self = this;
+
         // Semantic UI DOM Manipulationen durchführen.
         $('#new-message').modal({
             detachable: false,
@@ -388,7 +384,21 @@ var MessageForm = React.createClass({
             }
         });
 
-        $('.ui.radio.checkbox').checkbox();
+        $('.ui.radio.checkbox').checkbox({
+            onChecked: function onChecked() {
+
+                // Titel und Inhalt updaten
+                self.updateMessage();
+
+                // Auswahl aktualisieren
+                $(this).prop('checked', true);
+
+                // Farbauswahl setzen
+                var colour = $(this).val();
+
+                self.setState({ colour: colour });
+            }
+        });
 
         // Formvalidierung
         $('.ui.form').form({
@@ -419,25 +429,54 @@ var MessageForm = React.createClass({
         });
     },
 
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+
+        if (nextProps.modalType === 'edit') {
+            // Initalwerte für zu editierende Nachricht setzen
+            this.setState({
+                title: nextProps.editData.message.title,
+                content: nextProps.editData.message.content,
+                colour: nextProps.editData.message.colour
+            });
+        }
+    },
+
     componentDidUpdate: function componentDidUpdate() {
 
-        if (this.props.modalType === 'edit') {
-            // Initialen Werte mit übergeben, so dass ein neuer Datensatz generiert werden kann, der wieder an die Box gesendet wird.
-
+        if (this.props.modalType === 'edit' && this.state.stopUpdate === 'no') {
             // Titel einfügen
-            $('input[name=\'title\']').val(this.props.editData.message.title);
+            $('input[name=\'title\']').val(this.state.title);
 
             // Inhalt einfügen
-            $('textarea[name=\'content\']').val(this.props.editData.message.content);
+            $('textarea[name=\'content\']').val(this.state.content);
 
             // Farbauwahl einfügen
-            $('input[value=\'' + this.props.editData.message.colour + '\']').prop('checked', true);
+            $('input[value=\'' + this.state.colour + '\']').prop('checked', true);
 
             this.openModal();
         }
     },
 
+    updateMessage: function updateMessage() {
+
+        // Titel auslesen
+        var title = React.findDOMNode(this.refs.title).value.trim();
+
+        // Inhalt auslesen
+        var content = React.findDOMNode(this.refs.content).value.trim();
+
+        this.setState({
+            title: title,
+            content: content
+        });
+    },
+
     openModal: function openModal() {
+
+        // Hier muss eigentlich rein, dass jetzt keine Updates mehr kommen sollen.
+        this.setState({
+            stopUpdate: 'yes'
+        });
 
         $('#new-message').modal('show');
     },
@@ -445,48 +484,30 @@ var MessageForm = React.createClass({
     closeModal: function closeModal() {
 
         $('#new-message').modal('hide');
-
-        $('input[value=\'' + this.props.editData.message.colour + '\']').removeAttr('checked');
-
         this.props.onCloseModal('default');
     },
 
     handleSubmit: function handleSubmit() {
 
-        // Variablenwerte auslesen
-        var title = React.findDOMNode(this.refs.title).value.trim();
-        var content = React.findDOMNode(this.refs.content).value.trim();
-        var colour = 'default';
-        // var colour = React.findDOMNode(this.refs.colour).
+        // Titel und Inhalt aktualisieren
+        this.updateMessage();
 
+        // Neue ID festlegen
         var id = this.props.latestMessageID;
-
-        // Die ausgewählte Farbe bestimmen!
-        //var colour = this.props.props.editData.message.colour;
-
-        // DAS PROBLEM IST DIE ÜBERGABE DER KORREKTEN FARBE (hier weg vom ^ und andere Lösung überlegen!!!!)
-        // AM BESTEN ETWAS MIT findDOMNode oder so…
-
-        // var colour = this.state.colour;
 
         // Ist das Model im Editiermodus
         if (this.props.modalType === 'edit') {
-            console.log('Es wird gerade editiert.');
-
             id = this.props.editData.message.id;
         }
 
         // Callback Datensatz
         this.props.onSubmitNewMessage({
             id: id,
-            title: title,
-            content: content,
-            colour: colour
+            title: this.state.title,
+            content: this.state.content,
+            colour: this.state.colour
         });
-
-        // Auf den  Ausgangsstatus zurücksetzen
-        // this.replaceState(this.getInitialState());
-
+        this.setState(this.getInitialState());
         return;
     },
 
@@ -535,7 +556,7 @@ var MessageForm = React.createClass({
                         ),
                         React.createElement(
                             'div',
-                            { className: 'inline fields' },
+                            { className: 'inline fields', ref: 'colour' },
                             React.createElement(
                                 'label',
                                 { htmlFor: 'colour' },
@@ -679,23 +700,6 @@ var MessageForm = React.createClass({
 
 exports['default'] = MessageForm;
 module.exports = exports['default'];
-
-// {
-//     onChecked: function () {
-//
-//         // Ausgewählte Farbe abfragen und Auswahl zurücksetzen
-//         var colour = $('.ui.radio.checkbox.checked input').val();
-//         $('.ui.radio.checkbox.checked').removeClass('checked');
-//
-//         // Ein neuer Satus der Farbe, rendert die Komponente neu. D. h., auch Titel und Content Updates müssen gespeichert oder übergeben werden.
-//
-//         // Farbe festlegen
-//         // this.setState({
-//         //     colour: colour
-//         // });
-//
-//     }.bind(this)
-// }
 /* Modal */
 
 },{}],7:[function(require,module,exports){
@@ -727,6 +731,8 @@ var MessageList = React.createClass({
     },
 
     render: function render() {
+
+        console.log(this.props.data);
 
         var messageNodes = $.map(this.props.data, (function (message, index) {
             return React.createElement(_Message2["default"], { key: message.id, id: message.id, title: message.title, content: message.content, colour: message.colour,

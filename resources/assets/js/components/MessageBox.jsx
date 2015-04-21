@@ -19,13 +19,13 @@ var MessageBox = React.createClass({
             dataType: 'json',
             success: function(data) {
                 var id = 1;
-                if ( data.length > 0 )
+                // Länge des JSON Array überprüfen
+                if ( Object.keys(data).length > 0 )
                 {
-                    id = data[data.length-1].id + 1;
+                    id = data[Object.keys(data).length-1].id + 1;
                 }
                 this.setState({
                     data: data,
-                    modalType: this.state.modalType,
                     latestMessageID: id
                 });
             }.bind(this),
@@ -37,16 +37,13 @@ var MessageBox = React.createClass({
 
     createNewMessageOnServer: function (message)
     {
-        // Das aktuelle Problem besteht darin, dass die editierte Message angehängt wird anstatt die vorhandene zu ersetzen.
-
         // Asynchrone Abfrage
-        if ( this.state.visible === 'default' )
+        if ( this.state.modalType === 'default' )
         {
-
             // Optimistische updates um Geschwindigkeit zu simulieren
 
             // Aktuelle Daten abfragen
-            var messages = this.state.data;
+            var messages = [this.state.data];
 
             // Neue komponente anhängen
             var newMessages = messages.concat([message]);
@@ -71,8 +68,6 @@ var MessageBox = React.createClass({
         {
             var id = message.id;
             delete message.id;
-
-            console.log (message);
 
             $.ajax({
                 url: this.props.url + "/" + id,
@@ -124,6 +119,7 @@ var MessageBox = React.createClass({
             modalType: 'edit',
             editData: message
         });
+
     },
 
     handleCloseModal: function (status) {
@@ -145,15 +141,10 @@ var MessageBox = React.createClass({
         });
 
         this.loadMessagesFromServer();
-        // @todo Momentan wird "Long Polling" verwendet. Irgendwann wäre es ggf. sinnvoll auf WebSockets umzusteigen.
 
-        if ( this.state.visible === 'hide' )
-        {
-            setInterval(this.loadMessagesFromServer, this.props.pollInterval);
-        }
+        // Long Polling problematisch, da es die Editierfunktion überschreibt
+        setInterval(this.loadMessagesFromServer, this.props.pollInterval);
     },
-
-    // Hier eine Ajaxabfrage einbauen.
 
     render: function ()
     {
