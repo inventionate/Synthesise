@@ -36,7 +36,10 @@ $(document).ready(function () {
     // @todo ReactKomponenten ggf. anders laden!
     if ($("#interactive-video").length) {
         var name = $("#interactive-video").attr("data-name");
-        React.render(React.createElement(_InterativeVideo2["default"], { name: name }), document.getElementById("interactive-video"));
+        var path = $("#interactive-video").attr("data-path");
+        var markers = $("#interactive-video").attr("data-markers");
+        var poster = $("#interactive-video").attr("data-poster");
+        React.render(React.createElement(_InterativeVideo2["default"], { name: name, path: path, markers: markers, poster: poster }), document.getElementById("interactive-video"));
     }
     if ($("#messages-manage").length) {
         var url = $("#messages-manage").attr("data-url");
@@ -48,7 +51,7 @@ $(document).ready(function () {
     }
 });
 
-},{"./Components/Analytics.js":2,"./Components/InteractiveVideo.jsx":3,"./Components/MessageBox.jsx":5,"./Components/SemanticAnimations.js":8,"./Components/Statistic.jsx":9}],2:[function(require,module,exports){
+},{"./Components/Analytics.js":2,"./Components/InteractiveVideo.jsx":3,"./Components/MessageBox.jsx":6,"./Components/SemanticAnimations.js":9,"./Components/Statistic.jsx":10}],2:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
@@ -81,40 +84,94 @@ module.exports = exports['default'];
 },{}],3:[function(require,module,exports){
 "use strict";
 
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _InteractiveVideoNotes = require("./InteractiveVideoNotes.jsx");
+
+var _InteractiveVideoNotes2 = _interopRequireWildcard(_InteractiveVideoNotes);
+
 var InteractiveVideo = React.createClass({
     displayName: "InteractiveVideo",
 
-    //Aktuelles Video über ein data-attribut abfragen!
-    getDefaultProps: function getDefaultProps() {
-        return {
-            name: "/video/mittelalter"
-        };
+    getInitialState: function getInitialState() {
+        return {};
     },
 
     componentDidMount: function componentDidMount() {
-        var videoplayer = videojs("videoplayer");
+        // Video.JS nach dem Laden der React Komponente manuell generieren und dann einsetzen (ReactID Problem umgehen)
+        // http://stackoverflow.com/questions/26255344/reactjs-cant-change-video-and-poster-videojs
+        // Über das Event componentWillRecieveProps auf die Props Änderungen reagieren
+        var video, wrapper;
+        wrapper = document.createElement("div");
+        wrapper.innerHTML = "<video id='videoplayer' class='video-js vjs-sublime-skin vjs-big-play-centered' poster='" + this.props.poster.toString() + "'><source type='video/mp4' src='" + this.props.path.toString() + ".mp4' /><source type='video/webm' src='" + this.props.path.toString() + ".webm' /></video>";
+        video = wrapper.firstChild;
+        this.refs.videoTarget.getDOMNode().appendChild(video);
+        // Videoname
+        var videoname = this.props.name.toString();
+        // Video.JS mounten
+
+        var videoplayer = videojs("videoplayer", { controls: true, autoplay: false, preload: "auto", width: "100%", height: "100%" });
+        // Marker einsetzen
         videoplayer.markers({
-            markers: [{ time: 60, text: "this" }, { time: 140, text: "is" }, { time: 400, text: "so" }, { time: 800, text: "cool!" }]
+            markerTip: {
+                display: true,
+                text: function text(marker) {
+                    return marker.text;
+                }
+            },
+            markers: JSON.parse(this.props.markers)
         });
+        // Die Marker ID für die Notizabfrage beim ersten Abspielen hinzufügen
+        videoplayer.one("play", function () {
+            // Anzahl der Marker
+            var countMarkers = $(".vjs-marker").length;
+            // IDs zu den einzelnen Markern hinzufügen
+            for (var i = 0; i <= countMarkers; i++) {
+                $(".vjs-marker:nth-child(" + (2 + i) + ")").attr("id", "marker-" + i);
+            }
+            // Wenn der erste Marker geklickt wurde
+            $(".vjs-marker").click(function () {
+                $("#note-content").attr("disabled", false);
+                console.log("clicked");
+            });
+        })
+        // Piwik Analytics integrieren
+        .on("play", function () {
+            return _paq.push(["trackEvent", "Video", "Abgespielt", videoname]);
+        }).on("pause", function () {
+            return _paq.push(["trackEvent", "Video", "Pausiert", videoname]);
+        }).on("ended", function () {
+            return _paq.push(["trackEvent", "Video", "Komplett angesehen", videoname]);
+        }).on("fullscreenchange", function () {
+            return _paq.push(["trackEvent", "Video", "Vollbildmodus", videoname]);
+        }).on("error", function () {
+            return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
+        }).on("seeking", function () {
+            return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
+        }).on("durationchange", function () {
+            return _paq.push(["trackEvent", "Video", "Geschwindigkeit verändert", videoname]);
+        });
+
+        // Überlegen wann, wie uns wo der additional content angezeigt wird.
+
+        // Hier die Event Logik für den Klick auf eine Notiz
     },
+
+    loadNotesFromServer: function loadNotesFromServer(markerID) {},
+
+    updateNotesAtServer: function updateNotesAtServer(markerID) {},
 
     render: function render() {
         return React.createElement(
             "div",
             null,
-            React.createElement(
-                "video",
-                { id: "videoplayer", className: "video-js vjs-sublime-skin vjs-big-play-centered",
-                    poster: "/img/ol_title.jpg",
-                    "data-setup": "{ \"controls\": true, \"autoplay\": false, \"preload\": \"auto\", \"width\": \"100%\", \"height\": \"100%\" }"
-                },
-                React.createElement("source", { type: "video/mp4", src: this.props.name.toString() + ".mp4" }),
-                React.createElement("source", { type: "video/webm", src: this.props.name.toString() + ".webm" })
-            ),
-            React.createElement("img", { src: "/img/etpm_logo.png" })
+            React.createElement("div", { ref: "videoTarget" }),
+            React.createElement("img", { src: "/img/etpm_logo.png" }),
+            React.createElement(_InteractiveVideoNotes2["default"], null)
         );
     }
 
@@ -123,7 +180,59 @@ var InteractiveVideo = React.createClass({
 exports["default"] = InteractiveVideo;
 module.exports = exports["default"];
 
-},{}],4:[function(require,module,exports){
+// Vorhandene Notizen laden
+
+// Notizen hochladen (Confidential Refresh!)
+/* Notizformular einbinden */
+
+},{"./InteractiveVideoNotes.jsx":4}],4:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var InteractiveVideoNotes = React.createClass({
+    displayName: "InteractiveVideoNotes",
+
+    //React.findDOMNode(this.refs.textarea).
+
+    render: function render() {
+
+        return React.createElement(
+            "section",
+            { id: "video-notes" },
+            React.createElement(
+                "header",
+                null,
+                React.createElement(
+                    "h3",
+                    { className: "hide" },
+                    "Notizen"
+                )
+            ),
+            React.createElement(
+                "form",
+                { className: "ui form" },
+                React.createElement(
+                    "div",
+                    { className: "field" },
+                    React.createElement(
+                        "label",
+                        { htmlFor: "note-content", className: "hide" },
+                        "Notizen"
+                    ),
+                    React.createElement("textarea", { disabled: "disabled", id: "note-content", placeholder: "Wählen Sie ein »Fähnchen« und geben Sie Ihre Notizen ein.", maxLength: "500", ref: "textarea" })
+                )
+            )
+        );
+    }
+});
+
+exports["default"] = InteractiveVideoNotes;
+module.exports = exports["default"];
+/* Über eine Progressbar nachdenken (oder einfach direkt, "graceful" gespeichert) */
+
+},{}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -173,7 +282,7 @@ var Message = React.createClass({
 exports["default"] = Message;
 module.exports = exports["default"];
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
@@ -229,10 +338,15 @@ var MessageBox = React.createClass({
             // Optimistische updates um Geschwindigkeit zu simulieren
 
             // Aktuelle Daten abfragen
-            var messages = this.state.data;
+            var messages = this.state.data; // Muss ein Array sein
+
+            // console.log(messages);
+            // console.log(message);
 
             // Neue komponente anhängen
             var newMessages = messages.concat([message]);
+
+            // console.log(newMessages);
 
             // Datensatz aktualisieren
             this.setState({ data: newMessages });
@@ -298,6 +412,8 @@ var MessageBox = React.createClass({
 
     handleEditMessageForm: function handleEditMessageForm(message) {
 
+        console.log("edit");
+
         this.setState({
             modalType: "edit",
             editData: message
@@ -353,7 +469,7 @@ var MessageBox = React.createClass({
 exports["default"] = MessageBox;
 module.exports = exports["default"];
 
-},{"./MessageForm.jsx":6,"./MessageList.jsx":7}],6:[function(require,module,exports){
+},{"./MessageForm.jsx":7,"./MessageList.jsx":8}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -484,6 +600,11 @@ var MessageForm = React.createClass({
     closeModal: function closeModal() {
 
         $('#new-message').modal('hide');
+
+        this.setState({
+            stopUpdate: 'no'
+        });
+
         this.props.onCloseModal('default');
     },
 
@@ -702,7 +823,7 @@ exports['default'] = MessageForm;
 module.exports = exports['default'];
 /* Modal */
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 "use strict";
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
@@ -752,7 +873,7 @@ var MessageList = React.createClass({
 exports["default"] = MessageList;
 module.exports = exports["default"];
 
-},{"./Message.jsx":4}],8:[function(require,module,exports){
+},{"./Message.jsx":5}],9:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
@@ -800,7 +921,7 @@ var SemanticAnimations = function SemanticAnimations() {
 exports['default'] = SemanticAnimations;
 module.exports = exports['default'];
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

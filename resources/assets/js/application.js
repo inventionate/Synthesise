@@ -17,7 +17,10 @@ $( document ).ready( () => {
     if ( $("#interactive-video").length )
     {
         var name = $("#interactive-video").attr('data-name');
-        React.render(<InterativeVideo name = {name} />, document.getElementById("interactive-video"));
+        var path = $("#interactive-video").attr('data-path');
+        var markers = $("#interactive-video").attr('data-markers');
+        var poster = $("#interactive-video").attr('data-poster');
+        React.render(<InterativeVideo name = {name} path = {path} markers = {markers} poster = {poster} />, document.getElementById("interactive-video"));
     }
     if ( $("#messages-manage").length )
     {

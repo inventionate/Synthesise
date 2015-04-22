@@ -33572,7 +33572,7 @@ main {
   width: 150px;
 }
 #mainnav {
-  opacity: 0.85;
+  background-color: rgba(94, 188, 59, 0.8);
 }
 #mainnav .item {
   padding-top: 1.25rem;
@@ -33734,6 +33734,9 @@ main {
 #messages-manage .ui.form .buttons :first-child {
   margin-right: 1rem;
 }
+#main-content-online-lektionen .one.column.row .column {
+  margin-bottom: 7em !important;
+}
 #interactive-video {
   width: 100%;
   position: relative;
@@ -33754,6 +33757,15 @@ main {
   right: 15px;
   width: 5rem;
   opacity: .85;
+}
+#interactive-video #video-notes {
+  position: absolute;
+  bottom: -1.5em;
+  height: 1.5em;
+  width: 100%;
+}
+#interactive-video #video-notes textarea {
+  height: 1.5em;
 }
 .vjs-sublime-skin {
   color: white;

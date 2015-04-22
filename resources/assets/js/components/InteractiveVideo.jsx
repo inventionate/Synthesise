@@ -1,39 +1,103 @@
+import InteractiveVideoNotes from "./InteractiveVideoNotes.jsx";
+
 var InteractiveVideo = React.createClass({
 
-    //Aktuelles Video über ein data-attribut abfragen!
-    getDefaultProps: function ()
-    {
+    getInitialState: function () {
         return {
-            name: '/video/mittelalter'
+
         };
     },
 
     componentDidMount: function ()
     {
-        var videoplayer = videojs("videoplayer");
-		videoplayer.markers({
-			markers: [
-			    {time: 60, text: "this"},
-			    {time: 140,  text: "is"},
-			    {time: 400,text: "so"},
-                {time: 800,text: "cool!"}
-			]
-		});
+        // Video.JS nach dem Laden der React Komponente manuell generieren und dann einsetzen (ReactID Problem umgehen)
+        // http://stackoverflow.com/questions/26255344/reactjs-cant-change-video-and-poster-videojs
+        // Über das Event componentWillRecieveProps auf die Props Änderungen reagieren
+        var video, wrapper;
+        wrapper = document.createElement('div');
+        wrapper.innerHTML = "<video id='videoplayer' class='video-js vjs-sublime-skin vjs-big-play-centered' poster='" + this.props.poster.toString() + "'><source type='video/mp4' src='" + this.props.path.toString() + ".mp4' /><source type='video/webm' src='" + this.props.path.toString() + ".webm' /></video>";
+        video = wrapper.firstChild;
+        this.refs.videoTarget.getDOMNode().appendChild(video);
+        // Videoname
+        var videoname = this.props.name.toString();
+        // Video.JS mounten
 
+        var videoplayer = videojs("videoplayer",{ 'controls': true, 'autoplay': false, 'preload': 'auto', 'width': '100%', 'height': '100%' });
+        // Marker einsetzen
+        videoplayer.markers({
+            markerTip:{
+                display: true,
+                text: function(marker) {
+                    return marker.text;
+                }
+            },
+			markers: JSON.parse(this.props.markers)
+		});
+        // Die Marker ID für die Notizabfrage beim ersten Abspielen hinzufügen.
+        videoplayer
+        // Events, die nach dem ersten Abspielen des Videos ausgeführt werden.
+        // Hier können auch allgemeine Events registriert werden, die nach der Initialisierung des Player blubbern sollen.
+        .one('play', function () {
+            // Anzahl der Marker
+            var countMarkers = $('.vjs-marker').length;
+            // IDs zu den einzelnen Markern hinzufügen
+            for (var i = 0; i <= countMarkers; i++) {
+                $('.vjs-marker:nth-child('+ (2 + i) +')').attr('id','marker-' + i);
+            }
+            // Wenn der erste Marker geklickt wurde
+            $('.vjs-marker').click(function() {
+                $('#note-content').attr('disabled', false);
+                //console.log("clicked");
+            });
+        })
+        // Piwik Analytics integrieren
+        .on('play', function () {
+            return _paq.push(["trackEvent", "Video", "Abgespielt", videoname]);
+        })
+        .on('pause', function () {
+            return _paq.push(["trackEvent", "Video", "Pausiert", videoname]);
+        })
+        .on('ended', function () {
+            return _paq.push(["trackEvent", "Video", "Komplett angesehen", videoname]);
+        })
+        .on('fullscreenchange', function () {
+            return _paq.push(["trackEvent", "Video", "Vollbildmodus", videoname]);
+        })
+        .on('error', function () {
+            return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
+        })
+        .on('seeking', function () {
+            return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
+        })
+        .on('durationchange', function () {
+            return _paq.push(["trackEvent", "Video", "Geschwindigkeit verändert", videoname]);
+        });
+
+        // Überlegen wann, wie uns wo der additional content angezeigt wird.
+
+        // Hier die Event Logik für den Klick auf eine Notiz
+
+    },
+
+    loadNotesFromServer: function (markerID)
+    {
+        // Vorhandene Notizen laden
+    },
+
+    updateNotesAtServer: function (markerID)
+    {
+        // Notizen hochladen (Confidential Refresh!)
     },
 
     render: function ()
     {
         return (
         <div>
-            <video id="videoplayer" className="video-js vjs-sublime-skin vjs-big-play-centered"
-                poster="/img/ol_title.jpg"
-                data-setup='{ "controls": true, "autoplay": false, "preload": "auto", "width": "100%", "height": "100%" }'
-                >
-                <source type="video/mp4" src={this.props.name.toString() + ".mp4"} />
-                <source type="video/webm" src={this.props.name.toString() + ".webm"} />
-            </video>
+            <div ref="videoTarget" />
             <img src="/img/etpm_logo.png" />
+
+            {/* Notizformular einbinden */}
+            <InteractiveVideoNotes />
         </div>
         );
     }

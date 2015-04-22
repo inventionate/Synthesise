@@ -43,10 +43,15 @@ var MessageBox = React.createClass({
             // Optimistische updates um Geschwindigkeit zu simulieren
 
             // Aktuelle Daten abfragen
-            var messages = this.state.data;
+            var messages = this.state.data; // Muss ein Array sein
+
+            // console.log(messages);
+            // console.log(message);
 
             // Neue komponente anhängen
             var newMessages = messages.concat([message]);
+
+            // console.log(newMessages);
 
             // Datensatz aktualisieren
             this.setState({data: newMessages});
@@ -114,6 +119,8 @@ var MessageBox = React.createClass({
     },
 
     handleEditMessageForm: function (message) {
+
+        console.log('edit');
 
         this.setState({
             modalType: 'edit',

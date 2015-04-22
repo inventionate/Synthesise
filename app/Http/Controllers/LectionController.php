@@ -62,6 +62,10 @@ class LectionController extends Controller {
 		// Videopfad generieren
 		$videopath = '/video/' . Parser::normalizeName($videoname);
 
+		// Marker generieren
+		$markers = Video::getMarkers($videoname);
+
+
 		// Standardausgabe VIEW -----------------------------------------
 		return view('lection')
 							->with('available', $available)
@@ -72,7 +76,8 @@ class LectionController extends Controller {
 							->with('videos',$videos)
 							->with('papers',$papers)
 							->with('videoname', $videoname)
-							->with('videopath', $videopath);
+							->with('videopath', $videopath)
+							->with('markers', $markers);
 
 	}
 

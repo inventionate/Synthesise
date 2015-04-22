@@ -142,6 +142,11 @@ var MessageForm = React.createClass({
     closeModal: function () {
 
         $("#new-message").modal('hide');
+
+        this.setState({
+            stopUpdate: 'no'
+        });
+
         this.props.onCloseModal('default');
 
     },

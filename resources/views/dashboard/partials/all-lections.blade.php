@@ -119,7 +119,7 @@
 			</div>
 
 			<div class="field">
-				<input id="edit-lection-available" type="date" name="available" max="1979-12-31" min="2000-01-02">
+				<input id="edit-lection-available" type="date" name="available" max="1979-12-31" min="2000-01-02" disabled="disabled">
 			</div>
 
 

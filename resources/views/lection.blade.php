@@ -15,21 +15,17 @@
 		<div class="one column row">
 			<div class="column">
 
-				<div id="interactive-video" data-name="{{ $videopath }}" >
-
-				</div>
+				<div id="interactive-video" data-name="{{ $videoname}}" data-path="{{ $videopath }}" data-markers="{{ $markers }}" data-poster="/img/ol_title.jpg"></div>
 
 			</div>
-				{{-- ADDITIONAL CONTENT --}}
-				{{--Die Inhalte werden automatisch generiert und das Asset geladen. Es setzt sich in dieser manuellen Version aus dem Titel des Textes (Leerzeichen: _) zusammen.--}}
 		</div>
+		{{-- ADDITIONAL CONTENT --}}
 		<section id="additional-content" class="two column row">
-			<header class="row">
-				<h3 class="hide">Texte und Notizen</h3>
-			</header>
-			{{-- FÜR DIE MOBILVERSION ANPASSEN MIT DEM RECHTSLIEGENDEN --}}
 			{{-- durch die Texte loopen und Autoren davor setzten --}}
 			<div class="column">
+				<header>
+					<h3 class="hide">Texte und Notizen</h3>
+				</header>
 				@foreach ($papers as $paper)
 					<a class="ui fluid labeled icon blue button download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->papername }}</a>
 				@endforeach
