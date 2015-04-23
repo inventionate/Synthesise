@@ -4,7 +4,6 @@ use Illuminate\Support\ServiceProvider;
 
 use Synthesise\Extensions\Ldap;
 use Synthesise\Extensions\Parser;
-use Synthesise\Extensions\AssetBuilder;
 use Synthesise\Extensions\Analytics;
 
 class ExtensionServiceProvider extends ServiceProvider {
@@ -42,12 +41,6 @@ class ExtensionServiceProvider extends ServiceProvider {
 		$this->app->bind('parser', function()
 		{
 			return new Parser;
-		});
-
-		// ASSET
-		$this->app->bind('asset', function()
-		{
-			return new AssetBuilder;
 		});
 
 		// ANALYTICS

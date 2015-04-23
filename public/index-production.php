@@ -18,7 +18,7 @@
 |
 */
 
-require __DIR__.'/home/etpm/bootstrap/autoload.php';
+require '/home/etpm/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ require __DIR__.'/home/etpm/bootstrap/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/home/etpm/bootstrap/app.php';
+$app = require_once '/home/etpm/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------

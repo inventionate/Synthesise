@@ -30,13 +30,13 @@ class AuthCest {
 
     $I->amOnPage('/auth/login');
     $I->see('e:t:p:M','h1');
-    $I->see('Login','h3');
+    $I->see('Login','h4');
     $I->fillField('#username','luke');
     $I->fillField('#password','pw');
     $I->click('Anmelden','#login');
 
     $I->seeCurrentUrlEquals('/auth/login');
-    $I->seeElement('.form-group.has-error');
+    $I->seeElement('.error');
   }
 
   public function testNonLdapLogin(FunctionalTester $I)
@@ -48,7 +48,7 @@ class AuthCest {
 
     $I->amOnPage('/auth/login');
     $I->see('e:t:p:M','h1');
-    $I->see('Login','h3');
+    $I->see('Login','h4');
     $I->fillField('#username','studentka');
     $I->fillField('#password','Zelda');
     $I->click('Anmelden','#login');

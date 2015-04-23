@@ -229,7 +229,6 @@ return [
 		 */
 		'LDAP'			=> 'Synthesise\Extensions\Facades\Ldap',
 		'Parser'		=> 'Synthesise\Extensions\Facades\Parser',
-		'Asset'			=> 'Synthesise\Extensions\Facades\AssetBuilder',
 		'Analytics'	=> 'Synthesise\Extensions\Facades\Analytics',
 
 		/**

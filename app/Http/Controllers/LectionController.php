@@ -22,7 +22,7 @@ class LectionController extends Controller {
 	{
         $videoname = urldecode($videoname);
 		// Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird
-		return Video::getFirstCuepointId($videoname) + preg_replace( '/[^0-9]/', '', $cuepointNumber );
+		return Video::getFirstCuepointId($videoname) + preg_replace( '/[^0-9]/', '', $cuepointNumber ) -1;
 	}
 
 	/**
@@ -60,7 +60,11 @@ class LectionController extends Controller {
 		$online = Video::getOnline($videoname);
 
 		// Videopfad generieren
-		$videopath = asset('video/' . Parser::normalizeName($videoname));
+		$videopath = '/video/' . Parser::normalizeName($videoname);
+
+		// Marker generieren
+		$markers = Video::getMarkers($videoname);
+
 
 		// Standardausgabe VIEW -----------------------------------------
 		return view('lection')
@@ -72,7 +76,8 @@ class LectionController extends Controller {
 							->with('videos',$videos)
 							->with('papers',$papers)
 							->with('videoname', $videoname)
-							->with('videopath', $videopath);
+							->with('videopath', $videopath)
+							->with('markers', $markers);
 
 	}
 

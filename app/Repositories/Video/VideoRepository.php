@@ -178,6 +178,30 @@ class VideoRepository implements VideoInterface
     }
 
     return Parser::htmlMarkup($videoname, $content);
-
   }
+
+  /**
+   * Gibt alle Marker als JS-Objekte zurück.
+   *
+   * @param     string $videoname
+   * @return    string HTML Markup aller Fähncheninhalte.
+   */
+  public function getMarkers($videoname)
+  {
+    // {time: 60, text: "this"}
+
+    $cuepoints = $this->videoModel->findOrFail($videoname)->cuepoints->toArray();
+
+    $markers = [];
+
+    foreach ( $cuepoints as $cuepoint )
+    {
+        array_push($markers, ['time' => $cuepoint["cuepoint"], 'text' => $cuepoint["content"]]);
+    }
+
+    return json_encode($markers);
+  }
+
+
+
 }

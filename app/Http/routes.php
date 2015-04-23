@@ -21,6 +21,10 @@
 
 Route::get('impressum', 'ImprintController@index');
 
+// Promoseite
+
+Route::get('promo', 'PromoController@index');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController'
 ]);
@@ -39,7 +43,7 @@ Route::group(['middleware' => 'auth'], function()
 	// LOGOUT
 	Route::get('logout', [
 	  'as' => 'logout',
-	  'uses' => 'AuthController@logout'
+	  'uses' => 'Auth\AuthController@logout'
 	]);
 
 	// DASHBOARD

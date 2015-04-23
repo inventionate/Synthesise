@@ -5,85 +5,41 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="container animated fadeIn">
+<main id="main-content-{{ Request::segment(1) }}" class="ui stackable page grid">
 
 	@if($available || $role === 'Teacher' || $role === 'Admin'  && $online)
 
-		<h1>{{ $section . ': ' . $videoname	}}</h1>
+		<h1 class="ui header">{{ $section . ': ' . $videoname	}}</h1>
 
 		{{-- MEDIAPLAYER --}}
-		<div class="row">
-			<div id="videoplayer" class="col-md-12">
-				<div class="flowplayer fixed-controls play-button is-splash"
-				data-generate_cuepoints="true"
-				@if( ! (Agent::isMobile() || Agent::isTablet()) )
-					{{-- @todo Auf JSON umstellen und implode ersetzen --}}
-					data-cuepoints="[{{ implode(',',$cuepoints->lists('cuepoint')) }}]"
-				@endif
-				data-key="$443083014658956"
-				data-logo="{{ asset('apple-touch-icon-precomposed.png') }}"
-				data-swf="{{ asset('flash/flowplayer.swf') }}"
-				title="{{{ $videoname }}}"
-				>
-					<video>
-						{{-- VIDEODATEIEN EINBINDEN --}}
-						@if( App::environment() === 'production' )
-							@if( Agent::isMobile() || Agent::isTablet() )
-								<source type="video/webm" src="{{ $videopath . '_small' }}.webm">
-								<source type="video/mp4" src="{{ $videopath . '_small' }}.mp4">
-							@elseif( !(stristr($_SERVER['HTTP_USER_AGENT'], 'Safari')) || stristr($_SERVER['HTTP_USER_AGENT'], 'Chrome') )
-								<source type="video/webm" src="{{ $videopath }}.webm">
-							@endif
-							<source type="video/mp4" src="{{ $videopath }}.mp4">
-						@else
-							<source type="video/mp4" src="{{ asset('video') . '/' . Parser::normalizeName($videoname) }}.mp4">
-						@endif
-					</video>
-				</div>
-				@if( !(Agent::isMobile() || Agent::isTablet()) )
-					{{-- NOTIZEN --}}
-					<section id="notes">
-						<header>
-							<h3>Notizen</h3>
-						</header>
+		<div class="one column row">
+			<div class="column">
 
-						{!! Form::open(['url' => 'notes']) !!}
+				<div id="interactive-video" data-name="{{ $videoname}}" data-path="{{ $videopath }}" data-markers="{{ $markers }}" data-poster="/img/ol_title.jpg"></div>
 
-						{!! Form::label('note-content', 'Notes', ['class' => 'hidden']) !!}
-						{!! Form::textarea('notes', '', ['rows' => '3', 'maxlength' => '375', 'class' => 'form-control', 'placeholder' => 'Hier können Sie Ihre Notizen hinterlegen.', 'id' => 'note-content']) !!}
-
-						{!! Form::close() !!}
-
-						<div id="ajax-info" class="progress">
-							<div class="progress-bar progress-bar-success" style="width: 100%"></div>
-						</div>
-					</section>
-				@endif
 			</div>
-				{{-- ADDITIONAL CONTENT --}}
-				{{--Die Inhalte werden automatisch generiert und das asset geladen. Es setzt sich in dieser manuellen Version aus dem Titel des Textes (Leerzeichen: _) zusammen.--}}
-			<section id="additional-content">
+		</div>
+		{{-- ADDITIONAL CONTENT --}}
+		<section id="additional-content" class="two column row">
+			{{-- durch die Texte loopen und Autoren davor setzten --}}
+			<div class="column">
 				<header>
-					<div class="col-md-12">
-						<h3 class="hidden">Texte und Notizen</h3>
-					</div>
+					<h3 class="hide">Texte und Notizen</h3>
 				</header>
-				{{-- FÜR DIE MOBILVERSION ANPASSEN MIT DEM RECHTSLIEGENDEN --}}
-				<div class="col-md-6 col-sm-7 col-xs-12">
-				{{-- durch die Texte loopen und Autoren davor setzten --}}
-					@foreach ($papers as $paper)
-						<a class="btn btn-warning btn-block download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }} <span class="glyphicon glyphicon-align-justify"></span></a>
-					@endforeach
-				</div>
-				<div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-1 col-xs-12 text-right">
-					{{-- @todo Funktionalität beim Note Repository hinzufügen (Note::collectContent) --}}
-					<a class="btn btn-primary btn-block download-note" data-name="{{ $videoname }}" href="{{ action('LectionController@getNotesPDF', [rawurlencode($videoname)])	}}">Notizen herunterladen <span class="glyphicon glyphicon-pencil"></span></a>
-				</div>
-			</section>
+				@foreach ($papers as $paper)
+					<a class="ui fluid labeled icon blue button download-paper" data-name="{{ $paper->papername }}" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->papername }}</a>
+				@endforeach
+			</div>
+			<div class="column">
+				{{-- @todo Funktionalität beim Note Repository hinzufügen (Note::collectContent) --}}
+				<a class="ui fluid labeled icon blue button download-note" data-name="{{ $videoname }}" href="{{ action('LectionController@getNotesPDF', [rawurlencode($videoname)])	}}"><i class="square write icon"></i> Notizen herunterladen</a>
+			</div>
+		</section>
+
 		</div>
 
   @else
-    <div class="alert alert-danger"> Die online-Lektion ist noch nicht verfügbar. Bitte wählen Sie eine verfügbare online-Lektion aus.</div>
+    <div class="ui negative message"> Die online-Lektion ist noch nicht verfügbar. Bitte wählen Sie eine verfügbare online-Lektion aus.</div>
     @include('dashboard.partials.all-lections')
   @endif
 

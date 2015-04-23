@@ -41,13 +41,14 @@ class MessageRepository implements MessageInterface
    * @param     string $message
    * @param     string $type
    */
-  public function update($id, $newMessage, $newType)
+  public function update($id, $newTitle, $newContent, $newColour)
   {
     // Zu aktualiserende Nachricht abfragen
     $toBeUpdatedMessage = $this->messageModel->find($id);
     // Neue Werte zuweisen
-    $toBeUpdatedMessage->message = $newMessage;
-    $toBeUpdatedMessage->type = $newType;
+    $toBeUpdatedMessage->title = $newTitle;
+    $toBeUpdatedMessage->content = $newContent;
+    $toBeUpdatedMessage->colour = $newColour;
     // Aktualisierte Notiz speichern
     $toBeUpdatedMessage->save();
   }
@@ -72,13 +73,15 @@ class MessageRepository implements MessageInterface
    * @param     string $message
    * @param     string $type
    */
-  public function store($message, $type)
+  public function store($id, $title, $content, $colour)
   {
     // Neue Nachrichteninstanz generieren
     $newMessage = new $this->messageModel;
     // Nachricht mit Inhalt befüllen
-    $newMessage->message = $message;
-    $newMessage->type = $type;
+    $newMessage->id = $id;
+    $newMessage->title = $title;
+    $newMessage->content = $content;
+    $newMessage->colour = $colour;
     // Notiz speichern
     $newMessage->save();
   }

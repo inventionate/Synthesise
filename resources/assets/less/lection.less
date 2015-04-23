@@ -1,0 +1,40 @@
+#main-content-online-lektionen .one.column.row .column {
+    margin-bottom: 7em !important;
+}
+
+#interactive-video {
+    width: 100%;
+    position: relative;
+    padding-bottom: 54%;
+    padding-top: 25px;
+    height: 0;
+    .video-js {
+        width: 100% !important;
+        height: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    img {
+        position: absolute;
+        // MEDIA QUERY EINBAUEN!!!
+        top: 15px;
+        right:15px;
+        width: 5rem;
+        opacity: .85;
+    }
+    #video-notes {
+        position: absolute;
+        bottom: -1.5em;
+        height: 1.5em;
+        width: 100%;
+        textarea {
+            height: 1.5em;
+            resize: none;
+            border-radius: 0;
+        }
+    }
+}
+
+@import "video-js-skin";
+@import "video-js-markers";

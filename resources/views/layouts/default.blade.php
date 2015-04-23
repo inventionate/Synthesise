@@ -12,10 +12,18 @@
 		@include('layouts.partials.head')
 
 		{{-- APPLICATION CSS -----------------------------------------------------}}
-		<link rel="stylesheet" href="{{ Asset::rev('css/application.css') }}">
+		@if (App::environment() == 'produtcion')
+			<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
+		@else
+			<link rel="stylesheet" href="{{ asset("css/application.css") }}">
+		@endif
 
 		{{-- MODERNIZR JS --------------------------------------------------------}}
-		<script src="{{ Asset::rev('js/modernizr.js') }}"></script>
+		@if (App::environment() == 'produtcion')
+			<script src="{{ elixir("js/modernizr.js") }}"></script>
+		@else
+			<script src="{{ asset("js/modernizr.js") }}"></script>
+		@endif
 
 	</head>
 
@@ -35,18 +43,24 @@
 		@endif
 
 		{{-- JAVASCRIPT INFO -----------------------------------------------------}}
-		<div class="alert alert-danger alert-js text-center @if( Request::is('auth/login') ) alert-login @endif">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
+		<div class="ui negative message @if( Request::is('auth/login') ) login @endif">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
 		{{-- @yield MAIN CONTENT -------------------------------------------------}}
 		@yield('content')
 
-		<hr>
+		<div class="ui divider"></div>
 
 		{{-- @include FOOTER -----------------------------------------------------}}
 			@include('layouts.partials.footer')
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
-		<script src="{{ Asset::rev('js/application.js') }}"></script>
+		@if (App::environment() == 'produtcion')
+			<script src="{{ elixir("js/vendor.js") }}"></script>
+			<script src="{{ elixir("js/application.js") }}"></script>
+		@else
+			<script src="{{ asset("js/vendor.js") }}"></script>
+			<script src="{{ asset("js/application.js") }}"></script>
+		@endif
 
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@include('layouts.partials.analytics')

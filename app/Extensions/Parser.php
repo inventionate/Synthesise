@@ -2,8 +2,7 @@
 
 use  Synthesise\Extensions\Contracts\Parser as ParserContract;
 
-class Parser implements ParserContract
-{
+class Parser implements ParserContract {
 
 	/**
 	 * Normalisiert die übergebenen URL

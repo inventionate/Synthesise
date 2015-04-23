@@ -8,6 +8,7 @@ use Synthesise\Http\Requests\LoginRequest;
 use Synthesise\Repositories\Facades\User;
 use Illuminate\Support\Facades\Hash;
 use Synthesise\Extensions\Contracts\Ldap;
+use Illuminate\Contracts\Container\Container;
 
 class AuthController extends Controller {
 
@@ -37,9 +38,10 @@ class AuthController extends Controller {
 	 * @param  $ldap
 	 * @return void
 	 */
-	public function __construct(Guard $auth, Ldap $ldap)
+	public function __construct(Guard $auth, Ldap $ldap, Container $app)
 	{
 		$this->auth = $auth;
+		$this->app = $app;
 		$this->ldap = $ldap;
 
 		$this->middleware('guest', ['except' => 'getLogout']);
@@ -58,10 +60,17 @@ class AuthController extends Controller {
     $rememberme = $request->rememberme;
 
     //LDAP Authentifizierung
-    // $ldap = $this->ldap->authenticate($credentials['username'],$credentials['password']);
     // 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
-    // if ( $ldap )
-		if (true)
+	if ($this->app->environment('testing', 'local'))
+	{
+		$ldap = true;
+	}
+	else
+	{
+		$ldap = $this->ldap->authenticate($credentials['username'],$credentials['password']);
+	}
+
+	if ( true )
     {
       if ( $this->auth->attempt($credentials, $rememberme) )
       {

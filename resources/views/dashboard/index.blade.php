@@ -4,34 +4,30 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="container animated fadeIn">
+<main id="main-content-dashboard" class="ui stackable page grid">
 
-	<h1 class="visible-print-block">Dashboard</h1>
+	<div class="one column row">
+		<div class="column">
 
-	@if ( $role === 'Admin' )
+			<h1 class="hide">Dashboard</h1>
 
-		@include('dashboard.partials.messages-manage')
+			@include('dashboard.partials.messages')
 
-	@else
+		</div>
+	</div>
 
-		@include('dashboard.partials.messages')
-
-	@endif
-
-	<div class="row">
-		<div class="col-lg-6">
+	<div class="two column row">
+		<div class="column">
 			@include('dashboard.partials.current-lection')
 		</div>
-		<section class="col-lg-6">
+		<section class="column">
 			@include('dashboard.partials.general-info')
 		</section>
 	</div>
-	<div class="clearfix visible-lg"></div>
-	<div class="row">
-		<div class="col-lg-12">
+	<div class="one column row">
+		<div class="column">
 			@include('dashboard.partials.all-lections')
 		</div>
 	</div>
-	<div class="clearfix visible-lg"></div>
 </main>
 @stop

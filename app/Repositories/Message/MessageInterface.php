@@ -7,10 +7,10 @@ interface MessageInterface
 {
   public function getAll();
 
-  public function update($id, $newMessage, $newType);
+  public function update($id, $newTitle, $newContent, $newColour);
 
   public function delete($id);
 
-  public function store($message, $type);
+  public function store($id, $title, $content, $colour);
 
 }

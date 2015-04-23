@@ -1,226 +1,44 @@
-// Layout
+@import "colour";
+@import "typography";
 
-body {
-	.hyphens;
-	padding-top: 70px;
+.hide {
+  display: none !important;
 }
 
-nav.navbar a.btn.btn-primary.navbar-right {
-	padding-top: 5px;
-	padding-bottom: 5px;
+#etpM-de {
+    background-color: @light-gray;
 }
 
-#current-lection .alert {
-	margin-top: 15px;
-}
+html.no-js {
+    background-color: @white;
+    margin-top: 4rem;
 
-// MEDIA QUERIES
+    #etpM-de {
+        background-color: @white;
+    }
 
-@media (min-width: 992px) {
-	nav.navbar a.btn.btn-primary.navbar-right {
-		display: inherit;
-		width: auto;
-		padding-left: 7px;
-		padding-right: 7px;
-	}
-    // Fix für Bootstrap 3.0.3, a hier gilt: Restored the twelfth column's float: left; at all grid tiers.
-    #videoplayer {
-      float: none !important;
+    .ui.negative.message {
+        border-radius: 0;
+        text-align: center;
+    }
+
+    .ui.negative.message.login {
+        margin-top: -3.5rem;
     }
 }
 
-// FOOTER
-footer p {
-	text-align: center;
+html.js {
+    .ui.negative.message {
+        display: none;
+    }
 }
 
-// Notizen
-
-#notes {
-	margin-top: -7px;
-	margin-bottom: 0px;
-
+body {
+	.hyphens;
 }
 
-#note-content {
-	border-radius: 0;
-}
-
-#ajax-info {
-	border-radius: 0;
-	margin-bottom: -10px;
-}
-
-// Zusätzliche Inhalte (Lection)
-
-#additional-content {
-	margin-top: 30px;
-	margin-bottom: 25px;
-	div {
-		padding: 0 12px;
-	}
-}
-
-// Dropdown download
-@media (max-width: 480px) {
-	ul.dropdown-menu.pull-right {
-		width: 250px;
-		li a {
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-	}
-}
-
-// Responsive Tabellen
-
-@media (max-width: 768px) {
-
-	// Force table to not be like tables anymore
-	table, thead, tbody, th, td, tr {
-		display: block;
-	}
-
-	// Hide table headers (but not display: none;, for accessibility)
-	thead tr {
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-
-	tr {
-		border: 1px solid @light-gray;
-	}
-
-	.table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
-		// Behave  like a "row"
-		border: none;
-		border-bottom: 1px solid @light-gray;
-		position: relative;
-		padding-left: 55%;
-	}
-
-	.table thead > tr > td:last-child, .table tbody > tr > td:last-child, .table tfoot > tr > td:last-child {
-		border-bottom: 3px solid fade(@light-gray,50%);
-	}
-
-	td.themenbereich {
-		background-color: fade(@light-gray,50%);
-	}
-
-	td:before {
-		// Now like a table header
-		position: absolute;
-		// Top/left values mimic padding
-		top: 6px;
-		left: 6px;
-		width: 55%;
-		padding-right: 10px;
-		white-space: nowrap;
-		font-weight: 600;
-	}
-
-	// Label the data
-	td.themenbereich:before {
-		content: "Themenbereich:";
-	}
-	td.online-lektion:before {
-		content: "online-Lektion:";
-	}
-	td.online-status:before {
-		content: "Status:";
-	}
-	td.seminar-datum:before {
-		content: "Zugänglich ab:";
-	}
-	td.seminar-status:before {
-		content: "Status Stud.:";
-	}
-	td.materialien:before {
-		content: "Literatur/Notizen:";
-	}
-
-}
-
-/* NACHRICHTENSYSTEM */
-/* @todo Refactorn! */
-#current-messages {
-	.progress {
-		border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    margin-top: -25px;
-		height: 8px;
-	}
-	.message {
-		position: relative;
-		.alert {
-			height: 50px;
-			padding: 3px;
-		}
-		textarea {
-			resize: none;
-			width: 80%;
-			height: 70%;
-			position: absolute;
-			background-color: fade(#fff, 80%);
-			font-size: 1.2em;
-		}
-		select {
-			position: absolute;
-			right: 6%;
-			top: 23%;
-			width: 12%;
-			min-width: 80px;
-			color: #000;
-		}
-		button.close {
-			font-size: 3em;
-    	margin-top: -0.7%;
-    	padding-right: 0.5%;
-		}
-	}
-}
-
-#new-message {
-	position: relative;
-	.alert {
-		height: 50px;
-		padding: 3px;
-	}
-	textarea {
-		resize: none;
-		width: 75%;
-		height: 80%;
-		position: absolute;
-		background-color: fade(#fff, 80%);
-		font-size: 1.2em;
-	}
-	select {
-		position: absolute;
-		right: 11.5%;
-		top: 27%;
-		width: 12%;
-		min-width: 80px;
-		color: #000;
-	}
-	input {
-		position: absolute;
-		top: 27%;
-		right: 0.5%;
-		color: #000;
-		width: 10%;
-		min-width: 70px;
-	}
-}
-
-// REMEMBER ME FUNCTION
-
-#main-content-auth {
-	.clearfix {
-		height: 15px;
-	}
-	input[type="checkbox"] {
-		width: 15px;
-		height:15px;
-	}
+main {
+    background-color: @white;
+    padding-bottom: 3rem !important;
+    padding-top: 6rem !important;
 }
