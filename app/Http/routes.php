@@ -23,7 +23,7 @@ Route::get('impressum', 'ImprintController@index');
 
 // Promoseite
 
-Route::get('promo', 'PromoController@index');
+Route::get('demo', 'DemoController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController'

@@ -1,6 +1,6 @@
 <?php namespace Synthesise\Http\Controllers;
 
-class PromoController extends Controller {
+class DemoController extends Controller {
 
 	/**
 	 * Promoseite anzeigen.
@@ -9,7 +9,7 @@ class PromoController extends Controller {
 	 */
 	public function index()
 	{
-		return view('promo');
+		return view('demo');
 	}
 
 }
