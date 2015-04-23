@@ -101,6 +101,17 @@
 		online-Lektion bearbeiten
 	</div>
 	<div class="content">
+
+		<div class="ui red icon message">
+		<i class="warning icon"></i>
+		<div class="content">
+			<div class="header">
+			Hier wird gebaut!
+			</div>
+			<p>Der Administartionsbereich befindet sich momentan im Aufbau. Versuchen Sie es zu einem späteren Zeitpunkt noch mal.</p>
+		</div>
+		</div>
+
 		<div class="ui form">
 
 			<div class="disabled field">

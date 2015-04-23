@@ -12,8 +12,9 @@ var elixir = require('laravel-elixir');
  */
 
     elixir( function (mix) {
+        mix
         // Styles
-        mix.less("application.less")
+        .less("application.less")
         // Modernizr (Minifizierung einarbeiten über scripts)
         .copy("vendor/bower_components/modernizr/modernizr.js","public/js/modernizr.js")
         // Vendor Scripts
@@ -32,7 +33,8 @@ var elixir = require('laravel-elixir');
         .copy("vendor/bower_components/video.js/dist/video-js/font","public/css/font")
         .copy("vendor/bower_components/video.js/dist/video-js/video-js.swf","public");
         // Version hash
-        if (elixir.config.production) {
+        // In der aktuellen Version existiert ein minifaction Bug ("unspecified error" beim Gulpprozess).
+        // if (elixir.config.production) {
             mix.version([
                 "css/application.css",
                 "js/modernizr.js",
@@ -41,5 +43,5 @@ var elixir = require('laravel-elixir');
             ])
             .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts")
             .copy("vendor/bower_components/video.js/dist/video-js/font","public/build/css/font");
-        }
+        //}
     });
