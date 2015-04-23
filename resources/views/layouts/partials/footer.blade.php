@@ -7,7 +7,7 @@
                 {{-- @todo Infoseite erstellen --}}
                 | <a href="#">Informationen zum <span class="etpM">e:t:p:M</span>-Konzept</a>
                 {{-- @todo Evaluationsergebnisse --}}
-                | <a href="#">Evaluationsergebnisse</a>
+                | <a href="https://etpm-dev.ph-karlsruhe.de/etpm-evaluation/" target="_blank">Evaluationsergebnisse</a>
                 @if( ! Request::is('auth/login') )
                     <br> <a href="#etpM-de">nach oben</a>
                 @endif

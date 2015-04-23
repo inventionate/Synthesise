@@ -29,7 +29,7 @@
 
             @if ( Auth::user()->role === 'Admin' )
 
-                <div class="ui teal right attached icon button">
+                <div id="edit-faq-button" class="ui teal right attached icon button">
                     <i class="edit icon"></i>
                 </div>
 
@@ -68,6 +68,37 @@
             </div>
         </div>
     @endif
+
+    <div id="edit-faq" class="ui modal">
+    	<div class="header">
+    		»Häufig gestellte Fragen« bearbeiten
+    	</div>
+    	<div class="content">
+    		<div class="ui form">
+
+                <div class="ui red icon message">
+                  <i class="warning icon"></i>
+                  <div class="content">
+                    <div class="header">
+                      Hier wird gebaut!
+                    </div>
+                    <p>Der Administartionsbereich befindet sich momentan im Aufbau. Versuchen Sie es zu einem späteren Zeitpunkt noch mal.</p>
+                  </div>
+                </div>
+
+    		</div>
+    	</div>
+    	<div class="actions">
+    		<div class="ui black button">
+    			Abbrechen
+    		</div>
+    		<div class="ui positive right labeled disabled icon button">
+    			Aktualisieren
+    			<i class="checkmark icon"></i>
+    		</div>
+    	</div>
+    </div>
+
 
 </main>
 @stop

@@ -82,7 +82,7 @@
 
 						<td class="edit">
 							@if ( Auth::user()->role === 'Admin' )
-				                <div class="ui teal small icon button" data-name="{{ $video->videoname }}" data-lecturer="{{ $video->author }}" data-section="{{ $video->section }}">
+				                <div class="ui teal small icon button" data-name="{{ $video->videoname }}" data-lecturer="{{ $video->author }}" data-section="{{ $video->section }}" data-lection-available="{{ $video->available_from }}">
 				                    <i class="edit icon"></i>
 								</div>
 				            @endif
@@ -118,10 +118,18 @@
 				<input id="edit-lection-lecturer"  placeholder="" disabled="disabled" type="text">
 			</div>
 
-			<div class="field">
-				<input id="edit-lection-available" type="date" name="available" max="1979-12-31" min="2000-01-02" disabled="disabled">
+			<div class="disabled field">
+				<input id="edit-lection-available" name="available" disabled="disabled" type="date">
 			</div>
 
+			<div class="disabled field">
+    			<div class="ui action input">
+        			<input type="text" disabled="disabled">
+        			<label for="attachmentName" class="ui right icon button">
+             			<i class="attachment upload icon"></i>
+        			</label>
+    			</div>
+			</div>
 
 		</div>
 	</div>
@@ -129,7 +137,7 @@
 		<div class="ui black button">
 			Abbrechen
 		</div>
-		<div class="ui positive right labeled icon button">
+		<div class="ui positive right labeled disabled icon button">
 			Aktualisieren
 			<i class="checkmark icon"></i>
 		</div>

@@ -20,6 +20,11 @@ class SemanticAnimations {
 
         $('.ui.message.shake').transition('shake');
 
+
+        $('#edit-faq')
+            .modal('setting', 'transition', 'vertical flip')
+            .modal('attach events', '#edit-faq-button', 'show');
+
         $('#edit-lection')
             .modal('setting', 'transition', 'vertical flip')
             .modal('attach events', 'td.edit > div.ui.button', 'show');
@@ -34,6 +39,9 @@ class SemanticAnimations {
 
             var section = $(this).attr('data-section');
             $('#edit-lection-section').attr('placeholder',section);
+
+            var lectionAvailable = $(this).attr('data-lection-available');
+            $('#edit-lection-available').val(lectionAvailable);
 
         });
     }
