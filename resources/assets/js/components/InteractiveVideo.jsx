@@ -24,9 +24,7 @@ var InteractiveVideo = React.createClass({
         // Über das Event componentWillRecieveProps auf die Props Änderungen reagieren
         var video, wrapper;
         wrapper = document.createElement('div');
-        // vjs-sublime-skin
-        // Eigenen Skin entwickeln!!!
-        wrapper.innerHTML = "<video id='videoplayer' class='video-js vjs-default-skin vjs-big-play-centered' poster='" + this.props.poster.toString() + "'><source type='video/mp4' src='" + this.props.path.toString() + ".mp4' /><source type='video/webm' src='" + this.props.path.toString() + ".webm' /></video>";
+        wrapper.innerHTML = "<video id='videoplayer' class='video-js vjs-sublime-skin vjs-big-play-centered' poster='" + this.props.poster.toString() + "'><source type='video/mp4' src='" + this.props.path.toString() + ".mp4' /><source type='video/webm' src='" + this.props.path.toString() + ".webm' /></video>";
         video = wrapper.firstChild;
         this.refs.videoTarget.getDOMNode().appendChild(video);
         // Videoname
@@ -57,6 +55,10 @@ var InteractiveVideo = React.createClass({
             }
             // Events, wenn auf einen Marker gecklickt wurde.
             $('.vjs-marker').click(function() {
+                // Überall 'active' Klasse löschen
+                $('.vjs-marker').removeClass('active-marker');
+                // Aktuellen Marker als aktiven kennzeichnen
+                $(this).addClass('active-marker');
                 // Formular aktivieren.
                 $('#note-content').attr('disabled', false);
                 // ID des Markers abfragen.

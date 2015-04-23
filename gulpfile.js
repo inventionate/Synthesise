@@ -28,10 +28,7 @@ var elixir = require('laravel-elixir');
             "chartjs/Chart.js"
         ], "public/js/vendor.js", "vendor/bower_components")
         // Application Components
-        .browserify("application.js","public/js/application.js", "resources/assets/js")
-        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/css/themes/default/assets/fonts")
-        .copy("vendor/bower_components/video.js/dist/video-js/font","public/css/font")
-        .copy("vendor/bower_components/video.js/dist/video-js/video-js.swf","public");
+        .browserify("application.js","public/js/application.js", "resources/assets/js");
         // Version hash
         // In der aktuellen Version existiert ein minifaction Bug ("unspecified error" beim Gulpprozess).
         // if (elixir.config.production) {
@@ -41,6 +38,10 @@ var elixir = require('laravel-elixir');
                 "js/application.js",
                 "js/vendor.js"
             ])
+            .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/css/themes/default/assets/fonts")
+            .copy("vendor/bower_components/video.js/dist/video-js/font","public/css/font")
+            .copy("vendor/bower_components/video.js/dist/video-js/video-js.swf","public")
+            // Für die lokale Versionen
             .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts")
             .copy("vendor/bower_components/video.js/dist/video-js/font","public/build/css/font");
         //}

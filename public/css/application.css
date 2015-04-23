@@ -33769,6 +33769,26 @@ main {
   resize: none;
   border-radius: 0;
 }
+#interactive-video #videoplayer .vjs-marker {
+  margin-left: -11px !important;
+  height: 15px !important;
+  width: 15px !important;
+  border-radius: 50% !important;
+  background-color: #f33b1d !important;
+  margin-bottom: 17px !important;
+}
+#interactive-video #videoplayer .vjs-tip {
+  margin-bottom: 17px;
+  font-size: 1.5em;
+}
+#interactive-video #videoplayer .active-marker {
+  background-color: #ffffff !important;
+  height: 25px !important;
+  width: 25px !important;
+  margin-bottom: 13px !important;
+  margin-left: -17px !important;
+  border: 5px solid #000000;
+}
 .vjs-sublime-skin {
   color: white;
 }
