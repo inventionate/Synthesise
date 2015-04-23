@@ -82,39 +82,50 @@ exports['default'] = Analytics;
 module.exports = exports['default'];
 
 },{}],3:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
     value: true
 });
 
-var _InteractiveVideoNotes = require("./InteractiveVideoNotes.jsx");
+var _InteractiveVideoNotes = require('./InteractiveVideoNotes.jsx');
 
 var _InteractiveVideoNotes2 = _interopRequireWildcard(_InteractiveVideoNotes);
 
 var InteractiveVideo = React.createClass({
-    displayName: "InteractiveVideo",
+    displayName: 'InteractiveVideo',
 
     getInitialState: function getInitialState() {
         return {};
     },
 
     componentDidMount: function componentDidMount() {
+        var self = this;
+
+        // CSRF Token abfragenu
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         // Video.JS nach dem Laden der React Komponente manuell generieren und dann einsetzen (ReactID Problem umgehen)
         // http://stackoverflow.com/questions/26255344/reactjs-cant-change-video-and-poster-videojs
         // Über das Event componentWillRecieveProps auf die Props Änderungen reagieren
         var video, wrapper;
-        wrapper = document.createElement("div");
-        wrapper.innerHTML = "<video id='videoplayer' class='video-js vjs-sublime-skin vjs-big-play-centered' poster='" + this.props.poster.toString() + "'><source type='video/mp4' src='" + this.props.path.toString() + ".mp4' /><source type='video/webm' src='" + this.props.path.toString() + ".webm' /></video>";
+        wrapper = document.createElement('div');
+        // vjs-sublime-skin
+        // Eigenen Skin entwickeln!!!
+        wrapper.innerHTML = '<video id=\'videoplayer\' class=\'video-js vjs-default-skin vjs-big-play-centered\' poster=\'' + this.props.poster.toString() + '\'><source type=\'video/mp4\' src=\'' + this.props.path.toString() + '.mp4\' /><source type=\'video/webm\' src=\'' + this.props.path.toString() + '.webm\' /></video>';
         video = wrapper.firstChild;
         this.refs.videoTarget.getDOMNode().appendChild(video);
         // Videoname
         var videoname = this.props.name.toString();
         // Video.JS mounten
 
-        var videoplayer = videojs("videoplayer", { controls: true, autoplay: false, preload: "auto", width: "100%", height: "100%" });
+        var videoplayer = videojs('videoplayer', { controls: true, autoplay: false, preload: 'auto', width: '100%', height: '100%' });
         // Marker einsetzen
         videoplayer.markers({
             markerTip: {
@@ -125,35 +136,44 @@ var InteractiveVideo = React.createClass({
             },
             markers: JSON.parse(this.props.markers)
         });
-        // Die Marker ID für die Notizabfrage beim ersten Abspielen hinzufügen
-        videoplayer.one("play", function () {
-            // Anzahl der Marker
-            var countMarkers = $(".vjs-marker").length;
-            // IDs zu den einzelnen Markern hinzufügen
+        // Die Marker ID für die Notizabfrage beim ersten Abspielen hinzufügen.
+        videoplayer
+        // Events, die nach dem ersten Abspielen des Videos ausgeführt werden.
+        // Hier können auch allgemeine Events registriert werden, die nach der Initialisierung des Player blubbern sollen.
+        .one('play', function () {
+            // Anzahl der Marker.
+            var countMarkers = $('.vjs-marker').length;
+            // IDs zu den einzelnen Markern hinzufügen.
             for (var i = 0; i <= countMarkers; i++) {
-                $(".vjs-marker:nth-child(" + (2 + i) + ")").attr("id", "marker-" + i);
+                $('.vjs-marker:nth-child(' + (2 + i) + ')').attr('id', 'marker-' + i);
             }
-            // Wenn der erste Marker geklickt wurde
-            $(".vjs-marker").click(function () {
-                $("#note-content").attr("disabled", false);
-                console.log("clicked");
+            // Events, wenn auf einen Marker gecklickt wurde.
+            $('.vjs-marker').click(function () {
+                // Formular aktivieren.
+                $('#note-content').attr('disabled', false);
+                // ID des Markers abfragen.
+                var id = $(this).attr('id').replace('marker-', '');
+                // Vorhandene Notizen abfragen.
+                self.loadNotesFromServer(id);
+                // Aktualisierung der Notizen überwachen.
+                self.updateNotesAtServer(id);
             });
         })
         // Piwik Analytics integrieren
-        .on("play", function () {
-            return _paq.push(["trackEvent", "Video", "Abgespielt", videoname]);
-        }).on("pause", function () {
-            return _paq.push(["trackEvent", "Video", "Pausiert", videoname]);
-        }).on("ended", function () {
-            return _paq.push(["trackEvent", "Video", "Komplett angesehen", videoname]);
-        }).on("fullscreenchange", function () {
-            return _paq.push(["trackEvent", "Video", "Vollbildmodus", videoname]);
-        }).on("error", function () {
-            return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
-        }).on("seeking", function () {
-            return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
-        }).on("durationchange", function () {
-            return _paq.push(["trackEvent", "Video", "Geschwindigkeit verändert", videoname]);
+        .on('play', function () {
+            return _paq.push(['trackEvent', 'Video', 'Abgespielt', videoname]);
+        }).on('pause', function () {
+            return _paq.push(['trackEvent', 'Video', 'Pausiert', videoname]);
+        }).on('ended', function () {
+            return _paq.push(['trackEvent', 'Video', 'Komplett angesehen', videoname]);
+        }).on('fullscreenchange', function () {
+            return _paq.push(['trackEvent', 'Video', 'Vollbildmodus', videoname]);
+        }).on('error', function () {
+            return _paq.push(['trackEvent', 'Video', 'Fehler', videoname]);
+        }).on('seeking', function () {
+            return _paq.push(['trackEvent', 'Video', 'Fehler', videoname]);
+        }).on('durationchange', function () {
+            return _paq.push(['trackEvent', 'Video', 'Geschwindigkeit verändert', videoname]);
         });
 
         // Überlegen wann, wie uns wo der additional content angezeigt wird.
@@ -161,28 +181,61 @@ var InteractiveVideo = React.createClass({
         // Hier die Event Logik für den Klick auf eine Notiz
     },
 
-    loadNotesFromServer: function loadNotesFromServer(markerID) {},
+    loadNotesFromServer: function loadNotesFromServer(markerID) {
+        // Aktualisierungsprozess sichtbar machen, indem die Prozessbar aktiviert wird.
+        $('#notes-progress').removeClass('disabled');
+        $('#notes-form').addClass('loading');
+        // AJAX Abfrage starten.
+        $.get(document.URL + '/getnotes/', {
+            cuepointNumber: markerID
+        }).done(function (data) {
+            $('#note-content').val(data);
+            $('#notes-progress').addClass('disabled');
+            $('#notes-form').removeClass('loading');
+        }).fail((function () {
+            console.error(this.props.url, status, err.toString());
+        }).bind(this));
+    },
 
-    updateNotesAtServer: function updateNotesAtServer(markerID) {},
+    updateNotesAtServer: function updateNotesAtServer(markerID) {
+        // Notizen hochladen (Confidential Refresh!)
+        $('#note-content').typeWatch({
+
+            callback: function callback() {
+
+                $('#notes-progress').removeClass('disabled');
+                var noteContent = $('#note-content').val();
+
+                $.post(document.URL + '/postnotes', {
+                    note: noteContent,
+                    cuepointNumber: markerID
+                }).done(function () {
+                    $('#notes-progress').addClass('disabled');
+                    _paq.push(['trackEvent', 'Notiz', 'verändert', decodeURIComponent((document.URL + '/postnotes').substr(50)) + ': Fähnchen ' + markerID]);
+                }).fail((function () {
+                    console.error(this.props.url, status, err.toString());
+                }).bind(this));
+            },
+            wait: 500,
+            highlight: false,
+            captureLength: 3
+        });
+    },
 
     render: function render() {
         return React.createElement(
-            "div",
+            'div',
             null,
-            React.createElement("div", { ref: "videoTarget" }),
-            React.createElement("img", { src: "/img/etpm_logo.png" }),
-            React.createElement(_InteractiveVideoNotes2["default"], null)
+            React.createElement('div', { ref: 'videoTarget' }),
+            React.createElement('img', { src: '/img/etpm_logo.png' }),
+            React.createElement(_InteractiveVideoNotes2['default'], null)
         );
     }
 
 });
 
-exports["default"] = InteractiveVideo;
-module.exports = exports["default"];
-
-// Vorhandene Notizen laden
-
-// Notizen hochladen (Confidential Refresh!)
+exports['default'] = InteractiveVideo;
+module.exports = exports['default'];
 /* Notizformular einbinden */
 
 },{"./InteractiveVideoNotes.jsx":4}],4:[function(require,module,exports){
@@ -194,7 +247,9 @@ Object.defineProperty(exports, "__esModule", {
 var InteractiveVideoNotes = React.createClass({
     displayName: "InteractiveVideoNotes",
 
-    //React.findDOMNode(this.refs.textarea).
+    componentDidMount: function componentDidMount() {
+        $("#notes-progress").progress();
+    },
 
     render: function render() {
 
@@ -212,7 +267,7 @@ var InteractiveVideoNotes = React.createClass({
             ),
             React.createElement(
                 "form",
-                { className: "ui form" },
+                { id: "notes-form", className: "ui form" },
                 React.createElement(
                     "div",
                     { className: "field" },
@@ -223,6 +278,11 @@ var InteractiveVideoNotes = React.createClass({
                     ),
                     React.createElement("textarea", { disabled: "disabled", id: "note-content", placeholder: "Wählen Sie ein »Fähnchen« und geben Sie Ihre Notizen ein.", maxLength: "500", ref: "textarea" })
                 )
+            ),
+            React.createElement(
+                "div",
+                { id: "notes-progress", className: "ui disabled bottom attached green indicating progress", "data-percent": "100" },
+                React.createElement("div", { className: "bar" })
             )
         );
     }
@@ -230,7 +290,6 @@ var InteractiveVideoNotes = React.createClass({
 
 exports["default"] = InteractiveVideoNotes;
 module.exports = exports["default"];
-/* Über eine Progressbar nachdenken (oder einfach direkt, "graceful" gespeichert) */
 
 },{}],5:[function(require,module,exports){
 "use strict";

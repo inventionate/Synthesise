@@ -22,7 +22,7 @@ class LectionController extends Controller {
 	{
         $videoname = urldecode($videoname);
 		// Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird
-		return Video::getFirstCuepointId($videoname) + preg_replace( '/[^0-9]/', '', $cuepointNumber );
+		return Video::getFirstCuepointId($videoname) + preg_replace( '/[^0-9]/', '', $cuepointNumber ) -1;
 	}
 
 	/**

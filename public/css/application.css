@@ -33766,6 +33766,7 @@ main {
 }
 #interactive-video #video-notes textarea {
   height: 1.5em;
+  resize: none;
 }
 .vjs-sublime-skin {
   color: white;

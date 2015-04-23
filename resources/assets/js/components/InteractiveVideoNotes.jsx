@@ -1,6 +1,9 @@
 var InteractiveVideoNotes = React.createClass({
 
-    //React.findDOMNode(this.refs.textarea).
+    componentDidMount: function ()
+    {
+        $('#notes-progress').progress();
+    },
 
     render: function ()
     {
@@ -11,7 +14,7 @@ var InteractiveVideoNotes = React.createClass({
                     <h3 className="hide">Notizen</h3>
                 </header>
 
-                <form className="ui form">
+                <form id="notes-form" className="ui form">
 
                     <div className="field">
                         <label htmlFor="note-content" className="hide">Notizen</label>
@@ -19,7 +22,9 @@ var InteractiveVideoNotes = React.createClass({
                     </div>
 
                 </form>
-                {/* Über eine Progressbar nachdenken (oder einfach direkt, "graceful" gespeichert) */}
+                <div id="notes-progress" className="ui disabled bottom attached green indicating progress" data-percent="100">
+                    <div className="bar"></div>
+                </div>
 
             </section>
         );

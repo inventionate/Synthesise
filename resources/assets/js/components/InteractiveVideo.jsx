@@ -10,12 +10,23 @@ var InteractiveVideo = React.createClass({
 
     componentDidMount: function ()
     {
+        var self = this;
+
+        // CSRF Token abfragenu
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         // Video.JS nach dem Laden der React Komponente manuell generieren und dann einsetzen (ReactID Problem umgehen)
         // http://stackoverflow.com/questions/26255344/reactjs-cant-change-video-and-poster-videojs
         // Über das Event componentWillRecieveProps auf die Props Änderungen reagieren
         var video, wrapper;
         wrapper = document.createElement('div');
-        wrapper.innerHTML = "<video id='videoplayer' class='video-js vjs-sublime-skin vjs-big-play-centered' poster='" + this.props.poster.toString() + "'><source type='video/mp4' src='" + this.props.path.toString() + ".mp4' /><source type='video/webm' src='" + this.props.path.toString() + ".webm' /></video>";
+        // vjs-sublime-skin
+        // Eigenen Skin entwickeln!!!
+        wrapper.innerHTML = "<video id='videoplayer' class='video-js vjs-default-skin vjs-big-play-centered' poster='" + this.props.poster.toString() + "'><source type='video/mp4' src='" + this.props.path.toString() + ".mp4' /><source type='video/webm' src='" + this.props.path.toString() + ".webm' /></video>";
         video = wrapper.firstChild;
         this.refs.videoTarget.getDOMNode().appendChild(video);
         // Videoname
@@ -38,16 +49,22 @@ var InteractiveVideo = React.createClass({
         // Events, die nach dem ersten Abspielen des Videos ausgeführt werden.
         // Hier können auch allgemeine Events registriert werden, die nach der Initialisierung des Player blubbern sollen.
         .one('play', function () {
-            // Anzahl der Marker
+            // Anzahl der Marker.
             var countMarkers = $('.vjs-marker').length;
-            // IDs zu den einzelnen Markern hinzufügen
+            // IDs zu den einzelnen Markern hinzufügen.
             for (var i = 0; i <= countMarkers; i++) {
                 $('.vjs-marker:nth-child('+ (2 + i) +')').attr('id','marker-' + i);
             }
-            // Wenn der erste Marker geklickt wurde
+            // Events, wenn auf einen Marker gecklickt wurde.
             $('.vjs-marker').click(function() {
+                // Formular aktivieren.
                 $('#note-content').attr('disabled', false);
-                //console.log("clicked");
+                // ID des Markers abfragen.
+                var id = $(this).attr('id').replace('marker-','');
+                // Vorhandene Notizen abfragen.
+                self.loadNotesFromServer(id);
+                // Aktualisierung der Notizen überwachen.
+                self.updateNotesAtServer(id);
             });
         })
         // Piwik Analytics integrieren
@@ -81,12 +98,49 @@ var InteractiveVideo = React.createClass({
 
     loadNotesFromServer: function (markerID)
     {
-        // Vorhandene Notizen laden
+        // Aktualisierungsprozess sichtbar machen, indem die Prozessbar aktiviert wird.
+        $('#notes-progress').removeClass('disabled');
+        $('#notes-form').addClass('loading');
+        // AJAX Abfrage starten.
+        $.get(document.URL + '/getnotes/', {
+            cuepointNumber: markerID
+        })
+        .done(function(data) {
+            $('#note-content').val(data);
+            $('#notes-progress').addClass('disabled');
+            $('#notes-form').removeClass('loading');
+        })
+        .fail(function() {
+            console.error(this.props.url, status, err.toString());
+        }.bind(this));
     },
 
     updateNotesAtServer: function (markerID)
     {
         // Notizen hochladen (Confidential Refresh!)
+        $('#note-content').typeWatch({
+
+            callback: function() {
+
+                $('#notes-progress').removeClass('disabled');
+                var noteContent = $('#note-content').val();
+
+                $.post(document.URL + '/postnotes', {
+                    note: noteContent,
+                    cuepointNumber: markerID
+                })
+                .done(function() {
+                    $('#notes-progress').addClass('disabled');
+                     _paq.push(['trackEvent', 'Notiz', 'verändert', decodeURIComponent((document.URL + '/postnotes').substr(50)) + ': Fähnchen ' + markerID]);
+                })
+                .fail(function() {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this));
+            },
+            wait: 500,
+            highlight: false,
+            captureLength: 3
+        });
     },
 
     render: function ()
