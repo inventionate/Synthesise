@@ -1,0 +1,84 @@
+@import "colour";
+
+#main-content-demo {
+    h1
+	{
+		background-image: url('../../img/etpm_logo_r.png');
+		background-repeat: no-repeat;
+		background-size: 175px;
+		width: 175px;
+		height: 175px;
+		display: block;
+		margin: 0 auto;
+		text-indent: -9999px;
+	}
+    .circular.segment {
+        width: 175px;
+        height: 175px;
+        a {
+            color: @black;
+        }
+        a:hover {
+            color: #00b2f3;
+        }
+    }
+    .divider {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+    .header.divider {
+        margin-top: 4em;
+        margin-bottom: 4em;
+    }
+    #playdemo {
+        color: #009fda;
+    }
+    #playdemo:hover {
+        cursor: pointer;
+        color: #00b2f3;
+    }
+    #demovideo {
+        width: 100%;
+        position: relative;
+        padding-bottom: 52%;
+        padding-top: 25px;
+        height: 0;
+        .video-js {
+            width: 100% !important;
+            height: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        img {
+            position: absolute;
+            // MEDIA QUERY EINBAUEN!!!
+            top: 15px;
+            right:15px;
+            width: 5rem;
+            opacity: .85;
+        }
+        #demovideoplayer {
+            .vjs-marker {
+                margin-left: -11px !important;
+                height: 15px !important;
+                width: 15px !important;
+                border-radius: 50% !important;
+                background-color: @red !important;
+                margin-bottom: 17px !important;
+            }
+            .vjs-tip {
+                margin-bottom: 17px;
+                font-size: 1.5em;
+            }
+            .active-marker {
+                background-color: @white !important;
+                height: 25px !important;
+                width: 25px !important;
+                margin-bottom: 13px !important;
+                margin-left: -17px !important;
+                border: 5px solid @black;
+            }
+        }
+    }
+}

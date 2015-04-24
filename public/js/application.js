@@ -29,8 +29,13 @@ var _Statistic2 = _interopRequireWildcard(_Statistic);
 
 $(document).ready(function () {
 
+    // Config Video.js swf Fallback
+    videojs.options.flash.swf = "/video-js.swf";
+
+    // Piwik Integration
     new _Analytics2["default"]();
 
+    // Semantic UI
     new _SemanticAnimations2["default"]();
 
     // @todo ReactKomponenten ggf. anders laden!
@@ -116,8 +121,6 @@ var InteractiveVideo = React.createClass({
         // Über das Event componentWillRecieveProps auf die Props Änderungen reagieren
         var video, wrapper;
         wrapper = document.createElement('div');
-        // vjs-sublime-skin
-        // Eigenen Skin entwickeln!!!
         wrapper.innerHTML = '<video id=\'videoplayer\' class=\'video-js vjs-sublime-skin vjs-big-play-centered\' poster=\'' + this.props.poster.toString() + '\'><source type=\'video/mp4\' src=\'' + this.props.path.toString() + '.mp4\' /><source type=\'video/webm\' src=\'' + this.props.path.toString() + '.webm\' /></video>';
         video = wrapper.firstChild;
         this.refs.videoTarget.getDOMNode().appendChild(video);

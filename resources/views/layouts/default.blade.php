@@ -61,6 +61,8 @@
 			<script src="{{ asset("js/vendor.js") }}"></script>
 			<script src="{{ asset("js/application.js") }}"></script>
 		@endif
+		@section('scripts')
+		@show
 
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@include('layouts.partials.analytics')

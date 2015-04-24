@@ -38,6 +38,7 @@
             		</p>
                 </div>
 
+                {{--
                 <div class="title">
                     <i class="dropdown icon"></i>
                     Präsenzveranstaltungen
@@ -54,6 +55,8 @@
                     </ul>
             		<div class="ui info message"><a href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/mentoring/" target="_blank">Wer Interesse an der Zusatzqualifikation des Mentorings hat und selbst Mentor/Mentorin werden möchte, kann sich nach bestandener Prüfung zum Zertifikatsstudium anmelden</a>.</div>
                 </div>
+
+                --}}
 
                 <div class="title">
                     <i class="dropdown icon"></i>

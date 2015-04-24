@@ -9,8 +9,13 @@ import Statistic from "./Components/Statistic.jsx";
 
 $( document ).ready( () => {
 
+    // Config Video.js swf Fallback
+    videojs.options.flash.swf = "/video-js.swf";
+
+    // Piwik Integration
     new Analytics();
 
+    // Semantic UI 
     new SemanticAnimations();
 
     // @todo ReactKomponenten ggf. anders laden!
