@@ -23,9 +23,9 @@
 
     <div class="ui hidden divider"></div>
 
-    <div class="four column row">
+    <div class="four column centered row">
         <div class="column">
-            <div class="ui circular center aligned segment">
+            <div class="ui circular segment">
                 <h2 class="ui icon header">
                     <a href="#elearning">
                     <i class="ui laptop icon"></i>

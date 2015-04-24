@@ -33149,6 +33149,8 @@ body.vjs-full-window {
 #main-content-demo .circular.segment {
   width: 175px;
   height: 175px;
+  margin: 0 auto;
+  display: block;
 }
 #main-content-demo .circular.segment a {
   color: #000000;
