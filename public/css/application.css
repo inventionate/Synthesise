@@ -32556,6 +32556,8 @@ https://github.com/videojs/video.js/blob/master/src/css/video-js.less */
 }
 .etpM:after {
   content: "®";
+  vertical-align: super;
+  font-size: .75em;
 }
 .text.hidden {
   text-indent: 1000% !important;
