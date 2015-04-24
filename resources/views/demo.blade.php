@@ -13,7 +13,7 @@
             <h1>Informationen über das e:t:p:M® Konzept</h1>
 
             <p>
-            Das <span class="etpM">e:t:p:M</span>-Konzept ist für regelmäßig stattfindende Lehrveranstaltungen (z.B. Einführungsvorlesungen) mit großer und sehr großer Teilnehmerzahl von <a href="#kontakt">Apl. Prof. Dr. Timo Hoyer</a> und <a href="#kontakt">Fabian Mundt, M.A.</a> entwickelt worden. Es trägt in besonderem Maße dem Umstand Rechnung, dass sich die Studierenden am Übergang von der schulischen zur akademischen Lehr-Lern-Kultur befinden.
+            Das Blended Learning <span class="etpM">e:t:p:M</span>-Konzept ist für regelmäßig stattfindende Lehrveranstaltungen (z.B. Einführungsvorlesungen) mit großer und sehr großer Teilnehmerzahl von <a href="#kontakt">Apl. Prof. Dr. Timo Hoyer</a> und <a href="#kontakt">Fabian Mundt, M.A.</a> entwickelt worden. Es trägt in besonderem Maße dem Umstand Rechnung, dass sich die Studierenden am Übergang von der schulischen zur akademischen Lehr-Lern-Kultur befinden.
             </p>
             <p>
                 Eine ausfühtliche Darstellung des Gesamtkonzepts finden Sie im Sammelband <a href="http://www.waxmann.com/index.php?id=buecher&no_cache=1&tx_p2waxmann_pi1%5Boberkategorie%5D=OKA100022&tx_p2waxmann_pi1%5Breihe%5D=REI100145&tx_p2waxmann_pi1%5Bbuch%5D=BUC123898" target="_blank"><em>Lernräume gestalten – Bildungskontexte vielfältig denken (2014)</em></a>.
