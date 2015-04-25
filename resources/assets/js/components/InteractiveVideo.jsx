@@ -53,7 +53,6 @@ var InteractiveVideo = React.createClass({
             .one('loadeddata', function () {
                 // Anzahl der Marker.
                 var countMarkers = $('.vjs-marker').length;
-                console.log(countMarkers);
                 // IDs zu den einzelnen Markern hinzufügen.
                 for (var i = 0; i <= countMarkers; i++) {
                     $('.vjs-marker:nth-child('+ (2 + i) +')').attr('id','marker-' + i);
@@ -138,7 +137,7 @@ var InteractiveVideo = React.createClass({
                 })
                 .done(function() {
                     $('#notes-progress').addClass('disabled');
-                     _paq.push(['trackEvent', 'Notiz', 'verändert', decodeURIComponent((document.URL + '/postnotes').substr(50)) + ': Fähnchen ' + markerID]);
+                     _paq.push(['trackEvent', 'Notiz', 'verändert', videoname + ': Fähnchen ' + markerID]);
                 })
                 .fail(function() {
                     console.error(this.props.url, status, err.toString());
