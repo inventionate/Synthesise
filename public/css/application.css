@@ -32813,6 +32813,9 @@ main {
   resize: none;
   border-radius: 0;
 }
+#interactive-video #video-notes textarea:disabled {
+  cursor: not-allowed;
+}
 #interactive-video #videoplayer .vjs-marker {
   margin-left: -11px !important;
   height: 15px !important;
