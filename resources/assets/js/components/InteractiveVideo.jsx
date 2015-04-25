@@ -31,73 +31,76 @@ var InteractiveVideo = React.createClass({
         var videoname = this.props.name.toString();
         // Video.JS mounten
 
-        var videoplayer = videojs("videoplayer",{ 'controls': true, 'autoplay': false, 'preload': 'auto', 'width': '100%', 'height': '100%' });
-        // Marker einsetzen
-        videoplayer.markers({
-            markerTip:{
-                display: true,
-                text: function(marker) {
-                    return marker.text;
-                }
-            },
-			markers: JSON.parse(this.props.markers)
-		});
-        // Die Marker ID für die Notizabfrage beim ersten Abspielen hinzufügen.
-        videoplayer
-        // Events, die nach dem ersten Abspielen des Videos ausgeführt werden.
-        // Hier können auch allgemeine Events registriert werden, die nach der Initialisierung des Player blubbern sollen.
-        // Diese Skripte müssen ausgeführt werden, wenn alle Marker geladen sind!
-        .one('timeupdate', function () {
-            // Anzahl der Marker.
-            var countMarkers = $('.vjs-marker').length;
-            // IDs zu den einzelnen Markern hinzufügen.
-            for (var i = 0; i <= countMarkers; i++) {
-                $('.vjs-marker:nth-child('+ (2 + i) +')').attr('id','marker-' + i);
+        var videoplayer = videojs("videoplayer",{
+            'controls': true,
+            'autoplay': false,
+            'preload': 'auto',
+            'width': '100%',
+            'height': '100%',
+            plugins: {
+                markers: {
+                    markerTip: {
+                        display: true,
+                        text: function(marker) {
+                            return marker.text;
+                        }
+                    },
+        			markers: JSON.parse(this.props.markers)
+        		}
             }
-            // Events, wenn auf einen Marker gecklickt wurde.
-            $('.vjs-marker').on('click touchstart', function() {
-                // Überall 'active' Klasse löschen
-                $('.vjs-marker').removeClass('active-marker');
-                // Aktuellen Marker als aktiven kennzeichnen
-                $(this).addClass('active-marker');
-                // Formular aktivieren.
-                $('#note-content').attr('disabled', false);
-                // ID des Markers abfragen.
-                var id = $(this).attr('id').replace('marker-','');
-                // Fähnchen tracken
-                _paq.push(['trackEvent', 'Video', 'Zu Fähnchen gesprungen', decodeURIComponent(document.URL.substr(50)) + ': Fähnchen ' + id]);
-                // Vorhandene Notizen abfragen.
-                self.loadNotesFromServer(id);
-                // Aktualisierung der Notizen überwachen.
-                self.updateNotesAtServer(id);
+        }).ready( function () {
+            this
+            .one('timeupdate', function () {
+                // Anzahl der Marker.
+                var countMarkers = $('.vjs-marker').length;
+                alert(countMarkers);
+                // IDs zu den einzelnen Markern hinzufügen.
+                for (var i = 0; i <= countMarkers; i++) {
+                    $('.vjs-marker:nth-child('+ (2 + i) +')').attr('id','marker-' + i);
+                }
+                // Interaktive Timeline
+                $('.vjs-marker').on('click touchstart', function() {
+                    alert("AJAX REQUEST");
+                    // Überall 'active' Klasse löschen
+                    $('.vjs-marker').removeClass('active-marker');
+                    // Aktuellen Marker als aktiven kennzeichnen
+                    $(this).addClass('active-marker');
+                    // Formular aktivieren.
+                    $('#note-content').attr('disabled', false);
+                    // ID des Markers abfragen.
+                    var id = $(this).attr('id').replace('marker-','');
+                    // Fähnchen tracken
+                    _paq.push(['trackEvent', 'Video', 'Zu Fähnchen gesprungen', decodeURIComponent(document.URL.substr(50)) + ': Fähnchen ' + id]);
+                    // Vorhandene Notizen abfragen.
+                    self.loadNotesFromServer(id);
+                    // Aktualisierung der Notizen überwachen.
+                    self.updateNotesAtServer(id);
+                });
+            })
+            // Piwik Analytics integrieren
+            .on('play', function () {
+                return _paq.push(["trackEvent", "Video", "Abgespielt", videoname]);
+            })
+            .on('pause', function () {
+                return _paq.push(["trackEvent", "Video", "Pausiert", videoname]);
+            })
+            .on('ended', function () {
+                return _paq.push(["trackEvent", "Video", "Komplett angesehen", videoname]);
+            })
+            .on('fullscreenchange', function () {
+                return _paq.push(["trackEvent", "Video", "Vollbildmodus", videoname]);
+            })
+            .on('error', function () {
+                return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
+            })
+            .on('seeking', function () {
+                return _paq.push(["trackEvent", "Video", "Springen", videoname]);
+            })
+            .on('durationchange', function () {
+                return _paq.push(["trackEvent", "Video", "Geschwindigkeit verändert", videoname]);
             });
-        })
-        // Piwik Analytics integrieren
-        .on('play', function () {
-            return _paq.push(["trackEvent", "Video", "Abgespielt", videoname]);
-        })
-        .on('pause', function () {
-            return _paq.push(["trackEvent", "Video", "Pausiert", videoname]);
-        })
-        .on('ended', function () {
-            return _paq.push(["trackEvent", "Video", "Komplett angesehen", videoname]);
-        })
-        .on('fullscreenchange', function () {
-            return _paq.push(["trackEvent", "Video", "Vollbildmodus", videoname]);
-        })
-        .on('error', function () {
-            return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
-        })
-        .on('seeking', function () {
-            return _paq.push(["trackEvent", "Video", "Springen", videoname]);
-        })
-        .on('durationchange', function () {
-            return _paq.push(["trackEvent", "Video", "Geschwindigkeit verändert", videoname]);
+
         });
-
-        // Überlegen wann, wie uns wo der additional content angezeigt wird.
-
-        // Hier die Event Logik für den Klick auf eine Notiz
 
     },
 
