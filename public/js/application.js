@@ -212,10 +212,17 @@ var InteractiveVideo = React.createClass({
         // Notizen hochladen
         $('#note-content').typeWatch({
 
+            // @todo Auf eine robuste API umstellen!
+
             callback: function callback() {
 
                 $('#notes-progress').removeClass('disabled');
+
                 var noteContent = $('#note-content').val();
+
+                if (noteContent === '') {
+                    noteContent = '[#empty#]';
+                }
 
                 $.post(document.URL + '/postnotes', {
                     note: noteContent,
@@ -224,12 +231,12 @@ var InteractiveVideo = React.createClass({
                     $('#notes-progress').addClass('disabled');
                     _paq.push(['trackEvent', 'Notiz', 'verändert', videoname + ': Fähnchen ' + markerID]);
                 }).fail(function () {
-                    console.error('Problem updating ' + videoname + ' note' + id);
+                    console.error('Problem updating ' + videoname + ' note ' + markerID);
                 });
             },
             wait: 500,
             highlight: false,
-            captureLength: 3
+            captureLength: 0
         });
     },
 

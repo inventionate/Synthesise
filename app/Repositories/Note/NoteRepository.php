@@ -72,7 +72,7 @@ class NoteRepository implements NoteInterface
 
     $noteId = self::getNoteId($userId,$cuepointId);
     // Abfragen ob Note existiert
-    if(empty($noteId))
+    if ( empty($noteId) )
     {
       // Neue Notiz generieren
       $note = new $this->noteModel;
@@ -89,13 +89,14 @@ class NoteRepository implements NoteInterface
       // Die zu aktualisierende Notiz aufrufen
       $note = $this->noteModel->find($noteId);
       // Überprüfen ob die Notiz gelöscht werden kann
-      if($noteContent != '')
+      if ( $noteContent != '[#empty#]' )
       {
         // Inhalt verändern
         $note->note = Crypt::encrypt($noteContent);
         // Neuen Inhalt speichern
         $note->save();
-      } elseif($noteContent === '')
+      }
+      elseif ( $noteContent === '[#empty#]' )
       {
         // Notiz löschen
         $note->delete();

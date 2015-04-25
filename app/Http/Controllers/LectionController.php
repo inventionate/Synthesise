@@ -154,7 +154,7 @@ class LectionController extends Controller {
 			// Note updaten
 			Note::updateContent($noteupdate,Auth::user()->id,$cuepointId,$videoname);
 			// Erfolg zurückmelden
-			return "success";
+			return ['success' => true];
 		}
 	}
 
