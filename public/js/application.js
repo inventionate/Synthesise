@@ -151,7 +151,7 @@ var InteractiveVideo = React.createClass({
                 $('.vjs-marker:nth-child(' + (2 + i) + ')').attr('id', 'marker-' + i);
             }
             // Events, wenn auf einen Marker gecklickt wurde.
-            $('.vjs-marker').click(function () {
+            $('.vjs-marker').on('click touchstart', function () {
                 // Überall 'active' Klasse löschen
                 $('.vjs-marker').removeClass('active-marker');
                 // Aktuellen Marker als aktiven kennzeichnen
