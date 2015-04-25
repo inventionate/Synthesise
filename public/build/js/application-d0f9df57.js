@@ -143,7 +143,8 @@ var InteractiveVideo = React.createClass({
         videoplayer
         // Events, die nach dem ersten Abspielen des Videos ausgeführt werden.
         // Hier können auch allgemeine Events registriert werden, die nach der Initialisierung des Player blubbern sollen.
-        .one('play', function () {
+        // Diese Skripte müssen ausgeführt werden, wenn alle Marker geladen sind!
+        .one('loadeddata', function () {
             // Anzahl der Marker.
             var countMarkers = $('.vjs-marker').length;
             // IDs zu den einzelnen Markern hinzufügen.
@@ -151,7 +152,7 @@ var InteractiveVideo = React.createClass({
                 $('.vjs-marker:nth-child(' + (2 + i) + ')').attr('id', 'marker-' + i);
             }
             // Events, wenn auf einen Marker gecklickt wurde.
-            $('.vjs-marker').click(function () {
+            $('.vjs-marker').on('click touchstart', function () {
                 // Überall 'active' Klasse löschen
                 $('.vjs-marker').removeClass('active-marker');
                 // Aktuellen Marker als aktiven kennzeichnen
