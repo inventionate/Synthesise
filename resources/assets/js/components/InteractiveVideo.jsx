@@ -117,13 +117,15 @@ var InteractiveVideo = React.createClass({
             $('#notes-form').removeClass('loading');
         })
         .fail(function() {
-            console.error(document.URL + '/getnotes/', status, err.toString());
+            console.error("Problem loading notes from server!");
         });
     },
 
     updateNotesAtServer: function (markerID, videoname)
     {
-        // Notizen hochladen (Confidential Refresh!)
+        //Vorhergehende Eventhandler löschen
+        $('#note-content').off();
+        // Notizen hochladen
         $('#note-content').typeWatch({
 
             callback: function() {
@@ -140,7 +142,7 @@ var InteractiveVideo = React.createClass({
                      _paq.push(['trackEvent', 'Notiz', 'verändert', videoname + ': Fähnchen ' + markerID]);
                 })
                 .fail(function() {
-                    console.error(document.URL + '/postnotes', status, err.toString());
+                    console.error("Problem updating " + videoname + " note" + id);
                 });
             },
             wait: 500,
