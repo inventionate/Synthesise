@@ -72,7 +72,7 @@ var InteractiveVideo = React.createClass({
                     // Vorhandene Notizen abfragen.
                     self.loadNotesFromServer(id);
                     // Aktualisierung der Notizen überwachen.
-                    self.updateNotesAtServer(id);
+                    self.updateNotesAtServer(id, videoname);
                 });
             })
             // Piwik Analytics integrieren
@@ -121,7 +121,7 @@ var InteractiveVideo = React.createClass({
         }.bind(this));
     },
 
-    updateNotesAtServer: function (markerID)
+    updateNotesAtServer: function (markerID, videoname)
     {
         // Notizen hochladen (Confidential Refresh!)
         $('#note-content').typeWatch({
