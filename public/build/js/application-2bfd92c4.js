@@ -144,7 +144,7 @@ var InteractiveVideo = React.createClass({
         // Events, die nach dem ersten Abspielen des Videos ausgeführt werden.
         // Hier können auch allgemeine Events registriert werden, die nach der Initialisierung des Player blubbern sollen.
         // Diese Skripte müssen ausgeführt werden, wenn alle Marker geladen sind!
-        .one('loadeddata', function () {
+        .one('timeupdate', function () {
             // Anzahl der Marker.
             var countMarkers = $('.vjs-marker').length;
             // IDs zu den einzelnen Markern hinzufügen.
