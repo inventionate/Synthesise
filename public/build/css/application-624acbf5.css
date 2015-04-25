@@ -32633,6 +32633,9 @@ main {
 #mainnav .etpM:hover {
   width: 155px;
 }
+#mainnav #subnav {
+  display: none;
+}
 #main-content-auth {
   background-image: url("/img/bg.jpg");
   background-size: 100% 100%;

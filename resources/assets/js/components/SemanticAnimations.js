@@ -44,6 +44,11 @@ class SemanticAnimations {
             $('#edit-lection-available').val(lectionAvailable);
 
         });
+
+        // Navigation
+        $('#submenu').click( function () {
+            $('#subnav').toggle('slow');
+        });
     }
 
 }

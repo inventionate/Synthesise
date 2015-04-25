@@ -133,7 +133,7 @@
                 <img class="ui avatar image" src="/img/react_logo.png" alt="React Logo">
                 <div class="content">
                   <a class="header" href="https://facebook.github.io/react/" target="_blank">React</a>
-                  <div class="description">»A JavaScript Library For Building User Interfaces</div>
+                  <div class="description">»A JavaScript Library For Building User Interfaces«</div>
                 </div>
               </div>
               <div class="item">

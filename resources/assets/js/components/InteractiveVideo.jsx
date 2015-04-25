@@ -63,6 +63,8 @@ var InteractiveVideo = React.createClass({
                 $('#note-content').attr('disabled', false);
                 // ID des Markers abfragen.
                 var id = $(this).attr('id').replace('marker-','');
+                // Fähnchen tracken
+                _paq.push(['trackEvent', 'Video', 'Zu Fähnchen gesprungen', decodeURIComponent(document.URL.substr(50)) + ': Fähnchen ' + id]);
                 // Vorhandene Notizen abfragen.
                 self.loadNotesFromServer(id);
                 // Aktualisierung der Notizen überwachen.
@@ -86,7 +88,7 @@ var InteractiveVideo = React.createClass({
             return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
         })
         .on('seeking', function () {
-            return _paq.push(["trackEvent", "Video", "Fehler", videoname]);
+            return _paq.push(["trackEvent", "Video", "Springen", videoname]);
         })
         .on('durationchange', function () {
             return _paq.push(["trackEvent", "Video", "Geschwindigkeit verändert", videoname]);
