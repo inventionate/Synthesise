@@ -50,9 +50,10 @@ var InteractiveVideo = React.createClass({
             }
         }).ready( function () {
             this
-            .one('timeupdate', function () {
+            .one('loadeddata', function () {
                 // Anzahl der Marker.
                 var countMarkers = $('.vjs-marker').length;
+                console.log(countMarkers);
                 // IDs zu den einzelnen Markern hinzufügen.
                 for (var i = 0; i <= countMarkers; i++) {
                     $('.vjs-marker:nth-child('+ (2 + i) +')').attr('id','marker-' + i);
