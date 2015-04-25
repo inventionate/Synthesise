@@ -53,14 +53,12 @@ var InteractiveVideo = React.createClass({
             .one('timeupdate', function () {
                 // Anzahl der Marker.
                 var countMarkers = $('.vjs-marker').length;
-                alert(countMarkers);
                 // IDs zu den einzelnen Markern hinzufügen.
                 for (var i = 0; i <= countMarkers; i++) {
                     $('.vjs-marker:nth-child('+ (2 + i) +')').attr('id','marker-' + i);
                 }
                 // Interaktive Timeline
                 $('.vjs-marker').on('click touchstart', function() {
-                    alert("AJAX REQUEST");
                     // Überall 'active' Klasse löschen
                     $('.vjs-marker').removeClass('active-marker');
                     // Aktuellen Marker als aktiven kennzeichnen
@@ -70,7 +68,7 @@ var InteractiveVideo = React.createClass({
                     // ID des Markers abfragen.
                     var id = $(this).attr('id').replace('marker-','');
                     // Fähnchen tracken
-                    _paq.push(['trackEvent', 'Video', 'Zu Fähnchen gesprungen', decodeURIComponent(document.URL.substr(50)) + ': Fähnchen ' + id]);
+                    _paq.push(['trackEvent', 'Video', 'Zu Fähnchen gesprungen', videoname + ': Fähnchen ' + id]);
                     // Vorhandene Notizen abfragen.
                     self.loadNotesFromServer(id);
                     // Aktualisierung der Notizen überwachen.
