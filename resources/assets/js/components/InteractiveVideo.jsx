@@ -117,8 +117,8 @@ var InteractiveVideo = React.createClass({
             $('#notes-form').removeClass('loading');
         })
         .fail(function() {
-            console.error(this.props.url, status, err.toString());
-        }.bind(this));
+            console.error(document.URL + '/getnotes/', status, err.toString());
+        });
     },
 
     updateNotesAtServer: function (markerID, videoname)
@@ -140,8 +140,8 @@ var InteractiveVideo = React.createClass({
                      _paq.push(['trackEvent', 'Notiz', 'verändert', videoname + ': Fähnchen ' + markerID]);
                 })
                 .fail(function() {
-                    console.error(this.props.url, status, err.toString());
-                }.bind(this));
+                    console.error(document.URL + '/postnotes', status, err.toString());
+                });
             },
             wait: 500,
             highlight: false,
