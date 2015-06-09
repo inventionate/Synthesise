@@ -5,5 +5,7 @@
 /tests/_output
 /public/css
 /public/js
+.atom
+.tags
 .env
 .env.production

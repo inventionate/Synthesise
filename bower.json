@@ -5,8 +5,8 @@
     "jquery-typewatch": "~2.2.1",
     "chartjs": "~1.0.2",
     "semantic-ui": "~1.12.0",
-    "react": "~0.13.1",
-    "video.js": "~4.12.5",
+    "react": "~0.13.3",
+    "video.js": "4.*",
     "videojs-markers": "~0.4.0"
   }
 }

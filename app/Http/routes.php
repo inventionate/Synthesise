@@ -26,7 +26,7 @@ Route::get('impressum', 'ImprintController@index');
 Route::get('demo', 'DemoController@index');
 
 Route::controllers([
-	'auth' => 'Auth\AuthController'
+    'auth' => 'Auth\AuthController',
 ]);
 
 /*
@@ -35,84 +35,83 @@ Route::controllers([
 |--------------------------------------------------------------------------
 */
 
-Route::group(['middleware' => 'auth'], function()
-{
-	// DOWNLOAD
-	Route::get('download/{type}/{file}','DownloadController@getFile');
+Route::group(['middleware' => 'auth'], function () {
+    // DOWNLOAD
+    Route::get('download/{type}/{file}', 'DownloadController@getFile');
 
-	// LOGOUT
-	Route::get('logout', [
-	  'as' => 'logout',
-	  'uses' => 'Auth\AuthController@logout'
-	]);
+    // LOGOUT
+    Route::get('logout', [
+      'as' => 'logout',
+      'uses' => 'Auth\AuthController@logout',
+    ]);
 
-	// DASHBOARD
-	Route::get('/', [
-	  'as' => 'dashboard',
-	  'uses' => 'DashboardController@index'
-	]);
+    // DASHBOARD
+    Route::get('/', [
+      'as' => 'dashboard',
+      'uses' => 'DashboardController@index',
+    ]);
 
-	// ONLINE-LEKTIONEN
+    // ONLINE-LEKTIONEN
 
-	// Einzellektion
-	Route::get('online-lektionen/{videoname}', [
-	  'as' => 'lektion',
-	  'uses' => 'LectionController@index'
-	]);
+    // Einzellektion
+    Route::get('online-lektionen/{videoname}', [
+      'as' => 'lektion',
+      'uses' => 'LectionController@index',
+    ]);
 
-	// GET PDF NOTES
-	Route::get('online-lektionen/{videoname}/getnotespdf', [
-	  'uses' => 'LectionController@getNotesPDF'
-	]);
+    // GET PDF NOTES
+    Route::get('online-lektionen/{videoname}/getnotespdf', [
+      'uses' => 'LectionController@getNotesPDF',
+    ]);
 
-	// GET PDF FLAGNAMES
-	Route::get('online-lektionen/{videoname}/getflagnamespdf', [
-	  'uses' => 'LectionController@getFlagnamesPDF'
-	]);
+    // GET PDF FLAGNAMES
+    Route::get('online-lektionen/{videoname}/getflagnamespdf', [
+      'uses' => 'LectionController@getFlagnamesPDF',
+    ]);
 
-	// AJAX
+    // AJAX
 
-	// Ajax GET FLAGS
-	Route::get('online-lektionen/{videoname}/getflags', [
-		'uses' => 'LectionController@getFlags'
-	]);
+    // Ajax GET FLAGS
+    Route::get('online-lektionen/{videoname}/getflags', [
+        'uses' => 'LectionController@getFlags',
+    ]);
 
-	// Ajax GET NOTES
-	Route::get('online-lektionen/{videoname}/getnotes', [
-		'uses' => 'LectionController@getNotes'
-	]);
+    // Ajax GET NOTES
+    Route::get('online-lektionen/{videoname}/getnotes', [
+        'uses' => 'LectionController@getNotes',
+    ]);
 
-	// Ajax POST NOTES
+    // Ajax POST NOTES
 
-	Route::post('online-lektionen/{videoname}/postnotes', [
-	'uses' => 'LectionController@postNotes'
-	]);
+    Route::post('online-lektionen/{videoname}/postnotes', [
+    'uses' => 'LectionController@postNotes',
+    ]);
 
-	// HgF
-	Route::get('hgf/{letter?}', [
-	  'as' => 'hgf',
-	  'uses' => 'FaqController@index'
-	]);
+    // HgF
+    Route::get('hgf/{letter?}', [
+      'as' => 'hgf',
+      'uses' => 'FaqController@index',
+    ]);
 
-	// KONTAKT
-	Route::get('kontakt', [
-	  'as' => 'kontakt',
-	  'uses' => 'ContactController@index'
-	]);
+    // KONTAKT
+    Route::get('kontakt', [
+      'as' => 'kontakt',
+      'uses' => 'ContactController@index',
+    ]);
 
-	Route::post('kontakt/feedback', [
-	  'uses' => 'ContactController@sendFeedback'
-	]);
+    Route::post('kontakt/feedback', [
+      'uses' => 'ContactController@sendFeedback',
+    ]);
 
-	Route::post('kontakt/support', [
-		'uses' => 'ContactController@sendSupport'
-	]);
+    Route::post('kontakt/support', [
+        'uses' => 'ContactController@sendSupport',
+    ]);
 
-	// ANALYTICS
-	Route::get('analytics', [
-	  'middleware' => 'admin',
-	  'uses' => 'AnalyticsController@index'
-	]);
+    // ANALYTICS
+    Route::get('analytics', [
+      'middleware' => 'admin',
+      'uses' => 'AnalyticsController@index',
+    ]);
 
 });
 
@@ -122,8 +121,7 @@ Route::group(['middleware' => 'auth'], function()
 |--------------------------------------------------------------------------
 */
 
-Route::group(['prefix' => 'api/v1','middleware' => 'auth.basic'], function()
-{
-	// Messages
-	Route::resource('messages', 'API\MessageController',['except' => ['create', 'show', 'edit']]);
+Route::group(['prefix' => 'api/v1', 'middleware' => 'auth.basic'], function () {
+    // Messages
+    Route::resource('messages', 'API\MessageController', ['except' => ['create', 'show', 'edit']]);
 });

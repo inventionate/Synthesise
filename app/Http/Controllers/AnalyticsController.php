@@ -1,33 +1,33 @@
-<?php namespace Synthesise\Http\Controllers;
+<?php
+
+namespace Synthesise\Http\Controllers;
 
 use Synthesise\Extensions\Facades\Analytics;
 
-class AnalyticsController extends Controller {
+class AnalyticsController extends Controller
+{
+    /**
+     * Zeigt die Analytics an.
+     *
+     * @return View
+     */
+    public function index()
+    {
+        $visitors = Analytics::getVisitors();
 
-	/**
-	* Zeigt die Analytics an.
-	*
-	* @return View
-	*/
-	public function index()
-	{
+        $semesterVisits = Analytics::getSemesterVisits();
 
-		$visitors = Analytics::getVisitors();
+        $downloadedPapers = Analytics::downloadedPapers();
 
-		$semesterVisits = Analytics::getSemesterVisits();
+        $playedVideos = Analytics::playedVideos();
 
-		$downloadedPapers = Analytics::downloadedPapers();
-
-		$playedVideos = Analytics::playedVideos();
-
-		return view('analytics.index')
-									->with('admins',$visitors['admins'])
-									->with('mentors',$visitors['mentors'])
-									->with('students', $visitors['students'])
-									->with('visits', json_encode($semesterVisits['visits']))
-									->with('uniqVisitors', json_encode($semesterVisits['uniqVisitors']))
-									->with('downloadedPapers', $downloadedPapers)
-									->with('playedVideos', $playedVideos);
-	}
-
+        return view('analytics.index')
+                                    ->with('admins', $visitors['admins'])
+                                    ->with('mentors', $visitors['mentors'])
+                                    ->with('students', $visitors['students'])
+                                    ->with('visits', json_encode($semesterVisits['visits']))
+                                    ->with('uniqVisitors', json_encode($semesterVisits['uniqVisitors']))
+                                    ->with('downloadedPapers', $downloadedPapers)
+                                    ->with('playedVideos', $playedVideos);
+    }
 }

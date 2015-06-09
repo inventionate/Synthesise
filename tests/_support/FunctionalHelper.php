@@ -1,19 +1,20 @@
 <?php
+
 namespace Codeception\Module;
 
-use \FunctionalTester;
+use FunctionalTester;
 
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
-class FunctionalHelper extends \Codeception\Module {
+class FunctionalHelper extends \Codeception\Module
+{
+    private $Data;
 
-  private $Data;
-
-  public function __construct()
-  {
-      $this->Data = New \TestDatabaseSeeder();
-  }
+    public function __construct()
+    {
+        $this->Data = new \TestDatabaseSeeder();
+    }
 
   /**
    * Als Student einloggen.
@@ -22,12 +23,12 @@ class FunctionalHelper extends \Codeception\Module {
    */
   public function loggedInAsStudent(FunctionalTester $I)
   {
-    $I->amOnPage('/auth/login');
-    $I->fillField('#username','studentka');
-    $I->fillField('#password','Zelda');
-    $I->dontSeeAuthentication();
-    $I->click('Anmelden','#login');
-    $I->seeAuthentication();
+      $I->amOnPage('/auth/login');
+      $I->fillField('#username', 'studentka');
+      $I->fillField('#password', 'Zelda');
+      $I->dontSeeAuthentication();
+      $I->click('Anmelden', '#login');
+      $I->seeAuthentication();
   }
 
   /**
@@ -37,12 +38,12 @@ class FunctionalHelper extends \Codeception\Module {
    */
   public function loggedInAsTeacher(FunctionalTester $I)
   {
-    $I->amOnPage('/auth/login');
-    $I->fillField('#username','teacherka');
-    $I->fillField('#password','Hyrule');
-    $I->dontSeeAuthentication();
-    $I->click('Anmelden','#login');
-    $I->seeAuthentication();
+      $I->amOnPage('/auth/login');
+      $I->fillField('#username', 'teacherka');
+      $I->fillField('#password', 'Hyrule');
+      $I->dontSeeAuthentication();
+      $I->click('Anmelden', '#login');
+      $I->seeAuthentication();
   }
 
   /**
@@ -52,12 +53,12 @@ class FunctionalHelper extends \Codeception\Module {
    */
   public function loggedInAsAdmin(FunctionalTester $I)
   {
-    $I->amOnPage('/auth/login');
-    $I->fillField('#username','adminka');
-    $I->fillField('#password','Link');
-    $I->dontSeeAuthentication();
-    $I->click('Anmelden','#login');
-    $I->seeAuthentication();
+      $I->amOnPage('/auth/login');
+      $I->fillField('#username', 'adminka');
+      $I->fillField('#password', 'Link');
+      $I->dontSeeAuthentication();
+      $I->click('Anmelden', '#login');
+      $I->seeAuthentication();
   }
 
   /**
@@ -67,13 +68,12 @@ class FunctionalHelper extends \Codeception\Module {
    */
   public function seedDatabase(FunctionalTester $I)
   {
-    $this->Data->seedCuepoints($I);
-    $this->Data->seedFaqs($I);
-    $this->Data->seedMessages($I);
-    $this->Data->seedNotes($I);
-    $this->Data->seedPapers($I);
-    $this->Data->seedUsers($I);
-    $this->Data->seedVideos($I);
+      $this->Data->seedCuepoints($I);
+      $this->Data->seedFaqs($I);
+      $this->Data->seedMessages($I);
+      $this->Data->seedNotes($I);
+      $this->Data->seedPapers($I);
+      $this->Data->seedUsers($I);
+      $this->Data->seedVideos($I);
   }
-
 }
