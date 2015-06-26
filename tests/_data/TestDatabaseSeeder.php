@@ -139,18 +139,21 @@ class TestDatabaseSeeder
   public function seedMessages(FunctionalTester $I)
   {
       $this->messageAttributes['id'] = 1;
-      $this->messageAttributes['message'] = 'Das ist eine normale Informationsnachricht.';
-      $this->messageAttributes['type'] = 'info';
+      $this->messageAttributes['title'] = 'Titel';
+      $this->messageAttributes['content'] = 'Das ist eine normale Informationsnachricht.';
+      $this->messageAttributes['colour'] = 'green';
       $I->haveRecord('messages', $this->messageAttributes);
 
       $this->messageAttributes['id'] = 2;
-      $this->messageAttributes['message'] = 'Das ist eine warnende Informationsnachricht.';
-      $this->messageAttributes['type'] = 'warning';
+      $this->messageAttributes['title'] = 'Titel';
+      $this->messageAttributes['content'] = 'Das ist eine warnende Informationsnachricht.';
+      $this->messageAttributes['colour'] = 'red';
       $I->haveRecord('messages', $this->messageAttributes);
 
       $this->messageAttributes['id'] = 3;
-      $this->messageAttributes['message'] = 'Das ist eine kritische Informationsnachricht.';
-      $this->messageAttributes['type'] = 'danger';
+      $this->messageAttributes['title'] = 'Titel';
+      $this->messageAttributes['content'] = 'Das ist eine kritische Informationsnachricht.';
+      $this->messageAttributes['colour'] = 'purple';
       $I->haveRecord('messages', $this->messageAttributes);
   }
 

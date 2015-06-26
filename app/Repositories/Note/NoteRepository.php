@@ -1,4 +1,6 @@
-<?php namespace Synthesise\Repositories\Note;
+<?php
+
+namespace Synthesise\Repositories\Note;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Crypt;
@@ -8,9 +10,8 @@ use Illuminate\Support\Facades\Crypt;
  */
 class NoteRepository implements NoteInterface
 {
-  /**
+    /**
    * Variable des zugrundeliegenden Eloquent Models.
-   *
    */
   protected $noteModel;
 
@@ -18,11 +19,12 @@ class NoteRepository implements NoteInterface
    * Initziiert die Klasse $faqModel mit dem injizierten Model.
    *
    * @param Model $faq
+   *
    * @return FaqRepository
    */
   public function __construct(Model $note)
   {
-    $this->noteModel = $note;
+      $this->noteModel = $note;
   }
 
   /**
@@ -30,32 +32,31 @@ class NoteRepository implements NoteInterface
    *
    * @param 		int $userId
    * @param 		int $cuepointId
+   *
    * @return 		int ID der Notiz.
    */
   public function getNoteId($userId, $cuepointId)
   {
-    return $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id','=',$cuepointId)->pluck('id');
+      return $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('id');
   }
 
   /**
-   * Notiz abfragen
+   * Notiz abfragen.
    *
    * @param 		int $userId
-    * @param 		int $cuepointId
+   * @param 		int $cuepointId
+   *
    * @return 		string Inhalt der Notiz.
    */
   public function getContent($userId, $cuepointId)
   {
+      $note = $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note');
 
-    $note = $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id','=',$cuepointId)->pluck('note');
-
-    if(empty($note)) {
-      return '';
-    }
-    else {
-      return Crypt::decrypt($this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id','=',$cuepointId)->pluck('note'));
-    }
-
+      if (empty($note)) {
+          return '';
+      } else {
+          return Crypt::decrypt($this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note'));
+      }
   }
 
   /**
@@ -65,40 +66,32 @@ class NoteRepository implements NoteInterface
    * @param 		int $userId
    * @param 		int $cuepointId
    * @param 		string $videoname
-   * @return    void
    */
   public function updateContent($noteContent, $userId, $cuepointId, $videoname)
   {
-
-    $noteId = self::getNoteId($userId,$cuepointId);
+      $noteId = self::getNoteId($userId, $cuepointId);
     // Abfragen ob Note existiert
-    if ( empty($noteId) )
-    {
-      // Neue Notiz generieren
-      $note = new $this->noteModel;
+    if (empty($noteId)) {
+        // Neue Notiz generieren
+      $note = new $this->noteModel();
       // Notiz mit Inhalt füllen
       $note->note = Crypt::encrypt($noteContent);
-      $note->user_id = $userId;
-      $note->cuepoint_id = $cuepointId;
-      $note->video_videoname = $videoname;
+        $note->user_id = $userId;
+        $note->cuepoint_id = $cuepointId;
+        $note->video_videoname = $videoname;
       // Notiz speichern
       $note->save();
-    }
-    else
-    {
-      // Die zu aktualisierende Notiz aufrufen
+    } else {
+        // Die zu aktualisierende Notiz aufrufen
       $note = $this->noteModel->find($noteId);
       // Überprüfen ob die Notiz gelöscht werden kann
-      if ( $noteContent != '[#empty#]' )
-      {
-        // Inhalt verändern
+      if ($noteContent != '[#empty#]') {
+          // Inhalt verändern
         $note->note = Crypt::encrypt($noteContent);
         // Neuen Inhalt speichern
         $note->save();
-      }
-      elseif ( $noteContent === '[#empty#]' )
-      {
-        // Notiz löschen
+      } elseif ($noteContent === '[#empty#] ') {
+          // Notiz löschen
         $note->delete();
       }
     }

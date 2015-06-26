@@ -1,4 +1,6 @@
-<?php namespace Synthesise\Repositories\Faq;
+<?php
+
+namespace Synthesise\Repositories\Faq;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -7,9 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class FaqRepository implements FaqInterface
 {
-  /**
+    /**
    * Variable des zugrundeliegenden Eloquent Models.
-   *
    */
   protected $faqModel;
 
@@ -17,11 +18,12 @@ class FaqRepository implements FaqInterface
    * Initziiert die Klasse $faqModel mit dem injizierten Model.
    *
    * @param Model $faq
+   *
    * @return FaqRepository
    */
   public function __construct(Model $faq)
   {
-    $this->faqModel = $faq;
+      $this->faqModel = $faq;
   }
 
   /**
@@ -31,18 +33,19 @@ class FaqRepository implements FaqInterface
    */
   public function getAll()
   {
-    return $this->faqModel->all()->sortBy('area');
+      return $this->faqModel->all()->sortBy('area');
   }
 
   /**
    * Gibt die FAQs eines bestimmten Bereichs (Anfangsbuchstabe) zurück.
    *
    * @param 		string $letter Ein Buchstabe.
+   *
    * @return 		array Alle FAQ-Einträgen eines bestimmten Bereichs.
    */
   public function getByLetter($letter)
   {
-    return $this->faqModel->where('area',$letter)->get();
+      return $this->faqModel->where('area', $letter)->get();
   }
 
   /**
@@ -52,8 +55,9 @@ class FaqRepository implements FaqInterface
    */
   public function getLetters()
   {
-    $letters = preg_replace('{(.)\1+}','$1',implode('',$this->faqModel->lists('area')));
-    return $letters;
-  }
+      # Array aller Buchstaben
+      $letters = preg_replace('{(.)\1+}', '$1', implode('', $this->faqModel->lists('area')->toArray()));
 
+      return $letters;
+  }
 }

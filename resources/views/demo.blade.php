@@ -16,7 +16,7 @@
             Das Blended Learning Konzept <span class="etpM">e:t:p:M</span> ist für regelmäßig stattfindende Lehrveranstaltungen (z.B. Einführungsvorlesungen) mit großer und sehr großer Teilnehmerzahl von <a href="#kontakt">Apl. Prof. Dr. Timo Hoyer</a> und <a href="#kontakt">Fabian Mundt, M.A.</a> entwickelt worden. Es trägt in besonderem Maße dem Umstand Rechnung, dass sich die Studierenden am Übergang von der schulischen zur akademischen Lehr-Lern-Kultur befinden.
             </p>
             <p>
-                Eine ausfühtliche Darstellung des Gesamtkonzepts finden Sie im Sammelband <a href="http://www.waxmann.com/index.php?id=buecher&no_cache=1&tx_p2waxmann_pi1%5Boberkategorie%5D=OKA100022&tx_p2waxmann_pi1%5Breihe%5D=REI100145&tx_p2waxmann_pi1%5Bbuch%5D=BUC123898" target="_blank"><em>Lernräume gestalten – Bildungskontexte vielfältig denken (2014)</em></a>.
+                Eine ausführliche Darstellung des Gesamtkonzepts finden Sie im Sammelband <a href="http://www.waxmann.com/index.php?id=buecher&no_cache=1&tx_p2waxmann_pi1%5Boberkategorie%5D=OKA100022&tx_p2waxmann_pi1%5Breihe%5D=REI100145&tx_p2waxmann_pi1%5Bbuch%5D=BUC123898" target="_blank"><em>Lernräume gestalten – Bildungskontexte vielfältig denken (2014)</em></a>.
             </p>
         </div>
     </div>
@@ -77,7 +77,7 @@
         <div class="seven wide column">
             <h2 class="ui header">online-Lektionen</h2>
             <p>
-                Das Zentrum des eLearning Angebots von <span class="etpM">e:t:p:M</span> bilden im Studio aufgenommene und umfangreich nachbearbeitete Videos mit einer Länge von rund 30 Minuten. Damit dauern die sog. online-Lektionen einerseits erheblich länger als die Videoanteile der derzeit viel diskutierten MOOCs, POOCs oder SPOCs. Andererseits sind die einzelnen Lektionen deutlich kürzer als übliche Hörsaalvorlesungen. Der zeitliche Umfang von ca. 30 Minuten ist theoretisch mit den Aufmerksamkeitska-pazitäten von Studierenden zu begründen. Die Dauer hat sich, wie die Evaluationen belegen, in der Praxis bewährt.
+                Das Zentrum des eLearning Angebots von <span class="etpM">e:t:p:M</span> bilden im Studio aufgenommene und umfangreich nachbearbeitete Videos mit einer Länge von rund 30 Minuten. Damit dauern die sog. online-Lektionen einerseits erheblich länger als die Videoanteile der derzeit viel diskutierten MOOCs, POOCs oder SPOCs. Andererseits sind die einzelnen Lektionen deutlich kürzer als übliche Hörsaalvorlesungen. Der zeitliche Umfang von ca. 30 Minuten ist theoretisch mit den Aufmerksamkeitskapazitäten von Studierenden zu begründen. Die Dauer hat sich, wie die Evaluationen belegen, in der Praxis bewährt.
             </p>
             <p>
                 Jede online-Lektion ist das Ergebnis einer umfassenden Produktions- und Postproduktionsphase. Neben einem auf das jeweilige Thema visuell vorbereitenden Intro und einem standardisierten Abspann besitzt jede Lektion wiederkehrende formalästhetische Merkmale, die den Vortrag ergänzen, vertiefen und die Rezeption sowohl intensivieren als auch erleichtern.
