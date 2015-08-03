@@ -1,6 +1,11 @@
 <?php
 
-use \FunctionalTester;
+namespace _data;
+
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
+
+//use FunctionalTester;
 
 class TestDatabaseSeeder
 {
@@ -61,13 +66,13 @@ class TestDatabaseSeeder
    */
   public function __construct()
   {
-      $this->userAttributes = TestCommons::$userAttributes;
-      $this->faqAttributes = TestCommons::$faqAttributes;
-      $this->videoAttributes = TestCommons::$videoAttributes;
-      $this->paperAttributes = TestCommons::$paperAttributes;
-      $this->noteAttributes = TestCommons::$noteAttributes;
-      $this->cuepointAttributes = TestCommons::$cuepointAttributes;
-      $this->messageAttributes = TestCommons::$messageAttributes;
+      $this->userAttributes = Factories::$userAttributes;
+      $this->faqAttributes = Factories::$faqAttributes;
+      $this->videoAttributes = Factories::$videoAttributes;
+      $this->paperAttributes = Factories::$paperAttributes;
+      $this->noteAttributes = Factories::$noteAttributes;
+      $this->cuepointAttributes = Factories::$cuepointAttributes;
+      $this->messageAttributes = Factories::$messageAttributes;
   }
 
   /**
@@ -75,7 +80,7 @@ class TestDatabaseSeeder
    *
    * @param     FunctionalTester $I
    */
-  public function seedCuepoints(FunctionalTester $I)
+  public function seedCuepoints(\FunctionalTester $I)
   {
       $this->cuepointAttributes['id'] = 1;
       $this->cuepointAttributes['cuepoint'] = '100';
@@ -101,7 +106,7 @@ class TestDatabaseSeeder
    *
    * @param     FunctionalTester $I
    */
-  public function seedFaqs(FunctionalTester $I)
+  public function seedFaqs(\FunctionalTester $I)
   {
       $this->faqAttributes['id'] = 1;
       $this->faqAttributes['area'] = 'A';
@@ -136,7 +141,7 @@ class TestDatabaseSeeder
    *
    * @param     FunctionalTester $I
    */
-  public function seedMessages(FunctionalTester $I)
+  public function seedMessages(\FunctionalTester $I)
   {
       $this->messageAttributes['id'] = 1;
       $this->messageAttributes['title'] = 'Titel';
@@ -162,7 +167,7 @@ class TestDatabaseSeeder
    *
    * @param     FunctionalTester $I
    */
-  public function seedNotes(FunctionalTester $I)
+  public function seedNotes(\FunctionalTester $I)
   {
       $this->noteAttributes['id'] = 1;
       $this->noteAttributes['note'] = Crypt::encrypt('Das ist die ERSTE Notiz.');
@@ -191,7 +196,7 @@ class TestDatabaseSeeder
    *
    * @param     FunctionalTester $I
    */
-  public function seedPapers(FunctionalTester $I)
+  public function seedPapers(\FunctionalTester $I)
   {
       $this->paperAttributes['id'] = 1;
       $this->paperAttributes['papername'] = 'Zeit-Raum Studium!';
@@ -205,7 +210,7 @@ class TestDatabaseSeeder
    *
    * @param     FunctionalTester $I
    */
-  public function seedVideos(FunctionalTester $I)
+  public function seedVideos(\FunctionalTester $I)
   {
       $this->videoAttributes['id'] = 1;
       $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
@@ -222,7 +227,7 @@ class TestDatabaseSeeder
    *
    * @param     FunctionalTester $I
    */
-  public function seedUsers(FunctionalTester $I)
+  public function seedUsers(\FunctionalTester $I)
   {
       $this->userAttributes['id'] = 1;
       $this->userAttributes['username'] = 'studentka';

@@ -1,6 +1,7 @@
 <?php
 
 use \IntegrationTester;
+use _data\Factories as Factories;
 
 class MessageRepositoryCest
 {
@@ -19,7 +20,7 @@ class MessageRepositoryCest
      */
     public function _before()
     {
-        $this->messageAttributes = TestCommons::$messageAttributes;
+        $this->messageAttributes = Factories::$messageAttributes;
     }
 
     /**

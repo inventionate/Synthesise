@@ -3,6 +3,7 @@
 use \IntegrationTester;
 use Synthesise\Repositories\Facades\Note;
 use Illuminate\Support\Facades\Crypt;
+use _data\Factories as Factories;
 
 class NoteRepositoryCest
 {
@@ -21,7 +22,7 @@ class NoteRepositoryCest
      */
     public function _before()
     {
-        $this->noteAttributes = TestCommons::$noteAttributes;
+        $this->noteAttributes = Factories::$noteAttributes;
     }
 
     /**

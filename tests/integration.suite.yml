@@ -1,6 +1,6 @@
 class_name: IntegrationTester
 modules:
-    enabled: [IntegrationHelper, Asserts, Laravel5]
-    config:
-        Laravel5:
+    enabled:
+        - Asserts
+        - Laravel5:
             environment_file: .env.testing

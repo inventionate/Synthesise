@@ -4,9 +4,9 @@
     "modernizr": "~2.8.3",
     "jquery-typewatch": "~2.2.1",
     "chartjs": "~1.0.2",
-    "semantic-ui": "~1.12.*",
+    "semantic-ui": "~2.*",
     "react": "~0.13.3",
     "video.js": "4.*",
-    "videojs-markers": "~0.4.*"
+    "videojs-markers": "~0.5.*"
   }
 }

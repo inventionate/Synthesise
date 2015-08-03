@@ -39,7 +39,7 @@ class AuthCest
         $I->seeElement('.error');
     }
 
-    public function testNonLdapLogin(FunctionalTester $I)
+    public function test_non_ldap_login(FunctionalTester $I)
     {
         $I->am('Student');
         $I->wantTo('login without ldap credentials');

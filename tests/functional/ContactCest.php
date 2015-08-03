@@ -24,7 +24,7 @@ class ContactCest
         $I->dontSeeAuthentication();
     }
 
-    public function testSeeFeedbackInfo(FunctionalTester $I)
+    public function test_see_feedback_info(FunctionalTester $I)
     {
         $I->am('Student');
         $I->wantTo('see feedback info');
@@ -35,7 +35,7 @@ class ContactCest
         $I->see('Bei Verständnisfragen wenden Sie sich bitte direkt an die jeweiligen Dozenten:', 'p');
     }
 
-    public function testSendGeneralQuestion(FunctionalTester $I)
+    public function test_send_general_question(FunctionalTester $I)
     {
         $I->am('Student');
         $I->wantTo('send a general question');
@@ -47,7 +47,7 @@ class ContactCest
         $I->see('Ihre Nachricht wurde erfolgreich gesendet.');
     }
 
-    public function testSendSupportQuestion(FunctionalTester $I)
+    public function test_send_support_question(FunctionalTester $I)
     {
         $I->am('Student');
         $I->wantTo('send a support question');
@@ -58,7 +58,7 @@ class ContactCest
         $I->see('Ihre Nachricht wurde erfolgreich gesendet.');
     }
 
-    public function testCantSendEmptyGeneralQuestion(FunctionalTester $I)
+    public function test_cant_send_empty_general_question(FunctionalTester $I)
     {
         $I->am('Student');
         $I->wantTo('get an general question sending error because the message is empty');
@@ -69,7 +69,7 @@ class ContactCest
         $I->see('Bitte geben Sie eine Nachricht ein.');
     }
 
-    public function testCantSendEmptySupportQuestion(FunctionalTester $I)
+    public function test_cant_send_empty_support_question(FunctionalTester $I)
     {
         $I->am('Student');
         $I->wantTo('get an support question sending error because the message is empty');

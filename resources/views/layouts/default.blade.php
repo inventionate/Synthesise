@@ -12,18 +12,9 @@
 		@include('layouts.partials.head')
 
 		{{-- APPLICATION CSS -----------------------------------------------------}}
-		@if (App::environment() == 'produtcion')
-			<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
-		@else
-			<link rel="stylesheet" href="{{ asset("css/application.css") }}">
-		@endif
-
+		<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
 		{{-- MODERNIZR JS --------------------------------------------------------}}
-		@if (App::environment() == 'produtcion')
-			<script src="{{ elixir("js/modernizr.js") }}"></script>
-		@else
-			<script src="{{ asset("js/modernizr.js") }}"></script>
-		@endif
+		<script src="{{ elixir("js/modernizr.js") }}"></script>
 
 	</head>
 
@@ -54,13 +45,8 @@
 			@include('layouts.partials.footer')
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
-		@if (App::environment() == 'produtcion')
-			<script src="{{ elixir("js/vendor.js") }}"></script>
-			<script src="{{ elixir("js/application.js") }}"></script>
-		@else
-			<script src="{{ asset("js/vendor.js") }}"></script>
-			<script src="{{ asset("js/application.js") }}"></script>
-		@endif
+		<script src="{{ elixir("js/vendor.js") }}"></script>
+		<script src="{{ elixir("js/application.js") }}"></script>
 		@section('scripts')
 		@show
 

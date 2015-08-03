@@ -1,5 +1,7 @@
 var elixir = require('laravel-elixir');
 
+elixir.config.sourcemaps = false;
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -22,27 +24,24 @@ var elixir = require('laravel-elixir');
             "react/react.js",
             "jquery/dist/jquery.js",
             "semantic-ui/dist/semantic.js",
-            "video.js/dist/video-js/video.dev.js",
+            "video.js/dist/video-js/video.js",
             "videojs-markers/dist/videojs-markers.js",
             "jquery-typewatch/jquery.typewatch.js",
             "chartjs/Chart.js"
         ], "public/js/vendor.js", "vendor/bower_components")
         // Application Components
-        .browserify("application.js","public/js/application.js", "resources/assets/js");
+        .browserify("application.js")
         // Version hash
-        // In der aktuellen Version existiert ein minifaction Bug ("unspecified error" beim Gulpprozess).
-        // if (elixir.config.production) {
-            mix.version([
-                "css/application.css",
-                "js/modernizr.js",
-                "js/application.js",
-                "js/vendor.js"
+        .version([
+                "public/css/application.css",
+                "public/js/modernizr.js",
+                "public/js/application.js",
+                "public/js/vendor.js"
             ])
-            .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/css/themes/default/assets/fonts")
-            .copy("vendor/bower_components/video.js/dist/video-js/font","public/css/font")
-            .copy("vendor/bower_components/video.js/dist/video-js/video-js.swf","public")
-            // Für die lokale Versionen
-            .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts")
-            .copy("vendor/bower_components/video.js/dist/video-js/font","public/build/css/font");
-        //}
+        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/css/themes/default/assets/fonts")
+        .copy("vendor/bower_components/video.js/dist/video-js/font","public/css/font")
+        .copy("vendor/bower_components/video.js/dist/video-js/video-js.swf","public")
+        // Für die lokale Versionen
+        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts")
+        .copy("vendor/bower_components/video.js/dist/video-js/font","public/build/css/font");
     });

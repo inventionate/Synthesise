@@ -1,6 +1,7 @@
 <?php
 
 use \IntegrationTester;
+use _data\Factories as Factories;
 
 class VideoRepositoryCest
 {
@@ -40,10 +41,10 @@ class VideoRepositoryCest
    */
   public function _before()
   {
-      $this->videoAttributes = TestCommons::$videoAttributes;
-      $this->paperAttributes = TestCommons::$paperAttributes;
-      $this->noteAttributes = TestCommons::$noteAttributes;
-      $this->cuepointAttributes = TestCommons::$cuepointAttributes;
+      $this->videoAttributes = Factories::$videoAttributes;
+      $this->paperAttributes = Factories::$paperAttributes;
+      $this->noteAttributes = Factories::$noteAttributes;
+      $this->cuepointAttributes = Factories::$cuepointAttributes;
   }
 
   /**
@@ -51,8 +52,9 @@ class VideoRepositoryCest
    */
   public function test_get_is_available(IntegrationTester $I)
   {
+      $I->wantTo('get video is available');
       // Beispieldatensatz generieren
-    $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
+      $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
       $this->videoAttributes['available_from'] = '2000-01-01';
       $I->haveRecord('videos', $this->videoAttributes);
 
@@ -68,8 +70,9 @@ class VideoRepositoryCest
    */
   public function test_get_is_not_available(IntegrationTester $I)
   {
+      $I->wantTo('get video is not available');
       // Beispieldatensatz generieren
-    $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
+      $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
       $this->videoAttributes['available_from'] = '3000-01-01';
       $I->haveRecord('videos', $this->videoAttributes);
 
@@ -85,8 +88,9 @@ class VideoRepositoryCest
    */
   public function test_get_unlock_date(IntegrationTester $I)
   {
+      $I->wantTo('get unlock date');
       // Beispieldatensatz generieren
-    $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
+      $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
       $this->videoAttributes['available_from'] = '0000-01-01';
       $I->haveRecord('videos', $this->videoAttributes);
 
@@ -102,8 +106,9 @@ class VideoRepositoryCest
    */
   public function test_get_final_date(IntegrationTester $I)
   {
+      $I->wantTo('get final date');
       // Beispieldatensatz generieren
-    $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
+      $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
       $this->videoAttributes['available_to'] = '4000-01-03';
       $I->haveRecord('videos', $this->videoAttributes);
 
@@ -119,8 +124,9 @@ class VideoRepositoryCest
    */
   public function test_get_section(IntegrationTester $I)
   {
+      $I->wantTo('get section');
       // Beispieldatensatz generieren
-    $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
+      $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
       $this->videoAttributes['section'] = 'Geschichte';
       $I->haveRecord('videos', $this->videoAttributes);
 
@@ -136,8 +142,9 @@ class VideoRepositoryCest
    */
   public function test_get_papers(IntegrationTester $I)
   {
+      $I->wantTo('get papers');
       // Beispieldatensatz generieren
-    $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
+      $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
       $I->haveRecord('videos', $this->videoAttributes);
 
       $this->paperAttributes['papername'] = 'Die Chronologie';
@@ -156,8 +163,9 @@ class VideoRepositoryCest
    */
   public function test_find_cuepoints(IntegrationTester $I)
   {
+      $I->wantTo('find cuepoints');
       // Beispieldatensatz generieren
-    $this->cuepointAttributes['id'] = 1;
+      $this->cuepointAttributes['id'] = 1;
       $this->cuepointAttributes['cuepoint'] = 10;
       $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
       $I->haveRecord('cuepoints', $this->cuepointAttributes);
@@ -182,8 +190,9 @@ class VideoRepositoryCest
    */
   public function test_find_first_cuepoint_id(IntegrationTester $I)
   {
+      $I->wantTo('find first cuepoint id');
       // Beispieldatensatz generieren
-    $this->cuepointAttributes['id'] = 1;
+      $this->cuepointAttributes['id'] = 1;
       $this->cuepointAttributes['cuepoint'] = 10;
       $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 2';
       $I->haveRecord('cuepoints', $this->cuepointAttributes);
@@ -218,8 +227,9 @@ class VideoRepositoryCest
    */
   public function test_get_flagnames(IntegrationTester $I)
   {
+      $I->wantTo('get flagnames');
       // Beispieldatensatz generieren
-    $this->cuepointAttributes['id'] = 1;
+      $this->cuepointAttributes['id'] = 1;
       $this->cuepointAttributes['content'] = 'Fähnchen X';
       $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
       $I->haveRecord('cuepoints', $this->cuepointAttributes);
@@ -246,8 +256,9 @@ class VideoRepositoryCest
    */
   public function test_get_all_flagnames_as_html(IntegrationTester $I)
   {
+      $I->wantTo('get all flagnames as html');
       // Beispieldatensatz generieren
-    $this->cuepointAttributes['id'] = 1;
+      $this->cuepointAttributes['id'] = 1;
       $this->cuepointAttributes['content'] = 'Fähnchen X';
       $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
       $I->haveRecord('cuepoints', $this->cuepointAttributes);
@@ -260,13 +271,13 @@ class VideoRepositoryCest
       $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
       $I->haveRecord('videos', $this->videoAttributes);
 
-    // Methode ausführen
-    $flagnames = Video::getAllFlagnamesAsHTML('Sozialgeschichte 1');
+      // Methode ausführen
+      $flagnames = Video::getAllFlagnamesAsHTML('Sozialgeschichte 1');
 
       $htmlMarkup = Parser::htmlMarkup('Sozialgeschichte 1', '<h2 style="height:250px;">Fähnchen X</h2><h2 style="height:250px;">Fähnchen Y</h2>');
 
-    // Testen
-    $I->AssertEquals($flagnames, $htmlMarkup);
+      // Testen
+      $I->AssertEquals($flagnames, $htmlMarkup);
   }
 
   /**
@@ -274,8 +285,9 @@ class VideoRepositoryCest
    */
   public function test_get_videos(IntegrationTester $I)
   {
+      $I->wantTo('get videos');
       // Beispieldatensatz generieren
-    $this->videoAttributes['id'] = 1;
+      $this->videoAttributes['id'] = 1;
       $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
       $I->haveRecord('videos', $this->videoAttributes);
 
@@ -283,8 +295,8 @@ class VideoRepositoryCest
       $this->videoAttributes['videoname'] = 'Sozialgeschichte 2';
       $I->haveRecord('videos', $this->videoAttributes);
 
-    // Methode ausführen
-    $videos = Video::getVideos();
+      // Methode ausführen
+      $videos = Video::getVideos();
 
       $videos = count($videos->toArray());
 
@@ -297,8 +309,9 @@ class VideoRepositoryCest
    */
   public function test_get_current_video(IntegrationTester $I)
   {
+      $I->wantTo('get current video');
       // Beispieldatensatz generieren
-    $this->videoAttributes['id'] = 1;
+      $this->videoAttributes['id'] = 1;
       $this->videoAttributes['videoname'] = 'Star Wars: Die Rachde der Sith';
       $this->videoAttributes['available_from'] = date('Y-m-d', strtotime('+30 days'));
       $I->haveRecord('videos', $this->videoAttributes);
@@ -330,6 +343,7 @@ class VideoRepositoryCest
    */
   public function test_get_false_if_there_is_no_current_video(IntegrationTester $I)
   {
+      $I->wantTo('get false if there is no current video');
       // Methode ausführen
     $video = Video::getCurrentVideo();
 
@@ -342,8 +356,9 @@ class VideoRepositoryCest
    */
   public function test_get_online(IntegrationTester $I)
   {
+      $I->wantTo('get online');
       // Beispieldatensatz generieren
-    $this->videoAttributes['id'] = 1;
+      $this->videoAttributes['id'] = 1;
       $this->videoAttributes['videoname'] = 'Star Wars: Die Rachde der Sith';
       $this->videoAttributes['online'] = 1;
       $I->haveRecord('videos', $this->videoAttributes);

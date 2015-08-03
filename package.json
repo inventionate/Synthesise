@@ -1,28 +1,8 @@
 {
   "private": true,
   "devDependencies": {
-    "babel-jest": "^5.0.1",
-    "babelify": "*",
-    "gulp": "^3.8.8",
-    "jest-cli": "^0.4.0",
     "jquery": "^2.1.3",
-    "laravel-elixir": "*",
-    "react": "^0.13.1",
-    "react-tools": "^0.13.1"
-  },
-  "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testDirectoryName": "tests",
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-tools",
-      "<rootDir>/node_modules/jquery"
-    ],
-    "testPathDirs": [
-      "<rootDir>/tests/javascript"
-    ]
+    "laravel-elixir": "^3.0.0",
+    "react": "^0.13.3"
   }
 }

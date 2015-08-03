@@ -1,6 +1,7 @@
 <?php
 
 use \IntegrationTester;
+use _data\Factories as Factories;
 
 class FaqRepositoryCest
 {
@@ -19,7 +20,7 @@ class FaqRepositoryCest
      */
     public function _before()
     {
-        $this->faqAttributes = TestCommons::$faqAttributes;
+        $this->faqAttributes = Factories::$faqAttributes;
     }
 
     public function testGetFaqLetters(IntegrationTester $I)
