@@ -1,6 +1,5 @@
 <?php
 
-use \IntegrationTester;
 use Synthesise\Repositories\Facades\Note;
 use Illuminate\Support\Facades\Crypt;
 use _data\Factories as Factories;

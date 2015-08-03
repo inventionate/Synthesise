@@ -1,6 +1,5 @@
 <?php
 
-use \IntegrationTester;
 use _data\Factories as Factories;
 
 class UserRepositoryCest
