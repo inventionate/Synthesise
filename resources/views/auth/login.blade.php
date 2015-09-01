@@ -58,6 +58,8 @@
 		{!! Form::close() !!}
 	</div>
 
+    <message></message>
+
 	</div>
 
 </main>

@@ -1,16 +1,10 @@
 <?php
 
-use AspectMock\Test;
 use Synthesise\Extensions\Parser;
 
 class ParserCest
 {
-    public function _after()
-    {
-        Test::clean();
-    }
-
-  /**
+    /**
    * Testet ob ein Pareser Objekt erzeugt werden kann.
    */
   public function testCreateANewParser(UnitTester $I)

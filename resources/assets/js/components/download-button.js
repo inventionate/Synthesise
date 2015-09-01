@@ -1,8 +1,5 @@
-class Analytics {
-
-    constructor ()
-    {
-
+module.exports = function () {
+// Zur Analytics Methode machen, die eine entsprechende Klasse benötigt, eine Bezeichnung und eine Aktion.
         $(document)
         .on('click', '.download-paper', function() {
             var name = $(this).attr('data-name');
@@ -21,7 +18,4 @@ class Analytics {
             return _paq.push(['trackEvent', 'Notizen', 'Downloaded', name]);
         });
 
-    }
-}
-
-export default Analytics;
+};

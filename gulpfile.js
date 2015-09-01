@@ -21,10 +21,11 @@ elixir.config.sourcemaps = false;
         .copy("vendor/bower_components/modernizr/modernizr.js","public/js/modernizr.js")
         // Vendor Scripts
         .scripts([
-            "react/react.js",
             "jquery/dist/jquery.js",
             "semantic-ui/dist/semantic.js",
-            "video.js/dist/video-js/video.js",
+            "vue/dist/vue.js",
+            "vue-resource/dist/vue-resource.js",
+            "video.js/dist/video.js",
             "videojs-markers/dist/videojs-markers.js",
             "jquery-typewatch/jquery.typewatch.js",
             "chartjs/Chart.js"
@@ -39,9 +40,9 @@ elixir.config.sourcemaps = false;
                 "public/js/vendor.js"
             ])
         .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/css/themes/default/assets/fonts")
-        .copy("vendor/bower_components/video.js/dist/video-js/font","public/css/font")
-        .copy("vendor/bower_components/video.js/dist/video-js/video-js.swf","public")
+        .copy("vendor/bower_components/video.js/dist/font","public/css/font")
+        .copy("vendor/bower_components/video.js/dist/video-js.swf","public")
         // Für die lokale Versionen
         .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts")
-        .copy("vendor/bower_components/video.js/dist/video-js/font","public/build/css/font");
+        .copy("vendor/bower_components/video.js/dist/font","public/build/css/font");
     });

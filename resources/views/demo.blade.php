@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui stackable page grid">
+<main id="main-content-{{ Request::segment(1) }}" class="ui stackable container grid">
     <!-- Besser mit Segmenten arbeiten  -->
     <div class="one column row">
     	<div class="center aligned column">
@@ -23,7 +23,7 @@
 
     <div class="ui hidden divider"></div>
 
-    <div class="four column centered row">
+    <div class="four column row">
         <div class="column">
             <div class="ui circular segment">
                 <h2 class="ui icon header">
@@ -71,9 +71,9 @@
 
     <div id="elearning" class="ui horizontal header divider"><i class="ui laptop icon"></i>eLearning</div>
 
-
     <div class="ui basic segment">
-    <div class="ui stackable grid">
+    <div class="ui stackable relaxed vertically divided grid">
+        <div class="row">
         <div class="seven wide column">
             <h2 class="ui header">online-Lektionen</h2>
             <p>
@@ -98,9 +98,9 @@
                 <img src="/img/etpm_logo.png" />
             </div>
         </div>
+        </div>
 
-        <div class="ui hidden divider"></div>
-
+        <div class="row">
         <div class="nine wide column">
             <img class="ui image" src="/img/notizfunktion.png">
         </div>
@@ -110,9 +110,9 @@
                 Die interaktive Timeline der <span class="etpM">e:t:p:M</span> Web-App ermöglicht es, je nach Bedürfnis direkt zu einem »Fähnchen« (und somit zu einer Themeneinheit) der online-Lektion zu springen (siehe Demo). Es ist außerdem möglich über ein eingeblendetes Feld zu jedem »Fähnchen« eine individuelle Notiz (Querverbindungen, Eselsbrücken, Anmerkungen etc.) zu verfassen (max. 500 Zeichen). Diese wird verschlüsselt und personalisiert in einer Datenbank gespeichert und lässt sich jederzeit ergänzen, ändern, löschen. Damit solche Videoannotationen auch in den Präsenzveranstaltungen fruchtbar gemacht werden können, besteht jederzeit die Möglichkeit, diese als PDF Dokument herunterzuladen.
             </p>
         </div>
+        </div>
 
-        <div class="ui hidden divider"></div>
-
+        <div class="row">
         <div class="six wide column">
             <h2 class="ui header">Responsive Web-App</h2>
             <p>
@@ -130,10 +130,10 @@
                 </div>
               </div>
               <div class="item">
-                <img class="ui avatar image" src="/img/react_logo.png" alt="React Logo">
+                <img class="ui avatar image" src="/img/vue_logo.png" alt="Vue.js Logo">
                 <div class="content">
-                  <a class="header" href="https://facebook.github.io/react/" target="_blank">React</a>
-                  <div class="description">»A JavaScript Library For Building User Interfaces«</div>
+                  <a class="header" href="http://vuejs.org" target="_blank">Vue.js</a>
+                  <div class="description">»A Library For Building Modern Web Interfaces«</div>
                 </div>
               </div>
               <div class="item">
@@ -148,6 +148,7 @@
         <div class="ten wide column">
             <img class="ui huge image" src="/img/responsive_webapp.png" alt="Responsive Web-App" />
         </div>
+        </div>
 
     </div>
     </div>
@@ -155,7 +156,7 @@
     <div id="theorie" class="ui horizontal header divider"><i class="ui file text outline icon"></i>Theorie</div>
 
     <div class="ui basic segment">
-    <div class="ui stackable grid">
+    <div class="ui stackable relaxed grid">
 
         <div class="nine wide column">
             <img class="ui image" src="/img/texte.png" alt="Texte" />
@@ -175,8 +176,7 @@
 
 
     <div class="ui basic segment">
-    <div class="ui stackable grid">
-
+    <div class="ui stackable relaxed grid">
 
         <div class="seven wide column">
             <h2 class="ui header">Präsenzphasen</h2>
@@ -220,7 +220,7 @@
 
 
     <div class="ui basic segment">
-    <div class="ui stackable grid">
+    <div class="ui stackable relaxed grid">
 
         <div class="nine wide column">
             <img class="ui image" src="/img/mentoring.jpg" alt="Mentoring" />
@@ -240,7 +240,7 @@
 
 
     <div class="ui basic segment">
-    <div class="ui stackable grid">
+    <div class="ui stackable relaxed grid">
 
         <div class="seven wide column">
             <h2 class="ui header">Evaluation</h2>
@@ -251,8 +251,6 @@
         <div class="nine wide column">
             <img class="ui bordered image" src="/img/evaluation.jpg" alt="Evaluation" />
         </div>
-
-        <div class="ui hidden divider"></div>
 
         <div class="nine wide column">
             <img class="ui bordered image" src="/img/analytics.jpg" alt="Analytics" />
@@ -269,19 +267,15 @@
 
     <div id="kontakt" class="ui horizontal header divider"><i class="ui send icon"></i>Kontakt</div>
 
-    <div class="ui basic segment">
-    <div class="ui stackable grid">
-        <div class="two column row">
-            <div class="center aligned column">
-                <img class="ui small avatar image" src="/img/hoyer.jpg">
-                <h3 class="ui header"><a href="mailto:hoyer@ph-karlsruhe.de">Apl. Prof. Dr. Timo Hoyer</a></h3>
-            </div>
-            <div class="center aligned column">
-                <img class="ui small avatar image" src="/img/mundt.jpg">
-                <h3 class="ui header"><a href="mailto:mundt@ph-karlsruhe.de">Fabian Mundt, M.A.</a></h3>
-            </div>
+    <div class="stackable relaxed centered row">
+        <div class="center aligned five wide column">
+            <img class="ui small avatar image" src="/img/hoyer.jpg">
+            <h3 class="ui header"><a href="mailto:hoyer@ph-karlsruhe.de">Apl. Prof. Dr. Timo Hoyer</a></h3>
         </div>
-    </div>
+        <div class="center aligned five wide column">
+            <img class="ui small avatar image" src="/img/mundt.jpg">
+            <h3 class="ui header"><a href="mailto:mundt@ph-karlsruhe.de">Fabian Mundt, M.A.</a></h3>
+        </div>
     </div>
 
 </main>

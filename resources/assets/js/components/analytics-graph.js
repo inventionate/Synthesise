@@ -1,7 +1,5 @@
-class Charts {
+module.exports = function () {
 
-    constructor ()
-    {
         var admins, downloadedPapers, downloadsCanvas, downloadsChart, downloadsData, downloadsOptions, mentors, playedVideos, playsCanvas, playsChart, playsData, playsOptions, semesterCanvas, semesterChart, semesterData, semesterOptions, students, uniqVisitors, visitorsCanvas, visitorsChart, visitorsData, visitorsOptions, visits;
         visitorsCanvas = $("#visitorsChart").get(0).getContext("2d");
         visitorsOptions = {
@@ -113,8 +111,5 @@ class Charts {
         playedVideos = $('#playsChart').attr('data-plays');
         playsData.datasets[0].data = JSON.parse(playedVideos);
         playsChart = new Chart(playsCanvas).Line(playsData, playsOptions);
-    }
 
-}
-
-export default Charts;
+};

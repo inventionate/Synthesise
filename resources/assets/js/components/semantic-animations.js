@@ -1,7 +1,4 @@
-class SemanticAnimations {
-
-    constructor ()
-    {
+module.exports = function() {
         $('.scale').transition('scale in', 1000);
 
         $('.shake').transition('shake');
@@ -49,8 +46,6 @@ class SemanticAnimations {
         $('#submenu').click( function () {
             $('#subnav').toggle('slow');
         });
-    }
 
-}
-
-export default SemanticAnimations;
+        console.log("ES FUNKTIONIERT YEAH!!!");
+};
