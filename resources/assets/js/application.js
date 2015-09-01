@@ -7,13 +7,13 @@ new Vue({
     },
 
     components: {
-        'message-box': require('./components/message-box.js'),
-        'interactive-video': require('./components/interactive-video.js'),
+        'message-manager': require('./components/message-manager.js'),
+        // 'interactive-video': require('./components/interactive-video.js'),
         // Statistik Modul hinzufügen
         // Eine Vue Komponente, die die entsprechenden Daten und die Darstellungsform abfrägt. Über ein Blade View wird dann die Anzeige der Komponenten geregelt
-        'analytics-graph': require('./components/analytics-graph.js'),
+        // 'analytics-graph': require('./components/analytics-graph.js'),
         // Download-Button, die auch die Statistikkomponenete umfasst entwerfen!
-        'download-button': require('./components/download-button.js'),
+        // 'download-button': require('./components/download-button.js'),
     },
 
     methods: {
@@ -29,6 +29,8 @@ new Vue({
 //     // @todo ReactKomponenten ggf. anders laden!
 //     if ( $("#interactive-video").length )
 //     {
+            // HIER DEN php var to js transformer VERWENDEN
+
 //         var name = $("#interactive-video").attr('data-name');
 //         var path = $("#interactive-video").attr('data-path');
 //         var markers = $("#interactive-video").attr('data-markers');
@@ -41,9 +43,4 @@ new Vue({
 //         var pollInterval = $("#messages-manage").attr('data-poll-interval');
 //         React.render(<MessageBox url = {url} pollInterval = {pollInterval} />, document.getElementById("messages-manage"));
 //     }
-//     if ( $("#statistic-plays").length )
-//     {
-//         React.render(<Statistic />, document.getElementById("statistic-plays"));
-//     }
-//
 // });

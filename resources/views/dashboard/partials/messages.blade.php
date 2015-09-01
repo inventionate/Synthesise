@@ -1,11 +1,13 @@
 @if ( $role === 'Admin' )
 
-    {{-- Die URL noch weiter automatisieren über einen Laravel Helper --}}
-    <section id="messages-manage" data-url="/api/v1/messages" data-poll-interval="15000"></section>
+    {{-- Vue.js Komponente zur Nachrichtenverwaltung --}}
+    <message-manager url="/api/v1/messages" poll-interval="15000"></message-manager>
 
     <div class="ui section divider"></div>
 
 @else
+
+    {{-- Darstellung der Nachrichten durch Laravel und Blade. --}}
 
     <section id="messages">
 
