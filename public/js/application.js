@@ -76,12 +76,17 @@ module.exports = {
 
     ready: function ready() {
         var self = this;
+
+        // Werte "global" zurücksetzen, sobald das Modal ausgeblendet wird.
         $("#message-form").modal({
             //transition: 'vertical flip',
             //closable: false,
             onHidden: function onHidden() {
-                // Zurücksetzen aller Werte.
-                $('.ui.form').form('reset');
+                // Eingaben löschen.
+                self.newMessage = {};
+                self.title = '';
+                self.content = '';
+                self.colour = '';
             }
         });
     },
@@ -92,14 +97,13 @@ module.exports = {
         },
 
         closeModal: function closeModal() {
+            var self = this;
+
+            // Semantic UI Modal schließen
             $("#message-form").modal('hide');
         },
 
         submitMessage: function submitMessage() {
-            console.log("MESSAGE-FORM");
-            console.log(this.title);
-            console.log(this.content);
-
             // newMessage updaten
             this.newMessage = {
                 title: this.title,
@@ -110,12 +114,6 @@ module.exports = {
 
             // Event startet, dass Nachricht gespeichert werden kann.
             this.$dispatch('storeMessage', this.newMessage);
-
-            // Eingaben löschen.
-            this.newMessage = {};
-            this.title = '';
-            this.content = '';
-            this.colour = '';
 
             // Modal schließen.
             this.closeModal();
@@ -164,20 +162,14 @@ module.exports = {
             });
         },
 
-        createMessage: function createMessage() {
-            // Semantic Form Modal öffnen.
-            this.openModal();
-        },
-
         editMessage: function editMessage(id) {
             // Die entsprechende Nachricht übergeben.
 
             // Semantic Form Modal öffnen.
-            this.openModal();
+            this.openForm();
         },
 
         storeMessage: function storeMessage(newMessage) {
-
             var self = this;
 
             // Datensatz aktualisieren
@@ -210,7 +202,7 @@ module.exports = {
             });
         },
 
-        openModal: function openModal() {
+        openForm: function openForm() {
             // Semantic Form Modal öffnen.
             this.$broadcast('openModal');
         }
@@ -224,7 +216,7 @@ module.exports = {
 };
 
 },{"./message-form.js":2,"./message-manager.template.html":5,"./message.js":6}],5:[function(require,module,exports){
-module.exports = '<h1 class="hide">Nachrichten</h1>\n\n<div id="message-list" class="ui top attached segment">\n\n    <message v-repeat="messages" on-remove="{{ removeMessage }}" on-edit="{{ editMessage }}"></message>\n\n</div>\n\n<div class="new-message ui bottom attached teal button" v-on="click: createMessage">Neue Nachricht erstellen</div>\n\n<message-form></message-form>\n\n<pre>\n    {{ $data | json }}\n</pre>\n';
+module.exports = '<h1 class="hide">Nachrichten</h1>\n\n<div id="message-list" class="ui top attached segment">\n\n    <message v-repeat="messages" on-remove="{{ removeMessage }}" on-edit="{{ editMessage }}"></message>\n\n</div>\n\n<div class="new-message ui bottom attached teal button" v-on="click: openForm">Neue Nachricht erstellen</div>\n\n<message-form></message-form>\n\n<pre>\n    {{ $data | json }}\n</pre>\n';
 },{}],6:[function(require,module,exports){
 'use strict';
 

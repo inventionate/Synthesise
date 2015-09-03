@@ -20,13 +20,15 @@ module.exports = {
 
     ready: function () {
         var self = this;
-        $("#message-form")
-        .modal({
-            //transition: 'vertical flip',
-            //closable: false,
+
+        // Werte "global" zurücksetzen, sobald das Modal ausgeblendet wird.
+        $("#message-form").modal({
             onHidden: function () {
-                // Zurücksetzen aller Werte.
-                $('.ui.form').form('reset');
+                // Eingaben löschen.
+                self.newMessage = {};
+                self.title = '';
+                self.content = '';
+                self.colour = '';
             }
         });
     },
@@ -37,14 +39,13 @@ module.exports = {
         },
 
         closeModal: function () {
+            var self = this;
+
+            // Semantic UI Modal schließen
             $("#message-form").modal('hide');
         },
 
         submitMessage: function () {
-            console.log("MESSAGE-FORM")
-            console.log(this.title);
-            console.log(this.content);
-
             // newMessage updaten
             this.newMessage = {
                 title: this.title,
@@ -55,12 +56,6 @@ module.exports = {
 
             // Event startet, dass Nachricht gespeichert werden kann.
             this.$dispatch('storeMessage', this.newMessage);
-
-            // Eingaben löschen.
-            this.newMessage = {};
-            this.title = '';
-            this.content = '';
-            this.colour = '';
 
             // Modal schließen.
             this.closeModal();

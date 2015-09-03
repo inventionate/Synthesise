@@ -36,20 +36,14 @@ module.exports = {
             });
         },
 
-        createMessage: function () {
-            // Semantic Form Modal öffnen.
-            this.openModal();
-        },
-
         editMessage: function (id) {
             // Die entsprechende Nachricht übergeben.
 
             // Semantic Form Modal öffnen.
-            this.openModal();
+            this.openForm();
         },
 
         storeMessage: function (newMessage) {
-
             var self = this;
 
             // Datensatz aktualisieren
@@ -86,7 +80,7 @@ module.exports = {
             });
         },
 
-        openModal: function () {
+        openForm: function () {
             // Semantic Form Modal öffnen.
             this.$broadcast('openModal');
         }
