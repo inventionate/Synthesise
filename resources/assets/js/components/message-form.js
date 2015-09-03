@@ -7,14 +7,19 @@ module.exports = {
             newMessage: {},
             title: '',
             content: '',
-            colour: ''
+            colour: '',
+            updateMessage: false
         };
     },
 
     created: function () {
+        var self = this;
         // Event listener zum Öffnen des Semantic Form-Modals (Vue.js Component Event System).
+        this.$on('editMessage', function(message) {
+            self.editMessage(message);
+        });
         this.$on('openModal', function() {
-            this.openModal();
+            self.openModal();
         });
     },
 
@@ -35,12 +40,11 @@ module.exports = {
 
     methods: {
         openModal: function () {
+            // Semantic UI Modal öffnen
             $("#message-form").modal('show');
         },
 
         closeModal: function () {
-            var self = this;
-
             // Semantic UI Modal schließen
             $("#message-form").modal('hide');
         },
@@ -53,12 +57,34 @@ module.exports = {
                 // @todo colour noch dynamisieren!
                 colour: 'default'
             };
-
-            // Event startet, dass Nachricht gespeichert werden kann.
-            this.$dispatch('storeMessage', this.newMessage);
+            if ( this.updateMessage )
+            {
+                console.log("Jetzt wird editiert");
+                this.$dispatch('updateMessage', this.newMessage);
+                // Editiermodus deaktivieren
+                this.updateMessage = false;
+            }
+            else
+            {
+                console.log("Jetzt wird kreiert");
+                // Event startet, dass Nachricht gespeichert werden kann.
+                this.$dispatch('storeMessage', this.newMessage);
+            }
 
             // Modal schließen.
             this.closeModal();
+        },
+
+        editMessage: function (message) {
+            // Editiermodus aktivieren
+            this.updateMessage = true;
+            // Zu editierende Nachricht laden
+            this.title = message.title;
+            this.content = message.content;
+            // @todo colour noch dynamisieren!
+            this.colour = 'default';
+            // Modal öffnen
+            this.openModal();
         }
     }
 

@@ -14,7 +14,7 @@ module.exports = {
     methods: {
 
         editMessage: function () {
-            this.onEdit(this.id);
+            this.onEdit(this.id, this.$index);
         },
 
         removeMessage: function () {

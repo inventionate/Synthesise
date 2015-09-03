@@ -1,5 +1,7 @@
 module.exports = {
 
+    // @todo index und id system evtl. angleichen, damit es synchron funktioniert und damit übersichtlicher wird.
+
     template: require('./message-manager.template.html'),
 
     props: [
@@ -8,7 +10,9 @@ module.exports = {
 
     data: function () {
         return {
-            messages: []
+            messages: [],
+            indexOfEditedMessage: 0,
+            idOfEditedMessage: 0
         };
     },
 
@@ -16,6 +20,9 @@ module.exports = {
         // Event listener zum Öffnen des Semantic Form-Modals (Vue Component Event System).
         this.$on('storeMessage', function(newMessage) {
             this.storeMessage(newMessage);
+        });
+        this.$on('updateMessage', function(newMessage) {
+            this.updateMessage(newMessage);
         });
     },
 
@@ -36,11 +43,17 @@ module.exports = {
             });
         },
 
-        editMessage: function (id) {
+        editMessage: function (id, index) {
             // Die entsprechende Nachricht übergeben.
+            this.$broadcast('editMessage', this.messages[index]);
+            // Den Index der editierten Nachricht setzen
+            this.indexOfEditedMessage = index;
+            this.idOfEditedMessage = id;
+        },
 
-            // Semantic Form Modal öffnen.
-            this.openForm();
+        openForm: function () {
+            // Semantic UI Formular öffnen.
+            this.$broadcast('openModal');
         },
 
         storeMessage: function (newMessage) {
@@ -61,6 +74,26 @@ module.exports = {
             });
         },
 
+
+        updateMessage: function (newMessage) {
+            var self = this;
+
+            // Datensatz aktualisieren.
+            // Vor der AJAX Abfrage, um Geschwindigkeit zu simulieren.
+            // Das direkte Tauschen der Arrayobjekte wird nicht von Vue erkannt. Daher mü+ssen spezielle Setter verwendet werden.
+            this.messages.$set(this.indexOfEditedMessage, newMessage)
+
+            // AJAX call um Datensatz vom Server zu löschen.
+            this.$http.put(this.url + "/" + this.idOfEditedMessage, newMessage)
+            .success( function () {
+                // Nach erfolgreichem Löschen eine Abfrage zur Sicherheit starten.
+                self.fetchMessages();
+            })
+            .error( function (data, status, request) {
+                console.error('AJAX PUT Error: ', request.responseURL, status);
+            });
+        },
+
         removeMessage: function (id, index) {
             var self = this;
 
@@ -78,11 +111,6 @@ module.exports = {
             .error( function (data, status, request) {
                 console.error('AJAX DELETE Error: ', request.responseURL, status);
             });
-        },
-
-        openForm: function () {
-            // Semantic Form Modal öffnen.
-            this.$broadcast('openModal');
         }
 
     },
