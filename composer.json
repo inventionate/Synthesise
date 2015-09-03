@@ -18,8 +18,7 @@
 	},
 	"require-dev": {
 		"codeception/codeception": "2.*",
-		"laracasts/generators": "1.*",
-		"laracasts/utilities": "~2.0"
+		"laracasts/generators": "1.*"
 	},
 	"autoload": {
 		"classmap": [

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "902743e4fbeb1d7d0eee64fc493f09eb",
+    "hash": "4b5fbadb1592ea224bf58ff1a24799f6",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2768,50 +2768,6 @@
                 "laravel"
             ],
             "time": "2015-05-07 15:53:57"
-        },
-        {
-            "name": "laracasts/utilities",
-            "version": "2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laracasts/PHP-Vars-To-Js-Transformer.git",
-                "reference": "fb96d2de843086af87b175c890d75561da66d393"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/PHP-Vars-To-Js-Transformer/zipball/fb96d2de843086af87b175c890d75561da66d393",
-                "reference": "fb96d2de843086af87b175c890d75561da66d393",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~5.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "~2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Laracasts\\Utilities\\JavaScript\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jeffrey Way",
-                    "email": "jeffrey@laracasts.com"
-                }
-            ],
-            "description": "Transform your PHP to JavaScript",
-            "keywords": [
-                "javascript",
-                "laravel"
-            ],
-            "time": "2015-02-06 17:35:14"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

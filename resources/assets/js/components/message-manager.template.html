@@ -1,0 +1,15 @@
+<h1 class="hide">Nachrichten</h1>
+
+<div id="message-list" class="ui top attached segment">
+
+    <message v-repeat="messages" on-remove="{{ removeMessage }}" on-edit="{{ editMessage }}"></message>
+
+</div>
+
+<div class="new-message ui bottom attached teal button" v-on="click: createMessage">Neue Nachricht erstellen</div>
+
+<message-form></message-form>
+
+<pre>
+    {{ $data | json }}
+</pre>

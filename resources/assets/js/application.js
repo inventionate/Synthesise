@@ -1,3 +1,6 @@
+// Token for AJAX calls
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 // Vue.js application components
 new Vue({
     el: '#etpM-de',

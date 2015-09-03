@@ -2,19 +2,25 @@ module.exports = {
 
     template: require('./message.template.html'),
 
-    data: function () {
-            return {
-                message: 'Hello Worls 2!'
-            };
-    },
-
-    ready: function () {
-            return this.fancyAlert();
-    },
+    props: [
+        'id',
+        'title',
+        'content',
+        'colour',
+        'onEdit',
+        'onRemove'
+    ],
 
     methods: {
-        fancyAlert: function () {
-            return alert(this.message);
+
+        editMessage: function () {
+            this.onEdit(this.id);
+        },
+
+        removeMessage: function () {
+            this.onRemove(this.id, this.$index);
         }
-    }
+
+    },
+
 };

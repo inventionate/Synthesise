@@ -4,7 +4,12 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-module.exports.template	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-list.js	/^module.exports = {$/;"	property	line:1
-ready	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-list.js	/^    ready: function () {$/;"	function	line:11
-onEdit	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-list.js	/^        this.onEdit = function () {$/;"	function	line:13
-this.onEdit	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-list.js	/^        this.onEdit = function () {$/;"	method	line:13
+module.exports.template	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-form.js	/^module.exports = {$/;"	property	line:1
+data	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-form.js	/^    data: function () {$/;"	function	line:11
+created	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-form.js	/^    created: function () {$/;"	function	line:19
+ready	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-form.js	/^    ready: function () {$/;"	function	line:26
+onShow	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-form.js	/^            onShow: function () {$/;"	function	line:32
+openModal	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-form.js	/^        openModal: function () {$/;"	function	line:40
+closeModal	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-form.js	/^        closeModal: function () {$/;"	function	line:44
+submitMessage	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-form.js	/^        submitMessage: function () {$/;"	function	line:48
+newMessage.title	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/js/components/message-form.js	/^            this.newMessage = {$/;"	property	line:52

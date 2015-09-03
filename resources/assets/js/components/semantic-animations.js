@@ -46,6 +46,4 @@ module.exports = function() {
         $('#submenu').click( function () {
             $('#subnav').toggle('slow');
         });
-
-        console.log("ES FUNKTIONIERT YEAH!!!");
 };

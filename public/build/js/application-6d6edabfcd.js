@@ -58,9 +58,10 @@ module.exports = {
 
     template: require('./message-form.template.html'),
 
+    props: ['messageContent'],
+
     data: function data() {
         return {
-            newMessage: {},
             title: '',
             content: '',
             colour: ''
@@ -75,12 +76,10 @@ module.exports = {
     },
 
     ready: function ready() {
-        var self = this;
         $("#message-form").modal({
             //transition: 'vertical flip',
             //closable: false,
             onHidden: function onHidden() {
-                // Zurücksetzen aller Werte.
                 $('.ui.form').form('reset');
             }
         });
@@ -93,39 +92,13 @@ module.exports = {
 
         closeModal: function closeModal() {
             $("#message-form").modal('hide');
-        },
-
-        submitMessage: function submitMessage() {
-            console.log("MESSAGE-FORM");
-            console.log(this.title);
-            console.log(this.content);
-
-            // newMessage updaten
-            this.newMessage = {
-                title: this.title,
-                content: this.content,
-                // @todo colour noch dynamisieren!
-                colour: 'default'
-            };
-
-            // Event startet, dass Nachricht gespeichert werden kann.
-            this.$dispatch('storeMessage', this.newMessage);
-
-            // Eingaben löschen.
-            this.newMessage = {};
-            this.title = '';
-            this.content = '';
-            this.colour = '';
-
-            // Modal schließen.
-            this.closeModal();
         }
     }
 
 };
 
 },{"./message-form.template.html":3}],3:[function(require,module,exports){
-module.exports = '<div id="message-form" class="ui modal">\n    <div class="header">\n        Neue Nachricht\n    </div>\n    <div class="content">\n\n        <form class="ui form">\n\n            <div class="required field">\n                <label for="title" class="hide">Titel</label>\n                <input name="title" placeholder="Bitte geben Sie einen Titel ein." ref="title" type="text" v-model="title">\n            </div>\n\n            <div class="required field">\n                <label for="content" class="hide">Inhalt</label>\n                <textarea name="content" placeholder="Bitte geben Sie Ihre Nachricht ein." maxLength="500" ref="content" v-model="content"></textarea>\n            </div>\n\n            <div class="inline fields" ref="colour">\n                <label for="colour">Hintergrundfarbe wählen:</label>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="black">\n                        <label>Schwarz</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="yellow">\n                        <label>Gelb</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="green">\n                        <label>Grün</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="blue">\n                        <label>Blau</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="orange">\n                        <label>Orange</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="purple">\n                        <label>Violett</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="pink">\n                        <label>Pink</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="red">\n                        <label>Rot</label>\n                    </div>\n                </div>\n            </div>\n\n            <div class="buttons">\n\n                <div class="ui black reset button" v-on="click: closeModal">\n                    Abbrechen\n                </div>\n\n                <div class="ui positive right labeled submit icon button" v-on="click: submitMessage">\n                    Erstellen\n                    <i class="checkmark icon"></i>\n                </div>\n\n            </div>\n\n        </form>\n    </div>\n</div>\n';
+module.exports = '<div id="message-form" class="ui modal">\n    <div class="header">\n        Neue Nachricht\n    </div>\n    <div class="content">\n\n        <form class="ui form">\n\n            <div class="required field">\n                <label for="title" class="hide">Titel</label>\n                <input name="title" placeholder="{{ messageContent.title }}" ref="title" type="text" v-model="title">\n            </div>\n\n            <div class="required field">\n                <label for="content" class="hide">Inhalt</label>\n                <textarea name="content" placeholder="{{ messageContent.content }}" maxLength="500" ref="content" v-model="content"></textarea>\n            </div>\n\n            <div class="inline fields" ref="colour">\n                <label for="colour">Hintergrundfarbe wählen:</label>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="black">\n                        <label>Schwarz</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="yellow">\n                        <label>Gelb</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="green">\n                        <label>Grün</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="blue">\n                        <label>Blau</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="orange">\n                        <label>Orange</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="purple">\n                        <label>Violett</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="pink">\n                        <label>Pink</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="red">\n                        <label>Rot</label>\n                    </div>\n                </div>\n            </div>\n\n            <div class="buttons">\n\n                <div class="ui black reset button" v-on="click: closeModal">\n                    Abbrechen\n                </div>\n\n                <div class="ui positive right labeled submit icon button">\n                    Erstellen\n                    <i class="checkmark icon"></i>\n                </div>\n\n            </div>\n\n        </form>\n    </div>\n</div>\n';
 },{}],4:[function(require,module,exports){
 'use strict';
 
@@ -133,23 +106,19 @@ module.exports = {
 
     template: require('./message-manager.template.html'),
 
-    props: ['url'],
+    props: ['url', 'pollInterval'],
 
     data: function data() {
         return {
-            messages: []
+            messages: [],
+            editedMessage: []
         };
-    },
-
-    created: function created() {
-        // Event listener zum Öffnen des Semantic Form-Modals (Vue Component Event System).
-        this.$on('storeMessage', function (newMessage) {
-            this.storeMessage(newMessage);
-        });
     },
 
     ready: function ready() {
         this.fetchMessages();
+        // Long Polling problematisch, da es die Editierfunktion überschreibt
+        setInterval(this.fetchMessages(), this.pollInterval);
     },
 
     methods: {
@@ -159,6 +128,13 @@ module.exports = {
             // AJAX Abfrage.
             this.$http.get(this.url, function (messages) {
                 self.messages = messages;
+                // Die letzte ID Abfragen (DAS MUSS EINFACHER GEHEN!)
+                var id = 1;
+                // Länge des JSON Array überprüfen
+                if (Object.keys(self.messages).length > 0) {
+                    id = self.messages[Object.keys(self.messages).length - 1].id + 1;
+                }
+                self.latestMessageID = id;
             }).error(function (data, status, request) {
                 console.error('AJAX GET Error: ', request.responseURL, status);
             });
@@ -171,38 +147,22 @@ module.exports = {
 
         editMessage: function editMessage(id) {
             // Die entsprechende Nachricht übergeben.
+            this.editedMessage = this.messages[id - 1];
 
+            console.log(this.editedMessage);
             // Semantic Form Modal öffnen.
             this.openModal();
         },
 
-        storeMessage: function storeMessage(newMessage) {
-
+        removeMessage: function removeMessage(id) {
             var self = this;
 
-            // Datensatz aktualisieren
-            // Vor der AJAX Abfrage, um Geschwindigkeit zu simulieren.
-            this.messages.push(newMessage);
-
-            // AJAX call um Datensatz auf dem Server zu speichern.
-            this.$http.post(this.url, newMessage).success(function () {
-                // Datensatz abrufen
-                self.fetchMessages();
-            }).error(function (data, status, request) {
-                console.error('AJAX POST Error: ', request.responseURL, status);
-            });
-        },
-
-        removeMessage: function removeMessage(id, index) {
-            var self = this;
-
-            // Datensatz aktualisieren.
-            // Vor der AJAX Abfrage, um Geschwindigkeit zu simulieren.
+            // Aus dem Vue.js Datenobjekt entfernen.
             // Der Index beginnt bei 0, die id bei 1.
-            this.messages.$remove(index);
+            this.messages.$remove(id - 1);
 
             // AJAX call um Datensatz vom Server zu löschen.
-            this.$http['delete'](this.url + "/" + id).success(function () {
+            this.$http['delete'](this.url + "/" + id, function () {
                 // Nach erfolgreichem Löschen eine Abfrage zur Sicherheit starten.
                 self.fetchMessages();
             }).error(function (data, status, request) {
@@ -211,6 +171,8 @@ module.exports = {
         },
 
         openModal: function openModal() {
+            // Hier muss eigentlich rein, dass jetzt keine Updates mehr kommen sollen.
+
             // Semantic Form Modal öffnen.
             this.$broadcast('openModal');
         }
@@ -224,7 +186,7 @@ module.exports = {
 };
 
 },{"./message-form.js":2,"./message-manager.template.html":5,"./message.js":6}],5:[function(require,module,exports){
-module.exports = '<h1 class="hide">Nachrichten</h1>\n\n<div id="message-list" class="ui top attached segment">\n\n    <message v-repeat="messages" on-remove="{{ removeMessage }}" on-edit="{{ editMessage }}"></message>\n\n</div>\n\n<div class="new-message ui bottom attached teal button" v-on="click: createMessage">Neue Nachricht erstellen</div>\n\n<message-form></message-form>\n\n<pre>\n    {{ $data | json }}\n</pre>\n';
+module.exports = '<h1 class="hide">Nachrichten</h1>\n\n<div id="message-list" class="ui top attached segment">\n\n    <message v-repeat="messages" on-remove="{{ removeMessage }}" on-edit="{{ editMessage }}"></message>\n\n</div>\n\n<div class="new-message ui bottom attached teal button" v-on="click: createMessage">Neue Nachricht erstellen</div>\n\n<message-form message-content="{{ editedMessage }}"></message-form>\n\n<pre>\n    {{ $data | json }}\n</pre>\n';
 },{}],6:[function(require,module,exports){
 'use strict';
 
@@ -241,7 +203,7 @@ module.exports = {
         },
 
         removeMessage: function removeMessage() {
-            this.onRemove(this.id, this.$index);
+            this.onRemove(this.id);
         }
 
     }

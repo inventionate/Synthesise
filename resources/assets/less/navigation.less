@@ -3,10 +3,12 @@
 
 #mainnav {
     background-color: fade(@green,80%);
+    
     .item {
         padding-top: 1.25rem;
         padding-bottom: 1.25rem;
     }
+    
     .etpM {
         .text.hidden;
         width: 45px;
@@ -15,11 +17,13 @@
         background-image: url("/img/etpm_logo_long.png");
         transition: width 1s ease;
         background-repeat: no-repeat;
+        border-left: none;
     }
+    
     .etpM:hover {
         width: 155px;
     }
-
+    
     #subnav {
         display: none;
     }

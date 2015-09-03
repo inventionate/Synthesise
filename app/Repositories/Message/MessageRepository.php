@@ -1,4 +1,6 @@
-<?php namespace Synthesise\Repositories\Message;
+<?php
+
+namespace Synthesise\Repositories\Message;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -7,9 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MessageRepository implements MessageInterface
 {
-  /**
+    /**
    * Variable des zugrundeliegenden Eloquent Models.
-   *
    */
   protected $messageModel;
 
@@ -17,11 +18,12 @@ class MessageRepository implements MessageInterface
    * Initziiert die Klasse $messageModel mit dem injizierten Model.
    *
    * @param     Model $message
+   *
    * @return    MessageRepository
    */
   public function __construct(Model $message)
   {
-    $this->messageModel = $message;
+      $this->messageModel = $message;
   }
 
   /**
@@ -31,7 +33,7 @@ class MessageRepository implements MessageInterface
    */
   public function getAll()
   {
-    return $this->messageModel->all()->sortBy('updated_at');
+      return $this->messageModel->all()->sortBy('updated_at');
   }
 
   /**
@@ -43,45 +45,46 @@ class MessageRepository implements MessageInterface
    */
   public function update($id, $newTitle, $newContent, $newColour)
   {
-    // Zu aktualiserende Nachricht abfragen
+      // Zu aktualiserende Nachricht abfragen
     $toBeUpdatedMessage = $this->messageModel->find($id);
     // Neue Werte zuweisen
     $toBeUpdatedMessage->title = $newTitle;
-    $toBeUpdatedMessage->content = $newContent;
-    $toBeUpdatedMessage->colour = $newColour;
+      $toBeUpdatedMessage->content = $newContent;
+      $toBeUpdatedMessage->colour = $newColour;
     // Aktualisierte Notiz speichern
     $toBeUpdatedMessage->save();
   }
 
   /**
-   * Nachricht löschen
+   * Nachricht löschen.
    *
    * @param     int $id
    */
   public function delete($id)
   {
-    // Zu löschende Nachricht abfragen
+      // Zu löschende Nachricht abfragen
     $toBeDeletedMessage = $this->messageModel->find($id);
     // Nachricht löschen
     $toBeDeletedMessage->delete();
   }
 
-  /**
-   * Eine neue Nachricht anlegen
-   *
-   * @param     int $id
-   * @param     string $message
-   * @param     string $type
-   */
-  public function store($id, $title, $content, $colour)
+/**
+ * Eine neue Nachricht anlegen.
+ *
+ * @param     int $id
+ * @param     string $message
+ * @param     string $type
+ */
+  //public function store($id, $title, $content, $colour)
+  public function store($title, $content, $colour)
   {
-    // Neue Nachrichteninstanz generieren
-    $newMessage = new $this->messageModel;
+      // Neue Nachrichteninstanz generieren
+    $newMessage = new $this->messageModel();
     // Nachricht mit Inhalt befüllen
-    $newMessage->id = $id;
+    //$newMessage->id = $id;
     $newMessage->title = $title;
-    $newMessage->content = $content;
-    $newMessage->colour = $colour;
+      $newMessage->content = $content;
+      $newMessage->colour = $colour;
     // Notiz speichern
     $newMessage->save();
   }
