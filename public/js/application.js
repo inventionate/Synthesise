@@ -63,8 +63,9 @@ module.exports = {
             newMessage: {},
             title: '',
             content: '',
-            colour: '',
-            updateMessage: false
+            colour: 'default',
+            updateMessage: false,
+            picked: 'purple'
         };
     },
 
@@ -83,13 +84,32 @@ module.exports = {
         var self = this;
 
         // Werte "global" zurücksetzen, sobald das Modal ausgeblendet wird.
-        $("#message-form").modal({
+        $('#message-form')
+        // Formvalidierung
+        .form({
+            fields: {
+                title: {
+                    identifier: 'title',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Bitte geben Sie einen Titel ein.'
+                    }]
+                },
+                content: {
+                    identifier: 'content',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Bitte geben Sie eine Nachricht ein.'
+                    }]
+                }
+            }
+        }).modal({
             onHidden: function onHidden() {
                 // Eingaben löschen.
                 self.newMessage = {};
                 self.title = '';
                 self.content = '';
-                self.colour = '';
+                self.colour = 'default';
             }
         });
     },
@@ -106,26 +126,28 @@ module.exports = {
         },
 
         submitMessage: function submitMessage() {
-            // newMessage updaten
-            this.newMessage = {
-                title: this.title,
-                content: this.content,
-                // @todo colour noch dynamisieren!
-                colour: 'default'
-            };
-            if (this.updateMessage) {
-                console.log("Jetzt wird editiert");
-                this.$dispatch('updateMessage', this.newMessage);
-                // Editiermodus deaktivieren
-                this.updateMessage = false;
-            } else {
-                console.log("Jetzt wird kreiert");
-                // Event startet, dass Nachricht gespeichert werden kann.
-                this.$dispatch('storeMessage', this.newMessage);
-            }
+            // Formvalidierung
+            if ($('#message-form').form('is valid')) {
 
-            // Modal schließen.
-            this.closeModal();
+                // newMessage updaten
+                this.newMessage = {
+                    title: this.title,
+                    content: this.content,
+                    colour: this.colour
+                };
+                // Entscheidung, ob angelegt oder aktualisiert wird.
+                if (this.updateMessage) {
+                    this.$dispatch('updateMessage', this.newMessage);
+                    // Editiermodus deaktivieren
+                    this.updateMessage = false;
+                } else {
+                    // Event startet, dass Nachricht gespeichert werden kann.
+                    this.$dispatch('storeMessage', this.newMessage);
+                }
+
+                // Modal schließen.
+                this.closeModal();
+            }
         },
 
         editMessage: function editMessage(message) {
@@ -134,8 +156,7 @@ module.exports = {
             // Zu editierende Nachricht laden
             this.title = message.title;
             this.content = message.content;
-            // @todo colour noch dynamisieren!
-            this.colour = 'default';
+            this.colour = message.colour;
             // Modal öffnen
             this.openModal();
         }
@@ -144,7 +165,7 @@ module.exports = {
 };
 
 },{"./message-form.template.html":3}],3:[function(require,module,exports){
-module.exports = '<div id="message-form" class="ui modal">\n    <div class="header">\n        Neue Nachricht\n    </div>\n    <div class="content">\n\n        <form class="ui form">\n\n            <div class="required field">\n                <label for="title" class="hide">Titel</label>\n                <input name="title" placeholder="Bitte geben Sie einen Titel ein." ref="title" type="text" v-model="title">\n            </div>\n\n            <div class="required field">\n                <label for="content" class="hide">Inhalt</label>\n                <textarea name="content" placeholder="Bitte geben Sie Ihre Nachricht ein." maxLength="500" ref="content" v-model="content"></textarea>\n            </div>\n\n            <div class="inline fields" ref="colour">\n                <label for="colour">Hintergrundfarbe wählen:</label>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="black">\n                        <label>Schwarz</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="yellow">\n                        <label>Gelb</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="green">\n                        <label>Grün</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="blue">\n                        <label>Blau</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="orange">\n                        <label>Orange</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="purple">\n                        <label>Violett</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="pink">\n                        <label>Pink</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="ui radio checkbox">\n                        <input name="colour" type="radio" value="red">\n                        <label>Rot</label>\n                    </div>\n                </div>\n            </div>\n\n            <div class="buttons">\n\n                <div class="ui black reset button" v-on="click: closeModal">\n                    Abbrechen\n                </div>\n\n                <div class="ui positive right labeled submit icon button" v-on="click: submitMessage">\n                    Erstellen\n                    <i class="checkmark icon"></i>\n                </div>\n\n            </div>\n\n        </form>\n    </div>\n</div>\n';
+module.exports = '<div id="message-form" class="ui modal">\n    <div class="header">\n        Neue Nachricht\n    </div>\n    <div class="content">\n\n        <form class="ui form">\n\n            <div class="required field">\n                <label for="title" class="hide">Titel</label>\n                <input name="title" placeholder="Bitte geben Sie einen Titel ein." ref="title" type="text" v-model="title">\n            </div>\n\n            <div class="required field">\n                <label for="content" class="hide">Inhalt</label>\n                <textarea name="content" placeholder="Bitte geben Sie Ihre Nachricht ein." maxLength="500" ref="content" v-model="content"></textarea>\n            </div>\n\n            <div class="inline fields" ref="colour">\n                <label for="colour">Hintergrundfarbe wählen:</label>\n                <div class="field">\n                    <div class="radio checkbox">\n                        <input name="colour" type="radio" value="default" v-model="colour">\n                        <label>Grau</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="radio checkbox">\n                        <input name="colour" type="radio" value="black" v-model="colour">\n                        <label>Schwarz</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="radio checkbox">\n                        <input name="colour" type="radio" value="yellow" v-model="colour">\n                        <label>Gelb</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="radio checkbox">\n                        <input name="colour" type="radio" value="green" v-model="colour">\n                        <label>Grün</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="radio checkbox">\n                        <input name="colour" type="radio" value="blue" v-model="colour">\n                        <label>Blau</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="radio checkbox">\n                        <input name="colour" type="radio" value="orange" v-model="colour">\n                        <label>Orange</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="radio checkbox">\n                        <input name="colour" type="radio" value="purple" v-model="colour">\n                        <label>Violett</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="radio checkbox">\n                        <input name="colour" type="radio" value="pink" v-model="colour">\n                        <label>Pink</label>\n                    </div>\n                </div>\n                <div class="field">\n                    <div class="radio checkbox">\n                        <input name="colour" type="radio" value="red" v-model="colour">\n                        <label>Rot</label>\n                    </div>\n                </div>\n            </div>\n\n            <div class="buttons">\n\n                <div class="ui black reset button" v-on="click: closeModal">\n                    Abbrechen\n                </div>\n\n                <div class="ui positive right labeled submit icon button" v-on="click: submitMessage">\n                    Erstellen\n                    <i class="checkmark icon"></i>\n                </div>\n\n            </div>\n\n        </form>\n    </div>\n</div>\n';
 },{}],4:[function(require,module,exports){
 'use strict';
 
@@ -220,7 +241,6 @@ module.exports = {
         },
 
         updateMessage: function updateMessage(newMessage) {
-            console.log("UND JETZT DAS AJAX ZEUGS!");
             var self = this;
 
             // Datensatz aktualisieren.
@@ -263,7 +283,7 @@ module.exports = {
 };
 
 },{"./message-form.js":2,"./message-manager.template.html":5,"./message.js":6}],5:[function(require,module,exports){
-module.exports = '<h1 class="hide">Nachrichten</h1>\n\n<div id="message-list" class="ui top attached segment">\n\n    <message v-repeat="messages" on-remove="{{ removeMessage }}" on-edit="{{ editMessage }}"></message>\n\n</div>\n\n<div class="new-message ui bottom attached teal button" v-on="click: openForm">Neue Nachricht erstellen</div>\n\n<message-form></message-form>\n\n<pre>\n    {{ $data | json }}\n</pre>\n';
+module.exports = '<h1 class="hide">Nachrichten</h1>\n\n<div id="message-list" class="ui top attached segment">\n\n    <message v-repeat="messages" on-remove="{{ removeMessage }}" on-edit="{{ editMessage }}"></message>\n\n</div>\n\n<div class="new-message ui bottom attached teal button" v-on="click: openForm">Neue Nachricht erstellen</div>\n\n<message-form></message-form>\n\n<!-- <pre>\n    {{ $data | json }}\n</pre> -->\n';
 },{}],6:[function(require,module,exports){
 'use strict';
 

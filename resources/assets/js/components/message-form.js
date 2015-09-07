@@ -7,8 +7,9 @@ module.exports = {
             newMessage: {},
             title: '',
             content: '',
-            colour: '',
-            updateMessage: false
+            colour: 'default',
+            updateMessage: false,
+            picked: 'purple'
         };
     },
 
@@ -27,13 +28,37 @@ module.exports = {
         var self = this;
 
         // Werte "global" zurücksetzen, sobald das Modal ausgeblendet wird.
-        $("#message-form").modal({
+        $('#message-form')
+        // Formvalidierung
+        .form({
+            fields: {
+                title: {
+                    identifier  : 'title',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Bitte geben Sie einen Titel ein.'
+                        }
+                      ]
+                    },
+                    content: {
+                        identifier  : 'content',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Bitte geben Sie eine Nachricht ein.'
+                        }
+                      ]
+                    }
+                }
+            })
+        .modal({
             onHidden: function () {
                 // Eingaben löschen.
                 self.newMessage = {};
                 self.title = '';
                 self.content = '';
-                self.colour = '';
+                self.colour = 'default';
             }
         });
     },
@@ -50,29 +75,32 @@ module.exports = {
         },
 
         submitMessage: function () {
-            // newMessage updaten
-            this.newMessage = {
-                title: this.title,
-                content: this.content,
-                // @todo colour noch dynamisieren!
-                colour: 'default'
-            };
-            if ( this.updateMessage )
+            // Formvalidierung
+            if ( $('#message-form').form('is valid') )
             {
-                console.log("Jetzt wird editiert");
-                this.$dispatch('updateMessage', this.newMessage);
-                // Editiermodus deaktivieren
-                this.updateMessage = false;
-            }
-            else
-            {
-                console.log("Jetzt wird kreiert");
-                // Event startet, dass Nachricht gespeichert werden kann.
-                this.$dispatch('storeMessage', this.newMessage);
-            }
 
-            // Modal schließen.
-            this.closeModal();
+                // newMessage updaten
+                this.newMessage = {
+                    title: this.title,
+                    content: this.content,
+                    colour: this.colour
+                };
+                // Entscheidung, ob angelegt oder aktualisiert wird.
+                if ( this.updateMessage )
+                {
+                    this.$dispatch('updateMessage', this.newMessage);
+                    // Editiermodus deaktivieren
+                    this.updateMessage = false;
+                }
+                else
+                {
+                    // Event startet, dass Nachricht gespeichert werden kann.
+                    this.$dispatch('storeMessage', this.newMessage);
+                }
+
+                // Modal schließen.
+                this.closeModal();
+            }
         },
 
         editMessage: function (message) {
@@ -81,8 +109,7 @@ module.exports = {
             // Zu editierende Nachricht laden
             this.title = message.title;
             this.content = message.content;
-            // @todo colour noch dynamisieren!
-            this.colour = 'default';
+            this.colour = message.colour;
             // Modal öffnen
             this.openModal();
         }
