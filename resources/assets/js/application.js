@@ -19,8 +19,9 @@ new Vue({
     },
 
     methods: {
+        // Semantic UI Einstellungen
         semanticAnimations: require('./components/semantic-animations.js'),
-        // Track events als allgemeines Klassentracking konzipieren, damit es dynamisch und unabhängig von einem speziellen Template verwendet werden kann (einfachere Lösung).
+        // Tracking System
         trackEvents: require('./components/track-events.js')
     }
 

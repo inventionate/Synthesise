@@ -70,12 +70,12 @@
 							  <div class="ui right pointing dropdown button"><i class="file text icon"></i>
 								<div class="menu">
 									@foreach (Video::getPapers($video->videoname) as $paper)
-										<a class="item" v-on="click: trackEvent('Text', {{ $paper->papername }})" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><small>{{ $paper->author }}</small><br> {{ $paper->papername }}</a>
+										<a class="item" v-on="click: trackEvent('Text', '{{ $paper->papername }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><small>{{ $paper->author }}</small><br> {{ $paper->papername }}</a>
 									@endforeach
 								</div>
 							  </div>
-							  <a class="ui @if( ! (Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online  )) disabled @endif button" v-on="click: trackEvent('Notizen', {{ $video->videoname }})" href="{{ action('LectionController@getNotesPDF', [rawurlencode($video->videoname)]) }}"><i class="write square icon"></i></a>
-							  <a class="ui button" v-on="click: trackEvent('Weiterführende Literaturhinweise', {{ $video->section }})" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $video->section]) }}"><i class="list icon"></i></a>
+							  <a class="ui @if( ! (Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online  )) disabled @endif button" v-on="click: trackEvent('Notizen', '{{ $video->videoname }}')" href="{{ action('LectionController@getNotesPDF', [rawurlencode($video->videoname)]) }}"><i class="write square icon"></i></a>
+							  <a class="ui button" v-on="click: trackEvent('Weiterführende Literaturhinweise', '{{ $video->section }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $video->section]) }}"><i class="list icon"></i></a>
 							</div>
 
 						</td>

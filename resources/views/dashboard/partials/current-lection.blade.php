@@ -30,7 +30,7 @@
 			    Literatur
 				<div class="menu">
 					@foreach ($papers as $paper)
-						<a class="item" v-on="click: trackEvent('Text', {{ $paper->papername }})" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }}</a>
+						<a class="item" v-on="click: trackEvent('Text', '{{ $paper->papername }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}">{{ $paper->author }}: {{ $paper->papername }}</a>
 					@endforeach
 				</div>
 			  </div>

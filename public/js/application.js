@@ -10,6 +10,7 @@ new Vue({
 
     ready: function ready() {
         this.semanticAnimations();
+        this.trackEvents();
     },
 
     components: {
@@ -20,10 +21,11 @@ new Vue({
     // Statistik Modul hinzufügen
     // Eine Vue Komponente, die die entsprechenden Daten und die Darstellungsform abfrägt. Über ein Blade View wird dann die Anzeige der Komponenten geregelt
     // 'analytics-graph': require('./components/analytics-graph.js'),
-    // Download-Button, die auch die Statistikkomponenete umfasst entwerfen!
-    // 'download-button': require('./components/download-button.js'),
     methods: {
-        semanticAnimations: require('./components/semantic-animations.js')
+        // Semantic UI Einstellungen
+        semanticAnimations: require('./components/semantic-animations.js'),
+        // Tracking System
+        trackEvents: require('./components/track-events.js')
     }
 
 });
@@ -43,15 +45,8 @@ new Vue({
 //         var poster = $("#interactive-video").attr('data-poster');
 //         React.render(<InterativeVideo name = {name} path = {path} markers = {markers} poster = {poster} />, document.getElementById("interactive-video"));
 //     }
-//     if ( $("#messages-manage").length )
-//     {
-//         var url = $("#messages-manage").attr('data-url');
-//         var pollInterval = $("#messages-manage").attr('data-poll-interval');
-//         React.render(<MessageBox url = {url} pollInterval = {pollInterval} />, document.getElementById("messages-manage"));
-//     }
-// });
 
-},{"./components/message-manager.js":4,"./components/semantic-animations.js":8}],2:[function(require,module,exports){
+},{"./components/message-manager.js":4,"./components/semantic-animations.js":8,"./components/track-events.js":9}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -354,6 +349,17 @@ module.exports = function () {
     $('#submenu').click(function () {
         $('#subnav').toggle('slow');
     });
+};
+
+},{}],9:[function(require,module,exports){
+'use strict';
+
+module.exports = function (type, name) {
+
+    // Syntax, um die Trackingfunktion zu verwenden:
+    // <div class="foo" v-on="click: trackEvent(type, name)">…
+
+    return _paq.push(['trackEvent', type, 'Downloaded', name]);
 };
 
 },{}]},{},[1]);
