@@ -9210,7 +9210,7 @@ return jQuery;
 }));
 
  /*
- * # Semantic UI - 2.1.2
+ * # Semantic UI - 2.1.3
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -9220,7 +9220,7 @@ return jQuery;
  *
  */
 /*!
- * # Semantic UI 2.1.2 - Site
+ * # Semantic UI 2.1.3 - Site
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -9707,7 +9707,7 @@ $.extend($.expr[ ":" ], {
 
 })( jQuery, window , document );
 /*!
- * # Semantic UI 2.1.2 - Form Validation
+ * # Semantic UI 2.1.3 - Form Validation
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -11129,7 +11129,7 @@ $.fn.form.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Accordion
+ * # Semantic UI 2.1.3 - Accordion
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -11726,7 +11726,7 @@ $.extend( $.easing, {
 
 
 /*!
- * # Semantic UI 2.1.2 - Checkbox
+ * # Semantic UI 2.1.3 - Checkbox
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -12531,7 +12531,7 @@ $.fn.checkbox.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Dimmer
+ * # Semantic UI 2.1.3 - Dimmer
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -13224,7 +13224,7 @@ $.fn.dimmer.settings = {
 
 })( jQuery, window , document );
 /*!
- * # Semantic UI 2.1.2 - Dropdown
+ * # Semantic UI 2.1.3 - Dropdown
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -16530,9 +16530,9 @@ $.fn.dropdown.settings = {
 
   // property names for remote query
   fields: {
-    values : 'values',
-    name   : 'name',
-    value  : 'value'
+    values : 'values', // grouping for all dropdown values
+    name   : 'name',   // displayed dropdown text
+    value  : 'value'   // actual dropdown value
   },
 
   selector : {
@@ -16637,7 +16637,7 @@ $.fn.dropdown.settings.templates = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Video
+ * # Semantic UI 2.1.3 - Video
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -17265,7 +17265,7 @@ $.fn.embed.settings = {
   templates: {
     iframe : function(url, parameters) {
       return ''
-        + '<iframe src="' + url + '?=' + parameters + '"'
+        + '<iframe src="' + url + '?' + parameters + '"'
         + ' width="100%" height="100%"'
         + ' frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
       ;
@@ -17297,7 +17297,7 @@ $.fn.embed.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Modal
+ * # Semantic UI 2.1.3 - Modal
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -18187,7 +18187,7 @@ $.fn.modal.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Nag
+ * # Semantic UI 2.1.3 - Nag
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -18674,7 +18674,7 @@ $.fn.nag.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Popup
+ * # Semantic UI 2.1.3 - Popup
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -20075,7 +20075,7 @@ $.fn.popup.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Progress
+ * # Semantic UI 2.1.3 - Progress
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -20869,7 +20869,7 @@ $.fn.progress.settings = {
 
 })( jQuery, window , document );
 /*!
- * # Semantic UI 2.1.2 - Rating
+ * # Semantic UI 2.1.3 - Rating
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -21345,7 +21345,7 @@ $.fn.rating.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Search
+ * # Semantic UI 2.1.3 - Search
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -22653,7 +22653,7 @@ $.fn.search.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Shape
+ * # Semantic UI 2.1.3 - Shape
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -23529,7 +23529,7 @@ $.fn.shape.settings = {
 
 })( jQuery, window , document );
 /*!
- * # Semantic UI 2.1.2 - Sidebar
+ * # Semantic UI 2.1.3 - Sidebar
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -24552,7 +24552,7 @@ $.fn.sidebar.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Sticky
+ * # Semantic UI 2.1.3 - Sticky
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -25440,7 +25440,7 @@ $.fn.sticky.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Tab
+ * # Semantic UI 2.1.3 - Tab
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -26338,7 +26338,7 @@ $.fn.tab.settings = {
 
 })( jQuery, window , document );
 /*!
- * # Semantic UI 2.1.2 - Transition
+ * # Semantic UI 2.1.3 - Transition
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -27411,7 +27411,7 @@ $.fn.transition.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - API
+ * # Semantic UI 2.1.3 - API
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -28548,7 +28548,7 @@ $.api.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - State
+ * # Semantic UI 2.1.3 - State
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -29244,7 +29244,7 @@ $.fn.state.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.2 - Visibility
+ * # Semantic UI 2.1.3 - Visibility
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -30460,7 +30460,7 @@ $.fn.visibility.settings = {
 
 })( jQuery, window , document );
 /*!
- * Vue.js v0.12.12
+ * Vue.js v0.12.13
  * (c) 2015 Evan You
  * Released under the MIT License.
  */
@@ -30823,8 +30823,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var toString = Object.prototype.toString
+	var OBJECT_STRING = '[object Object]'
 	exports.isPlainObject = function (obj) {
-	  return toString.call(obj) === '[object Object]'
+	  return toString.call(obj) === OBJECT_STRING
 	}
 
 	/**
@@ -30895,7 +30896,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	exports.indexOf = function (arr, obj) {
-	  for (var i = 0, l = arr.length; i < l; i++) {
+	  var i = arr.length
+	  while (i--) {
 	    if (arr[i] === obj) return i
 	  }
 	  return -1
@@ -33614,8 +33616,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'Error when evaluating expression "' +
 	        this.expression + '". ' +
 	        (config.debug
-	          ? '' :
-	          'Turn on debug mode to see stack trace.'
+	          ? ''
+	          : 'Turn on debug mode to see stack trace.'
 	        ), e
 	      )
 	    }
@@ -36050,6 +36052,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.op =
 	  this.cb = null
 	  this.justEntered = false
+	  this.entered = this.left = false
 	  this.typeCache = {}
 	  // bind
 	  var self = this
@@ -36092,7 +36095,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.cb = cb
 	  addClass(this.el, this.enterClass)
 	  op()
+	  this.entered = false
 	  this.callHookWithCb('enter')
+	  if (this.entered) {
+	    return // user called done synchronously.
+	  }
 	  this.cancel = this.hooks && this.hooks.enterCancelled
 	  queue.push(this.enterNextTick)
 	}
@@ -36108,16 +36115,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _.nextTick(function () {
 	    this.justEntered = false
 	  }, this)
-	  var type = this.getCssTransitionType(this.enterClass)
 	  var enterDone = this.enterDone
-	  if (type === TYPE_TRANSITION) {
-	    // trigger transition by removing enter class now
+	  var type = this.getCssTransitionType(this.enterClass)
+	  if (!this.pendingJsCb) {
+	    if (type === TYPE_TRANSITION) {
+	      // trigger transition by removing enter class now
+	      removeClass(this.el, this.enterClass)
+	      this.setupCssCb(transitionEndEvent, enterDone)
+	    } else if (type === TYPE_ANIMATION) {
+	      this.setupCssCb(animationEndEvent, enterDone)
+	    } else {
+	      enterDone()
+	    }
+	  } else if (type === TYPE_TRANSITION) {
 	    removeClass(this.el, this.enterClass)
-	    this.setupCssCb(transitionEndEvent, enterDone)
-	  } else if (type === TYPE_ANIMATION) {
-	    this.setupCssCb(animationEndEvent, enterDone)
-	  } else if (!this.pendingJsCb) {
-	    enterDone()
 	  }
 	}
 
@@ -36126,6 +36137,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	p.enterDone = function () {
+	  this.entered = true
 	  this.cancel = this.pendingJsCb = null
 	  removeClass(this.el, this.enterClass)
 	  this.callHook('afterEnter')
@@ -36159,7 +36171,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.op = op
 	  this.cb = cb
 	  addClass(this.el, this.leaveClass)
+	  this.left = false
 	  this.callHookWithCb('leave')
+	  if (this.left) {
+	    return // user called done synchronously.
+	  }
 	  this.cancel = this.hooks && this.hooks.leaveCancelled
 	  // only need to handle leaveDone if
 	  // 1. the transition is already done (synchronously called
@@ -36198,6 +36214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	p.leaveDone = function () {
+	  this.left = true
 	  this.cancel = this.pendingJsCb = null
 	  this.op()
 	  removeClass(this.el, this.leaveClass)
@@ -36501,9 +36518,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      )
 	      return
 	    }
+	    el.__v_model = this
 	    handler.bind.call(this)
 	    this.update = handler.update
-	    this.unbind = handler.unbind
+	    this._unbind = handler.unbind
 	  },
 
 	  /**
@@ -36523,6 +36541,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.hasWrite = true
 	      }
 	    }
+	  },
+
+	  unbind: function () {
+	    this.el.__v_model = null
+	    this._unbind && this._unbind()
 	  }
 	}
 
@@ -37011,6 +37034,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 	  bind: function () {
+
+	    // some helpful tips...
+	    /* istanbul ignore if */
+	    if (
+	      ("development") !== 'production' &&
+	      this.el.tagName === 'OPTION' &&
+	      this.el.parentNode && this.el.parentNode.__v_model
+	    ) {
+	      _.warn(
+	        'Don\'t use v-repeat for v-model options; ' +
+	        'use the `options` param instead: ' +
+	        'http://vuejs.org/guide/forms.html#Dynamic_Select_Options'
+	      )
+	    }
+
 	    // support for item in array syntax
 	    var inMatch = this.expression.match(/(.*) in (.*)/)
 	    if (inMatch) {
@@ -37049,19 +37087,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // create cache object
 	    this.cache = Object.create(null)
-
-	    // some helpful tips...
-	    /* istanbul ignore if */
-	    if (
-	      ("development") !== 'production' &&
-	      this.el.tagName === 'OPTION'
-	    ) {
-	      _.warn(
-	        'Don\'t use v-repeat for v-model options; ' +
-	        'use the `options` param instead: ' +
-	        'http://vuejs.org/guide/forms.html#Dynamic_Select_Options'
-	      )
-	    }
 	  },
 
 	  /**
@@ -37180,6 +37205,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 	  update: function (data) {
+	    if (("development") !== 'production' && !_.isArray(data)) {
+	      _.warn(
+	        'v-repeat pre-converts Objects into Arrays, and ' +
+	        'v-repeat filters should always return Arrays.'
+	      )
+	    }
 	    if (this.componentId) {
 	      var state = this.componentState
 	      if (state === UNRESOLVED) {
@@ -37253,6 +37284,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      primitive = !isObject(raw)
 	      vm = !init && this.getVm(raw, i, converted ? obj.$key : null)
 	      if (vm) { // reusable instance
+
+	        if (("development") !== 'production' && vm._reused) {
+	          _.warn(
+	            'Duplicate objects found in v-repeat="' + this.expression + '": ' +
+	            JSON.stringify(raw)
+	          )
+	        }
+
 	        vm._reused = true
 	        vm.$index = i // update $index
 	        // update data for track-by or object repeat,
@@ -37450,7 +37489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        cache[id] = vm
 	      } else if (!primitive && idKey !== '$index') {
 	        ("development") !== 'production' && _.warn(
-	          'Duplicate track-by key in v-repeat: ' + id
+	          'Duplicate objects with the same track-by key in v-repeat: ' + id
 	        )
 	      }
 	    } else {
@@ -37460,8 +37499,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          data[id] = vm
 	        } else {
 	          ("development") !== 'production' && _.warn(
-	            'Duplicate objects are not supported in v-repeat ' +
-	            'when using components or transitions.'
+	            'Duplicate objects found in v-repeat="' + this.expression + '": ' +
+	            JSON.stringify(data)
 	          )
 	        }
 	      } else {
@@ -38192,6 +38231,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  esc: 27,
 	  tab: 9,
 	  enter: 13,
+	  space: 32,
 	  'delete': 46,
 	  up: 38,
 	  left: 37,
@@ -38914,11 +38954,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  ) {
 	    ob = value.__ob__
 	  } else if (
-	    _.isObject(value) &&
+	    (_.isArray(value) || _.isPlainObject(value)) &&
 	    !Object.isFrozen(value) &&
 	    !value._isVue
 	  ) {
 	    ob = new Observer(value)
+	  } else if (true) {
+	    if (_.isObject(value) && !_.isArray(value) && !_.isPlainObject(value)) {
+	      _.warn(
+	        'Unobservable object found in data: ' +
+	        Object.prototype.toString.call(value)
+	      )
+	    }
 	  }
 	  if (ob && vm) {
 	    ob.addVm(vm)
@@ -38966,7 +39013,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	Observer.prototype.observeArray = function (items) {
 	  var i = items.length
 	  while (i--) {
-	    this.observe(items[i])
+	    var ob = this.observe(items[i])
+	    if (ob) {
+	      (ob.parents || (ob.parents = [])).push(this)
+	    }
+	  }
+	}
+
+	/**
+	 * Remove self from the parent list of removed objects.
+	 *
+	 * @param {Array} items
+	 */
+
+	Observer.prototype.unobserveArray = function (items) {
+	  var i = items.length
+	  while (i--) {
+	    var ob = items[i] && items[i].__ob__
+	    if (ob) {
+	      ob.parents.$remove(this)
+	    }
+	  }
+	}
+
+	/**
+	 * Notify self dependency, and also parent Array dependency
+	 * if any.
+	 */
+
+	Observer.prototype.notify = function () {
+	  this.dep.notify()
+	  var parents = this.parents
+	  if (parents) {
+	    var i = parents.length
+	    while (i--) {
+	      parents[i].notify()
+	    }
 	  }
 	}
 
@@ -38990,12 +39072,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        dep.depend()
 	        if (childOb) {
 	          childOb.dep.depend()
-	        }
-	        if (_.isArray(val)) {
-	          for (var e, i = 0, l = val.length; i < l; i++) {
-	            e = val[i]
-	            e && e.__ob__ && e.__ob__.dep.depend()
-	          }
 	        }
 	      }
 	      return val
@@ -39101,7 +39177,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    var result = original.apply(this, args)
 	    var ob = this.__ob__
-	    var inserted
+	    var inserted, removed
 	    switch (method) {
 	      case 'push':
 	        inserted = args
@@ -39111,11 +39187,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        break
 	      case 'splice':
 	        inserted = args.slice(2)
+	        removed = result
+	        break
+	      case 'pop':
+	      case 'shift':
+	        removed = [result]
 	        break
 	    }
 	    if (inserted) ob.observeArray(inserted)
+	    if (removed) ob.unobserveArray(removed)
 	    // notify change
-	    ob.dep.notify()
+	    ob.notify()
 	    return result
 	  })
 	})
@@ -39192,7 +39274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return
 	    }
 	    ob.convert(key, val)
-	    ob.dep.notify()
+	    ob.notify()
 	    if (ob.vms) {
 	      var i = ob.vms.length
 	      while (i--) {
@@ -39240,7 +39322,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!ob || _.isReserved(key)) {
 	      return
 	    }
-	    ob.dep.notify()
+	    ob.notify()
 	    if (ob.vms) {
 	      var i = ob.vms.length
 	      while (i--) {
@@ -40404,13 +40486,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.$addChild = function (opts, BaseCtor) {
 	  BaseCtor = BaseCtor || _.Vue
 	  opts = opts || {}
-	  var parent = this
 	  var ChildVue
+	  var parent = this
+	  // transclusion context
+	  var context = opts._context || parent
 	  var inherit = opts.inherit !== undefined
 	    ? opts.inherit
 	    : BaseCtor.options.inherit
 	  if (inherit) {
-	    var ctors = parent._childCtors
+	    var ctors = context._childCtors
 	    ChildVue = ctors[BaseCtor.cid]
 	    if (!ChildVue) {
 	      var optionName = BaseCtor.options.name
@@ -40424,9 +40508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      )()
 	      ChildVue.options = BaseCtor.options
 	      ChildVue.linker = BaseCtor.linker
-	      // important: transcluded inline repeaters should
-	      // inherit from outer scope rather than host
-	      ChildVue.prototype = opts._context || this
+	      ChildVue.prototype = context
 	      ctors[BaseCtor.cid] = ChildVue
 	    }
 	  } else {
@@ -41471,7 +41553,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 /**
  * @license
- * Video.js 5.0.0-rc.71 <http://videojs.com/>
+ * Video.js 5.0.0-rc.77 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -43502,7 +43584,7 @@ var Button = (function (_Component) {
     // Check for space bar (32) or enter (13) keys
     if (event.which === 32 || event.which === 13) {
       event.preventDefault();
-      this.handleClick();
+      this.handleClick(event);
     }
   };
 
@@ -45856,6 +45938,7 @@ var PlayProgressBar = (function (_Component) {
     _classCallCheck(this, PlayProgressBar);
 
     _Component.call(this, player, options);
+    this.updateDataAttr();
     this.on(player, 'timeupdate', this.updateDataAttr);
     player.ready(Fn.bind(this, this.updateDataAttr));
   }
@@ -49062,7 +49145,6 @@ var Player = (function (_Component) {
         var plugins = options.plugins;
 
         Object.getOwnPropertyNames(plugins).forEach(function (name) {
-          plugins[name].playerOptions = playerOptionsCopy;
           if (typeof this[name] === 'function') {
             this[name](plugins[name]);
           } else {
@@ -49106,7 +49188,7 @@ var Player = (function (_Component) {
 
     // When the player is first initialized, trigger activity so components
     // like the control bar show themselves if needed
-    this.userActive_ = true;
+    this.userActive(true);
     this.reportUserActivity();
     this.listenForUserActivity();
 
@@ -49582,6 +49664,9 @@ var Player = (function (_Component) {
       this.techCall('setVolume', this.cache_.volume);
     }
 
+    // Update the duration if available
+    this.handleTechDurationChange();
+
     // Chrome and Safari both have issues with autoplay.
     // In Safari (5.1.1), when we move the video element into the container div, autoplay doesn't work.
     // In Chrome (15), if you have autoplay + a poster + no controls, the video gets hidden (but audio plays)
@@ -49804,8 +49889,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.handleTechDurationChange = function handleTechDurationChange() {
-    this.updateDuration();
-    this.trigger('durationchange');
+    this.duration(this.techGet('duration'));
   };
 
   /**
@@ -49873,32 +49957,6 @@ var Player = (function (_Component) {
   Player.prototype.handleTechTouchEnd = function handleTechTouchEnd(event) {
     // Stop the mouse events from also happening
     event.preventDefault();
-  };
-
-  /**
-   * Update the duration of the player using the tech
-   *
-   * @private
-   * @method updateDuration
-   */
-
-  Player.prototype.updateDuration = function updateDuration() {
-    // Allows for caching value instead of asking player each time.
-    // We need to get the techGet response and check for a value so we don't
-    // accidentally cause the stack to blow up.
-    var duration = this.techGet('duration');
-    if (duration) {
-      if (duration < 0) {
-        duration = Infinity;
-      }
-      this.duration(duration);
-      // Determine if the stream is live and propagate styles down to UI.
-      if (duration === Infinity) {
-        this.addClass('vjs-live');
-      } else {
-        this.removeClass('vjs-live');
-      }
-    }
   };
 
   /**
@@ -50243,19 +50301,31 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.duration = function duration(seconds) {
-    if (seconds !== undefined) {
-
-      // cache the last set value for optimized scrubbing (esp. Flash)
-      this.cache_.duration = parseFloat(seconds);
-
-      return this;
+    if (seconds === undefined) {
+      return this.cache_.duration || 0;
     }
 
-    if (this.cache_.duration === undefined) {
-      this.updateDuration();
+    seconds = parseFloat(seconds) || 0;
+
+    // Standardize on Inifity for signaling video is live
+    if (seconds < 0) {
+      seconds = Infinity;
     }
 
-    return this.cache_.duration || 0;
+    if (seconds !== this.cache_.duration) {
+      // Cache the last set value for optimized scrubbing (esp. Flash)
+      this.cache_.duration = seconds;
+
+      if (seconds === Infinity) {
+        this.addClass('vjs-live');
+      } else {
+        this.removeClass('vjs-live');
+      }
+
+      this.trigger('durationchange');
+    }
+
+    return this;
   };
 
   /**
@@ -52430,6 +52500,14 @@ var Flash = (function (_Tech) {
 
   Flash.prototype.createEl = function createEl() {
     var options = this.options_;
+
+    // If video.js is hosted locally you should also set the location
+    // for the hosted swf, which should be relative to the page (not video.js)
+    // Otherwise this adds a CDN url.
+    // The CDN also auto-adds a swf URL for that specific version.
+    if (!options.swf) {
+      options.swf = '//vjs.zencdn.net/swf/5.0.0-rc1/video-js.swf';
+    }
 
     // Generate ID for swf object
     var objId = options.techId;
@@ -57013,6 +57091,7 @@ function fixEvent(event) {
         old.preventDefault();
       }
       event.returnValue = false;
+      old.returnValue = false;
       event.defaultPrevented = true;
     };
 
@@ -57024,6 +57103,7 @@ function fixEvent(event) {
         old.stopPropagation();
       }
       event.cancelBubble = true;
+      old.cancelBubble = true;
       event.isPropagationStopped = returnTrue;
     };
 
@@ -57788,7 +57868,7 @@ setup.autoSetupTimeout(1, videojs);
  *
  * @type {String}
  */
-videojs.VERSION = '5.0.0-rc.71';
+videojs.VERSION = '5.0.0-rc.77';
 
 /**
  * The global options object. These are the settings that take effect
@@ -60722,111 +60802,6 @@ module.exports = exports['default'];
    videojs.plugin('markers', registerVideoJsMarkersPlugin);
 
 })(jQuery, window.videojs);
-
-/*
-*	TypeWatch 2.2.2
-*
-*	Examples/Docs: github.com/dennyferra/TypeWatch
-*	
-*  Copyright(c) 2014
-*	Denny Ferrassoli - dennyferra.com
-*   Charles Christolini
-*  
-*  Dual licensed under the MIT and GPL licenses:
-*  http://www.opensource.org/licenses/mit-license.php
-*  http://www.gnu.org/licenses/gpl.html
-*/
-
-!function(root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
-    } else if (typeof exports === 'object') {
-        factory(require('jquery'));
-    } else {
-        factory(root.jQuery);
-    }
-}(this, function($) {
-    'use strict';
-	$.fn.typeWatch = function(o) {
-		// The default input types that are supported
-		var _supportedInputTypes =
-			['TEXT', 'TEXTAREA', 'PASSWORD', 'TEL', 'SEARCH', 'URL', 'EMAIL', 'DATETIME', 'DATE', 'MONTH', 'WEEK', 'TIME', 'DATETIME-LOCAL', 'NUMBER', 'RANGE'];
-
-		// Options
-		var options = $.extend({
-			wait: 750,
-			callback: function() { },
-			highlight: true,
-			captureLength: 2,
-			inputTypes: _supportedInputTypes
-		}, o);
-
-		function checkElement(timer, override) {
-			var value = $(timer.el).val();
-
-			// Fire if text >= options.captureLength AND text != saved text OR if override AND text >= options.captureLength
-			if ( ( value.length >= options.captureLength && value.toUpperCase() != timer.text )  
-				|| ( override && value.length >= options.captureLength ) 
-				|| ( value.length == 0 && timer.text ) )
-			{
-				timer.text = value.toUpperCase();
-				timer.cb.call(timer.el, value);
-			}
-		};
-
-		function watchElement(elem) {
-			var elementType = elem.type.toUpperCase();
-			if ($.inArray(elementType, options.inputTypes) >= 0) {
-
-				// Allocate timer element
-				var timer = {
-					timer: null,
-					text: $(elem).val().toUpperCase(),
-					cb: options.callback,
-					el: elem,
-					wait: options.wait
-				};
-
-				// Set focus action (highlight)
-				if (options.highlight) {
-					$(elem).focus(
-						function() {
-							this.select();
-						});
-				}
-
-				// Key watcher / clear and reset the timer
-				var startWatch = function(evt) {
-					var timerWait = timer.wait;
-					var overrideBool = false;
-					var evtElementType = this.type.toUpperCase();
-
-					// If enter key is pressed and not a TEXTAREA and matched inputTypes
-					if (typeof evt.keyCode != 'undefined' && evt.keyCode == 13 && evtElementType != 'TEXTAREA' && $.inArray(evtElementType, options.inputTypes) >= 0) {
-						timerWait = 1;
-						overrideBool = true;
-					}
-
-					var timerCallbackFx = function() {
-						checkElement(timer, overrideBool)
-					}
-
-					// Clear timer					
-					clearTimeout(timer.timer);
-					timer.timer = setTimeout(timerCallbackFx, timerWait);
-				};
-
-				$(elem).on('keydown paste cut input change', startWatch);
-			}
-		};
-
-		// Watch Each Element
-		return this.each(function() {
-			watchElement(this);
-		});
-
-	};
-});
 
 /*!
  * Chart.js

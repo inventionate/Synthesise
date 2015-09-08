@@ -90,7 +90,7 @@ class NoteRepository implements NoteInterface
         $note->note = Crypt::encrypt($noteContent);
         // Neuen Inhalt speichern
         $note->save();
-      } elseif ($noteContent === '[#empty#] ') {
+      } elseif ($noteContent === '[#empty#]') {
           // Notiz löschen
         $note->delete();
       }

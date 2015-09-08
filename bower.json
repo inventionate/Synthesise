@@ -2,7 +2,6 @@
   "name": "Synthesise",
   "dependencies": {
     "chartjs": "~1.0.2",
-    "jquery-typewatch": "~2.2.1",
     "modernizr": "~2.8.3",
     "semantic-ui": "~2.*",
     "video.js": "5.*",

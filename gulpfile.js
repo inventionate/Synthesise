@@ -27,7 +27,7 @@ elixir.config.sourcemaps = false;
             "vue-resource/dist/vue-resource.js",
             "video.js/dist/video.js",
             "videojs-markers/dist/videojs-markers.js",
-            "jquery-typewatch/jquery.typewatch.js",
+            //"jquery-typewatch/jquery.typewatch.js",// wird dank Vue nicht mehr benötigt.
             "chartjs/Chart.js"
         ], "public/js/vendor.js", "vendor/bower_components")
         // Application Components

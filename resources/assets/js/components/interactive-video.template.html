@@ -1,14 +1,8 @@
-<video id="interactive-video"
-    class="video-js vjs-default-skin"
-    controls
-    autoplay="false"
-    preload="auto"
-    width="100%"
-    height="100%"
-    poster="{{ poster }}"
->
+<div id="interactive-video">
 
-    <source type="video/mp4" src="{{ path }}.mp4" />
-    <source type="video/webm" src="{{ path }}.webm" />
-    
-</video>
+    <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered">
+    </video>
+
+    <interactive-video-notes content="{{ noteContent }}"></interactive-video-notes>
+
+</div>
