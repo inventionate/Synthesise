@@ -7,6 +7,7 @@ new Vue({
 
     ready: function () {
         this.semanticAnimations();
+        this.trackEvents();
     },
 
     components: {
@@ -15,12 +16,12 @@ new Vue({
         // Statistik Modul hinzufügen
         // Eine Vue Komponente, die die entsprechenden Daten und die Darstellungsform abfrägt. Über ein Blade View wird dann die Anzeige der Komponenten geregelt
         // 'analytics-graph': require('./components/analytics-graph.js'),
-        // Download-Button, die auch die Statistikkomponenete umfasst entwerfen!
-        // 'download-button': require('./components/download-button.js'),
     },
 
     methods: {
-        semanticAnimations: require('./components/semantic-animations.js')
+        semanticAnimations: require('./components/semantic-animations.js'),
+        // Track events als allgemeines Klassentracking konzipieren, damit es dynamisch und unabhängig von einem speziellen Template verwendet werden kann (einfachere Lösung).
+        trackEvents: require('./components/track-events.js')
     }
 
 });
@@ -40,10 +41,3 @@ new Vue({
 //         var poster = $("#interactive-video").attr('data-poster');
 //         React.render(<InterativeVideo name = {name} path = {path} markers = {markers} poster = {poster} />, document.getElementById("interactive-video"));
 //     }
-//     if ( $("#messages-manage").length )
-//     {
-//         var url = $("#messages-manage").attr('data-url');
-//         var pollInterval = $("#messages-manage").attr('data-poll-interval');
-//         React.render(<MessageBox url = {url} pollInterval = {pollInterval} />, document.getElementById("messages-manage"));
-//     }
-// });
