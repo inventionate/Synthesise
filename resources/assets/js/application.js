@@ -7,13 +7,14 @@ new Vue({
 
     ready: function () {
         this.semanticAnimations();
-        this.trackEvents();
     },
 
     components: {
+        // Nachrichtensystem
         'message-manager': require('./components/message-manager.js'),
-        // 'interactive-video': require('./components/interactive-video.js'),
-        // Statistik Modul hinzufügen
+        // Inetraktive Videofunktionen
+        'interactive-video': require('./components/interactive-video.js'),
+        // @todo Statistik Modul
         // Eine Vue Komponente, die die entsprechenden Daten und die Darstellungsform abfrägt. Über ein Blade View wird dann die Anzeige der Komponenten geregelt
         // 'analytics-graph': require('./components/analytics-graph.js'),
     },
@@ -26,19 +27,3 @@ new Vue({
     }
 
 });
-//
-// $( document ).ready( () => {
-//
-//
-//
-//     // @todo ReactKomponenten ggf. anders laden!
-//     if ( $("#interactive-video").length )
-//     {
-            // HIER DEN php var to js transformer VERWENDEN
-
-//         var name = $("#interactive-video").attr('data-name');
-//         var path = $("#interactive-video").attr('data-path');
-//         var markers = $("#interactive-video").attr('data-markers');
-//         var poster = $("#interactive-video").attr('data-poster');
-//         React.render(<InterativeVideo name = {name} path = {path} markers = {markers} poster = {poster} />, document.getElementById("interactive-video"));
-//     }

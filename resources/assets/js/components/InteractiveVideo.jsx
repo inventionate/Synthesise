@@ -1,34 +1,13 @@
-import InteractiveVideoNotes from "./InteractiveVideoNotes.jsx";
 
-var InteractiveVideo = React.createClass({
-
-    getInitialState: function () {
-        return {
-
-        };
-    },
-
-    componentDidMount: function ()
-    {
-        var self = this;
-
-        // CSRF Token abfragenu
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        // Video.JS nach dem Laden der React Komponente manuell generieren und dann einsetzen (ReactID Problem umgehen)
-        // http://stackoverflow.com/questions/26255344/reactjs-cant-change-video-and-poster-videojs
-        // Über das Event componentWillRecieveProps auf die Props Änderungen reagieren
         var video, wrapper;
         wrapper = document.createElement('div');
         wrapper.innerHTML = "<video id='videoplayer' class='video-js vjs-sublime-skin vjs-big-play-centered' poster='" + this.props.poster.toString() + "'><source type='video/mp4' src='" + this.props.path.toString() + ".mp4' /><source type='video/webm' src='" + this.props.path.toString() + ".webm' /></video>";
         video = wrapper.firstChild;
         this.refs.videoTarget.getDOMNode().appendChild(video);
-        // Videoname
+
+
         var videoname = this.props.name.toString();
+
         // Video.JS mounten
 
         var videoplayer = videojs("videoplayer",{
