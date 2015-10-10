@@ -19,11 +19,11 @@ module.exports = function() {
 
 
         $('#edit-faq')
-            .modal('setting', 'transition', 'vertical flip')
+            //.modal('setting', 'transition', 'vertical flip')
             .modal('attach events', '#edit-faq-button', 'show');
 
         $('#edit-lection')
-            .modal('setting', 'transition', 'vertical flip')
+            //.modal('setting', 'transition', 'vertical flip')
             .modal('attach events', 'td.edit > div.ui.button', 'show');
 
         $('td.edit > div.ui.button').click( function() {
@@ -42,8 +42,4 @@ module.exports = function() {
 
         });
 
-        // Navigation
-        $('#submenu').click( function () {
-            $('#subnav').toggle('slow');
-        });
 };

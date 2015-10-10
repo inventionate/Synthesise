@@ -9210,7 +9210,7 @@ return jQuery;
 }));
 
  /*
- * # Semantic UI - 2.1.3
+ * # Semantic UI - 2.1.4
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -9220,7 +9220,7 @@ return jQuery;
  *
  */
 /*!
- * # Semantic UI 2.1.3 - Site
+ * # Semantic UI 2.1.4 - Site
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -9302,7 +9302,7 @@ $.site = $.fn.site = function(parameters) {
       requestAnimationFrame: function() {
         module.debug('Normalizing requestAnimationFrame');
         if(window.requestAnimationFrame === undefined) {
-          module.debug('RequestAnimationFrame not available, normailizing event');
+          module.debug('RequestAnimationFrame not available, normalizing event');
           window.requestAnimationFrame = window.requestAnimationFrame
             || window.mozRequestAnimationFrame
             || window.webkitRequestAnimationFrame
@@ -9706,8 +9706,9 @@ $.extend($.expr[ ":" ], {
 
 
 })( jQuery, window , document );
+
 /*!
- * # Semantic UI 2.1.3 - Form Validation
+ * # Semantic UI 2.1.4 - Form Validation
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -9933,13 +9934,16 @@ $.fn.form = function(parameters) {
         },
 
         is: {
+          bracketedRule: function(rule) {
+            return (rule.type && rule.type.match(settings.regExp.bracket));
+          },
           valid: function() {
             var
               allValid = true
             ;
             module.verbose('Checking if form is valid');
             $.each(validation, function(fieldName, field) {
-              if( !( module.validate.field(field) ) ) {
+              if( !( module.validate.field(field, fieldName) ) ) {
                 allValid = false;
               }
             });
@@ -9993,7 +9997,7 @@ $.fn.form = function(parameters) {
             keyup: function() {
               keyHeldDown = false;
             },
-            blur: function() {
+            blur: function(event) {
               var
                 $field          = $(this),
                 $fieldGroup     = $field.closest($group),
@@ -10001,13 +10005,13 @@ $.fn.form = function(parameters) {
               ;
               if( $fieldGroup.hasClass(className.error) ) {
                 module.debug('Revalidating field', $field, validationRules);
-                module.validate.field( validationRules );
+                module.validate.form.call(module, event, true);
               }
               else if(settings.on == 'blur' || settings.on == 'change') {
                 module.validate.field( validationRules );
               }
             },
-            change: function() {
+            change: function(event) {
               var
                 $field      = $(this),
                 $fieldGroup = $field.closest($group)
@@ -10016,7 +10020,7 @@ $.fn.form = function(parameters) {
                 clearTimeout(module.timer);
                 module.timer = setTimeout(function() {
                   module.debug('Revalidating field', $field,  module.get.validation($field));
-                  module.validate.field( module.get.validation($field) );
+                  module.validate.form.call(module, event, true);
                 }, settings.delay);
               }
             }
@@ -10025,6 +10029,18 @@ $.fn.form = function(parameters) {
         },
 
         get: {
+          ancillaryValue: function(rule) {
+            if(!rule.type || !module.is.bracketedRule(rule)) {
+              return false;
+            }
+            return rule.type.match(settings.regExp.bracket)[1] + '';
+          },
+          ruleName: function(rule) {
+            if( module.is.bracketedRule(rule) ) {
+              return rule.type.replace(rule.type.match(settings.regExp.bracket)[0], '');
+            }
+            return rule.type;
+          },
           changeEvent: function(type, $input) {
             if(type == 'checkbox' || type == 'radio' || type == 'hidden' || $input.is('select')) {
               return 'change';
@@ -10041,16 +10057,46 @@ $.fn.form = function(parameters) {
                 : 'keyup'
             ;
           },
-          settings: function() {
+          prompt: function(rule, field) {
             var
-              firstProperty
+              ruleName      = module.get.ruleName(rule),
+              ancillary     = module.get.ancillaryValue(rule),
+              prompt        = rule.prompt || settings.prompt[ruleName] || settings.text.unspecifiedRule,
+              requiresValue = (prompt.search('{value}') !== -1),
+              requiresName  = (prompt.search('{name}') !== -1),
+              $label,
+              $field,
+              name
             ;
+            if(requiresName || requiresValue) {
+              $field = module.get.field(field.identifier);
+            }
+            if(requiresValue) {
+              prompt = prompt.replace('{value}', $field.val());
+            }
+            if(requiresName) {
+              $label = $field.closest(selector.group).find('label').eq(0);
+              name = ($label.size() == 1)
+                ? $label.text()
+                : $field.prop('placeholder') || settings.text.unspecifiedField
+              ;
+              prompt = prompt.replace('{name}', name);
+            }
+            prompt = prompt.replace('{identifier}', field.identifier);
+            prompt = prompt.replace('{ruleValue}', ancillary);
+            if(!rule.prompt) {
+              module.verbose('Using default validation prompt for type', prompt, ruleName);
+            }
+            return prompt;
+          },
+          settings: function() {
             if($.isPlainObject(parameters)) {
               var
-                keys             = Object.keys(parameters),
+                keys     = Object.keys(parameters),
                 isLegacySettings = (keys.length > 0)
                   ? (parameters[keys[0]].identifier !== undefined && parameters[keys[0]].rules !== undefined)
-                  : false
+                  : false,
+                ruleKeys
               ;
               if(isLegacySettings) {
                 // 1.x (ducktyped)
@@ -10061,6 +10107,23 @@ $.fn.form = function(parameters) {
               }
               else {
                 // 2.x
+                if(parameters.fields) {
+                  ruleKeys = Object.keys(parameters.fields);
+                  if( typeof parameters.fields[ruleKeys[0]] == 'string' || $.isArray(parameters.fields[ruleKeys[0]]) ) {
+                    $.each(parameters.fields, function(name, rules) {
+                      if(typeof rules == 'string') {
+                        rules = [rules];
+                      }
+                      parameters.fields[name] = {
+                        rules: []
+                      };
+                      $.each(rules, function(index, rule) {
+                        parameters.fields[name].rules.push({ type: rule });
+                      });
+                    });
+                  }
+                }
+
                 settings   = $.extend(true, {}, $.fn.form.settings, parameters);
                 validation = $.extend({}, $.fn.form.settings.defaults, settings.fields);
                 module.verbose('Extending settings', validation, settings);
@@ -10114,17 +10177,20 @@ $.fn.form = function(parameters) {
           },
           validation: function($field) {
             var
-              rules
+              fieldValidation,
+              identifier
             ;
             if(!validation) {
               return false;
             }
             $.each(validation, function(fieldName, field) {
-              if( module.get.field(field.identifier)[0] == $field[0] ) {
-                rules = field;
+              identifier = field.identifier || fieldName;
+              if( module.get.field(identifier)[0] == $field[0] ) {
+                field.identifier = identifier;
+                fieldValidation = field;
               }
             });
-            return rules || false;
+            return fieldValidation || false;
           },
           value: function (field) {
             var
@@ -10163,7 +10229,7 @@ $.fn.form = function(parameters) {
                   }
                   if(isCheckbox) {
                     if(isChecked) {
-                      values[name].push(true);
+                      values[name].push(value || true);
                     }
                     else {
                       values[name].push(false);
@@ -10181,7 +10247,7 @@ $.fn.form = function(parameters) {
                   }
                   else if(isCheckbox) {
                     if(isChecked) {
-                      values[name] = true;
+                      values[name] = value || true;
                     }
                     else {
                       values[name] = false;
@@ -10263,6 +10329,7 @@ $.fn.form = function(parameters) {
           },
           errors: function(errors) {
             module.debug('Adding form error messages', errors);
+            module.set.error();
             $message
               .html( settings.templates.error(errors) )
             ;
@@ -10270,9 +10337,9 @@ $.fn.form = function(parameters) {
         },
 
         remove: {
-          prompt: function(field) {
+          prompt: function(identifier) {
             var
-              $field      = module.get.field(field.identifier),
+              $field      = module.get.field(identifier),
               $fieldGroup = $field.closest($group),
               $prompt     = $fieldGroup.children(selector.prompt)
             ;
@@ -10280,7 +10347,7 @@ $.fn.form = function(parameters) {
               .removeClass(className.error)
             ;
             if(settings.inline && $prompt.is(':visible')) {
-              module.verbose('Removing prompt for field', field);
+              module.verbose('Removing prompt for field', identifier);
               if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
                 $prompt.transition(settings.transition + ' out', settings.duration, function() {
                   $prompt.remove();
@@ -10389,7 +10456,7 @@ $.fn.form = function(parameters) {
 
         validate: {
 
-          form: function(event) {
+          form: function(event, ignoreCallbacks) {
             var
               values = module.get.values(),
               apiRequest
@@ -10405,7 +10472,9 @@ $.fn.form = function(parameters) {
             if( module.is.valid() ) {
               module.debug('Form has no validation errors, submitting');
               module.set.success();
-              return settings.onSuccess.call(element, event, values);
+              if(ignoreCallbacks !== true) {
+                return settings.onSuccess.call(element, event, values);
+              }
             }
             else {
               module.debug('Form has errors');
@@ -10417,41 +10486,48 @@ $.fn.form = function(parameters) {
               if($module.data('moduleApi') !== undefined) {
                 event.stopImmediatePropagation();
               }
-              return settings.onFailure.call(element, formErrors, values);
+              if(ignoreCallbacks !== true) {
+                return settings.onFailure.call(element, formErrors, values);
+              }
             }
           },
 
           // takes a validation object and returns whether field passes validation
-          field: function(field) {
+          field: function(field, fieldName) {
             var
-              $field      = module.get.field(field.identifier),
+              identifier  = field.identifier || fieldName,
+              $field      = module.get.field(identifier),
               fieldValid  = true,
               fieldErrors = []
             ;
+            if(!field.identifier) {
+              module.debug('Using field name as identifier', identifier);
+              field.identifier = identifier;
+            }
             if($field.prop('disabled')) {
-              module.debug('Field is disabled. Skipping', field.identifier);
+              module.debug('Field is disabled. Skipping', identifier);
               fieldValid = true;
             }
             else if(field.optional && $.trim($field.val()) === ''){
-              module.debug('Field is optional and empty. Skipping', field.identifier);
+              module.debug('Field is optional and empty. Skipping', identifier);
               fieldValid = true;
             }
             else if(field.rules !== undefined) {
               $.each(field.rules, function(index, rule) {
-                if( module.has.field(field.identifier) && !( module.validate.rule(field, rule) ) ) {
-                  module.debug('Field is invalid', field.identifier, rule.type);
-                  fieldErrors.push(rule.prompt);
+                if( module.has.field(identifier) && !( module.validate.rule(field, rule) ) ) {
+                  module.debug('Field is invalid', identifier, rule.type);
+                  fieldErrors.push(module.get.prompt(rule, field));
                   fieldValid = false;
                 }
               });
             }
             if(fieldValid) {
-              module.remove.prompt(field, fieldErrors);
+              module.remove.prompt(identifier, fieldErrors);
               settings.onValid.call($field);
             }
             else {
               formErrors = formErrors.concat(fieldErrors);
-              module.add.prompt(field.identifier, fieldErrors);
+              module.add.prompt(identifier, fieldErrors);
               settings.onInvalid.call($field, fieldErrors);
               return false;
             }
@@ -10459,42 +10535,26 @@ $.fn.form = function(parameters) {
           },
 
           // takes validation rule and returns whether field passes rule
-          rule: function(field, validation) {
+          rule: function(field, rule) {
             var
-              $field        = module.get.field(field.identifier),
-              type          = validation.type,
-              value         = $field.val(),
-              bracket       = type.match(settings.regExp.bracket),
-              isValid       = true,
-              rule,
-              ancillary,
-              functionType
+              $field       = module.get.field(field.identifier),
+              type         = rule.type,
+              value        = $field.val(),
+              isValid      = true,
+              ancillary    = module.get.ancillaryValue(rule),
+              ruleName     = module.get.ruleName(rule),
+              ruleFunction = settings.rules[ruleName]
             ;
+            if( !$.isFunction(ruleFunction) ) {
+              module.error(error.noRule, ruleName);
+              return;
+            }
             // cast to string avoiding encoding special values
             value = (value === undefined || value === '' || value === null)
               ? ''
               : $.trim(value + '')
             ;
-            // if bracket notation is used, pass in extra parameters
-            if(bracket) {
-              ancillary    = '' + bracket[1];
-              functionType = type.replace(bracket[0], '');
-              rule         = settings.rules[functionType];
-              if( !$.isFunction(rule) ) {
-                module.error(error.noRule, functionType);
-                return;
-              }
-              isValid = rule.call($field, value, ancillary);
-            }
-            else {
-              rule = settings.rules[type];
-              if( !$.isFunction(rule) ) {
-                module.error(error.noRule, type);
-                return;
-              }
-              isValid = rule.call($field, value);
-            }
-            return isValid;
+            return ruleFunction.call($field, value, ancillary);
           }
         },
 
@@ -10704,6 +10764,40 @@ $.fn.form.settings = {
     integer : /^\-?\d+$/,
     number  : /^\-?\d*(\.\d+)?$/,
     url     : /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/i
+  },
+
+  text: {
+    unspecifiedRule  : 'Please enter a valid value',
+    unspecifiedField : 'This field'
+  },
+
+  prompt: {
+    empty                : '{name} must have a value',
+    checked              : '{name} must be checked',
+    email                : '{name} must be a valid e-mail',
+    url                  : '{name} must be a valid url',
+    regExp               : '{name} is not formatted correctly',
+    integer              : '{name} must be an integer',
+    decimal              : '{name} must be a decimal number',
+    number               : '{name} must be set to a number',
+    is                   : '{name} must be "{ruleValue}"',
+    isExactly            : '{name} must be exactly "{ruleValue}"',
+    not                  : '{name} cannot be set to "{ruleValue}"',
+    notExactly           : '{name} cannot be set to exactly "{ruleValue}"',
+    contain              : '{name} cannot contain "{ruleValue}"',
+    containExactly       : '{name} cannot contain exactly "{ruleValue}"',
+    doesntContain        : '{name} must contain  "{ruleValue}"',
+    doesntContainExactly : '{name} must contain exactly "{ruleValue}"',
+    minLength            : '{name} must be at least {ruleValue} characters',
+    length               : '{name} must be at least {ruleValue} characters',
+    exactLength          : '{name} must be exactly {ruleValue} characters',
+    maxLength            : '{name} cannot be longer than {ruleValue} characters',
+    match                : '{name} must match {ruleValue} field',
+    different            : '{name} must have a different value than {ruleValue} field',
+    creditCard           : '{name} must be a valid credit card number',
+    minCount             : '{name} must have at least {ruleValue} choices',
+    exactCount           : '{name} must have exactly {ruleValue} choices',
+    maxCount             : '{name} must have {ruleValue} or less choices'
   },
 
   selector : {
@@ -10964,6 +11058,32 @@ $.fn.form.settings = {
         : false
       ;
     },
+
+    // different than another field
+    different: function(value, identifier) {
+      // use either id or name of field
+      var
+        $form = $(this),
+        matchingValue
+      ;
+      if( $('[data-validate="'+ identifier +'"]').length > 0 ) {
+        matchingValue = $('[data-validate="'+ identifier +'"]').val();
+      }
+      else if($('#' + identifier).length > 0) {
+        matchingValue = $('#' + identifier).val();
+      }
+      else if($('[name="' + identifier +'"]').length > 0) {
+        matchingValue = $('[name="' + identifier + '"]').val();
+      }
+      else if( $('[name="' + identifier +'[]"]').length > 0 ) {
+        matchingValue = $('[name="' + identifier +'[]"]');
+      }
+      return (matchingValue !== undefined)
+        ? ( value.toString() !== matchingValue.toString() )
+        : false
+      ;
+    },
+
     creditCard: function(cardNumber, cardTypes) {
       var
         cards = {
@@ -11068,29 +11188,14 @@ $.fn.form.settings = {
       return (sum % 10 === 0 && sum > 0);
     },
 
-    // different than another field
-    different: function(value, identifier) {
-      // use either id or name of field
-      var
-        $form = $(this),
-        matchingValue
-      ;
-      if( $('[data-validate="'+ identifier +'"]').length > 0 ) {
-        matchingValue = $('[data-validate="'+ identifier +'"]').val();
+    minCount: function(value, minCount) {
+      if(minCount == 0) {
+        return true;
       }
-      else if($('#' + identifier).length > 0) {
-        matchingValue = $('#' + identifier).val();
+      if(minCount == 1) {
+        return (value !== '');
       }
-      else if($('[name="' + identifier +'"]').length > 0) {
-        matchingValue = $('[name="' + identifier + '"]').val();
-      }
-      else if( $('[name="' + identifier +'[]"]').length > 0 ) {
-        matchingValue = $('[name="' + identifier +'[]"]');
-      }
-      return (matchingValue !== undefined)
-        ? ( value.toString() !== matchingValue.toString() )
-        : false
-      ;
+      return (value.split(',').length >= minCount);
     },
 
     exactCount: function(value, exactCount) {
@@ -11101,16 +11206,6 @@ $.fn.form.settings = {
         return (value !== '' && value.search(',') === -1);
       }
       return (value.split(',').length == exactCount);
-    },
-
-    minCount: function(value, minCount) {
-      if(minCount == 0) {
-        return true;
-      }
-      if(minCount == 1) {
-        return (value !== '');
-      }
-      return (value.split(',').length >= minCount);
     },
 
     maxCount: function(value, maxCount) {
@@ -11129,7 +11224,7 @@ $.fn.form.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Accordion
+ * # Semantic UI 2.1.4 - Accordion
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -11726,7 +11821,7 @@ $.extend( $.easing, {
 
 
 /*!
- * # Semantic UI 2.1.3 - Checkbox
+ * # Semantic UI 2.1.4 - Checkbox
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -12531,7 +12626,7 @@ $.fn.checkbox.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Dimmer
+ * # Semantic UI 2.1.4 - Dimmer
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -13224,7 +13319,7 @@ $.fn.dimmer.settings = {
 
 })( jQuery, window , document );
 /*!
- * # Semantic UI 2.1.3 - Dropdown
+ * # Semantic UI 2.1.4 - Dropdown
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -13545,6 +13640,10 @@ $.fn.dropdown = function(parameters) {
               }
               if($input.is('[multiple]')) {
                 module.set.multiple();
+              }
+              if ($input.prop('disabled')) {
+                module.debug('Disabling dropdown')
+                $module.addClass(className.disabled)
               }
               $input
                 .removeAttr('class')
@@ -14046,7 +14145,7 @@ $.fn.dropdown = function(parameters) {
               module.hide();
             }
           },
-          // prevents focus callback from occuring on mousedown
+          // prevents focus callback from occurring on mousedown
           mousedown: function() {
             activated = true;
           },
@@ -14373,6 +14472,7 @@ $.fn.dropdown = function(parameters) {
                 hasSubMenu           = ($subMenu.length> 0),
                 hasSelectedItem      = ($selectedItem.length > 0),
                 selectedIsSelectable = ($selectedItem.not(selector.unselectable).length > 0),
+                delimiterPressed     = (pressedKey == keys.delimiter && settings.allowAdditions && module.is.multiple()),
                 $nextItem,
                 isSubMenuItem,
                 newIndex
@@ -14382,7 +14482,7 @@ $.fn.dropdown = function(parameters) {
               if( module.is.visible() ) {
 
                 // enter (select or open sub-menu)
-                if(pressedKey == keys.enter || pressedKey == keys.delimiter) {
+                if(pressedKey == keys.enter || delimiterPressed) {
                   if(pressedKey == keys.enter && hasSelectedItem && hasSubMenu && !settings.allowCategorySelection) {
                     module.verbose('Pressed enter on unselectable category, opening sub menu');
                     pressedKey = keys.rightArrow;
@@ -14499,7 +14599,7 @@ $.fn.dropdown = function(parameters) {
               }
               else {
                 // delimiter key
-                if(pressedKey == keys.delimiter) {
+                if(delimiterPressed) {
                   event.preventDefault();
                 }
                 // down arrow (open menu)
@@ -16454,7 +16554,7 @@ $.fn.dropdown.settings = {
 
   maxSelections          : false,      // When set to a number limits the number of selections to this count
   useLabels              : true,       // whether multiple select should filter currently active selections from choices
-  delimiter              : ',',        // when multiselect uses normal <input> the values will be delmited with this character
+  delimiter              : ',',        // when multiselect uses normal <input> the values will be delimited with this character
 
   showOnFocus            : true,       // show menu on focus
   allowTab               : true,       // add tabindex to element
@@ -16637,7 +16737,7 @@ $.fn.dropdown.settings.templates = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Video
+ * # Semantic UI 2.1.4 - Video
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -17297,7 +17397,7 @@ $.fn.embed.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Modal
+ * # Semantic UI 2.1.4 - Modal
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -18187,7 +18287,7 @@ $.fn.modal.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Nag
+ * # Semantic UI 2.1.4 - Nag
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -18674,7 +18774,7 @@ $.fn.nag.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Popup
+ * # Semantic UI 2.1.4 - Popup
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -20075,7 +20175,7 @@ $.fn.popup.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Progress
+ * # Semantic UI 2.1.4 - Progress
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -20869,7 +20969,7 @@ $.fn.progress.settings = {
 
 })( jQuery, window , document );
 /*!
- * # Semantic UI 2.1.3 - Rating
+ * # Semantic UI 2.1.4 - Rating
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -21345,7 +21445,7 @@ $.fn.rating.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Search
+ * # Semantic UI 2.1.4 - Search
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -21696,7 +21796,7 @@ $.fn.search = function(parameters) {
               $.each(results, function(index, category) {
                 if($.isArray(category.results)) {
                   result = module.search.object(value, category.results, lookupFields)[0];
-                  // dont continue searching if a result is found
+                  // don't continue searching if a result is found
                   if(result) {
                     return false;
                   }
@@ -22653,7 +22753,7 @@ $.fn.search.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Shape
+ * # Semantic UI 2.1.4 - Shape
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -23529,7 +23629,7 @@ $.fn.shape.settings = {
 
 })( jQuery, window , document );
 /*!
- * # Semantic UI 2.1.3 - Sidebar
+ * # Semantic UI 2.1.4 - Sidebar
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -24552,7 +24652,7 @@ $.fn.sidebar.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Sticky
+ * # Semantic UI 2.1.4 - Sticky
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -25440,7 +25540,7 @@ $.fn.sticky.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Tab
+ * # Semantic UI 2.1.4 - Tab
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -25548,7 +25648,7 @@ $.fn.tab = function(parameters) {
 
         bind: {
           events: function() {
-            // if using $.tab dont add events
+            // if using $.tab don't add events
             if( !$.isWindow( element ) ) {
               module.debug('Attaching tab activation events to element', $module);
               $module
@@ -26337,8 +26437,9 @@ $.fn.tab.settings = {
 };
 
 })( jQuery, window , document );
+
 /*!
- * # Semantic UI 2.1.3 - Transition
+ * # Semantic UI 2.1.4 - Transition
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -27411,7 +27512,7 @@ $.fn.transition.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - API
+ * # Semantic UI 2.1.4 - API
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -28515,7 +28616,7 @@ $.api.settings = {
     missingSerialize  : 'jquery-serialize-object is required to add form data to an existing data object',
     missingURL        : 'No URL specified for api event',
     noReturnedValue   : 'The beforeSend callback must return a settings object, beforeSend ignored.',
-    noStorage         : 'Caching respopnses locally requires session storage',
+    noStorage         : 'Caching responses locally requires session storage',
     parseError        : 'There was an error parsing your request',
     requiredParameter : 'Missing a required URL parameter: ',
     statusMessage     : 'Server gave an error: ',
@@ -28548,7 +28649,7 @@ $.api.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - State
+ * # Semantic UI 2.1.4 - State
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -29244,7 +29345,7 @@ $.fn.state.settings = {
 })( jQuery, window , document );
 
 /*!
- * # Semantic UI 2.1.3 - Visibility
+ * # Semantic UI 2.1.4 - Visibility
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -30460,7 +30561,7 @@ $.fn.visibility.settings = {
 
 })( jQuery, window , document );
 /*!
- * Vue.js v0.12.13
+ * Vue.js v0.12.14
  * (c) 2015 Evan You
  * Released under the MIT License.
  */
@@ -30468,7 +30569,7 @@ $.fn.visibility.settings = {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define(factory);
+		define([], factory);
 	else if(typeof exports === 'object')
 		exports["Vue"] = factory();
 	else
@@ -30631,7 +30732,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	/**
-	 * Check is a string starts with $ or _
+	 * Check if a string starts with $ or _
 	 *
 	 * @param {String} str
 	 * @return {Boolean}
@@ -36827,7 +36928,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      while (i--) {
 	        var option = el.options[i]
 	        if (option !== defaultOption) {
-	          el.removeChild(option)
+	          var parentNode = option.parentNode
+	          if (parentNode === el) {
+	            parentNode.removeChild(option)
+	          } else {
+	            el.removeChild(parentNode)
+	            i = el.options.length
+	          }
 	        }
 	      }
 	      buildOptions(el, value)
@@ -37871,7 +37978,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  getContainedComponents: function () {
-	    var vm = this.vm
+	    var vm = this._host || this.vm
 	    var start = this.start.nextSibling
 	    var end = this.end
 
@@ -38959,13 +39066,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    !value._isVue
 	  ) {
 	    ob = new Observer(value)
-	  } else if (true) {
-	    if (_.isObject(value) && !_.isArray(value) && !_.isPlainObject(value)) {
-	      _.warn(
-	        'Unobservable object found in data: ' +
-	        Object.prototype.toString.call(value)
-	      )
-	    }
 	  }
 	  if (ob && vm) {
 	    ob.addVm(vm)
@@ -40600,7 +40700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 });
 ;
 /**
- * vue-resource v0.1.15
+ * vue-resource v0.1.16
  * https://github.com/vuejs/vue-resource
  * Released under the MIT License.
  */
@@ -40796,6 +40896,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Service for URL templating.
 	 */
 
+	var ie = document.documentMode;
 	var el = document.createElement('a');
 
 	module.exports = function (_) {
@@ -40886,6 +40987,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 
 	    Url.parse = function (url) {
+
+	        if (ie) {
+	            el.href = url;
+	            url = el.href;
+	        }
 
 	        el.href = url;
 
@@ -41120,10 +41226,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var Promise = __webpack_require__(5);
+	var XDomain = window.XDomainRequest;
 
 	module.exports = function (_, options) {
 
 	    var request = new XMLHttpRequest(), promise;
+
+	    if (XDomain && options.crossOrigin) {
+	        request = new XDomainRequest(); options.headers = {};
+	    }
 
 	    if (_.isPlainObject(options.xhr)) {
 	        _.extend(request, options.xhr);
@@ -41141,15 +41252,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	            request.setRequestHeader(header, value);
 	        });
 
-	        request.onreadystatechange = function () {
+	        var handler = function (event) {
 
-	            if (request.readyState === 4) {
+	            request.ok = event.type === 'load';
 
+	            if (request.ok && request.status) {
 	                request.ok = request.status >= 200 && request.status < 300;
-
-	                (request.ok ? resolve : reject)(request);
 	            }
+
+	            (request.ok ? resolve : reject)(request);
 	        };
+
+	        request.onload = handler;
+	        request.onabort = handler;
+	        request.onerror = handler;
 
 	        request.send(options.data);
 	    });
@@ -41553,7 +41669,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 /**
  * @license
- * Video.js 5.0.0-rc.77 <http://videojs.com/>
+ * Video.js 5.0.0-rc.90 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -41600,6 +41716,215 @@ if (typeof window !== "undefined") {
 },{}],3:[function(_dereq_,module,exports){
 
 },{}],4:[function(_dereq_,module,exports){
+var getNative = _dereq_('../internal/getNative');
+
+/* Native method references for those with the same name as other `lodash` methods. */
+var nativeNow = getNative(Date, 'now');
+
+/**
+ * Gets the number of milliseconds that have elapsed since the Unix epoch
+ * (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @category Date
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => logs the number of milliseconds it took for the deferred function to be invoked
+ */
+var now = nativeNow || function() {
+  return new Date().getTime();
+};
+
+module.exports = now;
+
+},{"../internal/getNative":20}],5:[function(_dereq_,module,exports){
+var isObject = _dereq_('../lang/isObject'),
+    now = _dereq_('../date/now');
+
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/* Native method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed invocations. Provide an options object to indicate that `func`
+ * should be invoked on the leading and/or trailing edge of the `wait` timeout.
+ * Subsequent calls to the debounced function return the result of the last
+ * `func` invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is invoked
+ * on the trailing edge of the timeout only if the the debounced function is
+ * invoked more than once during the `wait` timeout.
+ *
+ * See [David Corbacho's article](http://drupalmotion.com/article/debounce-and-throttle-visual-explanation)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options] The options object.
+ * @param {boolean} [options.leading=false] Specify invoking on the leading
+ *  edge of the timeout.
+ * @param {number} [options.maxWait] The maximum time `func` is allowed to be
+ *  delayed before it's invoked.
+ * @param {boolean} [options.trailing=true] Specify invoking on the trailing
+ *  edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // avoid costly calculations while the window size is in flux
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // invoke `sendMail` when the click event is fired, debouncing subsequent calls
+ * jQuery('#postbox').on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // ensure `batchLog` is invoked once after 1 second of debounced calls
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', _.debounce(batchLog, 250, {
+ *   'maxWait': 1000
+ * }));
+ *
+ * // cancel a debounced call
+ * var todoChanges = _.debounce(batchLog, 1000);
+ * Object.observe(models.todo, todoChanges);
+ *
+ * Object.observe(models, function(changes) {
+ *   if (_.find(changes, { 'user': 'todo', 'type': 'delete'})) {
+ *     todoChanges.cancel();
+ *   }
+ * }, ['delete']);
+ *
+ * // ...at some point `models.todo` is changed
+ * models.todo.completed = true;
+ *
+ * // ...before 1 second has passed `models.todo` is deleted
+ * // which cancels the debounced `todoChanges` call
+ * delete models.todo;
+ */
+function debounce(func, wait, options) {
+  var args,
+      maxTimeoutId,
+      result,
+      stamp,
+      thisArg,
+      timeoutId,
+      trailingCall,
+      lastCalled = 0,
+      maxWait = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  wait = wait < 0 ? 0 : (+wait || 0);
+  if (options === true) {
+    var leading = true;
+    trailing = false;
+  } else if (isObject(options)) {
+    leading = !!options.leading;
+    maxWait = 'maxWait' in options && nativeMax(+options.maxWait || 0, wait);
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function cancel() {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    if (maxTimeoutId) {
+      clearTimeout(maxTimeoutId);
+    }
+    lastCalled = 0;
+    maxTimeoutId = timeoutId = trailingCall = undefined;
+  }
+
+  function complete(isCalled, id) {
+    if (id) {
+      clearTimeout(id);
+    }
+    maxTimeoutId = timeoutId = trailingCall = undefined;
+    if (isCalled) {
+      lastCalled = now();
+      result = func.apply(thisArg, args);
+      if (!timeoutId && !maxTimeoutId) {
+        args = thisArg = undefined;
+      }
+    }
+  }
+
+  function delayed() {
+    var remaining = wait - (now() - stamp);
+    if (remaining <= 0 || remaining > wait) {
+      complete(trailingCall, maxTimeoutId);
+    } else {
+      timeoutId = setTimeout(delayed, remaining);
+    }
+  }
+
+  function maxDelayed() {
+    complete(trailing, timeoutId);
+  }
+
+  function debounced() {
+    args = arguments;
+    stamp = now();
+    thisArg = this;
+    trailingCall = trailing && (timeoutId || !leading);
+
+    if (maxWait === false) {
+      var leadingCall = leading && !timeoutId;
+    } else {
+      if (!maxTimeoutId && !leading) {
+        lastCalled = stamp;
+      }
+      var remaining = maxWait - (stamp - lastCalled),
+          isCalled = remaining <= 0 || remaining > maxWait;
+
+      if (isCalled) {
+        if (maxTimeoutId) {
+          maxTimeoutId = clearTimeout(maxTimeoutId);
+        }
+        lastCalled = stamp;
+        result = func.apply(thisArg, args);
+      }
+      else if (!maxTimeoutId) {
+        maxTimeoutId = setTimeout(maxDelayed, remaining);
+      }
+    }
+    if (isCalled && timeoutId) {
+      timeoutId = clearTimeout(timeoutId);
+    }
+    else if (!timeoutId && wait !== maxWait) {
+      timeoutId = setTimeout(delayed, wait);
+    }
+    if (leadingCall) {
+      isCalled = true;
+      result = func.apply(thisArg, args);
+    }
+    if (isCalled && !timeoutId && !maxTimeoutId) {
+      args = thisArg = undefined;
+    }
+    return result;
+  }
+  debounced.cancel = cancel;
+  return debounced;
+}
+
+module.exports = debounce;
+
+},{"../date/now":4,"../lang/isObject":33}],6:[function(_dereq_,module,exports){
 /** Used as the `TypeError` message for "Functions" methods. */
 var FUNC_ERROR_TEXT = 'Expected a function';
 
@@ -41659,7 +41984,71 @@ function restParam(func, start) {
 
 module.exports = restParam;
 
-},{}],5:[function(_dereq_,module,exports){
+},{}],7:[function(_dereq_,module,exports){
+var debounce = _dereq_('./debounce'),
+    isObject = _dereq_('../lang/isObject');
+
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/**
+ * Creates a throttled function that only invokes `func` at most once per
+ * every `wait` milliseconds. The throttled function comes with a `cancel`
+ * method to cancel delayed invocations. Provide an options object to indicate
+ * that `func` should be invoked on the leading and/or trailing edge of the
+ * `wait` timeout. Subsequent calls to the throttled function return the
+ * result of the last `func` call.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is invoked
+ * on the trailing edge of the timeout only if the the throttled function is
+ * invoked more than once during the `wait` timeout.
+ *
+ * See [David Corbacho's article](http://drupalmotion.com/article/debounce-and-throttle-visual-explanation)
+ * for details over the differences between `_.throttle` and `_.debounce`.
+ *
+ * @static
+ * @memberOf _
+ * @category Function
+ * @param {Function} func The function to throttle.
+ * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
+ * @param {Object} [options] The options object.
+ * @param {boolean} [options.leading=true] Specify invoking on the leading
+ *  edge of the timeout.
+ * @param {boolean} [options.trailing=true] Specify invoking on the trailing
+ *  edge of the timeout.
+ * @returns {Function} Returns the new throttled function.
+ * @example
+ *
+ * // avoid excessively updating the position while scrolling
+ * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+ *
+ * // invoke `renewToken` when the click event is fired, but not more than once every 5 minutes
+ * jQuery('.interactive').on('click', _.throttle(renewToken, 300000, {
+ *   'trailing': false
+ * }));
+ *
+ * // cancel a trailing throttled call
+ * jQuery(window).on('popstate', throttled.cancel);
+ */
+function throttle(func, wait, options) {
+  var leading = true,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  if (options === false) {
+    leading = false;
+  } else if (isObject(options)) {
+    leading = 'leading' in options ? !!options.leading : leading;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+  return debounce(func, wait, { 'leading': leading, 'maxWait': +wait, 'trailing': trailing });
+}
+
+module.exports = throttle;
+
+},{"../lang/isObject":33,"./debounce":5}],8:[function(_dereq_,module,exports){
 /**
  * Copies the values of `source` to `array`.
  *
@@ -41681,7 +42070,7 @@ function arrayCopy(source, array) {
 
 module.exports = arrayCopy;
 
-},{}],6:[function(_dereq_,module,exports){
+},{}],9:[function(_dereq_,module,exports){
 /**
  * A specialized version of `_.forEach` for arrays without support for callback
  * shorthands and `this` binding.
@@ -41705,7 +42094,7 @@ function arrayEach(array, iteratee) {
 
 module.exports = arrayEach;
 
-},{}],7:[function(_dereq_,module,exports){
+},{}],10:[function(_dereq_,module,exports){
 /**
  * Copies properties of `source` to `object`.
  *
@@ -41730,7 +42119,7 @@ function baseCopy(source, props, object) {
 
 module.exports = baseCopy;
 
-},{}],8:[function(_dereq_,module,exports){
+},{}],11:[function(_dereq_,module,exports){
 var createBaseFor = _dereq_('./createBaseFor');
 
 /**
@@ -41749,7 +42138,7 @@ var baseFor = createBaseFor();
 
 module.exports = baseFor;
 
-},{"./createBaseFor":15}],9:[function(_dereq_,module,exports){
+},{"./createBaseFor":18}],12:[function(_dereq_,module,exports){
 var baseFor = _dereq_('./baseFor'),
     keysIn = _dereq_('../object/keysIn');
 
@@ -41768,7 +42157,7 @@ function baseForIn(object, iteratee) {
 
 module.exports = baseForIn;
 
-},{"../object/keysIn":36,"./baseFor":8}],10:[function(_dereq_,module,exports){
+},{"../object/keysIn":39,"./baseFor":11}],13:[function(_dereq_,module,exports){
 var arrayEach = _dereq_('./arrayEach'),
     baseMergeDeep = _dereq_('./baseMergeDeep'),
     isArray = _dereq_('../lang/isArray'),
@@ -41826,7 +42215,7 @@ function baseMerge(object, source, customizer, stackA, stackB) {
 
 module.exports = baseMerge;
 
-},{"../lang/isArray":27,"../lang/isObject":30,"../lang/isTypedArray":33,"../object/keys":35,"./arrayEach":6,"./baseMergeDeep":11,"./isArrayLike":18,"./isObjectLike":23}],11:[function(_dereq_,module,exports){
+},{"../lang/isArray":30,"../lang/isObject":33,"../lang/isTypedArray":36,"../object/keys":38,"./arrayEach":9,"./baseMergeDeep":14,"./isArrayLike":21,"./isObjectLike":26}],14:[function(_dereq_,module,exports){
 var arrayCopy = _dereq_('./arrayCopy'),
     isArguments = _dereq_('../lang/isArguments'),
     isArray = _dereq_('../lang/isArray'),
@@ -41895,7 +42284,7 @@ function baseMergeDeep(object, source, key, mergeFunc, customizer, stackA, stack
 
 module.exports = baseMergeDeep;
 
-},{"../lang/isArguments":26,"../lang/isArray":27,"../lang/isPlainObject":31,"../lang/isTypedArray":33,"../lang/toPlainObject":34,"./arrayCopy":5,"./isArrayLike":18}],12:[function(_dereq_,module,exports){
+},{"../lang/isArguments":29,"../lang/isArray":30,"../lang/isPlainObject":34,"../lang/isTypedArray":36,"../lang/toPlainObject":37,"./arrayCopy":8,"./isArrayLike":21}],15:[function(_dereq_,module,exports){
 var toObject = _dereq_('./toObject');
 
 /**
@@ -41913,7 +42302,7 @@ function baseProperty(key) {
 
 module.exports = baseProperty;
 
-},{"./toObject":25}],13:[function(_dereq_,module,exports){
+},{"./toObject":28}],16:[function(_dereq_,module,exports){
 var identity = _dereq_('../utility/identity');
 
 /**
@@ -41954,7 +42343,7 @@ function bindCallback(func, thisArg, argCount) {
 
 module.exports = bindCallback;
 
-},{"../utility/identity":39}],14:[function(_dereq_,module,exports){
+},{"../utility/identity":42}],17:[function(_dereq_,module,exports){
 var bindCallback = _dereq_('./bindCallback'),
     isIterateeCall = _dereq_('./isIterateeCall'),
     restParam = _dereq_('../function/restParam');
@@ -41997,7 +42386,7 @@ function createAssigner(assigner) {
 
 module.exports = createAssigner;
 
-},{"../function/restParam":4,"./bindCallback":13,"./isIterateeCall":21}],15:[function(_dereq_,module,exports){
+},{"../function/restParam":6,"./bindCallback":16,"./isIterateeCall":24}],18:[function(_dereq_,module,exports){
 var toObject = _dereq_('./toObject');
 
 /**
@@ -42026,7 +42415,7 @@ function createBaseFor(fromRight) {
 
 module.exports = createBaseFor;
 
-},{"./toObject":25}],16:[function(_dereq_,module,exports){
+},{"./toObject":28}],19:[function(_dereq_,module,exports){
 var baseProperty = _dereq_('./baseProperty');
 
 /**
@@ -42043,7 +42432,7 @@ var getLength = baseProperty('length');
 
 module.exports = getLength;
 
-},{"./baseProperty":12}],17:[function(_dereq_,module,exports){
+},{"./baseProperty":15}],20:[function(_dereq_,module,exports){
 var isNative = _dereq_('../lang/isNative');
 
 /**
@@ -42061,7 +42450,7 @@ function getNative(object, key) {
 
 module.exports = getNative;
 
-},{"../lang/isNative":29}],18:[function(_dereq_,module,exports){
+},{"../lang/isNative":32}],21:[function(_dereq_,module,exports){
 var getLength = _dereq_('./getLength'),
     isLength = _dereq_('./isLength');
 
@@ -42078,7 +42467,7 @@ function isArrayLike(value) {
 
 module.exports = isArrayLike;
 
-},{"./getLength":16,"./isLength":22}],19:[function(_dereq_,module,exports){
+},{"./getLength":19,"./isLength":25}],22:[function(_dereq_,module,exports){
 /**
  * Checks if `value` is a host object in IE < 9.
  *
@@ -42101,7 +42490,7 @@ var isHostObject = (function() {
 
 module.exports = isHostObject;
 
-},{}],20:[function(_dereq_,module,exports){
+},{}],23:[function(_dereq_,module,exports){
 /** Used to detect unsigned integer values. */
 var reIsUint = /^\d+$/;
 
@@ -42127,7 +42516,7 @@ function isIndex(value, length) {
 
 module.exports = isIndex;
 
-},{}],21:[function(_dereq_,module,exports){
+},{}],24:[function(_dereq_,module,exports){
 var isArrayLike = _dereq_('./isArrayLike'),
     isIndex = _dereq_('./isIndex'),
     isObject = _dereq_('../lang/isObject');
@@ -42157,7 +42546,7 @@ function isIterateeCall(value, index, object) {
 
 module.exports = isIterateeCall;
 
-},{"../lang/isObject":30,"./isArrayLike":18,"./isIndex":20}],22:[function(_dereq_,module,exports){
+},{"../lang/isObject":33,"./isArrayLike":21,"./isIndex":23}],25:[function(_dereq_,module,exports){
 /**
  * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
  * of an array-like value.
@@ -42179,7 +42568,7 @@ function isLength(value) {
 
 module.exports = isLength;
 
-},{}],23:[function(_dereq_,module,exports){
+},{}],26:[function(_dereq_,module,exports){
 /**
  * Checks if `value` is object-like.
  *
@@ -42193,7 +42582,7 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-},{}],24:[function(_dereq_,module,exports){
+},{}],27:[function(_dereq_,module,exports){
 var isArguments = _dereq_('../lang/isArguments'),
     isArray = _dereq_('../lang/isArray'),
     isIndex = _dereq_('./isIndex'),
@@ -42237,7 +42626,7 @@ function shimKeys(object) {
 
 module.exports = shimKeys;
 
-},{"../lang/isArguments":26,"../lang/isArray":27,"../lang/isString":32,"../object/keysIn":36,"./isIndex":20,"./isLength":22}],25:[function(_dereq_,module,exports){
+},{"../lang/isArguments":29,"../lang/isArray":30,"../lang/isString":35,"../object/keysIn":39,"./isIndex":23,"./isLength":25}],28:[function(_dereq_,module,exports){
 var isObject = _dereq_('../lang/isObject'),
     isString = _dereq_('../lang/isString'),
     support = _dereq_('../support');
@@ -42265,7 +42654,7 @@ function toObject(value) {
 
 module.exports = toObject;
 
-},{"../lang/isObject":30,"../lang/isString":32,"../support":38}],26:[function(_dereq_,module,exports){
+},{"../lang/isObject":33,"../lang/isString":35,"../support":41}],29:[function(_dereq_,module,exports){
 var isArrayLike = _dereq_('../internal/isArrayLike'),
     isObjectLike = _dereq_('../internal/isObjectLike');
 
@@ -42301,7 +42690,7 @@ function isArguments(value) {
 
 module.exports = isArguments;
 
-},{"../internal/isArrayLike":18,"../internal/isObjectLike":23}],27:[function(_dereq_,module,exports){
+},{"../internal/isArrayLike":21,"../internal/isObjectLike":26}],30:[function(_dereq_,module,exports){
 var getNative = _dereq_('../internal/getNative'),
     isLength = _dereq_('../internal/isLength'),
     isObjectLike = _dereq_('../internal/isObjectLike');
@@ -42343,7 +42732,7 @@ var isArray = nativeIsArray || function(value) {
 
 module.exports = isArray;
 
-},{"../internal/getNative":17,"../internal/isLength":22,"../internal/isObjectLike":23}],28:[function(_dereq_,module,exports){
+},{"../internal/getNative":20,"../internal/isLength":25,"../internal/isObjectLike":26}],31:[function(_dereq_,module,exports){
 var isObject = _dereq_('./isObject');
 
 /** `Object#toString` result references. */
@@ -42383,7 +42772,7 @@ function isFunction(value) {
 
 module.exports = isFunction;
 
-},{"./isObject":30}],29:[function(_dereq_,module,exports){
+},{"./isObject":33}],32:[function(_dereq_,module,exports){
 var isFunction = _dereq_('./isFunction'),
     isHostObject = _dereq_('../internal/isHostObject'),
     isObjectLike = _dereq_('../internal/isObjectLike');
@@ -42434,7 +42823,7 @@ function isNative(value) {
 
 module.exports = isNative;
 
-},{"../internal/isHostObject":19,"../internal/isObjectLike":23,"./isFunction":28}],30:[function(_dereq_,module,exports){
+},{"../internal/isHostObject":22,"../internal/isObjectLike":26,"./isFunction":31}],33:[function(_dereq_,module,exports){
 /**
  * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
  * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
@@ -42464,7 +42853,7 @@ function isObject(value) {
 
 module.exports = isObject;
 
-},{}],31:[function(_dereq_,module,exports){
+},{}],34:[function(_dereq_,module,exports){
 var baseForIn = _dereq_('../internal/baseForIn'),
     isArguments = _dereq_('./isArguments'),
     isHostObject = _dereq_('../internal/isHostObject'),
@@ -42546,7 +42935,7 @@ function isPlainObject(value) {
 
 module.exports = isPlainObject;
 
-},{"../internal/baseForIn":9,"../internal/isHostObject":19,"../internal/isObjectLike":23,"../support":38,"./isArguments":26}],32:[function(_dereq_,module,exports){
+},{"../internal/baseForIn":12,"../internal/isHostObject":22,"../internal/isObjectLike":26,"../support":41,"./isArguments":29}],35:[function(_dereq_,module,exports){
 var isObjectLike = _dereq_('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -42583,7 +42972,7 @@ function isString(value) {
 
 module.exports = isString;
 
-},{"../internal/isObjectLike":23}],33:[function(_dereq_,module,exports){
+},{"../internal/isObjectLike":26}],36:[function(_dereq_,module,exports){
 var isLength = _dereq_('../internal/isLength'),
     isObjectLike = _dereq_('../internal/isObjectLike');
 
@@ -42659,7 +43048,7 @@ function isTypedArray(value) {
 
 module.exports = isTypedArray;
 
-},{"../internal/isLength":22,"../internal/isObjectLike":23}],34:[function(_dereq_,module,exports){
+},{"../internal/isLength":25,"../internal/isObjectLike":26}],37:[function(_dereq_,module,exports){
 var baseCopy = _dereq_('../internal/baseCopy'),
     keysIn = _dereq_('../object/keysIn');
 
@@ -42692,7 +43081,7 @@ function toPlainObject(value) {
 
 module.exports = toPlainObject;
 
-},{"../internal/baseCopy":7,"../object/keysIn":36}],35:[function(_dereq_,module,exports){
+},{"../internal/baseCopy":10,"../object/keysIn":39}],38:[function(_dereq_,module,exports){
 var getNative = _dereq_('../internal/getNative'),
     isArrayLike = _dereq_('../internal/isArrayLike'),
     isObject = _dereq_('../lang/isObject'),
@@ -42740,7 +43129,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
 
 module.exports = keys;
 
-},{"../internal/getNative":17,"../internal/isArrayLike":18,"../internal/shimKeys":24,"../lang/isObject":30,"../support":38}],36:[function(_dereq_,module,exports){
+},{"../internal/getNative":20,"../internal/isArrayLike":21,"../internal/shimKeys":27,"../lang/isObject":33,"../support":41}],39:[function(_dereq_,module,exports){
 var arrayEach = _dereq_('../internal/arrayEach'),
     isArguments = _dereq_('../lang/isArguments'),
     isArray = _dereq_('../lang/isArray'),
@@ -42878,7 +43267,7 @@ function keysIn(object) {
 
 module.exports = keysIn;
 
-},{"../internal/arrayEach":6,"../internal/isIndex":20,"../internal/isLength":22,"../lang/isArguments":26,"../lang/isArray":27,"../lang/isFunction":28,"../lang/isObject":30,"../lang/isString":32,"../support":38}],37:[function(_dereq_,module,exports){
+},{"../internal/arrayEach":9,"../internal/isIndex":23,"../internal/isLength":25,"../lang/isArguments":29,"../lang/isArray":30,"../lang/isFunction":31,"../lang/isObject":33,"../lang/isString":35,"../support":41}],40:[function(_dereq_,module,exports){
 var baseMerge = _dereq_('../internal/baseMerge'),
     createAssigner = _dereq_('../internal/createAssigner');
 
@@ -42934,7 +43323,7 @@ var merge = createAssigner(baseMerge);
 
 module.exports = merge;
 
-},{"../internal/baseMerge":10,"../internal/createAssigner":14}],38:[function(_dereq_,module,exports){
+},{"../internal/baseMerge":13,"../internal/createAssigner":17}],41:[function(_dereq_,module,exports){
 /** Used for native method references. */
 var arrayProto = Array.prototype,
     errorProto = Error.prototype,
@@ -43032,7 +43421,7 @@ var support = {};
 
 module.exports = support;
 
-},{}],39:[function(_dereq_,module,exports){
+},{}],42:[function(_dereq_,module,exports){
 /**
  * This method returns the first argument provided to it.
  *
@@ -43054,7 +43443,7 @@ function identity(value) {
 
 module.exports = identity;
 
-},{}],40:[function(_dereq_,module,exports){
+},{}],43:[function(_dereq_,module,exports){
 'use strict';
 
 // modified from https://github.com/es-shims/es6-shim
@@ -43116,7 +43505,7 @@ defineProperties(assignShim, {
 
 module.exports = assignShim;
 
-},{"define-properties":41,"object-keys":43}],41:[function(_dereq_,module,exports){
+},{"define-properties":44,"object-keys":46}],44:[function(_dereq_,module,exports){
 'use strict';
 
 var keys = _dereq_('object-keys');
@@ -43174,7 +43563,7 @@ defineProperties.supportsDescriptors = !!supportsDescriptors;
 
 module.exports = defineProperties;
 
-},{"foreach":42,"object-keys":43}],42:[function(_dereq_,module,exports){
+},{"foreach":45,"object-keys":46}],45:[function(_dereq_,module,exports){
 
 var hasOwn = Object.prototype.hasOwnProperty;
 var toString = Object.prototype.toString;
@@ -43198,7 +43587,7 @@ module.exports = function forEach (obj, fn, ctx) {
 };
 
 
-},{}],43:[function(_dereq_,module,exports){
+},{}],46:[function(_dereq_,module,exports){
 'use strict';
 
 // modified from https://github.com/es-shims/es5-shim
@@ -43322,7 +43711,7 @@ keysShim.shim = function shimObjectKeys() {
 
 module.exports = keysShim;
 
-},{"./isArguments":44}],44:[function(_dereq_,module,exports){
+},{"./isArguments":47}],47:[function(_dereq_,module,exports){
 'use strict';
 
 var toStr = Object.prototype.toString;
@@ -43341,7 +43730,7 @@ module.exports = function isArguments(value) {
 	return isArgs;
 };
 
-},{}],45:[function(_dereq_,module,exports){
+},{}],48:[function(_dereq_,module,exports){
 module.exports = SafeParseTuple
 
 function SafeParseTuple(obj, reviver) {
@@ -43357,7 +43746,347 @@ function SafeParseTuple(obj, reviver) {
     return [error, json]
 }
 
-},{}],46:[function(_dereq_,module,exports){
+},{}],49:[function(_dereq_,module,exports){
+function clean (s) {
+  return s.replace(/\n\r?\s*/g, '')
+}
+
+
+module.exports = function tsml (sa) {
+  var s = ''
+    , i = 0
+
+  for (; i < arguments.length; i++)
+    s += clean(sa[i]) + (arguments[i + 1] || '')
+
+  return s
+}
+},{}],50:[function(_dereq_,module,exports){
+"use strict";
+var window = _dereq_("global/window")
+var once = _dereq_("once")
+var parseHeaders = _dereq_("parse-headers")
+
+
+
+module.exports = createXHR
+createXHR.XMLHttpRequest = window.XMLHttpRequest || noop
+createXHR.XDomainRequest = "withCredentials" in (new createXHR.XMLHttpRequest()) ? createXHR.XMLHttpRequest : window.XDomainRequest
+
+
+function isEmpty(obj){
+    for(var i in obj){
+        if(obj.hasOwnProperty(i)) return false
+    }
+    return true
+}
+
+function createXHR(options, callback) {
+    function readystatechange() {
+        if (xhr.readyState === 4) {
+            loadFunc()
+        }
+    }
+
+    function getBody() {
+        // Chrome with requestType=blob throws errors arround when even testing access to responseText
+        var body = undefined
+
+        if (xhr.response) {
+            body = xhr.response
+        } else if (xhr.responseType === "text" || !xhr.responseType) {
+            body = xhr.responseText || xhr.responseXML
+        }
+
+        if (isJson) {
+            try {
+                body = JSON.parse(body)
+            } catch (e) {}
+        }
+
+        return body
+    }
+
+    var failureResponse = {
+                body: undefined,
+                headers: {},
+                statusCode: 0,
+                method: method,
+                url: uri,
+                rawRequest: xhr
+            }
+
+    function errorFunc(evt) {
+        clearTimeout(timeoutTimer)
+        if(!(evt instanceof Error)){
+            evt = new Error("" + (evt || "Unknown XMLHttpRequest Error") )
+        }
+        evt.statusCode = 0
+        callback(evt, failureResponse)
+    }
+
+    // will load the data & process the response in a special response object
+    function loadFunc() {
+        if (aborted) return
+        var status
+        clearTimeout(timeoutTimer)
+        if(options.useXDR && xhr.status===undefined) {
+            //IE8 CORS GET successful response doesn't have a status field, but body is fine
+            status = 200
+        } else {
+            status = (xhr.status === 1223 ? 204 : xhr.status)
+        }
+        var response = failureResponse
+        var err = null
+
+        if (status !== 0){
+            response = {
+                body: getBody(),
+                statusCode: status,
+                method: method,
+                headers: {},
+                url: uri,
+                rawRequest: xhr
+            }
+            if(xhr.getAllResponseHeaders){ //remember xhr can in fact be XDR for CORS in IE
+                response.headers = parseHeaders(xhr.getAllResponseHeaders())
+            }
+        } else {
+            err = new Error("Internal XMLHttpRequest Error")
+        }
+        callback(err, response, response.body)
+
+    }
+
+    if (typeof options === "string") {
+        options = { uri: options }
+    }
+
+    options = options || {}
+    if(typeof callback === "undefined"){
+        throw new Error("callback argument missing")
+    }
+    callback = once(callback)
+
+    var xhr = options.xhr || null
+
+    if (!xhr) {
+        if (options.cors || options.useXDR) {
+            xhr = new createXHR.XDomainRequest()
+        }else{
+            xhr = new createXHR.XMLHttpRequest()
+        }
+    }
+
+    var key
+    var aborted
+    var uri = xhr.url = options.uri || options.url
+    var method = xhr.method = options.method || "GET"
+    var body = options.body || options.data
+    var headers = xhr.headers = options.headers || {}
+    var sync = !!options.sync
+    var isJson = false
+    var timeoutTimer
+
+    if ("json" in options) {
+        isJson = true
+        headers["accept"] || headers["Accept"] || (headers["Accept"] = "application/json") //Don't override existing accept header declared by user
+        if (method !== "GET" && method !== "HEAD") {
+            headers["content-type"] || headers["Content-Type"] || (headers["Content-Type"] = "application/json") //Don't override existing accept header declared by user
+            body = JSON.stringify(options.json)
+        }
+    }
+
+    xhr.onreadystatechange = readystatechange
+    xhr.onload = loadFunc
+    xhr.onerror = errorFunc
+    // IE9 must have onprogress be set to a unique function.
+    xhr.onprogress = function () {
+        // IE must die
+    }
+    xhr.ontimeout = errorFunc
+    xhr.open(method, uri, !sync, options.username, options.password)
+    //has to be after open
+    if(!sync) {
+        xhr.withCredentials = !!options.withCredentials
+    }
+    // Cannot set timeout with sync request
+    // not setting timeout on the xhr object, because of old webkits etc. not handling that correctly
+    // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
+    if (!sync && options.timeout > 0 ) {
+        timeoutTimer = setTimeout(function(){
+            aborted=true//IE9 may still call readystatechange
+            xhr.abort("timeout")
+            var e = new Error("XMLHttpRequest timeout")
+            e.code = "ETIMEDOUT"
+            errorFunc(e)
+        }, options.timeout )
+    }
+
+    if (xhr.setRequestHeader) {
+        for(key in headers){
+            if(headers.hasOwnProperty(key)){
+                xhr.setRequestHeader(key, headers[key])
+            }
+        }
+    } else if (options.headers && !isEmpty(options.headers)) {
+        throw new Error("Headers cannot be set on an XDomainRequest object")
+    }
+
+    if ("responseType" in options) {
+        xhr.responseType = options.responseType
+    }
+
+    if ("beforeSend" in options &&
+        typeof options.beforeSend === "function"
+    ) {
+        options.beforeSend(xhr)
+    }
+
+    xhr.send(body)
+
+    return xhr
+
+
+}
+
+function noop() {}
+
+},{"global/window":2,"once":51,"parse-headers":55}],51:[function(_dereq_,module,exports){
+module.exports = once
+
+once.proto = once(function () {
+  Object.defineProperty(Function.prototype, 'once', {
+    value: function () {
+      return once(this)
+    },
+    configurable: true
+  })
+})
+
+function once (fn) {
+  var called = false
+  return function () {
+    if (called) return
+    called = true
+    return fn.apply(this, arguments)
+  }
+}
+
+},{}],52:[function(_dereq_,module,exports){
+var isFunction = _dereq_('is-function')
+
+module.exports = forEach
+
+var toString = Object.prototype.toString
+var hasOwnProperty = Object.prototype.hasOwnProperty
+
+function forEach(list, iterator, context) {
+    if (!isFunction(iterator)) {
+        throw new TypeError('iterator must be a function')
+    }
+
+    if (arguments.length < 3) {
+        context = this
+    }
+    
+    if (toString.call(list) === '[object Array]')
+        forEachArray(list, iterator, context)
+    else if (typeof list === 'string')
+        forEachString(list, iterator, context)
+    else
+        forEachObject(list, iterator, context)
+}
+
+function forEachArray(array, iterator, context) {
+    for (var i = 0, len = array.length; i < len; i++) {
+        if (hasOwnProperty.call(array, i)) {
+            iterator.call(context, array[i], i, array)
+        }
+    }
+}
+
+function forEachString(string, iterator, context) {
+    for (var i = 0, len = string.length; i < len; i++) {
+        // no such thing as a sparse string.
+        iterator.call(context, string.charAt(i), i, string)
+    }
+}
+
+function forEachObject(object, iterator, context) {
+    for (var k in object) {
+        if (hasOwnProperty.call(object, k)) {
+            iterator.call(context, object[k], k, object)
+        }
+    }
+}
+
+},{"is-function":53}],53:[function(_dereq_,module,exports){
+module.exports = isFunction
+
+var toString = Object.prototype.toString
+
+function isFunction (fn) {
+  var string = toString.call(fn)
+  return string === '[object Function]' ||
+    (typeof fn === 'function' && string !== '[object RegExp]') ||
+    (typeof window !== 'undefined' &&
+     // IE8 and below
+     (fn === window.setTimeout ||
+      fn === window.alert ||
+      fn === window.confirm ||
+      fn === window.prompt))
+};
+
+},{}],54:[function(_dereq_,module,exports){
+
+exports = module.exports = trim;
+
+function trim(str){
+  return str.replace(/^\s*|\s*$/g, '');
+}
+
+exports.left = function(str){
+  return str.replace(/^\s*/, '');
+};
+
+exports.right = function(str){
+  return str.replace(/\s*$/, '');
+};
+
+},{}],55:[function(_dereq_,module,exports){
+var trim = _dereq_('trim')
+  , forEach = _dereq_('for-each')
+  , isArray = function(arg) {
+      return Object.prototype.toString.call(arg) === '[object Array]';
+    }
+
+module.exports = function (headers) {
+  if (!headers)
+    return {}
+
+  var result = {}
+
+  forEach(
+      trim(headers).split('\n')
+    , function (row) {
+        var index = row.indexOf(':')
+          , key = trim(row.slice(0, index)).toLowerCase()
+          , value = trim(row.slice(index + 1))
+
+        if (typeof(result[key]) === 'undefined') {
+          result[key] = value
+        } else if (isArray(result[key])) {
+          result[key].push(value)
+        } else {
+          result[key] = [ result[key], value ]
+        }
+      }
+  )
+
+  return result
+}
+},{"for-each":52,"trim":54}],56:[function(_dereq_,module,exports){
 /**
  * @file big-play-button.js
  */
@@ -43428,7 +44157,7 @@ _componentJs2['default'].registerComponent('BigPlayButton', BigPlayButton);
 exports['default'] = BigPlayButton;
 module.exports = exports['default'];
 
-},{"./button.js":47,"./component.js":48}],47:[function(_dereq_,module,exports){
+},{"./button.js":57,"./component.js":58}],57:[function(_dereq_,module,exports){
 /**
  * @file button.js
  */
@@ -43505,17 +44234,21 @@ var Button = (function (_Component) {
   Button.prototype.createEl = function createEl() {
     var tag = arguments.length <= 0 || arguments[0] === undefined ? 'button' : arguments[0];
     var props = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var attributes = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
-    // Add standard Aria and Tabindex info
     props = _objectAssign2['default']({
       className: this.buildCSSClass(),
-      'role': 'button',
-      'type': 'button', // Necessary since the default button type is "submit"
-      'aria-live': 'polite', // let the screen reader user know that the text of the button may change
       tabIndex: 0
     }, props);
 
-    var el = _Component.prototype.createEl.call(this, tag, props);
+    // Add standard Aria info
+    attributes = _objectAssign2['default']({
+      role: 'button',
+      type: 'button', // Necessary since the default button type is "submit"
+      'aria-live': 'polite' // let the screen reader user know that the text of the button may change
+    }, attributes);
+
+    var el = _Component.prototype.createEl.call(this, tag, props, attributes);
 
     this.controlTextEl_ = Dom.createEl('span', {
       className: 'vjs-control-text'
@@ -43605,7 +44338,7 @@ _component2['default'].registerComponent('Button', Button);
 exports['default'] = Button;
 module.exports = exports['default'];
 
-},{"./component":48,"./utils/dom.js":107,"./utils/events.js":108,"./utils/fn.js":109,"global/document":1,"object.assign":40}],48:[function(_dereq_,module,exports){
+},{"./component":58,"./utils/dom.js":118,"./utils/events.js":119,"./utils/fn.js":120,"global/document":1,"object.assign":43}],58:[function(_dereq_,module,exports){
 /**
  * @file component.js
  *
@@ -43859,13 +44592,14 @@ var Component = (function () {
    * Create the component's DOM element
    *
    * @param  {String=} tagName  Element's node type. e.g. 'div'
-   * @param  {Object=} attributes An object of element attributes that should be set on the element
+   * @param  {Object=} properties An object of properties that should be set
+   * @param  {Object=} attributes An object of attributes that should be set
    * @return {Element}
    * @method createEl
    */
 
-  Component.prototype.createEl = function createEl(tagName, attributes) {
-    return Dom.createEl(tagName, attributes);
+  Component.prototype.createEl = function createEl(tagName, properties, attributes) {
+    return Dom.createEl(tagName, properties, attributes);
   };
 
   Component.prototype.localize = function localize(string) {
@@ -45008,7 +45742,7 @@ Component.registerComponent('Component', Component);
 exports['default'] = Component;
 module.exports = exports['default'];
 
-},{"./utils/dom.js":107,"./utils/events.js":108,"./utils/fn.js":109,"./utils/guid.js":111,"./utils/log.js":112,"./utils/merge-options.js":113,"./utils/to-title-case.js":116,"global/window":2,"object.assign":40}],49:[function(_dereq_,module,exports){
+},{"./utils/dom.js":118,"./utils/events.js":119,"./utils/fn.js":120,"./utils/guid.js":122,"./utils/log.js":123,"./utils/merge-options.js":124,"./utils/to-title-case.js":127,"global/window":2,"object.assign":43}],59:[function(_dereq_,module,exports){
 /**
  * @file control-bar.js
  */
@@ -45126,14 +45860,14 @@ var ControlBar = (function (_Component) {
 
 ControlBar.prototype.options_ = {
   loadEvent: 'play',
-  children: ['playToggle', 'volumeMenuButton', 'currentTimeDisplay', 'timeDivider', 'durationDisplay', 'progressControl', 'liveDisplay', 'remainingTimeDisplay', 'customControlSpacer', 'playbackRateMenuButton', 'muteToggle', 'volumeControl', 'chaptersButton', 'subtitlesButton', 'captionsButton', 'fullscreenToggle']
+  children: ['playToggle', 'volumeMenuButton', 'currentTimeDisplay', 'timeDivider', 'durationDisplay', 'progressControl', 'liveDisplay', 'remainingTimeDisplay', 'customControlSpacer', 'playbackRateMenuButton', 'chaptersButton', 'subtitlesButton', 'captionsButton', 'fullscreenToggle']
 };
 
 _componentJs2['default'].registerComponent('ControlBar', ControlBar);
 exports['default'] = ControlBar;
 module.exports = exports['default'];
 
-},{"../component.js":48,"./fullscreen-toggle.js":50,"./live-display.js":51,"./mute-toggle.js":52,"./play-toggle.js":53,"./playback-rate-menu/playback-rate-menu-button.js":54,"./progress-control/progress-control.js":58,"./spacer-controls/custom-control-spacer.js":60,"./text-track-controls/captions-button.js":63,"./text-track-controls/chapters-button.js":64,"./text-track-controls/subtitles-button.js":67,"./time-controls/current-time-display.js":70,"./time-controls/duration-display.js":71,"./time-controls/remaining-time-display.js":72,"./time-controls/time-divider.js":73,"./volume-control/volume-control.js":75,"./volume-menu-button.js":77}],50:[function(_dereq_,module,exports){
+},{"../component.js":58,"./fullscreen-toggle.js":60,"./live-display.js":61,"./mute-toggle.js":62,"./play-toggle.js":63,"./playback-rate-menu/playback-rate-menu-button.js":64,"./progress-control/progress-control.js":69,"./spacer-controls/custom-control-spacer.js":71,"./text-track-controls/captions-button.js":74,"./text-track-controls/chapters-button.js":75,"./text-track-controls/subtitles-button.js":78,"./time-controls/current-time-display.js":81,"./time-controls/duration-display.js":82,"./time-controls/remaining-time-display.js":83,"./time-controls/time-divider.js":84,"./volume-control/volume-control.js":86,"./volume-menu-button.js":88}],60:[function(_dereq_,module,exports){
 /**
  * @file fullscreen-toggle.js
  */
@@ -45207,7 +45941,7 @@ _componentJs2['default'].registerComponent('FullscreenToggle', FullscreenToggle)
 exports['default'] = FullscreenToggle;
 module.exports = exports['default'];
 
-},{"../button.js":47,"../component.js":48}],51:[function(_dereq_,module,exports){
+},{"../button.js":57,"../component.js":58}],61:[function(_dereq_,module,exports){
 /**
  * @file live-display.js
  */
@@ -45234,7 +45968,7 @@ var Dom = _interopRequireWildcard(_utilsDomJs);
 /**
  * Displays the live indicator
  * TODO - Future make it click to snap to live
- * 
+ *
  * @extends Component
  * @class LiveDisplay
  */
@@ -45242,10 +45976,13 @@ var Dom = _interopRequireWildcard(_utilsDomJs);
 var LiveDisplay = (function (_Component) {
   _inherits(LiveDisplay, _Component);
 
-  function LiveDisplay() {
+  function LiveDisplay(player, options) {
     _classCallCheck(this, LiveDisplay);
 
-    _Component.apply(this, arguments);
+    _Component.call(this, player, options);
+
+    this.updateShowing();
+    this.on(this.player(), 'durationchange', this.updateShowing);
   }
 
   /**
@@ -45262,13 +45999,21 @@ var LiveDisplay = (function (_Component) {
 
     this.contentEl_ = Dom.createEl('div', {
       className: 'vjs-live-display',
-      innerHTML: '<span class="vjs-control-text">' + this.localize('Stream Type') + '</span>' + this.localize('LIVE'),
+      innerHTML: '<span class="vjs-control-text">' + this.localize('Stream Type') + '</span>' + this.localize('LIVE')
+    }, {
       'aria-live': 'off'
     });
 
     el.appendChild(this.contentEl_);
-
     return el;
+  };
+
+  LiveDisplay.prototype.updateShowing = function updateShowing() {
+    if (this.player().duration() === Infinity) {
+      this.show();
+    } else {
+      this.hide();
+    }
   };
 
   return LiveDisplay;
@@ -45278,7 +46023,7 @@ _component2['default'].registerComponent('LiveDisplay', LiveDisplay);
 exports['default'] = LiveDisplay;
 module.exports = exports['default'];
 
-},{"../component":48,"../utils/dom.js":107}],52:[function(_dereq_,module,exports){
+},{"../component":58,"../utils/dom.js":118}],62:[function(_dereq_,module,exports){
 /**
  * @file mute-toggle.js
  */
@@ -45326,14 +46071,14 @@ var MuteToggle = (function (_Button) {
     this.on(player, 'volumechange', this.update);
 
     // hide mute toggle if the current tech doesn't support volume control
-    if (player.tech && player.tech['featuresVolumeControl'] === false) {
+    if (player.tech_ && player.tech_['featuresVolumeControl'] === false) {
       this.addClass('vjs-hidden');
     }
 
     this.on(player, 'loadstart', function () {
       this.update(); // We need to update the button to account for a default muted state.
 
-      if (player.tech['featuresVolumeControl'] === false) {
+      if (player.tech_['featuresVolumeControl'] === false) {
         this.addClass('vjs-hidden');
       } else {
         this.removeClass('vjs-hidden');
@@ -45405,7 +46150,7 @@ _component2['default'].registerComponent('MuteToggle', MuteToggle);
 exports['default'] = MuteToggle;
 module.exports = exports['default'];
 
-},{"../button":47,"../component":48,"../utils/dom.js":107}],53:[function(_dereq_,module,exports){
+},{"../button":57,"../component":58,"../utils/dom.js":118}],63:[function(_dereq_,module,exports){
 /**
  * @file play-toggle.js
  */
@@ -45506,7 +46251,7 @@ _componentJs2['default'].registerComponent('PlayToggle', PlayToggle);
 exports['default'] = PlayToggle;
 module.exports = exports['default'];
 
-},{"../button.js":47,"../component.js":48}],54:[function(_dereq_,module,exports){
+},{"../button.js":57,"../component.js":58}],64:[function(_dereq_,module,exports){
 /**
  * @file playback-rate-menu-button.js
  */
@@ -45669,7 +46414,7 @@ var PlaybackRateMenuButton = (function (_MenuButton) {
    */
 
   PlaybackRateMenuButton.prototype.playbackRateSupported = function playbackRateSupported() {
-    return this.player().tech && this.player().tech['featuresPlaybackRate'] && this.playbackRates() && this.playbackRates().length > 0;
+    return this.player().tech_ && this.player().tech_['featuresPlaybackRate'] && this.playbackRates() && this.playbackRates().length > 0;
   };
 
   /**
@@ -45707,7 +46452,7 @@ _componentJs2['default'].registerComponent('PlaybackRateMenuButton', PlaybackRat
 exports['default'] = PlaybackRateMenuButton;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../menu/menu-button.js":84,"../../menu/menu.js":86,"../../utils/dom.js":107,"./playback-rate-menu-item.js":55}],55:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../menu/menu-button.js":95,"../../menu/menu.js":97,"../../utils/dom.js":118,"./playback-rate-menu-item.js":65}],65:[function(_dereq_,module,exports){
 /**
  * @file playback-rate-menu-item.js
  */
@@ -45788,7 +46533,7 @@ _componentJs2['default'].registerComponent('PlaybackRateMenuItem', PlaybackRateM
 exports['default'] = PlaybackRateMenuItem;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../menu/menu-item.js":85}],56:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../menu/menu-item.js":96}],66:[function(_dereq_,module,exports){
 /**
  * @file load-progress-bar.js
  */
@@ -45894,7 +46639,109 @@ _componentJs2['default'].registerComponent('LoadProgressBar', LoadProgressBar);
 exports['default'] = LoadProgressBar;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../utils/dom.js":107}],57:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../utils/dom.js":118}],67:[function(_dereq_,module,exports){
+/**
+ * @file mouse-time-display.js
+ */
+'use strict';
+
+exports.__esModule = true;
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _componentJs = _dereq_('../../component.js');
+
+var _componentJs2 = _interopRequireDefault(_componentJs);
+
+var _utilsDomJs = _dereq_('../../utils/dom.js');
+
+var Dom = _interopRequireWildcard(_utilsDomJs);
+
+var _utilsFnJs = _dereq_('../../utils/fn.js');
+
+var Fn = _interopRequireWildcard(_utilsFnJs);
+
+var _utilsFormatTimeJs = _dereq_('../../utils/format-time.js');
+
+var _utilsFormatTimeJs2 = _interopRequireDefault(_utilsFormatTimeJs);
+
+var _lodashCompatFunctionThrottle = _dereq_('lodash-compat/function/throttle');
+
+var _lodashCompatFunctionThrottle2 = _interopRequireDefault(_lodashCompatFunctionThrottle);
+
+/**
+ * The Mouse Time Display component shows the time you will seek to
+ * when hovering over the progress bar
+ *
+ * @param {Player|Object} player
+ * @param {Object=} options
+ * @extends Component
+ * @class MouseTimeDisplay
+ */
+
+var MouseTimeDisplay = (function (_Component) {
+  _inherits(MouseTimeDisplay, _Component);
+
+  function MouseTimeDisplay(player, options) {
+    var _this = this;
+
+    _classCallCheck(this, MouseTimeDisplay);
+
+    _Component.call(this, player, options);
+
+    this.update(0, 0);
+
+    player.on('ready', function () {
+      _this.on(player.controlBar.progressControl.el(), 'mousemove', _lodashCompatFunctionThrottle2['default'](Fn.bind(_this, _this.handleMouseMove), 25));
+    });
+  }
+
+  /**
+   * Create the component's DOM element
+   *
+   * @return {Element}
+   * @method createEl
+   */
+
+  MouseTimeDisplay.prototype.createEl = function createEl() {
+    return _Component.prototype.createEl.call(this, 'div', {
+      className: 'vjs-mouse-display'
+    });
+  };
+
+  MouseTimeDisplay.prototype.handleMouseMove = function handleMouseMove(event) {
+    var duration = this.player_.duration();
+    var newTime = this.calculateDistance(event) * duration;
+    var position = event.pageX - Dom.findElPosition(this.el().parentNode).left;
+
+    this.update(newTime, position);
+  };
+
+  MouseTimeDisplay.prototype.update = function update(newTime, position) {
+    var time = _utilsFormatTimeJs2['default'](newTime, this.player_.duration());
+
+    this.el().style.left = position + 'px';
+    this.el().setAttribute('data-current-time', time);
+  };
+
+  MouseTimeDisplay.prototype.calculateDistance = function calculateDistance(event) {
+    return Dom.getPointerPosition(this.el().parentNode, event).x;
+  };
+
+  return MouseTimeDisplay;
+})(_componentJs2['default']);
+
+_componentJs2['default'].registerComponent('MouseTimeDisplay', MouseTimeDisplay);
+exports['default'] = MouseTimeDisplay;
+module.exports = exports['default'];
+
+},{"../../component.js":58,"../../utils/dom.js":118,"../../utils/fn.js":120,"../../utils/format-time.js":121,"lodash-compat/function/throttle":7}],68:[function(_dereq_,module,exports){
 /**
  * @file play-progress-bar.js
  */
@@ -45969,7 +46816,7 @@ _componentJs2['default'].registerComponent('PlayProgressBar', PlayProgressBar);
 exports['default'] = PlayProgressBar;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../utils/fn.js":109,"../../utils/format-time.js":110}],58:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../utils/fn.js":120,"../../utils/format-time.js":121}],69:[function(_dereq_,module,exports){
 /**
  * @file progress-control.js
  */
@@ -45990,6 +46837,10 @@ var _componentJs2 = _interopRequireDefault(_componentJs);
 var _seekBarJs = _dereq_('./seek-bar.js');
 
 var _seekBarJs2 = _interopRequireDefault(_seekBarJs);
+
+var _mouseTimeDisplayJs = _dereq_('./mouse-time-display.js');
+
+var _mouseTimeDisplayJs2 = _interopRequireDefault(_mouseTimeDisplayJs);
 
 /**
  * The Progress Control component contains the seek bar, load progress,
@@ -46036,7 +46887,7 @@ _componentJs2['default'].registerComponent('ProgressControl', ProgressControl);
 exports['default'] = ProgressControl;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"./seek-bar.js":59}],59:[function(_dereq_,module,exports){
+},{"../../component.js":58,"./mouse-time-display.js":67,"./seek-bar.js":70}],70:[function(_dereq_,module,exports){
 /**
  * @file seek-bar.js
  */
@@ -46076,6 +46927,10 @@ var _utilsFormatTimeJs = _dereq_('../../utils/format-time.js');
 
 var _utilsFormatTimeJs2 = _interopRequireDefault(_utilsFormatTimeJs);
 
+var _objectAssign = _dereq_('object.assign');
+
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
 /**
  * Seek Bar and holder for the progress bars
  *
@@ -46105,7 +46960,8 @@ var SeekBar = (function (_Slider) {
 
   SeekBar.prototype.createEl = function createEl() {
     return _Slider.prototype.createEl.call(this, 'div', {
-      className: 'vjs-progress-holder',
+      className: 'vjs-progress-holder'
+    }, {
       'aria-label': 'video progress bar'
     });
   };
@@ -46209,6 +47065,7 @@ var SeekBar = (function (_Slider) {
 SeekBar.prototype.options_ = {
   children: {
     'loadProgressBar': {},
+    'mouseTimeDisplay': {},
     'playProgressBar': {}
   },
   'barName': 'playProgressBar'
@@ -46220,7 +47077,7 @@ _componentJs2['default'].registerComponent('SeekBar', SeekBar);
 exports['default'] = SeekBar;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../slider/slider.js":91,"../../utils/fn.js":109,"../../utils/format-time.js":110,"./load-progress-bar.js":56,"./play-progress-bar.js":57}],60:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../slider/slider.js":102,"../../utils/fn.js":120,"../../utils/format-time.js":121,"./load-progress-bar.js":66,"./play-progress-bar.js":68,"object.assign":43}],71:[function(_dereq_,module,exports){
 /**
  * @file custom-control-spacer.js
  */
@@ -46277,9 +47134,14 @@ var CustomControlSpacer = (function (_Spacer) {
    */
 
   CustomControlSpacer.prototype.createEl = function createEl() {
-    return _Spacer.prototype.createEl.call(this, {
+    var el = _Spacer.prototype.createEl.call(this, {
       className: this.buildCSSClass()
     });
+
+    // No-flex/table-cell mode requires there be some content
+    // in the cell to fill the remaining space of the table.
+    el.innerHTML = '&nbsp;';
+    return el;
   };
 
   return CustomControlSpacer;
@@ -46289,7 +47151,7 @@ _componentJs2['default'].registerComponent('CustomControlSpacer', CustomControlS
 exports['default'] = CustomControlSpacer;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"./spacer.js":61}],61:[function(_dereq_,module,exports){
+},{"../../component.js":58,"./spacer.js":72}],72:[function(_dereq_,module,exports){
 /**
  * @file spacer.js
  */
@@ -46338,12 +47200,11 @@ var Spacer = (function (_Component) {
   /**
    * Create the component's DOM element
    *
-   * @param {Object} props An object of properties  
    * @return {Element}
    * @method createEl
    */
 
-  Spacer.prototype.createEl = function createEl(props) {
+  Spacer.prototype.createEl = function createEl() {
     return _Component.prototype.createEl.call(this, 'div', {
       className: this.buildCSSClass()
     });
@@ -46357,7 +47218,7 @@ _componentJs2['default'].registerComponent('Spacer', Spacer);
 exports['default'] = Spacer;
 module.exports = exports['default'];
 
-},{"../../component.js":48}],62:[function(_dereq_,module,exports){
+},{"../../component.js":58}],73:[function(_dereq_,module,exports){
 /**
  * @file caption-settings-menu-item.js
  */
@@ -46423,7 +47284,7 @@ _componentJs2['default'].registerComponent('CaptionSettingsMenuItem', CaptionSet
 exports['default'] = CaptionSettingsMenuItem;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"./text-track-menu-item.js":69}],63:[function(_dereq_,module,exports){
+},{"../../component.js":58,"./text-track-menu-item.js":80}],74:[function(_dereq_,module,exports){
 /**
  * @file captions-button.js
  */
@@ -46491,7 +47352,7 @@ var CaptionsButton = (function (_TextTrackButton) {
     _TextTrackButton.prototype.update.call(this);
 
     // if native, then threshold is 1 because no settings button
-    if (this.player().tech && this.player().tech['featuresNativeTextTracks']) {
+    if (this.player().tech_ && this.player().tech_['featuresNativeTextTracks']) {
       threshold = 1;
     }
 
@@ -46512,7 +47373,7 @@ var CaptionsButton = (function (_TextTrackButton) {
   CaptionsButton.prototype.createItems = function createItems() {
     var items = [];
 
-    if (!(this.player().tech && this.player().tech['featuresNativeTextTracks'])) {
+    if (!(this.player().tech_ && this.player().tech_['featuresNativeTextTracks'])) {
       items.push(new _captionSettingsMenuItemJs2['default'](this.player_, { 'kind': this.kind_ }));
     }
 
@@ -46529,7 +47390,7 @@ _componentJs2['default'].registerComponent('CaptionsButton', CaptionsButton);
 exports['default'] = CaptionsButton;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"./caption-settings-menu-item.js":62,"./text-track-button.js":68}],64:[function(_dereq_,module,exports){
+},{"../../component.js":58,"./caption-settings-menu-item.js":73,"./text-track-button.js":79}],75:[function(_dereq_,module,exports){
 /**
  * @file chapters-button.js
  */
@@ -46718,7 +47579,7 @@ _componentJs2['default'].registerComponent('ChaptersButton', ChaptersButton);
 exports['default'] = ChaptersButton;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../menu/menu.js":86,"../../utils/dom.js":107,"../../utils/fn.js":109,"../../utils/to-title-case.js":116,"./chapters-track-menu-item.js":65,"./text-track-button.js":68,"./text-track-menu-item.js":69,"global/window":2}],65:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../menu/menu.js":97,"../../utils/dom.js":118,"../../utils/fn.js":120,"../../utils/to-title-case.js":127,"./chapters-track-menu-item.js":76,"./text-track-button.js":79,"./text-track-menu-item.js":80,"global/window":2}],76:[function(_dereq_,module,exports){
 /**
  * @file chapters-track-menu-item.js
  */
@@ -46808,7 +47669,7 @@ _componentJs2['default'].registerComponent('ChaptersTrackMenuItem', ChaptersTrac
 exports['default'] = ChaptersTrackMenuItem;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../menu/menu-item.js":85,"../../utils/fn.js":109}],66:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../menu/menu-item.js":96,"../../utils/fn.js":120}],77:[function(_dereq_,module,exports){
 /**
  * @file off-text-track-menu-item.js
  */
@@ -46888,7 +47749,7 @@ _componentJs2['default'].registerComponent('OffTextTrackMenuItem', OffTextTrackM
 exports['default'] = OffTextTrackMenuItem;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"./text-track-menu-item.js":69}],67:[function(_dereq_,module,exports){
+},{"../../component.js":58,"./text-track-menu-item.js":80}],78:[function(_dereq_,module,exports){
 /**
  * @file subtitles-button.js
  */
@@ -46951,7 +47812,7 @@ _componentJs2['default'].registerComponent('SubtitlesButton', SubtitlesButton);
 exports['default'] = SubtitlesButton;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"./text-track-button.js":68}],68:[function(_dereq_,module,exports){
+},{"../../component.js":58,"./text-track-button.js":79}],79:[function(_dereq_,module,exports){
 /**
  * @file text-track-button.js
  */
@@ -47059,7 +47920,7 @@ _componentJs2['default'].registerComponent('TextTrackButton', TextTrackButton);
 exports['default'] = TextTrackButton;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../menu/menu-button.js":84,"../../utils/fn.js":109,"./off-text-track-menu-item.js":66,"./text-track-menu-item.js":69}],69:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../menu/menu-button.js":95,"../../utils/fn.js":120,"./off-text-track-menu-item.js":77,"./text-track-menu-item.js":80}],80:[function(_dereq_,module,exports){
 /**
  * @file text-track-menu-item.js
  */
@@ -47208,7 +48069,7 @@ _componentJs2['default'].registerComponent('TextTrackMenuItem', TextTrackMenuIte
 exports['default'] = TextTrackMenuItem;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../menu/menu-item.js":85,"../../utils/fn.js":109,"global/document":1,"global/window":2}],70:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../menu/menu-item.js":96,"../../utils/fn.js":120,"global/document":1,"global/window":2}],81:[function(_dereq_,module,exports){
 /**
  * @file current-time-display.js
  */
@@ -47270,8 +48131,11 @@ var CurrentTimeDisplay = (function (_Component) {
 
     this.contentEl_ = Dom.createEl('div', {
       className: 'vjs-current-time-display',
-      innerHTML: '<span class="vjs-control-text">Current Time </span>' + '0:00', // label the current time for screen reader users
-      'aria-live': 'off' // tell screen readers not to automatically read the time as it changes
+      // label the current time for screen reader users
+      innerHTML: '<span class="vjs-control-text">Current Time </span>' + '0:00'
+    }, {
+      // tell screen readers not to automatically read the time as it changes
+      'aria-live': 'off'
     });
 
     el.appendChild(this.contentEl_);
@@ -47299,7 +48163,7 @@ _componentJs2['default'].registerComponent('CurrentTimeDisplay', CurrentTimeDisp
 exports['default'] = CurrentTimeDisplay;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../utils/dom.js":107,"../../utils/format-time.js":110}],71:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../utils/dom.js":118,"../../utils/format-time.js":121}],82:[function(_dereq_,module,exports){
 /**
  * @file duration-display.js
  */
@@ -47367,8 +48231,11 @@ var DurationDisplay = (function (_Component) {
 
     this.contentEl_ = Dom.createEl('div', {
       className: 'vjs-duration-display',
-      innerHTML: '<span class="vjs-control-text">' + this.localize('Duration Time') + '</span> 0:00', // label the duration time for screen reader users
-      'aria-live': 'off' // tell screen readers not to automatically read the time as it changes
+      // label the duration time for screen reader users
+      innerHTML: '<span class="vjs-control-text">' + this.localize('Duration Time') + '</span> 0:00'
+    }, {
+      // tell screen readers not to automatically read the time as it changes
+      'aria-live': 'off'
     });
 
     el.appendChild(this.contentEl_);
@@ -47376,7 +48243,7 @@ var DurationDisplay = (function (_Component) {
   };
 
   /**
-   * Update duration time display   
+   * Update duration time display
    *
    * @method updateContent
    */
@@ -47397,7 +48264,7 @@ _componentJs2['default'].registerComponent('DurationDisplay', DurationDisplay);
 exports['default'] = DurationDisplay;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../utils/dom.js":107,"../../utils/format-time.js":110}],72:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../utils/dom.js":118,"../../utils/format-time.js":121}],83:[function(_dereq_,module,exports){
 /**
  * @file remaining-time-display.js
  */
@@ -47459,8 +48326,11 @@ var RemainingTimeDisplay = (function (_Component) {
 
     this.contentEl_ = Dom.createEl('div', {
       className: 'vjs-remaining-time-display',
-      innerHTML: '<span class="vjs-control-text">' + this.localize('Remaining Time') + '</span> -0:00', // label the remaining time for screen reader users
-      'aria-live': 'off' // tell screen readers not to automatically read the time as it changes
+      // label the remaining time for screen reader users
+      innerHTML: '<span class="vjs-control-text">' + this.localize('Remaining Time') + '</span> -0:00'
+    }, {
+      // tell screen readers not to automatically read the time as it changes
+      'aria-live': 'off'
     });
 
     el.appendChild(this.contentEl_);
@@ -47492,7 +48362,7 @@ _componentJs2['default'].registerComponent('RemainingTimeDisplay', RemainingTime
 exports['default'] = RemainingTimeDisplay;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../utils/dom.js":107,"../../utils/format-time.js":110}],73:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../utils/dom.js":118,"../../utils/format-time.js":121}],84:[function(_dereq_,module,exports){
 /**
  * @file time-divider.js
  */
@@ -47550,7 +48420,7 @@ _componentJs2['default'].registerComponent('TimeDivider', TimeDivider);
 exports['default'] = TimeDivider;
 module.exports = exports['default'];
 
-},{"../../component.js":48}],74:[function(_dereq_,module,exports){
+},{"../../component.js":58}],85:[function(_dereq_,module,exports){
 /**
  * @file volume-bar.js
  */
@@ -47613,7 +48483,8 @@ var VolumeBar = (function (_Slider) {
 
   VolumeBar.prototype.createEl = function createEl() {
     return _Slider.prototype.createEl.call(this, 'div', {
-      className: 'vjs-volume-bar',
+      className: 'vjs-volume-bar'
+    }, {
       'aria-label': 'volume level'
     });
   };
@@ -47696,7 +48567,7 @@ _componentJs2['default'].registerComponent('VolumeBar', VolumeBar);
 exports['default'] = VolumeBar;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"../../slider/slider.js":91,"../../utils/fn.js":109,"./volume-level.js":76}],75:[function(_dereq_,module,exports){
+},{"../../component.js":58,"../../slider/slider.js":102,"../../utils/fn.js":120,"./volume-level.js":87}],86:[function(_dereq_,module,exports){
 /**
  * @file volume-control.js
  */
@@ -47738,11 +48609,11 @@ var VolumeControl = (function (_Component) {
     _Component.call(this, player, options);
 
     // hide volume controls when they're not supported by the current tech
-    if (player.tech && player.tech['featuresVolumeControl'] === false) {
+    if (player.tech_ && player.tech_['featuresVolumeControl'] === false) {
       this.addClass('vjs-hidden');
     }
     this.on(player, 'loadstart', function () {
-      if (player.tech['featuresVolumeControl'] === false) {
+      if (player.tech_['featuresVolumeControl'] === false) {
         this.addClass('vjs-hidden');
       } else {
         this.removeClass('vjs-hidden');
@@ -47776,7 +48647,7 @@ _componentJs2['default'].registerComponent('VolumeControl', VolumeControl);
 exports['default'] = VolumeControl;
 module.exports = exports['default'];
 
-},{"../../component.js":48,"./volume-bar.js":74}],76:[function(_dereq_,module,exports){
+},{"../../component.js":58,"./volume-bar.js":85}],87:[function(_dereq_,module,exports){
 /**
  * @file volume-level.js
  */
@@ -47833,7 +48704,7 @@ _componentJs2['default'].registerComponent('VolumeLevel', VolumeLevel);
 exports['default'] = VolumeLevel;
 module.exports = exports['default'];
 
-},{"../../component.js":48}],77:[function(_dereq_,module,exports){
+},{"../../component.js":58}],88:[function(_dereq_,module,exports){
 /**
  * @file volume-menu-button.js
  */
@@ -47888,10 +48759,15 @@ var VolumeMenuButton = (function (_MenuButton) {
 
     _classCallCheck(this, VolumeMenuButton);
 
+    // Default to inline
+    if (options.inline === undefined) {
+      options.inline = true;
+    }
+
     // If the vertical option isn't passed at all, default to true.
     if (options.vertical === undefined) {
-      // If an inline volumeMenuButton is used, we should default to using a horizontal
-      // slider for obvious reasons.
+      // If an inline volumeMenuButton is used, we should default to using
+      // a horizontal slider for obvious reasons.
       if (options.inline) {
         options.vertical = false;
       } else {
@@ -47899,8 +48775,8 @@ var VolumeMenuButton = (function (_MenuButton) {
       }
     }
 
-    // The vertical option needs to be set on the volumeBar as well, since that will
-    // need to be passed along to the VolumeBar constructor
+    // The vertical option needs to be set on the volumeBar as well,
+    // since that will need to be passed along to the VolumeBar constructor
     options.volumeBar = options.volumeBar || {};
     options.volumeBar.vertical = !!options.vertical;
 
@@ -47911,17 +48787,24 @@ var VolumeMenuButton = (function (_MenuButton) {
     this.on(player, 'loadstart', this.volumeUpdate);
 
     // hide mute toggle if the current tech doesn't support volume control
-    if (player.tech && player.tech['featuresVolumeControl'] === false) {
-      this.addClass('vjs-hidden');
-    }
-    this.on(player, 'loadstart', function () {
-      if (player.tech['featuresVolumeControl'] === false) {
+    function updateVisibility() {
+      if (player.tech_ && player.tech_['featuresVolumeControl'] === false) {
         this.addClass('vjs-hidden');
       } else {
         this.removeClass('vjs-hidden');
       }
+    }
+
+    updateVisibility.call(this);
+    this.on(player, 'loadstart', updateVisibility);
+
+    this.on(this.volumeBar, ['slideractive', 'focus'], function () {
+      this.addClass('vjs-slider-active');
     });
-    this.addClass('vjs-menu-button');
+
+    this.on(this.volumeBar, ['sliderinactive', 'blur'], function () {
+      this.removeClass('vjs-slider-active');
+    });
   }
 
   /**
@@ -47954,15 +48837,11 @@ var VolumeMenuButton = (function (_MenuButton) {
       contentElType: 'div'
     });
 
-    var vc = new _volumeControlVolumeBarJs2['default'](this.player_, this.options_.volumeBar);
+    var vb = new _volumeControlVolumeBarJs2['default'](this.player_, this.options_.volumeBar);
 
-    vc.on('focus', function () {
-      menu.lockShowing();
-    });
-    vc.on('blur', function () {
-      menu.unlockShowing();
-    });
-    menu.addChild(vc);
+    menu.addChild(vb);
+
+    this.volumeBar = vb;
     return menu;
   };
 
@@ -47987,7 +48866,7 @@ _componentJs2['default'].registerComponent('VolumeMenuButton', VolumeMenuButton)
 exports['default'] = VolumeMenuButton;
 module.exports = exports['default'];
 
-},{"../button.js":47,"../component.js":48,"../menu/menu-button.js":84,"../menu/menu.js":86,"./mute-toggle.js":52,"./volume-control/volume-bar.js":74}],78:[function(_dereq_,module,exports){
+},{"../button.js":57,"../component.js":58,"../menu/menu-button.js":95,"../menu/menu.js":97,"./mute-toggle.js":62,"./volume-control/volume-bar.js":85}],89:[function(_dereq_,module,exports){
 /**
  * @file error-display.js
  */
@@ -48069,7 +48948,7 @@ _component2['default'].registerComponent('ErrorDisplay', ErrorDisplay);
 exports['default'] = ErrorDisplay;
 module.exports = exports['default'];
 
-},{"./component":48,"./utils/dom.js":107}],79:[function(_dereq_,module,exports){
+},{"./component":58,"./utils/dom.js":118}],90:[function(_dereq_,module,exports){
 /**
  * @file event-target.js
  */
@@ -48128,7 +49007,7 @@ EventTarget.prototype.dispatchEvent = EventTarget.prototype.trigger;
 exports['default'] = EventTarget;
 module.exports = exports['default'];
 
-},{"./utils/events.js":108}],80:[function(_dereq_,module,exports){
+},{"./utils/events.js":119}],91:[function(_dereq_,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -48219,7 +49098,7 @@ var extendsFn = function extendsFn(superClass) {
 exports['default'] = extendsFn;
 module.exports = exports['default'];
 
-},{"./utils/log":112}],81:[function(_dereq_,module,exports){
+},{"./utils/log":123}],92:[function(_dereq_,module,exports){
 /**
  * @file fullscreen-api.js
  */
@@ -48276,7 +49155,7 @@ if (browserApi) {
 exports['default'] = FullscreenApi;
 module.exports = exports['default'];
 
-},{"global/document":1}],82:[function(_dereq_,module,exports){
+},{"global/document":1}],93:[function(_dereq_,module,exports){
 /**
  * @file loading-spinner.js
  */
@@ -48331,7 +49210,7 @@ _component2['default'].registerComponent('LoadingSpinner', LoadingSpinner);
 exports['default'] = LoadingSpinner;
 module.exports = exports['default'];
 
-},{"./component":48}],83:[function(_dereq_,module,exports){
+},{"./component":58}],94:[function(_dereq_,module,exports){
 /**
  * @file media-error.js
  */
@@ -48422,7 +49301,7 @@ for (var errNum = 0; errNum < MediaError.errorTypes.length; errNum++) {
 exports['default'] = MediaError;
 module.exports = exports['default'];
 
-},{"object.assign":40}],84:[function(_dereq_,module,exports){
+},{"object.assign":43}],95:[function(_dereq_,module,exports){
 /**
  * @file menu-button.js
  */
@@ -48696,7 +49575,7 @@ _componentJs2['default'].registerComponent('MenuButton', MenuButton);
 exports['default'] = MenuButton;
 module.exports = exports['default'];
 
-},{"../button.js":47,"../component.js":48,"../utils/dom.js":107,"../utils/fn.js":109,"../utils/to-title-case.js":116,"./menu.js":86}],85:[function(_dereq_,module,exports){
+},{"../button.js":57,"../component.js":58,"../utils/dom.js":118,"../utils/fn.js":120,"../utils/to-title-case.js":127,"./menu.js":97}],96:[function(_dereq_,module,exports){
 /**
  * @file menu-item.js
  */
@@ -48745,16 +49624,16 @@ var MenuItem = (function (_Button) {
    * Create the component's DOM element
    *
    * @param {String=} type Desc
-   * @param {Object=} props Desc 
+   * @param {Object=} props Desc
    * @return {Element}
    * @method createEl
    */
 
-  MenuItem.prototype.createEl = function createEl(type, props) {
+  MenuItem.prototype.createEl = function createEl(type, props, attrs) {
     return _Button.prototype.createEl.call(this, 'li', _objectAssign2['default']({
       className: 'vjs-menu-item',
       innerHTML: this.localize(this.options_['label'])
-    }, props));
+    }, props), attrs);
   };
 
   /**
@@ -48791,7 +49670,7 @@ _componentJs2['default'].registerComponent('MenuItem', MenuItem);
 exports['default'] = MenuItem;
 module.exports = exports['default'];
 
-},{"../button.js":47,"../component.js":48,"object.assign":40}],86:[function(_dereq_,module,exports){
+},{"../button.js":57,"../component.js":58,"object.assign":43}],97:[function(_dereq_,module,exports){
 /**
  * @file menu.js
  */
@@ -48889,7 +49768,7 @@ _componentJs2['default'].registerComponent('Menu', Menu);
 exports['default'] = Menu;
 module.exports = exports['default'];
 
-},{"../component.js":48,"../utils/dom.js":107,"../utils/events.js":108,"../utils/fn.js":109}],87:[function(_dereq_,module,exports){
+},{"../component.js":58,"../utils/dom.js":118,"../utils/events.js":119,"../utils/fn.js":120}],98:[function(_dereq_,module,exports){
 /**
  * @file player.js
  */
@@ -49190,10 +50069,10 @@ var Player = (function (_Component) {
     // like the control bar show themselves if needed
     this.userActive(true);
     this.reportUserActivity();
-    this.listenForUserActivity();
+    this.listenForUserActivity_();
 
-    this.on('fullscreenchange', this.handleFullscreenChange);
-    this.on('stageclick', this.handleStageClick);
+    this.on('fullscreenchange', this.handleFullscreenChange_);
+    this.on('stageclick', this.handleStageClick_);
   }
 
   /*
@@ -49231,8 +50110,8 @@ var Player = (function (_Component) {
       this.el_.player = null;
     }
 
-    if (this.tech) {
-      this.tech.dispose();
+    if (this.tech_) {
+      this.tech_.dispose();
     }
 
     _Component.prototype.dispose.call(this);
@@ -49473,14 +50352,15 @@ var Player = (function (_Component) {
    *
    * @param {String} techName Name of the playback technology
    * @param {String} source Video source
-   * @method loadTech
+   * @method loadTech_
+   * @private
    */
 
-  Player.prototype.loadTech = function loadTech(techName, source) {
+  Player.prototype.loadTech_ = function loadTech_(techName, source) {
 
     // Pause and remove current playback technology
-    if (this.tech) {
-      this.unloadTech();
+    if (this.tech_) {
+      this.unloadTech_();
     }
 
     // get rid of the HTML5 video tag as soon as we are using another tech
@@ -49490,7 +50370,7 @@ var Player = (function (_Component) {
       this.tag = null;
     }
 
-    this.techName = techName;
+    this.techName_ = techName;
 
     // Turn off API access because we're loading a new tech that might load asynchronously
     this.isReady_ = false;
@@ -49530,50 +50410,50 @@ var Player = (function (_Component) {
 
     // Initialize tech instance
     var techComponent = _componentJs2['default'].getComponent(techName);
-    this.tech = new techComponent(techOptions);
+    this.tech_ = new techComponent(techOptions);
 
-    _tracksTextTrackListConverterJs2['default'].jsonToTextTracks(this.textTracksJson_ || [], this.tech);
+    _tracksTextTrackListConverterJs2['default'].jsonToTextTracks(this.textTracksJson_ || [], this.tech_);
 
-    this.on(this.tech, 'ready', this.handleTechReady);
+    this.on(this.tech_, 'ready', this.handleTechReady_);
 
     // Listen to every HTML5 events and trigger them back on the player for the plugins
-    this.on(this.tech, 'loadstart', this.handleTechLoadStart);
-    this.on(this.tech, 'waiting', this.handleTechWaiting);
-    this.on(this.tech, 'canplay', this.handleTechCanPlay);
-    this.on(this.tech, 'canplaythrough', this.handleTechCanPlayThrough);
-    this.on(this.tech, 'playing', this.handleTechPlaying);
-    this.on(this.tech, 'ended', this.handleTechEnded);
-    this.on(this.tech, 'seeking', this.handleTechSeeking);
-    this.on(this.tech, 'seeked', this.handleTechSeeked);
-    this.on(this.tech, 'play', this.handleTechPlay);
-    this.on(this.tech, 'firstplay', this.handleTechFirstPlay);
-    this.on(this.tech, 'pause', this.handleTechPause);
-    this.on(this.tech, 'progress', this.handleTechProgress);
-    this.on(this.tech, 'durationchange', this.handleTechDurationChange);
-    this.on(this.tech, 'fullscreenchange', this.handleTechFullscreenChange);
-    this.on(this.tech, 'error', this.handleTechError);
-    this.on(this.tech, 'suspend', this.handleTechSuspend);
-    this.on(this.tech, 'abort', this.handleTechAbort);
-    this.on(this.tech, 'emptied', this.handleTechEmptied);
-    this.on(this.tech, 'stalled', this.handleTechStalled);
-    this.on(this.tech, 'loadedmetadata', this.handleTechLoadedMetaData);
-    this.on(this.tech, 'loadeddata', this.handleTechLoadedData);
-    this.on(this.tech, 'timeupdate', this.handleTechTimeUpdate);
-    this.on(this.tech, 'ratechange', this.handleTechRateChange);
-    this.on(this.tech, 'volumechange', this.handleTechVolumeChange);
-    this.on(this.tech, 'texttrackchange', this.onTextTrackChange);
-    this.on(this.tech, 'loadedmetadata', this.updateStyleEl_);
+    this.on(this.tech_, 'loadstart', this.handleTechLoadStart_);
+    this.on(this.tech_, 'waiting', this.handleTechWaiting_);
+    this.on(this.tech_, 'canplay', this.handleTechCanPlay_);
+    this.on(this.tech_, 'canplaythrough', this.handleTechCanPlayThrough_);
+    this.on(this.tech_, 'playing', this.handleTechPlaying_);
+    this.on(this.tech_, 'ended', this.handleTechEnded_);
+    this.on(this.tech_, 'seeking', this.handleTechSeeking_);
+    this.on(this.tech_, 'seeked', this.handleTechSeeked_);
+    this.on(this.tech_, 'play', this.handleTechPlay_);
+    this.on(this.tech_, 'firstplay', this.handleTechFirstPlay_);
+    this.on(this.tech_, 'pause', this.handleTechPause_);
+    this.on(this.tech_, 'progress', this.handleTechProgress_);
+    this.on(this.tech_, 'durationchange', this.handleTechDurationChange_);
+    this.on(this.tech_, 'fullscreenchange', this.handleTechFullscreenChange_);
+    this.on(this.tech_, 'error', this.handleTechError_);
+    this.on(this.tech_, 'suspend', this.handleTechSuspend_);
+    this.on(this.tech_, 'abort', this.handleTechAbort_);
+    this.on(this.tech_, 'emptied', this.handleTechEmptied_);
+    this.on(this.tech_, 'stalled', this.handleTechStalled_);
+    this.on(this.tech_, 'loadedmetadata', this.handleTechLoadedMetaData_);
+    this.on(this.tech_, 'loadeddata', this.handleTechLoadedData_);
+    this.on(this.tech_, 'timeupdate', this.handleTechTimeUpdate_);
+    this.on(this.tech_, 'ratechange', this.handleTechRateChange_);
+    this.on(this.tech_, 'volumechange', this.handleTechVolumeChange_);
+    this.on(this.tech_, 'texttrackchange', this.handleTechTextTrackChange_);
+    this.on(this.tech_, 'loadedmetadata', this.updateStyleEl_);
 
-    this.usingNativeControls(this.techGet('controls'));
+    this.usingNativeControls(this.techGet_('controls'));
 
     if (this.controls() && !this.usingNativeControls()) {
-      this.addTechControlsListeners();
+      this.addTechControlsListeners_();
     }
 
     // Add the tech element in the DOM if it was not already there
     // Make sure to not insert the original video element if using Html5
-    if (this.tech.el().parentNode !== this.el() && (techName !== 'Html5' || !this.tag)) {
-      Dom.insertElFirst(this.tech.el(), this.el());
+    if (this.tech_.el().parentNode !== this.el() && (techName !== 'Html5' || !this.tag)) {
+      Dom.insertElFirst(this.tech_.el(), this.el());
     }
 
     // Get rid of the original video tag reference after the first tech is loaded
@@ -49583,89 +50463,92 @@ var Player = (function (_Component) {
     }
 
     // player.triggerReady is always async, so don't need this to be async
-    this.tech.ready(techReady, true);
+    this.tech_.ready(techReady, true);
   };
 
   /**
    * Unload playback technology
    *
-   * @method unloadTech
+   * @method unloadTech_
+   * @private
    */
 
-  Player.prototype.unloadTech = function unloadTech() {
+  Player.prototype.unloadTech_ = function unloadTech_() {
     // Save the current text tracks so that we can reuse the same text tracks with the next tech
     this.textTracks_ = this.textTracks();
     this.textTracksJson_ = _tracksTextTrackListConverterJs2['default'].textTracksToJson(this);
 
     this.isReady_ = false;
 
-    this.tech.dispose();
+    this.tech_.dispose();
 
-    this.tech = false;
+    this.tech_ = false;
   };
 
   /**
    * Add playback technology listeners
-  *
-   * @method addTechControlsListeners
+   *
+   * @private
+   * @method addTechControlsListeners_
    */
 
-  Player.prototype.addTechControlsListeners = function addTechControlsListeners() {
+  Player.prototype.addTechControlsListeners_ = function addTechControlsListeners_() {
     // Make sure to remove all the previous listeners in case we are called multiple times.
-    this.removeTechControlsListeners();
+    this.removeTechControlsListeners_();
 
     // Some browsers (Chrome & IE) don't trigger a click on a flash swf, but do
     // trigger mousedown/up.
     // http://stackoverflow.com/questions/1444562/javascript-onclick-event-over-flash-object
     // Any touch events are set to block the mousedown event from happening
-    this.on(this.tech, 'mousedown', this.handleTechClick);
+    this.on(this.tech_, 'mousedown', this.handleTechClick_);
 
     // If the controls were hidden we don't want that to change without a tap event
     // so we'll check if the controls were already showing before reporting user
     // activity
-    this.on(this.tech, 'touchstart', this.handleTechTouchStart);
-    this.on(this.tech, 'touchmove', this.handleTechTouchMove);
-    this.on(this.tech, 'touchend', this.handleTechTouchEnd);
+    this.on(this.tech_, 'touchstart', this.handleTechTouchStart_);
+    this.on(this.tech_, 'touchmove', this.handleTechTouchMove_);
+    this.on(this.tech_, 'touchend', this.handleTechTouchEnd_);
 
     // The tap listener needs to come after the touchend listener because the tap
     // listener cancels out any reportedUserActivity when setting userActive(false)
-    this.on(this.tech, 'tap', this.handleTechTap);
+    this.on(this.tech_, 'tap', this.handleTechTap_);
   };
 
   /**
    * Remove the listeners used for click and tap controls. This is needed for
    * toggling to controls disabled, where a tap/touch should do nothing.
    *
-   * @method removeTechControlsListeners
+   * @method removeTechControlsListeners_
+   * @private
    */
 
-  Player.prototype.removeTechControlsListeners = function removeTechControlsListeners() {
+  Player.prototype.removeTechControlsListeners_ = function removeTechControlsListeners_() {
     // We don't want to just use `this.off()` because there might be other needed
     // listeners added by techs that extend this.
-    this.off(this.tech, 'tap', this.handleTechTap);
-    this.off(this.tech, 'touchstart', this.handleTechTouchStart);
-    this.off(this.tech, 'touchmove', this.handleTechTouchMove);
-    this.off(this.tech, 'touchend', this.handleTechTouchEnd);
-    this.off(this.tech, 'mousedown', this.handleTechClick);
+    this.off(this.tech_, 'tap', this.handleTechTap_);
+    this.off(this.tech_, 'touchstart', this.handleTechTouchStart_);
+    this.off(this.tech_, 'touchmove', this.handleTechTouchMove_);
+    this.off(this.tech_, 'touchend', this.handleTechTouchEnd_);
+    this.off(this.tech_, 'mousedown', this.handleTechClick_);
   };
 
   /**
    * Player waits for the tech to be ready
-  *
+   *
+   * @method handleTechReady_
    * @private
-   * @method handleTechReady
    */
 
-  Player.prototype.handleTechReady = function handleTechReady() {
+  Player.prototype.handleTechReady_ = function handleTechReady_() {
     this.triggerReady();
 
     // Keep the same volume as before
     if (this.cache_.volume) {
-      this.techCall('setVolume', this.cache_.volume);
+      this.techCall_('setVolume', this.cache_.volume);
     }
 
     // Update the duration if available
-    this.handleTechDurationChange();
+    this.handleTechDurationChange_();
 
     // Chrome and Safari both have issues with autoplay.
     // In Safari (5.1.1), when we move the video element into the container div, autoplay doesn't work.
@@ -49680,10 +50563,11 @@ var Player = (function (_Component) {
   /**
    * Fired when the user agent begins looking for media data
    *
-   * @event loadstart
+   * @private
+   * @method handleTechLoadStart_
    */
 
-  Player.prototype.handleTechLoadStart = function handleTechLoadStart() {
+  Player.prototype.handleTechLoadStart_ = function handleTechLoadStart_() {
     // TODO: Update to use `emptied` event instead. See #1277.
 
     this.removeClass('vjs-ended');
@@ -49709,6 +50593,7 @@ var Player = (function (_Component) {
    *
    * @param {Boolean} hasStarted The value of true adds the class the value of false remove the class
    * @return {Boolean} Boolean value if has started
+   * @private
    * @method hasStarted
    */
 
@@ -49733,10 +50618,11 @@ var Player = (function (_Component) {
   /**
    * Fired whenever the media begins or resumes playback
    *
-   * @event play
+   * @private
+   * @method handleTechPlay_
    */
 
-  Player.prototype.handleTechPlay = function handleTechPlay() {
+  Player.prototype.handleTechPlay_ = function handleTechPlay_() {
     this.removeClass('vjs-ended');
     this.removeClass('vjs-paused');
     this.addClass('vjs-playing');
@@ -49751,10 +50637,11 @@ var Player = (function (_Component) {
   /**
    * Fired whenever the media begins waiting
    *
-   * @event waiting
+   * @private
+   * @method handleTechWaiting_
    */
 
-  Player.prototype.handleTechWaiting = function handleTechWaiting() {
+  Player.prototype.handleTechWaiting_ = function handleTechWaiting_() {
     this.addClass('vjs-waiting');
     this.trigger('waiting');
   };
@@ -49763,10 +50650,11 @@ var Player = (function (_Component) {
    * A handler for events that signal that waiting has ended
    * which is not consistent between browsers. See #1351
    *
-   * @event canplay
+   * @private
+   * @method handleTechCanPlay_
    */
 
-  Player.prototype.handleTechCanPlay = function handleTechCanPlay() {
+  Player.prototype.handleTechCanPlay_ = function handleTechCanPlay_() {
     this.removeClass('vjs-waiting');
     this.trigger('canplay');
   };
@@ -49775,10 +50663,11 @@ var Player = (function (_Component) {
    * A handler for events that signal that waiting has ended
    * which is not consistent between browsers. See #1351
    *
-   * @event canplaythrough
+   * @private
+   * @method handleTechCanPlayThrough_
    */
 
-  Player.prototype.handleTechCanPlayThrough = function handleTechCanPlayThrough() {
+  Player.prototype.handleTechCanPlayThrough_ = function handleTechCanPlayThrough_() {
     this.removeClass('vjs-waiting');
     this.trigger('canplaythrough');
   };
@@ -49787,10 +50676,11 @@ var Player = (function (_Component) {
    * A handler for events that signal that waiting has ended
    * which is not consistent between browsers. See #1351
    *
-   * @event playing
+   * @private
+   * @method handleTechPlaying_
    */
 
-  Player.prototype.handleTechPlaying = function handleTechPlaying() {
+  Player.prototype.handleTechPlaying_ = function handleTechPlaying_() {
     this.removeClass('vjs-waiting');
     this.trigger('playing');
   };
@@ -49798,10 +50688,11 @@ var Player = (function (_Component) {
   /**
    * Fired whenever the player is jumping to a new time
    *
-   * @event seeking
+   * @private
+   * @method handleTechSeeking_
    */
 
-  Player.prototype.handleTechSeeking = function handleTechSeeking() {
+  Player.prototype.handleTechSeeking_ = function handleTechSeeking_() {
     this.addClass('vjs-seeking');
     this.trigger('seeking');
   };
@@ -49809,10 +50700,11 @@ var Player = (function (_Component) {
   /**
    * Fired when the player has finished jumping to a new time
    *
-   * @event seeked
+   * @private
+   * @method handleTechSeeked_
    */
 
-  Player.prototype.handleTechSeeked = function handleTechSeeked() {
+  Player.prototype.handleTechSeeked_ = function handleTechSeeked_() {
     this.removeClass('vjs-seeking');
     this.trigger('seeked');
   };
@@ -49823,10 +50715,11 @@ var Player = (function (_Component) {
    * implementation yet, so use sparingly. If you don't have a reason to
    * prevent playback, use `myPlayer.one('play');` instead.
    *
-   * @event firstplay
+   * @private
+   * @method handleTechFirstPlay_
    */
 
-  Player.prototype.handleTechFirstPlay = function handleTechFirstPlay() {
+  Player.prototype.handleTechFirstPlay_ = function handleTechFirstPlay_() {
     //If the first starttime attribute is specified
     //then we will start at the given offset in seconds
     if (this.options_.starttime) {
@@ -49840,10 +50733,11 @@ var Player = (function (_Component) {
   /**
    * Fired whenever the media has been paused
    *
-   * @event pause
+   * @private
+   * @method handleTechPause_
    */
 
-  Player.prototype.handleTechPause = function handleTechPause() {
+  Player.prototype.handleTechPause_ = function handleTechPause_() {
     this.removeClass('vjs-playing');
     this.addClass('vjs-paused');
     this.trigger('pause');
@@ -49852,25 +50746,22 @@ var Player = (function (_Component) {
   /**
    * Fired while the user agent is downloading media data
    *
-   * @event progress
+   * @private
+   * @method handleTechProgress_
    */
 
-  Player.prototype.handleTechProgress = function handleTechProgress() {
+  Player.prototype.handleTechProgress_ = function handleTechProgress_() {
     this.trigger('progress');
-
-    // Add custom event for when source is finished downloading.
-    if (this.bufferedPercent() === 1) {
-      this.trigger('loadedalldata');
-    }
   };
 
   /**
    * Fired when the end of the media resource is reached (currentTime == duration)
    *
-   * @event ended
+   * @private
+   * @method handleTechEnded_
    */
 
-  Player.prototype.handleTechEnded = function handleTechEnded() {
+  Player.prototype.handleTechEnded_ = function handleTechEnded_() {
     this.addClass('vjs-ended');
     if (this.options_.loop) {
       this.currentTime(0);
@@ -49885,21 +50776,23 @@ var Player = (function (_Component) {
   /**
    * Fired when the duration of the media resource is first known or changed
    *
-   * @event durationchange
+   * @private
+   * @method handleTechDurationChange_
    */
 
-  Player.prototype.handleTechDurationChange = function handleTechDurationChange() {
-    this.duration(this.techGet('duration'));
+  Player.prototype.handleTechDurationChange_ = function handleTechDurationChange_() {
+    this.duration(this.techGet_('duration'));
   };
 
   /**
    * Handle a click on the media element to play/pause
    *
    * @param {Object=} event Event object
-   * @method handleTechClick
+   * @private
+   * @method handleTechClick_
    */
 
-  Player.prototype.handleTechClick = function handleTechClick(event) {
+  Player.prototype.handleTechClick_ = function handleTechClick_(event) {
     // We're using mousedown to detect clicks thanks to Flash, but mousedown
     // will also be triggered with right-clicks, so we need to prevent that
     if (event.button !== 0) return;
@@ -49919,30 +50812,33 @@ var Player = (function (_Component) {
    * Handle a tap on the media element. It will toggle the user
    * activity state, which hides and shows the controls.
    *
-   * @method handleTechTap
+   * @private
+   * @method handleTechTap_
    */
 
-  Player.prototype.handleTechTap = function handleTechTap() {
+  Player.prototype.handleTechTap_ = function handleTechTap_() {
     this.userActive(!this.userActive());
   };
 
   /**
    * Handle touch to start
    *
-   * @method handleTechTouchStart
+   * @private
+   * @method handleTechTouchStart_
    */
 
-  Player.prototype.handleTechTouchStart = function handleTechTouchStart() {
+  Player.prototype.handleTechTouchStart_ = function handleTechTouchStart_() {
     this.userWasActive = this.userActive();
   };
 
   /**
    * Handle touch to move
    *
-   * @method handleTechTouchMove
+   * @private
+   * @method handleTechTouchMove_
    */
 
-  Player.prototype.handleTechTouchMove = function handleTechTouchMove() {
+  Player.prototype.handleTechTouchMove_ = function handleTechTouchMove_() {
     if (this.userWasActive) {
       this.reportUserActivity();
     }
@@ -49951,10 +50847,11 @@ var Player = (function (_Component) {
   /**
    * Handle touch to end
    *
-   * @method handleTechTouchEnd
+   * @private
+   * @method handleTechTouchEnd_
    */
 
-  Player.prototype.handleTechTouchEnd = function handleTechTouchEnd(event) {
+  Player.prototype.handleTechTouchEnd_ = function handleTechTouchEnd_(event) {
     // Stop the mouse events from also happening
     event.preventDefault();
   };
@@ -49962,10 +50859,11 @@ var Player = (function (_Component) {
   /**
    * Fired when the player switches in or out of fullscreen mode
    *
-   * @event fullscreenchange
+   * @private
+   * @method handleFullscreenChange_
    */
 
-  Player.prototype.handleFullscreenChange = function handleFullscreenChange() {
+  Player.prototype.handleFullscreenChange_ = function handleFullscreenChange_() {
     if (this.isFullscreen()) {
       this.addClass('vjs-fullscreen');
     } else {
@@ -49978,20 +50876,21 @@ var Player = (function (_Component) {
    * use stageclick events triggered from inside the SWF instead
    *
    * @private
-   * @method handleStageClick
+   * @method handleStageClick_
    */
 
-  Player.prototype.handleStageClick = function handleStageClick() {
+  Player.prototype.handleStageClick_ = function handleStageClick_() {
     this.reportUserActivity();
   };
 
   /**
    * Handle Tech Fullscreen Change
    *
-   * @method handleTechFullscreenChange
+   * @private
+   * @method handleTechFullscreenChange_
    */
 
-  Player.prototype.handleTechFullscreenChange = function handleTechFullscreenChange(event, data) {
+  Player.prototype.handleTechFullscreenChange_ = function handleTechFullscreenChange_(event, data) {
     if (data) {
       this.isFullscreen(data.isFullscreen);
     }
@@ -50001,111 +50900,122 @@ var Player = (function (_Component) {
   /**
    * Fires when an error occurred during the loading of an audio/video
    *
-   * @event error
+   * @private
+   * @method handleTechError_
    */
 
-  Player.prototype.handleTechError = function handleTechError() {
-    var error = this.tech.error();
+  Player.prototype.handleTechError_ = function handleTechError_() {
+    var error = this.tech_.error();
     this.error(error && error.code);
   };
 
   /**
    * Fires when the browser is intentionally not getting media data
    *
-   * @event suspend
+   * @private
+   * @method handleTechSuspend_
    */
 
-  Player.prototype.handleTechSuspend = function handleTechSuspend() {
+  Player.prototype.handleTechSuspend_ = function handleTechSuspend_() {
     this.trigger('suspend');
   };
 
   /**
    * Fires when the loading of an audio/video is aborted
    *
-   * @event abort
+   * @private
+   * @method handleTechAbort_
    */
 
-  Player.prototype.handleTechAbort = function handleTechAbort() {
+  Player.prototype.handleTechAbort_ = function handleTechAbort_() {
     this.trigger('abort');
   };
 
   /**
    * Fires when the current playlist is empty
    *
-   * @event emptied
+   * @private
+   * @method handleTechEmptied_
    */
 
-  Player.prototype.handleTechEmptied = function handleTechEmptied() {
+  Player.prototype.handleTechEmptied_ = function handleTechEmptied_() {
     this.trigger('emptied');
   };
 
   /**
    * Fires when the browser is trying to get media data, but data is not available
    *
-   * @event stalled
+   * @private
+   * @method handleTechStalled_
    */
 
-  Player.prototype.handleTechStalled = function handleTechStalled() {
+  Player.prototype.handleTechStalled_ = function handleTechStalled_() {
     this.trigger('stalled');
   };
 
   /**
    * Fires when the browser has loaded meta data for the audio/video
    *
-   * @event loadedmetadata
+   * @private
+   * @method handleTechLoadedMetaData_
    */
 
-  Player.prototype.handleTechLoadedMetaData = function handleTechLoadedMetaData() {
+  Player.prototype.handleTechLoadedMetaData_ = function handleTechLoadedMetaData_() {
     this.trigger('loadedmetadata');
   };
 
   /**
    * Fires when the browser has loaded the current frame of the audio/video
    *
-   * @event loaddata
+   * @private
+   * @method handleTechLoadedData_
    */
 
-  Player.prototype.handleTechLoadedData = function handleTechLoadedData() {
+  Player.prototype.handleTechLoadedData_ = function handleTechLoadedData_() {
     this.trigger('loadeddata');
   };
 
   /**
    * Fires when the current playback position has changed
    *
-   * @event timeupdate
+   * @private
+   * @method handleTechTimeUpdate_
    */
 
-  Player.prototype.handleTechTimeUpdate = function handleTechTimeUpdate() {
+  Player.prototype.handleTechTimeUpdate_ = function handleTechTimeUpdate_() {
     this.trigger('timeupdate');
   };
 
   /**
    * Fires when the playing speed of the audio/video is changed
    *
-   * @event ratechange
+   * @private
+   * @method handleTechRateChange_
    */
 
-  Player.prototype.handleTechRateChange = function handleTechRateChange() {
+  Player.prototype.handleTechRateChange_ = function handleTechRateChange_() {
     this.trigger('ratechange');
   };
 
   /**
    * Fires when the volume has been changed
    *
-   * @event volumechange
+   * @private
+   * @method handleTechVolumeChange_
    */
 
-  Player.prototype.handleTechVolumeChange = function handleTechVolumeChange() {
+  Player.prototype.handleTechVolumeChange_ = function handleTechVolumeChange_() {
     this.trigger('volumechange');
   };
 
   /**
    * Fires when the text track has been changed
    *
-   * @event texttrackchange
+   * @private
+   * @method handleTechTextTrackChange_
    */
 
-  Player.prototype.onTextTrackChange = function onTextTrackChange() {
+  Player.prototype.handleTechTextTrackChange_ = function handleTechTextTrackChange_() {
     this.trigger('texttrackchange');
   };
 
@@ -50125,20 +51035,21 @@ var Player = (function (_Component) {
    *
    * @param {String=} method Method
    * @param {Object=} arg Argument
-   * @method techCall
+   * @private
+   * @method techCall_
    */
 
-  Player.prototype.techCall = function techCall(method, arg) {
+  Player.prototype.techCall_ = function techCall_(method, arg) {
     // If it's not ready yet, call method when it is
-    if (this.tech && !this.tech.isReady_) {
-      this.tech.ready(function () {
+    if (this.tech_ && !this.tech_.isReady_) {
+      this.tech_.ready(function () {
         this[method](arg);
       }, true);
 
       // Otherwise call method now
     } else {
         try {
-          this.tech[method](arg);
+          this.tech_[method](arg);
         } catch (e) {
           _utilsLogJs2['default'](e);
           throw e;
@@ -50151,26 +51062,27 @@ var Player = (function (_Component) {
    *
    * @param {String} method Tech method
    * @return {Method}
-   * @method techGet
+   * @private
+   * @method techGet_
    */
 
-  Player.prototype.techGet = function techGet(method) {
-    if (this.tech && this.tech.isReady_) {
+  Player.prototype.techGet_ = function techGet_(method) {
+    if (this.tech_ && this.tech_.isReady_) {
 
       // Flash likes to die and reload when you hide or reposition it.
       // In these cases the object methods go away and we get errors.
       // When that happens we'll catch the errors and inform tech that it's not ready any more.
       try {
-        return this.tech[method]();
+        return this.tech_[method]();
       } catch (e) {
         // When building additional tech libs, an expected method may not be defined yet
-        if (this.tech[method] === undefined) {
-          _utilsLogJs2['default']('Video.js: ' + method + ' method not defined for ' + this.techName + ' playback technology.', e);
+        if (this.tech_[method] === undefined) {
+          _utilsLogJs2['default']('Video.js: ' + method + ' method not defined for ' + this.techName_ + ' playback technology.', e);
         } else {
           // When a method isn't available on the object it throws a TypeError
           if (e.name === 'TypeError') {
-            _utilsLogJs2['default']('Video.js: ' + method + ' unavailable on ' + this.techName + ' playback technology element.', e);
-            this.tech.isReady_ = false;
+            _utilsLogJs2['default']('Video.js: ' + method + ' unavailable on ' + this.techName_ + ' playback technology element.', e);
+            this.tech_.isReady_ = false;
           } else {
             _utilsLogJs2['default'](e);
           }
@@ -50193,7 +51105,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.play = function play() {
-    this.techCall('play');
+    this.techCall_('play');
     return this;
   };
 
@@ -50208,7 +51120,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.pause = function pause() {
-    this.techCall('pause');
+    this.techCall_('pause');
     return this;
   };
 
@@ -50225,7 +51137,7 @@ var Player = (function (_Component) {
 
   Player.prototype.paused = function paused() {
     // The initial state of paused should be true (in Safari it's actually false)
-    return this.techGet('paused') === false ? false : true;
+    return this.techGet_('paused') === false ? false : true;
   };
 
   /**
@@ -50272,7 +51184,7 @@ var Player = (function (_Component) {
   Player.prototype.currentTime = function currentTime(seconds) {
     if (seconds !== undefined) {
 
-      this.techCall('setCurrentTime', seconds);
+      this.techCall_('setCurrentTime', seconds);
 
       return this;
     }
@@ -50283,7 +51195,7 @@ var Player = (function (_Component) {
     // currentTime when scrubbing, but may not provide much performance benefit afterall.
     // Should be tested. Also something has to read the actual current time or the cache will
     // never get updated.
-    return this.cache_.currentTime = this.techGet('currentTime') || 0;
+    return this.cache_.currentTime = this.techGet_('currentTime') || 0;
   };
 
   /**
@@ -50367,7 +51279,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.buffered = function buffered() {
-    var buffered = this.techGet('buffered');
+    var buffered = this.techGet_('buffered');
 
     if (!buffered || !buffered.length) {
       buffered = _utilsTimeRangesJs.createTimeRange(0, 0);
@@ -50434,13 +51346,13 @@ var Player = (function (_Component) {
     if (percentAsDecimal !== undefined) {
       vol = Math.max(0, Math.min(1, parseFloat(percentAsDecimal))); // Force value to between 0 and 1
       this.cache_.volume = vol;
-      this.techCall('setVolume', vol);
+      this.techCall_('setVolume', vol);
 
       return this;
     }
 
     // Default to 1 when returning current volume.
-    vol = parseFloat(this.techGet('volume'));
+    vol = parseFloat(this.techGet_('volume'));
     return isNaN(vol) ? 1 : vol;
   };
 
@@ -50461,10 +51373,10 @@ var Player = (function (_Component) {
 
   Player.prototype.muted = function muted(_muted) {
     if (_muted !== undefined) {
-      this.techCall('setMuted', _muted);
+      this.techCall_('setMuted', _muted);
       return this;
     }
-    return this.techGet('muted') || false; // Default to false
+    return this.techGet_('muted') || false; // Default to false
   };
 
   // Check if current tech can support native fullscreen
@@ -50477,7 +51389,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.supportsFullScreen = function supportsFullScreen() {
-    return this.techGet('supportsFullScreen') || false;
+    return this.techGet_('supportsFullScreen') || false;
   };
 
   /**
@@ -50548,10 +51460,10 @@ var Player = (function (_Component) {
       }));
 
       this.el_[fsApi.requestFullscreen]();
-    } else if (this.tech.supportsFullScreen()) {
+    } else if (this.tech_.supportsFullScreen()) {
       // we can't take the video.js controls fullscreen but we can go fullscreen
       // with native controls
-      this.techCall('enterFullScreen');
+      this.techCall_('enterFullScreen');
     } else {
       // fullscreen isn't supported so we'll just stretch the video element to
       // fill the viewport
@@ -50579,8 +51491,8 @@ var Player = (function (_Component) {
     // Check for browser element fullscreen support
     if (fsApi.requestFullscreen) {
       _globalDocument2['default'][fsApi.exitFullscreen]();
-    } else if (this.tech.supportsFullScreen()) {
-      this.techCall('exitFullScreen');
+    } else if (this.tech_.supportsFullScreen()) {
+      this.techCall_('exitFullScreen');
     } else {
       this.exitFullWindow();
       this.trigger('fullscreenchange');
@@ -50723,10 +51635,10 @@ var Player = (function (_Component) {
 
   Player.prototype.src = function src(source) {
     if (source === undefined) {
-      return this.techGet('src');
+      return this.techGet_('src');
     }
 
-    var currentTech = _componentJs2['default'].getComponent(this.techName);
+    var currentTech = _componentJs2['default'].getComponent(this.techName_);
 
     // case: Array of source objects to choose from and pick the best to play
     if (Array.isArray(source)) {
@@ -50757,9 +51669,9 @@ var Player = (function (_Component) {
               // We need to check the direct prototype for the case where subclasses
               // of the tech do not support source handlers
               if (currentTech.prototype.hasOwnProperty('setSource')) {
-                this.techCall('setSource', source);
+                this.techCall_('setSource', source);
               } else {
-                this.techCall('src', source.src);
+                this.techCall_('src', source.src);
               }
 
               if (this.options_.preload === 'auto') {
@@ -50790,12 +51702,12 @@ var Player = (function (_Component) {
     var sourceTech = this.selectSource(sources);
 
     if (sourceTech) {
-      if (sourceTech.tech === this.techName) {
+      if (sourceTech.tech === this.techName_) {
         // if this technology is already loaded, set the source
         this.src(sourceTech.source);
       } else {
         // load this technology with the chosen source
-        this.loadTech(sourceTech.tech, sourceTech.source);
+        this.loadTech_(sourceTech.tech, sourceTech.source);
       }
     } else {
       // We need to wrap this in a timeout to give folks a chance to add error event handlers
@@ -50817,7 +51729,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.load = function load() {
-    this.techCall('load');
+    this.techCall_('load');
     return this;
   };
 
@@ -50830,7 +51742,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.currentSrc = function currentSrc() {
-    return this.techGet('currentSrc') || this.cache_.src || '';
+    return this.techGet_('currentSrc') || this.cache_.src || '';
   };
 
   /**
@@ -50857,11 +51769,11 @@ var Player = (function (_Component) {
 
   Player.prototype.preload = function preload(value) {
     if (value !== undefined) {
-      this.techCall('setPreload', value);
+      this.techCall_('setPreload', value);
       this.options_.preload = value;
       return this;
     }
-    return this.techGet('preload');
+    return this.techGet_('preload');
   };
 
   /**
@@ -50875,11 +51787,11 @@ var Player = (function (_Component) {
 
   Player.prototype.autoplay = function autoplay(value) {
     if (value !== undefined) {
-      this.techCall('setAutoplay', value);
+      this.techCall_('setAutoplay', value);
       this.options_.autoplay = value;
       return this;
     }
-    return this.techGet('autoplay', value);
+    return this.techGet_('autoplay', value);
   };
 
   /**
@@ -50893,11 +51805,11 @@ var Player = (function (_Component) {
 
   Player.prototype.loop = function loop(value) {
     if (value !== undefined) {
-      this.techCall('setLoop', value);
+      this.techCall_('setLoop', value);
       this.options_['loop'] = value;
       return this;
     }
-    return this.techGet('loop');
+    return this.techGet_('loop');
   };
 
   /**
@@ -50931,7 +51843,7 @@ var Player = (function (_Component) {
     this.poster_ = src;
 
     // update the tech's poster
-    this.techCall('setPoster', src);
+    this.techCall_('setPoster', src);
 
     // alert components that the poster has been set
     this.trigger('posterchange');
@@ -50955,7 +51867,7 @@ var Player = (function (_Component) {
         this.controls_ = bool;
 
         if (this.usingNativeControls()) {
-          this.techCall('setControls', bool);
+          this.techCall_('setControls', bool);
         }
 
         if (bool) {
@@ -50964,7 +51876,7 @@ var Player = (function (_Component) {
           this.trigger('controlsenabled');
 
           if (!this.usingNativeControls()) {
-            this.addTechControlsListeners();
+            this.addTechControlsListeners_();
           }
         } else {
           this.removeClass('vjs-controls-enabled');
@@ -50972,7 +51884,7 @@ var Player = (function (_Component) {
           this.trigger('controlsdisabled');
 
           if (!this.usingNativeControls()) {
-            this.removeTechControlsListeners();
+            this.removeTechControlsListeners_();
           }
         }
       }
@@ -51080,7 +51992,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.ended = function ended() {
-    return this.techGet('ended');
+    return this.techGet_('ended');
   };
 
   /**
@@ -51091,7 +52003,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.seeking = function seeking() {
-    return this.techGet('seeking');
+    return this.techGet_('seeking');
   };
 
   /**
@@ -51103,7 +52015,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.seekable = function seekable() {
-    return this.techGet('seekable');
+    return this.techGet_('seekable');
   };
 
   /**
@@ -51150,8 +52062,8 @@ var Player = (function (_Component) {
           //
           // When this gets resolved in ALL browsers it can be removed
           // https://code.google.com/p/chromium/issues/detail?id=103041
-          if (this.tech) {
-            this.tech.one('mousemove', function (e) {
+          if (this.tech_) {
+            this.tech_.one('mousemove', function (e) {
               e.stopPropagation();
               e.preventDefault();
             });
@@ -51170,10 +52082,11 @@ var Player = (function (_Component) {
   /**
    * Listen for user activity based on timeout value
    *
-   * @method listenForUserActivity
+   * @private
+   * @method listenForUserActivity_
    */
 
-  Player.prototype.listenForUserActivity = function listenForUserActivity() {
+  Player.prototype.listenForUserActivity_ = function listenForUserActivity_() {
     var mouseInProgress = undefined,
         lastMoveX = undefined,
         lastMoveY = undefined;
@@ -51267,12 +52180,12 @@ var Player = (function (_Component) {
 
   Player.prototype.playbackRate = function playbackRate(rate) {
     if (rate !== undefined) {
-      this.techCall('setPlaybackRate', rate);
+      this.techCall_('setPlaybackRate', rate);
       return this;
     }
 
-    if (this.tech && this.tech['featuresPlaybackRate']) {
-      return this.techGet('playbackRate');
+    if (this.tech_ && this.tech_['featuresPlaybackRate']) {
+      return this.techGet_('playbackRate');
     } else {
       return 1.0;
     }
@@ -51319,7 +52232,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.networkState = function networkState() {
-    return this.techGet('networkState');
+    return this.techGet_('networkState');
   };
 
   /**
@@ -51347,7 +52260,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.readyState = function readyState() {
-    return this.techGet('readyState');
+    return this.techGet_('readyState');
   };
 
   /*
@@ -51367,9 +52280,9 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.textTracks = function textTracks() {
-    // cannot use techGet directly because it checks to see whether the tech is ready.
+    // cannot use techGet_ directly because it checks to see whether the tech is ready.
     // Flash is unlikely to be ready in time but textTracks should still work.
-    return this.tech && this.tech['textTracks']();
+    return this.tech_ && this.tech_['textTracks']();
   };
 
   /**
@@ -51380,7 +52293,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.remoteTextTracks = function remoteTextTracks() {
-    return this.tech && this.tech['remoteTextTracks']();
+    return this.tech_ && this.tech_['remoteTextTracks']();
   };
 
   /**
@@ -51395,7 +52308,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.addTextTrack = function addTextTrack(kind, label, language) {
-    return this.tech && this.tech['addTextTrack'](kind, label, language);
+    return this.tech_ && this.tech_['addTextTrack'](kind, label, language);
   };
 
   /**
@@ -51406,7 +52319,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.addRemoteTextTrack = function addRemoteTextTrack(options) {
-    return this.tech && this.tech['addRemoteTextTrack'](options);
+    return this.tech_ && this.tech_['addRemoteTextTrack'](options);
   };
 
   /**
@@ -51417,7 +52330,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.removeRemoteTextTrack = function removeRemoteTextTrack(track) {
-    this.tech && this.tech['removeRemoteTextTrack'](track);
+    this.tech_ && this.tech_['removeRemoteTextTrack'](track);
   };
 
   /**
@@ -51428,7 +52341,7 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.videoWidth = function videoWidth() {
-    return this.tech && this.tech.videoWidth && this.tech.videoWidth() || 0;
+    return this.tech_ && this.tech_.videoWidth && this.tech_.videoWidth() || 0;
   };
 
   /**
@@ -51439,24 +52352,17 @@ var Player = (function (_Component) {
    */
 
   Player.prototype.videoHeight = function videoHeight() {
-    return this.tech && this.tech.videoHeight && this.tech.videoHeight() || 0;
+    return this.tech_ && this.tech_.videoHeight && this.tech_.videoHeight() || 0;
   };
 
   // Methods to add support for
-  // initialTime: function(){ return this.techCall('initialTime'); },
-  // startOffsetTime: function(){ return this.techCall('startOffsetTime'); },
-  // played: function(){ return this.techCall('played'); },
-  // seekable: function(){ return this.techCall('seekable'); },
-  // videoTracks: function(){ return this.techCall('videoTracks'); },
-  // audioTracks: function(){ return this.techCall('audioTracks'); },
-  // defaultPlaybackRate: function(){ return this.techCall('defaultPlaybackRate'); },
-  // mediaGroup: function(){ return this.techCall('mediaGroup'); },
-  // controller: function(){ return this.techCall('controller'); },
-  // defaultMuted: function(){ return this.techCall('defaultMuted'); }
-
-  // TODO
-  // currentSrcList: the array of sources including other formats and bitrates
-  // playList: array of source lists in order of playback
+  // initialTime: function(){ return this.techCall_('initialTime'); },
+  // startOffsetTime: function(){ return this.techCall_('startOffsetTime'); },
+  // played: function(){ return this.techCall_('played'); },
+  // videoTracks: function(){ return this.techCall_('videoTracks'); },
+  // audioTracks: function(){ return this.techCall_('audioTracks'); },
+  // defaultPlaybackRate: function(){ return this.techCall_('defaultPlaybackRate'); },
+  // defaultMuted: function(){ return this.techCall_('defaultMuted'); }
 
   /**
    * The player's language code
@@ -51630,35 +52536,28 @@ Player.prototype.options_ = {
  *
  * @event loadedmetadata
  */
-Player.prototype.handleLoadedMetaData;
+Player.prototype.handleLoadedMetaData_;
 
 /**
  * Fired when the player has downloaded data at the current playback position
  *
  * @event loadeddata
  */
-Player.prototype.handleLoadedData;
-
-/**
- * Fired when the player has finished downloading the source data
- *
- * @event loadedalldata
- */
-Player.prototype.handleLoadedAllData;
+Player.prototype.handleLoadedData_;
 
 /**
  * Fired when the user is active, e.g. moves the mouse over the player
  *
  * @event useractive
  */
-Player.prototype.handleUserActive;
+Player.prototype.handleUserActive_;
 
 /**
  * Fired when the user is inactive, e.g. a short delay after the last mouse move or control interaction
  *
  * @event userinactive
  */
-Player.prototype.handleUserInactive;
+Player.prototype.handleUserInactive_;
 
 /**
  * Fired when the current playback position has changed *
@@ -51667,21 +52566,21 @@ Player.prototype.handleUserInactive;
  *
  * @event timeupdate
  */
-Player.prototype.handleTimeUpdate;
+Player.prototype.handleTimeUpdate_;
 
 /**
  * Fired when the volume changes
  *
  * @event volumechange
  */
-Player.prototype.handleVolumeChange;
+Player.prototype.handleVolumeChange_;
 
 /**
  * Fired when an error occurs
  *
  * @event error
  */
-Player.prototype.handleError;
+Player.prototype.handleError_;
 
 Player.prototype.flexNotSupported_ = function () {
   var elem = _globalDocument2['default'].createElement('i');
@@ -51696,7 +52595,7 @@ exports['default'] = Player;
 module.exports = exports['default'];
 // If empty string, make it a parsable json object.
 
-},{"./big-play-button.js":46,"./component.js":48,"./control-bar/control-bar.js":49,"./error-display.js":78,"./fullscreen-api.js":81,"./loading-spinner.js":82,"./media-error.js":83,"./poster-image.js":89,"./tech/html5.js":94,"./tech/loader.js":95,"./tracks/text-track-display.js":98,"./tracks/text-track-list-converter.js":100,"./tracks/text-track-settings.js":102,"./utils/browser.js":104,"./utils/buffer.js":105,"./utils/dom.js":107,"./utils/events.js":108,"./utils/fn.js":109,"./utils/guid.js":111,"./utils/log.js":112,"./utils/merge-options.js":113,"./utils/stylesheet.js":114,"./utils/time-ranges.js":115,"./utils/to-title-case.js":116,"global/document":1,"global/window":2,"object.assign":40,"safe-json-parse/tuple":45}],88:[function(_dereq_,module,exports){
+},{"./big-play-button.js":56,"./component.js":58,"./control-bar/control-bar.js":59,"./error-display.js":89,"./fullscreen-api.js":92,"./loading-spinner.js":93,"./media-error.js":94,"./poster-image.js":100,"./tech/html5.js":105,"./tech/loader.js":106,"./tracks/text-track-display.js":109,"./tracks/text-track-list-converter.js":111,"./tracks/text-track-settings.js":113,"./utils/browser.js":115,"./utils/buffer.js":116,"./utils/dom.js":118,"./utils/events.js":119,"./utils/fn.js":120,"./utils/guid.js":122,"./utils/log.js":123,"./utils/merge-options.js":124,"./utils/stylesheet.js":125,"./utils/time-ranges.js":126,"./utils/to-title-case.js":127,"global/document":1,"global/window":2,"object.assign":43,"safe-json-parse/tuple":48}],99:[function(_dereq_,module,exports){
 /**
  * @file plugins.js
  */
@@ -51724,7 +52623,7 @@ var plugin = function plugin(name, init) {
 exports['default'] = plugin;
 module.exports = exports['default'];
 
-},{"./player.js":87}],89:[function(_dereq_,module,exports){
+},{"./player.js":98}],100:[function(_dereq_,module,exports){
 /**
  * @file poster-image.js
  */
@@ -51884,7 +52783,7 @@ _componentJs2['default'].registerComponent('PosterImage', PosterImage);
 exports['default'] = PosterImage;
 module.exports = exports['default'];
 
-},{"./button.js":47,"./component.js":48,"./utils/browser.js":104,"./utils/dom.js":107,"./utils/fn.js":109}],90:[function(_dereq_,module,exports){
+},{"./button.js":57,"./component.js":58,"./utils/browser.js":115,"./utils/dom.js":118,"./utils/fn.js":120}],101:[function(_dereq_,module,exports){
 /**
  * @file setup.js
  *
@@ -51994,7 +52893,7 @@ exports.autoSetup = autoSetup;
 exports.autoSetupTimeout = autoSetupTimeout;
 exports.hasLoaded = hasLoaded;
 
-},{"./utils/events.js":108,"global/document":1,"global/window":2}],91:[function(_dereq_,module,exports){
+},{"./utils/events.js":119,"global/document":1,"global/window":2}],102:[function(_dereq_,module,exports){
 /**
  * @file slider.js
  */
@@ -52070,18 +52969,23 @@ var Slider = (function (_Component) {
 
   Slider.prototype.createEl = function createEl(type) {
     var props = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var attributes = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
     // Add the slider element class to all sub classes
     props.className = props.className + ' vjs-slider';
     props = _objectAssign2['default']({
+      tabIndex: 0
+    }, props);
+
+    attributes = _objectAssign2['default']({
       'role': 'slider',
       'aria-valuenow': 0,
       'aria-valuemin': 0,
       'aria-valuemax': 100,
       tabIndex: 0
-    }, props);
+    }, attributes);
 
-    return _Component.prototype.createEl.call(this, type, props);
+    return _Component.prototype.createEl.call(this, type, props, attributes);
   };
 
   /**
@@ -52094,7 +52998,9 @@ var Slider = (function (_Component) {
   Slider.prototype.handleMouseDown = function handleMouseDown(event) {
     event.preventDefault();
     Dom.blockTextSelection();
+
     this.addClass('vjs-sliding');
+    this.trigger('slideractive');
 
     this.on(_globalDocument2['default'], 'mousemove', this.handleMouseMove);
     this.on(_globalDocument2['default'], 'mouseup', this.handleMouseUp);
@@ -52120,7 +53026,9 @@ var Slider = (function (_Component) {
 
   Slider.prototype.handleMouseUp = function handleMouseUp() {
     Dom.unblockTextSelection();
+
     this.removeClass('vjs-sliding');
+    this.trigger('sliderinactive');
 
     this.off(_globalDocument2['default'], 'mousemove', this.handleMouseMove);
     this.off(_globalDocument2['default'], 'mouseup', this.handleMouseUp);
@@ -52174,36 +53082,11 @@ var Slider = (function (_Component) {
    */
 
   Slider.prototype.calculateDistance = function calculateDistance(event) {
-    var el = this.el_;
-    var box = Dom.findElPosition(el);
-    var boxW = el.offsetWidth;
-    var boxH = el.offsetHeight;
-
+    var position = Dom.getPointerPosition(this.el_, event);
     if (this.vertical()) {
-      var boxY = box.top;
-
-      var pageY = undefined;
-      if (event.changedTouches) {
-        pageY = event.changedTouches[0].pageY;
-      } else {
-        pageY = event.pageY;
-      }
-
-      // Percent that the click is through the adjusted area
-      return Math.max(0, Math.min(1, (boxY - pageY + boxH) / boxH));
-    } else {
-      var boxX = box.left;
-
-      var pageX = undefined;
-      if (event.changedTouches) {
-        pageX = event.changedTouches[0].pageX;
-      } else {
-        pageX = event.pageX;
-      }
-
-      // Percent that the click is through the adjusted area
-      return Math.max(0, Math.min(1, (pageX - boxX) / boxW));
+      return position.y;
     }
+    return position.x;
   };
 
   /**
@@ -52289,7 +53172,7 @@ _componentJs2['default'].registerComponent('Slider', Slider);
 exports['default'] = Slider;
 module.exports = exports['default'];
 
-},{"../component.js":48,"../utils/dom.js":107,"global/document":1,"object.assign":40}],92:[function(_dereq_,module,exports){
+},{"../component.js":58,"../utils/dom.js":118,"global/document":1,"object.assign":43}],103:[function(_dereq_,module,exports){
 /**
  * @file flash-rtmp.js
  */
@@ -52389,7 +53272,7 @@ function FlashRtmpDecorator(Flash) {
 exports['default'] = FlashRtmpDecorator;
 module.exports = exports['default'];
 
-},{}],93:[function(_dereq_,module,exports){
+},{}],104:[function(_dereq_,module,exports){
 /**
  * @file flash.js
  * VideoJS-SWF - Custom Flash Player with HTML5-ish API
@@ -52994,7 +53877,7 @@ _component2['default'].registerComponent('Flash', Flash);
 exports['default'] = Flash;
 module.exports = exports['default'];
 
-},{"../component":48,"../utils/dom.js":107,"../utils/time-ranges.js":115,"../utils/url.js":117,"./flash-rtmp":92,"./tech":96,"global/window":2,"object.assign":40}],94:[function(_dereq_,module,exports){
+},{"../component":58,"../utils/dom.js":118,"../utils/time-ranges.js":126,"../utils/url.js":128,"./flash-rtmp":103,"./tech":107,"global/window":2,"object.assign":43}],105:[function(_dereq_,module,exports){
 /**
  * @file html5.js
  * HTML5 Media Controller - Wrapper for HTML5 Media API
@@ -54140,7 +55023,7 @@ _component2['default'].registerComponent('Html5', Html5);
 exports['default'] = Html5;
 module.exports = exports['default'];
 
-},{"../component":48,"../utils/browser.js":104,"../utils/dom.js":107,"../utils/fn.js":109,"../utils/log.js":112,"../utils/merge-options.js":113,"../utils/url.js":117,"./tech.js":96,"global/document":1,"global/window":2,"object.assign":40}],95:[function(_dereq_,module,exports){
+},{"../component":58,"../utils/browser.js":115,"../utils/dom.js":118,"../utils/fn.js":120,"../utils/log.js":123,"../utils/merge-options.js":124,"../utils/url.js":128,"./tech.js":107,"global/document":1,"global/window":2,"object.assign":43}],106:[function(_dereq_,module,exports){
 /**
  * @file loader.js
  */
@@ -54195,7 +55078,7 @@ var MediaLoader = (function (_Component) {
 
         // Check if the browser supports this technology
         if (tech && tech.isSupported()) {
-          player.loadTech(techName);
+          player.loadTech_(techName);
           break;
         }
       }
@@ -54215,7 +55098,7 @@ _component2['default'].registerComponent('MediaLoader', MediaLoader);
 exports['default'] = MediaLoader;
 module.exports = exports['default'];
 
-},{"../component":48,"../utils/to-title-case.js":116,"global/window":2}],96:[function(_dereq_,module,exports){
+},{"../component":58,"../utils/to-title-case.js":127,"global/window":2}],107:[function(_dereq_,module,exports){
 /**
  * @file tech.js
  * Media Technology Controller - Base class for media playback
@@ -54930,7 +55813,7 @@ _component2['default'].registerComponent('MediaTechController', Tech);
 exports['default'] = Tech;
 module.exports = exports['default'];
 
-},{"../component":48,"../media-error.js":83,"../tracks/text-track":103,"../tracks/text-track-list":101,"../utils/buffer.js":105,"../utils/fn.js":109,"../utils/log.js":112,"../utils/time-ranges.js":115,"global/document":1,"global/window":2}],97:[function(_dereq_,module,exports){
+},{"../component":58,"../media-error.js":94,"../tracks/text-track":114,"../tracks/text-track-list":112,"../utils/buffer.js":116,"../utils/fn.js":120,"../utils/log.js":123,"../utils/time-ranges.js":126,"global/document":1,"global/window":2}],108:[function(_dereq_,module,exports){
 /**
  * @file text-track-cue-list.js
  */
@@ -55027,7 +55910,7 @@ TextTrackCueList.prototype.getCueById = function (id) {
 exports['default'] = TextTrackCueList;
 module.exports = exports['default'];
 
-},{"../utils/browser.js":104,"global/document":1}],98:[function(_dereq_,module,exports){
+},{"../utils/browser.js":115,"global/document":1}],109:[function(_dereq_,module,exports){
 /**
  * @file text-track-display.js
  */
@@ -55112,7 +55995,7 @@ var TextTrackDisplay = (function (_Component) {
     // Should probably be moved to an external track loader when we support
     // tracks that don't need a display.
     player.ready(Fn.bind(this, function () {
-      if (player.tech && player.tech['featuresNativeTextTracks']) {
+      if (player.tech_ && player.tech_['featuresNativeTextTracks']) {
         this.hide();
         return;
       }
@@ -55137,13 +56020,13 @@ var TextTrackDisplay = (function (_Component) {
   */
 
   /**
-   * Toggle display texttracks 
+   * Toggle display texttracks
    *
    * @method toggleDisplay
    */
 
   TextTrackDisplay.prototype.toggleDisplay = function toggleDisplay() {
-    if (this.player_.tech && this.player_.tech['featuresNativeTextTracks']) {
+    if (this.player_.tech_ && this.player_.tech_['featuresNativeTextTracks']) {
       this.hide();
     } else {
       this.show();
@@ -55164,7 +56047,7 @@ var TextTrackDisplay = (function (_Component) {
   };
 
   /**
-   * Clear display texttracks 
+   * Clear display texttracks
    *
    * @method clearDisplay
    */
@@ -55176,7 +56059,7 @@ var TextTrackDisplay = (function (_Component) {
   };
 
   /**
-   * Update display texttracks 
+   * Update display texttracks
    *
    * @method updateDisplay
    */
@@ -55199,7 +56082,7 @@ var TextTrackDisplay = (function (_Component) {
   };
 
   /**
-   * Add texttrack to texttrack list 
+   * Add texttrack to texttrack list
    *
    * @param {TextTrackObject} track Texttrack object to be added to list
    * @method updateForTrack
@@ -55298,7 +56181,7 @@ _component2['default'].registerComponent('TextTrackDisplay', TextTrackDisplay);
 exports['default'] = TextTrackDisplay;
 module.exports = exports['default'];
 
-},{"../component":48,"../menu/menu-button.js":84,"../menu/menu-item.js":85,"../menu/menu.js":86,"../utils/fn.js":109,"global/document":1,"global/window":2}],99:[function(_dereq_,module,exports){
+},{"../component":58,"../menu/menu-button.js":95,"../menu/menu-item.js":96,"../menu/menu.js":97,"../utils/fn.js":120,"global/document":1,"global/window":2}],110:[function(_dereq_,module,exports){
 /**
  * @file text-track-enums.js
  *
@@ -55331,7 +56214,7 @@ var TextTrackKind = {
 exports.TextTrackMode = TextTrackMode;
 exports.TextTrackKind = TextTrackKind;
 
-},{}],100:[function(_dereq_,module,exports){
+},{}],111:[function(_dereq_,module,exports){
 /**
  * Utilities for capturing text track state and re-creating tracks
  * based on a capture.
@@ -55418,7 +56301,7 @@ var jsonToTextTracks = function jsonToTextTracks(json, tech) {
 exports['default'] = { textTracksToJson: textTracksToJson, jsonToTextTracks: jsonToTextTracks, trackToJson_: trackToJson_ };
 module.exports = exports['default'];
 
-},{}],101:[function(_dereq_,module,exports){
+},{}],112:[function(_dereq_,module,exports){
 /**
  * @file text-track-list.js
  */
@@ -55563,7 +56446,7 @@ TextTrackList.prototype.getTrackById = function (id) {
 exports['default'] = TextTrackList;
 module.exports = exports['default'];
 
-},{"../event-target":79,"../utils/browser.js":104,"../utils/fn.js":109,"global/document":1}],102:[function(_dereq_,module,exports){
+},{"../event-target":90,"../utils/browser.js":115,"../utils/fn.js":120,"global/document":1}],113:[function(_dereq_,module,exports){
 /**
  * @file text-track-settings.js
  */
@@ -55855,7 +56738,7 @@ function captionOptionsMenuTemplate() {
 exports['default'] = TextTrackSettings;
 module.exports = exports['default'];
 
-},{"../component":48,"../utils/events.js":108,"../utils/fn.js":109,"../utils/log.js":112,"global/window":2,"safe-json-parse/tuple":45}],103:[function(_dereq_,module,exports){
+},{"../component":58,"../utils/events.js":119,"../utils/fn.js":120,"../utils/log.js":123,"global/window":2,"safe-json-parse/tuple":48}],114:[function(_dereq_,module,exports){
 /**
  * @file text-track.js
  */
@@ -55903,9 +56786,9 @@ var _globalWindow = _dereq_('global/window');
 
 var _globalWindow2 = _interopRequireDefault(_globalWindow);
 
-var _xhrJs = _dereq_('../xhr.js');
+var _xhr = _dereq_('xhr');
 
-var _xhrJs2 = _interopRequireDefault(_xhrJs);
+var _xhr2 = _interopRequireDefault(_xhr);
 
 /*
  * https://html.spec.whatwg.org/multipage/embedded-content.html#texttrack
@@ -56150,7 +57033,7 @@ var parseCues = function parseCues(srcContent, track) {
 };
 
 var loadTrack = function loadTrack(src, track) {
-  _xhrJs2['default'](src, Fn.bind(this, function (err, response, responseBody) {
+  _xhr2['default']({ uri: src }, Fn.bind(this, function (err, response, responseBody) {
     if (err) {
       return _utilsLogJs2['default'].error(err, response);
     }
@@ -56197,7 +57080,7 @@ var indexOf = function indexOf(searchElement, fromIndex) {
 exports['default'] = TextTrack;
 module.exports = exports['default'];
 
-},{"../event-target":79,"../utils/browser.js":104,"../utils/fn.js":109,"../utils/guid.js":111,"../utils/log.js":112,"../xhr.js":119,"./text-track-cue-list":97,"./text-track-enums":99,"global/document":1,"global/window":2}],104:[function(_dereq_,module,exports){
+},{"../event-target":90,"../utils/browser.js":115,"../utils/fn.js":120,"../utils/guid.js":122,"../utils/log.js":123,"./text-track-cue-list":108,"./text-track-enums":110,"global/document":1,"global/window":2,"xhr":50}],115:[function(_dereq_,module,exports){
 /**
  * @file browser.js
  */
@@ -56286,7 +57169,7 @@ exports.TOUCH_ENABLED = TOUCH_ENABLED;
 var BACKGROUND_SIZE_SUPPORTED = ('backgroundSize' in _globalDocument2['default'].createElement('video').style);
 exports.BACKGROUND_SIZE_SUPPORTED = BACKGROUND_SIZE_SUPPORTED;
 
-},{"global/document":1,"global/window":2}],105:[function(_dereq_,module,exports){
+},{"global/document":1,"global/window":2}],116:[function(_dereq_,module,exports){
 /**
  * @file buffer.js
  */
@@ -56335,7 +57218,7 @@ function bufferedPercent(buffered, duration) {
   return bufferedDuration / duration;
 }
 
-},{"./time-ranges.js":115}],106:[function(_dereq_,module,exports){
+},{"./time-ranges.js":126}],117:[function(_dereq_,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -56406,7 +57289,7 @@ exports['default'] = function (target) {
 
 module.exports = exports['default'];
 
-},{"./log.js":112}],107:[function(_dereq_,module,exports){
+},{"./log.js":123}],118:[function(_dereq_,module,exports){
 /**
  * @file dom.js
  */
@@ -56427,6 +57310,7 @@ exports.getElAttributes = getElAttributes;
 exports.blockTextSelection = blockTextSelection;
 exports.unblockTextSelection = unblockTextSelection;
 exports.findElPosition = findElPosition;
+exports.getPointerPosition = getPointerPosition;
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
@@ -56443,6 +57327,14 @@ var _globalWindow2 = _interopRequireDefault(_globalWindow);
 var _guidJs = _dereq_('./guid.js');
 
 var Guid = _interopRequireWildcard(_guidJs);
+
+var _logJs = _dereq_('./log.js');
+
+var _logJs2 = _interopRequireDefault(_logJs);
+
+var _tsml = _dereq_('tsml');
+
+var _tsml2 = _interopRequireDefault(_tsml);
 
 /**
  * Shorthand for document.getElementById()
@@ -56473,25 +57365,27 @@ function getEl(id) {
 function createEl() {
   var tagName = arguments.length <= 0 || arguments[0] === undefined ? 'div' : arguments[0];
   var properties = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var attributes = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
   var el = _globalDocument2['default'].createElement(tagName);
 
   Object.getOwnPropertyNames(properties).forEach(function (propName) {
     var val = properties[propName];
 
-    // Not remembering why we were checking for dash
-    // but using setAttribute means you have to use getAttribute
-
-    // The check for dash checks for the aria- * attributes, like aria-label, aria-valuemin.
-    // The additional check for "role" is because the default method for adding attributes does not
-    // add the attribute "role". My guess is because it's not a valid attribute in some namespaces, although
-    // browsers handle the attribute just fine. The W3C allows for aria- * attributes to be used in pre-HTML5 docs.
-    // http://www.w3.org/TR/wai-aria-primer/#ariahtml. Using setAttribute gets around this problem.
+    // See #2176
+    // We originally were accepting both properties and attributes in the
+    // same object, but that doesn't work so well.
     if (propName.indexOf('aria-') !== -1 || propName === 'role' || propName === 'type') {
+      _logJs2['default'].warn(_tsml2['default']('Setting attributes in the second argument of createEl()\n                has been deprecated. Use the third argument instead.\n                createEl(type, properties, attributes). Attempting to set ' + propName + ' to ' + val + '.'));
       el.setAttribute(propName, val);
     } else {
       el[propName] = val;
     }
+  });
+
+  Object.getOwnPropertyNames(attributes).forEach(function (attrName) {
+    var val = attributes[attrName];
+    el.setAttribute(attrName, attributes[attrName]);
   });
 
   return el;
@@ -56791,7 +57685,40 @@ function findElPosition(el) {
   };
 }
 
-},{"./guid.js":111,"global/document":1,"global/window":2}],108:[function(_dereq_,module,exports){
+/**
+ * Get pointer position in element
+ * Returns an object with x and y coordinates.
+ * The base on the coordinates are the bottom left of the element.
+ *
+ * @param {Element} el Element on which to get the pointer position on
+ * @param {Event} event Event object
+ * @return {Object=} position This object will have x and y coordinates corresponding to the mouse position
+ * @metho getPointerPosition
+ */
+
+function getPointerPosition(el, event) {
+  var position = {};
+  var box = findElPosition(el);
+  var boxW = el.offsetWidth;
+  var boxH = el.offsetHeight;
+
+  var boxY = box.top;
+  var boxX = box.left;
+  var pageY = event.pageY;
+  var pageX = event.pageX;
+
+  if (event.changedTouches) {
+    pageX = event.changedTouches[0].pageX;
+    pageY = event.changedTouches[0].pageY;
+  }
+
+  position.y = Math.max(0, Math.min(1, (boxY - pageY + boxH) / boxH));
+  position.x = Math.max(0, Math.min(1, (pageX - boxX) / boxW));
+
+  return position;
+}
+
+},{"./guid.js":122,"./log.js":123,"global/document":1,"global/window":2,"tsml":49}],119:[function(_dereq_,module,exports){
 /**
  * @file events.js
  *
@@ -57066,7 +57993,8 @@ function fixEvent(event) {
     for (var key in old) {
       // Safari 6.0.3 warns you if you try to copy deprecated layerX/Y
       // Chrome warns you if you try to copy deprecated keyboardEvent.keyLocation
-      if (key !== 'layerX' && key !== 'layerY' && key !== 'keyLocation') {
+      // and webkitMovementX/Y
+      if (key !== 'layerX' && key !== 'layerY' && key !== 'keyLocation' && key !== 'webkitMovementX' && key !== 'webkitMovementY') {
         // Chrome 32+ warns if you try to copy deprecated returnValue, but
         // we still want to if preventDefault isn't supported (IE8).
         if (!(key === 'returnValue' && old.preventDefault)) {
@@ -57198,7 +58126,7 @@ function _handleMultipleEvents(fn, elem, types, callback) {
   });
 }
 
-},{"./dom.js":107,"./guid.js":111,"global/document":1,"global/window":2}],109:[function(_dereq_,module,exports){
+},{"./dom.js":118,"./guid.js":122,"global/document":1,"global/window":2}],120:[function(_dereq_,module,exports){
 /**
  * @file fn.js
  */
@@ -57242,7 +58170,7 @@ var bind = function bind(context, fn, uid) {
 };
 exports.bind = bind;
 
-},{"./guid.js":111}],110:[function(_dereq_,module,exports){
+},{"./guid.js":122}],121:[function(_dereq_,module,exports){
 /**
  * @file format-time.js
  *
@@ -57292,7 +58220,7 @@ function formatTime(seconds) {
 exports['default'] = formatTime;
 module.exports = exports['default'];
 
-},{}],111:[function(_dereq_,module,exports){
+},{}],122:[function(_dereq_,module,exports){
 /**
  * @file guid.js
  *
@@ -57317,7 +58245,7 @@ function newGUID() {
   return _guid++;
 }
 
-},{}],112:[function(_dereq_,module,exports){
+},{}],123:[function(_dereq_,module,exports){
 /**
  * @file log.js
  */
@@ -57407,7 +58335,7 @@ function _logType(type, args) {
 exports['default'] = log;
 module.exports = exports['default'];
 
-},{"global/window":2}],113:[function(_dereq_,module,exports){
+},{"global/window":2}],124:[function(_dereq_,module,exports){
 /**
  * @file merge-options.js
  */
@@ -57478,7 +58406,7 @@ function mergeOptions() {
 
 module.exports = exports['default'];
 
-},{"lodash-compat/object/merge":37}],114:[function(_dereq_,module,exports){
+},{"lodash-compat/object/merge":40}],125:[function(_dereq_,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -57506,7 +58434,7 @@ var setTextContent = function setTextContent(el, content) {
 };
 exports.setTextContent = setTextContent;
 
-},{"global/document":1}],115:[function(_dereq_,module,exports){
+},{"global/document":1}],126:[function(_dereq_,module,exports){
 /**
  * @file time-ranges.js
  *
@@ -57549,7 +58477,7 @@ function createTimeRange(_start, _end) {
   };
 }
 
-},{}],116:[function(_dereq_,module,exports){
+},{}],127:[function(_dereq_,module,exports){
 /**
  * @file to-title-case.js
  *
@@ -57570,7 +58498,7 @@ function toTitleCase(string) {
 exports["default"] = toTitleCase;
 module.exports = exports["default"];
 
-},{}],117:[function(_dereq_,module,exports){
+},{}],128:[function(_dereq_,module,exports){
 /**
  * @file url.js
  */
@@ -57680,7 +58608,7 @@ var getFileExtension = function getFileExtension(path) {
 };
 exports.getFileExtension = getFileExtension;
 
-},{"global/document":1}],118:[function(_dereq_,module,exports){
+},{"global/document":1}],129:[function(_dereq_,module,exports){
 /**
  * @file video.js
  */
@@ -57746,10 +58674,6 @@ var _utilsLogJs = _dereq_('./utils/log.js');
 
 var _utilsLogJs2 = _interopRequireDefault(_utilsLogJs);
 
-var _xhrJs = _dereq_('./xhr.js');
-
-var _xhrJs2 = _interopRequireDefault(_xhrJs);
-
 var _utilsDomJs = _dereq_('./utils/dom.js');
 
 var Dom = _interopRequireWildcard(_utilsDomJs);
@@ -57773,6 +58697,10 @@ var _lodashCompatObjectMerge2 = _interopRequireDefault(_lodashCompatObjectMerge)
 var _utilsCreateDeprecationProxyJs = _dereq_('./utils/create-deprecation-proxy.js');
 
 var _utilsCreateDeprecationProxyJs2 = _interopRequireDefault(_utilsCreateDeprecationProxyJs);
+
+var _xhr = _dereq_('xhr');
+
+var _xhr2 = _interopRequireDefault(_xhr);
 
 // Include the built-in techs
 
@@ -57868,7 +58796,7 @@ setup.autoSetupTimeout(1, videojs);
  *
  * @type {String}
  */
-videojs.VERSION = '5.0.0-rc.77';
+videojs.VERSION = '5.0.0-rc.90';
 
 /**
  * The global options object. These are the settings that take effect
@@ -58149,37 +59077,6 @@ videojs.createTimeRange = _utilsTimeRangesJs.createTimeRange;
 videojs.formatTime = _utilsFormatTimeJs2['default'];
 
 /**
- * Simple http request for retrieving external files (e.g. text tracks)
- *
- * ##### Example
- *
- *     // using url string
- *     videojs.xhr('http://example.com/myfile.vtt', function(error, response, responseBody){});
- *
- *     // or options block
- *     videojs.xhr({
- *       uri: 'http://example.com/myfile.vtt',
- *       method: 'GET',
- *       responseType: 'text'
- *     }, function(error, response, responseBody){
- *       if (error) {
- *         // log the error
- *       } else {
- *         // successful, do something with the response
- *       }
- *     });
- *
- *
- * API is modeled after the Raynos/xhr.
- * https://github.com/Raynos/xhr/blob/master/index.js
- *
- * @param  {Object|String}  options   Options block or URL string
- * @param  {Function}       callback  The callback function
- * @returns {Object}                  The request
- */
-videojs.xhr = _xhrJs2['default'];
-
-/**
  * Resolve and parse the elements of a URL
  *
  * @param  {String} url The url to parse
@@ -58239,6 +59136,29 @@ videojs.off = Events.off;
  */
 videojs.trigger = Events.trigger;
 
+/**
+ * A cross-browser XMLHttpRequest wrapper. Here's a simple example:
+ *
+ *     videojs.xhr({
+ *       body: someJSONString,
+ *       uri: "/foo",
+ *       headers: {
+ *         "Content-Type": "application/json"
+ *       }
+ *     }, function (err, resp, body) {
+ *       // check resp.statusCode
+ *     });
+ *
+ * Check out the [full
+ * documentation](https://github.com/Raynos/xhr/blob/v2.1.0/README.md)
+ * for more options.
+ *
+ * @param {Object} options settings for the request.
+ * @return {XMLHttpRequest|XDomainRequest} the request object.
+ * @see https://github.com/Raynos/xhr
+ */
+videojs.xhr = _xhr2['default'];
+
 // REMOVING: We probably should add this to the migration plugin
 // // Expose but deprecate the window[componentName] method for accessing components
 // Object.getOwnPropertyNames(Component.components).forEach(function(name){
@@ -58276,197 +59196,7 @@ if (typeof define === 'function' && define['amd']) {
 exports['default'] = videojs;
 module.exports = exports['default'];
 
-},{"../../src/js/utils/merge-options.js":113,"./component":48,"./event-target":79,"./extends.js":80,"./player":87,"./plugins.js":88,"./setup":90,"./tech/flash.js":93,"./tech/html5.js":94,"./utils/browser.js":104,"./utils/create-deprecation-proxy.js":106,"./utils/dom.js":107,"./utils/events.js":108,"./utils/fn.js":109,"./utils/format-time.js":110,"./utils/log.js":112,"./utils/stylesheet.js":114,"./utils/time-ranges.js":115,"./utils/url.js":117,"./xhr.js":119,"global/document":1,"lodash-compat/object/merge":37,"object.assign":40}],119:[function(_dereq_,module,exports){
-/**
- * @file xhr.js
- */
-'use strict';
-
-exports.__esModule = true;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-var _utilsUrlJs = _dereq_('./utils/url.js');
-
-var Url = _interopRequireWildcard(_utilsUrlJs);
-
-var _utilsLogJs = _dereq_('./utils/log.js');
-
-var _utilsLogJs2 = _interopRequireDefault(_utilsLogJs);
-
-var _utilsMergeOptionsJs = _dereq_('./utils/merge-options.js');
-
-var _utilsMergeOptionsJs2 = _interopRequireDefault(_utilsMergeOptionsJs);
-
-var _globalWindow = _dereq_('global/window');
-
-var _globalWindow2 = _interopRequireDefault(_globalWindow);
-
-/*
- * Simple http request for retrieving external files (e.g. text tracks)
- * ##### Example
- *     // using url string
- *     videojs.xhr('http://example.com/myfile.vtt', function(error, response, responseBody){});
- *
- *     // or options block
- *     videojs.xhr({
- *       uri: 'http://example.com/myfile.vtt',
- *       method: 'GET',
- *       responseType: 'text'
- *     }, function(error, response, responseBody){
- *       if (error) {
- *         // log the error
- *       } else {
- *         // successful, do something with the response
- *       }
- *     });
- * /////////////
- * API is modeled after the Raynos/xhr, which we hope to use after
- * getting browserify implemented.
- * https://github.com/Raynos/xhr/blob/master/index.js
- *
- * @param  {Object|String}  options   Options block or URL string
- * @param  {Function}       callback  The callback function
- * @return {Object}                  The request
- * @method xhr
- */
-var xhr = function xhr(options, callback) {
-  var abortTimeout = undefined;
-
-  // If options is a string it's the url
-  if (typeof options === 'string') {
-    options = {
-      uri: options
-    };
-  }
-
-  // Merge with default options
-  options = _utilsMergeOptionsJs2['default']({
-    method: 'GET',
-    timeout: 45 * 1000
-  }, options);
-
-  callback = callback || function () {};
-
-  var XHR = _globalWindow2['default'].XMLHttpRequest;
-
-  if (typeof XHR === 'undefined') {
-    // Shim XMLHttpRequest for older IEs
-    XHR = function () {
-      try {
-        return new _globalWindow2['default'].ActiveXObject('Msxml2.XMLHTTP.6.0');
-      } catch (e) {}
-      try {
-        return new _globalWindow2['default'].ActiveXObject('Msxml2.XMLHTTP.3.0');
-      } catch (f) {}
-      try {
-        return new _globalWindow2['default'].ActiveXObject('Msxml2.XMLHTTP');
-      } catch (g) {}
-      throw new Error('This browser does not support XMLHttpRequest.');
-    };
-  }
-
-  var request = new XHR();
-  // Store a reference to the url on the request instance
-  request.uri = options.uri;
-
-  var urlInfo = Url.parseUrl(options.uri);
-  var winLoc = _globalWindow2['default'].location;
-
-  var successHandler = function successHandler() {
-    _globalWindow2['default'].clearTimeout(abortTimeout);
-    callback(null, request, request.response || request.responseText);
-  };
-
-  var errorHandler = function errorHandler(err) {
-    _globalWindow2['default'].clearTimeout(abortTimeout);
-
-    if (!err || typeof err === 'string') {
-      err = new Error(err || 'XHR Failed with a response of: ' + (request && (request.response || request.responseText)));
-    }
-
-    callback(err, request);
-  };
-
-  // Check if url is for another domain/origin
-  // IE8 doesn't know location.origin, so we won't rely on it here
-  var crossOrigin = urlInfo.protocol + urlInfo.host !== winLoc.protocol + winLoc.host;
-
-  // XDomainRequest -- Use for IE if XMLHTTPRequest2 isn't available
-  // 'withCredentials' is only available in XMLHTTPRequest2
-  // Also XDomainRequest has a lot of gotchas, so only use if cross domain
-  if (crossOrigin && _globalWindow2['default'].XDomainRequest && !('withCredentials' in request)) {
-    request = new _globalWindow2['default'].XDomainRequest();
-    request.onload = successHandler;
-    request.onerror = errorHandler;
-    // These blank handlers need to be set to fix ie9
-    // http://cypressnorth.com/programming/internet-explorer-aborting-ajax-requests-fixed/
-    request.onprogress = function () {};
-    request.ontimeout = function () {};
-
-    // XMLHTTPRequest
-  } else {
-      (function () {
-        var fileUrl = urlInfo.protocol === 'file:' || winLoc.protocol === 'file:';
-
-        request.onreadystatechange = function () {
-          if (request.readyState === 4) {
-            if (request.timedout) {
-              return errorHandler('timeout');
-            }
-
-            if (request.status === 200 || fileUrl && request.status === 0) {
-              successHandler();
-            } else {
-              errorHandler();
-            }
-          }
-        };
-
-        if (options.timeout) {
-          abortTimeout = _globalWindow2['default'].setTimeout(function () {
-            if (request.readyState !== 4) {
-              request.timedout = true;
-              request.abort();
-            }
-          }, options.timeout);
-        }
-      })();
-    }
-
-  // open the connection
-  try {
-    // Third arg is async, or ignored by XDomainRequest
-    request.open(options.method || 'GET', options.uri, true);
-  } catch (err) {
-    return errorHandler(err);
-  }
-
-  // withCredentials only supported by XMLHttpRequest2
-  if (options.withCredentials) {
-    request.withCredentials = true;
-  }
-
-  if (options.responseType) {
-    request.responseType = options.responseType;
-  }
-
-  // send the request
-  try {
-    request.send();
-  } catch (err) {
-    return errorHandler(err);
-  }
-
-  return request;
-};
-
-exports['default'] = xhr;
-module.exports = exports['default'];
-
-},{"./utils/log.js":112,"./utils/merge-options.js":113,"./utils/url.js":117,"global/window":2}]},{},[118])(118)
+},{"../../src/js/utils/merge-options.js":124,"./component":58,"./event-target":90,"./extends.js":91,"./player":98,"./plugins.js":99,"./setup":101,"./tech/flash.js":104,"./tech/html5.js":105,"./utils/browser.js":115,"./utils/create-deprecation-proxy.js":117,"./utils/dom.js":118,"./utils/events.js":119,"./utils/fn.js":120,"./utils/format-time.js":121,"./utils/log.js":123,"./utils/stylesheet.js":125,"./utils/time-ranges.js":126,"./utils/url.js":128,"global/document":1,"lodash-compat/object/merge":40,"object.assign":43,"xhr":50}]},{},[129])(129)
 });
 
 

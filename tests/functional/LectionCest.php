@@ -28,7 +28,7 @@ class LectionCest
         $I->wantTo('see online-lecture cuepoints');
 
         $I->amOnPage('/online-lektionen/Sozialgeschichte%201');
-        $I->seeElement('#interactive-video', ['data-markers' => '[{"time":"100","text":"F\u00e4hnchen 1"},{"time":"300","text":"F\u00e4hnchen 2"},{"time":"700","text":"F\u00e4hnchen 3"}]']);
+        $I->seeElement('interactive-video', ['markers' => '[{"time":"100","text":"F\u00e4hnchen 1"},{"time":"300","text":"F\u00e4hnchen 2"},{"time":"700","text":"F\u00e4hnchen 3"}]']);
     }
 
     public function test_load_flags(FunctionalTester $I)
@@ -38,7 +38,7 @@ class LectionCest
 
         $I->amOnPage('/online-lektionen/Sozialgeschichte%201');
         $I->sendAjaxGetRequest('/online-lektionen/Sozialgeschichte%201/getflags');
-        $I->seeElement('#interactive-video', ['data-markers' => '[{"time":"100","text":"F\u00e4hnchen 1"},{"time":"300","text":"F\u00e4hnchen 2"},{"time":"700","text":"F\u00e4hnchen 3"}]']);
+        $I->seeElement('interactive-video', ['markers' => '[{"time":"100","text":"F\u00e4hnchen 1"},{"time":"300","text":"F\u00e4hnchen 2"},{"time":"700","text":"F\u00e4hnchen 3"}]']);
     }
 
     public function test_change_cuepoint(FunctionalTester $I)
@@ -93,10 +93,10 @@ class LectionCest
         $I->wantTo('see online-lecture title');
 
         $I->amOnPage('/online-lektionen/Sozialgeschichte%201');
-        $I->seeElement('#interactive-video');
+        $I->seeElement('interactive-video');
 
-        $I->seeElement('#interactive-video', ['data-name' => 'Sozialgeschichte 1']);
-        $I->seeElement('#interactive-video', ['data-path' => '/video/sozialgeschichte_1']);
+        $I->seeElement('interactive-video', ['name' => 'Sozialgeschichte 1']);
+        $I->seeElement('interactive-video', ['path' => '/video/sozialgeschichte_1']);
     }
 
     public function test_generate_text_download_button(FunctionalTester $I)

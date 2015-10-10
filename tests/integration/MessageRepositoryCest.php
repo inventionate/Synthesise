@@ -98,7 +98,7 @@ class MessageRepositoryCest
        * Abfrage durchführen
        *
        */
-      Message::store(2, 'Neuer Titel', 'Eine neue Nachricht', 'yellow');
+      Message::store('Neuer Titel', 'Eine neue Nachricht', 'yellow');
       /*
        * Testergebnis auswerten
        *

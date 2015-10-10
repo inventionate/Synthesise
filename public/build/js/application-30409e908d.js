@@ -499,9 +499,13 @@ module.exports = function () {
 
     $('.ui.message.shake').transition('shake');
 
-    $('#edit-faq').modal('setting', 'transition', 'vertical flip').modal('attach events', '#edit-faq-button', 'show');
+    $('#edit-faq')
+    //.modal('setting', 'transition', 'vertical flip')
+    .modal('attach events', '#edit-faq-button', 'show');
 
-    $('#edit-lection').modal('setting', 'transition', 'vertical flip').modal('attach events', 'td.edit > div.ui.button', 'show');
+    $('#edit-lection')
+    //.modal('setting', 'transition', 'vertical flip')
+    .modal('attach events', 'td.edit > div.ui.button', 'show');
 
     $('td.edit > div.ui.button').click(function () {
 
@@ -516,11 +520,6 @@ module.exports = function () {
 
         var lectionAvailable = $(this).attr('data-lection-available');
         $('#edit-lection-available').val(lectionAvailable);
-    });
-
-    // Navigation
-    $('#submenu').click(function () {
-        $('#subnav').toggle('slow');
     });
 };
 
