@@ -16,5 +16,7 @@
 .video-js .vjs-load-progress	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-load-progress {$/;"	function	line:80
 .video-js .vjs-load-progress div	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-load-progress div {$/;"	function	line:89
 .vjs-mouse-display	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.vjs-mouse-display {$/;"	function	line:97
-.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {$/;"	function	line:102
-.vjs-progress-control:hover	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.vjs-progress-control:hover {$/;"	function	line:108
+.video-js .vjs-mouse-display:after	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-mouse-display:after,$/;"	function	line:100
+.video-js .vjs-play-progress:after	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-play-progress:after {$/;"	function	line:101
+.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {$/;"	function	line:106
+.vjs-progress-control:hover	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.vjs-progress-control:hover {$/;"	function	line:112

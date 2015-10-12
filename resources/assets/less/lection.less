@@ -3,23 +3,17 @@
     margin-bottom: 7em !important;
 }
 #interactive-video {
-    .video-js .vjs-progress-control:hover .vjs-play-progress:after {
-        display: none !important;
-    }
     img {
         position: absolute;
         
         // MEDIA QUERY EINBAUEN!!!
         top: 15px;
-        right: 15px;
+        right: 21px;
         width: 5rem;
         opacity: 0.85;
     }
     #video-notes {
-        position: absolute;
-        bottom: -1.5em;
-        height: 1.5em;
-        width: 100%;
+        height: 0.5em;
         textarea {
             height: 1.5em;
             resize: none;
@@ -37,7 +31,7 @@
             border-radius: 50% !important;
             background-color: @red !important;
             margin-bottom: 10px !important;
-            z-index: 100000;
+            z-index: 3;
         }
         .vjs-tip {
             margin-bottom: 15px;
@@ -50,7 +44,7 @@
             margin-bottom: 4px !important;
             margin-left: -15px !important;
             border: 5px solid @black;
-            z-index: 1000000;
+            z-index: 4;
         }
     }
 }

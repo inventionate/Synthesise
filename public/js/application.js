@@ -40001,7 +40001,7 @@ module.exports = {
 };
 
 },{"./interactive-video-notes.js":79,"./interactive-video.template.html":82,"./videojs-markers.js":91,"jquery":1,"video.js":3}],82:[function(require,module,exports){
-module.exports = '<div id="interactive-video">\n\n    <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered">\n    </video>\n\n    <interactive-video-notes content="{{ noteContent }}"></interactive-video-notes>\n\n</div>\n';
+module.exports = '<div id="interactive-video">\n\n    <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered">\n    </video>\n\n    <img src="/img/etpm_logo_r.png" alt="etpM Logo">\n\n    <interactive-video-notes content="{{ noteContent }}"></interactive-video-notes>\n\n</div>\n';
 },{}],83:[function(require,module,exports){
 'use strict';
 
