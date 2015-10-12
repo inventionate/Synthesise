@@ -5,6 +5,8 @@
 /tests/_output
 /public/css
 /public/js
+/public/build
+/resources/assets/semantic
 .atom
 .tags
 .env

@@ -1,5 +1,7 @@
 var elixir = require('laravel-elixir');
 
+require('laravel-elixir-modernizr');
+
 elixir.config.sourcemaps = false;
 
 /*
@@ -13,36 +15,38 @@ elixir.config.sourcemaps = false;
  |
  */
 
-    elixir( function (mix) {
-        mix
-        // Styles
-        .less("application.less")
-        // Modernizr (Minifizierung einarbeiten über scripts)
-        .copy("vendor/bower_components/modernizr/modernizr.js","public/js/modernizr.js")
-        // Vendor Scripts
-        .scripts([
-            "jquery/dist/jquery.js",
-            "semantic-ui/dist/semantic.js",
-            "vue/dist/vue.js",
-            "vue-resource/dist/vue-resource.js",
-            "video.js/dist/video.js",
-            "videojs-markers/dist/videojs-markers.js",
-            //"jquery-typewatch/jquery.typewatch.js",// wird dank Vue nicht mehr benötigt.
-            "chartjs/Chart.js"
-        ], "public/js/vendor.js", "vendor/bower_components")
-        // Application Components
-        .browserify("application.js")
-        // Version hash
-        .version([
-                "public/css/application.css",
-                "public/js/modernizr.js",
-                "public/js/application.js",
-                "public/js/vendor.js"
-            ])
-        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/css/themes/default/assets/fonts")
-        .copy("vendor/bower_components/video.js/dist/font","public/css/font")
-        .copy("vendor/bower_components/video.js/dist/video-js.swf","public")
-        // Für die lokale Versionen
-        .copy("vendor/bower_components/semantic-ui/dist/themes/default/assets/fonts","public/build/css/themes/default/assets/fonts")
-        .copy("vendor/bower_components/video.js/dist/font","public/build/css/font");
-    });
+elixir( function (mix) {
+    mix
+    // Styles
+    .less("application.less")
+    // Scripts
+    .browserify("application.js")
+    // Symbolschriftarten
+    .copy(
+        "resources/assets/semantic/dist/themes/default/assets/fonts",
+        "public/css/themes/default/assets/fonts"
+    )
+    .copy(
+        "node_modules/video.js/dist/font",
+        "public/css/font"
+    )
+    .copy(
+        "node_modules/video.js/dist/video-js.swf",
+        "public"
+    )
+    // Für die lokale Versionen
+    .copy(
+        "resources/assets/semantic/dist/themes/default/assets/fonts",
+        "public/build/css/themes/default/assets/fonts")
+    .copy(
+        "node_modules/video.js/dist/font",
+        "public/build/css/font")
+    .modernizr()
+    // Version hash
+    .version([
+        "public/css/application.css",
+        "public/js/application.js",
+        "public/js/vendor/modernizr-custom.js"
+    ])
+    .browserSync({ proxy: 'synthesise.local'});
+});

@@ -1,12 +1,6 @@
 {
   "name": "Synthesise",
   "dependencies": {
-    "chartjs": "~1.*",
-    "modernizr": "~3.*",
-    "semantic-ui": "~2.*",
-    "video.js": "5.*",
     "videojs-markers": "~0.5.*",
-    "vue": "~0.12.12",
-    "vue-resource": "~0.1.15"
   }
 }

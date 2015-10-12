@@ -40,16 +40,26 @@ module.exports = {
 
     methods: {
         initVideoJS: function (path, name, poster, markers) {
+
             var self = this;
+            // Video.js laden
+            var videojs = require('video.js');
+            // jQuery laden
+            var $ = require('jquery');
+            window.jQuery = $; 
+            // Video.js Markers laden
+            require('../../../../vendor/bower_components/videojs-markers/dist/videojs-markers.js');
+
             $('#videoplayer').append(
                 "<source type='video/mp4' src='" + path + ".mp4' /> <source type='video/webm' src='" + path + ".webm' />"
             );
 
-            // Video.JS laden
+            // Video.JS konfigurieren
             videojs('videoplayer',{
                 'controls': true,
                 'autoplay': false,
                 'preload': 'auto',
+                'fluid': true,
                 'poster': poster,
                 plugins: {
                     markers: {

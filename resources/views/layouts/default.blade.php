@@ -13,8 +13,9 @@
 
 		{{-- APPLICATION CSS -----------------------------------------------------}}
 		<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
+
 		{{-- MODERNIZR JS --------------------------------------------------------}}
-		<script src="{{ elixir("js/modernizr.js") }}"></script>
+		<script src="{{ elixir("js/vendor/modernizr-custom.js") }}"></script>
 
 	</head>
 
@@ -45,7 +46,6 @@
 			@include('layouts.partials.footer')
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
-		<script src="{{ elixir("js/vendor.js") }}"></script>
 		<script src="{{ elixir("js/application.js") }}"></script>
 		@section('scripts')
 		@show

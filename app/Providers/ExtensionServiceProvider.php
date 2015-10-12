@@ -27,9 +27,15 @@ class ExtensionServiceProvider extends ServiceProvider
 
             $domain = $this->app['config']->get('auth.ldap.domain');
 
+            $port = $this->app['config']->get('auth.ldap.port');
+
             $baseDn = $this->app['config']->get('auth.ldap.baseDn');
 
-            return new Ldap($domain, $baseDn);
+            $bindDn = $this->app['config']->get('auth.ldap.bindDn');
+
+            $bindPwd = $this->app['config']->get('auth.ldap.bindPwd');
+
+            return new Ldap($domain, $port, $baseDn, $bindDn, $bindPwd);
 
         });
 

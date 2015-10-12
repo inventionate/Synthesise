@@ -1,3 +1,7 @@
+// Used packages
+var Vue = require('vue');
+Vue.use(require('vue-resource'));
+
 // Token for AJAX calls
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 

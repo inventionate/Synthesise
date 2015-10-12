@@ -5,6 +5,12 @@ module.exports = {
     props: ['content'],
 
     ready: function () {
+        // jQuery laden
+        var $ = require('jquery');
+        window.jQuery = $; 
+        // Semantic UI laden
+        require('../../semantic/dist/semantic.js');
+
         $('#notes-progress').progress();
     },
 

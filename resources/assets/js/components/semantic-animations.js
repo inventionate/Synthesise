@@ -1,4 +1,10 @@
 module.exports = function() {
+    // jQuery laden
+    var $ = require('jquery');
+    window.jQuery = $;
+    // Semantic UI laden
+    require('../../semantic/dist/semantic.js');
+
         $('.scale').transition('scale in', 1000);
 
         $('.shake').transition('shake');
@@ -16,7 +22,6 @@ module.exports = function() {
         });
 
         $('.ui.message.shake').transition('shake');
-
 
         $('#edit-faq')
             //.modal('setting', 'transition', 'vertical flip')

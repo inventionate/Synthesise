@@ -57,18 +57,18 @@ class AuthController extends Controller
     public function postLogin(LoginRequest $request)
     {
         // 1. LDAP Check (-> korrekte Daten)
-      $credentials = $request->only('username', 'password');
+        $credentials = $request->only('username', 'password');
         $rememberme = $request->rememberme;
 
-    //LDAP Authentifizierung
-    // 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
-    if ($this->app->environment('testing', 'local')) {
-        $ldap = true;
-    } else {
-        $ldap = $this->ldap->authenticate($credentials['username'], $credentials['password']);
-    }
+        //LDAP Authentifizierung
+        // 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
+        if ($this->app->environment('testing', 'local')) {
+            $ldap = true;
+        } else {
+            $ldap = $this->ldap->authenticate($credentials['username'], $credentials['password']);
+        }
 
-        if (true) {
+        if ($ldap) {
             if ($this->auth->attempt($credentials, $rememberme)) {
                 return redirect()->intended('/');
             } else {
@@ -93,11 +93,11 @@ class AuthController extends Controller
         }
             }
         }
-    // Für Nicht-LDAP Accounts eine weitere prüfung durchführen
-    elseif ($this->auth->attempt($credentials, $rememberme)) {
-        return redirect()->intended('/');
-    } else {
-        return redirect('auth/login')->with('login_errors', true)->withInput();
-    }
+        // Für Nicht-LDAP Accounts eine weitere prüfung durchführen
+        elseif ($this->auth->attempt($credentials, $rememberme)) {
+            return redirect()->intended('/');
+        } else {
+            return redirect('auth/login')->with('login_errors', true)->withInput();
+        }
     }
 }
