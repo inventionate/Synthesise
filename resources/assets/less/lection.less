@@ -1,28 +1,11 @@
 @import "colour";
-
 #main-content-online-lektionen .one.column.row .column {
     margin-bottom: 7em !important;
 }
-
 #interactive-video {
-    width: 100%;
-    position: relative;
-    padding-bottom: 54%;
-    padding-top: 25px;
-    height: 0;
-    
-    .video-js {
-        width: 100% !important;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    
     .video-js .vjs-progress-control:hover .vjs-play-progress:after {
         display: none !important;
     }
-    
     img {
         position: absolute;
         
@@ -32,49 +15,44 @@
         width: 5rem;
         opacity: 0.85;
     }
-    
     #video-notes {
         position: absolute;
         bottom: -1.5em;
         height: 1.5em;
         width: 100%;
-        
         textarea {
             height: 1.5em;
             resize: none;
             border-radius: 0;
         }
-        
         textarea:disabled {
             cursor: not-allowed;
         }
     }
-    
     #videoplayer {
         .vjs-marker {
-            margin-left: -11px !important;
+            margin-left: -10px !important;
             height: 15px !important;
             width: 15px !important;
             border-radius: 50% !important;
             background-color: @red !important;
-            margin-bottom: 8px !important;
+            margin-bottom: 10px !important;
+            z-index: 100000;
         }
-        
         .vjs-tip {
-            margin-bottom: 14px;
-            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-size: 15px;
         }
-        
         .active-marker {
             background-color: @white !important;
             height: 25px !important;
             width: 25px !important;
             margin-bottom: 4px !important;
-            margin-left: -17px !important;
+            margin-left: -15px !important;
             border: 5px solid @black;
+            z-index: 1000000;
         }
     }
 }
-
-//@import "video-js-skin";
+@import "video-js-skin";
 @import "video-js-markers";

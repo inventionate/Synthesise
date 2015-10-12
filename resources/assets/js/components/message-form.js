@@ -26,6 +26,12 @@ module.exports = {
 
     ready: function () {
         var self = this;
+        // jQuery laden
+        var $ = require('jquery');
+        window.$ = $;
+        window.jQuery = $;
+        // Semantic UI laden
+        require('../../semantic/dist/semantic.js');
 
         // Werte "global" zurücksetzen, sobald das Modal ausgeblendet wird.
         $('#message-form')

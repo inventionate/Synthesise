@@ -1,6 +1,7 @@
 module.exports = function() {
     // jQuery laden
     var $ = require('jquery');
+    window.$ = $;
     window.jQuery = $;
     // Semantic UI laden
     require('../../semantic/dist/semantic.js');

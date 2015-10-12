@@ -1,6 +1,0 @@
-{
-  "name": "Synthesise",
-  "dependencies": {
-    "videojs-markers": "~0.5.*",
-  }
-}

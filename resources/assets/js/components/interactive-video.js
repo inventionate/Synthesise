@@ -26,6 +26,10 @@ module.exports = {
 
     ready: function () {
         var self = this;
+        // jQuery laden
+        var $ = require('jquery');
+        window.$ = $;
+        window.jQuery = $;
 
         // Dynamisch die Inhalte hinzufügen.
         // Löst das Problem, dass nicht barebietet Inhalte verarbeitet werden.
@@ -44,11 +48,10 @@ module.exports = {
             var self = this;
             // Video.js laden
             var videojs = require('video.js');
-            // jQuery laden
-            var $ = require('jquery');
-            window.jQuery = $; 
+            window.videojs = videojs;
             // Video.js Markers laden
-            require('../../../../vendor/bower_components/videojs-markers/dist/videojs-markers.js');
+            // Eigener Fork, der das Rundungsproblem behebt und die Marker damit an die richtige Stelle setzt!
+            require('./videojs-markers.js');
 
             $('#videoplayer').append(
                 "<source type='video/mp4' src='" + path + ".mp4' /> <source type='video/webm' src='" + path + ".webm' />"
@@ -60,6 +63,7 @@ module.exports = {
                 'autoplay': false,
                 'preload': 'auto',
                 'fluid': true,
+                'playbackRates': [1, 1.5, 2],
                 'poster': poster,
                 plugins: {
                     markers: {
