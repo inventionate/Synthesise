@@ -1,0 +1,9 @@
+{
+    "type": "sftp",
+    "host": "etpm.ph-karlsruhe.de",
+    "username": "etpm",
+    "port": 22,
+    "remotePath": "/home/etpm",
+    "sshKeyFile": "~/.ssh/id_rsa",
+    "uploadOnSave": true
+}

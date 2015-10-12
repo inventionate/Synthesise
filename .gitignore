@@ -9,5 +9,6 @@
 /resources/assets/semantic
 .atom
 .tags
+.tags1
 .env
 .env.production

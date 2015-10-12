@@ -113,14 +113,14 @@
         </div>
 
         <div class="row">
-        <div class="six wide column">
+        <div class="seven wide column">
             <h2 class="ui header">Responsive Web-App</h2>
             <p>
                 Der Funktionsumfang der Web-App umfasst vier Bereiche. Erstens macht sie die digitalen Inhalte (online-Lektionen und Literatur) zugänglich. Zweitens ermöglicht sie einen einfachen Zugriff auf allgemeine Informationen. Drittens bietet sie einen umfassenden »Häufig gestellte Fragen«-Bereich an und viertens erlaubt sie eine einfache Kommunikation zwischen Studierenden und Dozierenden (Meldungen, Kontaktformulare).
             </p>
             <p>
             </p>
-            <h3 class="ui header">Basierend auf modernen Technologien</h3>
+            <h3 class="ui header">Basierend auf modernen Open Source Technologien</h3>
             <div class="ui list">
               <div class="item">
                 <img class="ui avatar image" src="/img/laravel_logo.png" alt="Laravel Logo">
@@ -143,9 +143,16 @@
                   <div class="description">»A UI Component Framework Designed For Theming«</div>
                 </div>
               </div>
+              <div class="item">
+                <img class="ui avatar image" src="/img/videojs_logo.png" alt="Video.js Logo">
+                <div class="content">
+                  <a class="header" href="http://videojs.com/" target="_blank">Video.js</a>
+                  <div class="description">»The Player Framework«</div>
+                </div>
+              </div>
             </div>
         </div>
-        <div class="ten wide column">
+        <div class="nine wide column">
             <img class="ui huge image" src="/img/responsive_webapp.png" alt="Responsive Web-App" />
         </div>
         </div>

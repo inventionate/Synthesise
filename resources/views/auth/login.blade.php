@@ -45,9 +45,9 @@
 
 			</div>
 
-		<div class="center aligned column">
+		<div class="ui one column centered grid">
 			{{-- Remember me --}}
-			<div class="field">
+			<div class="field center aligned column">
 				<div class="ui checkbox">
 					{!! Form::label('rememberme', 'Angemeldet bleiben') !!}
 					{!! Form::checkbox('rememberme', true, false) !!}

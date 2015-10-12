@@ -15,12 +15,8 @@
 		<div class="one column row">
 			<div class="column">
 
-				{{-- <div id="interactive-video" data-name="{{ $videoname }}" data-path="{{ $videopath }}" data-markers="{{ $markers }}" data-poster="/img/ol_title.jpg"></div> --}}
-
 				{{-- Vue.js Komponente laden und die entsprechenden Variablen (Props) übergeben. --}}
 				<interactive-video name="{{ $videoname }}" path="{{ $videopath }}" markers="{{ $markers }}" poster="/img/ol_title.jpg" notes="true"></interactive-video>
-
-				{{ dd($markers) }}
 
 			</div>
 		</div>
