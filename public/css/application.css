@@ -29314,20 +29314,20 @@ and the native poster can take over */
   display: none !important;
 }
 #etpM-de {
-  background-color: #ddd;
+  background-color: #fff;
 }
-html.no-js {
+#etpM-de#demo html.no-js {
   background-color: #fff;
   margin-top: 4rem;
 }
-html.no-js #etpM-de {
+#etpM-de#demo html.no-js #etpM-de {
   background-color: #fff;
 }
-html.no-js .ui.negative.message {
+#etpM-de#demo html.no-js .ui.negative.message {
   border-radius: 0;
   text-align: center;
 }
-html.no-js .ui.negative.message.login {
+#etpM-de#demo html.no-js .ui.negative.message.login {
   margin-top: -3.5rem;
 }
 html.js .ui.negative.message {
@@ -29766,44 +29766,10 @@ main {
   cursor: pointer;
   color: #00b2f3;
 }
-#main-content-demo #demovideo {
-  width: 100%;
-  position: relative;
-  padding-bottom: 52%;
-  padding-top: 25px;
-  height: 0;
-}
-#main-content-demo #demovideo .video-js {
-  width: 100% !important;
-  height: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 #main-content-demo #demovideo img {
   position: absolute;
   top: 15px;
   right: 15px;
   width: 5rem;
   opacity: 0.85;
-}
-#main-content-demo #demovideo #demovideoplayer .vjs-marker {
-  margin-left: -11px !important;
-  height: 15px !important;
-  width: 15px !important;
-  border-radius: 50% !important;
-  background-color: #f33b1d !important;
-  margin-bottom: 17px !important;
-}
-#main-content-demo #demovideo #demovideoplayer .vjs-tip {
-  margin-bottom: 17px;
-  font-size: 1.5em;
-}
-#main-content-demo #demovideo #demovideoplayer .active-marker {
-  background-color: #fff !important;
-  height: 25px !important;
-  width: 25px !important;
-  margin-bottom: 13px !important;
-  margin-left: -17px !important;
-  border: 5px solid #000;
 }

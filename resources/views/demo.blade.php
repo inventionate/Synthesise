@@ -87,16 +87,16 @@
             </p>
         </div>
         <div class="nine wide column">
-            <div id="demovideo">
-                <video id="demovideoplayer"
-                class="video-js vjs-sublime-skin vjs-big-play-centered"
-                poster="/img/ol_title.jpg"
-                data-setup='{ "controls": true, "autoplay": false, "preload": "auto", "width": "100%", "height": "100%" }'>
-                    <source type='video/mp4' src='/video/promo.mp4' />
-                    <source type='video/webm' src='/video/promo.webm' />
-                </video>
-                <img src="/img/etpm_logo.png" />
-            </div>
+
+            <interactive-video name="Promo Video" path="/video/promo" markers="{{
+                json_encode([
+                    ['time' => 30, 'text' => 'Völkerwanderung'],
+                    ['time' => 75, 'text' => 'Aufstieg des Christentums'],
+                    ['time' => 125, 'text' => 'Hoch- und Spätmittelalter'],
+                    ])
+            }}"
+            poster="/img/ol_title.jpg" notes="false"></interactive-video>
+
         </div>
         </div>
 
@@ -282,26 +282,11 @@
 @stop
 
 @section('scripts')
-  <script>
-  var videoplayer = videojs('demovideoplayer');
+    <script>
+        var videoplayer = videojs('videoplayer');
 
-  $('#playdemo').on('click', function () {
-      videoplayer.play();
-  });
-  // Marker einsetzen
-  videoplayer.markers({
-      markerTip:{
-          display: true,
-          text: function(marker) {
-              return marker.text;
-          }
-      },
-      markers: [
-        {time: 30, text: "Völkerwanderung"},
-        {time: 75,  text: "Aufstieg des Christentums"},
-        {time: 125,text: "Hoch- und Spätmittelalter"},
-      ]
-  });
-
-  </script>
+        $('#playdemo').on('click', function () {
+            videoplayer.play();
+        });
+    </script>
 @stop

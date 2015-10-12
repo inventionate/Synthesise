@@ -1,5 +1,7 @@
 {{-- @todo Dynamisch aus Datenbank erzeugen (momentan ist es noch zu statisch, siehe Lektionsgruppen) --}}
 
+{{-- @todo Als Vue Komponente umsetzen, um Semantic UI Ladeprobleme zu vermeiden.--}}
+
 <section id="all-lections" class="ui stackable grid">
 
 	<div class="column">

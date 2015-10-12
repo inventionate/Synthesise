@@ -6,7 +6,8 @@ module.exports = {
         'name',
         'path',
         'markers',
-        'poster'
+        'poster',
+        'notes'
     ],
 
     data: function () {

@@ -4,19 +4,3 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-.video-js	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js {$/;"	function	line:14
-.vjs-default-skin .vjs-big-play-button	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.vjs-default-skin .vjs-big-play-button {$/;"	function	line:27
-.video-js .vjs-control-bar	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-control-bar,$/;"	function	line:56
-.video-js .vjs-big-play-button	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-big-play-button,$/;"	function	line:57
-.video-js .vjs-menu-button .vjs-menu-content	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-menu-button .vjs-menu-content {$/;"	function	line:58
-.video-js .vjs-slider	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-slider {$/;"	function	line:66
-.video-js .vjs-volume-level	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-volume-level,$/;"	function	line:73
-.video-js .vjs-play-progress	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-play-progress,$/;"	function	line:74
-.video-js .vjs-slider-bar	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-slider-bar {$/;"	function	line:75
-.video-js .vjs-load-progress	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-load-progress {$/;"	function	line:80
-.video-js .vjs-load-progress div	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-load-progress div {$/;"	function	line:89
-.vjs-mouse-display	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.vjs-mouse-display {$/;"	function	line:97
-.video-js .vjs-mouse-display:after	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-mouse-display:after,$/;"	function	line:100
-.video-js .vjs-play-progress:after	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.video-js .vjs-play-progress:after {$/;"	function	line:101
-.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {$/;"	function	line:106
-.vjs-progress-control:hover	/Users/fabianmundt/Matrix/Inventionate/Synthesise/resources/assets/less/video-js-skin.less	/^.vjs-progress-control:hover {$/;"	function	line:112

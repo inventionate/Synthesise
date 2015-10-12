@@ -1,44 +1,35 @@
 @import "colour";
 @import "typography";
-
 .hide {
     display: none !important;
 }
-
 #etpM-de {
     
     // Allgemeine Hintergrundfarbe
-    background-color: @light-gray;
+    background-color: @white;
 }
-
-html.no-js {
+#etpM-de#demo html.no-js {
     background-color: @white;
     margin-top: 4rem;
-    
     #etpM-de {
         background-color: @white;
     }
-    
     .ui.negative.message {
         border-radius: 0;
         text-align: center;
     }
-    
     .ui.negative.message.login {
         margin-top: -3.5rem;
     }
 }
-
 html.js {
     .ui.negative.message {
         display: none;
     }
 }
-
 body {
     .hyphens;
 }
-
 main {
     background-color: @white;
     padding-bottom: 3rem !important;

@@ -39781,6 +39781,8 @@ new Vue({
         'interactive-video': require('./components/interactive-video.js')
     },
 
+    // Standrad Video und Audio
+
     // @todo Statistik Modul
     // Eine Vue Komponente, die die entsprechenden Daten und die Darstellungsform abfrägt. Über ein Blade View wird dann die Anzeige der Komponenten geregelt
     // 'analytics-graph': require('./components/analytics-graph.js'),
@@ -39830,7 +39832,7 @@ module.exports = {
 
     template: require('./interactive-video.template.html'),
 
-    props: ['name', 'path', 'markers', 'poster'],
+    props: ['name', 'path', 'markers', 'poster', 'notes'],
 
     data: function data() {
         return {
@@ -40001,7 +40003,7 @@ module.exports = {
 };
 
 },{"./interactive-video-notes.js":79,"./interactive-video.template.html":82,"./videojs-markers.js":91,"jquery":1,"video.js":3}],82:[function(require,module,exports){
-module.exports = '<div id="interactive-video">\n\n    <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered">\n    </video>\n\n    <img src="/img/etpm_logo_r.png" alt="etpM Logo">\n\n    <interactive-video-notes content="{{ noteContent }}"></interactive-video-notes>\n\n</div>\n';
+module.exports = '<div id="interactive-video">\n\n    <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered">\n    </video>\n\n    <img src="/img/etpm_logo_r.png" alt="etpM Logo">\n\n    <interactive-video-notes v-if="notes" content="{{ noteContent }}"></interactive-video-notes>\n\n</div>\n';
 },{}],83:[function(require,module,exports){
 'use strict';
 

@@ -18,6 +18,8 @@ new Vue({
         'message-manager': require('./components/message-manager.js'),
         // Inetraktive Videofunktionen
         'interactive-video': require('./components/interactive-video.js'),
+        // Standrad Video und Audio
+        
         // @todo Statistik Modul
         // Eine Vue Komponente, die die entsprechenden Daten und die Darstellungsform abfrägt. Über ein Blade View wird dann die Anzeige der Komponenten geregelt
         // 'analytics-graph': require('./components/analytics-graph.js'),
