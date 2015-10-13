@@ -11,11 +11,11 @@
 		{{-- @include PARTIAL HEAD -----------------------------------------------}}
 		@include('layouts.partials.head')
 
-		{{-- APPLICATION CSS -----------------------------------------------------}}
-		<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
-
 		{{-- MODERNIZR JS --------------------------------------------------------}}
 		<script src="{{ elixir("js/vendor/modernizr-custom.js") }}"></script>
+
+		{{-- APPLICATION CSS -----------------------------------------------------}}
+		<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
 
 	</head>
 

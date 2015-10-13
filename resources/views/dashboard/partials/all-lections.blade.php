@@ -21,7 +21,9 @@
 						{{--<th>Status für die Studierende</th>--}}
 					@endif
 					<th>Literatur & Notizen</th>
-					<th>Editieren</th>
+					@if($role === 'Teacher' || $role === 'Admin')
+						<th>Editieren</th>
+					@endif
 				</tr>
 			</thead>
 			<tbody>
@@ -82,13 +84,13 @@
 
 						</td>
 
+						@if ( Auth::user()->role === 'Admin' )
 						<td class="edit">
-							@if ( Auth::user()->role === 'Admin' )
 				                <div class="ui teal small icon button" data-name="{{ $video->videoname }}" data-lecturer="{{ $video->author }}" data-section="{{ $video->section }}" data-lection-available="{{ $video->available_from }}">
 				                    <i class="edit icon"></i>
 								</div>
-				            @endif
 						</td>
+						@endif
 					</tr>
 				@endforeach
 			</tbody>

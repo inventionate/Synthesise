@@ -64,10 +64,10 @@
                 </div>
                 <div class="content">
                     <p>
-              		Die Modul 1-Veranstaltung wird in der Prüfungswoche mit einer 90minütigen schriftlichen Klausur abgeschlossen, die aus drei gleichwertigen Teilen besteht: Allgemeine und Historische Erziehungswissenschaft, Schulpädagogik, Psychologie.<br>
+              		Die Modul 1-Veranstaltung wird in der Prüfungswoche mit einer 90minütigen schriftlichen Klausur abgeschlossen, die aus zwei gleichwertigen Teilen besteht: Allgemeine/Historische Erziehungswissenschaft und Schulpädagogik.<br>
               		Der Teil der Allgemeinen und Historischen Erziehungswissenschaft setzt sich aus Single Choice- und Multiple Choice-Aufgaben zusammen. Die Klausurmodalitäten werden rechtzeitig in einer Vorlesung (siehe Präsenzveranstaltungen) besprochen.<br>
-              		Insgesamt sind in der Klausur (die drei Prüfungsteile werden zusammengerechnet) 300 Punkte zu erreichen. Ab einer Gesamtpunktzahl von 150 gilt die Prüfung als bestanden. Über die Ergebnisse der Klausur informiert das Prüfungsamt.<br>
-              		Die Klausureinsicht ist anschließend nach Absprache mit dem zuständigen Dozenten möglich. Für Einsicht in den Prüfungsteil der Allgemeinen und Historischen Erziehungswissenschaft wenden Sie sich bitte an <a href="http://www.ph-karlsruhe.de/institute/ph/ew/personen/albert-berger/" target="_blank">Dr. Albert Berger</a>.<br>
+              		{{-- Insgesamt sind in der Klausur (die zwei Prüfungsteile werden zusammengerechnet) 300 Punkte zu erreichen. Ab einer Gesamtpunktzahl von 150 gilt die Prüfung als bestanden. Über die Ergebnisse der Klausur informiert das Prüfungsamt.<br> --}}
+              		{{-- Die Klausureinsicht ist anschließend nach Absprache mit dem zuständigen Dozenten möglich. Für Einsicht in den Prüfungsteil der Allgemeinen und Historischen Erziehungswissenschaft wenden Sie sich bitte an <a href="http://www.ph-karlsruhe.de/institute/ph/ew/personen/albert-berger/" target="_blank">Dr. Albert Berger</a>.<br> --}}
               		Weitere allgemeine Informationen zur Akademischen Vorprüfung finden Sie auf der Website des <a href="http://www.ph-karlsruhe.de/studium-lehre/studien-service-zentrum/pruefungsaemter/">Prüfungsamts</a>.
               	  </p>
                 </div>

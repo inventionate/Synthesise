@@ -36,6 +36,7 @@
     "menu",
     "message",
     "table",
+    "card",
     "comment",
     "accordion",
     "checkbox",
