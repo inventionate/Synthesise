@@ -1,7 +1,17 @@
+// var gulp = require('gulp');
+// var rsync = require('gulp-rsync');
+// var GulpSSH = require('gulp-ssh');
+// var ssh_config = {
+//   host: 'etpm.ph-karlsruhe.de',
+// }
+//
+// var ssh = new GulpSSH({
+//   ignoreErrors: false,
+//   sshConfig: ssh_config
+// });
+
 var elixir = require('laravel-elixir');
-
 require('laravel-elixir-modernizr');
-
 elixir.config.sourcemaps = false;
 
 /*
@@ -50,3 +60,51 @@ elixir( function (mix) {
     ])
     .browserSync({ proxy: 'synthesise.local'});
 });
+
+/*
+ |--------------------------------------------------------------------------
+ | RSync Deploy Management
+ |--------------------------------------------------------------------------
+ |
+ | RSync based deployment.
+ |
+ */
+
+//  var paths_deploy = [
+//      'app/**',
+//      'bootstrap/**',
+//      'config/**',
+//      'database/**',
+//      'public/**',
+//      'resources/lang/**',
+//      'resources/views/**',
+//      'storage/**',
+//      '!storage/test.sqlite',
+//      '.env.production',
+//      'artisan.phar',
+//      'composer.json',
+//      'server.php'
+// ];
+//
+// gulp.task('deploy', function() {
+//     return gulp.src(paths_deploy)
+//     // Put the application into maintenance mode.
+//     .pipe(ssh.shell([
+//         'art down'
+//     ]))
+//     // Deploy changes.
+//     .pipe(rsync({
+//         hostname: ssh_config.host,
+//         destination: '/home/etpm/'
+//     }))
+//     // Optimize the application and bring it out of maintenance mode.
+//     .pipe(ssh.shell([
+//         'mv /home/etpm/.env.production /home/etpm/.env',
+//         'composer update',
+//         'art view:clear',
+//         'art cache:clear',
+//         'art route:cache',
+//         'art config:cache',
+//         'art up'
+//     ]));
+// });

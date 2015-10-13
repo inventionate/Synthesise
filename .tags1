@@ -4,3 +4,6 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+elixir	/Users/fabianmundt/Matrix/Inventionate/Synthesise/gulpfile.js	/^var elixir = require('laravel-elixir');$/;"	variable	line:13
+elixir	/Users/fabianmundt/Matrix/Inventionate/Synthesise/gulpfile.js	/^elixir( function (mix) {$/;"	function	line:28
+paths_deploy	/Users/fabianmundt/Matrix/Inventionate/Synthesise/gulpfile.js	/^ var paths_deploy = [$/;"	variable	line:73

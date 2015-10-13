@@ -64,6 +64,7 @@ class LectionController extends Controller
         $online = Video::getOnline($videoname);
 
         // Videopfad generieren
+        // @todo Hier eine Abfrage, je nach Gerät (Qualität automatisch festlegen)
         $videopath = '/video/'.Parser::normalizeName($videoname);
 
         // Marker generieren
