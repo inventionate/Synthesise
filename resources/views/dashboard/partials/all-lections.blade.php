@@ -8,11 +8,12 @@
 
 		<h2 class="ui header">Ablaufplan</h2>
 
-		<table class="ui table">
+		<table class="ui unstackable table">
 			<thead>
 				<tr>
 					<th>Themenbereich</th>
 					<th>online-Lektion</th>
+					<th>Kommentare</th>
 					@if($role === 'Student')
 						<th>Zugänglich ab</th>
 						{{--<th>Status</th>--}}
@@ -63,6 +64,14 @@
 							<a class="red" href="{{ route('lektion', [rawurlencode($video->videoname)]) }}">{{ $video->videoname }}</a>
 						</td>
 						@endif
+
+						{{-- KOMMENTARE --}}
+						<td class="kommentare-anzahl">
+							<div class="ui basic label">
+								<i class="comments icon"></i>
+								<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($video->videoname) }}">0</span>
+							</div>
+						</td>
 
 						{{-- ZUGÄNGLICHKEITSDATUM --}}
 						<td class="seminar-datum">{{ date('d.m.Y',strtotime($video->available_from)) }}</td>

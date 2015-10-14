@@ -38,7 +38,7 @@ class LectionController extends Controller
     public function index($videoname, $sequenceNumber = 1)
     {
         // @TODO Parameter Hotfix optimitzation
-      $videoname = urldecode($videoname);
+        $videoname = urldecode($videoname);
 
         // CUEPOINT ANZEIGE ---------------------------------------------
 

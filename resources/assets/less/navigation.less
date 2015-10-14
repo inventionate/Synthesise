@@ -1,14 +1,14 @@
 @import "typography";
 @import "colour";
-
 #mainnav {
     background-color: fade(@green,80%);
-    
     .item {
         padding-top: 1.25rem;
         padding-bottom: 1.25rem;
     }
-    
+    .right.item::before {
+        background: none;
+    }
     .etpM {
         .text.hidden;
         width: 45px;
@@ -19,11 +19,9 @@
         background-repeat: no-repeat;
         border-left: none;
     }
-    
     .etpM:hover {
         width: 155px;
     }
-    
     #subnav {
         display: none;
     }

@@ -1,80 +1,86 @@
 @import "layout";
-
 #current-lection {
-	.ui.image {
-		box-shadow: 0 0 2px @gray;
-	}
-	.ui.top.right.pointing.dropdown.button {
-		text-align: center;
-	}
+    .ui.image {
+        box-shadow: 0 0 2px @gray;
+    }
+    .ui.top.right.pointing.dropdown.button {
+        text-align: center;
+    }
 }
-
-
 #all-lections {
-	// Responsive Tabellen
-
-	@media (max-width: 768px) {
-
-	    // Spezielle Formatierungen für das Dashboard Widget vornehmen!
-
-		// Force table to not be like tables anymore
-		table, thead, tbody, th, td, tr {
-			display: block !important;
-		}
-
-		// Hide table headers (but not display: none;, for accessibility)
-		thead tr {
-			position: absolute !important;
-			top: -9999px !important;
-			left: -9999px !important;
-		}
-
-		tr {
-			border: 1px solid @light-gray !important;
-		}
-
-		.table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
-			// Behave  like a "row"
-			border: none;
-			border-bottom: 1px solid @light-gray;
-			position: relative;
-			padding-left: 55%;
-		}
-
-		.table thead > tr > td:last-child, .table tbody > tr > td:last-child, .table tfoot > tr > td:last-child {
-			border-bottom: 3px solid fade(@light-gray,50%);
-		}
-
-		td.themenbereich {
-			background-color: fade(@light-gray,50%);
-		}
-
-		td:before {
-			// Now like a table header
-			position: absolute;
-			// Top/left values mimic padding
-			left: 6px;
-			width: 55%;
-			padding-right: 10px;
-			white-space: nowrap;
-			font-weight: 600;
-		}
-
-		// Label the data
-		td.themenbereich:before {
-			content: "Themenbereich:";
-		}
-		td.online-lektion:before {
-			content: "online-Lektion:";
-		}
-		td.online-status:before {
-			content: "Status:";
-		}
-		td.seminar-datum:before {
-			content: "Zugänglich ab:";
-		}
-		td.materialien:before {
-			content: "Literatur/Notizen:";
-		}
-	}
+    
+    // Responsive Tabellen
+    @media (max-width: 768px) {
+        
+        // Spezielle Formatierungen für das Dashboard Widget vornehmen!
+        // Force table to not be like tables anymore
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+            display: block !important;
+        }
+        
+        // Hide table headers (but not display: none;, for accessibility)
+        thead tr {
+            position: absolute !important;
+            top: -9999px !important;
+            left: -9999px !important;
+        }
+        tr {
+            border: 1px solid @light-gray !important;
+        }
+        .table thead > tr > td,
+        .table tbody > tr > td,
+        .table tfoot > tr > td {
+            
+            // Behave  like a "row"
+            border: none;
+            border-bottom: 1px solid @light-gray;
+            position: relative;
+            padding-left: 55%;
+        }
+        .table thead > tr > td:last-child,
+        .table tbody > tr > td:last-child,
+        .table tfoot > tr > td:last-child {
+            border-bottom: 3px solid fade(@light-gray,50%);
+        }
+        td.themenbereich {
+            background-color: fade(@light-gray,50%);
+        }
+        td:before {
+            
+            // Now like a table header
+            position: absolute;
+            
+            // Top/left values mimic padding
+            left: 6px;
+            width: 55%;
+            padding-right: 10px;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        
+        // Label the data
+        td.themenbereich:before {
+            content: "Themenbereich:";
+        }
+        td.online-lektion:before {
+            content: "online-Lektion:";
+        }
+        td.kommentare-anzahl:before {
+            content: "Kommentare:";
+        }
+        td.online-status:before {
+            content: "Status:";
+        }
+        td.seminar-datum:before {
+            content: "Zugänglich ab:";
+        }
+        td.materialien:before {
+            content: "Literatur/Notizen:";
+        }
+    }
 }

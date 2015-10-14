@@ -92,6 +92,7 @@
 	<script type="text/javascript">
 		/* * * CONFIGURATION VARIABLES * * */
 		var disqus_shortname = 'etpm';
+		var disqus_identifier = '{{ rawurlencode($videoname) }}';
 
 		/* * * DON'T EDIT BELOW THIS LINE * * */
 		(function() {
