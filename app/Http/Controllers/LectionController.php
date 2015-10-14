@@ -35,7 +35,7 @@ class LectionController extends Controller
      *
      * @return View
      */
-    public function index($videoname, $sequenceNumber = 1)
+    public function index($videoname, $sequenceNumber)
     {
         // @TODO Parameter Hotfix optimitzation
         $videoname = urldecode($videoname);
@@ -96,7 +96,7 @@ class LectionController extends Controller
      *
      * @return PDF
      */
-    public function getNotesPDF($videoname, $sequenceNumber = 1)
+    public function getNotesPDF($videoname)
     {
         $videoname = urldecode($videoname);
         $allnotes = User::getAllNotes(Auth::user()->id, $videoname);
@@ -113,7 +113,7 @@ class LectionController extends Controller
      *
      * @todo 			Überprüfen ob via JSON übertragen wird und ggf. umstellen.
      */
-    public function getFlags($videoname, $sequenceNumber = 1, Request $request)
+    public function getFlags($videoname, $sequenceNumber, Request $request)
     {
         $videoname = urldecode($videoname);
         // Fähnchen der Cuepoints abfragen
@@ -131,7 +131,7 @@ class LectionController extends Controller
      *
      * @return string Die Notiz zu dem jeweiligen Fähnchen.
      */
-    public function getNotes($videoname, $sequenceNumber = 1, NoteRequest $request)
+    public function getNotes($videoname, $sequenceNumber, NoteRequest $request)
     {
         $videoname = urldecode($videoname);
 
@@ -153,7 +153,7 @@ class LectionController extends Controller
      *
      * @return string "success"
      */
-    public function postNotes($videoname, $sequenceNumber = 1, NoteUpdateRequest $request)
+    public function postNotes($videoname, $sequenceNumber, NoteUpdateRequest $request)
     {
         $videoname = urldecode($videoname);
 
