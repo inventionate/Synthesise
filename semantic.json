@@ -31,6 +31,7 @@
     "list",
     "loader",
     "segment",
+    "step",
     "form",
     "grid",
     "menu",

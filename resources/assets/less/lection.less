@@ -1,14 +1,21 @@
 @import "colour";
-#main-content-online-lektionen .one.column.row .column {
-    margin-bottom: 7em !important;
+#main-content-online-lektionen {
+    #disqus_thread {
+        margin-top: 7em;
+        margin-bottom: 7em;
+    }
+    .ui.three.top.attached.steps {
+        border: 1px solid @light-gray;
+    }
 }
 #interactive-video {
+    position: relative;
     img {
         position: absolute;
         
         // MEDIA QUERY EINBAUEN!!!
         top: 15px;
-        right: 21px;
+        right: 11px;
         width: 5rem;
         opacity: 0.85;
     }

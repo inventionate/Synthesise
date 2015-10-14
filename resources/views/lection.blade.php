@@ -14,8 +14,43 @@
 		{{-- MEDIAPLAYER --}}
 		<div class="one column row">
 			<div class="column">
+
+				<div class="ui six top attached small steps">
+				  <div class="step">
+				    <div class="content">
+				      <div class="title">Sequenz 1</div>
+				    </div>
+				  </div>
+				  <div class="active step">
+				    <div class="content">
+				      <div class="title">Sequenz 2</div>
+				    </div>
+				  </div>
+				  <div class="step">
+				    <div class="content">
+				      <div class="title">Sequenz 3</div>
+				    </div>
+				  </div>
+				  <div class="step">
+				    <div class="content">
+				      <div class="title">Sequenz 4</div>
+				    </div>
+				  </div>
+				  <div class="step">
+				    <div class="content">
+				      <div class="title">Sequenz 5</div>
+				    </div>
+				  </div>
+				  <div class="step">
+				    <div class="content">
+				      <div class="title">Sequenz 6</div>
+				    </div>
+				  </div>
+				</div>
+
 				{{-- Vue.js Komponente laden und die entsprechenden Variablen (Props) übergeben. --}}
 				<interactive-video name="{{ $videoname }}" path="{{ $videopath }}" markers="{{ $markers }}" poster="/img/ol_title.jpg" notes="true"></interactive-video>
+
 			</div>
 		</div>
 		<div class="one column row">
