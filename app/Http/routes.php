@@ -54,36 +54,36 @@ Route::group(['middleware' => 'auth'], function () {
     // ONLINE-LEKTIONEN
 
     // Einzellektion
-    Route::get('online-lektionen/{videoname}', [
+    Route::get('online-lektionen/{videoname}/{sequenceNumber?}', [
       'as' => 'lektion',
       'uses' => 'LectionController@index',
     ]);
 
     // GET PDF NOTES
-    Route::get('online-lektionen/{videoname}/getnotespdf', [
+    Route::get('online-lektionen/{videoname}/{sequenceNumber?}/getnotespdf', [
       'uses' => 'LectionController@getNotesPDF',
     ]);
 
     // GET PDF FLAGNAMES
-    Route::get('online-lektionen/{videoname}/getflagnamespdf', [
+    Route::get('online-lektionen/{videoname}/{sequenceNumber?}/getflagnamespdf', [
       'uses' => 'LectionController@getFlagnamesPDF',
     ]);
 
     // AJAX
 
     // Ajax GET FLAGS
-    Route::get('online-lektionen/{videoname}/getflags', [
+    Route::get('online-lektionen/{videoname}/{sequenceNumber?}/getflags', [
         'uses' => 'LectionController@getFlags',
     ]);
 
     // Ajax GET NOTES
-    Route::get('online-lektionen/{videoname}/getnotes', [
+    Route::get('online-lektionen/{videoname}/{sequenceNumber?}/getnotes', [
         'uses' => 'LectionController@getNotes',
     ]);
 
     // Ajax POST NOTES
 
-    Route::post('online-lektionen/{videoname}/postnotes', [
+    Route::post('online-lektionen/{videoname}/{sequenceNumber?}/postnotes', [
     'uses' => 'LectionController@postNotes',
     ]);
 

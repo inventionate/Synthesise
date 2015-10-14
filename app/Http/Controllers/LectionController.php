@@ -35,7 +35,7 @@ class LectionController extends Controller
      *
      * @return View
      */
-    public function index($videoname)
+    public function index($videoname, $sequenceNumber = 1)
     {
         // @TODO Parameter Hotfix optimitzation
       $videoname = urldecode($videoname);
@@ -70,6 +70,9 @@ class LectionController extends Controller
         // Marker generieren
         $markers = Video::getMarkers($videoname);
 
+        // Sequenzen abfragen
+        $sequences = Video::getSequences($videoname);
+
         // Standardausgabe VIEW -----------------------------------------
         return view('lection')
                             ->with('available', $available)
@@ -81,7 +84,9 @@ class LectionController extends Controller
                             ->with('papers', $papers)
                             ->with('videoname', $videoname)
                             ->with('videopath', $videopath)
-                            ->with('markers', $markers);
+                            ->with('markers', $markers)
+                            ->with('sequenceNumber', $sequenceNumber)
+                            ->with('sequences', $sequences);
     }
 
     /**

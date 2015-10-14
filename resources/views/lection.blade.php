@@ -15,39 +15,41 @@
 		<div class="one column row">
 			<div class="column">
 
-				<div class="ui six top attached small steps">
-				  <div class="step">
-				    <div class="content">
-				      <div class="title">Sequenz 1</div>
-				    </div>
-				  </div>
-				  <div class="active step">
-				    <div class="content">
-				      <div class="title">Sequenz 2</div>
-				    </div>
-				  </div>
-				  <div class="step">
-				    <div class="content">
-				      <div class="title">Sequenz 3</div>
-				    </div>
-				  </div>
-				  <div class="step">
-				    <div class="content">
-				      <div class="title">Sequenz 4</div>
-				    </div>
-				  </div>
-				  <div class="step">
-				    <div class="content">
-				      <div class="title">Sequenz 5</div>
-				    </div>
-				  </div>
-				  <div class="step">
-				    <div class="content">
-				      <div class="title">Sequenz 6</div>
-				    </div>
-				  </div>
-				</div>
-
+				{{-- Sequences Detection --}}
+				{{-- @todo Refactor this hotfix solution! --}}
+				@if( $sequences[0]['sequence_id'] != NULL )
+					<div class="ui
+					@if ( last($sequences)['sequence_id'] === 1)
+						one
+					@elseif ( last($sequences)['sequence_id'] === 2)
+						two
+					@elseif ( last($sequences)['sequence_id'] === 3)
+						three
+					@elseif ( last($sequences)['sequence_id'] === 4)
+						four
+					@elseif ( last($sequences)['sequence_id'] === 5)
+						five
+					@elseif ( last($sequences)['sequence_id'] === 6)
+						six
+					@elseif ( last($sequences)['sequence_id'] === 7)
+						seven
+					@elseif ( last($sequences)['sequence_id'] === 8)
+						eight
+					@elseif ( last($sequences)['sequence_id'] === 9)
+						nine
+					@elseif ( last($sequences)['sequence_id'] === 10)
+						ten
+					@endif
+					top attached small steps">
+					@foreach ($sequences as $sequence)
+						<div class="step @if ( $sequence['sequence_id'] === 1 | $sequence['sequence_id'] == substr(URL::current(),-1) ) active @endif">
+							<div class="content">
+								<div class="title">{{ $sequence['sequence_name'] }}</div>
+							</div>
+						</div>
+					@endforeach
+					</div>
+				@endif
 				{{-- Vue.js Komponente laden und die entsprechenden Variablen (Props) übergeben. --}}
 				<interactive-video name="{{ $videoname }}" path="{{ $videopath }}" markers="{{ $markers }}" poster="/img/ol_title.jpg" notes="true"></interactive-video>
 
@@ -67,7 +69,7 @@
 				</header>
 				@foreach ($papers as $paper)
 					<a class="ui fluid labeled icon blue button" v-on="click: trackEvents('Text', '{{ $paper->papername }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->papername }}</a>
-					@endforeach
+				@endforeach
 			</div>
 			<div class="column">
 				{{-- @todo Funktionalität beim Note Repository hinzufügen (Note::collectContent) --}}
