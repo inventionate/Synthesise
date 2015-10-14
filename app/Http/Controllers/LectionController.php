@@ -99,7 +99,7 @@ class LectionController extends Controller
     public function getNotesPDF($videoname, $sequenceNumber = 1)
     {
         $videoname = urldecode($videoname);
-        $allnotes = User::getAllNotes(Auth::user()->id, $videoname, $sequenceNumber);
+        $allnotes = User::getAllNotes(Auth::user()->id, $videoname);
 
         return PDF::loadHTML($allnotes)->setPaper('a4')->setWarnings(false)->download('Meine Notizen für '.$videoname);
     }

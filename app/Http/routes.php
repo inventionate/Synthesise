@@ -54,38 +54,44 @@ Route::group(['middleware' => 'auth'], function () {
     // ONLINE-LEKTIONEN
 
     // Einzellektion
-    Route::get('online-lektionen/{videoname}/{sequenceNumber?}', [
+    Route::get('online-lektionen/{videoname}/{sequenceNumber}', [
       'as' => 'lektion',
       'uses' => 'LectionController@index',
-    ]);
+    ])
+    ->where('sequenceNumber', '[0-9]+');
 
     // GET PDF NOTES
-    Route::get('online-lektionen/{videoname}/{sequenceNumber?}/getnotespdf', [
+    Route::get('online-lektionen/{videoname}/1/getnotespdf', [
       'uses' => 'LectionController@getNotesPDF',
-    ]);
+    ])
+    ->where('sequenceNumber', '[0-9]+');
 
     // GET PDF FLAGNAMES
     Route::get('online-lektionen/{videoname}/{sequenceNumber?}/getflagnamespdf', [
       'uses' => 'LectionController@getFlagnamesPDF',
-    ]);
+    ])
+    ->where('sequenceNumber', '[0-9]+');
 
     // AJAX
 
     // Ajax GET FLAGS
     Route::get('online-lektionen/{videoname}/{sequenceNumber?}/getflags', [
         'uses' => 'LectionController@getFlags',
-    ]);
+    ])
+    ->where('sequenceNumber', '[0-9]+');
 
     // Ajax GET NOTES
     Route::get('online-lektionen/{videoname}/{sequenceNumber?}/getnotes', [
         'uses' => 'LectionController@getNotes',
-    ]);
+    ])
+    ->where('sequenceNumber', '[0-9]+');
 
     // Ajax POST NOTES
 
     Route::post('online-lektionen/{videoname}/{sequenceNumber?}/postnotes', [
     'uses' => 'LectionController@postNotes',
-    ]);
+    ])
+    ->where('sequenceNumber', '[0-9]+');
 
     // HgF
     Route::get('hgf/{letter?}', [
