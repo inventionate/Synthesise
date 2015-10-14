@@ -15,8 +15,6 @@
                   <i class="dropdown icon"></i>
                   <div class="green menu">
                     <div class="header">Sozialgeschichte der Erziehung und Bildung</div>
-                    {{-- @todo Refactor Umgang mit Sequenzen --}}
-                    {{-- Hier alle Sequenzen auf 1 setzen --}}
                     <a class="item" href="{{ route('lektion',['Griechisch-römische Antike']) }}">Griechisch-römische Antike</a>
                     <a class="item" href="{{ route('lektion', ['Mittelalter']) }}">Mittelalter</a>
                     <a class="item" href="{{ route('lektion', ['Frühe Neuzeit']) }}">Frühe Neuzeit</a></li>

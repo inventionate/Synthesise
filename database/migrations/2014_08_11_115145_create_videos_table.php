@@ -16,7 +16,7 @@ class CreateVideosTable extends Migration
             $table->string('section', 128);
             $table->string('author', 128);
             $table->boolean('online');
-            $table->integer('sequence_id')->nullable();
+            $table->integer('sequence_id');
             $table->string('sequence_name', 128)->nullable();
             $table->date('available_from');
             $table->date('available_to');

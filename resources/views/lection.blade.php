@@ -14,10 +14,9 @@
 		{{-- MEDIAPLAYER --}}
 		<div class="one column row">
 			<div class="column">
-
 				{{-- Sequences Detection --}}
 				{{-- @todo Refactor this hotfix solution! --}}
-				@if( $sequences[0]['sequence_id'] != NULL )
+				@if( isset($sequences[1])  )
 					<div class="ui
 					@if ( last($sequences)['sequence_id'] === 1)
 						one
@@ -41,10 +40,15 @@
 						ten
 					@endif
 					top attached small steps">
+
 					@foreach ($sequences as $sequence)
-						<div class="step @if ( $sequence['sequence_id'] === 1 | $sequence['sequence_id'] == substr(URL::current(),-1) ) active @endif">
+						<div class="step @if ( ($sequence['sequence_id'] === 1 && substr(URL::current(), -2, 1) != '/') | substr(URL::current(), -1) == $sequence['sequence_id'] ) active @endif">
 							<div class="content">
-								<div class="title">{{ $sequence['sequence_name'] }}</div>
+								<div class="title">
+									<a href="{{ route('lektion',[$videoname, $sequence['sequence_id']]) }}">
+										{{ $sequence['sequence_name'] }}
+									</a>
+								</div>
 							</div>
 						</div>
 					@endforeach
