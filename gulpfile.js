@@ -1,14 +1,20 @@
-// var gulp = require('gulp');
-// var rsync = require('gulp-rsync');
-// var GulpSSH = require('gulp-ssh');
-// var ssh_config = {
-//   host: 'etpm.ph-karlsruhe.de',
-// }
-//
-// var ssh = new GulpSSH({
-//   ignoreErrors: false,
-//   sshConfig: ssh_config
-// });
+var gulp = require('gulp'),
+    rsync = require('gulp-rsync'),
+    GulpSSH = require('gulp-ssh'),
+    fs = require('fs'),
+    runSequence = require('run-sequence');
+
+var config = {
+  host: 'etpm.ph-karlsruhe.de',
+  username: 'etpm',
+  privateKey: fs.readFileSync('/home/vagrant/.ssh/id_rsa')
+};
+
+
+var gulpSSH = new GulpSSH({
+  ignoreErrors: false,
+  sshConfig: config
+});
 
 var elixir = require('laravel-elixir');
 require('laravel-elixir-modernizr');
@@ -70,41 +76,75 @@ elixir( function (mix) {
  |
  */
 
-//  var paths_deploy = [
-//      'app/**',
-//      'bootstrap/**',
-//      'config/**',
-//      'database/**',
-//      'public/**',
-//      'resources/lang/**',
-//      'resources/views/**',
-//      'storage/**',
-//      '!storage/test.sqlite',
-//      '.env.production',
-//      'artisan.phar',
-//      'composer.json',
-//      'server.php'
-// ];
-//
-// gulp.task('deploy', function() {
-//     return gulp.src(paths_deploy)
-//     // Put the application into maintenance mode.
-//     .pipe(ssh.shell([
-//         'art down'
-//     ]))
-//     // Deploy changes.
-//     .pipe(rsync({
-//         hostname: ssh_config.host,
-//         destination: '/home/etpm/'
-//     }))
-//     // Optimize the application and bring it out of maintenance mode.
-//     .pipe(ssh.shell([
-//         'mv /home/etpm/.env.production /home/etpm/.env',
-//         'composer update',
-//         'art view:clear',
-//         'art cache:clear',
-//         'art route:cache',
-//         'art config:cache',
-//         'art up'
-//     ]));
-// });
+var paths_deploy = [
+    '!**/.tags',
+    '!**/.tags1',
+    '!**/.gitignore',
+    'app/**',
+    'bootstrap/**',
+    'config/**',
+    'database/**',
+    // public wird wegen dem symbolischen Link gesondert übertragen
+    '!public/**',
+    'resources/lang/**',
+    'resources/views/**',
+    'storage/**',
+    '!storage/logs/**',
+    '!storage/framework/views/**',
+    '!storage/test.sqlite',
+    '.env.production',
+    'artisan',
+    'composer.json',
+    'server.php'
+];
+gulp.task('deploy-start', function () {
+  return gulpSSH
+    .shell(['art down']);
+});
+
+gulp.task('deploy-app', function() {
+    return gulp.src(paths_deploy)
+    // Deploy changes.
+    .pipe(rsync({
+        hostname: 'etpm.ph-karlsruhe.de',
+        username: 'etpm',
+        destination: '/home/etpm/'
+    }));
+});
+
+gulp.task('deploy-public', function() {
+    return gulp.src([
+        'public/**',
+        'public/.htaccess',
+        '!public/video/**'
+    ])
+    // Deploy changes.
+    .pipe(rsync({
+        hostname: 'etpm.ph-karlsruhe.de',
+        username: 'etpm',
+        root: 'public',
+        destination: '/srv/www/vhosts/etpm.ph-karlsruhe.de/'
+    }));
+});
+
+gulp.task('deploy-end', function () {
+  return gulpSSH
+    .shell([
+        'mv /home/etpm/.env.production /home/etpm/.env',
+        'composer update --no-dev',
+        'art view:clear',
+        'art cache:clear',
+        'art route:cache',
+        'art config:cache',
+        'art up',
+    ]);
+});
+
+gulp.task('deploy', function() {
+    return runSequence(
+        'deploy-start',
+        'deploy-app',
+        'deploy-public',
+        'deploy-end'
+    );
+});

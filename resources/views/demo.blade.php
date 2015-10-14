@@ -137,17 +137,17 @@
                 </div>
               </div>
               <div class="item">
-                <img class="ui avatar image" src="/img/semantic_ui_logo.png" alt="Semantic UI Logo">
-                <div class="content">
-                  <a class="header" href="http://semantic-ui.com/" target="_blank">Semantic UI</a>
-                  <div class="description">»A UI Component Framework Designed For Theming«</div>
-                </div>
-              </div>
-              <div class="item">
                 <img class="ui avatar image" src="/img/videojs_logo.png" alt="Video.js Logo">
                 <div class="content">
                   <a class="header" href="http://videojs.com/" target="_blank">Video.js</a>
                   <div class="description">»The Player Framework«</div>
+                </div>
+              </div>
+              <div class="item">
+                <img class="ui avatar image" src="/img/semantic_ui_logo.png" alt="Semantic UI Logo">
+                <div class="content">
+                  <a class="header" href="http://semantic-ui.com/" target="_blank">Semantic UI</a>
+                  <div class="description">»A UI Component Framework Designed For Theming«</div>
                 </div>
               </div>
             </div>
