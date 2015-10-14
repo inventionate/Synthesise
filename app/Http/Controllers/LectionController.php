@@ -21,11 +21,11 @@ class LectionController extends Controller
      *
      * @return string $cuepointNumber
      */
-    private function currentCuepoint($videoname, $cuepointNumber)
+    private function currentCuepoint($videoname, $sequenceNumber, $cuepointNumber)
     {
         $videoname = urldecode($videoname);
         // Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird
-        return Video::getFirstCuepointId($videoname) + preg_replace('/[^0-9]/', '', $cuepointNumber) - 1;
+        return Video::getFirstCuepointId($videoname, $sequenceNumber) + preg_replace('/[^0-9]/', '', $cuepointNumber) - 1;
     }
 
     /**
@@ -43,7 +43,7 @@ class LectionController extends Controller
         // CUEPOINT ANZEIGE ---------------------------------------------
 
         // Position der Cuepoints abfragen
-        $cuepoints = Video::getCuepoints($videoname);
+        $cuepoints = Video::getCuepoints($videoname, $sequenceNumber);
 
         // Gruppenzugehörigkeit des Videos abfragen
         $section = Video::getSection($videoname);
@@ -65,10 +65,10 @@ class LectionController extends Controller
 
         // Videopfad generieren
         // @todo Hier eine Abfrage, je nach Gerät (Qualität automatisch festlegen)
-        $videopath = '/video/'.Parser::normalizeName($videoname);
+        $videopath = '/video/'.Parser::normalizeName($videoname).'_'.$sequenceNumber;
 
         // Marker generieren
-        $markers = Video::getMarkers($videoname);
+        $markers = Video::getMarkers($videoname, $sequenceNumber);
 
         // Sequenzen abfragen
         $sequences = Video::getSequences($videoname);
@@ -96,10 +96,10 @@ class LectionController extends Controller
      *
      * @return PDF
      */
-    public function getNotesPDF($videoname)
+    public function getNotesPDF($videoname, $sequenceNumber = 1)
     {
         $videoname = urldecode($videoname);
-        $allnotes = User::getAllNotes(Auth::user()->id, $videoname);
+        $allnotes = User::getAllNotes(Auth::user()->id, $videoname, $sequenceNumber);
 
         return PDF::loadHTML($allnotes)->setPaper('a4')->setWarnings(false)->download('Meine Notizen für '.$videoname);
     }
@@ -113,11 +113,11 @@ class LectionController extends Controller
      *
      * @todo 			Überprüfen ob via JSON übertragen wird und ggf. umstellen.
      */
-    public function getFlags($videoname, Request $request)
+    public function getFlags($videoname, $sequenceNumber = 1, Request $request)
     {
         $videoname = urldecode($videoname);
         // Fähnchen der Cuepoints abfragen
-        $flagnames = Video::getFlagnames($videoname);
+        $flagnames = Video::getFlagnames($videoname, $sequenceNumber);
 
         if ($request->ajax()) {
             return $flagnames;
@@ -131,14 +131,14 @@ class LectionController extends Controller
      *
      * @return string Die Notiz zu dem jeweiligen Fähnchen.
      */
-    public function getNotes($videoname, NoteRequest $request)
+    public function getNotes($videoname, $sequenceNumber = 1, NoteRequest $request)
     {
         $videoname = urldecode($videoname);
 
         // Ajax Request verarbeiten
         if ($request->ajax()) {
             // Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird
-            $cuepointId = $this->currentCuepoint($videoname, $request->cuepointNumber);
+            $cuepointId = $this->currentCuepoint($videoname, $sequenceNumber, $request->cuepointNumber);
             // Inhalte abfragen
             $cuepointnotes = Note::getContent(Auth::user()->id, $cuepointId);
             // Notizen zurückmelden
@@ -153,13 +153,13 @@ class LectionController extends Controller
      *
      * @return string "success"
      */
-    public function postNotes($videoname, NoteUpdateRequest $request)
+    public function postNotes($videoname, $sequenceNumber = 1, NoteUpdateRequest $request)
     {
         $videoname = urldecode($videoname);
 
         if ($request->ajax()) {
             // Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird
-            $cuepointId = $this->currentCuepoint($videoname, $request->cuepointNumber);
+            $cuepointId = $this->currentCuepoint($videoname, $sequenceNumber, $request->cuepointNumber);
             // Geänderter oder neuer Inhalt abfragen
             $noteupdate = $request->note;
             // Note updaten

@@ -135,9 +135,9 @@ class VideoRepository implements VideoInterface
    *
    * @return    array
    */
-  public function getFlagnames($videoname)
+  public function getFlagnames($videoname, $sequenceNumber)
   {
-      return $this->videoModel->findOrFail($videoname)->cuepoints->lists('content');
+      return $this->videoModel->findOrFail($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber))->lists('content');
   }
 
   /**
@@ -147,9 +147,9 @@ class VideoRepository implements VideoInterface
    *
    * @return    array
    */
-  public function getCuepoints($videoname)
+  public function getCuepoints($videoname, $sequenceNumber)
   {
-      return $this->videoModel->findOrFail($videoname)->cuepoints;
+      return $this->videoModel->findOrFail($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber));
   }
 
   /**
@@ -159,9 +159,9 @@ class VideoRepository implements VideoInterface
    *
    * @return    int
    */
-  public function getFirstCuepointId($videoname)
+  public function getFirstCuepointId($videoname, $sequenceNumber)
   {
-      return $this->videoModel->find($videoname)->cuepoints->first()->id;
+      return $this->videoModel->find($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber))->first()->id;
   }
 
   /**
@@ -173,9 +173,9 @@ class VideoRepository implements VideoInterface
    *
    * @return    string HTML Markup aller Fähncheninhalte.
    */
-  public function getAllFlagnamesAsHTML($videoname)
+  public function getAllFlagnamesAsHTML($videoname, $sequenceNumber)
   {
-      $cuepoints = $this->videoModel->find($videoname)->cuepoints;
+      $cuepoints = $this->videoModel->find($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber));
 
       $content = '';
 
@@ -193,11 +193,11 @@ class VideoRepository implements VideoInterface
    *
    * @return    json Markertitel und Markerposition.
    */
-  public function getMarkers($videoname)
+  public function getMarkers($videoname, $sequenceNumber)
   {
       // {time: 60, text: "this"}
 
-    $cuepoints = $this->videoModel->findOrFail($videoname)->cuepoints->toArray();
+    $cuepoints = $this->videoModel->findOrFail($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber));
 
       $markers = [];
 
