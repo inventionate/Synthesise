@@ -130,6 +130,7 @@ gulp.task('deploy-public', function() {
 gulp.task('deploy-end', function () {
   return gulpSSH
     .shell([
+        'rm /home/etpm/.env',
         'mv /home/etpm/.env.production /home/etpm/.env',
         'composer update --no-dev',
         'art view:clear',

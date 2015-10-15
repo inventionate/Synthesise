@@ -55,8 +55,8 @@ class Ldap implements LdapContract
         $this->domain = $domain;
         $this->port = $port;
         $this->baseDn = $baseDn;
-        $this->bindDn = $baseDn;
-        $this->bindPwd = $baseDn;
+        $this->bindDn = $bindDn;
+        $this->bindPwd = $bindPwd;
     }
 
     /**
@@ -70,17 +70,26 @@ class Ldap implements LdapContract
     public function authenticate($username, $password)
     {
         // Verbindung zum LDAP Server aufbauen
-        // Der @ Operator setzt die Variable auf 'undefined' wenn sie nicht erzeugt werden kann
-        $ds = ldap_connect($this->domain, $port);
-        // Nutzer suchen
-        $r = ldap_search($ds, $this->baseDn, 'uid='.$username);
-        // Nur weiter fortfahren, wenn ein Nutzer gefunden wurde
-        if (isset($r)) {
+        $handle = ldap_connect($this->domain, $this->port);
+
+        // Protokoll auswählen
+        ldap_set_option($handle, LDAP_OPT_PROTOCOL_VERSION, 3);
+
+        // Authentifiezierung
+        $bind = ldap_bind($handle, $this->bindDn, $this->bindPwd);
+
+        // Überprüfen, ob das Binden erfolgreich war
+        if ($bind) {
+
+            // Nutzer suchen
+            $check_user = ldap_search($handle, $this->baseDn, 'cn='.$username);
+
             // Nutzerdaten laden
-            $result = ldap_get_entries($ds, $r);
-            if (isset($result[0])) {
-                if (@ldap_bind($ds, $result[0]['dn'], $password)) {
-                    $data = array_dot($result);
+            $user_data = ldap_get_entries($handle, $check_user);
+            if (isset($user_data[0])) {
+                // Der @ Operator setzt die Variable auf 'undefined' wenn sie nicht erzeugt werden kann
+                if (@ldap_bind($handle, $user_data[0]['dn'], $password)) {
+                    $data = array_dot($user_data);
 
                     return [
                         'firstname' => $data['0.givenname.0'],
