@@ -178,7 +178,7 @@ class VideoRepositoryCest
       $I->haveRecord('videos', $this->videoAttributes);
 
     // Methode ausführen
-    $cuepoints = Video::getCuepoints('Sozialgeschichte 1');
+    $cuepoints = Video::getCuepoints('Sozialgeschichte 1', 1);
 
     // Testen
     $I->AssertEquals($cuepoints->first()->pluck('cuepoint'), 10);
@@ -215,7 +215,7 @@ class VideoRepositoryCest
       $I->haveRecord('videos', $this->videoAttributes);
 
     // Methode ausführen
-    $cuepoints = Video::getFirstCuepointId('Sozialgeschichte 1');
+    $cuepoints = Video::getFirstCuepointId('Sozialgeschichte 1', 1);
 
     // Testen
     $I->AssertEquals($cuepoints, 3);
@@ -242,7 +242,7 @@ class VideoRepositoryCest
       $I->haveRecord('videos', $this->videoAttributes);
 
     // Methode ausführen
-    $flagnames = Video::getFlagnames('Sozialgeschichte 1')->toArray();
+    $flagnames = Video::getFlagnames('Sozialgeschichte 1', 1)->toArray();
 
     // Testen
     $I->AssertEquals($flagnames, ['Fähnchen X', 'Fähnchen Y']);
@@ -271,7 +271,7 @@ class VideoRepositoryCest
       $I->haveRecord('videos', $this->videoAttributes);
 
       // Methode ausführen
-      $flagnames = Video::getAllFlagnamesAsHTML('Sozialgeschichte 1');
+      $flagnames = Video::getAllFlagnamesAsHTML('Sozialgeschichte 1', 1);
 
       $htmlMarkup = Parser::htmlMarkup('Sozialgeschichte 1', '<h2 style="height:250px;">Fähnchen X</h2><h2 style="height:250px;">Fähnchen Y</h2>');
 

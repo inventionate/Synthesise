@@ -24,6 +24,7 @@ class LectionController extends Controller
     private function currentCuepoint($videoname, $sequenceNumber, $cuepointNumber)
     {
         $videoname = urldecode($videoname);
+        $sequenceNumber = intval($sequenceNumber);
         // Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird
         return Video::getFirstCuepointId($videoname, $sequenceNumber) + preg_replace('/[^0-9]/', '', $cuepointNumber) - 1;
     }
@@ -39,6 +40,7 @@ class LectionController extends Controller
     {
         // @TODO Parameter Hotfix optimitzation
         $videoname = urldecode($videoname);
+        $sequenceNumber = intval($sequenceNumber);
 
         // CUEPOINT ANZEIGE ---------------------------------------------
 
@@ -116,6 +118,7 @@ class LectionController extends Controller
     public function getFlags($videoname, $sequenceNumber, Request $request)
     {
         $videoname = urldecode($videoname);
+        $sequenceNumber = intval($sequenceNumber);
         // Fähnchen der Cuepoints abfragen
         $flagnames = Video::getFlagnames($videoname, $sequenceNumber);
 
@@ -134,6 +137,7 @@ class LectionController extends Controller
     public function getNotes($videoname, $sequenceNumber, NoteRequest $request)
     {
         $videoname = urldecode($videoname);
+        $sequenceNumber = intval($sequenceNumber);
 
         // Ajax Request verarbeiten
         if ($request->ajax()) {
@@ -156,6 +160,7 @@ class LectionController extends Controller
     public function postNotes($videoname, $sequenceNumber, NoteUpdateRequest $request)
     {
         $videoname = urldecode($videoname);
+        $sequenceNumber = intval($sequenceNumber);
 
         if ($request->ajax()) {
             // Cupoint ID Start bestimmen, indem die erste Zeile mit dem Videonamen ausgelesen wird

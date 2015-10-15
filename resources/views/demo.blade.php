@@ -73,6 +73,7 @@
 
     <div class="ui basic segment">
     <div class="ui stackable relaxed vertically divided grid">
+
         <div class="row">
         <div class="seven wide column">
             <h2 class="ui header">online-Lektionen</h2>
@@ -108,6 +109,30 @@
             <h2 class="ui header">Notizfunktion</h2>
             <p>
                 Die interaktive Timeline der <span class="etpM">e:t:p:M</span> Web-App ermöglicht es, je nach Bedürfnis direkt zu einem »Fähnchen« (und somit zu einer Themeneinheit) der online-Lektion zu springen (siehe Demo). Es ist außerdem möglich über ein eingeblendetes Feld zu jedem »Fähnchen« eine individuelle Notiz (Querverbindungen, Eselsbrücken, Anmerkungen etc.) zu verfassen (max. 500 Zeichen). Diese wird verschlüsselt und personalisiert in einer Datenbank gespeichert und lässt sich jederzeit ergänzen, ändern, löschen. Damit solche Videoannotationen auch in den Präsenzveranstaltungen fruchtbar gemacht werden können, besteht jederzeit die Möglichkeit, diese als PDF Dokument herunterzuladen.
+            </p>
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="seven wide column">
+            <h2 class="ui header">Sequenzen</h2>
+            <p>
+                Die online-Lektionen lassen sich problemlos in <em>Sequenzen</em> einteilen, die gesodnerte Diskussionsräume und spezifische Fähnchen ermöglichen.
+            </p>
+        </div>
+        <div class="nine wide column">
+            <img class="ui huge image" src="/img/sequenzen.png" alt="Sequenzen" />
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="nine wide column">
+            <img class="ui image" src="/img/disqus.png" alt="disqus">
+        </div>
+        <div class="seven wide column">
+            <h2 class="ui header">Diskussionsräume</h2>
+            <p>
+                Die aktuelle Version der Web-App (3.0) ermöglicht die Integraton von disqus™ Diskussionräumen. Je nach Intention können diese entweder anonym verwendet werden, oder aber personalisiert und über die Anwendung hinausweisend.
             </p>
         </div>
         </div>
@@ -153,7 +178,7 @@
             </div>
         </div>
         <div class="nine wide column">
-            <img class="ui huge image" src="/img/responsive_webapp.png" alt="Responsive Web-App" />
+            <img class="ui huge image" src="/img/responsive_webapp.png" alt="Responsive Web-App">
         </div>
         </div>
 
@@ -166,7 +191,7 @@
     <div class="ui stackable relaxed grid">
 
         <div class="nine wide column">
-            <img class="ui image" src="/img/texte.png" alt="Texte" />
+            <img class="ui image" src="/img/texte.png" alt="Texte">
         </div>
         <div class="seven wide column">
             <h2 class="ui header">Primär- und Sekundärliteratur</h2>
@@ -213,10 +238,10 @@
                 </div>
               </a>
             </div>
-            </p>
         </div>
+
         <div class="nine wide column">
-            <img class="ui image" src="/img/etpm_schema.png" alt="Texte" />
+            <img class="ui image" src="/img/etpm_schema.png" alt="Texte">
         </div>
 
     </div>

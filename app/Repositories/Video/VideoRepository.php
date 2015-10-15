@@ -137,31 +137,33 @@ class VideoRepository implements VideoInterface
    */
   public function getFlagnames($videoname, $sequenceNumber)
   {
-      return $this->videoModel->findOrFail($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber))->lists('content');
+      return $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->lists('content');
   }
 
   /**
    * Gibt die zu einem Video zugehörigen Cuepoints (Zeitpunkte) aus.
    *
-   * @param     string $videoname
+   * @param     string  $videoname
+   * @param     int     $sequenceNumber
    *
    * @return    array
    */
   public function getCuepoints($videoname, $sequenceNumber)
   {
-      return $this->videoModel->findOrFail($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber));
+      return $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
   }
 
   /**
    * Gibt die ID des ersten Cuepoints eines Videos aus.
    *
-   * @param     string $videoname
+   * @param     string  $videoname
+   * @param     int     $sequenceNumber
    *
    * @return    int
    */
   public function getFirstCuepointId($videoname, $sequenceNumber)
   {
-      return $this->videoModel->find($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber))->first()->id;
+      return $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->first()->id;
   }
 
   /**
@@ -175,8 +177,7 @@ class VideoRepository implements VideoInterface
    */
   public function getAllFlagnamesAsHTML($videoname, $sequenceNumber)
   {
-      $cuepoints = $this->videoModel->find($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber));
-
+      $cuepoints = $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
       $content = '';
 
       foreach ($cuepoints as $cuepoint) {
@@ -189,7 +190,8 @@ class VideoRepository implements VideoInterface
   /**
    * Gibt alle Marker als JS-Objekte zurück.
    *
-   * @param     string $videoname
+   * @param     string  $videoname
+   * @param     int     $sequenceNumber
    *
    * @return    json Markertitel und Markerposition.
    */
@@ -197,7 +199,7 @@ class VideoRepository implements VideoInterface
   {
       // {time: 60, text: "this"}
 
-    $cuepoints = $this->videoModel->findOrFail($videoname)->cuepoints->where('video_sequence_id', intval($sequenceNumber));
+    $cuepoints = $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
 
       $markers = [];
 

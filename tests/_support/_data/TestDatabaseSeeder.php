@@ -85,18 +85,21 @@ class TestDatabaseSeeder
       $this->cuepointAttributes['id'] = 1;
       $this->cuepointAttributes['cuepoint'] = '100';
       $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
+      $this->cuepointAttributes['video_sequence_id'] = 1;
       $this->cuepointAttributes['content'] = 'Fähnchen 1';
       $I->haveRecord('cuepoints', $this->cuepointAttributes);
 
       $this->cuepointAttributes['id'] = 2;
       $this->cuepointAttributes['cuepoint'] = '300';
       $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
+      $this->cuepointAttributes['video_sequence_id'] = 1;
       $this->cuepointAttributes['content'] = 'Fähnchen 2';
       $I->haveRecord('cuepoints', $this->cuepointAttributes);
 
       $this->cuepointAttributes['id'] = 3;
       $this->cuepointAttributes['cuepoint'] = '700';
       $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
+      $this->cuepointAttributes['video_sequence_id'] = 1;
       $this->cuepointAttributes['content'] = 'Fähnchen 3';
       $I->haveRecord('cuepoints', $this->cuepointAttributes);
   }
@@ -217,6 +220,8 @@ class TestDatabaseSeeder
       $this->videoAttributes['section'] = 'Sozialgeschichte der Menschheit';
       $this->videoAttributes['author'] = 'Will Turner';
       $this->videoAttributes['online'] = '0';
+      $this->videoAttributes['sequence_id'] = 1;
+      $this->videoAttributes['sequence_name'] = null;
       $this->videoAttributes['available_from'] = '2000-09-10';
       $this->videoAttributes['available_to'] = '3000-02-08';
       $I->haveRecord('videos', $this->videoAttributes);
@@ -234,6 +239,7 @@ class TestDatabaseSeeder
       $this->userAttributes['password'] = Hash::make('Zelda');
       $this->userAttributes['firstname'] = 'Test';
       $this->userAttributes['lastname'] = 'Student';
+      $this->userAttributes['email'] = 'test@test.de';
       $this->userAttributes['role'] = 'Student';
       $I->haveRecord('users', $this->userAttributes);
 
@@ -242,6 +248,7 @@ class TestDatabaseSeeder
       $this->userAttributes['password'] = Hash::make('Hyrule');
       $this->userAttributes['firstname'] = 'Test';
       $this->userAttributes['lastname'] = 'Teacher';
+      $this->userAttributes['email'] = 'test@test.de';
       $this->userAttributes['role'] = 'Teacher';
       $I->haveRecord('users', $this->userAttributes);
 
@@ -250,6 +257,7 @@ class TestDatabaseSeeder
       $this->userAttributes['password'] = Hash::make('Link');
       $this->userAttributes['firstname'] = 'Test';
       $this->userAttributes['lastname'] = 'Admin';
+      $this->userAttributes['email'] = 'test@test.de';
       $this->userAttributes['role'] = 'Admin';
       $I->haveRecord('users', $this->userAttributes);
   }

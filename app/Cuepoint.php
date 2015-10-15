@@ -18,7 +18,7 @@ class Cuepoint extends Model
      *
      * @var array
      */
-    protected $fillable = ['cuepoint','video_videoname','content'];
+    protected $fillable = ['cuepoint','video_videoname','content', 'video_sequence_id'];
 
     /**
      * Datenbankrelation Cuepoint – Note.
