@@ -6,7 +6,7 @@
                 <a href="{{ url('impressum') }}">Impressum & Datenschutz</a>
                 | <a href="{{ url('demo') }}">Informationen zum <span class="etpM">e:t:p:M</span>-Konzept</a>
                 | <a href="https://etpm-dev.ph-karlsruhe.de/etpm-evaluation/" target="_blank">Evaluationsergebnisse</a>
-                | <a href="https://etpm-dev.ph-karlsruhe.de/hoerspiel/" target="_blank">Hörspiel</a>
+                {{-- | <a href="https://etpm-dev.ph-karlsruhe.de/hoerspiel/" target="_blank">Hörspiel</a> --}}
             </small>
         </p>
         {{-- VERSION --}}

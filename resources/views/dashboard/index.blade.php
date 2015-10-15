@@ -24,6 +24,40 @@
 			@include('dashboard.partials.general-info')
 		</section>
 	</div>
+
+	{{-- SPEZIFISCHE BANNER --}}
+	<div class="two column row">
+
+		<div class="banner column">
+			<div class="ui piled segment">
+				<h4 class="ui header">Audiokollage zum 300. Stadtgeburstag: »Karlsruhe bildet«</h4>
+				<p>Im Rahmen eines Seminars von Timo Hoyer haben mehrere Studierende und er die Audiokollage »Karlsruhe bildet« produziert. Tauchen Sie in spannende Erzählungen und Geschichten rund um den ›Bildungsstandort‹ Karslruhe ein.</p>
+				<video id="audiocollage" class="video-js vjs-fluid vjs-default-skin" controls preload="auto">
+					<source src="/audio/audiocollage.mp3" type='audio/mp3' />
+				</video>
+			</div>
+		</div>
+
+		<div class="banner column">
+			<div class="ui piled segment">
+			  <h4 class="ui header">Buchempfehlung: <em>Sozialgeschichte der Erziehung</em></h4>
+			  <a href="http://www.wbg-wissenverbindet.de/shop/ProductDisplay?storeId=10151&urlLangId=-3&productId=179103&urlRequestType=Base&langId=-3&catalogId=10001" target="_blank" class="ui tiny left floated image">
+					<div class="ui fade reveal">
+						<div class="visible content">
+	    					<img src="/img/sozialgeschichte.jpg">
+						</div>
+						<div class="hidden content">
+	    					<img src="/img/sozialgeschichte_link.jpg">
+						</div>
+					</div>
+			  </a>
+			  <p>Der Band bietet einen Überblick über die Sozialgeschichte der Erziehung von der Antike bis zur Gegenwart. Er betrachtet sowohl die private als auch die öffentliche Erziehung im jeweiligen sozio-kulturellen Kontext und liefert dem Leser damit ein fundiertes historisches Hintergrundwissen für die Auseinandersetzung mit aktuellen Erziehungsfragen.</p>
+			</div>
+		</div>
+
+
+	</div>
+
 	<div class="one column row">
 		<div class="column">
 			@include('dashboard.partials.all-lections')
@@ -33,6 +67,10 @@
 @stop
 
 @section('scripts')
+
+<link href="//vjs.zencdn.net/4.12/video-js.min.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/4.12/video.min.js"></script>
+
 <script type="text/javascript">
 /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'etpm'; //

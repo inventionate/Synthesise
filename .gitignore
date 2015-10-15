@@ -1,6 +1,7 @@
 /bootstrap/compiled.php
 /doc
 /public/video
+/public/audio
 /storage/app/users
 /tests/_output
 /public/css

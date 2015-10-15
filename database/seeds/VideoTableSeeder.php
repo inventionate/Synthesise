@@ -17,8 +17,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-10-29',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-10-21',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -29,8 +29,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-11-05',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-10-28',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -41,8 +41,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-11-12',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-11-04',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -53,8 +53,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-11-19',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-11-11',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -65,8 +65,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-11-26',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-11-18',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -77,8 +77,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-12-03',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-11-25',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -89,8 +89,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-12-10',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-12-02',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -101,8 +101,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-12-17',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-12-9',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -113,8 +113,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-12-24',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-12-16',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -125,8 +125,8 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-12-27',
-            'available_to' => '2015-02-17',
+            'available_from' => '2015-12-23',
+            'available_to' => '2016-02-17',
         ));
 
         Video::create(array(
@@ -137,7 +137,7 @@ class VideoTableSeeder extends Seeder
             'online' => '1',
             'sequence_id' => 1,
             'sequence_name' => null,
-            'available_from' => '2014-12-31',
+            'available_from' => '2015-12-31',
             'available_to' => '2014-02-28',
         ));
     }

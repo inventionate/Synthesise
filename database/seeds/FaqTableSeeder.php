@@ -147,13 +147,13 @@ class FaqTableSeeder extends Seeder
             'area' => 'K',
             'subject' => 'Klausurwiederholung',
             'question' => 'Was geschieht, wenn ich die Klausur nicht bestanden habe?',
-            'answer' => 'Die Klausur (bestehend aus drei Teilen) kann im folgenden Semester einmal wiederholt werden. Im Sommersemester werden von den einzelnen Fachgebieten Repetitorien (Wiederholungsveranstaltungen) angeboten, die sinnvollerweise zu besuchen sind.</p>
+            'answer' => 'Die Klausur (bestehend aus drei Teilen) kann im folgenden Semester einmal wiederholt werden. Im Sommersemester werden von den einzelnen Fachgebieten Repetitorien (Wiederholungsveranstaltungen) angeboten, die sinnvollerweise zu besuchen sind.
 			<h5>Prüfungsordnung 2011: § 4 Akademische Vorprüfung</h5>
 			<ol>
 			<li>Die Akademische Vorprüfung bildet den Abschluss der ersten Modulstufe. Die Akademische Vorprüfung ist bis zum Ende des zweiten Semesters abzulegen. Wer die Vorprüfung einschließlich etwaiger Wiederholungen bis zum Ende des vierten Fachsemesters nicht bestanden hat, verliert den Prüfungsanspruch, es sei denn, er bzw. sie hat die Fristüberschreitung nicht zu vertreten.</li>
 			<li>Die Akademische Vorprüfung wird in den Studienbereichen BW, 1. HF und dem 2. HF abgelegt.</li>
 			<li>Wer alle in Absatz 2 genannten studienbegleitenden Modulprüfungen bestanden hat, hat die Akademische Vorprüfung bestanden. Die studienbegleitenden Modulprüfungen, die gemäß Absatz 2 die Akademische Vorprüfung bilden, können gemäß § 18 jeweils einmal wiederholt werden.</li>
-			</ol><p>',
+			</ol>',
         ));
 
         Faq::create(array(
@@ -189,6 +189,25 @@ class FaqTableSeeder extends Seeder
             'subject' => 'Mentoriatswechsel',
             'question' => 'Darf ich meine Mentoriatsgruppe wechseln?',
             'answer' => 'Über LSF sind sie einer von Ihnen priorisierten Mentoriatsgruppe zugeteilt worden. Um die Organisation der Veranstaltung zu gewährleisten, sollte ein Wechsel unterbleiben. In gut begründeten Ausnahmefälle, sprechen sie den Wechsel bitte mit den jeweils davon betroffenen Mentoren ab. Deren Zustimmung ist Voraussetzung für den Wechsel.',
+        ));
+
+        Faq::create(array(
+            'area' => 'N',
+            'subject' => 'Notizfunktion',
+            'question' => 'Was ist die Notizfunktion des Videoplayers?',
+            'answer' => 'Mit Hilfe der Notizfunktion der Web-App können Sie ihr individuelles Skript für jede online-Lektion erstellen. Sobald Sie auf ein sog. »Fähnchen« (rote Punkte auf der Videotimeline) klicken können Sie zu diesem eine Notiz verfassen (max. 500 Zeichen). Diese Notiz wird verschlüsselt gespeichert. D. h., nur Sie haben Zugriff darauf. Es ist acuh problemlos möglich die Notiz im Nachhinein zu verändern. Dazu einfach erneut auf das entsprechende Fähnchen klicken. Über »Notizen herunterladen« können Sie sich alle Notizen als PDF herunterladen, um diese z. B. handschriflich zu bearbeiten.<br><br>
+            Sie können Ihre Notizen auch semantisch auszeichnen. Das Eingabefeld interpretiert alle grudnlegenden HTML Tags:
+            <dl>
+                <dt>Fett</dt>
+                <dd><code>&lt;b&gt;Ihr Text&lt;/b&gt;</code> wird zu: <b>Ihr Text</b></dd>
+                <dt>Kursiv</dt>
+                <dd><code>&lt;i&gt;Ihr Text&lt;/i&gt;</code> wird zu: <i>Ihr Text</i></dd>
+                <dt>Unterstrichen</dt>
+                <dd><code>&lt;u&gt;Ihr Text&lt;/u&gt;</code> wird zu: <u>Ihr Text</u></dd>
+                <dt>Absatz</dt>
+                <dd><code>&lt;br&gt;</code></dd>
+            </dl>
+            ',
         ));
 
         Faq::create(array(

@@ -132,7 +132,7 @@
         <div class="seven wide column">
             <h2 class="ui header">Diskussionsräume</h2>
             <p>
-                Die aktuelle Version der Web-App (3.0) ermöglicht die Integraton von disqus™ Diskussionräumen. Je nach Intention können diese entweder anonym verwendet werden, oder aber personalisiert und über die Anwendung hinausweisend.
+                Die Web-App ermöglicht die Integraton von <b>disqus™</b> Diskussionräumen. Je nach Intention können diese entweder anonym verwendet werden, oder aber personalisiert und über die Anwendung hinausweisend.
             </p>
         </div>
         </div>

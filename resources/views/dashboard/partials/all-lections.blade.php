@@ -54,15 +54,15 @@
 						{{-- ONLINE-LEKTION --}}
 						<td class="online-lektion">
 
-							<div class="ui fluid labeled button" tabindex="0">
+							{{-- <div class="ui fluid labeled button" tabindex="0"> --}}
 								<div class="ui fluid left aligned basic button @if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online) green @else red @endif">
     								<i class="video icon"></i>
 									<a class="disabled" href="{{ route('lektion', [rawurlencode($video->videoname)]) }}">{{ $video->videoname }}</a>
 								</div>
-								<a class="ui left pointing label @if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online) green @else red @endif">
+								{{-- <a class="ui left pointing label @if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online) green @else red @endif">
 									<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($video->videoname) }}">0</span>
 								</a>
-							</div>
+							</div> --}}
 
 						</td>
 

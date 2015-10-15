@@ -59,11 +59,11 @@
 
 			</div>
 		</div>
-		<div class="one column row">
+		{{-- <div class="one column row"> --}}
 		{{-- DISQUS UMGEBUNG --}}
 		{{-- Diese Implementierung wird zum Testen verwendet. --}}
-			<div id="disqus_thread" class="column"></div>
-		</div>
+			{{-- <div id="disqus_thread" class="column"></div>
+		</div> --}}
 		{{-- ADDITIONAL CONTENT --}}
 		<section id="additional-content" class="two column row">
 			{{-- durch die Texte loopen und Autoren davor setzten --}}
