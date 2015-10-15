@@ -10,6 +10,6 @@
             </small>
         </p>
         {{-- VERSION --}}
-        <div id="version" class="ui mini basic label"><i class="code icon"></i> {{ env('VERSION', 'development') }}</div>
+        <div id="version" class="ui mini basic label"><i class="code icon"></i> {{ env('VERSION', 'dev') }}</div>
   </div>
 </footer>

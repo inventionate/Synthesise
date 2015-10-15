@@ -13,7 +13,6 @@
 				<tr>
 					<th>Themenbereich</th>
 					<th>online-Lektion</th>
-					<th>Kommentare</th>
 					@if($role === 'Student')
 						<th>Zugänglich ab</th>
 						{{--<th>Status</th>--}}
@@ -53,24 +52,18 @@
 						@endif
 
 						{{-- ONLINE-LEKTION --}}
-						@if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online)
 						<td class="online-lektion">
-							<div class="ui green empty circular label"></div>
-							<a class="green" href="{{ route('lektion', [rawurlencode($video->videoname)]) }}">{{ $video->videoname }}</a>
-						</td>
-						@else
-						<td class="online-lektion">
-							<div class="ui red empty circular label"></div>
-							<a class="red" href="{{ route('lektion', [rawurlencode($video->videoname)]) }}">{{ $video->videoname }}</a>
-						</td>
-						@endif
 
-						{{-- KOMMENTARE --}}
-						<td class="kommentare-anzahl">
-							<div class="ui basic label">
-								<i class="comments icon"></i>
-								<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($video->videoname) }}">0</span>
+							<div class="ui fluid labeled button" tabindex="0">
+								<div class="ui fluid left aligned basic button @if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online) green @else red @endif">
+    								<i class="video icon"></i>
+									<a class="disabled" href="{{ route('lektion', [rawurlencode($video->videoname)]) }}">{{ $video->videoname }}</a>
+								</div>
+								<a class="ui left pointing label @if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online) green @else red @endif">
+									<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($video->videoname) }}">0</span>
+								</a>
 							</div>
+
 						</td>
 
 						{{-- ZUGÄNGLICHKEITSDATUM --}}
