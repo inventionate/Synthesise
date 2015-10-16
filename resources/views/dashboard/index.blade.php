@@ -25,24 +25,29 @@
 		</section>
 	</div>
 
+	<div class="one column row">
+		<div class="column">
+			@include('dashboard.partials.all-lections')
+		</div>
+	</div>
+
 	{{-- SPEZIFISCHE BANNER --}}
 	<div class="two column row">
 
 		<div class="banner column">
 			<div class="ui piled segment">
-				<h4 class="ui header">Audiokollage zum 300. Stadtgeburstag: »Karlsruhe bildet«</h4>
+				<h4 class="ui header">Audiocollage zum 300. Stadtgeburstag: »Karlsruhe bildet«</h4>
 				<p>Im Rahmen eines Seminars von Timo Hoyer haben mehrere Studierende und er die Audiokollage »Karlsruhe bildet« produziert. Tauchen Sie in spannende Erzählungen und Geschichten rund um den ›Bildungsstandort‹ Karslruhe ein.</p>
 				<audio id="audiocollage" controls preload="auto">
 					<source src="/audio/audiocollage.ogg" type='audio/ogg' />
 					<source src="/audio/audiocollage.mp3" type='audio/mp3' />
-					 Your browser does not support the audio element.
 				</audio>
 			</div>
 		</div>
 
 		<div class="banner column">
 			<div class="ui piled segment">
-			  <h4 class="ui header">Buchempfehlung: <em>Sozialgeschichte der Erziehung</em></h4>
+			  <h4 class="ui header">Buchempfehlung: »Sozialgeschichte der Erziehung«</h4>
 			  <a href="http://www.wbg-wissenverbindet.de/shop/ProductDisplay?storeId=10151&urlLangId=-3&productId=179103&urlRequestType=Base&langId=-3&catalogId=10001" target="_blank" class="ui tiny left floated image">
 					<div class="ui fade reveal">
 						<div class="visible content">
@@ -53,18 +58,12 @@
 						</div>
 					</div>
 			  </a>
-			  <p>Der Band bietet einen Überblick über die Sozialgeschichte der Erziehung von der Antike bis zur Gegenwart. Er betrachtet sowohl die private als auch die öffentliche Erziehung im jeweiligen sozio-kulturellen Kontext und liefert dem Leser damit ein fundiertes historisches Hintergrundwissen für die Auseinandersetzung mit aktuellen Erziehungsfragen.</p>
+			  <p>Das Buch führt in die Sozialgeschichte der Erziehung ein. Timo Hoyer spannt den Bogen von der Antike bis zur Moderne und beschreibt vor dem Hintergrund der politischen und kulturellen Situation die Entwicklung der privaten und schulischen Erziehung. Der als Studienlektüre konzipierte Band erzählt zugleich die Geschichte der Familie, der Kindheit und Jugend und des deutschen Schulsystems. Die Einführung bietet Studierenden der Erziehungswissenschaft Grundlagen, um die aktuellen pädagogischen Reformdebatten einordnen und bewerten zu können. </p>
 			</div>
 		</div>
 
-
 	</div>
 
-	<div class="one column row">
-		<div class="column">
-			@include('dashboard.partials.all-lections')
-		</div>
-	</div>
 </main>
 @stop
 

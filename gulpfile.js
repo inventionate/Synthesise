@@ -99,7 +99,10 @@ var paths_deploy = [
 ];
 gulp.task('deploy-start', function () {
   return gulpSSH
-    .shell(['art down']);
+    .shell([
+        'art down',
+        'rm -rf /srv/www/vhosts/etpm.ph-karlsruhe.de/build',
+    ]);
 });
 
 gulp.task('deploy-app', function() {

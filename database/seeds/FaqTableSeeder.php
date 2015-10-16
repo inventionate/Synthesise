@@ -195,7 +195,7 @@ class FaqTableSeeder extends Seeder
             'area' => 'N',
             'subject' => 'Notizfunktion',
             'question' => 'Was ist die Notizfunktion des Videoplayers?',
-            'answer' => 'Mit Hilfe der Notizfunktion der Web-App können Sie ihr individuelles Skript für jede online-Lektion erstellen. Sobald Sie auf ein sog. »Fähnchen« (rote Punkte auf der Videotimeline) klicken können Sie zu diesem eine Notiz verfassen (max. 500 Zeichen). Diese Notiz wird verschlüsselt gespeichert. D. h., nur Sie haben Zugriff darauf. Es ist acuh problemlos möglich die Notiz im Nachhinein zu verändern. Dazu einfach erneut auf das entsprechende Fähnchen klicken. Über »Notizen herunterladen« können Sie sich alle Notizen als PDF herunterladen, um diese z. B. handschriflich zu bearbeiten.<br><br>
+            'answer' => 'Mit Hilfe der Notizfunktion der Web-App können Sie ihr individuelles Skript für jede online-Lektion erstellen. Sobald Sie auf ein sog. »Fähnchen« (rote Punkte auf der Videotimeline) klicken können Sie zu diesem eine Notiz verfassen (max. 500 Zeichen). Diese Notiz wird verschlüsselt gespeichert. D. h., nur Sie haben Zugriff darauf. Es ist auch problemlos möglich, die Notiz im Nachhinein zu verändern. Dazu einfach erneut auf das entsprechende Fähnchen klicken. Über »Notizen herunterladen« können Sie sich alle Notizen als PDF herunterladen, um diese z. B. handschriflich zu bearbeiten.<br><br>
             Sie können Ihre Notizen auch semantisch auszeichnen. Das Eingabefeld interpretiert alle grudnlegenden HTML Tags:
             <dl>
                 <dt>Fett</dt>
