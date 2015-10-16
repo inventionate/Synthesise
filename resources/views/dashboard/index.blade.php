@@ -32,9 +32,9 @@
 			<div class="ui piled segment">
 				<h4 class="ui header">Audiokollage zum 300. Stadtgeburstag: »Karlsruhe bildet«</h4>
 				<p>Im Rahmen eines Seminars von Timo Hoyer haben mehrere Studierende und er die Audiokollage »Karlsruhe bildet« produziert. Tauchen Sie in spannende Erzählungen und Geschichten rund um den ›Bildungsstandort‹ Karslruhe ein.</p>
-				<video id="audiocollage" class="video-js vjs-fluid vjs-default-skin" controls preload="auto">
+				<audio id="audiocollage" class="video-js vjs-fluid" controls preload="auto">
 					<source src="/audio/audiocollage.mp3" type='audio/mp3' />
-				</video>
+				</audio>
 			</div>
 		</div>
 
@@ -67,10 +67,6 @@
 @stop
 
 @section('scripts')
-
-<link href="//vjs.zencdn.net/4.12/video-js.min.css" rel="stylesheet">
-<script src="//vjs.zencdn.net/4.12/video.min.js"></script>
-
 <script type="text/javascript">
 /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'etpm'; //
