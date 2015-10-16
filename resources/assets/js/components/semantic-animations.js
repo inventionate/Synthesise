@@ -16,6 +16,12 @@ module.exports = function() {
 
         $('.ui.accordion').accordion();
 
+        // Navigation
+        $('#submenu').click( function () {
+            $('#subnav').toggle('slow');
+        });
+
+        // FAQ
         $('#faq-accordion').accordion({
             selector: {
                 trigger: '.trigger.column'

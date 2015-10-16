@@ -1,7 +1,12 @@
 @import "typography";
 @import "colour";
 #mainnav {
-    background-color: fade(@green,80%);
+    .menu {
+        background-color: fade(@green,90%);
+    }
+    .ui.dropdown.item .menu {
+        background-color: @white;
+    }
     .item {
         padding-top: 1.25rem;
         padding-bottom: 1.25rem;
@@ -22,7 +27,21 @@
     .etpM:hover {
         width: 155px;
     }
-    #subnav {
-        display: none;
+    .mobile.only.row {
+        .etpM {
+            width: 155px;
+        }
+        .etpM::before {
+            background: none;
+        }
+    }
+    #subnav-container {
+        margin-top: 3.6em;
+        z-index: -1;
+        background: none;
+        #subnav {
+            display: none;
+            margin: 0;
+        }
     }
 }
