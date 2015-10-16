@@ -32,8 +32,10 @@
 			<div class="ui piled segment">
 				<h4 class="ui header">Audiokollage zum 300. Stadtgeburstag: »Karlsruhe bildet«</h4>
 				<p>Im Rahmen eines Seminars von Timo Hoyer haben mehrere Studierende und er die Audiokollage »Karlsruhe bildet« produziert. Tauchen Sie in spannende Erzählungen und Geschichten rund um den ›Bildungsstandort‹ Karslruhe ein.</p>
-				<audio id="audiocollage" class="video-js vjs-fluid" controls preload="auto">
+				<audio id="audiocollage" controls preload="auto">
+					<source src="/audio/audiocollage.ogg" type='audio/ogg' />
 					<source src="/audio/audiocollage.mp3" type='audio/mp3' />
+					 Your browser does not support the audio element.
 				</audio>
 			</div>
 		</div>
