@@ -3,6 +3,7 @@
 /public/video
 /public/audio
 /storage/app/users
+/storage/framework
 /tests/_output
 /public/css
 /public/js

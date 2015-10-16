@@ -1,9 +1,0 @@
-<section class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Besuche insgesamt (keine Einzelpersonen)</h3>
-  </div>
-  <div class="panel-body">
-    <?php /* @todo  CSS auslagern!!! */ ?>
-    <canvas id="visitorsChart" height="120px" data-admins="<?php echo e($admins); ?>" data-mentors="<?php echo e($mentors); ?>" data-students="<?php echo e($students); ?>"></canvas>
-  </div>
-</section>

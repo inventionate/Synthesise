@@ -1,8 +1,0 @@
-<section class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Besucher in diesem Semester</h3>
-  </div>
-  <div class="panel-body">
-    <canvas id="semesterChart" style="width=100px;" data-visits="<?php echo e($visits); ?>" data-uniq-visitors="<?php echo e($uniqVisitors); ?>"></canvas>
-  </div>
-</section>
