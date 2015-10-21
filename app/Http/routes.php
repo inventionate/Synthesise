@@ -59,11 +59,12 @@ Route::group(['middleware' => 'auth'], function () {
       'uses' => 'LectionController@index',
     ])
     ->where('sequenceNumber', '[0-9]+');
+
     // Standardroute auf sequenzierte umleiten
     // @todo Überprüfen, ob es keine elegantere Lösung gibt.
-    Route::get('online-lektionen/{videoname}', function ($videoname) {
-        return redirect()->route('lektion', [$videoname, '1']);
-    });
+    Route::get('online-lektionen/{videoname}', [
+        'uses' => 'LectionController@redirectSequence',
+    ]);
 
     // GET PDF NOTES
     Route::get('online-lektionen/{videoname}/1/getnotespdf', [

@@ -49,7 +49,7 @@
         </div>
 
         {{-- MOBILE NAVIGATION --}}
-        <div class="mobile only row">
+        <div class="mobile tablet only row">
             <div class="column">
                 <div class="ui fixed large inverted green menu">
 

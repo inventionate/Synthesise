@@ -59,11 +59,6 @@
 
 			</div>
 		</div>
-		{{-- <div class="one column row"> --}}
-		{{-- DISQUS UMGEBUNG --}}
-		{{-- Diese Implementierung wird zum Testen verwendet. --}}
-			{{-- <div id="disqus_thread" class="column"></div>
-		</div> --}}
 		{{-- ADDITIONAL CONTENT --}}
 		<section id="additional-content" class="two column row">
 			{{-- durch die Texte loopen und Autoren davor setzten --}}
@@ -86,19 +81,4 @@
     	@include('dashboard.partials.all-lections')
 	@endif
 </main>
-@stop
-
-@section('scripts')
-	<script type="text/javascript">
-		/* * * CONFIGURATION VARIABLES * * */
-		var disqus_shortname = 'etpm';
-		var disqus_identifier = '{{ rawurlencode($videoname) }}';
-
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function() {
-			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
 @stop

@@ -173,4 +173,16 @@ class LectionController extends Controller
             return ['success' => true];
         }
     }
+
+    /**
+     * Eine neue Notiz zu dem Fähnchen einer Lektion speichern.
+     *
+     * @param string $videoname
+     *
+     * @return redirect
+     */
+    public function redirectSequence($videoname)
+    {
+        return redirect()->route('lektion', [$videoname, '1']);
+    }
 }
