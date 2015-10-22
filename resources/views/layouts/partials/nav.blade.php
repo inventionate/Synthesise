@@ -30,7 +30,7 @@
                             <a class="item" href="{{ route('lektion', ['Erziehung und Unterricht']) }}">Erziehung und Unterricht</a>
                             <a class="item" href="{{ route('lektion', ['Heterogenität']) }}">Heterogenität</a>
                             <div class="header">Bildung – Glück – Gerechtigkeit</div>
-                            <a class="item" href="{{ route('lektion', ['Wozu ist die Bildung da%3F']) }}">Wozu ist die Bildung da?</a>
+                            <a class="item" href="{{ route('lektion', [rawurlencode('Wozu ist die Bildung da?')]) }}">Wozu ist die Bildung da?</a>
                             <a class="item" href="{{ route('lektion', ['Bildung und Glück']) }}">Bildung und Glück</a>
                             <a class="item" href="{{ route('lektion', ['Bildung und Gerechtigkeit']) }}">Bildung und Gerechtigkeit</a>
                             <div class="divider"></div>

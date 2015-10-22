@@ -183,6 +183,6 @@ class LectionController extends Controller
      */
     public function redirectSequence($videoname)
     {
-        return redirect()->route('lektion', [$videoname, '1']);
+        return redirect()->route('lektion', [rawurlencode($videoname), '1']);
     }
 }
