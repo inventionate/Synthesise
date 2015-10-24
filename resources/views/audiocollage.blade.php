@@ -40,14 +40,14 @@
         Produziert von apl. Prof. Dr. Timo Hoyer und Jean-Philippe Englert.
     </p>
     <p>
-    Unter Mitarbeitvon Studierenden der Allgemeinen Erziehungswissenschaft:<br>
+    Unter Mitarbeit von Studierenden der Allgemeinen Erziehungswissenschaft:<br>
     Donat Bender, Larissa Bühn, Melanie Gallmeier, Stefan Grutza, Laura Kringe, Theresia Kugele, Julia Mayer, Kristina Millen, Lea-Maria Nagel, Anna Sophie Nöller, Nadja Vierle.
     </p>
     <p>Zusätzliche SprecherInnen:<br>
         Peter Frank, Wolfgang Kringe, Farid Rafienejad, Joachim Vierle.
     </p>
     <p>Für ihr Mitwirken danken wir:<br>
-        den Schülerinnen und Schülern der Schönbornschule, Karlsdorf Neuthard (Klasse 3bj und der Johann-Peter-Hebelschule,Bruchsal (Klasse 4a) sowie Frau Albrecht, Dr. Christine Böckelmann, Prof. Dr. Wolfram Ellwanger, Joachim Frisch, Katja Nitsche, Wibke Schaper, Prof. Dr. Werner Schnatterbeck, Albert Süß und Verena Wiehl.
+        den Schülerinnen und Schülern der Schönbornschule, Karlsdorf Neuthard (Klasse 3b) und der Johann-Peter-Hebelschule, Bruchsal (Klasse 4a) sowie Frau Albrecht, Dr. Christine Böckelmann, Prof. Dr. Wolfram Ellwanger, Joachim Frisch, Katja Nitsche, Wibke Schaper, Prof. Dr. Werner Schnatterbeck, Albert Süß und Verena Wiehl.
     </p>
 
     <div class="ui horizontal header divider"><i class="ui archive icon"></i></div>
