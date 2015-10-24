@@ -96,7 +96,7 @@
                     ['time' => 125, 'text' => 'Hoch- und Spätmittelalter'],
                     ])
             }}"
-            poster="/img/ol_title.jpg" notes="false"></interactive-video>
+            poster="/img/ol_title.jpg" v-bind:notes="false"></interactive-video>
 
         </div>
         </div>

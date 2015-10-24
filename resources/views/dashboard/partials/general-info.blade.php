@@ -46,7 +46,7 @@
                 <div class="content">
                     <p>
             		Digitale oder virtuelle Lektionen können und sollen nicht den realen, zwischenmenschlichen Kontakt ersetzen. Präsenzveranstaltungen sind und bleiben deshalb unverzichtbar. In Vorort-Veranstaltungen finden Gruppen-, Kommunikations-, Aneignungs- und Bildungsprozesse statt, die in einer anregungsreichen, auf wechselseitigen Austausch und gemeinsamen Initiativen fußenden akademischen Lehr-Lern-Kultur von alternativloser Bedeutung sind.<br>
-            		Der Einsatz virtueller Medien gestattet die Bildung von kleineren Lehr-Lern-Gruppen, in denen eine unmittelbarere, kommunikative und handlungsorientierte Bearbeitung der Themen möglich ist.  <a href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank"><span class="etpM">e:t:p:M</span></a> beinhaltet folgende Präsensveranstaltungen (<a v-on="click: trackEvent('Informationsdokument', 'Allgemeine Informationen und Termine'" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Informationen zu Terminen und Räumen <span class="glyphicon glyphicon-file"></span></a>):
+            		Der Einsatz virtueller Medien gestattet die Bildung von kleineren Lehr-Lern-Gruppen, in denen eine unmittelbarere, kommunikative und handlungsorientierte Bearbeitung der Themen möglich ist.  <a href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank"><span class="etpM">e:t:p:M</span></a> beinhaltet folgende Präsensveranstaltungen (<a v-on:click="trackEvent('Informationsdokument', 'Allgemeine Informationen und Termine'" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Informationen zu Terminen und Räumen <span class="glyphicon glyphicon-file"></span></a>):
                     </p>
             		<ul class="ui list">
             		<li>Einführungsvorlesung und Prüfungsvorbereitung: In der ersten Woche nach der Einführungswoche wird in der Aula über das Format, den Ablauf und den inhaltlichen »roten Faden« der Gesamtveranstaltung informiert. Gegen Ende der Vorlesungszeit findet eine Vorlesung speziell zum Ablauf der Prüfung statt.</li>
@@ -78,7 +78,7 @@
 
             <p>Sie können sich diese Informationen und die Termine der Veranstaltung auch als PDF Dokument herunterladen:</p>
 
-            <a class="fluid ui blue icon labeled button" v-on="click: trackEvents('Informationsdokument', 'Allgemeine Informationen und Termine')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
+            <a class="fluid ui blue icon labeled button" v-on:click="trackEvents('Informationsdokument', 'Allgemeine Informationen und Termine')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
 
         </div>
     </div>

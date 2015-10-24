@@ -133,10 +133,10 @@ module.exports = {
                 // Fähnchen tracken
                 _paq.push(['trackEvent', 'Video', 'Zu Fähnchen gesprungen', name + ': Fähnchen ' + self.markerID]);
                 // Vorhandene Notizen abfragen.
-                self.fetchNote(self.markerID);
-                // Aktualisierung der Notizen überwachen.
-                // @todo Das muss anders laufen!
-                //self.updateNote(id, videoname);
+                if ( self.notes )
+                {
+                    self.fetchNote(self.markerID);
+                }
             });
         },
 

@@ -81,7 +81,7 @@ module.exports = {
             // Datensatz aktualisieren.
             // Vor der AJAX Abfrage, um Geschwindigkeit zu simulieren.
             // Das direkte Tauschen der Arrayobjekte wird nicht von Vue erkannt. Daher mü+ssen spezielle Setter verwendet werden.
-            this.messages.$set(this.indexOfEditedMessage, newMessage)
+            this.messages.$set(this.indexOfEditedMessage, newMessage);
 
             // AJAX call um Datensatz vom Server zu löschen.
             this.$http.put(this.url + "/" + this.idOfEditedMessage, newMessage)

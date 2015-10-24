@@ -2,6 +2,9 @@
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
 
+// Vue debug mode
+// Vue.config.debug = true;
+
 // Token for AJAX calls
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -19,7 +22,7 @@ new Vue({
         // Inetraktive Videofunktionen
         'interactive-video': require('./components/interactive-video.js'),
         // Standrad Video und Audio
-        
+
         // @todo Statistik Modul
         // Eine Vue Komponente, die die entsprechenden Daten und die Darstellungsform abfrägt. Über ein Blade View wird dann die Anzeige der Komponenten geregelt
         // 'analytics-graph': require('./components/analytics-graph.js'),

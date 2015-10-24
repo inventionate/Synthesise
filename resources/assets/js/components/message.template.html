@@ -1,8 +1,7 @@
 <div class="ui {{ colour }} message">
-    <!-- HIER NOCH DIE EVENTS EINFÜGEN -->
-    <i class="close icon" v-on="click: removeMessage"></i>
+    <i class="close icon" v-on:click="removeMessage"></i>
     <!-- Über das Event System das Modal öffnen -->
-    <i class="edit icon" v-on="click: editMessage"></i>
+    <i class="edit icon" v-on:click="editMessage"></i>
     <div class="header">
         {{ title }}
     </div>

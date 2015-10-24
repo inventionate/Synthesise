@@ -55,7 +55,7 @@
 					</div>
 				@endif
 				{{-- Vue.js Komponente laden und die entsprechenden Variablen (Props) übergeben. --}}
-				<interactive-video name="{{ $videoname }}" path="{{ $videopath }}" markers="{{ $markers }}" poster="/img/ol_title.jpg" notes="true"></interactive-video>
+				<interactive-video name="{{ $videoname }}" path="{{ $videopath }}" markers="{{ $markers }}" poster="/img/ol_title.jpg" v-bind:notes="true"></interactive-video>
 
 			</div>
 		</div>
@@ -67,12 +67,12 @@
 					<h3 class="hide">Texte und Notizen</h3>
 				</header>
 				@foreach ($papers as $paper)
-					<a class="ui fluid labeled icon blue button" v-on="click: trackEvents('Text', '{{ $paper->papername }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->papername }}</a>
+					<a class="ui fluid labeled icon blue button" v-on:click="trackEvents('Text', '{{ $paper->papername }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->papername]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->papername }}</a>
 				@endforeach
 			</div>
 			<div class="column">
 				{{-- @todo Funktionalität beim Note Repository hinzufügen (Note::collectContent) --}}
-				<a class="ui fluid labeled icon blue button" v-on="click: trackEvents('Notizen', '{{ $videoname }}')" href="{{ action('LectionController@getNotesPDF', [rawurlencode($videoname)])	}}"><i class="square write icon"></i> Notizen herunterladen</a>
+				<a class="ui fluid labeled icon blue button" v-on:click="trackEvents('Notizen', '{{ $videoname }}')" href="{{ action('LectionController@getNotesPDF', [rawurlencode($videoname)])	}}"><i class="square write icon"></i> Notizen herunterladen</a>
 			</div>
 		</section>
 	</div>

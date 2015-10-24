@@ -8,17 +8,18 @@ module.exports = {
         'content',
         'colour',
         'onEdit',
-        'onRemove'
+        'onRemove',
+        'index'
     ],
 
     methods: {
 
         editMessage: function () {
-            this.onEdit(this.id, this.$index);
+            this.onEdit(this.id, this.index);
         },
 
         removeMessage: function () {
-            this.onRemove(this.id, this.$index);
+            this.onRemove(this.id, this.index);
         }
 
     },

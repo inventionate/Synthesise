@@ -2,11 +2,12 @@
 
 <div id="message-list" class="ui top attached segment">
 
-    <message v-repeat="messages" on-remove="{{ removeMessage }}" on-edit="{{ editMessage }}"></message>
+    <!-- Seit Vue 1.0.0 muss v-for verwendet werden und die Ergebnissen neu gebunden werden. -->
+    <message v-for="message in messages" v-bind:title="message.title" v-bind:content="message.content" v-bind:colour="message.colour" v-bind:id="message.id" v-bind:index="$index" v-bind:on-remove="removeMessage" v-bind:on-edit="editMessage"></message>
 
 </div>
 
-<div class="new-message ui bottom attached teal button" v-on="click: openForm">Neue Nachricht erstellen</div>
+<div class="new-message ui bottom attached teal button" v-on:click="openForm">Neue Nachricht erstellen</div>
 
 <message-form></message-form>
 
