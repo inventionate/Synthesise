@@ -25,6 +25,10 @@ Route::get('impressum', 'ImprintController@index');
 
 Route::get('demo', 'DemoController@index');
 
+// Audiocollage
+
+Route::get('audiocollage', 'AudiocollageController@index');
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
 ]);
