@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-  <title>Erziehungswissenschaftliche Grundfragen – Impressum</title>
+  <title>EWM1 – Impressum</title>
 @stop
 
 @section('content')
