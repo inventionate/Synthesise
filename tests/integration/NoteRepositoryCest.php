@@ -40,7 +40,7 @@ class NoteRepositoryCest
       $noteId = Note::getNoteId(1, 1);
 
       // Testen
-      $I->AssertEquals($noteId, 1);
+      $I->AssertEquals($noteId[0], 1);
     }
 
     /**

@@ -28,6 +28,13 @@ class Video extends Model
     protected $primaryKey = 'videoname';
 
     /**
+     * Hauptschlüssel als nicht numerisch definieren und automatisches Inkrementieren deaktivieren.
+     *
+     * @var boolean
+     */
+    public $incrementing = false;
+
+    /**
      * Datenbankrelation Video hat viele Cuepoints.
      */
     public function cuepoints()

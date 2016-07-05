@@ -17,7 +17,7 @@
 			</div>
 
 			<div class="ui three blue bottom attached buttons">
-			  <a class="ui button" href="{{ route('lektion', [$videoname]) }}">
+			  <a class="ui button" href="{{ route('lektion', [$videoname, 1]) }}">
 			    <i class="play icon"></i>
 			    Ansehen
 			  </a>

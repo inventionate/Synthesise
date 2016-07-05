@@ -19,6 +19,13 @@ class Paper extends Model {
 	protected $primaryKey ='papername';
 
 	/**
+     * Hauptschlüssel als nicht numerisch definieren und automatisches Inkrementieren deaktivieren.
+     *
+     * @var boolean
+     */
+    public $incrementing = false;
+
+	/**
 	 * Die veränderbaren Tabellenspalten.
 	 *
 	 * @var 		array

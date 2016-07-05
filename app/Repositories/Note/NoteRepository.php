@@ -37,7 +37,7 @@ class NoteRepository implements NoteInterface
    */
   public function getNoteId($userId, $cuepointId)
   {
-      return $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('id');
+      return $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('id')->first();
   }
 
   /**

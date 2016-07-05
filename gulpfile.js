@@ -17,6 +17,7 @@ var gulpSSH = new GulpSSH({
 });
 
 var elixir = require('laravel-elixir');
+require('laravel-elixir-vueify');
 require('laravel-elixir-modernizr');
 elixir.config.sourcemaps = false;
 
@@ -64,7 +65,7 @@ elixir( function (mix) {
         "public/js/application.js",
         "public/js/vendor/modernizr-custom.js"
     ])
-    .browserSync({ proxy: 'synthesise.local'});
+    .browserSync({ proxy: 'etpm.local' });
 });
 
 /*

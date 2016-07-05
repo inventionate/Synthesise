@@ -1,7 +1,6 @@
 {{-- @todo Dynamisch aus Datenbank erzeugen (momentan ist es noch zu statisch, siehe Lektionsgruppen) --}}
 
 {{-- @todo Als Vue Komponente umsetzen, um Semantic UI Ladeprobleme zu vermeiden.--}}
-
 <section id="all-lections" class="ui stackable grid">
 
 	<div class="column">
@@ -57,7 +56,7 @@
 							{{-- <div class="ui fluid labeled button" tabindex="0"> --}}
 								<div class="ui fluid left aligned basic button @if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online) green @else red @endif">
     								<i class="video icon"></i>
-									<a class="disabled" href="{{ route('lektion', [rawurlencode($video->videoname)]) }}">{{ $video->videoname }}</a>
+									<a class="disabled" href="{{ route('lektion', [rawurlencode($video->videoname), 1]) }}">{{ $video->videoname }}</a>
 								</div>
 								{{-- <a class="ui left pointing label @if( Video::available($video->videoname) || $role === 'Teacher' || $role === 'Admin' && $video->online) green @else red @endif">
 									<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($video->videoname) }}">0</span>

@@ -8,6 +8,10 @@ Vue.use(require('vue-resource'));
 // Token for AJAX calls
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+// Vue components
+import MessageManager from './components/MessageManager.vue';
+import InteractiveVideo from './components/InteractiveVideo.vue';
+
 // Vue.js application components
 new Vue({
     el: '#etpM-de',
@@ -18,14 +22,9 @@ new Vue({
 
     components: {
         // Nachrichtensystem
-        'message-manager': require('./components/message-manager.js'),
+        'message-manager': MessageManager,
         // Inetraktive Videofunktionen
-        'interactive-video': require('./components/interactive-video.js'),
-        // Standrad Video und Audio
-
-        // @todo Statistik Modul
-        // Eine Vue Komponente, die die entsprechenden Daten und die Darstellungsform abfrägt. Über ein Blade View wird dann die Anzeige der Komponenten geregelt
-        // 'analytics-graph': require('./components/analytics-graph.js'),
+        'interactive-video': InteractiveVideo
     },
 
     methods: {

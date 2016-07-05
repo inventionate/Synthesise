@@ -4,6 +4,7 @@ use _data\Factories as Factories;
 
 class VideoRepositoryCest
 {
+
     /**
    * Ein fiktives Beispielvideo.
    *
@@ -51,11 +52,12 @@ class VideoRepositoryCest
    */
   public function test_get_is_available(IntegrationTester $I)
   {
-      $I->wantTo('get video is available');
-      // Beispieldatensatz generieren
-      $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
-      $this->videoAttributes['available_from'] = '2000-01-01';
-      $I->haveRecord('videos', $this->videoAttributes);
+    $I->wantTo('get video is available');
+
+    // Beispieldatensatz generieren
+    $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
+    $this->videoAttributes['available_from'] = '2000-01-01';
+    $I->haveRecord('videos', $this->videoAttributes);
 
     // Methode ausführen
     $available = Video::available('Sozialgeschichte 1');
@@ -154,7 +156,7 @@ class VideoRepositoryCest
     $paper = Video::getPapers('Sozialgeschichte 1');
 
     // Testen
-    $I->AssertEquals($paper->first()->pluck('papername'), 'Die Chronologie');
+    $I->AssertEquals($paper->first()->pluck('papername')[0], 'Die Chronologie');
   }
 
   /**
@@ -181,7 +183,7 @@ class VideoRepositoryCest
     $cuepoints = Video::getCuepoints('Sozialgeschichte 1', 1);
 
     // Testen
-    $I->AssertEquals($cuepoints->first()->pluck('cuepoint'), 10);
+    $I->AssertEquals($cuepoints->pluck('cuepoint')->all(), ['10', '100']);
   }
 
   /**
