@@ -50,7 +50,7 @@ class NoteRepository implements NoteInterface
    */
   public function getContent($userId, $cuepointId)
   {
-      $note = $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note');
+      $note = $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note')->all();
 
       if (empty($note)) {
           return '';

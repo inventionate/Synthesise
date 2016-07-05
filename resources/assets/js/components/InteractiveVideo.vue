@@ -213,16 +213,18 @@
                 $('#notes-progress').removeClass('disabled');
                 $('#notes-form').addClass('loading');
                 // AJAX Abfrage starten.
-                this.$http.get(document.URL + '/getnotes/', { cuepointNumber: id } , function ( data ) {
+                this.$http.get(document.URL + '/getnotes/', {params: { cuepointNumber: id }}).then((response) => {
 
-                    self.noteContent = data;
+                    self.noteContent = response.text();
 
-                    // $('#note-content').val(data);
+                    $('#note-content').val(response.text());
                     $('#notes-progress').addClass('disabled');
                     $('#notes-form').removeClass('loading');
-                })
-                .error( function (data, status, request) {
-                    console.error('AJAX GET Error: ', request.responseURL, status);
+
+                }, (response) => {
+
+                    console.error('AJAX GET Error: ', response.status);
+
                 });
             },
 
@@ -243,8 +245,8 @@
                 this.$http.post(document.URL + '/postnotes', {
                     note: content,
                     cuepointNumber: id
-                })
-                .success( function () {
+                }).then((response) => {
+
                     // Die Aktivität des Prozesses lässt sich sicher auch über eine Vue Variable lösen!
                     $('#notes-progress').addClass('disabled');
 
@@ -253,12 +255,14 @@
 
                      // Content zurücksetzen.
                      this.content = '';
-                })
-                .error( function (data, status, request) {
-                    console.error('AJAX POST Error: ', request.responseURL, status);
+
+                }, (response) => {
+
+                    console.error('AJAX POST Error: ', response.status);
 
                     // Content zurücksetzen.
                     this.content = '';
+
                 });
 
             }

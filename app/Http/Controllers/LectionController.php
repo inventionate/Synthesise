@@ -136,6 +136,7 @@ class LectionController extends Controller
      */
     public function getNotes($videoname, $sequenceNumber, NoteRequest $request)
     {
+
         $videoname = urldecode($videoname);
         $sequenceNumber = intval($sequenceNumber);
 
