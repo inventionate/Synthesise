@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 var config = {
   host: 'etpm.ph-karlsruhe.de',
   username: 'etpm',
-  privateKey: fs.readFileSync('/home/vagrant/.ssh/id_rsa')
+  privateKey: fs.readFileSync('/Users/fabianmundt/.ssh/id_rsa')
 };
 
 
@@ -17,7 +17,10 @@ var gulpSSH = new GulpSSH({
 });
 
 var elixir = require('laravel-elixir');
+require('laravel-elixir-browserify-official');
+require('laravel-elixir-browsersync-official');
 require('laravel-elixir-vueify');
+// require('laravel-elixir-vue');
 require('laravel-elixir-modernizr');
 elixir.config.sourcemaps = false;
 
