@@ -1,0 +1,10 @@
+class_name: AcceptanceTester
+modules:
+    enabled:
+        - \Helper\Acceptance
+        - WebDriver:
+            url: 'http://localhost/'
+            browser: phantomjs
+        - Laravel5:
+            part: ORM
+            cleanup: false

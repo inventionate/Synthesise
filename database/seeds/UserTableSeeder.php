@@ -9,25 +9,25 @@ class UserTableSeeder extends Seeder
     {
         DB::table('users')->delete();
 
-        User::create([
-            'username' => 'hoyerka',
-            'role' => 'Admin',
-        ]);
-
-        User::create([
-            'username' => 'mundtka',
-            'role' => 'Admin',
-        ]);
-
-        User::create([
-            'username' => 'weigandka',
-            'role' => 'Teacher',
-        ]);
-
-        User::create([
-            'username' => 'bolleka',
-            'role' => 'Teacher',
-        ]);
+        // User::create([
+        //     'username' => 'hoyerka',
+        //     'role' => 'Admin',
+        // ]);
+        //
+        // User::create([
+        //     'username' => 'mundtka',
+        //     'role' => 'Admin',
+        // ]);
+        //
+        // User::create([
+        //     'username' => 'weigandka',
+        //     'role' => 'Teacher',
+        // ]);
+        //
+        // User::create([
+        //     'username' => 'bolleka',
+        //     'role' => 'Teacher',
+        // ]);
 
         User::create([
             'username' => 'student',
@@ -61,27 +61,27 @@ class UserTableSeeder extends Seeder
          *
          * @todo Diesen Prozess über das Backend vereinfachen (CSV aus LSF o.ä. hochladen).
          */
-        require storage_path().'/app/users/mentoren.php';
-
-        foreach ($mentoren as $mentor) {
-            User::create([
-                'username' => $mentor,
-                'role' => 'Teacher',
-            ]);
-        }
+        // require storage_path().'/app/users/mentoren.php';
+        //
+        // foreach ($mentoren as $mentor) {
+        //     User::create([
+        //         'username' => $mentor,
+        //         'role' => 'Teacher',
+        //     ]);
+        // }
 
         /**
          * Studierende über Array einlesen.
          *
          * @todo Diesen Prozess über das Backend vereinfachen (CSV aus LSF o.ä. hochladen).
          */
-        require storage_path().'/app/users/studierende.php';
-
-        foreach ($studierende as $student) {
-            User::create([
-                'username' => $student,
-                'role' => 'Student',
-            ]);
-        }
+        // require storage_path().'/app/users/studierende.php';
+        //
+        // foreach ($studierende as $student) {
+        //     User::create([
+        //         'username' => $student,
+        //         'role' => 'Student',
+        //     ]);
+        // }
     }
 }
