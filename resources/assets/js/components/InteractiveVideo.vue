@@ -1,5 +1,5 @@
 <style lang="less">
-    @import "resources/assets/less/colour";
+    @import "../../less/colour";
     #interactive-video {
         position: relative;
         padding-bottom: 7em;
@@ -48,8 +48,8 @@
             }
         }
     }
-    @import "resources/assets/less/video-js-skin";
-    @import "resources/assets/less/video-js-markers";
+    @import "../../less/video-js-skin";
+    @import "../../less/video-js-markers";
 </style>
 
 <template>
@@ -66,7 +66,9 @@
 </template>
 
 <script>
-    module.exports = {
+    import InteractiveVideoNotes from './InteractiveVideoNotes.vue';
+
+    export default {
 
         props: [
             'name',
@@ -76,14 +78,14 @@
             'notes'
         ],
 
-        data: function () {
+        data() {
             return {
                 markerID: 0,
                 noteContent: ''
             };
         },
 
-        created: function () {
+        created() {
             var self = this;
 
             this.$on('changedContent', function(updatedContent) {
@@ -91,7 +93,7 @@
             });
         },
 
-        ready: function () {
+        mounted() {
             var self = this;
             // jQuery laden
             var $ = require('jquery');
@@ -110,7 +112,7 @@
         },
 
         methods: {
-            initVideoJS: function (path, name, poster, markers) {
+            initVideoJS(path, name, poster, markers) {
 
                 var self = this;
                 // Video.js laden
@@ -184,7 +186,7 @@
                 });
             },
 
-            observeMarkers: function (name) {
+            observeMarkers(name) {
                 var self = this;
 
                 $('.vjs-marker').on('click touchstart', function() {
@@ -206,7 +208,7 @@
                 });
             },
 
-            fetchNote: function (id) {
+            fetchNote(id) {
                 var self = this;
 
                 // Aktualisierungsprozess sichtbar machen, indem die Prozessbar aktiviert wird.
@@ -229,7 +231,7 @@
             },
 
             // @toto Notizfunktion verbessern!
-            updateNote: function (name, id, content) {
+            updateNote(name, id, content) {
 
                 this.noteContent = content;
 
@@ -270,7 +272,7 @@
         },
 
         components: {
-            'interactive-video-notes': require('./InteractiveVideoNotes.vue')
+            InteractiveVideoNotes
         }
     }
 </script>

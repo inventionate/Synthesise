@@ -1,6 +1,9 @@
 // Used packages
-var Vue = require('vue');
-Vue.use(require('vue-resource'));
+// var Vue = require('vue');
+import Vue from 'vue/dist/vue.js';
+import VueResource from 'vue-resource';
+
+Vue.use(VueResource);
 
 // Vue debug mode
 // Vue.config.debug = true;
@@ -14,17 +17,18 @@ import InteractiveVideo from './components/InteractiveVideo.vue';
 
 // Vue.js application components
 new Vue({
-    el: '#etpM-de',
+    el: '#vue',
 
-    ready: function () {
+    mounted() {
+        console.log("Hello!");
         this.semanticAnimations();
     },
 
     components: {
         // Nachrichtensystem
-        'message-manager': MessageManager,
+        // MessageManager,
         // Inetraktive Videofunktionen
-        'interactive-video': InteractiveVideo
+        // InteractiveVideo
     },
 
     methods: {

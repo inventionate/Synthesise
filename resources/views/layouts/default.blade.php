@@ -38,12 +38,14 @@
 		<div class="ui negative message @if( Request::is('auth/login') ) login @endif">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
 		{{-- @yield MAIN CONTENT -------------------------------------------------}}
-		@yield('content')
+		<div id="vue">
+			@yield('content')
+		</div>
 
 		<div class="ui divider"></div>
 
 		{{-- @include FOOTER -----------------------------------------------------}}
-			@include('layouts.partials.footer')
+		@include('layouts.partials.footer')
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
 		<script src="{{ elixir("js/application.js") }}"></script>

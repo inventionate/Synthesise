@@ -1,6 +1,3 @@
-<style>
-</style>
-
 <template>
     <section id="video-notes">
         <header>
@@ -23,10 +20,10 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         props: ['content'],
 
-        ready: function () {
+        mounted() {
             // jQuery laden
             var $ = require('jquery');
             window.$ = $;
@@ -38,7 +35,9 @@
         },
 
         watch: {
-            content: function () {
+            content() {
+                // @ todo: $dispatch und $broadcast sind deprecated in Vue 2!
+                // Es gibt bereits einen Alternativvorschlag mit .on/.emit und mit Vuex. Ich präferiere momentan Variante 1.
                     this.$dispatch('changedContent', this.content);
             }
         }

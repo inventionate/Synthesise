@@ -17,11 +17,11 @@ var gulpSSH = new GulpSSH({
 });
 
 var elixir = require('laravel-elixir');
-require('laravel-elixir-browserify-official');
-require('laravel-elixir-browsersync-official');
-require('laravel-elixir-vueify');
-// require('laravel-elixir-vue');
+// require('laravel-elixir-browserify-official');
+// require('laravel-elixir-vueify');
+require('laravel-elixir-vue');
 require('laravel-elixir-modernizr');
+require('laravel-elixir-browsersync-official');
 elixir.config.sourcemaps = false;
 
 /*
@@ -40,7 +40,7 @@ elixir( function (mix) {
     // Styles
     .less("application.less")
     // Scripts
-    .browserify("application.js")
+    .webpack("application.js")
     // Symbolschriftarten
     .copy(
         "resources/assets/semantic/dist/themes/default/assets/fonts",

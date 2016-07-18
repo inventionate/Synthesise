@@ -1,6 +1,3 @@
-<style>
-</style>
-
 <template>
     <div id="message-form" class="ui modal">
         <div class="header">
@@ -97,9 +94,9 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
 
-        data: function () {
+        data() {
             return {
                 newMessage: {},
                 title: '',
@@ -110,7 +107,7 @@
             };
         },
 
-        created: function () {
+        created() {
             var self = this;
             // Event listener zum Öffnen des Semantic Form-Modals (Vue.js Component Event System).
             this.$on('editMessage', function(message) {
@@ -121,7 +118,7 @@
             });
         },
 
-        ready: function () {
+        mounted() {
             var self = this;
             // jQuery laden
             var $ = require('jquery');
@@ -156,7 +153,7 @@
                     }
                 })
             .modal({
-                onHidden: function () {
+                onHidden() {
                     // Eingaben löschen.
                     self.newMessage = {};
                     self.title = '';
@@ -167,17 +164,17 @@
         },
 
         methods: {
-            openModal: function () {
+            openModal() {
                 // Semantic UI Modal öffnen
                 $("#message-form").modal('show');
             },
 
-            closeModal: function () {
+            closeModal() {
                 // Semantic UI Modal schließen
                 $("#message-form").modal('hide');
             },
 
-            submitMessage: function () {
+            submitMessage() {
                 // Formvalidierung
                 if ( $('#message-form').form('is valid') )
                 {
@@ -206,7 +203,7 @@
                 }
             },
 
-            editMessage: function (message) {
+            editMessage(message) {
                 // Editiermodus aktivieren
                 this.updateMessage = true;
                 // Zu editierende Nachricht laden

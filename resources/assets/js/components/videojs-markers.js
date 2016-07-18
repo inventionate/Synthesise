@@ -1,8 +1,6 @@
 /*! videojs-markers - v0.5.0 - 2015-08-01
 * Copyright (c) 2015 ; Licensed  */
 /*! videojs-markers !*/
-'use strict';
-
 (function($, videojs, undefined) {
    //default setting
    var defaultSetting = {
@@ -48,7 +46,7 @@
          return (c=='x' ? r : (r&0x3|0x8)).toString(16);
       });
       return uuid;
-   };
+   }
 
    function registerVideoJsMarkersPlugin(options) {
       /**
@@ -89,11 +87,11 @@
       }
 
       function getPosition(marker){
-         return (setting.markerTip.time(marker) / (Math.round(player.duration() * 100) / 100)) * 100
+         return (setting.markerTip.time(marker) / (Math.round(player.duration() * 100) / 100)) * 100;
       }
 
       function createMarkerDiv(marker, duration) {
-         var markerDiv = $("<div class='vjs-marker'></div>")
+         var markerDiv = $("<div class='vjs-marker'></div>");
          markerDiv.css(setting.markerStyle)
             .css({"margin-left" : -parseFloat(markerDiv.css("width"))/2 + 'px',
                "left" : getPosition(marker).toFixed(2) + '%'})
@@ -111,7 +109,7 @@
             var preventDefault = false;
             if (typeof setting.onMarkerClick === "function") {
                // if return false, prevent default behavior
-               preventDefault = setting.onMarkerClick(marker) == false;
+               preventDefault = setting.onMarkerClick(marker) === false;
             }
 
             if (!preventDefault) {
@@ -164,9 +162,9 @@
          }
 
          // clean up array
-         for (var i = markersList.length - 1; i >=0; i--) {
-            if (markersList[i] === null) {
-               markersList.splice(i, 1);
+         for (var e = markersList.length - 1; e >=0; e--) {
+            if (markersList[e] === null) {
+               markersList.splice(e, 1);
             }
          }
 
@@ -245,7 +243,7 @@
             }
             // next marker time of last marker would be end of video time
             return player.duration();
-         }
+        };
          var currentTime = player.currentTime();
          var newMarkerIndex;
 
@@ -265,10 +263,10 @@
          } else {
             // look for new index
             for (var i = 0; i < markersList.length; i++) {
-               nextMarkerTime = getNextMarkerTime(i);
+               nextMarkerTimeNew = getNextMarkerTime(i);
 
                if(currentTime >= setting.markerTip.time(markersList[i]) &&
-                  currentTime < nextMarkerTime) {
+                  currentTime < nextMarkerTimeNew) {
 
                   newMarkerIndex = i;
                   break;

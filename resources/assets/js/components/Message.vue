@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
 
             props: [
                 'id',
@@ -28,11 +28,11 @@
 
             methods: {
 
-                editMessage: function () {
+                editMessage() {
                     this.onEdit(this.id, this.index);
                 },
 
-                removeMessage: function () {
+                removeMessage() {
                     this.onRemove(this.id, this.index);
                 }
 

@@ -75,14 +75,17 @@
 </template>
 
 <script>
-    module.exports = {
+    import Message from './Message.vue';
+    import MessageForm from './MessageForm.vue';
+
+    export default {
         // @todo index und id system evtl. angleichen, damit es synchron funktioniert und damit übersichtlicher wird.
 
         props: [
             'url'
         ],
 
-        data: function () {
+        data() {
             return {
                 messages: [],
                 indexOfEditedMessage: 0,
@@ -90,7 +93,7 @@
             };
         },
 
-        created: function () {
+        created() {
             // Event listener zum Öffnen des Semantic Form-Modals (Vue Component Event System).
             this.$on('storeMessage', function(newMessage) {
                 this.storeMessage(newMessage);
@@ -100,12 +103,12 @@
             });
         },
 
-        ready: function () {
+        mounted() {
             this.fetchMessages();
         },
 
         methods: {
-            fetchMessages: function () {
+            fetchMessages() {
                 var self = this;
 
                 // AJAX Abfrage.
@@ -117,7 +120,7 @@
                 });
             },
 
-            editMessage: function (id, index) {
+            editMessage(id, index) {
                 // Die entsprechende Nachricht übergeben.
                 this.$broadcast('editMessage', this.messages[index]);
                 // Den Index der editierten Nachricht setzen
@@ -125,12 +128,12 @@
                 this.idOfEditedMessage = id;
             },
 
-            openForm: function () {
+            openForm() {
                 // Semantic UI Formular öffnen.
                 this.$broadcast('openModal');
             },
 
-            storeMessage: function (newMessage) {
+            storeMessage(newMessage) {
                 var self = this;
 
                 // Datensatz aktualisieren
@@ -149,7 +152,7 @@
             },
 
 
-            updateMessage: function (newMessage) {
+            updateMessage(newMessage) {
                 var self = this;
 
                 // Datensatz aktualisieren.
@@ -168,7 +171,7 @@
                 });
             },
 
-            removeMessage: function (id, index) {
+            removeMessage(id, index) {
                 var self = this;
 
                 // Datensatz aktualisieren.
@@ -190,8 +193,8 @@
         },
 
         components: {
-            'message': require('./Message.vue'),
-            'message-form': require('./MessageForm.vue')
+            Message,
+            MessageForm
         }
     }
 </script>
