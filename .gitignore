@@ -14,3 +14,4 @@
 .tags1
 .env
 .env.production
+composer.lock
