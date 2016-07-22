@@ -1,5 +1,5 @@
 {
-  "base": "resources/assets/semantic",
+  "base": "semantic/",
   "paths": {
     "source": {
       "config": "src/theme.config",
@@ -16,46 +16,7 @@
     "clean": "dist/"
   },
   "permission": false,
-  "rtl": "No",
-  "components": [
-    "reset",
-    "site",
-    "button",
-    "container",
-    "divider",
-    "header",
-    "icon",
-    "image",
-    "input",
-    "label",
-    "list",
-    "loader",
-    "reveal",
-    "segment",
-    "step",
-    "form",
-    "grid",
-    "menu",
-    "message",
-    "table",
-    "card",
-    "comment",
-    "accordion",
-    "checkbox",
-    "dimmer",
-    "dropdown",
-    "modal",
-    "nag",
-    "popup",
-    "progress",
-    "rating",
-    "shape",
-    "sticky",
-    "tab",
-    "transition",
-    "form",
-    "state",
-    "visibility"
-  ],
-  "version": "2.2.1"
+  "autoInstall": false,
+  "rtl": false,
+  "version": "2.2.2"
 }
