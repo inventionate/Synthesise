@@ -1,4 +1,3 @@
-module.exports = function() {
 
         $('.scale').transition('scale in', 1000);
 
@@ -47,5 +46,3 @@ module.exports = function() {
             $('#edit-lection-available').val(lectionAvailable);
 
         });
-
-};

@@ -29,7 +29,7 @@
             window.$ = $;
             window.jQuery = $;
             // Semantic UI laden
-            require('../../semantic/dist/semantic.js');
+            require('semantic-ui-css/semantic.js');
 
             $('#notes-progress').progress();
         },
