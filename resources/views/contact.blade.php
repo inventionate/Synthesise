@@ -11,7 +11,7 @@
 
 	<h1 class="hide">Kontakt</h1>
 
-	<div class="two column row">
+	<div class="left aligned two column row">
 
 		<div class="ten wide column">
 			<h2 class="ui header">Gesamtkonzeption und Ablauf</h2>

@@ -7,7 +7,8 @@ use Synthesise\Repositories\Facades\Faq;
 class FaqController extends Controller
 {
     /**
-     * Häufig gestellte Fragen anzeigen.
+     * List all FAQs.
+     * @info:   Use parameters for filter and search the list in strict REST!
      *
      * @param string $letter
      *
@@ -20,10 +21,82 @@ class FaqController extends Controller
 
         $answersByLetter = FAQ::getByLetter($letter);
 
-        return view('faq')
+        return view('faq.index')
                                 ->with('answersByLetter', $answersByLetter)
                                 ->with('letter', $letter)
                                 ->with('letters', $letters)
                                 ->with('answers', $answers);
+    }
+
+    /**
+         * Show the form for creating a new FAQ.
+         *
+         * @return Response
+         */
+        public function create()
+        {
+            return view('faq.create');
+        }
+
+    /**
+     * Store a newly created FAQ in storage.
+     *
+     * @return Response
+     */
+    public function store(FaqRequest $request)
+    {
+        $title = $request->title;
+
+        $content = $request->content;
+
+        $colour = $request->colour;
+
+        FAQ::store($title, $content, $colour);
+    }
+
+    /**
+     * Show the form for editing the FAQ resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified FAQ in storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function update($id, FaqRequest $request)
+    {
+        $title = $request->title;
+
+        $content = $request->content;
+
+        $colour = $request->colour;
+
+        Faq::update($id, $title, $content, $colour);
+
+        // Hier ein spezielles View öffnen, das ein entsprechendes Formular beinhalted.
+        // Dieser View hat dann eine post funktion.
+        //
+
+    }
+
+    /**
+     * Remove the specified FAQ from storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function destroy($id, Request $request)
+    {
+        Message::delete($id);
     }
 }

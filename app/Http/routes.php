@@ -104,15 +104,21 @@ Route::group(['middleware' => 'auth'], function () {
     ->where('sequenceNumber', '[0-9]+');
 
     // HgF
-    Route::get('hgf/{letter?}', [
-      'as' => 'hgf',
+    Route::get('faq/{letter?}', [
+      'as' => 'faq',
       'uses' => 'FaqController@index',
+  ])
+  ->where('letter', '[A-Z]{1,1}');
+
+    Route::get('faq/create', [
+      'uses' => 'FaqController@create',
     ]);
+
 
     // KONTAKT
     Route::get('kontakt', [
-      'as' => 'kontakt',
-      'uses' => 'ContactController@index',
+        'as' => 'kontakt',
+        'uses' => 'ContactController@index',
     ]);
 
     Route::post('kontakt/feedback', [
@@ -136,6 +142,8 @@ Route::group(['middleware' => 'auth'], function () {
 | API Routes
 |--------------------------------------------------------------------------
 */
+
+// Das hier muss für die Lektionen gelöst werden!
 
 Route::group(['prefix' => 'api/v1', 'middleware' => 'auth.basic'], function () {
     // Messages

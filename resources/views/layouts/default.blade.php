@@ -13,14 +13,14 @@
 
 		{{-- APPLICATION CSS -----------------------------------------------------}}
 		@if ( Config::get('app.debug') )
-			<link rel="stylesheet" href="/css/application.css">
+			<link rel="stylesheet" href="{{ asset("css/application.css") }}">
 		@else
 			<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
 		@endif
 
 		{{-- MODERNIZR JS --------------------------------------------------------}}
 		@if ( Config::get('app.debug') )
-			<script src="/js/vendor/modernizr-custom.js"></script>
+			<script src={{ asset("js/vendor/modernizr-custom.js") }}"></script>
 		@else
 			<script src="{{ elixir("js/vendor/modernizr-custom.js") }}"></script>
 		@endif
@@ -56,7 +56,7 @@
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
 		@if ( Config::get('app.debug') )
-			<script src="/js/application.js"></script>
+			<script src={{ asset("/js/application.js") }}"></script>
 		@else
 			<script src="{{ elixir("js/application.js") }}"></script>
 		@endif
