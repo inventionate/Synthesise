@@ -6,5 +6,5 @@ $.cookieBar({
     policyButton: true,
     policyText: 'Datenschutzerklärung',
     policyURL: '/impressum',
-    forceShow: true,
+    //forceShow: true,
 });

@@ -29,8 +29,10 @@
 
             @if ( Auth::user()->role === 'Admin' )
 
-                <div id="edit-faq-button" class="ui teal right attached icon button">
-                    <i class="edit icon"></i>
+                <div class="item">
+                    <div class="ui teal icon button" data-tooltip="Eine neue HGF hinzufügen.">
+                        <i class="add icon"></i>
+                    </div>
                 </div>
 
             @endif
@@ -46,16 +48,21 @@
 
                     <div class="title">
                         <div class="ui grid">
-                            <div class="@if ( Auth::user()->role === 'Admin' ) fourteen wide @endif trigger column">
+                            <div class="@if ( Auth::user()->role === 'Admin' ) thirteen wide @endif trigger column">
                                 <i class="dropdown icon"></i>
                                 {{ $answers->subject }}
                             </div>
+
                             @if ( Auth::user()->role === 'Admin' )
-                                <div class="two wide right aligned column">
-                                    <a href="#"><i class="edit icon"></i></a>
-                                    <a href="/"><i class="close icon"></i></a>
+                            <div class="three wide column">
+                                <div class="ui small teal icon buttons">
+                                   <a href="#" class="ui button" data-tooltip="HGF ändern."><i class="edit icon"></i>
+                                   </a>
+                                   <a href="/" class="ui button" data-tooltip="HGF löschen."><i class="close icon"></i></a>
                                 </div>
+                            </div>
                             @endif
+
                         </div>
                     </div>
 
@@ -69,7 +76,9 @@
         </div>
     @endif
 
-    <div id="edit-faq" class="ui modal">
+
+
+    {{-- <div id="edit-faq" class="ui modal">
     	<div class="header">
     		»Häufig gestellte Fragen« bearbeiten
     	</div>
@@ -97,7 +106,7 @@
     			<i class="checkmark icon"></i>
     		</div>
     	</div>
-    </div>
+    </div> --}}
 
 
 </main>

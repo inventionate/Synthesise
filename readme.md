@@ -1,7 +1,7 @@
 ## Synthesise Learning Space
 
-Synthesise ist ein moderner "Learning Space", der einen virtuellen Lernraum ermöglicht. Die Applikation ist für den Einsatz in einem Blended-Learning-Szenario optimiert.
+Synthesise is a web-based "Learning Space". The application is optimised for Blended Learning scenarios and built with modern web technologies.
 
-### Fehlerberichte
+### Issues
 
-Alle Fehlerberichte können über den [BitBucket Issue Tracker](http://bitbucket.org/Inventionate/synthesise/issues?status=new&status=open) gemeldet werden.
+Please transmit all issues through  [GitHub](https://github.com/inventionate/Synthesise/issues).

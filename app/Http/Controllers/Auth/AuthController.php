@@ -62,7 +62,7 @@ class AuthController extends Controller
 
         //LDAP Authentifizierung
         // 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
-        if ($this->app->environment('testing', 'local')) {
+        if ($this->app->environment('testing', 'dev')) {
             $ldap = true;
         } else {
             $ldap = $this->ldap->authenticate($credentials['username'], $credentials['password']);

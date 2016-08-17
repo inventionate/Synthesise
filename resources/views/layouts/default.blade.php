@@ -12,10 +12,18 @@
 		@include('layouts.partials.head')
 
 		{{-- APPLICATION CSS -----------------------------------------------------}}
-		<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
+		@if ( Config::get('app.debug') )
+			<link rel="stylesheet" href="/css/application.css">
+		@else
+			<link rel="stylesheet" href="{{ elixir("css/application.css") }}">
+		@endif
 
 		{{-- MODERNIZR JS --------------------------------------------------------}}
-		<script src="{{ elixir("js/vendor/modernizr-custom.js") }}"></script>
+		@if ( Config::get('app.debug') )
+			<script src="/js/vendor/modernizr-custom.js"></script>
+		@else
+			<script src="{{ elixir("js/vendor/modernizr-custom.js") }}"></script>
+		@endif
 
 	</head>
 
@@ -38,9 +46,8 @@
 		<div class="ui negative message @if( Request::is('auth/login') ) login @endif">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
 		{{-- @yield MAIN CONTENT -------------------------------------------------}}
-		<div id="vue">
-			@yield('content')
-		</div>
+
+		@yield('content')
 
 		<div class="ui divider"></div>
 
@@ -48,7 +55,12 @@
 		@include('layouts.partials.footer')
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
-		<script src="{{ elixir("js/application.js") }}"></script>
+		@if ( Config::get('app.debug') )
+			<script src="/js/application.js"></script>
+		@else
+			<script src="{{ elixir("js/application.js") }}"></script>
+		@endif
+
 		@section('scripts')
 		@show
 

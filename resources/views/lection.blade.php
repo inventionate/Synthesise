@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui stackable page grid">
+<main id="main-content-{{ Request::segment(1) }}" class="ui stackable page grid vue">
 
 	@if($available || $role === 'Teacher' || $role === 'Admin'  && $online)
 
@@ -76,9 +76,11 @@
 			</div>
 		</section>
 	</div>
+
 	@else
 		<div class="ui negative message"> Die online-Lektion ist noch nicht verfügbar. Bitte wählen Sie eine verfügbare online-Lektion aus.</div>
     	@include('dashboard.partials.all-lections')
 	@endif
+
 </main>
 @stop
