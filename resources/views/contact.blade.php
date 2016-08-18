@@ -18,16 +18,19 @@
 
 			<p>Bei Fragen zur Gestaltung der Gesamtveranstaltung nutzen Sie bitte dieses Formular. Die Nachricht wird direkt an Timo Hoyer gesendet. Er wird Ihnen eine <strong>Antwort an Ihre E-Mail Adresse der Pädagogischen Hochschule Karlsruhe</strong> senden.</p>
 
-			{!! Form::open(['url' => 'kontakt/feedback', 'class ' => 'ui form', 'id' => 'feedback', 'role' => 'form']) !!}
+			<form role="form" method="POST" action="{{ url('kontakt/feedback') }}" class="ui form" id="feedback">
+
+				{{ csrf_field() }}
+
 			{{-- Eingabe der Nachricht ----------------------------------}}
-				{!! Form::label('feedbackMessage', 'Nachricht', ['class' => 'hide']) !!}
+				<label for="feedbackMessage" class="hide">Nachricht</label>
 				<div class="required field @if ( Session::has('feedback_errors') ) error @endif">
-					{!! Form::textarea('nachricht', '', ['id' => 'feedbackMessage', 'class' => 'ui text', 'placeholder' => 'Ihre Nachricht.', 'rows' => '5','maxlength' => '400', 'required']) !!}
+					<textarea id="feedbackMessage" class="ui text" placeholder="Ihre Nachricht." rows="5" maxlength="400" required="required" name="nachricht" cols="50"></textarea>
 				</div>
 				{{-- Anmelde Button -----------------------------------------}}
-				{!! Form::submit('Abschicken', ['class' => 'ui fluid submit button']) !!}
+				<input class="ui fluid submit button" type="submit" value="Abschicken">
 
-			{!! Form::close() !!}
+			</form>
 
 			@if (Session::has('feedback_errors'))
 				<div class="ui floating error message shake">Bitte geben Sie eine Nachricht ein.</div>
@@ -37,16 +40,20 @@
 
 			<h2 class="ui header">Technische Probleme</h2>
 			<p>Bei technischen Problemen nutzen Sie bitte dieses Formular. Die Nachricht wird direkt an Fabian Mundt gesendet. Er wird Ihnen eine <strong>Antwort an Ihre E-Mail Adresse der Pädagogischen Hochschule Karlsruhe</strong> senden.</p>
-			{!! Form::open(['url' => 'kontakt/support', 'class' => 'ui form', 'id' => 'support', 'role' => 'form']) !!}
+
+			<form role="form" method="POST" action="{{ url('kontakt/support') }}" class="ui form" id="feedback">
+
+				{{ csrf_field() }}
+
 			{{-- Eingabe der Nachricht ----------------------------------}}
 				{!! Form::label('supportMessage', 'Nachricht', ['class' => 'hide']) !!}
 				<div class="required field @if ( Session::has('support_errors') ) error @endif">
-					{!! Form::textarea('nachricht', '', ['id' => 'supportMessage', 'class' => 'form-control', 'placeholder' => 'Ihre Nachricht.', 'rows' => '5','maxlength' => '400', 'required']) !!}
+					<textarea id="supportMessage" class="form-control" placeholder="Ihre Nachricht." rows="5" maxlength="400" required="required" name="nachricht" cols="50"></textarea>
 				</diV>
 				{{-- Anmelde Button -----------------------------------------}}
-				{!! Form::submit('Abschicken', ['class' => 'ui fluid submit button']) !!}
+				<input class="ui fluid submit button" type="submit" value="Abschicken">
 
-			{!! Form::close() !!}
+			</form>
 
 			@if (Session::has('support_errors'))
 				<div class="ui floating error message shake">Bitte geben Sie eine Nachricht ein.</div>

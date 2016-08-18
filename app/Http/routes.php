@@ -101,8 +101,8 @@ Route::get('/', [
     ])
     ->where('letter', '[A-Z]{1,1}');
 
-    Route::get('faq/create', [
-      'uses' => 'FaqController@create',
+    Route::post('faq', [
+      'uses' => 'FaqController@store',
     ]);
 
     Route::delete('faq/{id}', [

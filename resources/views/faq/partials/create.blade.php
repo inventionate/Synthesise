@@ -1,4 +1,7 @@
-<div id="faq-new-modal" class="ui modal form">
+<form role="form" method="POST" action="{{ action('FaqController@store') }}" id="faq-new-modal" class="ui modal form">
+
+    {{ csrf_field() }}
+
     <div class="header">
         Neue »Häufig gestellte Frage« erstellen
     </div>
@@ -27,4 +30,4 @@
         </div>
     </div>
 
-</div>
+</form>

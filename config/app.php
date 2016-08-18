@@ -160,7 +160,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
 
@@ -232,9 +231,7 @@ return [
          * Package Facades...
          */
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Agent' => Jenssegers\Agent\Facades\Agent::class,
-        'Form' => 'Collective\Html\FormFacade',
-        'Html' => 'Collective\Html\HtmlFacade',
+        'Agent' => Jenssegers\Agent\Facades\Agent::class
 
     ],
 

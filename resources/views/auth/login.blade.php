@@ -16,31 +16,33 @@
 
 	<div class="eight wide column @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
 
-		{!! Form::open(['url' => 'login','class' => 'ui form', 'id' => 'login', 'role' => 'form']) !!}
+		<form role="form" method="POST" action="{{ url('login') }}" class="ui form" id="login">
+
+			{{ csrf_field() }}
 
 			<div class="three fields">
 
 				{{-- Eingabe des Benutzernamens --}}
 				<div class="required field @if (Session::has('errors') || Session::has('login_errors')) error @endif">
-					{!! Form::label('username', 'Benutzername', ['class' => 'hide']) !!}
+					<label for="username" class="hide">Benutzername</label>
 					<div class="ui icon input">
-						{!! Form::text('username', '', ['placeholder' => 'LSF Benutzername', 'required']) !!}
+						<input placeholder="LSF Benutzername" required="required" name="username" type="text" value="" id="username">
 						<i class="user icon"></i>
 					</div>
 				</div>
 
 				{{-- Eingabe des Passworts --}}
 				<div class="required field @if (Session::has('errors') || Session::has('login_errors')) error @endif">
-					{!! Form::label('password', 'Passwort', ['class' => 'hide']) !!}
+					<label for="password" class="hide">Passwort</label>
 					<div class="ui icon input">
-						{!! Form::password('password', ['placeholder' => 'LSF Passwort', 'required']) !!}
+						<input placeholder="LSF Passwort" required="required" name="password" type="password" value="" id="password">
 						<i class="lock icon"></i>
 					</div>
 				</div>
 
 				{{-- Anmelde Button --}}
 				<div class="field">
-					{!! Form::submit('Anmelden', ['id' => 'login','class' => 'ui fluid submit button', 'role' => 'button']) !!}
+					<input id="login" class="ui fluid submit button" role="button" type="submit" value="Anmelden">
 				</div>
 
 			</div>
@@ -49,13 +51,13 @@
 			{{-- Remember me --}}
 			<div class="field center aligned column">
 				<div class="ui checkbox">
-					{!! Form::label('rememberme', 'Angemeldet bleiben') !!}
-					{!! Form::checkbox('rememberme', true, false) !!}
+					<label for="rememberme" class="hide">Angemeldet bleiben</label>
+					<input type="checkbox" class="hidden" value="true">
 				</div>
 			</div>
 		</div>
 
-		{!! Form::close() !!}
+		</form>
 	</div>
 	</div>
 

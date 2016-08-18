@@ -56,15 +56,19 @@
                             <div class="three wide column">
                                 <div class="ui small teal icon buttons">
 
-                                   <button id="faq-edit" class="ui button" data-tooltip="HGF ändern."><i class="edit icon"></i>
+                                   <button class="ui button faq-edit" data-id="{{ $answers->id }}" data-tooltip="HGF ändern."><i class="edit icon"></i>
                                    </button>
 
 
-                                   {!! Form::open(['action' => ['FaqController@destroy', $answers->id], 'method' => 'delete', 'role' => 'form']) !!}
+                                   <form role="form" method="POST" action="{{ action('FaqController@destroy', ['id' => $answers->id]) }}">
+
+                                       {{ method_field('DELETE') }}
+
+                                       {{ csrf_field() }}
 
                                         <button class="ui button" data-tooltip="HGF löschen." type="submit"><i class="close icon"></i></button>
 
-                                    {!! Form::close() !!}
+                                    </form>
 
                                 </div>
                             </div>
@@ -96,39 +100,6 @@
 
 @section('scripts')
 <script>
-$('#faq-edit-modal')
-    .modal('attach events', '#faq-edit', 'show')
-    .modal({
-        onHide: function() {
-                $(this).form('clear');
-        }
-    })
-    .form({
-        inline: true,
-        onSuccess: function() {
-            $(this).modal('hide');
-            // @info Laravel Sendevorgang durchführen! (sollte automatisch gehen im besten Fall!)
-        },
-        fields : {
-            title: {
-                rules: [
-                    {
-                        type    : 'empty',
-                        prompt  : 'Bitte einen Titel eingeben.'
-                    }
-                ]
-            },
-            answertext: {
-                rules: [
-                    {
-                        type    : 'empty',
-                        prompt  : 'Bitte einen Antworttext eingeben.'
-                    }
-                ]
-            }
-        }
-    });
-
 
 </script>
 @stop
