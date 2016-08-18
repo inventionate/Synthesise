@@ -1,0 +1,24 @@
+@import "colour";
+
+.etpM {
+    font-family: 'Lato', 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-weight: 200;
+}
+
+.etpM:after {
+    content: "®";
+    vertical-align: super;
+    font-size: 0.75em;
+}
+
+.hyphens(@mode: auto) {
+    word-wrap: break-word;
+    hyphens: @mode;
+}
+
+.text.hidden {
+    display: inline-block;
+    text-indent: 1000% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}

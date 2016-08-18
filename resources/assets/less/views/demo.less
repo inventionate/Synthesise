@@ -1,0 +1,47 @@
+@import "../colour";
+#main-content-demo {
+    h1 {
+        background-image: url("../../img/etpm_logo_r.png");
+        background-repeat: no-repeat;
+        background-size: 175px;
+        width: 175px;
+        height: 175px;
+        display: block;
+        margin: 0 auto;
+        text-indent: -9999px;
+    }
+    .circular.segment {
+        width: 175px;
+        height: 175px;
+        margin: 0 auto;
+        display: block;
+        a {
+            color: @black;
+        }
+        a:hover {
+            color: #00b2f3;
+        }
+    }
+    .header.divider {
+        margin-top: 4em;
+        margin-bottom: 4em;
+    }
+    #playdemo {
+        color: #009fda;
+    }
+    #playdemo:hover {
+        cursor: pointer;
+        color: #00b2f3;
+    }
+    #demovideo {
+        img {
+            position: absolute;
+
+            // MEDIA QUERY EINBAUEN!!!
+            top: 15px;
+            right: 15px;
+            width: 5rem;
+            opacity: 0.85;
+        }
+    }
+}
