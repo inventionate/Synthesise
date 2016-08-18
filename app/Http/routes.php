@@ -18,19 +18,23 @@
 */
 
 // Impressum
-
 Route::get('impressum', 'ImprintController@index');
 
 // Promoseite
-
 Route::get('demo', 'DemoController@index');
 
 // Audiocollage
-
 Route::get('audiocollage', 'AudiocollageController@index');
 
+// Authentication System
 Route::controllers([
     'auth' => 'Auth\AuthController',
+]);
+
+// DASHBOARD
+Route::get('/', [
+  'as' => 'dashboard',
+  'uses' => 'DashboardController@index',
 ]);
 
 /*
@@ -47,12 +51,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', [
       'as' => 'logout',
       'uses' => 'Auth\AuthController@logout',
-    ]);
-
-    // DASHBOARD
-    Route::get('/', [
-      'as' => 'dashboard',
-      'uses' => 'DashboardController@index',
     ]);
 
     // ONLINE-LEKTIONEN
@@ -103,15 +101,25 @@ Route::group(['middleware' => 'auth'], function () {
     ])
     ->where('sequenceNumber', '[0-9]+');
 
-    // HgF
+    /*
+     * FAQ
+     */
     Route::get('faq/{letter?}', [
       'as' => 'faq',
       'uses' => 'FaqController@index',
-  ])
-  ->where('letter', '[A-Z]{1,1}');
+    ])
+    ->where('letter', '[A-Z]{1,1}');
 
     Route::get('faq/create', [
       'uses' => 'FaqController@create',
+    ]);
+
+    Route::delete('faq/{id}', [
+        'uses' => 'FaqController@destroy',
+    ]);
+
+    Route::match(['put', 'patch'], 'faq/{id}', [
+        'uses' => 'FaqController@update',
     ]);
 
 

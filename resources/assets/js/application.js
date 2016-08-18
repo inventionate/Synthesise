@@ -1,32 +1,47 @@
+/*
+ * Boot JavaScript environment.
+ */
 require('./bootstrap.js');
 
+/*
+ * Init Semantic UI.
+ */
 require('./semantic-animations.js');
 
+/*
+ * Init Piwik Analytics.
+ */
+require('./piwik-analytics.js');
+
+/*
+ * ShowSite features.
+ */
+require('./navigation.js');
 require('./cookie-bar.js');
 
-// Vue components
-// import MessageManager from './components/MessageManager.vue';
+/*
+ * View specific scripts
+ */
+require('./views/dashboard.js');
+require('./views/faq.js');
+
+/*
+ * Vue JS Framework.
+ * Load Vue components and init application.
+ */
+
 import InteractiveVideo from './components/InteractiveVideo.vue';
 
-// Vue.js application
 if( $("main.vue")[0] )
 {
+
     new Vue({
         el: 'main.vue',
 
         components: {
-            // Nachrichtensystem
-            // MessageManager,
-            // Inetraktive Videofunktionen
             InteractiveVideo
-        },
-
-        methods: {
-            // Tracking System
-            trackEvents() {
-                return _paq.push(['trackEvent', type, 'Downloaded', name]);
-            }
         }
 
     });
+
 }

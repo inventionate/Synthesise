@@ -31,17 +31,6 @@ class FaqController extends Controller
     }
 
     /**
-         * Show the form for creating a new FAQ.
-         *
-         * @return Response
-         */
-        public function create()
-        {
-
-            return view('faq.create');
-        }
-
-    /**
      * Store a newly created FAQ in storage.
      *
      * @return Response
@@ -53,17 +42,6 @@ class FaqController extends Controller
         $content = $request->content;
 
         FAQ::store($title, $content);
-    }
-
-    /**
-     * Show the form for editing the FAQ resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -98,6 +76,7 @@ class FaqController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        Message::delete($id);
+        //Message::delete($id);
+        dd("cool!");
     }
 }
