@@ -28,7 +28,7 @@ class FunctionalTester extends \Codeception\Actor
    */
   public function loggedInAsStudent()
   {
-      $this->amOnPage('/auth/login');
+      $this->amOnPage('/login');
       $this->fillField('#username', 'studentka');
       $this->fillField('#password', 'Zelda');
       $this->dontSeeAuthentication();
@@ -43,7 +43,7 @@ class FunctionalTester extends \Codeception\Actor
    */
   public function loggedInAsTeacher()
   {
-      $this->amOnPage('/auth/login');
+      $this->amOnPage('/login');
       $this->fillField('#username', 'teacherka');
       $this->fillField('#password', 'Hyrule');
       $this->dontSeeAuthentication();
@@ -58,7 +58,7 @@ class FunctionalTester extends \Codeception\Actor
    */
   public function loggedInAsAdmin()
   {
-      $this->amOnPage('/auth/login');
+      $this->amOnPage('/login');
       $this->fillField('#username', 'adminka');
       $this->fillField('#password', 'Link');
       $this->dontSeeAuthentication();

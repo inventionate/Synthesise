@@ -43,7 +43,7 @@
 		@endif
 
 		{{-- JAVASCRIPT INFO -----------------------------------------------------}}
-		<div class="ui negative message @if( Request::is('auth/login') ) login @endif">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
+		<div class="ui negative message @if( Request::is('login') ) login @endif">Diese Web-App benötigt JavaScript. Sie haben JavaScript momentan deaktiviert. <a class="alert-link" href="http://www.enable-javascript.com/de/">Bitte aktivieren Sie JavaScript in Ihren Browsereinstellungen.</a></div>
 
 		{{-- @yield MAIN CONTENT -------------------------------------------------}}
 

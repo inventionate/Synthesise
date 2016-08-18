@@ -14,6 +14,17 @@ use Barryvdh\DomPDF\Facade as PDF;
 
 class LectionController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Aktuellen Cuepoint zurückgeben.
      *

@@ -42,7 +42,7 @@
 
                     <a class="item @if ( Request::is('kontakt') ) active @endif" href="{{ route('kontakt') }}">Kontakt</a>
 
-                    <div class="right item"><a class="ui inverted submit button" href="{{ route('logout') }}">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} @if ( Auth::user()->role != 'Student' ) (<b>{{ Auth::user()->role }}</b>) @endif abmelden</a></div>
+                    <div class="right item"><a class="ui inverted submit button" href="{{ url('logout') }}">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} @if ( Auth::user()->role != 'Student' ) (<b>{{ Auth::user()->role }}</b>) @endif abmelden</a></div>
 
                 </div>
             </div>
@@ -77,7 +77,7 @@
                         <a class="item @if ( Request::is('kontakt') ) active @endif" href="{{ url('kontakt') }}">
                             <i class="send icon"></i> Kontakt
                         </a>
-                        <a class="item" href="{{ route('logout') }}">
+                        <a class="item" href="{{ url('logout') }}">
                             <i class="sign out icon"></i> Logout
                         </a>
                     </div>

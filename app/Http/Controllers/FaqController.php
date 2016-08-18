@@ -8,6 +8,24 @@ use Synthesise\Repositories\Facades\Faq as FAQ;
 
 class FaqController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('admin', ['only' => [
+          'store',
+          'update',
+          'destroy'
+      ]]);
+
+    }
+
     /**
      * List all FAQs.
      * @info:   Use parameters for filter and search the list in strict REST!

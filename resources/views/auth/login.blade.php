@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-<title>EW M1 – Login</title>
+<title>EW M1 – Login</title>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
 
 	<div class="eight wide column @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
 
-		{!! Form::open(['url' => 'auth/login','class' => 'ui form', 'id' => 'login', 'role' => 'form']) !!}
+		{!! Form::open(['url' => 'login','class' => 'ui form', 'id' => 'login', 'role' => 'form']) !!}
 
 			<div class="three fields">
 

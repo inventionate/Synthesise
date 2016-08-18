@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Synthesise\Http\Requests\LoginRequest;
 use Synthesise\Repositories\Facades\User;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Synthesise\Extensions\Contracts\Ldap;
 use Illuminate\Contracts\Container\Container;
@@ -39,13 +41,10 @@ class AuthController extends Controller
      * @param \Illuminate\Contracts\Auth\Guard $auth
      * @param  $ldap
      */
-    public function __construct(Guard $auth, Ldap $ldap, Container $app)
+    public function __construct(Ldap $ldap)
     {
-        $this->auth = $auth;
-        $this->app = $app;
         $this->ldap = $ldap;
 
-        //$this->middleware('guest', ['except' => 'logout']);
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
@@ -56,7 +55,7 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function postLogin(LoginRequest $request)
+    public function login(LoginRequest $request)
     {
         // 1. LDAP Check (-> korrekte Daten)
         $credentials = $request->only('username', 'password');
@@ -64,14 +63,14 @@ class AuthController extends Controller
 
         //LDAP Authentifizierung
         // 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
-        if ($this->app->environment('testing', 'dev')) {
+        if (App::environment('testing', 'dev')) {
             $ldap = true;
         } else {
             $ldap = $this->ldap->authenticate($credentials['username'], $credentials['password']);
         }
 
         if ($ldap) {
-            if ($this->auth->attempt($credentials, $rememberme)) {
+            if (Auth::attempt($credentials, $rememberme)) {
                 return redirect()->intended('/');
             } else {
                 // 4. Wenn Anmeldung problematisch Datenbank-Passwort aktualisieren mit LDAP Passwort ( über den eindeutigen uid user->save() )
@@ -84,22 +83,51 @@ class AuthController extends Controller
           // @todo Auch den Vornamen, den Nachnamen und die E-Mail via LDAP Server einlesen.
           // @todo Durch den StudiIP Import nur noch alle UIDs einlesen.
           $user->save();
-            $this->auth->attempt($credentials, $rememberme);
+            Auth::attempt($credentials, $rememberme);
 
             return redirect()->intended('/');
         } else {
             // @todo Fehlermedleungen verbessern
           // HIER MUSS DANN AUSGEGEBEN WERDEN, DASS KEINE BERECHTIGUNG BESTEHT (ABER DIE ANGABEN STIMMEN)
           // @todo checken ob die withInput Angaben so gehen (auch ohne Passwort except)
-          return redirect('auth/login')->with('login_errors', true)->withInput();
+          return redirect('login')->with('login_errors', true)->withInput();
         }
             }
         }
         // Für Nicht-LDAP Accounts eine weitere prüfung durchführen
-        elseif ($this->auth->attempt($credentials, $rememberme)) {
+        elseif (Auth::attempt($credentials, $rememberme)) {
             return redirect()->intended('/');
         } else {
-            return redirect('auth/login')->with('login_errors', true)->withInput();
+            return redirect('login')->with('login_errors', true)->withInput();
         }
     }
+
+    // /**
+    //  * Get a validator for an incoming registration request.
+    //  *
+    //  * @param  array  $data
+    //  * @return \Illuminate\Contracts\Validation\Validator
+    //  */
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'name' => 'required|max:255',
+    //         'email' => 'required|email|max:255|unique:users',
+    //         'password' => 'required|min:6|confirmed',
+    //     ]);
+    // }
+    // /**
+    //  * Create a new user instance after a valid registration.
+    //  *
+    //  * @param  array  $data
+    //  * @return User
+    //  */
+    // protected function create(array $data)
+    // {
+    //     return User::create([
+    //         'name' => $data['name'],
+    //         'email' => $data['email'],
+    //         'password' => bcrypt($data['password']),
+    //     ]);
+    // }
 }

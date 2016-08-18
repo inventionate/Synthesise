@@ -6,6 +6,17 @@ use Synthesise\Extensions\Facades\Analytics;
 
 class AnalyticsController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+
     /**
      * Zeigt die Analytics an.
      *

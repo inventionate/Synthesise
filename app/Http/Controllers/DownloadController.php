@@ -7,6 +7,17 @@ use Synthesise\Extensions\Facades\Parser;
 
 class DownloadController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Laden und standardisieren der angeforderten Dateien.
      *

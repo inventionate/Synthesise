@@ -1,6 +1,7 @@
 <?php namespace Synthesise\Http\Controllers;
 
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Auth;
 use Synthesise\Repositories\Facades\User;
 use Synthesise\Repositories\Facades\Video;
 use Synthesise\Repositories\Facades\Message;
@@ -8,23 +9,14 @@ use Synthesise\Repositories\Facades\Message;
 class DashboardController extends Controller {
 
 	/**
-	* The Guard implementation.
-	*
-	* @var Guard
-	*/
-	protected $auth;
-
-	/**
-	* Create a new dashboard controller instance.
-	*
-	* @param  Guard  $auth
-	* @return void
-	*/
-	public function __construct(Guard $auth)
-	{
-		$this->auth = $auth;
-		$this->middleware('auth');
-	}
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 	/**
 	 * Dashboard anzeigen.
@@ -54,7 +46,7 @@ class DashboardController extends Controller {
 		$videos = Video::getVideos();
 
 		// Rolle des Benutzers abfragen
-		$role = $this->auth->user()->role;
+		$role = Auth::user()->role;
 
 		// Benutzername
 

@@ -27,9 +27,7 @@ Route::get('demo', 'DemoController@index');
 Route::get('audiocollage', 'AudiocollageController@index');
 
 // Authentication System
-Route::controllers([
-    'auth' => 'Auth\AuthController',
-]);
+Route::auth();
 
 // DASHBOARD
 Route::get('/', [
@@ -37,21 +35,14 @@ Route::get('/', [
   'uses' => 'DashboardController@index',
 ]);
 
-/*
-|-------------------------------------------------------------------------------
-| Auth Routes
-|--------------------------------------------------------------------------
-*/
-
-Route::group(['middleware' => 'auth'], function () {
     // DOWNLOAD
     Route::get('download/{type}/{file}', 'DownloadController@getFile');
 
     // LOGOUT
-    Route::get('logout', [
-      'as' => 'logout',
-      'uses' => 'Auth\AuthController@logout',
-    ]);
+    // Route::get('logout', [
+    //   'as' => 'logout',
+    //   'uses' => 'Auth\AuthController@logout',
+    // ]);
 
     // ONLINE-LEKTIONEN
 
@@ -139,11 +130,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // ANALYTICS
     Route::get('analytics', [
-      'middleware' => 'admin',
       'uses' => 'AnalyticsController@index',
     ]);
-
-});
 
 /*
 |--------------------------------------------------------------------------

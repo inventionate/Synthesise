@@ -26,14 +26,14 @@ class AuthCest
 
         $I->dontSeeRecord('users', ['username' => 'Luke']);
 
-        $I->amOnPage('/auth/login');
+        $I->amOnPage('/login');
         $I->see('e:t:p:M', 'h1');
         $I->see('Login', 'h4');
         $I->fillField('#username', 'luke');
         $I->fillField('#password', 'pw');
         $I->click('Anmelden', '#login');
 
-        $I->seeCurrentUrlEquals('/auth/login');
+        $I->seeCurrentUrlEquals('/login');
         $I->seeElement('.error');
     }
 
@@ -44,7 +44,7 @@ class AuthCest
 
         $I->seeRecord('users', ['username' => 'studentka']);
 
-        $I->amOnPage('/auth/login');
+        $I->amOnPage('/login');
         $I->see('e:t:p:M', 'h1');
         $I->see('Login', 'h4');
         $I->fillField('#username', 'studentka');
