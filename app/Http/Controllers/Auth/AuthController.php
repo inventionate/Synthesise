@@ -4,6 +4,7 @@ namespace Synthesise\Http\Controllers\Auth;
 
 use Synthesise\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Synthesise\Http\Requests\LoginRequest;
 use Synthesise\Repositories\Facades\User;
@@ -44,7 +45,8 @@ class AuthController extends Controller
         $this->app = $app;
         $this->ldap = $ldap;
 
-        $this->middleware('guest', ['except' => 'getLogout']);
+        //$this->middleware('guest', ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
     /**

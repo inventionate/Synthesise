@@ -2,7 +2,9 @@
 
 namespace Synthesise\Http\Controllers;
 
-use Synthesise\Repositories\Facades\Faq;
+use Illuminate\Http\Request;
+use Synthesise\Http\Requests\FaqRequest;
+use Synthesise\Repositories\Facades\Faq as FAQ;
 
 class FaqController extends Controller
 {
@@ -35,6 +37,7 @@ class FaqController extends Controller
          */
         public function create()
         {
+
             return view('faq.create');
         }
 
@@ -49,9 +52,7 @@ class FaqController extends Controller
 
         $content = $request->content;
 
-        $colour = $request->colour;
-
-        FAQ::store($title, $content, $colour);
+        FAQ::store($title, $content);
     }
 
     /**
@@ -80,7 +81,7 @@ class FaqController extends Controller
 
         $colour = $request->colour;
 
-        Faq::update($id, $title, $content, $colour);
+        FAQ::update($id, $title, $content, $colour);
 
         // Hier ein spezielles View öffnen, das ein entsprechendes Formular beinhalted.
         // Dieser View hat dann eine post funktion.

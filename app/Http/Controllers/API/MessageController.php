@@ -2,7 +2,6 @@
 
 namespace Synthesise\Http\Controllers\API;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Synthesise\Http\Requests\MessageRequest;
 use Synthesise\Repositories\Facades\Message;

@@ -20,7 +20,7 @@
 
 		{{-- MODERNIZR JS --------------------------------------------------------}}
 		@if ( Config::get('app.debug') )
-			<script src={{ asset("js/vendor/modernizr-custom.js") }}"></script>
+			<script src="{{ asset("js/vendor/modernizr-custom.js") }}"></script>
 		@else
 			<script src="{{ elixir("js/vendor/modernizr-custom.js") }}"></script>
 		@endif
@@ -56,7 +56,7 @@
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
 		@if ( Config::get('app.debug') )
-			<script src={{ asset("/js/application.js") }}"></script>
+			<script src="{{ asset("js/application.js") }}"></script>
 		@else
 			<script src="{{ elixir("js/application.js") }}"></script>
 		@endif

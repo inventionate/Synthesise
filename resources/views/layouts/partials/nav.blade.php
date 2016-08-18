@@ -77,7 +77,7 @@
                         <a class="item @if ( Request::is('kontakt') ) active @endif" href="{{ url('kontakt') }}">
                             <i class="send icon"></i> Kontakt
                         </a>
-                        <a class="item" href="{{ url('auth/logout') }}">
+                        <a class="item" href="{{ route('logout') }}">
                             <i class="sign out icon"></i> Logout
                         </a>
                     </div>
