@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ action('FaqController@store') }}" id="faq-new-modal" class="ui modal form">
+<form role="form" method="POST" action="{{ action('FaqController@store') }}" id="faq-new-modal" class="ui modal form faq-validator">
 
     {{ csrf_field() }}
 
@@ -9,13 +9,18 @@
     <div class="content">
 
             <div class="field">
-                <label>Fragetitel</label>
-                <input type="text" name="title">
+                <label>Fragestichwort</label>
+                <input type="text" name="subject">
             </div>
 
             <div class="field">
-                <label>Antworttext</label>
-                <textarea class="faq-wysiwyg" name="answertext"></textarea>
+                <label>Frage</label>
+                <input name="question"></input>
+            </div>
+
+            <div class="field">
+                <label>Antwort</label>
+                <textarea class="faq-wysiwyg" name="answer"></textarea>
             </div>
 
     </div>

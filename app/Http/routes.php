@@ -114,14 +114,14 @@ Route::post('faq', [
     'uses' => 'FaqController@store',
 ]);
 
-// Remove FAQ
-Route::delete('faq/{id}', [
-    'uses' => 'FaqController@destroy',
-]);
-
 // Update FAQ
 Route::match(['put', 'patch'], 'faq/{id}', [
     'uses' => 'FaqController@update',
+]);
+
+// Remove FAQ
+Route::delete('faq/{id}', [
+    'uses' => 'FaqController@destroy',
 ]);
 
 /*

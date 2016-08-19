@@ -78,7 +78,7 @@ class MessageRepository implements MessageInterface
   //public function store($id, $title, $content, $colour)
   public function store($title, $content, $colour)
   {
-      // Neue Nachrichteninstanz generieren
+    // Neue Nachrichteninstanz generieren
     $newMessage = new $this->messageModel();
     // Nachricht mit Inhalt befüllen
     //$newMessage->id = $id;

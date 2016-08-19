@@ -3,28 +3,13 @@
 namespace Synthesise\Repositories\Faq;
 
 use Illuminate\Database\Eloquent\Model;
+use Synthesise\Faq as FAQ;
 
 /**
- * Faq Repository mit Queries und Logik.
+ * FAQ Repository mit Queries und Logik.
  */
 class FaqRepository implements FaqInterface
 {
-    /**
-   * Variable des zugrundeliegenden Eloquent Models.
-   */
-  protected $faqModel;
-
-  /**
-   * Initziiert die Klasse $faqModel mit dem injizierten Model.
-   *
-   * @param Model $faq
-   *
-   * @return FaqRepository
-   */
-  public function __construct(Model $faq)
-  {
-      $this->faqModel = $faq;
-  }
 
   /**
    * Gibt alle FAQs alphabetisch sortiert zurück.
@@ -33,7 +18,7 @@ class FaqRepository implements FaqInterface
    */
   public function getAll()
   {
-      return $this->faqModel->all()->sortBy('area');
+      return FAQ::all()->sortBy('area');
   }
 
   /**
@@ -45,7 +30,7 @@ class FaqRepository implements FaqInterface
    */
   public function getByLetter($letter)
   {
-      return $this->faqModel->where('area', $letter)->get();
+      return FAQ::where('area', $letter)->get();
   }
 
   /**
@@ -56,8 +41,58 @@ class FaqRepository implements FaqInterface
   public function getLetters()
   {
       # Array aller Buchstaben
-      $letters = preg_replace('{(.)\1+}', '$1', implode('', $this->faqModel->lists('area')->toArray()));
+      $letters = preg_replace('{(.)\1+}', '$1', implode('', FAQ::lists('area')->toArray()));
 
       return $letters;
   }
+
+  /**
+   * Store FAQ.
+   *
+   * @param 		string subject
+   * @param 		string question
+   * @param 		string answer
+   */
+  public function store($subject, $question, $answer)
+  {
+      // Neue Nachrichteninstanz generieren
+    $faq = new FAQ;
+
+    $area = ucfirst(substr($subject, 0,1));
+
+    $faq->area = $area;
+    $faq->subject = $subject;
+    $faq->question = $question;
+    $faq->answer = $answer;
+
+    $faq->save();
+  }
+
+  /**
+   * Update FAQ.
+   *
+   * @param         int $id
+   * @param 		string subject
+   * @param 		string question
+   * @param 		string answer
+   */
+  public function update($id, $subject, $question, $answer)
+  {
+      // Find and delete FAQ.
+    //   FAQ::find($id)->delete();
+  }
+
+  /**
+   * Delete FAQ.
+   *
+   * @param         int $id
+   *
+   * @return 		array Alle vorhandenen Buchstabenbereiche.
+   */
+  public function destroy($id)
+  {
+      // Find and delete FAQ.
+      FAQ::find($id)->delete();
+  }
+
 }

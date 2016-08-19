@@ -51,15 +51,22 @@ class FaqController extends Controller
     /**
      * Store a newly created FAQ in storage.
      *
+     * @param  Request  $request
      * @return Response
      */
-    public function store(FaqRequest $request)
+    public function store(Request $request)
     {
+        // Validation
+        $this->validate($request, [
+            'title' => 'required|alpha_dash',
+            'answer' => 'required|alpha_dash',
+        ]);
+
         $title = $request->title;
 
-        $content = $request->content;
+        $content = $request->answer;
 
-        FAQ::store($title, $content);
+        FAQ::store($title, $answer);
     }
 
     /**
@@ -69,19 +76,16 @@ class FaqController extends Controller
      *
      * @return Response
      */
-    public function update($id, FaqRequest $request)
+    public function update(FaqRequest $request)
     {
+
+        $id = $request->id;
+
         $title = $request->title;
 
-        $content = $request->content;
+        $answer = $request->answer;
 
-        $colour = $request->colour;
-
-        FAQ::update($id, $title, $content, $colour);
-
-        // Hier ein spezielles View öffnen, das ein entsprechendes Formular beinhalted.
-        // Dieser View hat dann eine post funktion.
-        //
+        FAQ::update($id, $title, $answer);
 
     }
 
@@ -92,9 +96,11 @@ class FaqController extends Controller
      *
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
-        //Message::delete($id);
-        dd("cool!");
+
+        dd("Jupp, geht!");
+
+        // FAQ::delete($id);
     }
 }

@@ -10,4 +10,10 @@ interface FaqInterface
   public function getByLetter($letter);
 
   public function getLetters();
+
+  public function store($subject, $question, $answer);
+
+  public function update($id, $subject, $question, $answer);
+
+  public function destroy($id);
 }

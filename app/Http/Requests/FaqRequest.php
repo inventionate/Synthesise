@@ -25,7 +25,7 @@ class FaqRequest extends Request
     {
         return [
 			'title'		=> 'required',
-			'content'	=> 'required',
+			'answer'	=> 'required',
 		];
     }
 }
