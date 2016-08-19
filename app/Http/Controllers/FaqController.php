@@ -5,6 +5,7 @@ namespace Synthesise\Http\Controllers;
 use Illuminate\Http\Request;
 use Synthesise\Http\Requests\FaqRequest;
 use Synthesise\Repositories\Facades\Faq as FAQ;
+use JavaScript;
 
 class FaqController extends Controller
 {
@@ -19,7 +20,7 @@ class FaqController extends Controller
         $this->middleware('auth');
 
         $this->middleware('admin', ['only' => [
-          'store',
+        //   'store',
           'update',
           'destroy'
       ]]);
@@ -38,8 +39,13 @@ class FaqController extends Controller
     {
         $answers = FAQ::getAll();
         $letters = FAQ::getLetters();
+        $subjects = FAQ::getSubjects();
 
         $answersByLetter = FAQ::getByLetter($letter);
+
+        JavaScript::put([
+            'subjects' => $subjects
+        ]);
 
         return view('faq.index')
                                 ->with('answersByLetter', $answersByLetter)
@@ -58,15 +64,22 @@ class FaqController extends Controller
     {
         // Validation
         $this->validate($request, [
-            'title' => 'required|alpha_dash',
-            'answer' => 'required|alpha_dash',
+            'subject' => 'required|unique:faqs|alpha',
+            'question' => 'required|string',
+            'answer' => 'required|string'
         ]);
 
-        $title = $request->title;
+        $subject = $request->subject;
 
-        $content = $request->answer;
+        $question = $request->question;
 
-        FAQ::store($title, $answer);
+        $answer = $request->answer;
+
+        $area = strtoupper(substr($subject,0,1));
+
+        FAQ::store($subject, $question, $answer);
+
+        return redirect()->route('faq', ['letter' => $area]);
     }
 
     /**
@@ -99,8 +112,8 @@ class FaqController extends Controller
     public function destroy($id)
     {
 
-        dd("Jupp, geht!");
+        FAQ::destroy($id);
 
-        // FAQ::delete($id);
+        return back()->withInput();
     }
 }

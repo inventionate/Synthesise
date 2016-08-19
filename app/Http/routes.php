@@ -109,7 +109,7 @@ Route::get('faq/{letter?}', [
 ])
 ->where('letter', '[A-Z]{1,1}');
 
-// New FAQ
+// Store FAQ
 Route::post('faq', [
     'uses' => 'FaqController@store',
 ]);

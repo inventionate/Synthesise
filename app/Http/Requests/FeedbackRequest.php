@@ -35,9 +35,9 @@ class FeedbackRequest extends Request {
 	public function response(array $errors)
 	{
 		return $this->redirector->to($this->getRedirectUrl())
-																					->withInput($this->except($this->dontFlash))
-																					->withErrors($errors)
-																					->with('feedback_errors', true);
+		->withInput($this->except($this->dontFlash))
+		->withErrors($errors)
+		->with('feedback_errors', true);
 
 	}
 

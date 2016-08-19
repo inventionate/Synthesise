@@ -11,6 +11,8 @@ interface FaqInterface
 
   public function getLetters();
 
+  public function getSubjects();
+
   public function store($subject, $question, $answer);
 
   public function update($id, $subject, $question, $answer);

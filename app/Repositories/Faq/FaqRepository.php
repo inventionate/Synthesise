@@ -36,14 +36,27 @@ class FaqRepository implements FaqInterface
   /**
    * Gibt die jeweiligen Bereiche (Anfangsbuchstaben) zurück.
    *
-   * @return 		array Alle vorhandenen Buchstabenbereiche.
+   * @return 		string Alle vorhandenen Buchstabenbereiche.
    */
   public function getLetters()
   {
-      # Array aller Buchstaben
-      $letters = preg_replace('{(.)\1+}', '$1', implode('', FAQ::lists('area')->toArray()));
+      # String aller Buchstaben
+      $letters = preg_replace('/(.)(?=.*?\1)/', '', implode('', FAQ::lists('area')->sort()->toArray()));
 
       return $letters;
+  }
+
+  /**
+   * Gibt die jeweiligen Bereiche zurück.
+   *
+   * @return 		array Alle vorhandenen Themen.
+   */
+  public function getSubjects()
+  {
+      # String aller Buchstaben
+      $subjects = FAQ::lists('subject')->toArray();
+
+      return $subjects;
   }
 
   /**

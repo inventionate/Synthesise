@@ -160,6 +160,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
 
