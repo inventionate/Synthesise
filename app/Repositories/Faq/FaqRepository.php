@@ -68,10 +68,11 @@ class FaqRepository implements FaqInterface
    */
   public function store($subject, $question, $answer)
   {
-      // Neue Nachrichteninstanz generieren
+
+    // Neue Nachrichteninstanz generieren
     $faq = new FAQ;
 
-    $area = ucfirst(substr($subject, 0,1));
+    $area = strtoupper(substr($subject, 0,1));
 
     $faq->area = $area;
     $faq->subject = $subject;
@@ -79,6 +80,7 @@ class FaqRepository implements FaqInterface
     $faq->answer = $answer;
 
     $faq->save();
+
   }
 
   /**
@@ -91,8 +93,15 @@ class FaqRepository implements FaqInterface
    */
   public function update($id, $subject, $question, $answer)
   {
-      // Find and delete FAQ.
-    //   FAQ::find($id)->delete();
+
+      $faq = FAQ::find($id);
+
+      $faq->subject = $subject;
+      $faq->question = $question;
+      $faq->answer = $answer;
+
+      $faq->save();
+
   }
 
   /**

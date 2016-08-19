@@ -58,7 +58,8 @@ class FaqController extends Controller
      * Store a newly created FAQ in storage.
      *
      * @param  Request  $request
-     * @return Response
+     *
+     * @return Redirect
      */
     public function store(Request $request)
     {
@@ -85,21 +86,29 @@ class FaqController extends Controller
     /**
      * Update the specified FAQ in storage.
      *
-     * @param int $id
+     * @param  Request  $request
      *
-     * @return Response
+     * @return Redirect
      */
-    public function update(FaqRequest $request)
+    public function update($id, Request $request)
     {
 
-        $id = $request->id;
+        // Validation
+        $this->validate($request, [
+            'subject' => 'required|unique:faqs|alpha',
+            'question' => 'required|string',
+            'answer' => 'required|string'
+        ]);
 
-        $title = $request->title;
+        $subject = $request->subject;
+
+        $question = $request->question;
 
         $answer = $request->answer;
 
-        FAQ::update($id, $title, $answer);
+        FAQ::update($id, $subject, $question, $answer);
 
+        return back()->withInput();
     }
 
     /**

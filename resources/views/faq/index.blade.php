@@ -177,7 +177,7 @@ $('.faq-wysiwyg').trumbowyg({
  };
 
  // Spezielle Validationsregeln für das Erstellen einer FAQ.
- var rules_new = rules_basic;
+ var rules_new = $.extend(true, {}, rules_basic);
  rules_new.subject.rules = rules_new.subject.rules.concat(rules_to_add);
 
 // Attach New FAQ Modal Validation.
