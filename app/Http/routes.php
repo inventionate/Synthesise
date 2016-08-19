@@ -13,135 +13,166 @@
 
 /*
 |-------------------------------------------------------------------------------
-| Guest Routes
+| Guest
 |-------------------------------------------------------------------------------
 */
 
 // Impressum
 Route::get('impressum', 'ImprintController@index');
 
-// Promoseite
+// Demoseite
 Route::get('demo', 'DemoController@index');
 
 // Audiocollage
 Route::get('audiocollage', 'AudiocollageController@index');
 
-// Authentication System
+/*
+|-------------------------------------------------------------------------------
+| Authentication
+|-------------------------------------------------------------------------------
+*/
+
+// Laravel Authentication System
 Route::auth();
 
-// DASHBOARD
+/*
+|-------------------------------------------------------------------------------
+| Dashboard
+|-------------------------------------------------------------------------------
+*/
+
+// Index
 Route::get('/', [
   'as' => 'dashboard',
   'uses' => 'DashboardController@index',
 ]);
 
-    // DOWNLOAD
-    Route::get('download/{type}/{file}', 'DownloadController@getFile');
+/*
+|-------------------------------------------------------------------------------
+| Online-Lections
+|-------------------------------------------------------------------------------
+*/
 
-    // LOGOUT
-    // Route::get('logout', [
-    //   'as' => 'logout',
-    //   'uses' => 'Auth\AuthController@logout',
-    // ]);
+// Index
+Route::get('online-lektionen/{videoname}/{sequenceNumber}', [
+    'as' => 'lektion',
+    'uses' => 'LectionController@index',
+])
+->where('sequenceNumber', '[0-9]+');
 
-    // ONLINE-LEKTIONEN
+// Sequence Redurection
+// @todo Überprüfen, ob es keine elegantere Lösung gibt.
+Route::get('online-lektionen/{videoname}', [
+    'uses' => 'LectionController@redirectSequence',
+]);
 
-    // Einzellektion
-    Route::get('online-lektionen/{videoname}/{sequenceNumber}', [
-      'as' => 'lektion',
-      'uses' => 'LectionController@index',
-    ])
-    ->where('sequenceNumber', '[0-9]+');
+// PDF notes
+Route::get('online-lektionen/{videoname}/1/getnotespdf', [
+    'uses' => 'LectionController@getNotesPDF',
+])
+->where('sequenceNumber', '[0-9]+');
 
-    // Standardroute auf sequenzierte umleiten
-    // @todo Überprüfen, ob es keine elegantere Lösung gibt.
-    Route::get('online-lektionen/{videoname}', [
-        'uses' => 'LectionController@redirectSequence',
-    ]);
+// PDF flagnames
+Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflagnamespdf', [
+    'uses' => 'LectionController@getFlagnamesPDF',
+])
+->where('sequenceNumber', '[0-9]+');
 
-    // GET PDF NOTES
-    Route::get('online-lektionen/{videoname}/1/getnotespdf', [
-      'uses' => 'LectionController@getNotesPDF',
-    ])
-    ->where('sequenceNumber', '[0-9]+');
+// AJAX: flagnames
+Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflags', [
+    'uses' => 'LectionController@getFlags',
+])
+->where('sequenceNumber', '[0-9]+');
 
-    // GET PDF FLAGNAMES
-    Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflagnamespdf', [
-      'uses' => 'LectionController@getFlagnamesPDF',
-    ])
-    ->where('sequenceNumber', '[0-9]+');
+// AJAX: notes
+Route::get('online-lektionen/{videoname}/{sequenceNumber}/getnotes', [
+    'uses' => 'LectionController@getNotes',
+])
+->where('sequenceNumber', '[0-9]+');
 
-    // AJAX
-
-    // Ajax GET FLAGS
-    Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflags', [
-        'uses' => 'LectionController@getFlags',
-    ])
-    ->where('sequenceNumber', '[0-9]+');
-
-    // Ajax GET NOTES
-    Route::get('online-lektionen/{videoname}/{sequenceNumber}/getnotes', [
-        'uses' => 'LectionController@getNotes',
-    ])
-    ->where('sequenceNumber', '[0-9]+');
-
-    // Ajax POST NOTES
-
-    Route::post('online-lektionen/{videoname}/{sequenceNumber}/postnotes', [
+// AJAX: notes
+Route::post('online-lektionen/{videoname}/{sequenceNumber}/postnotes', [
     'uses' => 'LectionController@postNotes',
-    ])
-    ->where('sequenceNumber', '[0-9]+');
+])
+->where('sequenceNumber', '[0-9]+');
 
-    /*
-     * FAQ
-     */
-    Route::get('faq/{letter?}', [
-      'as' => 'faq',
-      'uses' => 'FaqController@index',
-    ])
-    ->where('letter', '[A-Z]{1,1}');
+/*
+|-------------------------------------------------------------------------------
+| FAQ
+|-------------------------------------------------------------------------------
+*/
 
-    Route::post('faq', [
-      'uses' => 'FaqController@store',
-    ]);
+// Index
+Route::get('faq/{letter?}', [
+    'as' => 'faq',
+    'uses' => 'FaqController@index',
+])
+->where('letter', '[A-Z]{1,1}');
 
-    Route::delete('faq/{id}', [
-        'uses' => 'FaqController@destroy',
-    ]);
+// New FAQ
+Route::post('faq', [
+    'uses' => 'FaqController@store',
+]);
 
-    Route::match(['put', 'patch'], 'faq/{id}', [
-        'uses' => 'FaqController@update',
-    ]);
+// Remove FAQ
+Route::delete('faq/{id}', [
+    'uses' => 'FaqController@destroy',
+]);
 
+// Update FAQ
+Route::match(['put', 'patch'], 'faq/{id}', [
+    'uses' => 'FaqController@update',
+]);
 
-    // KONTAKT
-    Route::get('kontakt', [
-        'as' => 'kontakt',
-        'uses' => 'ContactController@index',
-    ]);
+/*
+|-------------------------------------------------------------------------------
+| Contact
+|-------------------------------------------------------------------------------
+*/
 
-    Route::post('kontakt/feedback', [
-      'uses' => 'ContactController@sendFeedback',
-    ]);
+// Index
+Route::get('kontakt', [
+    'as' => 'kontakt',
+    'uses' => 'ContactController@index',
+]);
 
-    Route::post('kontakt/support', [
-        'uses' => 'ContactController@sendSupport',
-    ]);
+// Send feedback
+Route::post('kontakt/feedback', [
+    'uses' => 'ContactController@sendFeedback',
+]);
 
-    // ANALYTICS
-    Route::get('analytics', [
-      'uses' => 'AnalyticsController@index',
-    ]);
+// Send support
+Route::post('kontakt/support', [
+    'uses' => 'ContactController@sendSupport',
+]);
+
+/*
+|-------------------------------------------------------------------------------
+| Analytics
+|-------------------------------------------------------------------------------
+*/
+
+// Index
+Route::get('analytics', [
+    'uses' => 'AnalyticsController@index',
+]);
+
+/*
+|-------------------------------------------------------------------------------
+| Download
+|-------------------------------------------------------------------------------
+*/
+
+// Handle
+Route::get('download/{type}/{file}', 'DownloadController@getFile');
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
 */
-
-// Das hier muss für die Lektionen gelöst werden!
-
-Route::group(['prefix' => 'api/v1', 'middleware' => 'auth.basic'], function () {
-    // Messages
-    Route::resource('messages', 'API\MessageController', ['except' => ['create', 'show', 'edit']]);
-});
+//
+// Route::group(['prefix' => 'api/v1', 'middleware' => 'auth.basic'], function () {
+//     // Messages
+//     Route::resource('messages', 'API\MessageController', ['except' => ['create', 'show', 'edit']]);
+// });
