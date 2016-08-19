@@ -65,7 +65,7 @@ class FaqController extends Controller
     {
         // Validation
         $this->validate($request, [
-            'subject' => 'required|unique:faqs|alpha',
+            'subject' => 'required|unique:faqs|string',
             'question' => 'required|string',
             'answer' => 'required|string'
         ]);
@@ -76,11 +76,12 @@ class FaqController extends Controller
 
         $answer = $request->answer;
 
-        $area = strtoupper(substr($subject,0,1));
-
         FAQ::store($subject, $question, $answer);
 
+        $area = strtoupper(substr($subject,0,1));
+
         return redirect()->route('faq', ['letter' => $area]);
+
     }
 
     /**
@@ -95,7 +96,7 @@ class FaqController extends Controller
 
         // Validation
         $this->validate($request, [
-            'subject' => 'required|unique:faqs|alpha',
+            'subject' => 'required|unique:faqs|string',
             'question' => 'required|string',
             'answer' => 'required|string'
         ]);
@@ -108,7 +109,10 @@ class FaqController extends Controller
 
         FAQ::update($id, $subject, $question, $answer);
 
-        return back()->withInput();
+        $area = strtoupper(substr($subject,0,1));
+
+        return redirect()->route('faq', ['letter' => $area]);
+
     }
 
     /**

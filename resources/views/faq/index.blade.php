@@ -133,14 +133,20 @@ $('.faq-wysiwyg').trumbowyg({
 /*
  * Setup FAQ JS Validator.
  */
+
  // Abfragen der bereits verwendeten Themen.
  var rule_subject;
  var rules_to_add = [];
 
+ // Formale Validationsregel festlegen.
+  $.fn.form.settings.rules.unique = function(value, subject) {
+     return( value != subject)
+  };
+
  for (i = 0; i < subjects.length; i++) {
 
      rule_subject = {
-             'type'    : 'doesntContainExactly[' + subjects[i] +  ']',
+             'type'    : 'unique[' + subjects[i] +  ']',
              'prompt'  : 'Der Breich existiert bereits.'
          };
 
@@ -149,7 +155,7 @@ $('.faq-wysiwyg').trumbowyg({
  }
 
  // Festlegen der Allgemeinen Validationsregeln.
- var rules_basic = {
+ var rules = {
      subject: {
          rules: [
              {
@@ -177,28 +183,17 @@ $('.faq-wysiwyg').trumbowyg({
  };
 
  // Spezielle Validationsregeln für das Erstellen einer FAQ.
- var rules_new = $.extend(true, {}, rules_basic);
- rules_new.subject.rules = rules_new.subject.rules.concat(rules_to_add);
+ rules.subject.rules = rules.subject.rules.concat(rules_to_add);
 
-// Attach New FAQ Modal Validation.
- $('#faq-new-modal.faq-validator')
+// Attach FAQ Modal Validation.
+ $('.faq-validator')
      .form({
          inline: true,
          onSuccess: function() {
              $(this).modal('hide');
          },
-         fields : rules_new
+         fields : rules
      });
-
-// Attach Edit FAQ Modal Validation.
- $('#faq-edit-modal.faq-validator')
-         .form({
-             inline: true,
-             onSuccess: function() {
-                 $(this).modal('hide');
-             },
-             fields : rules_basic
-         });
 
 /*
  * Create new FAQ resource form.

@@ -96,6 +96,9 @@ class FaqRepository implements FaqInterface
 
       $faq = FAQ::find($id);
 
+      $area = strtoupper(substr($subject, 0,1));
+
+      $faq->area = $area;
       $faq->subject = $subject;
       $faq->question = $question;
       $faq->answer = $answer;
