@@ -15,7 +15,7 @@
 
             <div class="field">
                 <label>Antworttext</label>
-                <textarea name="answertext"></textarea>
+                <textarea class="faq-wysiwyg" name="answertext"></textarea>
             </div>
 
     </div>

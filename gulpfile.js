@@ -32,6 +32,10 @@ elixir( function (mix) {
         "node_modules/video.js/dist/video-js.swf",
         "public"
     )
+    .copy(
+        "node_modules/trumbowyg/dist/ui/icons.svg",
+        "public/css/icons"
+    )
     .modernizr();
     if(elixir.config.production) {
         mix.version([

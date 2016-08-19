@@ -17,4 +17,9 @@ require('sweetalert');
 
 require('jquery-cookiebar');
 
+require('trumbowyg');
+require('trumbowyg/dist/langs/de.min.js');
+$.trumbowyg.svgPath = '/css/icons/icons.svg';
+
+
 require('semantic-ui-css/semantic.js');
