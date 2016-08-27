@@ -1,7 +1,10 @@
+if( $('#main-content-faq')[0] )
+{
+
 /*
  * Init FAQ accordion.
  */
-$('#main-content-faq #faq-accordion').accordion({
+$('#faq-accordion').accordion({
     selector: {
         trigger: '.trigger.column'
     }
@@ -37,6 +40,7 @@ $('.faq-wysiwyg').trumbowyg({
  };
 
 // Recieve the used subjects.
+// var subjects is provided by Laravel.
 var rule_subject;
 var rules_to_add = [];
 
@@ -109,7 +113,7 @@ $('#faq-new-modal')
 /*
  * Update FAQ resource form.
  */
-if( $('#main-content-faq .faq-edit')[0] )
+if( $('.faq-edit')[0] )
 {
     $('#faq-edit-modal')
         .modal({detachable: false})
@@ -141,4 +145,5 @@ if( $('#main-content-faq .faq-edit')[0] )
         // Set FAQ Modal answer.
         $('#faq-edit-modal').find('textarea[name="answer"]').trumbowyg( 'html', faq_answer.html().trim() );
     });
+}
 }

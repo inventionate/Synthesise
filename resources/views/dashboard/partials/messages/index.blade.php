@@ -10,13 +10,33 @@
 
         @foreach ($messages as $message)
 
-            <div class="ui message {{ $message->colour }}" role="alert">
+            <div class="ui message {{ $message->colour }} @if ( Auth::user()->role === 'Admin' ) message-system-edit @endif" role="alert">
 
                 <div class="header">
                     {{ $message->title }}
                 </div>
 
-                {{ $message->content }}
+                {!! $message->content !!}
+
+                @if ( Auth::user()->role === 'Admin' )
+                    <div class="ui small teal icon buttons">
+
+                       <button class="ui button message-edit" data-id="{{ $message->id }}" data-tooltip="Nachricht ändern."><i class="edit icon"></i>
+                       </button>
+
+
+                       <form role="form" method="POST" action="{{ action('MessageController@destroy', ['id' => $message->id]) }}">
+
+                           {{ method_field('DELETE') }}
+
+                           {{ csrf_field() }}
+
+                            <button class="ui button" data-tooltip="Nachricht löschen." type="submit"><i class="close icon"></i></button>
+
+                        </form>
+
+                    </div>
+                @endif
 
             </div>
 
@@ -43,23 +63,22 @@
 
 @section('scripts')
 <script>
-
+if( $('#message-system')[0] )
+{
 /*
  * Setup Message WYSIWYG editor.
  */
-// $('.message-wysiwyg').trumbowyg({
-//     lang: 'de',
-//     semantic: true,
-//     removeformatPasted: true,
-//     btns: [
-//         ['formatting'],
-//         'btnGrp-semantic',
-//         ['superscript', 'subscript'],
-//         ['link'],
-//         ['horizontalRule'],
-//         ['removeformat']
-//     ]}
-// );
+$('.message-wysiwyg').trumbowyg({
+    lang: 'de',
+    semantic: true,
+    removeformatPasted: true,
+    btns: [
+        'btnGrp-semantic',
+        ['superscript', 'subscript'],
+        ['link'],
+        ['removeformat']
+    ]}
+);
 
 /*
  * Setup Message JS Validator.
@@ -75,7 +94,7 @@
              }
          ]
      },
-     message: {
+     content: {
          rules: [
              {
                  type    : 'empty',
@@ -111,14 +130,14 @@ $('#message-new-modal')
         detachable  : false,
         onHidden    : function() {
             $(this).form('clear');
-            // $(this).find('textarea[name="answer"]').trumbowyg( 'html', '' );
+            $(this).find('textarea[name="content"]').trumbowyg( 'html', '' );
         },
 
     })
     .modal('attach events', '#message-new', 'show');
 
 /*
- * Update FAQ resource form.
+ * Update message resource form.
  */
 if( $('.message-edit')[0] )
 {
@@ -132,27 +151,30 @@ if( $('.message-edit')[0] )
         var id = $(this).attr("data-id");
 
         // Add ID to form update url.
-        $('#faq-edit-modal').attr('action', $('#faq-edit-modal').attr('action') + '/' + id);
+        $('#message-edit-modal').attr('action', $('#message-edit-modal').attr('action') + '/' + id);
 
-        // Get FAQ subject.
-        var faq_subject = $(this).parents(':eq(2)').find('.trigger.column').text().trim();
+        // Get message title.
+        var message_title = $(this).parents(':eq(1)').find('.header').text().trim();
 
-        var faq_question = $(this).parents(':eq(3)').next().find('h5:first').text().trim();
+        // Get message content.
+        var message_content = $(this).parents(':eq(1)').clone();
+        message_content.find('.header').remove();
+        message_content.find('.buttons').remove();
+        message_content.find('form').remove();
 
-        // Get FAQ answer.
-        var faq_answer = $(this).parents(':eq(3)').next().clone();
-        faq_answer.find('h5:first').remove();
+        // Get message colour.
+        var message_colour = $(this).parents(':eq(1)').attr('class').split(' ')[2];
 
-        // Set FAQ Modal subject.
-        $('#faq-edit-modal').find('input[name="subject"]').val( faq_subject );
+        // Set message modal title.
+        $('#message-edit-modal').find('input[name="title"]').val( message_title );
 
-        // Set FAQ Modal question.
-        $('#faq-edit-modal').find('input[name="question"]').val( faq_question );
+        // Set message modal content.
+        $('#message-edit-modal').find('textarea[name="content"]').trumbowyg( 'html', message_content.html().trim() );
 
-        // Set FAQ Modal answer.
-        $('#faq-edit-modal').find('textarea[name="answer"]').trumbowyg( 'html', faq_answer.html().trim() );
+        // Set message modal colour.
+        $('#message-edit-modal').find('input[value=' + message_colour + ']').prop("checked", true);
     });
 }
-
+}
 </script>
 @stop

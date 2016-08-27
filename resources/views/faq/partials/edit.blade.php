@@ -10,20 +10,7 @@
 
     <div class="content">
 
-        <div class="field">
-            <label>Fragebereich</label>
-            <input type="text" name="subject">
-        </div>
-
-        <div class="field">
-            <label>Frage</label>
-            <input name="question"></input>
-        </div>
-
-        <div class="field">
-            <label>Antwort</label>
-            <textarea class="faq-wysiwyg" name="answer"></textarea>
-        </div>
+        @include('faq.partials.formfields')
 
     </div>
     <div class="actions">

@@ -1,52 +1,13 @@
 #message-system {
-    .ui.message {
-        min-height: 60px;
-    }
-    .ui.message > .close.icon {
-        top: 0.75em;
-        color: #009fda;
-    }
-    .close.icon + .edit.icon {
-        cursor: pointer;
-        position: absolute;
-        margin: 0em;
-        top: 2.55em;
-        right: 0.5em;
-        opacity: 0.7;
-        transition: opacity 0.1s linear 0s;
-        color: #009fda;
-    }
-    .close.icon + .edit.icon:hover {
-        opacity: 1;
-    }
-    .message-list div {
-        > .message {
-            margin-bottom: 1.5em;
-            padding-bottom: 1.5em;
-            border-bottom: 1px solid #ddd;
-        }
-        > .message:last-child {
-            margin-bottom: 0;
-            border-bottom: none;
+    .ui.message.message-system-edit {
+        padding-right: 100px;
+        .ui.buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
     }
-    // .ui.form .buttons {
-    //     background: #efefef;
-    //     padding: 1rem 2rem;
-    //     border-top: 1px solid rgba(39, 41, 43, 0.15);
-    //     text-align: right;
-    //     margin-left: -1.99rem;
-    //     margin-right: -2rem;
-    //     margin-bottom: -2rem;
-    //     border-bottom-left-radius: 0.2857rem;
-    //     border-bottom-right-radius: 0.2857rem;
-    //     @media (max-width: 768px) {
-    //         margin-left: -1rem;
-    //         margin-right: -1rem;
-    //         margin-bottom: -1rem;
-    //     }
-    //     :first-child {
-    //         margin-right: 1rem;
-    //     }
-    // }
+    .trumbowyg-editor {
+        min-height: 100px;
+    }
 }
