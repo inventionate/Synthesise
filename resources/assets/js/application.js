@@ -14,7 +14,7 @@ require('./semantic-animations.js');
 require('./piwik-analytics.js');
 
 /*
- * ShowSite features.
+ * Site features.
  */
 require('./navigation.js');
 require('./cookie-bar.js');
@@ -30,18 +30,18 @@ require('./views/faq.js');
  * Load Vue components and init application.
  */
 
-import InteractiveVideo from './components/InteractiveVideo.vue';
-
-if( $("main.vue")[0] )
-{
-
-    new Vue({
-        el: 'main.vue',
-
-        components: {
-            InteractiveVideo
-        }
-
-    });
-
-}
+// import InteractiveVideo from './components/InteractiveVideo.vue';
+//
+// if( $("main.vue")[0] )
+// {
+//
+//     new Vue({
+//         el: 'main.vue',
+//
+//         components: {
+//             InteractiveVideo
+//         }
+//
+//     });
+//
+// }

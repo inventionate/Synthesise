@@ -97,11 +97,3 @@
 
 </main>
 @stop
-
-@section('scripts')
-<script>
-
-
-
-</script>
-@stop

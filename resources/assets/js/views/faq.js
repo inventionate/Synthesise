@@ -65,7 +65,7 @@ for (i = 0; i < subjects.length; i++) {
          rules: [
              {
                  type    : 'empty',
-                 prompt  : 'Bitte geben Sie dir konkrete Frage ein.'
+                 prompt  : 'Bitte geben Sie die konkrete Frage ein.'
              }
          ]
      },

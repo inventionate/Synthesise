@@ -9,17 +9,6 @@ use Synthesise\Repositories\Facades\Message;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        $messages = Message::getAll();
-        // JSON Response
-        return $messages;
-    }
 
     /**
      * Store a newly created resource in storage.

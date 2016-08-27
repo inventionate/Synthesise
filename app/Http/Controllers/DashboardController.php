@@ -25,8 +25,6 @@ class DashboardController extends Controller {
 	 */
 	public function index()
 	{
-		// Nachrichten abfragen
-		$messages = Message::getAll();
 
 		// Aktuelles Video abfragen
 		if(Video::getCurrentVideo() != false) {
@@ -42,14 +40,16 @@ class DashboardController extends Controller {
 			$papers = null;
 		}
 
-		// Alle Videos ausgeben
+		// Get all Videos
 		$videos = Video::getVideos();
 
-		// Rolle des Benutzers abfragen
+		// Get all messages
+		$messages = Message::getAll();
+
+		// User role
 		$role = Auth::user()->role;
 
-		// Benutzername
-
+		// Username
 		$username = User::getUsername();
 
 		return view('dashboard.index')

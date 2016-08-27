@@ -167,6 +167,31 @@ Route::get('analytics', [
 Route::get('download/{type}/{file}', 'DownloadController@getFile');
 
 /*
+|-------------------------------------------------------------------------------
+| Messsage System
+|-------------------------------------------------------------------------------
+*/
+
+// Store Message
+Route::post('message', [
+    'uses' => 'MessageController@store',
+]);
+
+// Update Message
+Route::match(['put', 'patch'], 'message/{id}', [
+    'uses' => 'MessageController@update',
+]);
+
+// Remove Message
+Route::delete('message/{id}', [
+    'uses' => 'MessageController@destroy',
+]);
+
+
+
+
+
+/*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------

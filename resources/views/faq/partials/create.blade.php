@@ -8,7 +8,6 @@
 
     <div class="content">
 
-
             <div class="field">
                 <label>Fragestichwort</label>
                 <input type="text" name="subject">
@@ -25,6 +24,7 @@
             </div>
 
     </div>
+
     <div class="actions">
         <div class="ui black cancel button">
             Abbrechen

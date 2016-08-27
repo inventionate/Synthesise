@@ -4,17 +4,23 @@
 @stop
 
 @section('content')
+
 <main id="main-content-dashboard" class="ui stackable page grid">
+
+	<h1 class="hide">Dashboard</h1>
 
 	<div class="one column row">
 		<div class="column">
 
-			<h1 class="hide">Dashboard</h1>
-
-			@include('dashboard.partials.messages')
+			@include('dashboard.partials.messages.index')
 
 		</div>
 	</div>
+
+
+
+
+	<div class="ui section divider"></div>
 
 	<div class="two column row">
 		<div class="column">
