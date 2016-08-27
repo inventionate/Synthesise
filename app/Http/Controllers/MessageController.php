@@ -1,10 +1,9 @@
 <?php
 
-namespace Synthesise\Http\Controllers\API;
+namespace Synthesise\Http\Controllers;
 
 use Synthesise\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Synthesise\Http\Requests\MessageRequest;
 use Synthesise\Repositories\Facades\Message;
 
 class MessageController extends Controller
@@ -15,8 +14,16 @@ class MessageController extends Controller
      *
      * @return Response
      */
-    public function store(MessageRequest $request)
+    public function store(Request $request)
     {
+
+        // Validation
+        $this->validate($request, [
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'colour' => 'required|alpha'
+        ]);
+
         $title = $request->title;
 
         $content = $request->content;
@@ -24,6 +31,8 @@ class MessageController extends Controller
         $colour = $request->colour;
 
         Message::store($title, $content, $colour);
+
+        return back()->withInput();
     }
 
     /**
@@ -33,8 +42,16 @@ class MessageController extends Controller
      *
      * @return Response
      */
-    public function update($id, MessageRequest $request)
+    public function update($id, Request $request)
     {
+
+        // Validation
+        $this->validate($request, [
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'colour' => 'required|alpha'
+        ]);
+
         $title = $request->title;
 
         $content = $request->content;
@@ -42,6 +59,8 @@ class MessageController extends Controller
         $colour = $request->colour;
 
         Message::update($id, $title, $content, $colour);
+
+        return back()->withInput();
     }
 
     /**
@@ -51,8 +70,10 @@ class MessageController extends Controller
      *
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
         Message::delete($id);
+
+        return back()->withInput();
     }
 }

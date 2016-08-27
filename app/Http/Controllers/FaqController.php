@@ -3,7 +3,6 @@
 namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Synthesise\Http\Requests\FaqRequest;
 use Synthesise\Repositories\Facades\Faq as FAQ;
 use JavaScript;
 
@@ -20,7 +19,7 @@ class FaqController extends Controller
         $this->middleware('auth');
 
         $this->middleware('admin', ['only' => [
-        //   'store',
+          'store',
           'update',
           'destroy'
       ]]);
@@ -124,7 +123,6 @@ class FaqController extends Controller
      */
     public function destroy($id)
     {
-
         FAQ::destroy($id);
 
         return back()->withInput();

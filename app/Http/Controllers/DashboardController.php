@@ -1,4 +1,6 @@
-<?php namespace Synthesise\Http\Controllers;
+<?php
+
+namespace Synthesise\Http\Controllers;
 
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +46,7 @@ class DashboardController extends Controller {
 		$videos = Video::getVideos();
 
 		// Get all messages
-		$messages = Message::getAll();
+		$messages = Message::getAll()->sortBy('id');
 
 		// User role
 		$role = Auth::user()->role;
