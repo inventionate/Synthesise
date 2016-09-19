@@ -31,18 +31,18 @@ require('./views/faq.js');
  * Load Vue components and init application.
  */
 
-// import InteractiveVideo from './components/InteractiveVideo.vue';
-//
-// if( $("main.vue")[0] )
-// {
-//
-//     new Vue({
-//         el: 'main.vue',
-//
-//         components: {
-//             InteractiveVideo
-//         }
-//
-//     });
-//
-// }
+import InteractiveVideo from './components/InteractiveVideo.vue';
+
+if( $("main.vue")[0] )
+{
+
+    new Vue({
+        el: 'main.vue',
+
+        components: {
+            InteractiveVideo
+        }
+
+    });
+
+}

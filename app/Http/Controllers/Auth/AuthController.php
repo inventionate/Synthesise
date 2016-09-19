@@ -6,7 +6,7 @@ use Synthesise\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Synthesise\Http\Requests\LoginRequest;
+use Illuminate\Http\Request;
 use Synthesise\Repositories\Facades\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -55,8 +55,16 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
+
+        // Validation
+        $this->validate($request, [
+            'username' 		=> 'required|alpha_num',
+      		'password' 		=> 'required',
+      		'rememberme' 	=> 'boolean'
+        ]);
+
         // 1. LDAP Check (-> korrekte Daten)
         $credentials = $request->only('username', 'password');
         $rememberme = $request->rememberme;
