@@ -1,7 +1,10 @@
 @import "typography";
 @import "colour";
 #mainnav {
-    .menu {
+    #user-actions {
+        height: 3.75rem;
+    }
+    .menu:first-child {
         background-color: fade(@green,90%);
     }
     .ui.dropdown.item .menu {
@@ -16,7 +19,8 @@
     }
     .etpM {
         .text.hidden;
-        width: 45px;
+        // width: 45px;
+        width: 155px;
         margin-left: 5px;
         background-size: 150px;
         background-image: url("/img/etpm_logo_long.png");
@@ -24,9 +28,9 @@
         background-repeat: no-repeat;
         border-left: none;
     }
-    .etpM:hover {
-        width: 155px;
-    }
+    // .etpM:hover {
+    //     width: 155px;
+    // }
     .mobile.only.row {
         .etpM {
             width: 155px;
@@ -35,13 +39,18 @@
             background: none;
         }
     }
-    #subnav-container {
-        margin-top: 3.6em;
-        z-index: -1;
-        background: none;
-        #subnav {
-            display: none;
-            margin: 0;
-        }
+}
+#admin-actions {
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
+    margin-top: 3.75rem;
+    background-color: fade(@white, 80%);
+    .item {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    .item:first-child {
+        font-weight: bold;
+        border-right: none;
     }
 }

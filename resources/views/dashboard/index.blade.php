@@ -12,13 +12,10 @@
 	<div class="one column row">
 		<div class="column">
 
-			@include('dashboard.partials.messages.index')
+			@include('admin.messages.index')
 
 		</div>
 	</div>
-
-
-
 
 	<div class="ui section divider"></div>
 

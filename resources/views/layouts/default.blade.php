@@ -54,6 +54,18 @@
 		{{-- @include FOOTER -----------------------------------------------------}}
 		@include('layouts.partials.footer')
 
+		{{-- @include ADMIN BACKEND --------------------------------------------------}}
+		@if ( Auth::user()->role === 'Admin' )
+
+	        {{-- Load craete and edit Modals --}}
+
+	        @include('admin.messages.create')
+
+	        @include('admin.messages.edit')
+
+
+	    @endif
+
 		{{-- APPLICATION JS ------------------------------------------------------}}
 		@if ( Config::get('app.debug') )
 			<script src="{{ asset("js/application.js") }}"></script>

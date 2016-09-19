@@ -87,13 +87,14 @@
         </div>
     @endif
 
-    {{-- Include Modals for create and edit faqs. --}}
-    @if ( Auth::user()->role === 'Admin' )
-
-        @include('faq.partials.create')
-        @include('faq.partials.edit')
-
-    @endif
-
 </main>
+
+{{-- Include Modals for create and edit faqs. --}}
+@if ( Auth::user()->role === 'Admin' )
+
+    @include('faq.partials.create')
+    @include('faq.partials.edit')
+
+@endif
+
 @stop

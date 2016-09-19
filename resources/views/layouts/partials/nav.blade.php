@@ -4,15 +4,11 @@
         {{-- COMPUTER NAVIGATION --}}
         <div class="computer only row">
             <div class="column">
-                <div class="ui fixed large inverted green menu">
+                <div id="user-actions" class="ui fixed huge inverted green menu">
 
                     <a class="etpM item" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
 
-                    <a class="item @if ( Request::is('/') ) active @endif" href="{{ url('/') }}">Dashboard</a>
-
-                    @if ( Auth::user()->role === 'Admin' )
-                        @include('layouts.partials.nav-admin')
-                    @endif
+                    <a class="item @if ( Request::is('/') ) active @endif" href="{{ url('/') }}">EWM1</a>
 
                     <div class="ui dropdown item">
                         online-Lektionen
@@ -45,8 +41,21 @@
                     <div class="right item"><a class="ui inverted submit button" href="{{ url('logout') }}">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} @if ( Auth::user()->role != 'Student' ) (<b>{{ Auth::user()->role }}</b>) @endif abmelden</a></div>
 
                 </div>
+
+                @if ( Auth::user()->role === 'Admin' )
+                    @include('layouts.partials.nav-admin')
+                @endif
+
             </div>
         </div>
+
+
+
+
+
+{{-- MOBILE NAVIGATION KOMMT ERST WENN DIE PC UI UND(!) FUNKTIONALITÄT GEWÄHRLEITSTET IST!!! --}}
+
+
 
         {{-- MOBILE NAVIGATION --}}
         <div class="mobile tablet only row">
