@@ -12,4 +12,8 @@ interface UserInterface
   public function getEmail();
 
   public function findByUsername($username, $columns = ['*']);
+
+  public function getAll();
+
+  public function getAllByRole($role);
 }

@@ -5,19 +5,19 @@
     </div>
 
     <div class="item">
-        <button class="ui teal button" id="message-new" class="item">Neue Nachricht</button>
+        <button class="ui teal button" id="message-new">Neue Nachricht</button>
     </div>
 
     <div class="item">
-        <button class="ui teal button" class="item">TeilnehmerInnen verwalten</button>
+        <a class="ui teal button @if ( Request::is('user') ) active @endif" href="{{ route('users') }}">TeilnehmerInnen verwalten</a>
     </div>
 
     <div class="item">
-        <button class="ui teal button" class="item">Einstellungen</button>
+        <button class="ui teal button @if ( Request::is('settings') ) active @endif">Einstellungen</button>
     </div>
 
     <div class="item">
-        <button class="ui teal button" class="item">Seminar löschen</button>
+        <button class="ui teal button @if ( Request::is('delete') ) active @endif">Seminar löschen</button>
     </div>
 
 </div>

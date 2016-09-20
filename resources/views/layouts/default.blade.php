@@ -55,16 +55,15 @@
 		@include('layouts.partials.footer')
 
 		{{-- @include ADMIN BACKEND --------------------------------------------------}}
-		@if ( Auth::user()->role === 'Admin' )
+		@if( Auth::user() && Auth::user()->role === 'Admin')
 
-	        {{-- Load craete and edit Modals --}}
+		    {{-- Load create and edit Modals --}}
 
-	        @include('admin.messages.create')
+		    @include('admin.messages.create')
 
-	        @include('admin.messages.edit')
+		    @include('admin.messages.edit')
 
-
-	    @endif
+		@endif
 
 		{{-- APPLICATION JS ------------------------------------------------------}}
 		@if ( Config::get('app.debug') )

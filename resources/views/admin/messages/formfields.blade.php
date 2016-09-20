@@ -1,6 +1,6 @@
 <div class="required field">
     <label for="title" class="hide">Titel</label>
-    <input name="title" placeholder="Bitte geben Sie einen Titel ein." ef="title" type="text">
+    <input name="title" placeholder="Bitte geben Sie einen Titel ein." ref="title" type="text">
 </div>
 
 <div class="required field">

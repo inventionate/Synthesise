@@ -6,28 +6,13 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Synthesise\Extensions\Facades\Parser;
 use Synthesise\Cuepoint;
+use Synthesise\User;
 
 /**
  * User Repository mit Queries und Logik.
  */
 class UserRepository implements UserInterface
 {
-  /**
-   * Variable des zugrundeliegenden Eloquent Models.
-   *
-   */
-  protected $userModel;
-
-  /**
-   * Initziiert die Klasse $faqModel mit dem injizierten Model.
-   *
-   * @param Model $faq
-   * @return FaqRepository
-   */
-  public function __construct(Model $user)
-  {
-    $this->userModel = $user;
-  }
 
   /**
    * Alle vorhandenen Notizen eines Benutzers ausgeben.
@@ -41,7 +26,7 @@ class UserRepository implements UserInterface
   public function getAllNotes($userId, $videoname)
   {
     // Notizen des Benutzers für das Video laden
-    $notes = $this->userModel->find($userId)->notes()->where('video_videoname',$videoname)->orderBy('cuepoint_id')->get();
+    $notes = User::find($userId)->notes()->where('video_videoname',$videoname)->orderBy('cuepoint_id')->get();
 
 
     $title = 'Notizen zu ' . $videoname;
@@ -89,7 +74,7 @@ class UserRepository implements UserInterface
    */
   public function findByUsername($username, $columns = array('*'))
   {
-      if ( ! is_null($user = $this->userModel->whereUsername($username)->first($columns))) {
+      if ( ! is_null($user = User::whereUsername($username)->first($columns))) {
       return $user;
     }
     else
@@ -97,4 +82,56 @@ class UserRepository implements UserInterface
       return null;
     }
   }
+
+  /**
+   * Get all users.
+   *
+   * @return    collection all users.
+   */
+  public function getAll()
+  {
+    return User::all()->sortBy('lastname');
+  }
+
+  /**
+   * Get all users by role.
+   *
+   * @return    collection all users.
+   */
+  public function getAllByRole($role)
+  {
+    return User::where('role', $role)->get();
+  }
+
+  /**
+   * Store User.
+   *
+   * @param 		string username
+   * @param 		string role
+   */
+  public function store($username, $role)
+  {
+
+    // Neue Nachrichteninstanz generieren
+    $user = new User;
+
+    $user->username = $username;
+    $user->role = $role;
+
+    $user->save();
+
+  }
+
+  /**
+   * Delete User.
+   *
+   * @param         int $id
+   *
+   */
+  public function destroy($id)
+  {
+      // Find and delete User.
+      User::find($id)->delete();
+  }
+
 }

@@ -188,16 +188,26 @@ Route::delete('message/{id}', [
 ]);
 
 
-
-
-
 /*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
+|-------------------------------------------------------------------------------
+| User control
+|-------------------------------------------------------------------------------
 */
-//
-// Route::group(['prefix' => 'api/v1', 'middleware' => 'auth.basic'], function () {
-//     // Messages
-//     Route::resource('messages', 'API\MessageController', ['except' => ['create', 'show', 'edit']]);
-// });
+
+
+// Index
+Route::get('user/{letter?}', [
+    'as' => 'users',
+    'uses' => 'UserController@index',
+])
+->where('letter', '[A-Z]{1,1}');
+
+// Store User
+Route::post('user', [
+    'uses' => 'UserController@store',
+]);
+
+// Remove User
+Route::delete('user/{id}', [
+    'uses' => 'UserController@destroy',
+]);
