@@ -9,7 +9,7 @@
     </div>
 
     <div class="item">
-        <a class="ui teal button @if ( Request::is('user') ) active @endif" href="{{ route('users') }}">TeilnehmerInnen verwalten</a>
+        <a class="ui teal button @if ( Request::is('user') ) active @endif" href="{{ route('users') }}">Teilnehmer/innen verwalten</a>
     </div>
 
     <div class="item">

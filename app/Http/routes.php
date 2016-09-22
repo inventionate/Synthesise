@@ -211,3 +211,13 @@ Route::post('user', [
 Route::delete('user/{id}', [
     'uses' => 'UserController@destroy',
 ]);
+
+// Remove Many Users
+Route::delete('deletemanyusers', [
+    'uses' => 'UserController@destroyMany',
+]);
+
+// Remove All Users
+Route::delete('deleteallusers', [
+    'uses' => 'UserController@destroyAll',
+]);

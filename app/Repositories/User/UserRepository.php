@@ -134,4 +134,28 @@ class UserRepository implements UserInterface
       User::find($id)->delete();
   }
 
+  /**
+   * Delete many Users.
+   *
+   * @param         int $ids
+   *
+   */
+  public function destroyMany($ids)
+  {
+      // Find and delete Users.
+      User::whereIn('id', $ids)->delete();
+  }
+
+  /**
+   * Delete all User of a specific role.
+   *
+   * @param         int $id
+   *
+   */
+  public function destroyAll($role, $except_ids)
+  {
+    // Find and delete Users.
+    User::where('role', $role)->whereNotIn('id', [$except_ids])->delete();
+  }
+
 }

@@ -16,4 +16,12 @@ interface UserInterface
   public function getAll();
 
   public function getAllByRole($role);
+
+  public function store($username, $role);
+
+  public function destroy($id);
+
+  public function destroyMany($ids);
+
+  public function destroyAll($role, $except_ids);
 }

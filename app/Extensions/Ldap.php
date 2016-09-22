@@ -82,6 +82,7 @@ class Ldap implements LdapContract
         if ($bind) {
 
             // Nutzer suchen
+            // @TODO Klären, ob auch die Matrikelnummer verwendet werden kann!!!
             $check_user = ldap_search($handle, $this->baseDn, 'cn='.$username);
 
             // Nutzerdaten laden
@@ -92,6 +93,7 @@ class Ldap implements LdapContract
                     $data = array_dot($user_data);
 
                     return [
+                        // @TODO Matrikelnummer abfragen
                         'firstname' => $data['0.givenname.0'],
                         'lastname' => $data['0.sn.0'],
                     ];
