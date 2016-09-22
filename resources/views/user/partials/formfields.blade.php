@@ -12,7 +12,7 @@
             <label for="users" class="hide">Datei auswählen</label>
             <input type="file" name="users">
 
-            <div class="ui primary icon button">
+            <div class="ui primary icon button" data-tooltip="Sie können eine Stud.IP 3 CSV Datei der Teilnehmer/innenliste importieren.">
                 <i class="cloud upload icon"></i>
             </div>
     </div>

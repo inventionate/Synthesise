@@ -18,7 +18,7 @@
       <div class="header">
         Es wird lediglich das Hinzufügen von LSF Accounts unterstützt!
       </div>
-      Im Moment unterstützt die App lediglich das hinzufügen von LSF Accounts über deren Benutzernamen. Bei einem erstmaligen Anmelden werden diese authentifiziert und vollständig verifiziert. <b>Erst danach sind hier alle Informationen zu sehen.</b> Eine komplette Benutzerverwaltung ist für die kommende Version vorgesehen.
+      Im Moment unterstützt die App lediglich das Hinzufügen von LSF Accounts über deren Benutzernamen. <b>Beim erstmaligen Anmelden werden diese authentifiziert und verifiziert. Danach werden hier alle Informationen angezeigt.</b> Eine komplette Benutzerverwaltung ist für die kommende Version vorgesehen.
     </div>
 
     @if (count($errors) > 0)
