@@ -163,6 +163,7 @@ return [
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -232,7 +233,8 @@ return [
          * Package Facades...
          */
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Agent' => Jenssegers\Agent\Facades\Agent::class
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

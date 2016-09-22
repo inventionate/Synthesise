@@ -4,9 +4,13 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 use Synthesise\Extensions\Facades\Parser;
 use Synthesise\Cuepoint;
 use Synthesise\User;
+
+use Excel;
 
 /**
  * User Repository mit Queries und Logik.
@@ -106,6 +110,23 @@ class UserRepository implements UserInterface
   /**
    * Store User.
    *
+   * @param 		file users
+   */
+  public function exportUsernamesOfFile($users)
+  {
+
+      $usernames = array_flatten(Excel::load($users, function($reader) {
+          // Getting all usernames
+          $reader->select(['nutzernamen']);
+      })->toArray());
+
+      return $usernames;
+
+  }
+
+  /**
+   * Store User.
+   *
    * @param 		string username
    * @param 		string role
    */
@@ -119,6 +140,28 @@ class UserRepository implements UserInterface
     $user->role = $role;
 
     $user->save();
+
+  }
+
+  /**
+   * Store Many Users.
+   *
+   * @param 		array usernames
+   * @param 		string role
+   */
+  public function storeMany($usernames, $role)
+  {
+
+    foreach ($usernames as $username) {
+
+        $user = new User;
+
+        $user->username = $username;
+        $user->role = $role;
+
+        $user->save();
+
+    }
 
   }
 

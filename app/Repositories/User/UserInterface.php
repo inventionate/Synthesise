@@ -19,6 +19,8 @@ interface UserInterface
 
   public function store($username, $role);
 
+  public function exportUsernamesOfFile($users);
+
   public function destroy($id);
 
   public function destroyMany($ids);
