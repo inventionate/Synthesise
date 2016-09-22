@@ -13,11 +13,11 @@
     </div>
 
     <div class="item">
-        <button class="ui teal button @if ( Request::is('settings') ) active @endif">Einstellungen</button>
+        <a class="ui teal button @if ( Request::is('settings') ) active @endif" href="{{ route('seminar-settings', ['id' => 1]) }}">Einstellungen</a>
     </div>
 
     <div class="item">
-        <button class="ui teal button @if ( Request::is('delete') ) active @endif">Seminar löschen</button>
+        <button class="ui teal button" id="delete-seminar" @if ( Request::is('delete') ) active @endif">Seminar löschen</button>
     </div>
 
 </div>

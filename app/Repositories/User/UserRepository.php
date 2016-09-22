@@ -4,7 +4,6 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 use Synthesise\Extensions\Facades\Parser;
 use Synthesise\Cuepoint;
@@ -140,28 +139,6 @@ class UserRepository implements UserInterface
     $user->role = $role;
 
     $user->save();
-
-  }
-
-  /**
-   * Store Many Users.
-   *
-   * @param 		array usernames
-   * @param 		string role
-   */
-  public function storeMany($usernames, $role)
-  {
-
-    foreach ($usernames as $username) {
-
-        $user = new User;
-
-        $user->username = $username;
-        $user->role = $role;
-
-        $user->save();
-
-    }
 
   }
 

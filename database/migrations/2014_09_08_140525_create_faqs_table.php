@@ -19,6 +19,7 @@ class CreateFaqsTable extends Migration {
 			$table->text('subject');
 			$table->text('question');
 			$table->text('answer');
+			$table->string('seminar_seminarname', 256);
 			$table->timestamps();
 		});
 	}

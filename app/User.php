@@ -40,4 +40,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('Synthesise\Note');
     }
+
+    /**
+     * Datenbankrelation User gehören zu Seminaren.
+     */
+    public function seminars()
+    {
+        return $this->belongsToMany('Synthesise\Seminar');
+    }
 }

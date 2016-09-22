@@ -19,4 +19,12 @@ class Faq extends Model
      * @var array
      */
     protected $fillable = ['area','subject','question','answer'];
+
+    /**
+     * Datenbankrelation FAQ gehört zu einem Seminar.
+     */
+    public function seminar()
+    {
+        return $this->belongsTo('Synthesise\Seminar');
+    }
 }

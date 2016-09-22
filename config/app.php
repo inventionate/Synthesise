@@ -221,6 +221,7 @@ return [
         'Video' => Synthesise\Repositories\Facades\Video::class,
         'User' => Synthesise\Repositories\Facades\User::class,
         'Message' => Synthesise\Repositories\Facades\Message::class,
+        'Seminar' => Synthesise\Repositories\Facades\Seminar::class,
 
         /*
          * Extensions Facades...

@@ -210,7 +210,8 @@ Route::post('user', [
 // Remove User
 Route::delete('user/{id}', [
     'uses' => 'UserController@destroy',
-]);
+])
+->where('id', '[0-9]+');
 
 // Remove Many Users
 Route::delete('deletemanyusers', [
@@ -221,3 +222,22 @@ Route::delete('deletemanyusers', [
 Route::delete('deleteallusers', [
     'uses' => 'UserController@destroyAll',
 ]);
+
+/*
+|-------------------------------------------------------------------------------
+| Seminar control
+|-------------------------------------------------------------------------------
+*/
+
+// Index
+Route::get('seminar/settings/{id}', [
+    'as' => 'seminar-settings',
+    'uses' => 'SeminarController@settings'
+])
+->where('id', '[0-9]+');
+
+// Remove All Users
+Route::delete('seminar/{id}', [
+    'uses' => 'SeminarController@destroy',
+])
+->where('id', '[0-9]+');

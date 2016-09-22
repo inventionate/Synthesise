@@ -57,4 +57,12 @@ class Video extends Model
     {
         return $this->hasMany('Synthesise\Note', 'video_videoname');
     }
+
+    /**
+     * Datenbankrelation Videos gehören zu Seminaren.
+     */
+    public function seminars()
+    {
+        return $this->belongsToMany('Synthesise\Seminar');
+    }
 }

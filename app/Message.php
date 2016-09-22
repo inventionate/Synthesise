@@ -18,4 +18,12 @@ class Message extends Model {
 	*/
 	protected $fillable = ['id','title','content','colour'];
 
+	/**
+     * Datenbankrelation Message gehört zu einem Seminar.
+     */
+    public function seminar()
+    {
+        return $this->belongsTo('Synthesise\Seminar');
+    }
+
 }

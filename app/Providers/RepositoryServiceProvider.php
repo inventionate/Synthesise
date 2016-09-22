@@ -13,6 +13,8 @@ use Synthesise\User;
 use Synthesise\Repositories\User\UserRepository;
 use Synthesise\Message;
 use Synthesise\Repositories\Message\MessageRepository;
+use Synthesise\Seminar;
+use Synthesise\Repositories\Seminar\SeminarRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -47,6 +49,10 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind('message', function () {
             return new MessageRepository(new Message());
+        });
+
+        $this->app->bind('seminar', function () {
+            return new SeminarRepository(new Seminar());
         });
     }
 }
