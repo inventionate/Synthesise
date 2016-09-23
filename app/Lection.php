@@ -24,8 +24,7 @@ class Lection extends Model
         'authorized_editors',
         'image_path',
         'section_name',
-        'sequence_id'
-        ,'available_from',
+        'available_from',
         'available_to'];
 
     /**

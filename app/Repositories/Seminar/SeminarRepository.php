@@ -13,5 +13,5 @@ class SeminarRepository implements SeminarInterface
   public function get($id) {
       return "Hello!";
   }
-  
+
 }

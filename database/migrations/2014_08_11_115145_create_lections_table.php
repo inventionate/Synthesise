@@ -18,7 +18,6 @@ class CreateLectionsTable extends Migration
             $table->string('author', 128);
             $table->json('authorized_editors');
             $table->text('image_path');
-            $table->integer('sequence_id');
             $table->date('available_from');
             $table->date('available_to');
             $table->timestamps();
