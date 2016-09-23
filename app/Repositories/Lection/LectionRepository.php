@@ -1,30 +1,15 @@
 <?php
 
-namespace Synthesise\Repositories\Video;
+namespace Synthesise\Repositories\Lection;
 
 use Illuminate\Database\Eloquent\Model;
-use Synthesise\Extensions\Facades\Parser;
-use Illuminate\Support\Facades\DB;
 
-class VideoRepository implements VideoInterface
+use Synthesise\Lection;
+use Parser;
+use DB;
+
+class LectionRepository implements LectionInterface
 {
-    /**
-   * Variable des zugrundeliegenden Eloquent Models.
-   */
-  protected $videoModel;
-
-  /**
-   * Initziiert die Klasse $faqModel mit dem injizierten Model.
-   *
-   * @param Model $faq
-   *
-   * @return FaqRepository
-   */
-  public function __construct(Model $video)
-  {
-      $this->videoModel = $video;
-  }
-
   /**
    * Checkt die Verfügbarkeit eines Videos.
    *
@@ -50,7 +35,7 @@ class VideoRepository implements VideoInterface
    */
   public function getSection($videoname)
   {
-      return $this->videoModel->find($videoname)->section;
+      return Lection::find($videoname)->section;
   }
   /**
    * Fragt ab ab welchem Datum das Video freigeschaltet ist.
@@ -61,7 +46,7 @@ class VideoRepository implements VideoInterface
    */
   public function unlockDate($videoname)
   {
-      return $this->videoModel->find($videoname)->available_from;
+      return Lection::find($videoname)->available_from;
   }
 
   /**
@@ -73,7 +58,7 @@ class VideoRepository implements VideoInterface
    */
   public function finalDate($videoname)
   {
-      return $this->videoModel->find($videoname)->available_to;
+      return Lection::find($videoname)->available_to;
   }
 
   /**
@@ -85,7 +70,7 @@ class VideoRepository implements VideoInterface
    */
   public function getOnline($videoname)
   {
-      return $this->videoModel->find($videoname)->online;
+      return Lection::find($videoname)->online;
   }
 
   /**
@@ -113,7 +98,7 @@ class VideoRepository implements VideoInterface
    */
   public function getVideos()
   {
-      return $this->videoModel->all()->take(11);
+      return Lection::all()->take(11);
   }
 
   /**
@@ -125,7 +110,7 @@ class VideoRepository implements VideoInterface
    */
   public function getPapers($videoname)
   {
-      return $this->videoModel->findOrFail($videoname)->papers;
+      return Lection::findOrFail($videoname)->papers;
   }
 
   /**
@@ -137,7 +122,7 @@ class VideoRepository implements VideoInterface
    */
   public function getFlagnames($videoname, $sequenceNumber)
   {
-      return $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->lists('content');
+      return Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->lists('content');
   }
 
   /**
@@ -150,7 +135,7 @@ class VideoRepository implements VideoInterface
    */
   public function getCuepoints($videoname, $sequenceNumber)
   {
-      return $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
+      return Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
   }
 
   /**
@@ -163,7 +148,7 @@ class VideoRepository implements VideoInterface
    */
   public function getFirstCuepointId($videoname, $sequenceNumber)
   {
-      return $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->first()->id;
+      return Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->first()->id;
   }
 
   /**
@@ -177,7 +162,7 @@ class VideoRepository implements VideoInterface
    */
   public function getAllFlagnamesAsHTML($videoname, $sequenceNumber)
   {
-      $cuepoints = $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
+      $cuepoints = Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
       $content = '';
 
       foreach ($cuepoints as $cuepoint) {
@@ -199,7 +184,7 @@ class VideoRepository implements VideoInterface
   {
       // {time: 60, text: "this"}
 
-    $cuepoints = $this->videoModel->findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
+    $cuepoints = Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
 
       $markers = [];
 
@@ -219,7 +204,7 @@ class VideoRepository implements VideoInterface
    */
   public function getSequences($videoname)
   {
-      $sequenceNumbers = $this->videoModel->where('videoname', $videoname)->select('sequence_id', 'sequence_name')->get()->toArray();
+      $sequenceNumbers = Lection::where('videoname', $videoname)->select('sequence_id', 'sequence_name')->get()->toArray();
 
       return $sequenceNumbers;
   }

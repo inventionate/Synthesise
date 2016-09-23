@@ -218,10 +218,12 @@ return [
          */
         'FAQ' => Synthesise\Repositories\Facades\Faq::class,
         'Note' => Synthesise\Repositories\Facades\Note::class,
-        'Video' => Synthesise\Repositories\Facades\Video::class,
-        'User' => Synthesise\Repositories\Facades\User::class,
+        'Lection' => Synthesise\Repositories\Facades\Lection::class,
         'Message' => Synthesise\Repositories\Facades\Message::class,
+        'Section' => Synthesise\Repositories\Facades\Section::class,
         'Seminar' => Synthesise\Repositories\Facades\Seminar::class,
+        'Sequence' => Synthesise\Repositories\Facades\Sequence::class,
+        'User' => Synthesise\Repositories\Facades\User::class,
 
         /*
          * Extensions Facades...

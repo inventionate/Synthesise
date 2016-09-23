@@ -4,27 +4,13 @@ namespace Synthesise\Repositories\Message;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Synthesise\Message;
+
 /**
  * Faq Repository mit Queries und Logik.
  */
 class MessageRepository implements MessageInterface
 {
-    /**
-   * Variable des zugrundeliegenden Eloquent Models.
-   */
-  protected $messageModel;
-
-  /**
-   * Initziiert die Klasse $messageModel mit dem injizierten Model.
-   *
-   * @param     Model $message
-   *
-   * @return    MessageRepository
-   */
-  public function __construct(Model $message)
-  {
-      $this->messageModel = $message;
-  }
 
   /**
    * Gibt alle Messages nach ihrem Aktualisierungsdatum sortiert zurück.
@@ -33,7 +19,7 @@ class MessageRepository implements MessageInterface
    */
   public function getAll()
   {
-      return $this->messageModel->all()->sortBy('updated_at');
+      return Message::all()->sortBy('updated_at');
   }
 
   /**
@@ -46,7 +32,7 @@ class MessageRepository implements MessageInterface
   public function update($id, $newTitle, $newContent, $newColour)
   {
       // Zu aktualiserende Nachricht abfragen
-    $toBeUpdatedMessage = $this->messageModel->find($id);
+    $toBeUpdatedMessage = Message::find($id);
     // Neue Werte zuweisen
     $toBeUpdatedMessage->title = $newTitle;
       $toBeUpdatedMessage->content = $newContent;
@@ -63,7 +49,7 @@ class MessageRepository implements MessageInterface
   public function delete($id)
   {
       // Zu löschende Nachricht abfragen
-    $toBeDeletedMessage = $this->messageModel->find($id);
+    $toBeDeletedMessage = Message::find($id);
     // Nachricht löschen
     $toBeDeletedMessage->delete();
   }

@@ -2,13 +2,12 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Auth;
-
-use Synthesise\Extensions\Facades\Parser;
 use Synthesise\Cuepoint;
 use Synthesise\User;
 
+use Crypt;
+use Auth;
+use Parser;
 use Excel;
 
 /**

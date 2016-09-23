@@ -3,29 +3,15 @@
 namespace Synthesise\Repositories\Note;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Crypt;
+
+use Synthesise\Note;
+use Crypt;
 
 /**
  * Note Repository mit Queries und Logik.
  */
 class NoteRepository implements NoteInterface
 {
-    /**
-   * Variable des zugrundeliegenden Eloquent Models.
-   */
-  protected $noteModel;
-
-  /**
-   * Initziiert die Klasse $faqModel mit dem injizierten Model.
-   *
-   * @param Model $faq
-   *
-   * @return FaqRepository
-   */
-  public function __construct(Model $note)
-  {
-      $this->noteModel = $note;
-  }
 
   /**
    * ID der Note abfragen.
@@ -37,7 +23,7 @@ class NoteRepository implements NoteInterface
    */
   public function getNoteId($userId, $cuepointId)
   {
-      return $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('id')->first();
+      return Note::where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('id')->first();
   }
 
   /**
@@ -50,12 +36,12 @@ class NoteRepository implements NoteInterface
    */
   public function getContent($userId, $cuepointId)
   {
-      $note = $this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note')->all();
+      $note = Note::where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note')->all();
 
       if (empty($note)) {
           return '';
       } else {
-          return Crypt::decrypt($this->noteModel->where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note'));
+          return Crypt::decrypt(Note::where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note'));
       }
   }
 
@@ -83,7 +69,7 @@ class NoteRepository implements NoteInterface
       $note->save();
     } else {
         // Die zu aktualisierende Notiz aufrufen
-      $note = $this->noteModel->find($noteId);
+      $note = Note::find($noteId);
       // Überprüfen ob die Notiz gelöscht werden kann
       if ($noteContent != '[#empty#]') {
           // Inhalt verändern

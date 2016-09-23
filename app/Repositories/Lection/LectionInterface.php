@@ -1,11 +1,11 @@
 <?php
 
-namespace Synthesise\Repositories\Video;
+namespace Synthesise\Repositories\Lection;
 
 /**
- * Ein Interface für Video.
+ * Ein Interface für Lection.
  */
-interface VideoInterface
+interface LectionInterface
 {
     public function available($videoname);
 
