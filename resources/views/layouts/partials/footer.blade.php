@@ -1,4 +1,4 @@
-<footer class="ui page grid">
+<footer class="ui grid container">
     <div class="center aligned column">
         <p>
             <small>

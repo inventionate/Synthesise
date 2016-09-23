@@ -16,6 +16,7 @@ class CreateSeminarsTable extends Migration
             $table->increments('id');
             $table->string('name', 256);
             $table->string('subject', 256);
+            $table->text('description');
             $table->string('module', 128);
             $table->string('author', 128);
             $table->json('authorized_editors');

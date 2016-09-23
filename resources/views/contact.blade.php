@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui centered page grid">
+<main id="main-content-{{ Request::segment(1) }}" class="ui grid container">
 
 	<h1 class="hide">Kontakt</h1>
 

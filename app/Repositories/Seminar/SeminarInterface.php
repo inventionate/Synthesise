@@ -6,6 +6,6 @@
 interface SeminarInterface
 {
 
-  public function get($id);
-  
+  public function getAllWithUserCount();
+
 }

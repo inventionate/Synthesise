@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui stackable container grid">
+<main id="main-content-{{ Request::segment(1) }}" class="ui grid container">
     <!-- Besser mit Segmenten arbeiten  -->
     <div class="one column row">
     	<div class="center aligned column">

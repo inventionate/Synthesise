@@ -3,9 +3,8 @@
 namespace Synthesise\Http\Controllers;
 
 use Auth;
+use Seminar;
 use User;
-use Video;
-use Message;
 
 class DashboardController extends Controller {
 
@@ -27,41 +26,13 @@ class DashboardController extends Controller {
 	public function index()
 	{
 
-		// Aktuelles Video abfragen
-		if(Video::getCurrentVideo() != false) {
-			$videoname = Video::getCurrentVideo()->videoname;
-			$author = Video::getCurrentVideo()->author;
-			$available = true;
-			$papers = Video::getPapers($videoname);
-		}
-		else {
-			$videoname = 'Kein Video verfügbar.';
-			$author = '';
-			$available = false;
-			$papers = null;
-		}
+		$seminars = Seminar::getAllWithUserCount();
 
-		// Get all Videos
-		$videos = Video::getVideos();
-
-		// Get all messages
-		$messages = Message::getAll()->sortBy('id');
-
-		// User role
-		$role = Auth::user()->role;
-
-		// Username
-		$username = User::getUsername();
+		$admins = User::getAllByRole('Admin');
 
 		return view('dashboard.index')
-									->with('available',$available)
-									->with('papers',$papers)
-									->with('role',$role)
-									->with('videos',$videos)
-									->with('username',$username)
-									->with('author',$author)
-									->with('videoname',$videoname)
-									->with('messages',$messages);
+									->with('seminars',$seminars)
+									->with('admins',$admins);
 	}
 
 }

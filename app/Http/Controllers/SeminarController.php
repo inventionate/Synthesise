@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Synthesise\Http\Requests;
 
 use Seminar;
+use Lection;
+use Auth;
+use User;
 
 class SeminarController extends Controller
 {
@@ -29,7 +32,7 @@ class SeminarController extends Controller
 	{
 
 		// Aktuelles Video abfragen
-		if(Video::getCurrentVideo() != false) {
+		if(Seminar::getCurrentVideo() != false) {
 			$videoname = Video::getCurrentVideo()->videoname;
 			$author = Video::getCurrentVideo()->author;
 			$available = true;
@@ -43,10 +46,10 @@ class SeminarController extends Controller
 		}
 
 		// Get all Videos
-		$videos = Video::getVideos();
+		$videos = Seminar::getVideos();
 
 		// Get all messages
-		$messages = Message::getAll()->sortBy('id');
+		$messages = Seminar::getAll()->sortBy('id');
 
 		// User role
 		$role = Auth::user()->role;

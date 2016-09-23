@@ -10,8 +10,15 @@ use Synthesise\Seminar;
 class SeminarRepository implements SeminarInterface
 {
 
-  public function get($id) {
-      return "Hello!";
-  }
+    /**
+     * Retrieve all seminars including related user amount.
+     *
+     * @return    collection    All seminars.
+     *
+     */
+    public function getAllWithUserCount() {
+
+        return Seminar::withCount('users')->get();
+    }
 
 }

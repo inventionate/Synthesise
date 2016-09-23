@@ -6,44 +6,34 @@
             <div class="column">
                 <div id="user-actions" class="ui fixed huge inverted green menu">
 
-                    <a class="etpM item" href="http://www.ph-karlsruhe.de/institute/ph/ew/etpm/" target="_blank">e:t:p:M</a>
+                    <a class="etpM item @if ( Request::is('/') ) active @endif" href="{{ route('dashboard') }}" >e:t:p:M</a>
 
-                    <a class="item @if ( Request::is('/') ) active @endif" href="{{ url('/') }}">EWM1</a>
+                    @if ( Request::segment(1) === 'seminar' )
 
-                    <div class="ui dropdown item">
-                        online-Lektionen
-                        <i class="dropdown icon"></i>
-                        <div class="green menu">
-                            <div class="header">Sozialgeschichte der Erziehung und Bildung</div>
-                            <a class="item" href="{{ route('lektion',['Griechisch-römische Antike', 1]) }}">Griechisch-römische Antike</a>
-                            <a class="item" href="{{ route('lektion', ['Mittelalter', 1]) }}">Mittelalter</a>
-                            <a class="item" href="{{ route('lektion', ['Frühe Neuzeit', 1]) }}">Frühe Neuzeit</a></li>
-                            <div class="header">Ideen- und Personengeschichte der Pädagogik</div>
-                            <a class="item" href="{{ route('lektion', ['Jean-Jacques Rousseau', 1]) }}">Jean-Jacques Rousseau</a>
-                            <a class="item" href="{{ route('lektion', ['Johann Heinrich Pestalozzi', 1]) }}">Johann Heinrich Pestalozzi</a>
-                            <a class="item" href="{{ route('lektion', ['Wilhelm von Humboldt', 1]) }}">Wilhelm von Humboldt</a>
-                            <div class="header">Erziehung und Schule</div>
-                            <a class="item" href="{{ route('lektion', ['Erziehung und Unterricht', 1]) }}">Erziehung und Unterricht</a>
-                            <a class="item" href="{{ route('lektion', ['Heterogenität', 1]) }}">Heterogenität</a>
-                            <div class="header">Bildung – Glück – Gerechtigkeit</div>
-                            <a class="item" href="{{ route('lektion', [rawurlencode('Wozu ist die Bildung da?'), 1]) }}">Wozu ist die Bildung da?</a>
-                            <a class="item" href="{{ route('lektion', ['Bildung und Glück', 1]) }}">Bildung und Glück</a>
-                            <a class="item" href="{{ route('lektion', ['Bildung und Gerechtigkeit', 1]) }}">Bildung und Gerechtigkeit</a>
-                            <div class="divider"></div>
-                            <a class="item rechtshinweise" href="{{ url('impressum') . '#rechtshinweise' }}">Rechtshinweise</a>
-                        </div>
-                    </div>
+                        @include('layouts.partials.nav-seminar')
 
-                    <a class="item @if ( Request::segment(1) === 'hgf' ) active @endif" href="{{ route('faq') }}">Häufig gestellte Fragen</a>
-
-                    <a class="item @if ( Request::is('kontakt') ) active @endif" href="{{ route('kontakt') }}">Kontakt</a>
+                    @endif
 
                     <div class="right item"><a class="ui inverted submit button" href="{{ url('logout') }}">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} @if ( Auth::user()->role != 'Student' ) (<b>{{ Auth::user()->role }}</b>) @endif abmelden</a></div>
 
                 </div>
 
                 @if ( Auth::user()->role === 'Admin' )
-                    @include('layouts.partials.nav-admin')
+
+                    <div id="admin-actions" class="ui fixed tiny secondary menu">
+
+                        @if ( Request::is('/') )
+
+                            @include('layouts.partials.nav-admin')
+
+                        @elseif( Request::segment(1) === 'seminar' )
+
+                            @include('layouts.partials.nav-admin-seminar')
+
+                        @endif
+
+                    </div>
+
                 @endif
 
             </div>

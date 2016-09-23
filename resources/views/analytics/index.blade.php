@@ -4,7 +4,7 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="container animated fadeIn">
+<main id="main-content-{{ Request::segment(1) }}" class="ui grid container">
 
   <h1 class="visible-print-block">Analytics</h1>
 

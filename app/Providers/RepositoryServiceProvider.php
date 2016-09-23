@@ -3,20 +3,28 @@
 namespace Synthesise\Providers;
 
 use Illuminate\Support\ServiceProvider;
+
 use Synthesise\Faq;
 use Synthesise\Repositories\Faq\FaqRepository;
+
 use Synthesise\Lection;
 use Synthesise\Repositories\Lection\LectionRepository;
+
 use Synthesise\Message;
 use Synthesise\Repositories\Message\MessageRepository;
+
 use Synthesise\Note;
 use Synthesise\Repositories\Note\NoteRepository;
+
 use Synthesise\Section;
-use Synthesise\Repositories\Video\SectionRepository;
+use Synthesise\Repositories\Section\SectionRepository;
+
 use Synthesise\Seminar;
-use Synthesise\Repositories\Video\SeminarRepository;
+use Synthesise\Repositories\Seminar\SeminarRepository;
+
 use Synthesise\Sequence;
-use Synthesise\Repositories\Video\SequenceRepository;
+use Synthesise\Repositories\Sequence\SequenceRepository;
+
 use Synthesise\User;
 use Synthesise\Repositories\User\UserRepository;
 

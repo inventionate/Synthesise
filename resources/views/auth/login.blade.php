@@ -5,17 +5,18 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui centered one column grid">
+<main id="main-content-{{ Request::segment(1) }}" class="ui centered grid">
 
-	<header class="center aligned column">
+	<header class="sixteen wide center aligned column">
 		<h1 class="logo">e:t:p:M</h1>
 		<h2>Virtueller Lernraum der Pädagogischen Hochschule Karlsruhe</h2>
 		<h4 class="hide">Login</h4>
 	</header>
 
+	{{-- @TODO Für Mobilgeräte die Größe optimieren!!  --}}
 	<div class="eight wide column @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
 
-		<form role="form" method="POST" action="{{ url('login') }}" class="ui form" id="login">
+		<form role="form" method="POST" action="{{ url('login') }}" class="ui  form" id="login">
 
 			{{ csrf_field() }}
 
@@ -46,18 +47,11 @@
 
 			</div>
 
-		<div class="ui one column centered grid">
-			{{-- Remember me --}}
-			<div class="field center aligned column">
-				<div class="ui checkbox">
-					<label for="rememberme" class="hide">Angemeldet bleiben</label>
-					<input type="checkbox" class="hidden" value="true">
-				</div>
-			</div>
-		</div>
+			{{-- Auto enable Remember me --}}
+			<label for="rememberme" class="hide">Angemeldet bleiben</label>
+			<input type="checkbox" class="hide" value="true">
 
 		</form>
-	</div>
 	</div>
 
 </main>
