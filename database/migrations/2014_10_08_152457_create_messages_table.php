@@ -15,10 +15,10 @@ class CreateMessagesTable extends Migration {
 		Schema::create('messages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title', 100);
-			$table->text('content', 1000);
+			$table->string('title', 256);
+			$table->text('content');
 			$table->string('colour', 20);
-			$table->string('seminar_seminarname', 256);
+			$table->string('seminar_name', 256);
 			$table->timestamps();
 		});
 	}

@@ -17,7 +17,12 @@ class Note extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['note','user_id','cuepoint_id','video_videoname'];
+	protected $fillable = [
+		'note',
+		'user_id',
+		'cuepoint_id',
+		'sequence_id'
+	];
 
 	/**
 	 * Datenbankrelation Note gehört zu User.
@@ -25,7 +30,7 @@ class Note extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('Synthesise\User');
+		return $this->belongsTo('Synthesise\User', 'user_id');
 	}
 
 	/**
@@ -34,16 +39,16 @@ class Note extends Model {
 	 */
 	public function cuepoint()
 	{
-		return $this->belongsTo('Synthesise\Cuepoint');
+		return $this->belongsTo('Synthesise\Cuepoint', 'cuepoint_id');
 	}
 
 	/**
-	* Datenbankrelation Note gehört zu Video.
+	* Datenbankrelation Note gehört zu SDO_Sequence.
 	*
 	*/
-	public function video()
+	public function sequence()
 	{
-		return $this->belongsTo('Synthesise\Video','video_videoname');
+		return $this->belongsTo('Synthesise\Sequence','sequence_id');
 	}
 
 }

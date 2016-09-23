@@ -24,21 +24,31 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password',
+        'remember_token'
+    ];
 
     /**
      * Die veränderbaren Tabellenspalten.
      *
      * @var array
      */
-    protected $fillable = ['username','password','firstname','lastname','role'];
+    protected $fillable = [
+        'username',
+        'password',
+        'firstname',
+        'lastname',
+        'role',
+        'email'
+    ];
 
     /**
      * Datenbankrelation User hat viele Notes.
      */
     public function notes()
     {
-        return $this->hasMany('Synthesise\Note');
+        return $this->hasMany('Synthesise\Note', 'user_id');
     }
 
     /**
@@ -46,6 +56,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function seminars()
     {
-        return $this->belongsToMany('Synthesise\Seminar');
+        return $this->belongsToMany('Synthesise\Seminar', 'seminar_user', 'user_id', 'seminar_name');
     }
 }

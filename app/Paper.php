@@ -16,7 +16,7 @@ class Paper extends Model {
 	 *
 	 * @var 		string
 	 */
-	protected $primaryKey ='papername';
+	protected $primaryKey ='name';
 
 	/**
      * Hauptschlüssel als nicht numerisch definieren und automatisches Inkrementieren deaktivieren.
@@ -30,14 +30,19 @@ class Paper extends Model {
 	 *
 	 * @var 		array
 	 */
-	protected $fillable = ['papername','author','video_videoname'];
+	protected $fillable = [
+		'name',
+		'author',
+		'path',
+		'lection_name'
+	];
 
 	/**
-	 * Datenbankrelation Paper gehört zu Video.
+	 * Datenbankrelation Paper gehört zu Lection.
 	 *
 	 */
-	public function video()
+	public function lection()
 	{
-		return $this->belongsTo('Video', 'video_videoname');
+		return $this->belongsTo('Synthesise\Lection', 'lection_name');
 	}
 }

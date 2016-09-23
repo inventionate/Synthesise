@@ -16,10 +16,10 @@ class CreateFaqsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('area',1);
-			$table->text('subject');
+			$table->string('subject');
 			$table->text('question');
 			$table->text('answer');
-			$table->string('seminar_seminarname', 256);
+			$table->string('seminar_name', 256);
 			$table->timestamps();
 		});
 	}

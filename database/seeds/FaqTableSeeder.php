@@ -14,6 +14,11 @@ class FaqTableSeeder extends Seeder
             'subject' => 'Anmeldung für die wöchentlichen Mentoriate',
             'question' => 'Wie melde ich mich an?',
             'answer' => 'Über LSF. Bitte lesen Sie dort zuvor die Bemerkungen.',
+
+
+            'seminar_seminarname' => '',
+
+
         ));
 
         Faq::create(array(

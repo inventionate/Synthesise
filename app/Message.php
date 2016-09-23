@@ -16,14 +16,20 @@ class Message extends Model {
 	*
 	* @var 		array
 	*/
-	protected $fillable = ['id','title','content','colour'];
+	protected $fillable = [
+		'id',
+		'title',
+		'content',
+		'colour',
+		'seminar_name'
+	];
 
 	/**
      * Datenbankrelation Message gehört zu einem Seminar.
      */
     public function seminar()
     {
-        return $this->belongsTo('Synthesise\Seminar');
+        return $this->belongsTo('Synthesise\Seminar', 'seminar_name');
     }
 
 }

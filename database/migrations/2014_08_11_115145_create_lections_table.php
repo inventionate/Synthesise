@@ -3,21 +3,22 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateVideosTable extends Migration
+class CreateLectionsTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up()
     {
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('lections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('videoname', 128);
-            $table->string('section', 128);
+            $table->string('name', 128);
             $table->string('author', 128);
-            $table->boolean('online');
+            $table->json('authorized_editors');
+            $table->text('image_path');
             $table->integer('sequence_id');
-            $table->string('sequence_name', 128)->nullable();
             $table->date('available_from');
             $table->date('available_to');
             $table->timestamps();
@@ -29,6 +30,6 @@ class CreateVideosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('videos');
+        Schema::drop('lections');
     }
 }

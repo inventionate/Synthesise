@@ -2,11 +2,10 @@
 
 namespace Synthesise\Http\Controllers;
 
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Auth;
-use Synthesise\Repositories\Facades\User;
-use Synthesise\Repositories\Facades\Video;
-use Synthesise\Repositories\Facades\Message;
+use Auth;
+use User;
+use Video;
+use Message;
 
 class DashboardController extends Controller {
 

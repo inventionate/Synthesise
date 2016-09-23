@@ -13,9 +13,8 @@ class CreateCuepointsTable extends Migration
         Schema::create('cuepoints', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cuepoint');
-            $table->string('video_videoname', 128);
-            $table->integer('video_sequence_id');
-            $table->string('content', 500);
+            $table->string('content', 128);
+            $table->integer('sequence_id');
             $table->timestamps();
         });
     }

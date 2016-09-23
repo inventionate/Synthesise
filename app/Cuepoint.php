@@ -18,21 +18,21 @@ class Cuepoint extends Model
      *
      * @var array
      */
-    protected $fillable = ['cuepoint','video_videoname','content', 'video_sequence_id'];
+    protected $fillable = ['cuepoint','content', 'sequence_id'];
 
     /**
      * Datenbankrelation Cuepoint – Note.
      */
     public function notes()
     {
-        return $this->hasMany('Note');
+        return $this->hasMany('Synthesise\Note', 'cuepoint_id');
     }
 
     /**
-     * Datenbankrelation Cuepoint – Video.
+     * Datenbankrelation Cuepoint – Sequence.
      */
-    public function video()
+    public function sequence()
     {
-        return $this->belongsTo('Video', 'video_videoname');
+        return $this->belongsTo('Seqence', 'sequence_id');
     }
 }

@@ -15,9 +15,10 @@ class CreatePapersTable extends Migration {
 		Schema::create('papers', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('papername',128);
+			$table->string('name',128);
 			$table->string('author',128);
-			$table->string('video_videoname',128);
+			$table->text('path');
+			$table->string('lection_name',128);
 			$table->timestamps();
 		});
 	}

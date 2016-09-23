@@ -9,6 +9,10 @@
     </div>
 
     <div class="item">
+        <button class="ui teal button" id="lection-new">Neue online-Lektion</button>
+    </div>
+
+    <div class="item">
         <a class="ui teal button @if ( Request::is('user') ) active @endif" href="{{ route('users') }}">Teilnehmer/innen verwalten</a>
     </div>
 

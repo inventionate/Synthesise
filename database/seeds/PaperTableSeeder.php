@@ -15,6 +15,10 @@ class PaperTableSeeder extends Seeder
             'id' => 1,
             'papername' => 'Ethik und Moralerziehung',
             'author' => 'Timo Hoyer',
+
+            'path' => storage_path('app/pdf/allgemeine_informationen_und_termine.pdf');
+',
+
             'video_videoname' => 'Griechisch-römische Antike',
         ));
 
@@ -22,6 +26,9 @@ class PaperTableSeeder extends Seeder
             'id' => 2,
             'papername' => 'Vom Kindheitsmythos zur Lebenswelt der Kinder',
             'author' => 'Oskar Negt',
+
+            'path' => '',
+
             'video_videoname' => 'Mittelalter',
         ));
 
@@ -29,6 +36,9 @@ class PaperTableSeeder extends Seeder
             'id' => 3,
             'papername' => 'Wandel der Erziehungsverhältnisse',
             'author' => 'Heinz-Elmar Tenorth',
+
+            'path' => '',
+
             'video_videoname' => 'Frühe Neuzeit',
         ));
 
@@ -38,6 +48,9 @@ class PaperTableSeeder extends Seeder
             'id' => 4,
             'papername' => 'Auszug aus »Émile« und »Julie«',
             'author' => 'Jean-Jacques Rousseau',
+
+            'path' => '',
+
             'video_videoname' => 'Jean-Jacques Rousseau',
         ));
 
@@ -45,6 +58,9 @@ class PaperTableSeeder extends Seeder
             'id' => 5,
             'papername' => 'Auszug aus dem »Stanser Brief«',
             'author' => 'Johann Heinrich Pestalozzi',
+
+            'path' => '',
+
             'video_videoname' => 'Johann Heinrich Pestalozzi',
         ));
 
@@ -52,6 +68,9 @@ class PaperTableSeeder extends Seeder
             'id' => 6,
             'papername' => 'Auszug aus dem »Königsberger« und dem »Litauer Schulplan«',
             'author' => 'Wilhelm von Humboldt',
+
+            'path' => '',
+
             'video_videoname' => 'Wilhelm von Humboldt',
         ));
 
@@ -61,6 +80,9 @@ class PaperTableSeeder extends Seeder
             'id' => 7,
             'papername' => 'Über die Grenzen der Erziehung in Schule und Unterricht',
             'author' => 'Heinz-Jürgen Ipfling',
+
+            'path' => '',
+
             'video_videoname' => 'Erziehung und Unterricht',
         ));
 
@@ -68,6 +90,9 @@ class PaperTableSeeder extends Seeder
             'id' => 8,
             'papername' => 'Inklusive Bildung: Wirksame Unterstützung des Lernens für alle Schüler',
             'author' => 'Clemens Hillenbrand',
+
+            'path' => '',
+
             'video_videoname' => 'Heterogenität',
         ));
 
@@ -77,6 +102,9 @@ class PaperTableSeeder extends Seeder
             'id' => 9,
             'papername' => 'Bildung, Halbbildung, Unbildung',
             'author' => 'Konrad Paul Liessmann',
+
+            'path' => '',
+
             'video_videoname' => 'Wozu ist die Bildung da?',
         ));
 
@@ -84,6 +112,9 @@ class PaperTableSeeder extends Seeder
             'id' => 10,
             'papername' => 'Glück soll lernbar sein? Ist es aber nicht!',
             'author' => 'Timo Hoyer',
+
+            'path' => '',
+
             'video_videoname' => 'Bildung und Glück',
         ));
 
@@ -91,6 +122,9 @@ class PaperTableSeeder extends Seeder
             'id' => 11,
             'papername' => 'Bildungsgerechtigkeit',
             'author' => 'Krassimir Stojanov',
+
+            'path' => '',
+
             'video_videoname' => 'Bildung und Gerechtigkeit',
         ));
     }

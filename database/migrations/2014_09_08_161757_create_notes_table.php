@@ -18,7 +18,7 @@ class CreateNotesTable extends Migration {
 			$table->text('note');
 			$table->integer('user_id');
 			$table->integer('cuepoint_id');
-			$table->string('video_videoname',128);
+			$table->integer('sequence_id');
 			$table->timestamps();
 		});
 	}

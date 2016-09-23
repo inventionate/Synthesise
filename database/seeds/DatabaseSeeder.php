@@ -32,6 +32,15 @@ class DatabaseSeeder extends Seeder {
 		$this->call('PaperTableSeeder');
 		$this->command->info('Paper table seeded!');
 
+		$this->call('SeminarTableSeeder');
+		$this->command->info('Seminar table seeded!');
+
+		$this->call('SeminarVideoTableSeeder');
+		$this->command->info('Seminar_Video table seeded!');
+
+		$this->call('SeminarUserTableSeeder');
+		$this->command->info('Seminar_User table seeded!');
+
 	}
 
 }

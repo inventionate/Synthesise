@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeminarUserTable extends Migration
+class CreateSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class CreateSeminarUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('seminar_user', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name', 128);
+            $table->text('further_reading_path');
             $table->string('seminar_name', 256);
-            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateSeminarUserTable extends Migration
      */
     public function down()
     {
-        Schema::drop('seminar_user');
+        Schema::drop('sections');
     }
 }

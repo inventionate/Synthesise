@@ -18,14 +18,24 @@ class Seminar extends Model
      *
      * @var array
      */
-    protected $fillable = ['seminarname','subject','author','online','available_from','available_to'];
+    protected $fillable = [
+        'name',
+        'subject',
+        'module',
+        'author',
+        'authorized_editors',
+        'image_path',
+        'info_path',
+        'available_from',
+        'available_to'
+    ];
 
     /**
      * Hauptschlüssel festlegen um die ORM Suche zu vereinfachen.
      *
      * @var string
      */
-    protected $primaryKey = 'seminarname';
+    protected $primaryKey = 'name';
 
     /**
      * Hauptschlüssel als nicht numerisch definieren und automatisches Inkrementieren deaktivieren.
@@ -35,11 +45,11 @@ class Seminar extends Model
     public $incrementing = false;
 
     /**
-     * Datenbankrelation Seminar hat viele Videos.
+     * Datenbankrelation Seminar hat viele Lections.
      */
-    public function videos()
+    public function sections()
     {
-        return $this->belongsToMany('Synthesise\Video');
+        return $this->hasMany('Synthesise\Section', 'seminar_name');
     }
 
     /**
@@ -47,7 +57,7 @@ class Seminar extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('Synthesise\User');
+        return $this->belongsToMany('Synthesise\User', 'seminar_user', 'seminar_name', 'user_id');
     }
 
     /**
@@ -55,7 +65,7 @@ class Seminar extends Model
      */
     public function messages()
     {
-        return $this->hasMany('Synthesise\Message');
+        return $this->hasMany('Synthesise\Message', 'seminar_name');
     }
 
     /**
@@ -63,7 +73,7 @@ class Seminar extends Model
      */
     public function faqs()
     {
-        return $this->hasMany('Synthesise\Faq');
+        return $this->hasMany('Synthesise\Faq', 'seminar_name');
     }
 
 }

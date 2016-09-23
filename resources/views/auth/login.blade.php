@@ -9,8 +9,7 @@
 
 	<header class="center aligned column">
 		<h1 class="logo">e:t:p:M</h1>
-		<h2>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns</h2>
-		<h3>Einführungsveranstaltung (Modul 1) an der Pädagogischen Hochschule Karlsruhe</h3>
+		<h2>Virtueller Lernraum der Pädagogischen Hochschule Karlsruhe</h2>
 		<h4 class="hide">Login</h4>
 	</header>
 

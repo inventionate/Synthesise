@@ -21,14 +21,49 @@ class SeminarController extends Controller
     }
 
     /**
-     * List all seminars.
-     *
-     * @return View
-     */
-    public function index()
-    {
-        //@TODO convert Dashboard!
-    }
+	 * List Seminar.
+	 *
+	 * @return View
+	 */
+	public function index()
+	{
+
+		// Aktuelles Video abfragen
+		if(Video::getCurrentVideo() != false) {
+			$videoname = Video::getCurrentVideo()->videoname;
+			$author = Video::getCurrentVideo()->author;
+			$available = true;
+			$papers = Video::getPapers($videoname);
+		}
+		else {
+			$videoname = 'Kein Video verfügbar.';
+			$author = '';
+			$available = false;
+			$papers = null;
+		}
+
+		// Get all Videos
+		$videos = Video::getVideos();
+
+		// Get all messages
+		$messages = Message::getAll()->sortBy('id');
+
+		// User role
+		$role = Auth::user()->role;
+
+		// Username
+		$username = User::getUsername();
+
+		return view('dashboard.index')
+									->with('available',$available)
+									->with('papers',$papers)
+									->with('role',$role)
+									->with('videos',$videos)
+									->with('username',$username)
+									->with('author',$author)
+									->with('videoname',$videoname)
+									->with('messages',$messages);
+	}
 
     /**
      * List seminar settings.
