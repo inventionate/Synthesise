@@ -9,6 +9,7 @@ use Crypt;
 use Auth;
 use Parser;
 use Excel;
+use Hash;
 
 /**
  * User Repository mit Queries und Logik.
@@ -127,8 +128,11 @@ class UserRepository implements UserInterface
    *
    * @param 		string username
    * @param 		string role
+   * @param 		string firstname
+   * @param 		string lastname
+   * @param 		string password
    */
-  public function store($username, $role)
+  public function store($username, $role, $firstname, $lastname, $password)
   {
 
     // Neue Nachrichteninstanz generieren
@@ -137,7 +141,50 @@ class UserRepository implements UserInterface
     $user->username = $username;
     $user->role = $role;
 
+    // Diese Werte müssen nicht zwingend gesetzt werden, weil sie per LDAP eingetragen werden.
+    // @TODO: Bei der Abstraktion des Benutzersystems berücksichtigen!
+    if ( $firstname !== null ) {
+        $user->firstname = $firstname;
+    }
+    if ( $lastname !== null ) {
+        $user->lastname = $lastname;
+    }
+    if ( $password !== null ) {
+        $user->password = $password;
+    }
+
     $user->save();
+
+  }
+
+  /**
+   * Update User.
+   *
+   * @param 		string username
+   * @param 		string role
+   * @param 		string firstname
+   * @param 		string lastname
+   * @param 		string password
+   */
+  public function update($id, $username, $role, $firstname, $lastname, $password)
+  {
+
+    // Find user to update.
+    $toBeUpdatedUser = User::find($id);
+
+    // New Values.
+    $toBeUpdatedUser->username = $username;
+    $toBeUpdatedUser->role = $role;
+    $toBeUpdatedUser->firstname = $firstname;
+    $toBeUpdatedUser->lastname = $lastname;
+
+    // Nur neu setzen, wenn ein anderes Passwort gewählt wurde.
+    if( !Hash::check($toBeUpdatedUser->password, $password) ) {
+        $toBeUpdatedUser->password = $password;
+    }
+
+    // Save User.
+    $toBeUpdatedUser->save();
 
   }
 

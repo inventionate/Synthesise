@@ -107,6 +107,7 @@ if( $('#main-content-user')[0] )
             text: "Sie werden alle Administrator/innen – ausgenommen Ihnen selbst – für dieses Seminar löschen.",
             type: "warning",
             showCancelButton: true,
+            cancelButtonText: "Abbrechen",
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "Ja, alle löschen!"
         }, function( isConfirm ) {
@@ -160,6 +161,7 @@ if( $('#main-content-user')[0] )
             text: "Sie werden alle Mentor/innen für dieses Seminar löschen.",
             type: "warning",
             showCancelButton: true,
+            cancelButtonText: "Abbrechen",
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "Ja, alle löschen!"
         }, function( isConfirm ) {
@@ -213,6 +215,7 @@ if( $('#main-content-user')[0] )
             text: "Sie werden alle Student/innen für dieses Seminar löschen.",
             type: "warning",
             showCancelButton: true,
+            cancelButtonText: "Abbrechen",
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "Ja, alle löschen!"
         }, function( isConfirm ) {

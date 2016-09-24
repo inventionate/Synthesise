@@ -18,35 +18,47 @@
 
 	@include('dashboard.partials.seminars')
 
-	<h2 class="ui horizontal divider header">
-	  <i class="users icon"></i>
-	  Administrator/innen
-	</h2>
+	@if ( Auth::user()->role === 'Admin')
 
-	@include('dashboard.partials.admins')
+		<h2 class="ui horizontal divider header">
+		  <i class="users icon"></i>
+		  Administrator/innen
+		</h2>
 
-<h2 id="system-settings" class="ui horizontal divider header">
-  <i class="settings icon"></i>
-  Allgemeine Einstellungen
-</h2>
+		@include('dashboard.partials.admins.index')
 
-Hier kann man allgemeine Systemeinstellungen vornehmen
+		<h2 id="system-settings" class="ui horizontal divider header">
+		  <i class="settings icon"></i>
+		  Allgemeine Einstellungen
+		</h2>
 
-- Datenbankverbindung
-- LDAP Einstellungen
-- Speichereinstellungen
+		Hier kann man allgemeine Systemeinstellungen vornehmen
 
-Im Prinzip alles, was über das ENV-File konfiguriert werden kann.
+		- Datenbankverbindung
+		- LDAP Einstellungen
+		- Speichereinstellungen
 
-Außerdem sollten Updates möglich sein.
+		Im Prinzip alles, was über das ENV-File konfiguriert werden kann.
 
-<h2 id="system-analytics" class="ui horizontal divider header">
-  <i class="bar chart icon"></i>
-  Analytics
-</h2>
+		Außerdem sollten Updates möglich sein.
 
-Hier kann man eine Verbindung zu Piwik aktivieren!
+		<h2 id="system-analytics" class="ui horizontal divider header">
+		  <i class="bar chart icon"></i>
+		  Analytics
+		</h2>
+
+		Hier kann man eine Verbindung zu Piwik aktivieren!
+
+	@endif
 
 </div>
 </main>
+
+@if ( Auth::user()->role === 'Admin')
+
+	@include('dashboard.partials.admins.create')
+	@include('dashboard.partials.admins.edit')
+
+@endif
+
 @stop

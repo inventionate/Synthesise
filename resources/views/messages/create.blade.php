@@ -8,7 +8,7 @@
 
     <div class="content">
 
-        @include('admin.messages.formfields')
+        @include('messages.formfields')
 
     </div>
 

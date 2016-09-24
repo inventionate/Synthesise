@@ -32,15 +32,19 @@ class UserController extends Controller
 
         $admins = User::getAllByRole('Admin');
 
+        $teachers = User::getAllByRole('Teacher');
+
         $mentors = User::getAllByRole('Teacher');
 
         $students = User::getAllByRole('Student');
 
-        return view('user.index')
-            ->with('admins', $admins)
+        return view('users.index')
+            ->with('teachers', $admins)
             ->with('mentors', $mentors)
             ->with('students', $students)
             ->with('users', $users);
+
+            // @TODO ÜBERARBEITEN, SO DASS DIESE LOGIK IN DAS SEMINAR WANDERT!!!
     }
 
     /**
@@ -59,6 +63,12 @@ class UserController extends Controller
         $users = $request->file('users');
 
         $role = $request->role;
+
+        $firstname = $request->firstname;
+
+        $lastname = $request->lastname;
+
+        $password = $request->password;
 
         // Validation
         $fields = [
@@ -116,7 +126,7 @@ class UserController extends Controller
         // User storage.
         if( $username_single !== "" ) {
 
-            User::store($username_single, $role);
+            User::store($username_single, $role, $firstname, $lastname, $password);
 
         }
 
@@ -134,6 +144,39 @@ class UserController extends Controller
 
         return back()->withInput();
 
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function update($id, Request $request)
+    {
+
+        // Validation
+        $this->validate($request, [
+            'username' => 'required',
+            'role' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+        ]);
+
+        $username = $request->username;
+
+        $role = $request->role;
+
+        $firstname = $request->firstname;
+
+        $lastname = $request->lastname;
+
+        $password = $request->password;
+
+        User::update($id, $username, $role, $firstname, $lastname, $password);
+
+        return back()->withInput();
     }
 
     /**

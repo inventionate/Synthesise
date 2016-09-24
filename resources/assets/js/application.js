@@ -24,6 +24,7 @@ require('./messages.js');
  * View specific scripts
  */
 require('./views/dashboard.js');
+require('./views/seminar.js');
 require('./views/faq.js');
 require('./views/user.js');
 

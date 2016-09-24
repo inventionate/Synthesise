@@ -31,12 +31,12 @@ class MessageRepository implements MessageInterface
    */
   public function update($id, $newTitle, $newContent, $newColour)
   {
-      // Zu aktualiserende Nachricht abfragen
+    // Zu aktualiserende Nachricht abfragen
     $toBeUpdatedMessage = Message::find($id);
     // Neue Werte zuweisen
     $toBeUpdatedMessage->title = $newTitle;
-      $toBeUpdatedMessage->content = $newContent;
-      $toBeUpdatedMessage->colour = $newColour;
+    $toBeUpdatedMessage->content = $newContent;
+    $toBeUpdatedMessage->colour = $newColour;
     // Aktualisierte Notiz speichern
     $toBeUpdatedMessage->save();
   }

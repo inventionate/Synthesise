@@ -59,9 +59,9 @@
 
 		    {{-- Load create and edit Modals --}}
 
-		    @include('admin.messages.create')
+		    @include('messages.create')
 
-		    @include('admin.messages.edit')
+		    @include('messages.edit')
 
 		@endif
 

@@ -12,7 +12,7 @@
 	<div class="one column row">
 		<div class="column">
 
-			@include('admin.messages.index')
+			@include('messages.index')
 
 		</div>
 	</div>

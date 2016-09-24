@@ -1,16 +1,16 @@
-<form role="form" method="POST" action="{{ url('message') }}" id="message-edit-modal" class="ui modal form message-validator">
+<form role="form" method="POST" action="{{ url('user') }}" id="admin-edit-modal" class="ui modal form admin-validator">
 
     {{ method_field('PATCH') }}
 
     {{ csrf_field() }}
 
     <div class="header">
-        Nachricht bearbeiten
+        Administrator/in bearbeiten
     </div>
 
     <div class="content">
 
-        @include('admin.messages.formfields')
+        @include('dashboard.partials.admins.formfields')
 
     </div>
 
@@ -20,10 +20,10 @@
             Abbrechen
         </div>
 
-        <div class="ui right green labeled submit icon button">
+        <button type="submit" class="ui right green labeled submit icon button">
             Aktualisieren
             <i class="checkmark icon"></i>
-        </div>
+        </button>
 
     </div>
 

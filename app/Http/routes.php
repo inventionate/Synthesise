@@ -212,7 +212,6 @@ Route::delete('message/{id}', [
 |-------------------------------------------------------------------------------
 */
 
-
 // Index
 Route::get('user/{letter?}', [
     'as' => 'users',
@@ -223,6 +222,11 @@ Route::get('user/{letter?}', [
 // Store User
 Route::post('user', [
     'uses' => 'UserController@store',
+]);
+
+// Update User
+Route::match(['put', 'patch'], 'user/{id}', [
+    'uses' => 'UserController@update',
 ]);
 
 // Remove User
