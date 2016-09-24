@@ -23,7 +23,7 @@
 
                     <div class="ui teal icon button"><i class="edit icon"></i></div>
 
-                    <div class="ui red icon button @if ( Auth::user()->firstname === 'root') disabled @endif"><i class="remove icon"></i></div>
+                    <div class="ui red icon button @if ( $admin->username === 'root') disabled @endif"><i class="remove icon"></i></div>
                 </div>
 
             </div>

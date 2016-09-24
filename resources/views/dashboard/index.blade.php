@@ -25,7 +25,7 @@
 
 	@include('dashboard.partials.admins')
 
-<h2 class="ui horizontal divider header">
+<h2 id="system-settings" class="ui horizontal divider header">
   <i class="settings icon"></i>
   Allgemeine Einstellungen
 </h2>
@@ -40,7 +40,7 @@ Im Prinzip alles, was über das ENV-File konfiguriert werden kann.
 
 Außerdem sollten Updates möglich sein.
 
-<h2 class="ui horizontal divider header">
+<h2 id="system-analytics" class="ui horizontal divider header">
   <i class="bar chart icon"></i>
   Analytics
 </h2>
