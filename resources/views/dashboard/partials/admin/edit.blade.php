@@ -10,7 +10,7 @@
 
     <div class="content">
 
-        @include('dashboard.partials.admins.formfields')
+        @include('dashboard.partials.admin.formfields')
 
     </div>
 

@@ -58,9 +58,14 @@ Route::get('/', [
 Route::group(['prefix' => 'seminar'], function () {
 
     // Homepage
-    Route::get('{name}/', [
+    Route::get('/{name}', [
         'as' => 'seminar',
         'uses' => 'SeminarController@index',
+    ]);
+
+    // Store
+    Route::post('/', [
+        'uses' => 'SeminarController@store',
     ]);
 
 });

@@ -1,14 +1,14 @@
-<form role="form" method="POST" action="{{ action('UserController@store') }}" id="admin-new-modal" class="ui modal form admin-validator">
+<form role="form" method="POST" action="{{ action('SeminarController@store') }}" id="seminar-new-modal" class="ui modal equal width form seminar-validator" enctype="multipart/form-data">
 
     {{ csrf_field() }}
 
     <div class="header">
-        Administrator/in hinzufügen
+        Seminar hinzufügen
     </div>
 
     <div class="content">
 
-        @include('dashboard.partials.admins.formfields')
+        @include('dashboard.partials.seminar.formfields')
 
     </div>
 

@@ -69,6 +69,20 @@ class SeminarController extends Controller
 	}
 
     /**
+     * Store a newly created Seminar.
+     *
+     * @param  Request  $request
+     *
+     * @return Redirect
+     */
+    public function store(Request $request)
+    {
+
+        return back()->withInput();
+
+    }
+
+    /**
      * List seminar settings.
      *
      * @param int $id

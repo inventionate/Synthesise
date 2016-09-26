@@ -21,7 +21,7 @@ class CreateSeminarsTable extends Migration
             $table->string('author', 128);
             $table->json('authorized_editors');
             $table->text('image_path');
-            $table->text('info_path');
+            $table->text('info_path')->nullable();
             $table->date('available_from');
             $table->date('available_to');
             $table->timestamps();

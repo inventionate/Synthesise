@@ -6,6 +6,8 @@
             <div class="column">
                 <div id="user-actions" class="ui fixed huge inverted green menu">
 
+                    {{-- @TODO Den Link in Abhängigkeit von der Anzahl der Seminare setzen! --}}
+
                     <a class="etpM item @if ( Request::is('/') ) active @endif" href="{{ route('dashboard') }}" >e:t:p:M</a>
 
                     @if ( Request::segment(1) === 'seminar' )

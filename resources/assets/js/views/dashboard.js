@@ -1,7 +1,96 @@
 if( $('#main-content-dashboard')[0] )
 {
+
+    // @TODO wird in einer künftigen Semantic UI Version enthalten sein!
+    require('./calendar.js');
+
+    $('#seminar-new-modal .ui.calendar').calendar({
+        type: 'date',
+        text: {
+          days: ['S', 'M', 'D', 'M', 'D', 'F', 'S'],
+          months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+          monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+          today: 'Heute',
+          now: 'Jetzt',
+          am: 'AM',
+          pm: 'PM'
+        },
+        formatter: {
+            date: function (date, settings) {
+                if (!date) return '';
+                var day = date.getDate();
+                var month = date.getMonth();
+                var year = date.getFullYear();
+                return day + '.' + month + '.' + year;
+            }
+        },
+    });
+
     /*
-     * Setup Message JS Validator.
+     * Setup Seminar JS Validator.
+     */
+
+    //  Init basic validation rules.
+    var rules = {
+        username: {
+            rules: [
+                {
+                    type    : 'empty',
+                    prompt  : 'Bitte einen Benutzernamen eingeben.'
+                }
+            ]
+        },
+        firstname: {
+            rules: [
+                {
+                    type    : 'empty',
+                    prompt  : 'Bitte einen Vornamen eingeben.'
+                }
+            ]
+        },
+        lastname: {
+            rules: [
+                {
+                    type    : 'empty',
+                    prompt  : 'Bitte einen Nachnamen eingeben.'
+                }
+            ]
+        },
+        password: {
+            rules: [
+                {
+                    type    : 'empty',
+                    prompt  : 'Bitte ein Passwort eingeben.'
+                }
+            ]
+        }
+     };
+
+    // Attach message modal validation.
+     $('.seminar-validator')
+         .form({
+             inline: true,
+             onSuccess: function() {
+                 $(this).modal('hide');
+             },
+             fields: rules
+         });
+
+    /*
+     * Create new message resource form.
+     */
+    $('#seminar-new-modal')
+        .modal({
+            detachable  : false,
+            onHidden    : function() {
+                $(this).form('clear');
+            },
+
+        })
+        .modal('attach events', '#seminar-new', 'show');
+
+    /*
+     * Setup Admin JS Validator.
      */
 
     //  Init basic validation rules.

@@ -76,6 +76,8 @@
 		@show
 
 		{{-- @include ANALYTICS --------------------------------------------------}}
-		@include('layouts.partials.analytics')
+		@if ( !Config::get('app.debug') )
+			@include('layouts.partials.analytics')
+		@endif
 	</body>
 </html>

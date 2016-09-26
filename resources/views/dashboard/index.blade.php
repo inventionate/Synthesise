@@ -16,7 +16,7 @@
 	  Seminare
   </h2>
 
-	@include('dashboard.partials.seminars')
+	@include('dashboard.partials.seminar.index')
 
 	@if ( Auth::user()->role === 'Admin')
 
@@ -25,29 +25,21 @@
 		  Administrator/innen
 		</h2>
 
-		@include('dashboard.partials.admins.index')
+		@include('dashboard.partials.admin.index')
 
 		<h2 id="system-settings" class="ui horizontal divider header">
 		  <i class="settings icon"></i>
 		  Allgemeine Einstellungen
 		</h2>
 
-		Hier kann man allgemeine Systemeinstellungen vornehmen
-
-		- Datenbankverbindung
-		- LDAP Einstellungen
-		- Speichereinstellungen
-
-		Im Prinzip alles, was über das ENV-File konfiguriert werden kann.
-
-		Außerdem sollten Updates möglich sein.
+		@include('dashboard.partials.settings')
 
 		<h2 id="system-analytics" class="ui horizontal divider header">
 		  <i class="bar chart icon"></i>
 		  Analytics
 		</h2>
 
-		Hier kann man eine Verbindung zu Piwik aktivieren!
+		@include('dashboard.partials.analytics')
 
 	@endif
 
@@ -56,8 +48,10 @@
 
 @if ( Auth::user()->role === 'Admin')
 
-	@include('dashboard.partials.admins.create')
-	@include('dashboard.partials.admins.edit')
+	@include('dashboard.partials.seminar.create')
+
+	@include('dashboard.partials.admin.create')
+	@include('dashboard.partials.admin.edit')
 
 @endif
 

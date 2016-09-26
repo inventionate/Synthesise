@@ -7,7 +7,7 @@
         <div class="image">
 
             {{-- @TODO IMAGE PATH VERARBEITUNG CHECKEN!!! --}}
-            <img src="{{ asset( $seminar->image_path ) }}">
+            <img height="250px" src="{{ asset( $seminar->image_path ) }}">
 
         </div>
 
