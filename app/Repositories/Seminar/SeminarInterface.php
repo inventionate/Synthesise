@@ -6,9 +6,15 @@
 interface SeminarInterface
 {
 
+  public function store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
+
   public function getAllWithUserCount();
 
-  public function store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
+  public function getAuthorizedEditors($name);
+
+  public function authorizedEditor($name);
+
+  public function authorizedMentor($name);
 
   public function getCurrentLection($name);
 

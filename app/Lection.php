@@ -25,7 +25,17 @@ class Lection extends Model
         'image_path',
         'section_name',
         'available_from',
-        'available_to'];
+        'available_to'
+    ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'authorized_editors' => 'array',
+    ];
 
     /**
      * Hauptschlüssel festlegen um die ORM Suche zu vereinfachen.

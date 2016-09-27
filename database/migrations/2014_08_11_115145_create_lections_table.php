@@ -16,7 +16,7 @@ class CreateLectionsTable extends Migration
             $table->increments('id');
             $table->string('name', 128);
             $table->string('author', 128);
-            $table->json('authorized_editors');
+            $table->text('authorized_editors');
             $table->text('image_path');
             $table->date('available_from');
             $table->date('available_to');

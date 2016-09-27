@@ -24,9 +24,9 @@ class SeminarTableSeeder extends Seeder
             'description' => 'Hier geht es um die Grundlagen von Erziehung und Bildung.',
             'module' => 'M1',
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
-            'authorized_editors' => NULL,
+            'authorized_editors' => ["dozent", "root"],
             'image_path' => 'img/seminars/title_1.jpg',
-            'info_path' => null,
+            'info_path' => NULL,
             'available_from' => '2015-12-16',
             'available_to' => '2017-02-17',
         ));
@@ -38,9 +38,9 @@ class SeminarTableSeeder extends Seeder
             'description' => 'Hier geht es um die frühpädagogischen Grundlagen von Erziehung und Bildung.',
             'module' => 'M1',
             'author' => 'Prof. Dr. Ulrich Wehner',
-            'authorized_editors' => NULL,
+            'authorized_editors' => ["dozent", "root"],
             'image_path' => 'img/seminars/title_2.jpg',
-            'info_path' => null,
+            'info_path' => NULL,
             'available_from' => '2015-12-16',
             'available_to' => '2016-02-17',
         ));

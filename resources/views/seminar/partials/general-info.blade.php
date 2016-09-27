@@ -78,7 +78,14 @@
 
             <p>Sie können sich diese Informationen und die Termine der Veranstaltung auch als PDF Dokument herunterladen:</p>
 
-            <a class="fluid ui blue icon labeled button" v-on:click="trackEvents('Informationsdokument', 'Allgemeine Informationen und Termine')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
+
+            <a class="ui @if ( !Seminar::authorizedEditor($seminar_name) ) fluid @endif blue icon labeled button" v-on:click="trackEvents('Informationsdokument', 'Allgemeine Informationen und Termine')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
+
+            @if ( Seminar::authorizedEditor($seminar_name) )
+
+                <a class="ui icon teal button"><i class="edit icon"></i> Editieren</a>
+
+            @endif
 
         </div>
     </div>

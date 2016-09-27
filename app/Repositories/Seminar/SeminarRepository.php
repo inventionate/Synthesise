@@ -5,23 +5,13 @@ use Illuminate\Database\Eloquent\Model;
 use Synthesise\Seminar;
 use Synthesise\Section;
 use Synthesise\Lection;
+use Auth;
 
 /**
  * User Repository mit Queries und Logik.
  */
 class SeminarRepository implements SeminarInterface
 {
-
-    /**
-     * Retrieve all seminars including related user amount.
-     *
-     * @return    collection    All seminars.
-     *
-     */
-    public function getAllWithUserCount() {
-
-        return Seminar::withCount('users')->get();
-    }
 
     /**
      * Store a new Seminar.
@@ -40,9 +30,17 @@ class SeminarRepository implements SeminarInterface
     public function store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users)
     {
 
+        // Save image.
+
         $image_saved = $image->move(public_path('img/seminars/'), md5_file($image) . '.' . $image->getClientOriginalExtension());
 
-        $image_path = "img/seminars/" . $image_saved->getFilename();
+        $image_path = 'img/seminars/' . $image_saved->getFilename();
+
+        // Add root user.
+
+        array_push($authorized_users, 'root');
+
+        // Save new seminar.
 
         $seminar = new Seminar;
 
@@ -57,6 +55,61 @@ class SeminarRepository implements SeminarInterface
         $seminar->authorized_editors = $authorized_users;
 
         $seminar->save();
+
+    }
+
+    /**
+     * Retrieve all seminars including related user amount.
+     *
+     * @return    collection    All seminars.
+     *
+     */
+    public function getAllWithUserCount() {
+
+        return Seminar::withCount('users')->get();
+    }
+
+    /**
+     * Retrieve all authorized editors for one seminar.
+     *
+     * @param   string      $name
+     *
+     * @return  collection  All seminars.
+     *
+     */
+    public function getAuthorizedEditors($name) {
+
+        return $users = Seminar::findOrFail($name)->authorized_editors;
+
+    }
+
+    /**
+     * Check if the authenticated user is authorized.
+     *
+     * @param   string      $name
+     *
+     * @return  boolean     Authorized or not.
+     *
+     */
+    public function authorizedEditor($name) {
+
+        $authorized_editors = $this->getAuthorizedEditors($name);
+
+        return in_array( Auth::user()->username, $authorized_editors );
+
+    }
+
+    /**
+     * Check if the authenticated user is authorized mentor.
+     *
+     * @param   string      $name
+     *
+     * @return  boolean     Authorized or not.
+     *
+     */
+    public function authorizedMentor($name) {
+
+        return Auth::user()->role === 'Mentor';
 
     }
 

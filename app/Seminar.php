@@ -31,6 +31,15 @@ class Seminar extends Model
     ];
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'authorized_editors' => 'array',
+    ];
+
+    /**
      * Hauptschlüssel festlegen um die ORM Suche zu vereinfachen.
      *
      * @var string

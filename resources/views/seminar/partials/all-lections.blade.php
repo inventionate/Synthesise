@@ -11,15 +11,15 @@
 
 					<th>online-Lektion</th>
 
-					@if($role === 'Student')
-						<th>Zugänglich ab</th>
-					@elseif($role === 'Teacher' || $role === 'Admin')
+					@if( Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )
 						<th>Studierendenzugang</th>
+					@else
+						<th>Zugänglich ab</th>
 					@endif
 
 					<th>Literatur & Notizen</th>
 
-					@if($role === 'Teacher' || $role === 'Admin')
+					@if( Seminar::authorizedEditor($seminar_name) )
 						<th>Editieren</th>
 					@endif
 
@@ -40,15 +40,15 @@
 						<div class="hide">
 							{{ $i = 0 }}
 						</div>
-						@foreach ( Section::getAllLections($section->name) as $lection  )
+						@foreach ( Section::getAllLections($section->name) as $lection )
 
 							@if ($i > 0) <tr> @endif
 
 							{{-- Lections info --}}
 							<td class="online-lektion">
-								<div class="ui fluid labeled button @if( ! (Lection::available($lection->name) || $role === 'Teacher' || $role === 'Admin' )) disabled @endif" tabindex="0">
+								<div class="ui fluid labeled button @if( ! (Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif" tabindex="0">
 
-									<a href="{{ route('lektion', [rawurlencode($lection->name), 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name) || $role === 'Teacher' || $role === 'Admin' ) green @else red @endif">
+									<a href="{{ route('lektion', [rawurlencode($lection->name), 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
 
 										<i class="video icon"></i>
 
@@ -56,7 +56,7 @@
 
 									</a>
 
-									<a class="ui left pointing label @if( Lection::available($lection->name) || $role === 'Teacher' || $role === 'Admin' ) green @else red @endif">
+									<a class="ui left pointing label @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
 										<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($lection->name) }}">0</span>
 									</a>
 
@@ -86,7 +86,7 @@
 										</div>
 									</div>
 
-									<a class="ui @if( ! (Lection::available($lection->name) || $role === 'Teacher' || $role === 'Admin' )) disabled @endif button" v-on:click="trackEvent('Notizen', '{{ $lection->name }}')" href="{{ action('LectionController@getNotesPDF', [rawurlencode($lection->name)]) }}">
+									<a class="ui @if( ! (Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif button" v-on:click="trackEvent('Notizen', '{{ $lection->name }}')" href="{{ action('LectionController@getNotesPDF', [rawurlencode($lection->name)]) }}">
 
 										<i class="write square icon"></i>
 
@@ -101,7 +101,7 @@
 								</div>
 							</td>
 
-							@if ( Auth::user()->role === 'Admin' )
+							@if ( Seminar::authorizedEditor($seminar_name) )
 								<td class="edit">
 									<div class="ui teal small icon button" data-name="{{ $lection->name }}" data-author="{{ $lection->author }}" data-section="{{ $section->name }}" data-available="{{ $lection->available_from }}">
 

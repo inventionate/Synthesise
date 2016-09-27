@@ -4,7 +4,7 @@ $('.shake').transition('shake');
 
 $('.ui.checkbox').checkbox();
 
-$('.dropdown').dropdown({transition: 'drop'});
+$('.dropdown').dropdown();
 
 $('.ui.accordion').accordion();
 

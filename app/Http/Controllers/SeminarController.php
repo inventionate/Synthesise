@@ -4,12 +4,8 @@ namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Synthesise\Http\Requests;
-
 use Seminar;
 use Lection;
-use Auth;
-use User;
 
 class SeminarController extends Controller
 {
@@ -31,11 +27,8 @@ class SeminarController extends Controller
 	public function index($name)
 	{
 
-		// Get user role.
-		$role = Auth::user()->role;
-
-		// Get username.
-		$username = User::getUsername();
+		// Get authorized users.
+		$authorized_editors = Seminar::getAuthorizedEditors($name);
 
         // Get all messages.
         $messages = Seminar::getAllMessages($name);
@@ -55,8 +48,7 @@ class SeminarController extends Controller
 
 		return view('seminar.index')
                                     ->with('seminar_name', $name)
-                                    ->with('role', $role)
-                                    ->with('username', $username)
+                                    ->with('authorized_editors', $authorized_editors)
                                     ->with('messages', $messages)
                                     ->with('sections', $sections)
                                     ->with('lections', $lections)

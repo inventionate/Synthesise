@@ -79,7 +79,7 @@
 
         @foreach( $admins as $admin )
 
-            @if( $admin->username !== Auth::user()->username )
+            @if( $admin->username !== Auth::user()->username &&  $admin->username !== 'root')
                 <option value="{{ $admin->username }}">{{ $admin->firstname }} {{ $admin->lastname }}</option>
             @endif
 

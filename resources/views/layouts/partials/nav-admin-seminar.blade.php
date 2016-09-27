@@ -15,6 +15,10 @@
 </div>
 
 <div class="item">
+    <button class="ui teal button" id="info-new">Neue weiterführende Information</button>
+</div>
+
+<div class="item">
     <a class="ui teal button @if ( Request::is('settings') ) active @endif" href="{{ route( 'seminar-settings', ['name' => $seminar_name] ) }}">Einstellungen</a>
 </div>
 
