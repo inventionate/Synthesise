@@ -21,7 +21,7 @@ interface LectionInterface
 
     public function getVideos();
 
-    public function getPapers($videoname);
+    public function getPaper($videoname);
 
     public function getFlagnames($videoname, $seqenceNumber);
 

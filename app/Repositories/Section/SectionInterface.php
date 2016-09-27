@@ -8,6 +8,6 @@ namespace Synthesise\Repositories\Section;
 interface SectionInterface
 {
 
-  public function get($id);
+  public function getAllLections($name);
 
 }

@@ -3,6 +3,8 @@
 use Illuminate\Database\Eloquent\Model;
 
 use Synthesise\Seminar;
+use Synthesise\Section;
+use Synthesise\Lection;
 
 /**
  * User Repository mit Queries und Logik.
@@ -33,6 +35,7 @@ class SeminarRepository implements SeminarInterface
      * @param     date      $available_from
      * @param     date      $available_to
      * @param     array     $authorized_users
+     *
      */
     public function store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users)
     {
@@ -58,51 +61,68 @@ class SeminarRepository implements SeminarInterface
     }
 
     /**
-     * Get the current online-lection.
+     * Get all sections.
      *
-     * @return    array Current lection.
+     * @param   string      $name
+     *
+     * @return  collection  All seminar lections.
      */
-    public function getCurrentLection($name)
+    public function getAllSections($name)
     {
-        $video = DB::table('videos')->where('available_from', '<=', date('Y-m-d'))->orderBy('available_from', 'desc')->first();
 
-        if (empty($video)) {
-            return false;
-        } else {
-            return $video;
-        }
+        $sections = Seminar::find($name)->sections()->get();
 
-        if(Seminar::getCurrentVideo() != false) {
-            $videoname = Video::getCurrentVideo()->videoname;
-            $author = Video::getCurrentVideo()->author;
-            $available = true;
-            $papers = Video::getPapers($videoname);
-        }
-        else {
-            $videoname = 'Kein Video verfügbar.';
-            $author = '';
-            $available = false;
-            $papers = null;
-        }
+        return $sections;
 
     }
 
     /**
-     * Gibt alle Videos zurück.
+     * Get all online-lections.
      *
-     * @return    array Alle Videos.
+     * @param   string      $name
      *
-     * @todo 			Verallgemeinern, da auf 11 Videos zugeschnitten. Statt ->take(11) eher ->all().
+     * @return  collection  All seminar lections.
      */
     public function getAllLections($name)
     {
-        // return Lection::all()->take(11);
+
+        $sections = $this->getAllSections($name);
+
+        $lections = collect();
+
+        foreach ( $sections as $section) {
+            $lections->push(   Section::find($section->name)->lections()->get() );
+        }
+
+        return $lections->flatten();
+    }
+
+    /**
+     * Get the current online-lection.
+     *
+     * @param   string      $name
+     *
+     * @return  collection  Current seminar lection.
+     */
+    public function getCurrentLection($name)
+    {
+
+        $lections = $this->getAllLections($name);
+
+        $current_lection = $lections->filter(function ($lection) {
+
+            return ($lection->available_from <= date('Y-m-d') && $lection->available_to >= date('Y-m-d'));
+
+        })->sortByDesc('available_from')->first();
+
+        return $current_lection;
+
     }
 
     /**
      * Gibt alle Messages nach ihrem Aktualisierungsdatum sortiert zurück.
      *
-     * @return 		array Alle Message-Einträgen.
+     * @return 		collection Alle Message-Einträgen.
      */
     public function getAllMessages($name)
     {
@@ -110,15 +130,20 @@ class SeminarRepository implements SeminarInterface
     }
 
     /**
-     * Gibt die zu einem Video zugehörigen Papers aus.
+     * Get current paper.
      *
-     * @param     string $videoname
+     * @param     string $name
      *
      * @return    array
      */
-    // public function getPapers($videoname)
-    // {
-    //     return Lection::findOrFail($videoname)->papers;
-    // }
+    public function getCurrentPaper($name)
+    {
+
+        $current_lection = $this->getCurrentLection($name);
+
+        $current_paper = $current_lection->paper()->first();
+
+        return $current_paper;
+    }
 
 }

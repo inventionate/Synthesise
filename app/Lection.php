@@ -43,11 +43,11 @@ class Lection extends Model
 
 
     /**
-     * Datenbankrelation Lection hat viele Papers.
+     * Datenbankrelation Lection hat ein Paper.
      */
-    public function papers()
+    public function paper()
     {
-        return $this->hasMany('Synthesise\Paper', 'lection_name');
+        return $this->hasOne('Synthesise\Paper', 'lection_name');
     }
 
     /**

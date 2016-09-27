@@ -21,7 +21,7 @@
 
 	<div class="two column row">
 		<div class="column">
-			{{-- @include('dashboard.partials.current-lection') --}}
+			@include('seminar.partials.current-lection')
 		</div>
 		<section class="column">
 			{{-- @include('dashboard.partials.general-info') --}}
@@ -30,7 +30,7 @@
 
 	<div class="one column row">
 		<div class="column">
-			{{-- @include('dashboard.partials.all-lections') --}}
+			@include('seminar.partials.all-lections')
 		</div>
 	</div>
 

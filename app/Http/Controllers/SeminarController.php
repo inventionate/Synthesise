@@ -31,44 +31,37 @@ class SeminarController extends Controller
 	public function index($name)
 	{
 
-		// User role
+		// Get user role.
 		$role = Auth::user()->role;
 
-		// Username
+		// Get username.
 		$username = User::getUsername();
 
-        // Get all messages
+        // Get all messages.
         $messages = Seminar::getAllMessages($name);
 
+        // Get all sections.
+        $sections = Seminar::getAllSections($name);
 
-		// Aktuelles Video abfragen
-		// if(Seminar::getCurrentVideo() != false) {
-		// 	$videoname = Video::getCurrentVideo()->videoname;
-		// 	$author = Video::getCurrentVideo()->author;
-		// 	$available = true;
-		// 	$papers = Video::getPapers($videoname);
-		// }
-		// else {
-		// 	$videoname = 'Kein Video verfügbar.';
-		// 	$author = '';
-		// 	$available = false;
-		// 	$papers = null;
-		// }
+        // Get all lections.
+        $lections = Seminar::getAllLections($name);
 
-		// Get all Videos
-		// $videos = Seminar::getVideos();
-        //
+        // Get current lection.
+        $current_lection = Seminar::getCurrentLection($name);
+
+        // Get current paper.
+        $current_paper = Seminar::getCurrentPaper($name);
+
 
 		return view('seminar.index')
                                     ->with('seminar_name', $name)
                                     ->with('role', $role)
                                     ->with('username', $username)
-                                    ->with('messages',$messages);
-                                    // ->with('available',$available)
-									// ->with('papers',$papers)
-									// ->with('videos',$videos)
-									// ->with('author',$author)
-									// ->with('videoname',$videoname)
+                                    ->with('messages', $messages)
+                                    ->with('sections', $sections)
+                                    ->with('lections', $lections)
+                                    ->with('current_lection', $current_lection)
+                                    ->with('current_lection_paper', $current_paper);
 	}
 
     /**

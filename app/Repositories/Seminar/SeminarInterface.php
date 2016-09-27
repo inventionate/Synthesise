@@ -12,8 +12,12 @@ interface SeminarInterface
 
   public function getCurrentLection($name);
 
+  public function getAllSections($name);
+
   public function getAllLections($name);
 
   public function getAllMessages($name);
+
+  public function getCurrentPaper($name);
 
 }

@@ -104,13 +104,13 @@ class LectionRepository implements LectionInterface
   /**
    * Gibt die zu einem Video zugehörigen Papers aus.
    *
-   * @param     string $videoname
+   * @param     string $name
    *
    * @return    array
    */
-  public function getPapers($videoname)
+  public function getPaper($name)
   {
-      return Lection::findOrFail($videoname)->papers;
+      return Lection::findOrFail($name)->paper;
   }
 
   /**

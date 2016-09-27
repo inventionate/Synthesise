@@ -11,9 +11,16 @@ use Synthesise\Section;
  */
 class SectionRepository implements SectionInterface
 {
-
-  public function get($id) {
-      return "Hello!";
-  }
+    /**
+     * Get all lections of a section.
+     *
+     * @param     string $name
+     *
+     * @return    array
+     */
+    public function getAllLections($name)
+    {
+        return Section::findOrFail($name)->lections()->get();
+    }
 
 }
