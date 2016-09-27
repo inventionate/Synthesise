@@ -68,6 +68,29 @@ Route::group(['prefix' => 'seminar'], function () {
         'uses' => 'SeminarController@store',
     ]);
 
+    // Edit
+    Route::match(['put', 'patch'], '/{name}', [
+        'uses' => 'SeminarController@update',
+    ]);
+
+    // Delete
+    Route::delete('/{name}', [
+        'uses' => 'SeminarController@destroy',
+    ]);
+
+    // Seminar Users
+    Route::get('/{name}/users', [
+        'as' => 'seminar-users',
+        'uses' => 'SeminarController@users',
+    ]);
+
+    // Seminar Settings
+    Route::get('/{name}/settings', [
+        'as' => 'seminar-settings',
+        'uses' => 'SeminarController@settings',
+    ]);
+
+
 });
 
 /*
@@ -217,13 +240,6 @@ Route::delete('message/{id}', [
 |-------------------------------------------------------------------------------
 */
 
-// Index
-Route::get('user/{letter?}', [
-    'as' => 'users',
-    'uses' => 'UserController@index',
-])
-->where('letter', '[A-Z]{1,1}');
-
 // Store User
 Route::post('user', [
     'uses' => 'UserController@store',
@@ -249,22 +265,3 @@ Route::delete('deletemanyusers', [
 Route::delete('deleteallusers', [
     'uses' => 'UserController@destroyAll',
 ]);
-
-/*
-|-------------------------------------------------------------------------------
-| Seminar control
-|-------------------------------------------------------------------------------
-*/
-
-// Index
-Route::get('seminar/settings/{id}', [
-    'as' => 'seminar-settings',
-    'uses' => 'SeminarController@settings'
-])
-->where('id', '[0-9]+');
-
-// Remove All Users
-Route::delete('seminar/{id}', [
-    'uses' => 'SeminarController@destroy',
-])
-->where('id', '[0-9]+');

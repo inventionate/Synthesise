@@ -19,10 +19,13 @@ class MessageController extends Controller
 
         // Validation
         $this->validate($request, [
+            'seminar_name' => 'required|string',
             'title' => 'required|string',
             'content' => 'required|string',
             'colour' => 'required|alpha'
         ]);
+
+        $seminar_name = $request->seminar_name;
 
         $title = $request->title;
 
@@ -30,7 +33,7 @@ class MessageController extends Controller
 
         $colour = $request->colour;
 
-        Message::store($title, $content, $colour);
+        Message::store($seminar_name, $title, $content, $colour);
 
         return back()->withInput();
     }

@@ -57,4 +57,68 @@ class SeminarRepository implements SeminarInterface
 
     }
 
+    /**
+     * Get the current online-lection.
+     *
+     * @return    array Current lection.
+     */
+    public function getCurrentLection($name)
+    {
+        $video = DB::table('videos')->where('available_from', '<=', date('Y-m-d'))->orderBy('available_from', 'desc')->first();
+
+        if (empty($video)) {
+            return false;
+        } else {
+            return $video;
+        }
+
+        if(Seminar::getCurrentVideo() != false) {
+            $videoname = Video::getCurrentVideo()->videoname;
+            $author = Video::getCurrentVideo()->author;
+            $available = true;
+            $papers = Video::getPapers($videoname);
+        }
+        else {
+            $videoname = 'Kein Video verfügbar.';
+            $author = '';
+            $available = false;
+            $papers = null;
+        }
+
+    }
+
+    /**
+     * Gibt alle Videos zurück.
+     *
+     * @return    array Alle Videos.
+     *
+     * @todo 			Verallgemeinern, da auf 11 Videos zugeschnitten. Statt ->take(11) eher ->all().
+     */
+    public function getAllLections($name)
+    {
+        // return Lection::all()->take(11);
+    }
+
+    /**
+     * Gibt alle Messages nach ihrem Aktualisierungsdatum sortiert zurück.
+     *
+     * @return 		array Alle Message-Einträgen.
+     */
+    public function getAllMessages($name)
+    {
+        return Seminar::find($name)->messages()->get()->sortBy('updated_at');
+    }
+
+    /**
+     * Gibt die zu einem Video zugehörigen Papers aus.
+     *
+     * @param     string $videoname
+     *
+     * @return    array
+     */
+    // public function getPapers($videoname)
+    // {
+    //     return Lection::findOrFail($videoname)->papers;
+    // }
+
 }

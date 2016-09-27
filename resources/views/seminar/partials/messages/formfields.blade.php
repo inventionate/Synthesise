@@ -1,10 +1,15 @@
+<div class="field">
+    <label for="seminar_name" class="hide">Seminarname</label>
+    <input name="seminar_name" ref="seminar_name" type="text" value="{{ $seminar_name }}" class="hide">
+</div>
+
 <div class="required field">
-    <label for="title" class="hide">Titel</label>
+    <label for="title">Titel</label>
     <input name="title" placeholder="Bitte geben Sie einen Titel ein." ref="title" type="text">
 </div>
 
 <div class="required field">
-    <label for="content" class="hide">Inhalt</label>
+    <label for="content">Inhalt</label>
     <textarea name="content" placeholder="Bitte geben Sie Ihre Nachricht ein." maxlength="1000" ref="content" class="message-wysiwyg"></textarea>
 </div>
 

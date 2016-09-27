@@ -28,28 +28,8 @@ class SeminarController extends Controller
 	 *
 	 * @return View
 	 */
-	public function index()
+	public function index($name)
 	{
-
-		// Aktuelles Video abfragen
-		if(Seminar::getCurrentVideo() != false) {
-			$videoname = Video::getCurrentVideo()->videoname;
-			$author = Video::getCurrentVideo()->author;
-			$available = true;
-			$papers = Video::getPapers($videoname);
-		}
-		else {
-			$videoname = 'Kein Video verfügbar.';
-			$author = '';
-			$available = false;
-			$papers = null;
-		}
-
-		// Get all Videos
-		$videos = Seminar::getVideos();
-
-		// Get all messages
-		$messages = Seminar::getAll()->sortBy('id');
 
 		// User role
 		$role = Auth::user()->role;
@@ -57,15 +37,38 @@ class SeminarController extends Controller
 		// Username
 		$username = User::getUsername();
 
-		return view('dashboard.index')
-									->with('available',$available)
-									->with('papers',$papers)
-									->with('role',$role)
-									->with('videos',$videos)
-									->with('username',$username)
-									->with('author',$author)
-									->with('videoname',$videoname)
-									->with('messages',$messages);
+        // Get all messages
+        $messages = Seminar::getAllMessages($name);
+
+
+		// Aktuelles Video abfragen
+		// if(Seminar::getCurrentVideo() != false) {
+		// 	$videoname = Video::getCurrentVideo()->videoname;
+		// 	$author = Video::getCurrentVideo()->author;
+		// 	$available = true;
+		// 	$papers = Video::getPapers($videoname);
+		// }
+		// else {
+		// 	$videoname = 'Kein Video verfügbar.';
+		// 	$author = '';
+		// 	$available = false;
+		// 	$papers = null;
+		// }
+
+		// Get all Videos
+		// $videos = Seminar::getVideos();
+        //
+
+		return view('seminar.index')
+                                    ->with('seminar_name', $name)
+                                    ->with('role', $role)
+                                    ->with('username', $username)
+                                    ->with('messages',$messages);
+                                    // ->with('available',$available)
+									// ->with('papers',$papers)
+									// ->with('videos',$videos)
+									// ->with('author',$author)
+									// ->with('videoname',$videoname)
 	}
 
     /**

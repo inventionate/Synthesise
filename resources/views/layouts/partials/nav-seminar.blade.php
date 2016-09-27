@@ -1,4 +1,4 @@
-<a class="item @if ( Request::is('/') ) active @endif" href="{{ route('dashboard') }}">EWM1</a>
+<a class="item @if ( Request::is('seminar/' . $seminar_name) ) active @endif" href="{{ route('seminar', ['name' => $seminar_name]) }}">{{ $seminar_name }}</a>
 
 <div class="ui dropdown item">
     online-Lektionen

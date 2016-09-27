@@ -11,11 +11,11 @@
 </div>
 
 <div class="item">
-    <a class="ui teal button @if ( Request::is('user') ) active @endif" href="{{ route('users') }}">Teilnehmer/innen verwalten</a>
+    <a class="ui teal button @if ( Request::is('user') ) active @endif" href="{{ route( 'seminar-users', ['name' => $seminar_name ] ) }}">Teilnehmer/innen verwalten</a>
 </div>
 
 <div class="item">
-    <a class="ui teal button @if ( Request::is('settings') ) active @endif" href="{{ route('seminar-settings', ['id' => 1]) }}">Einstellungen</a>
+    <a class="ui teal button @if ( Request::is('settings') ) active @endif" href="{{ route( 'seminar-settings', ['name' => $seminar_name] ) }}">Einstellungen</a>
 </div>
 
 <div class="item">

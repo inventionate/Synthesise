@@ -7,12 +7,11 @@ namespace Synthesise\Repositories\Message;
  */
 interface MessageInterface
 {
-    public function getAll();
+
+    public function store($seminar_name, $title, $content, $colour);
 
     public function update($id, $newTitle, $newContent, $newColour);
 
     public function delete($id);
 
-    //public function store($id, $title, $content, $colour);
-    public function store($title, $content, $colour);
 }

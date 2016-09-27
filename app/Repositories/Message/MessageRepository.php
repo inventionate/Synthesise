@@ -12,15 +12,29 @@ use Synthesise\Message;
 class MessageRepository implements MessageInterface
 {
 
-  /**
-   * Gibt alle Messages nach ihrem Aktualisierungsdatum sortiert zurück.
-   *
-   * @return 		array Alle Message-Einträgen.
-   */
-  public function getAll()
-  {
-      return Message::all()->sortBy('updated_at');
-  }
+    /**
+     * Eine neue Nachricht anlegen.
+     *
+     * @param     int $id
+     * @param     string $message
+     * @param     string $type
+     */
+      public function store($seminar_name, $title, $content, $colour)
+      {
+
+        $message = new Message;
+
+        $message->seminar_name = $seminar_name;
+
+        $message->title = $title;
+
+        $message->content = $content;
+
+        $message->colour = $colour;
+
+        $message->save();
+
+      }
 
   /**
    * Eine Nachricht aktualisieren (Inhalt und Typ).
@@ -48,31 +62,10 @@ class MessageRepository implements MessageInterface
    */
   public function delete($id)
   {
-      // Zu löschende Nachricht abfragen
+    // Zu löschende Nachricht abfragen
     $toBeDeletedMessage = Message::find($id);
     // Nachricht löschen
     $toBeDeletedMessage->delete();
   }
 
-/**
- * Eine neue Nachricht anlegen.
- *
- * @param     int $id
- * @param     string $message
- * @param     string $type
- */
-  //public function store($id, $title, $content, $colour)
-  public function store($title, $content, $colour)
-  {
-    // Neue Nachrichteninstanz generieren
-    $newMessage = new Message;
-
-    $newMessage->title = $title;
-
-    $newMessage->content = $content;
-
-    $newMessage->colour = $colour;
-
-    $newMessage->save();
-  }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-	<title>EWM1 – Dashboard</title>
+	<title>e:t:p:M® – Seminar</title>
 @stop
 
 @section('content')
@@ -12,7 +12,7 @@
 	<div class="one column row">
 		<div class="column">
 
-			@include('messages.index')
+			@include('seminar.partials.messages.index')
 
 		</div>
 	</div>
@@ -21,16 +21,16 @@
 
 	<div class="two column row">
 		<div class="column">
-			@include('dashboard.partials.current-lection')
+			{{-- @include('dashboard.partials.current-lection') --}}
 		</div>
 		<section class="column">
-			@include('dashboard.partials.general-info')
+			{{-- @include('dashboard.partials.general-info') --}}
 		</section>
 	</div>
 
 	<div class="one column row">
 		<div class="column">
-			@include('dashboard.partials.all-lections')
+			{{-- @include('dashboard.partials.all-lections') --}}
 		</div>
 	</div>
 
@@ -83,4 +83,15 @@
 	</div>
 
 </main>
+
+	{{-- @include ADMIN BACKEND --------------------------------------------------}}
+	@if( Auth::user()->role === 'Admin' || Auth::user()->role === 'Teacher')
+
+		{{-- Load create and edit Modals --}}
+
+		@include('seminar.partials.messages.create')
+
+		@include('seminar.partials.messages.edit')
+
+	@endif
 @stop
