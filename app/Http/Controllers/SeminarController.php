@@ -78,6 +78,31 @@ class SeminarController extends Controller
     public function store(Request $request)
     {
 
+        // Validation
+        $this->validate($request, [
+            'title' => 'required|string',
+            'author' => 'required|string',
+            'subject' => 'required|string',
+            'module' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'required|image',
+            'available_from' => 'required|date',
+            'available_to' => 'required|date',
+            'authorized_users' => 'array'
+        ]);
+
+        $title = $request->title;
+        $author = $request->author;
+        $subject = $request->subject;
+        $module = $request->module;
+        $description = $request->description;
+        $image = $request->file('image');
+        $available_from = $request->available_from;
+        $available_to = $request->available_to;
+        $authorized_users = $request->authorized_users;
+
+        Seminar::store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
+
         return back()->withInput();
 
     }

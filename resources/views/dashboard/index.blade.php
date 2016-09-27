@@ -9,6 +9,19 @@
 
 <h1 class="hide">Dashboard</h1>
 
+@if (count($errors) > 0)
+<div class="ui error message">
+	<div class="header">
+		Fehler beim Erstellen eines Seminars!
+	</div>
+	<ul class="list">
+		@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+		@endforeach
+	</ul>
+</div>
+@endif
+
 <div class="fourteen wide centered column">
 
 	<h2 class="ui horizontal divider header">

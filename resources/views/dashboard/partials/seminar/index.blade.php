@@ -5,10 +5,7 @@
     <a class="card" href="{{ route('seminar', ['name' => $seminar->name ]) }}">
 
         <div class="image">
-
-            {{-- @TODO IMAGE PATH VERARBEITUNG CHECKEN!!! --}}
             <img height="250px" src="{{ asset( $seminar->image_path ) }}">
-
         </div>
 
         <div class="content">

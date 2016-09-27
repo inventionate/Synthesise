@@ -19,7 +19,7 @@ if( $('#main-content-dashboard')[0] )
             date: function (date, settings) {
                 if (!date) return '';
                 var day = date.getDate();
-                var month = date.getMonth();
+                var month = date.getMonth() + 1;
                 var year = date.getFullYear();
                 return day + '.' + month + '.' + year;
             }
@@ -32,38 +32,70 @@ if( $('#main-content-dashboard')[0] )
 
     //  Init basic validation rules.
     var rules = {
-        username: {
+        title: {
             rules: [
                 {
                     type    : 'empty',
-                    prompt  : 'Bitte einen Benutzernamen eingeben.'
+                    prompt  : 'Bitte einen Titel eingeben.'
                 }
             ]
         },
-        firstname: {
+        author: {
             rules: [
                 {
                     type    : 'empty',
-                    prompt  : 'Bitte einen Vornamen eingeben.'
+                    prompt  : 'Bitte einen Autor eingeben.'
                 }
             ]
         },
-        lastname: {
+        subject: {
             rules: [
                 {
                     type    : 'empty',
-                    prompt  : 'Bitte einen Nachnamen eingeben.'
+                    prompt  : 'Bitte eine Disziplin eingeben.'
                 }
             ]
         },
-        password: {
+        module: {
             rules: [
                 {
                     type    : 'empty',
-                    prompt  : 'Bitte ein Passwort eingeben.'
+                    prompt  : 'Bitte ein Modul eingeben.'
                 }
             ]
-        }
+        },
+        description: {
+            rules: [
+                {
+                    type    : 'empty',
+                    prompt  : 'Bitte eine Beschreibung eingeben.'
+                }
+            ]
+        },
+        filepath: {
+            rules: [
+                {
+                    type    : 'empty',
+                    prompt  : 'Bitte ein Bild hochladen.'
+                }
+            ]
+        },
+        available_from: {
+            rules: [
+                {
+                    type    : 'empty',
+                    prompt  : 'Bitte ein Verfügbarkeitsdatum eingeben.'
+                }
+            ]
+        },
+        available_to: {
+            rules: [
+                {
+                    type    : 'empty',
+                    prompt  : 'Bitte ein Enddatum eingeben.'
+                }
+            ]
+        },
      };
 
     // Attach message modal validation.

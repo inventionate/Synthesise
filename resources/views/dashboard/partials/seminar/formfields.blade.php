@@ -24,7 +24,7 @@
 
 <div class="required field">
     <label for="description">Beschreibung</label>
-    <textarea name="description" placeholder="Bitte geben Sie eine kurze Beschreibung ein." ref="description" maxlength="500" class="seminar-wysiwyg"></textarea>
+    <textarea name="description" placeholder="Bitte geben Sie eine kurze Beschreibung ein." ref="description" maxlength="500"></textarea>
 </div>
 
 <div class="required field">
@@ -48,7 +48,7 @@
     <div class="ui calendar">
         <div class="ui input left icon">
             <i class="calendar icon"></i>
-            <input type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_from">
+            <input name="available_from" type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_from">
         </div>
     </div>
 </div>
@@ -58,7 +58,7 @@
     <div class="ui calendar">
         <div class="ui input left icon">
             <i class="calendar icon"></i>
-            <input type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_to">
+            <input name="available_to" type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_to">
         </div>
     </div>
 </div>
@@ -67,25 +67,29 @@
 
 <div class="ui form">
     <div class="field">
-        <label>Benutzer, die das Seminar administrieren dürfen</label>
+        <label for="authorized_users">Benutzer, die das Seminar administrieren dürfen</label>
 
         <div class="ui info message">
             Die Person, die das Seminar erstellt, ist automatisch Administrator/in.
         </div>
 
-        <select multiple="" class="ui dropdown">
+        <select name="authorized_users[]" ref="authorized_users" multiple="" class="ui dropdown">
 
         <option value="">Zusätzliche Administrator/in oder Lehrperson auswählen</option>
 
         @foreach( $admins as $admin )
 
-            <option value="{{ $admin->username }}">{{ $admin->firstname }} {{ $admin->lastname }}</option>
+            @if( $admin->username !== Auth::user()->username )
+                <option value="{{ $admin->username }}">{{ $admin->firstname }} {{ $admin->lastname }}</option>
+            @endif
 
         @endforeach
 
         @foreach( $teachers as $teacher )
 
-            <option value="{{ $teacher->username }}">{{ $teacher->firstname }} {{ $teacher->lastname }}</option>
+            @if( $teacher->username !== Auth::user()->username )
+                <option value="{{ $teacher->username }}">{{ $teacher->firstname }} {{ $teacher->lastname }}</option>
+            @endif
 
         @endforeach
 
