@@ -4,7 +4,7 @@
 
 		<h2 class="ui header">Ablaufplan</h2>
 
-		<table class="ui structured table">
+		<table class="ui stackable table">
 			<thead>
 				<tr>
 					<th>Themenbereich</th>

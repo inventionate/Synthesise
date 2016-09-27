@@ -199,4 +199,18 @@ class SeminarRepository implements SeminarInterface
         return $current_paper;
     }
 
+    /* Get all seminar users by role.
+     *
+     * @param     string    $name
+     * @param     string    $role
+     *
+     * @return    collection
+     */
+    public function getAllUsersByRole($name, $role)
+    {
+        $users = Seminar::findOrFail($name)->users()->get()->where('role', $role);
+
+        return $users;
+    }
+
 }

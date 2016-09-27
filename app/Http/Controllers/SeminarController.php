@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Seminar;
 use Lection;
+use User;
 
 class SeminarController extends Controller
 {
@@ -96,18 +97,52 @@ class SeminarController extends Controller
     }
 
     /**
+     * Users view.
+     *
+     *
+     * @return View
+     */
+    public function users($name)
+    {
+
+        // Get all sections.
+        $sections = Seminar::getAllSections($name);
+
+        $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
+
+        // @TODO bei den Teachers in der Ansicht auch die Administratoren listen, die aber nicht gelöscht werden können!
+
+        $mentors = Seminar::getAllUsersByRole($name, 'Mentor');
+
+        $students = Seminar::getAllUsersByRole($name, 'Student');
+
+        return view('seminar.partials.users.index')
+                                        ->with('seminar_name', $name)
+                                        ->with('sections', $sections)
+                                        ->with('teachers', $teachers)
+                                        ->with('mentors', $mentors)
+                                        ->with('students', $students);
+    }
+
+    /**
      * List seminar settings.
      *
      * @param int $id
      *
      * @return View
      */
-    public function settings($id)
+    public function settings($name)
     {
-        $seminar = Seminar::get($id);
+
+        // Get all sections.
+        $sections = Seminar::getAllSections($name);
+
+        $seminar = Seminar::get($name);
 
         dd($seminar);
 
-        return view('seminar.settings');
+        return view('seminar.settings')
+                                    ->with('seminar_name', $name)
+                                    ->with('sections', $sections);
     }
 }

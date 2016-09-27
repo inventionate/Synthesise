@@ -1,8 +1,8 @@
 @extends('layouts.default')
 
 @section('title')
-  <title>Erziehungswissenschaftliche Grundfragen –
-  TeilnehmerInnen Verwaltung</title>
+  <title>e:t:p:M® – Seminar
+  Teilnehmer/innen Verwaltung</title>
 @stop
 
 @section('content')
@@ -10,15 +10,17 @@
 
     <div class="fourteen wide column">
 
-<h1>
-    TeilnehmerInnen verwalten
-</h1>
+    <h1>
+        Teilnehmer/innen verwalten
+    </h1>
 
     <div class="ui warning message">
-      <div class="header">
-        Es wird lediglich das Hinzufügen von LSF Accounts unterstützt!
-      </div>
-      Im Moment unterstützt die App lediglich das Hinzufügen von LSF Accounts über deren Benutzernamen. <b>Beim erstmaligen Anmelden werden diese authentifiziert und verifiziert. Danach werden hier alle Informationen angezeigt.</b> Eine komplette Benutzerverwaltung ist für die kommende Version vorgesehen.
+        <div class="header">
+            Es wird lediglich das Hinzufügen von LSF Accounts unterstützt!
+        </div>
+        <p>
+            Im Moment unterstützt die App lediglich das Hinzufügen von LSF Accounts über deren Benutzernamen. <b>Beim erstmaligen Anmelden werden diese authentifiziert und verifiziert. Danach werden hier alle Informationen angezeigt.</b> Eine komplette Benutzerverwaltung ist für die kommende Version vorgesehen.
+        </p>
     </div>
 
     @if (count($errors) > 0)
@@ -36,10 +38,10 @@
 
 <h2>Administrator/innen</h2>
 
-<table id="admin-user-table" class="ui @if( count($admins) != 1 ) definition @endif teal table">
+<table id="admin-user-table" class="ui @if( count($teachers) != 1 ) definition @endif teal table">
   <thead class="full-width">
     <tr>
-      @if( count($admins) != 1 ) <th></th> @endif
+      @if( count($teachers) != 1 ) <th></th> @endif
       <th>LSF Account</th>
       <th>Name</th>
       <th>E-Mail Adresse</th>
@@ -47,28 +49,28 @@
     </tr>
   </thead>
     <tbody>
-        @foreach ($admins as $admin)
+        @foreach ($teachers as $teacher)
 
-            <tr @if( $admin->username === Auth::user()->username ) class="disabled" @endif>
+            <tr @if( $teacher->username === Auth::user()->username ) class="disabled" @endif>
 
-                @if( count($admins) != 1 )
+                @if( count($teacher) != 1 )
                     <td class="collapsing">
-                        @if( $admin->username != Auth::user()->username )
+                        @if( $teacher->username != Auth::user()->username )
                             <div class="ui fitted slider checkbox">
-                                <input type="checkbox" value="{{$admin->id}}">
+                                <input type="checkbox" value="{{$teacher->id}}">
                             </div>
                         @endif
                     </td>
                 @endif
 
-                <td>{{ $admin->username }}</td>
+                <td>{{ $teacher->username }}</td>
 
-                <td>{{ $admin->firstname . ' ' . $admin->lastname }}</td>
+                <td>{{ $teacher->firstname . ' ' . $teacher->lastname }}</td>
 
-                <td>{{ $admin->email }}</td>
+                <td>{{ $teacher->email }}</td>
 
                 <td class="center aligned">
-                    @if($admin->created_at != $admin->updated_at)
+                    @if($teacher->created_at != $teacher->updated_at)
                         <i class="large green checkmark icon"></i>
                     @endif
                 </td>
@@ -79,7 +81,7 @@
   <tfoot class="full-width">
     <tr>
 
-      @if( count($admins) != 1 ) <th></th> @endif
+      @if( count($teachers) != 1 ) <th></th> @endif
 
       <th colspan="4">
 
@@ -103,7 +105,7 @@
 
             {{ csrf_field() }}
 
-            <button class="ui small red button delete-all @if( count($admins) === 1 ) disabled @endif )" type="submit">Alle Löschen</button>
+            <button class="ui small red button delete-all @if( count($teachers) === 1 ) disabled @endif )" type="submit">Alle Löschen</button>
 
         </form>
 
@@ -272,7 +274,7 @@
 {{-- Include Modals for create and edit users. --}}
 @if ( Auth::user()->role === 'Admin' )
 
-    @include('user.partials.create')
+    @include('seminar.partials.users.create')
 
 @endif
 

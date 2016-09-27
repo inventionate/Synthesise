@@ -20,34 +20,6 @@ class UserController extends Controller
     }
 
     /**
-     * List all Users.
-     *
-     * @param string $letter
-     *
-     * @return View
-     */
-    public function index($letter = null)
-    {
-        $users = User::getAll();
-
-        $admins = User::getAllByRole('Admin');
-
-        $teachers = User::getAllByRole('Teacher');
-
-        $mentors = User::getAllByRole('Teacher');
-
-        $students = User::getAllByRole('Student');
-
-        return view('users.index')
-            ->with('teachers', $admins)
-            ->with('mentors', $mentors)
-            ->with('students', $students)
-            ->with('users', $users);
-
-            // @TODO ÜBERARBEITEN, SO DASS DIESE LOGIK IN DAS SEMINAR WANDERT!!!
-    }
-
-    /**
      * Store a newly created User.
      *
      * @param  Request  $request

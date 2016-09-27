@@ -26,4 +26,6 @@ interface SeminarInterface
 
   public function getCurrentPaper($name);
 
+  public function getAllUsersByRole($name, $role);
+
 }
