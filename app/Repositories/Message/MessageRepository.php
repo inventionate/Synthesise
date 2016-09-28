@@ -46,7 +46,7 @@ class MessageRepository implements MessageInterface
   public function update($id, $newTitle, $newContent, $newColour)
   {
     // Zu aktualiserende Nachricht abfragen
-    $toBeUpdatedMessage = Message::find($id);
+    $toBeUpdatedMessage = Message::findOrFail($id);
     // Neue Werte zuweisen
     $toBeUpdatedMessage->title = $newTitle;
     $toBeUpdatedMessage->content = $newContent;
@@ -63,7 +63,7 @@ class MessageRepository implements MessageInterface
   public function delete($id)
   {
     // Zu löschende Nachricht abfragen
-    $toBeDeletedMessage = Message::find($id);
+    $toBeDeletedMessage = Message::findOrFail($id);
     // Nachricht löschen
     $toBeDeletedMessage->delete();
   }

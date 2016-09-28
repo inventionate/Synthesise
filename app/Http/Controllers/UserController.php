@@ -164,7 +164,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        User::delete($id);
 
         return back()->withInput();
     }
@@ -181,7 +181,7 @@ class UserController extends Controller
 
         $ids = $request->id;
 
-        User::destroyMany($ids);
+        User::deleteMany($ids);
 
         return back()->withInput();
     }
@@ -201,7 +201,7 @@ class UserController extends Controller
 
         $except_ids = $request->except_ids;
 
-        User::destroyAll($role, $except_ids);
+        User::deleteAll($role, $except_ids);
 
         return back()->withInput();
     }

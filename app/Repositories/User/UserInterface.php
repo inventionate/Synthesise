@@ -23,9 +23,9 @@ interface UserInterface
 
   public function exportUsernamesOfFile($users);
 
-  public function destroy($id);
+  public function delete($id);
 
-  public function destroyMany($ids);
+  public function deleteMany($ids);
 
-  public function destroyAll($role, $except_ids);
+  public function deleteAll($role, $except_ids);
 }

@@ -137,7 +137,7 @@
 
             {{ csrf_field() }}
 
-            <button class="ui small red button delete-all @if( count($teachers) === 1 ) disabled @endif )" type="submit">Alle Löschen</button>
+            <button class="ui small red button delete-all @if( count($teachers) === 0 ) disabled @endif )" type="submit">Alle Löschen</button>
 
         </form>
 

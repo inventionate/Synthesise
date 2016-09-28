@@ -51,7 +51,7 @@ if( $('#main-content-seminar-users')[0] )
                 name: 'id[]',
                 value: $(this).val(),
                 class: 'user-' + $(this).val() + ' hide'
-            }).appendTo('#admin-user-delete-many');
+            }).appendTo('#teacher-user-delete-many');
 
         }
         else {

@@ -178,7 +178,7 @@ class UserRepository implements UserInterface
   {
 
     // Find user to update.
-    $toBeUpdatedUser = User::find($id);
+    $toBeUpdatedUser = User::findOrFail($id);
 
     // New Values.
     $toBeUpdatedUser->username = $username;
@@ -202,10 +202,10 @@ class UserRepository implements UserInterface
    * @param         int $id
    *
    */
-  public function destroy($id)
+  public function delete($id)
   {
       // Find and delete User.
-      User::find($id)->delete();
+      User::findOrFail($id)->delete();
   }
 
   /**
@@ -214,7 +214,7 @@ class UserRepository implements UserInterface
    * @param         int $ids
    *
    */
-  public function destroyMany($ids)
+  public function deleteMany($ids)
   {
       // Find and delete Users.
       User::whereIn('id', $ids)->delete();
@@ -226,7 +226,7 @@ class UserRepository implements UserInterface
    * @param         int $id
    *
    */
-  public function destroyAll($role, $except_ids)
+  public function deleteAll($role, $except_ids)
   {
     // Find and delete Users.
     User::where('role', $role)->whereNotIn('id', [$except_ids])->delete();

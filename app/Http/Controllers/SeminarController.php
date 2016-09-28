@@ -102,7 +102,10 @@ class SeminarController extends Controller
      */
     public function destroy($name)
     {
-        return back()->withInput();
+
+        Seminar::delete($name);
+
+        return redirect('/')->withInput();
     }
 
     /**
