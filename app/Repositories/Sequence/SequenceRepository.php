@@ -1,4 +1,6 @@
-<?php namespace Synthesise\Repositories\Seminar;
+<?php
+
+namespace Synthesise\Repositories\Sequence;
 
 use Illuminate\Database\Eloquent\Model;
 

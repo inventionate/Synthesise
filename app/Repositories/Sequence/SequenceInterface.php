@@ -1,4 +1,6 @@
-<?php namespace Synthesise\Repositories\Sequence;
+<?php
+
+namespace Synthesise\Repositories\Sequence;
 
 /**
  * Ein Interface für Seminar.
