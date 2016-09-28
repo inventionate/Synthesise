@@ -20,3 +20,7 @@ $('input:file', '.ui.action.input')
     	$('input:text', $(e.target).parent()).val(name);
 	})
 ;
+
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});

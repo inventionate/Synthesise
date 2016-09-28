@@ -54,6 +54,13 @@
 
 		@include('dashboard.partials.analytics')
 
+		<h2 id="support" class="ui horizontal divider header">
+		  <i class="fire extinguisher icon"></i>
+		  Support
+		</h2>
+
+		@include('dashboard.partials.support')
+
 	@endif
 
 </div>
