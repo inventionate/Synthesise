@@ -138,9 +138,6 @@ class SeminarController extends Controller
         // Get all sections.
         $sections = Seminar::getAllSections($name);
 
-        $seminar = Seminar::get($name);
-
-        dd($seminar);
 
         return view('seminar.settings')
                                     ->with('seminar_name', $name)
