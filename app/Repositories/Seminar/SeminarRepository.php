@@ -67,15 +67,24 @@ class SeminarRepository implements SeminarInterface
 
         $seminar = Seminar::findOrFail($name);
 
-        $users = $seminar->users()->get();
+        $users = $seminar->users()->withCount('seminars')->get();
 
-        // $users->filter()
+        // Detach seminar.
+        $seminar->users()->detach();
+        //
+        // // Delete seminar.
+        $seminar->delete();
 
-        $users = User::withCount('seminars')->get();
+        // Delete users
+        foreach ( $users as $user )
+        {
+            // If only one relation and not admin delete user.
+            if( $user->seminars_count === 1 && $user->role !== 'Admin')
+            {
+                User::findOrFail($user->user_id)->delete();
+            }
+        }
 
-        dd($users);
-
-        // $seminar->delete();
     }
 
     /**
