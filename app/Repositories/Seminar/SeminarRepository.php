@@ -193,7 +193,14 @@ class SeminarRepository implements SeminarInterface
 
         $current_lection = $this->getCurrentLection($name);
 
-        $current_paper = $current_lection->paper()->first();
+        if ( is_null($current_lection) )
+        {
+            $current_paper = null;
+        }
+        else
+        {
+            $current_paper = $current_lection->paper()->first();
+        }
 
         return $current_paper;
     }

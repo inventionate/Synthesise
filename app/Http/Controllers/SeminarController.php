@@ -46,7 +46,6 @@ class SeminarController extends Controller
         // Get current paper.
         $current_paper = Seminar::getCurrentPaper($name);
 
-
 		return view('seminar.index')
                                     ->with('seminar_name', $name)
                                     ->with('authorized_editors', $authorized_editors)
@@ -97,8 +96,17 @@ class SeminarController extends Controller
     }
 
     /**
-     * Users view.
+     * Deletes seminar.
      *
+     * @return Redirect
+     */
+    public function destroy($name)
+    {
+        return back()->withInput();
+    }
+
+    /**
+     * Users view.
      *
      * @return View
      */
