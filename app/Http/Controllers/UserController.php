@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use User;
 use Validator;
+use Redirect;
+use URL;
 
 class UserController extends Controller
 {
@@ -17,6 +19,40 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'admin']);
+    }
+
+
+
+    /**
+     * Redirect by role.
+     *
+     * @param  string  $role
+     *
+     * @return Redirect
+     */
+    private function redirectByRole($role)
+    {
+
+        if ( $role === 'Admin' )
+        {
+            return Redirect::to(URL::previous() . "#manage-admins");
+        }
+        elseif ( $role === 'Teacher')
+        {
+            return Redirect::to(URL::previous() . "#manage-teachers");
+        }
+        elseif ( $role === 'Mentor')
+        {
+            return Redirect::to(URL::previous() . "#manage-mentors");
+        }
+        elseif ( $role === 'Student')
+        {
+            return Redirect::to(URL::previous() . "#manage-students");
+        }
+        else
+        {
+            return back()->withInput();
+        }
     }
 
     /**
@@ -118,7 +154,8 @@ class UserController extends Controller
 
         };
 
-        return back()->withInput();
+        // Rediret
+        return $this->redirectByRole($role);
 
     }
 
@@ -152,7 +189,8 @@ class UserController extends Controller
 
         User::update($id, $username, $role, $firstname, $lastname, $password);
 
-        return back()->withInput();
+        // Rediret
+        return $this->redirectByRole($role);
     }
 
     /**
@@ -164,9 +202,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+
         User::delete($id);
 
-        return back()->withInput();
+        $role = 'Admin';
+
+        return $this->redirectByRole($role);
+
     }
 
     /**
@@ -181,9 +223,15 @@ class UserController extends Controller
 
         $ids = $request->id;
 
-        User::deleteMany($ids);
+        $role = $request->role;
 
-        return back()->withInput();
+        $seminar_names = $request->seminar_names;
+
+        User::deleteMany($ids, $seminar_names);
+
+        // Rediret
+        return $this->redirectByRole($role);
+
     }
 
     /**
@@ -201,9 +249,15 @@ class UserController extends Controller
 
         $except_ids = $request->except_ids;
 
-        User::deleteAll($role, $except_ids);
+        $except_ids = $request->except_ids;
 
-        return back()->withInput();
+        $seminar_names = $request->seminar_names;
+
+        User::deleteAll($role, $except_ids, $seminar_names);
+
+        // Rediret
+        return $this->redirectByRole($role);
+
     }
 
 }

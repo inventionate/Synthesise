@@ -33,7 +33,7 @@
 
 	@if ( Auth::user()->role === 'Admin')
 
-		<h2 class="ui horizontal divider header">
+		<h2 id="manage-admins" class="ui horizontal divider header">
 		  <i class="users icon"></i>
 		  Administrator/innen
 		</h2>

@@ -25,7 +25,7 @@ interface UserInterface
 
   public function delete($id);
 
-  public function deleteMany($ids);
+  public function deleteMany($ids, $seminar_names);
 
-  public function deleteAll($role, $except_ids);
+  public function deleteAll($role, $except_ids, $seminar_names);
 }

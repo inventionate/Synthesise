@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Synthesise\Seminar;
 use Synthesise\Section;
+use Synthesise\User;
 use Auth;
 
 /**
@@ -55,6 +56,26 @@ class SeminarRepository implements SeminarInterface
 
         $seminar->save();
 
+    }
+
+    /**
+     * Delete seminar.
+     *
+     * @param   string  $name
+     */
+    public function delete($name) {
+
+        $seminar = Seminar::findOrFail($name);
+
+        $users = $seminar->users()->get();
+
+        // $users->filter()
+
+        $users = User::withCount('seminars')->get();
+
+        dd($users);
+
+        // $seminar->delete();
     }
 
     /**

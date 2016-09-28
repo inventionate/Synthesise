@@ -1,3 +1,13 @@
+<div class="ui info message">
+    <div class="header">
+        Informationen zum »root«-User
+    </div>
+
+    <p>
+        Der »root«-User wird während des Installationsvorgangs eingerichtet. Sie können lediglich das Passwort verändern. Beim »root«-User handelt es sich um einen Super-User, der die Rechte hat alle Inhalte zu verändern. Dieser Status wurd durch den Spion symbolisiert. Andere Administratoren werde durch ein Doktorsymbol gekennzeichnet und können beliebig konfiguriert werden. 
+    </p>
+</div>
+
 <div class="ui four stackable cards">
 
     @foreach( $admins as $admin )

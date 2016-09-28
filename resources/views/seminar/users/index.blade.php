@@ -38,7 +38,7 @@
     </div>
 @endif
 
-<h2>Dozent/innen</h2>
+<h2 class="ui header" id="manage-teachers">Dozent/innen</h2>
 
 <table id="teacher-user-table" class="ui @if( count($admins) + count($teachers) !== 1 ) definition @endif teal table">
   <thead class="full-width">
@@ -121,17 +121,22 @@
           <i class="user icon"></i> Dozent/in hinzufügen
         </div>
 
-        <form id="teacher-user-delete-many" role="form" method="POST" action="{{ action('UserController@destroyMany') }}">
+        <form id="teacher-user-delete-many" role="form" method="POST" action="{{ action('UserController@destroyMany', ['seminar_names' => $seminar_name]) }}">
 
             {{ method_field('DELETE') }}
 
             {{ csrf_field() }}
 
+            <div class="field hide">
+                <label for="role">Rolle</label>
+                <input name="role" ref="role" value="Teacher">
+            </div>
+
             <button class="ui small red button disabled delete-many" type="submit">Löschen</i></button>
 
         </form>
 
-        <form id="teacher-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Teacher', 'except_ids' => Auth::user()->id]) }}">
+        <form id="teacher-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Teacher', 'except_ids' => Auth::user()->id, 'seminar_names' => $seminar_name]) }}">
 
             {{ method_field('DELETE') }}
 
@@ -147,7 +152,7 @@
 </table>
 
 
-<h2>Mentor/innen</h2>
+<h2 class="ui header" id="manage-mentors">Mentor/innen</h2>
 
 <table id="mentor-user-table" class="ui @if( count($mentors) !== 0 ) definition @endif orange table">
   <thead class="full-width">
@@ -208,6 +213,11 @@
 
             {{ csrf_field() }}
 
+            <div class="field hide">
+                <label for="role">Rolle</label>
+                <input name="role" ref="role" value="Mentor">
+            </div>
+
             <button class="ui small red button disabled delete-many" type="submit">Löschen</i></button>
 
         </form>
@@ -228,7 +238,7 @@
 </table>
 
 
-<h2>Student/innen</h2>
+<h2 class="ui header" id="manage-students">Student/innen</h2>
 
 <table id="student-user-table"  class="ui @if( count($students) !== 0 ) definition @endif green table">
   <thead class="full-width">
@@ -283,6 +293,11 @@
           {{ method_field('DELETE') }}
 
           {{ csrf_field() }}
+
+          <div class="field hide">
+              <label for="role">Rolle</label>
+              <input name="role" ref="role" value="Student">
+          </div>
 
           <button class="ui small red button disabled delete-many" type="submit">Löschen</i></button>
 

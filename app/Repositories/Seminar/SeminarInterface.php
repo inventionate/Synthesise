@@ -8,6 +8,8 @@ interface SeminarInterface
 
   public function store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
 
+  public function delete($name);
+
   public function getAllWithUserCount();
 
   public function getAuthorizedEditors($name);

@@ -202,23 +202,43 @@ class UserRepository implements UserInterface
    * @param         int $id
    *
    */
-  public function delete($id)
-  {
-      // Find and delete User.
-      User::findOrFail($id)->delete();
-  }
+   public function delete($id)
+    {
+        // Find User.
+        $user = User::findOrFail($id);
 
-  /**
-   * Delete many Users.
-   *
-   * @param         int $ids
-   *
-   */
-  public function deleteMany($ids)
-  {
-      // Find and delete Users.
-      User::whereIn('id', $ids)->delete();
-  }
+        // Detach relations.
+        $user->seminars()->detach();
+
+        // Delete user.
+        $user->delete();
+    }
+
+    /**
+     * Delete many Users.
+     *
+     * @param         int $ids
+     *
+     */
+    public function deleteMany($ids, $seminar_names)
+    {
+
+        // Find and delete Users.
+        $users = User::whereIn('id', $ids)->withCount('seminars')->get();
+
+        // Detach from seminar.
+        foreach ( $users as $user )
+        {
+            // Remove relation.
+            $user->seminars()->detach($seminar_names);
+
+            // If only one relation delete user.
+            if( $user->seminars_count === 1)
+            {
+                $user->delete();
+            }
+        }
+    }
 
   /**
    * Delete all User of a specific role.
@@ -226,10 +246,23 @@ class UserRepository implements UserInterface
    * @param         int $id
    *
    */
-  public function deleteAll($role, $except_ids)
+  public function deleteAll($role, $except_ids, $seminar_names)
   {
     // Find and delete Users.
-    User::where('role', $role)->whereNotIn('id', [$except_ids])->delete();
+    $users = User::where('role', $role)->whereNotIn('id', [$except_ids])->withCount('seminars')->get();
+
+    // Detach from seminar.
+    foreach ( $users as $user )
+    {
+        // Remove relation.
+        $user->seminars()->detach($seminar_names);
+
+        // If only one relation delete user.
+        if( $user->seminars_count === 1)
+        {
+            $user->delete();
+        }
+    }
   }
 
 }

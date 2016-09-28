@@ -223,6 +223,25 @@ if( $('#main-content-dashboard')[0] )
         // Set password
         $('#admin-edit-modal').find('input[name="password"]').val( admin_password );
 
+        // Disable root user attributes
+        var root_user;
+
+        if ( admin_username === 'root' )
+        {
+            root_user = true;
+        }
+        else {
+            root_user = false;
+        }
+
+        $('#admin-edit-modal').find('input[name="username"]').prop( 'disabled', root_user );
+
+        // Set firstname
+        $('#admin-edit-modal').find('input[name="firstname"]').prop( 'disabled', root_user );
+
+        // Set lastname
+        $('#admin-edit-modal').find('input[name="lastname"]').prop( 'disabled', root_user );
+
     });
 
 

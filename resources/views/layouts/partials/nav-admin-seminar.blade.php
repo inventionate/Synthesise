@@ -26,7 +26,7 @@
 
     <div class="item">
 
-        <form id="seminar-delete" role="form" method="POST" action="{{ action('SeminarController@destroy', ['name', $seminar_name]) }}">
+        <form id="seminar-delete" role="form" method="POST" action="{{ action('SeminarController@destroy', ['name' => $seminar_name]) }}">
 
             {{ method_field('DELETE') }}
 

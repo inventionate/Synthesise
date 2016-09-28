@@ -20,7 +20,7 @@
 
                 </div>
 
-                @if ( Auth::user()->role === 'Admin' )
+                @if ( in_array(Auth::user()->role, ['Admin', 'Teacher']) )
 
                     <div id="admin-actions" class="ui fixed tiny secondary menu">
 

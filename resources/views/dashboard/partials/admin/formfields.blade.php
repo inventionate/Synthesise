@@ -5,7 +5,7 @@
 </div>
 
 <div class="field hide">
-    <label for="role">Student</label>
+    <label for="role">Administrator/in</label>
     <input name="role" ref="role" value="Admin">
 </div>
 

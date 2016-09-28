@@ -26,7 +26,6 @@ require('./messages.js');
 require('./views/dashboard.js');
 require('./views/seminar.js');
 require('./views/faq.js');
-require('./views/user.js');
 
 /*
  * Vue JS Framework.
