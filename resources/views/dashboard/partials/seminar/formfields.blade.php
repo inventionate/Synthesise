@@ -24,7 +24,7 @@
 
 <div class="required field">
     <label for="description">Beschreibung</label>
-    <textarea name="description" placeholder="Bitte geben Sie eine kurze Beschreibung ein." ref="description" maxlength="500"></textarea>
+    <textarea name="description" placeholder="Bitte geben Sie eine kurze Beschreibung ein." ref="description" maxlength="500" rows="3"></textarea>
 </div>
 
 <div class="required field">

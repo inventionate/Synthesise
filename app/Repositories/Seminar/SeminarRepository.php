@@ -14,6 +14,19 @@ class SeminarRepository implements SeminarInterface
 {
 
     /**
+     * Get seminar.
+     *
+     * @param   string      $name
+     *
+     * @return  collection
+     */
+    public function get($name) {
+
+        return Seminar::findOrFail($name);
+
+    }
+
+    /**
      * Store a new Seminar.
      *
      * @param     string    $title

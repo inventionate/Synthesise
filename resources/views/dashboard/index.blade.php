@@ -22,7 +22,7 @@
 </div>
 @endif
 
-<div class="fourteen wide centered column">
+<div class="sixteen wide centered column">
 
 	<h2 class="ui horizontal divider header">
 	  <i class="university icon"></i>

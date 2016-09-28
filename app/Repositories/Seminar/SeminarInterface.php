@@ -6,28 +6,30 @@
 interface SeminarInterface
 {
 
-  public function store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
+    public function get($name);
 
-  public function delete($name);
+    public function store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
 
-  public function getAllWithUserCount();
+    public function delete($name);
 
-  public function getAuthorizedEditors($name);
+    public function getAllWithUserCount();
 
-  public function authorizedEditor($name);
+    public function getAuthorizedEditors($name);
 
-  public function authorizedMentor($name);
+    public function authorizedEditor($name);
 
-  public function getCurrentLection($name);
+    public function authorizedMentor($name);
 
-  public function getAllSections($name);
+    public function getCurrentLection($name);
 
-  public function getAllLections($name);
+    public function getAllSections($name);
 
-  public function getAllMessages($name);
+    public function getAllLections($name);
 
-  public function getCurrentPaper($name);
+    public function getAllMessages($name);
 
-  public function getAllUsersByRole($name, $role);
+    public function getCurrentPaper($name);
+
+    public function getAllUsersByRole($name, $role);
 
 }

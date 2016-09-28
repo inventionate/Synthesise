@@ -6,11 +6,11 @@
 @stop
 
 @section('content')
-<main id="main-content-seminar-users" class="ui centered page grid">
+<main id="main-content-seminar-users" class="ui grid container">
 
     <div class="fourteen wide column">
 
-    <h1>
+    <h1 class="ui header">
         Teilnehmer/innen verwalten
     </h1>
 

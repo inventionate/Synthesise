@@ -28,7 +28,7 @@ class SeminarController extends Controller
 	public function index($name)
 	{
 
-		// Get authorized users.
+        // Get authorized users.
 		$authorized_editors = Seminar::getAuthorizedEditors($name);
 
         // Get all messages.
@@ -102,7 +102,7 @@ class SeminarController extends Controller
      */
     public function destroy($name)
     {
-        
+
         Seminar::delete($name);
 
         return redirect('/')->withInput();
@@ -146,12 +146,15 @@ class SeminarController extends Controller
     public function settings($name)
     {
 
+        // Get Seminar.
+        $seminar = Seminar::get($name);
+
         // Get all sections.
         $sections = Seminar::getAllSections($name);
 
-
         return view('seminar.settings')
                                     ->with('seminar_name', $name)
+                                    ->with('seminar', $seminar)
                                     ->with('sections', $sections);
     }
 }
