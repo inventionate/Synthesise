@@ -43,44 +43,43 @@
 
 <div class="required fields">
 
-<div class="field">
-    <label for="available_from">Verfügbar ab</label>
-    <div class="ui calendar">
-        <div class="ui input left icon">
-            <i class="calendar icon"></i>
-            <input name="available_from" type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_from">
-        </div>
-    </div>
-</div>
-
-<div class="field">
-    <label for="available_to">Verfügbar bis</label>
-    <div class="ui calendar">
-        <div class="ui input left icon">
-            <i class="calendar icon"></i>
-            <input name="available_to" type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_to">
-        </div>
-    </div>
-</div>
-
-</div>
-
-<div class="ui form">
     <div class="field">
+        <label for="available_from">Verfügbar ab</label>
+        <div class="ui calendar">
+            <div class="ui input left icon">
+                <i class="calendar icon"></i>
+                <input name="available_from" type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_from">
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <label for="available_to">Verfügbar bis</label>
+        <div class="ui calendar">
+            <div class="ui input left icon">
+                <i class="calendar icon"></i>
+                <input name="available_to" type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_to">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="field">
         <label for="authorized_users">Benutzer, die das Seminar administrieren dürfen</label>
 
         <div class="ui info message">
             Die Person, die das Seminar erstellt, ist automatisch Administrator/in.
         </div>
 
-        <select name="authorized_users[]" ref="authorized_users" multiple="" class="ui dropdown">
+        <select name="authorized_users[]" ref="authorized_users" multiple class="ui dropdown">
 
         <option value="">Zusätzliche Administrator/in oder Lehrperson auswählen</option>
 
         @foreach( $admins as $admin )
 
             @if( $admin->username !== Auth::user()->username &&  $admin->username !== 'root')
-                <option value="{{ $admin->username }}">{{ $admin->firstname }} {{ $admin->lastname }}</option>
+                <option value="{{ $admin->username }}">{{ $admin->firstname }} {{ $admin->lastname }} ({{ $admin->username }})</option>
             @endif
 
         @endforeach
@@ -88,11 +87,10 @@
         @foreach( $teachers as $teacher )
 
             @if( $teacher->username !== Auth::user()->username )
-                <option value="{{ $teacher->username }}">{{ $teacher->firstname }} {{ $teacher->lastname }}</option>
+                <option value="{{ $teacher->username }}">{{ $teacher->firstname }} {{ $teacher->lastname }} ({{ $teacher->username }})</option>
             @endif
 
         @endforeach
 
     </select>
-  </div>
 </div>

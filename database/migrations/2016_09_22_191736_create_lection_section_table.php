@@ -16,7 +16,6 @@ class CreateLectionSectionTable extends Migration
             $table->increments('id');
             $table->string('lection_name', 128);
             $table->string('section_name', 128);
-            $table->timestamps();
         });
     }
 

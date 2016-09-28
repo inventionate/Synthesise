@@ -28,14 +28,20 @@
     </div>
     <div class="field">
         <div class="radio checkbox">
-            <input name="role" type="radio" value="Teacher">
-            <label>Teacher</label>
+            <input name="role" type="radio" value="Mentor">
+            <label>Mentor</label>
         </div>
     </div>
     <div class="field">
         <div class="radio checkbox">
-            <input name="role" type="radio" value="Admin">
-            <label>Admin</label>
+            <input name="role" type="radio" value="Teacher">
+            <label>Teacher</label>
         </div>
     </div>
+</div>
+
+<div class="field">
+    <label for="seminar_names" class="hide">Seminarname</label>
+    <input name="seminar_names[]" ref="seminar_names"
+    type="text" value="{{ $seminar_name }}" class="hide">
 </div>

@@ -16,7 +16,6 @@ class CreateSeminarUserTable extends Migration
             $table->increments('id');
             $table->string('seminar_name', 256);
             $table->integer('user_id');
-            $table->timestamps();
         });
     }
 

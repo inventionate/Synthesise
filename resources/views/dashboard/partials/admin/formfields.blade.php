@@ -25,3 +25,16 @@
       <label for="password">Password</label>
       <input name="password" ref="password" type="password" placeholder="Bitte geben Sie ein Passwort ein.">
 </div>
+
+<div class="field">
+    <label for="seminar_names" class="hide">Seminarnamen</label>
+    <select name="seminar_names[]" ref="seminar_names" multiple class="hide">
+
+        @foreach ($seminars as $seminar)
+
+            <option value="{{ $seminar->name }}" selected>{{ $seminar->name }}</option>
+
+        @endforeach
+
+</select>
+</div>

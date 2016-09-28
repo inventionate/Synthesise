@@ -126,13 +126,14 @@ class UserRepository implements UserInterface
   /**
    * Store User.
    *
-   * @param 		string username
-   * @param 		string role
-   * @param 		string firstname
-   * @param 		string lastname
-   * @param 		string password
+   * @param 	string username
+   * @param 	string role
+   * @param 	string firstname
+   * @param 	string lastname
+   * @param 	string password
+   * @param     array seminar_names
    */
-  public function store($username, $role, $firstname, $lastname, $password)
+  public function store($username, $role, $firstname, $lastname, $password, $seminar_names)
   {
 
     // Neue Nachrichteninstanz generieren
@@ -154,6 +155,13 @@ class UserRepository implements UserInterface
     }
 
     $user->save();
+
+    // Attach to seminar.
+
+    foreach ( $seminar_names as $seminar_name )
+    {
+        $user->seminars()->attach($seminar_name);
+    }
 
   }
 

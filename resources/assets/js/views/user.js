@@ -1,31 +1,5 @@
-if( $('#main-content-user')[0] )
+if( $('#main-content-seminar-users')[0] )
 {
-
-    /*
-     * Setup Message JS Validator.
-     */
-
-     // Init basic validation rules.
-    //  var rules = {
-    //      username: {
-    //          rules: [
-    //              {
-    //                  type    : 'empty',
-    //                  prompt  : 'Bitte einen LSF Account eingeben.'
-    //              }
-    //          ]
-    //      }
-    //  };
-
-    // Attach message modal validation.
-    //  $('.user-validator')
-    //      .form({
-    //          inline: true,
-    //          onSuccess: function() {
-    //              $(this).modal('hide');
-    //          },
-    //          fields: rules
-    //      });
 
     /*
      * Create new message resource form.
@@ -49,11 +23,11 @@ if( $('#main-content-user')[0] )
         var  role_val;
 
         switch(role) {
-            case "Administrator/in hinzufügen":
-                role_val = "Admin";
+            case "Dozent/in hinzufügen":
+                role_val = "Teacher";
                 break;
             case "Mentor/in hinzufügen":
-                role_val = "Teacher";
+                role_val = "Mentor";
                 break;
             case "Student/in hinzufügen":
                 role_val = "Student";
@@ -68,7 +42,7 @@ if( $('#main-content-user')[0] )
     /*
      * Add User IDs for delete ADMINs.
      */
-    $('#admin-user-table input').change(function() {
+    $('#teacher-user-table input').change(function() {
 
         if( this.checked ) {
 
@@ -87,24 +61,24 @@ if( $('#main-content-user')[0] )
         /*
          * Handle delete button.
          */
-        var delete_button = $('#admin-user-table input:checked').length === 0;
+        var delete_button = $('#teacher-user-table input:checked').length === 0;
 
-        $('#admin-user-table button.delete-many').toggleClass('disabled', delete_button);
+        $('#teacher-user-table button.delete-many').toggleClass('disabled', delete_button);
 
     });
 
     /*
      * Show delete all admins warning.
      */
-    $('#admin-user-delete-all').submit(function( event ) {
+    $('#teacher-user-delete-all').submit(function( event ) {
 
         var form = this;
 
         event.preventDefault();
 
         swal({
-            title: "Alle Administartor/innen löschen?",
-            text: "Sie werden alle Administrator/innen – ausgenommen Ihnen selbst – für dieses Seminar löschen.",
+            title: "Alle Dozent/innen löschen?",
+            text: "Sie werden alle Dozent/innen – ausgenommen Ihnen selbst – für dieses Seminar löschen.",
             type: "warning",
             showCancelButton: true,
             cancelButtonText: "Abbrechen",

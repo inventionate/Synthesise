@@ -42,17 +42,21 @@ class UserController extends Controller
 
         $password = $request->password;
 
+        $seminar_names = $request->seminar_names;
+
         // Validation
         $fields = [
-            'username'  => $username_single,
-            'users'     => $users,
-            'role'      => $role
+            'username'      => $username_single,
+            'users'         => $users,
+            'role'          => $role,
+            'seminar_names'  => $seminar_names
         ];
 
         $rules = [
-            'username'  => 'unique:users|string',
-            'users'     => 'file',
-            'role'      => 'required|string'
+            'username'          => 'unique:users|string',
+            'users'             => 'file',
+            'role'              => 'required|string',
+            'seminar_names'     => 'required|array'
         ];
 
         // Usernames
@@ -98,7 +102,7 @@ class UserController extends Controller
         // User storage.
         if( $username_single !== "" ) {
 
-            User::store($username_single, $role, $firstname, $lastname, $password);
+            User::store($username_single, $role, $firstname, $lastname, $password, $seminar_names);
 
         }
 
@@ -108,7 +112,7 @@ class UserController extends Controller
 
             foreach ($usernames as $username) {
 
-                User::store($username, $role);
+                User::store($username, $role, $seminar_names);
 
             }
 

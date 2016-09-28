@@ -17,7 +17,7 @@ interface UserInterface
 
   public function getAllByRole($role);
 
-  public function store($username, $role, $firstname, $lastname, $password);
+  public function store($username, $role, $firstname, $lastname, $password, $seminar_names);
 
    public function update($id, $username, $role, $firstname, $lastname, $password);
 

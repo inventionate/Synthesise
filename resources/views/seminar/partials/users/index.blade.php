@@ -6,7 +6,7 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui centered page grid">
+<main id="main-content-seminar-users" class="ui centered page grid">
 
     <div class="fourteen wide column">
 
@@ -36,9 +36,9 @@
     </div>
 @endif
 
-<h2>Administrator/innen</h2>
+<h2>Dozent/innen</h2>
 
-<table id="admin-user-table" class="ui @if( count($teachers) != 1 ) definition @endif teal table">
+<table id="teacher-user-table" class="ui @if( count($teachers) != 1 ) definition @endif teal table">
   <thead class="full-width">
     <tr>
       @if( count($teachers) != 1 ) <th></th> @endif
@@ -49,11 +49,37 @@
     </tr>
   </thead>
     <tbody>
+
+        {{-- Show all admins, who can edit this seminar. --}}
+        @foreach ($admins as $admin)
+
+            <tr class="disabled">
+
+                @if( ( count($admins) + count($teachers) ) != 1 )
+                    <td></td>
+                @endif
+
+                <td>{{ $admin->username }}</td>
+
+                <td>{{ $admin->firstname . ' ' . $admin->lastname }}</td>
+
+                <td>{{ $admin->email }}</td>
+
+                <td class="center aligned">
+                    @if($admin->created_at != $admin->updated_at)
+                        <i class="large green checkmark icon"></i>
+                    @endif
+                </td>
+            </tr>
+
+        @endforeach
+
+        {{-- Show all teachers, who can edit this seminar. --}}
         @foreach ($teachers as $teacher)
 
             <tr @if( $teacher->username === Auth::user()->username ) class="disabled" @endif>
 
-                @if( count($teacher) != 1 )
+                @if( ( count($admins) + count($teachers) ) != 1 )
                     <td class="collapsing">
                         @if( $teacher->username != Auth::user()->username )
                             <div class="ui fitted slider checkbox">
@@ -81,15 +107,15 @@
   <tfoot class="full-width">
     <tr>
 
-      @if( count($teachers) != 1 ) <th></th> @endif
+      @if( ( count($admins) + count($teachers) ) != 1 ) <th></th> @endif
 
       <th colspan="4">
 
         <div class="ui right floated small primary labeled icon button user-new">
-          <i class="user icon"></i> Administrator/in hinzufügen
+          <i class="user icon"></i> Dozent/in hinzufügen
         </div>
 
-        <form id="admin-user-delete-many" role="form" method="POST" action="{{ action('UserController@destroyMany') }}">
+        <form id="teacher-user-delete-many" role="form" method="POST" action="{{ action('UserController@destroyMany') }}">
 
             {{ method_field('DELETE') }}
 
@@ -99,7 +125,7 @@
 
         </form>
 
-        <form id="admin-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Admin', 'except_ids' => Auth::user()->id]) }}">
+        <form id="teacher-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Admin', 'except_ids' => Auth::user()->id]) }}">
 
             {{ method_field('DELETE') }}
 

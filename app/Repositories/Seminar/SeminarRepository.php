@@ -4,7 +4,6 @@ use Illuminate\Database\Eloquent\Model;
 
 use Synthesise\Seminar;
 use Synthesise\Section;
-use Synthesise\Lection;
 use Auth;
 
 /**

@@ -108,9 +108,9 @@ class SeminarController extends Controller
         // Get all sections.
         $sections = Seminar::getAllSections($name);
 
-        $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
+        $admins = Seminar::getAllUsersByRole($name, 'Admin');
 
-        // @TODO bei den Teachers in der Ansicht auch die Administratoren listen, die aber nicht gelöscht werden können!
+        $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
 
         $mentors = Seminar::getAllUsersByRole($name, 'Mentor');
 
@@ -119,6 +119,7 @@ class SeminarController extends Controller
         return view('seminar.partials.users.index')
                                         ->with('seminar_name', $name)
                                         ->with('sections', $sections)
+                                        ->with('admins', $admins)
                                         ->with('teachers', $teachers)
                                         ->with('mentors', $mentors)
                                         ->with('students', $students);

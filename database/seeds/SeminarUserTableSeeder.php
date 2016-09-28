@@ -17,22 +17,26 @@ class SeminarUserTableSeeder extends Seeder
         DB::table('seminar_user')->insert([
            'seminar_name' => 'Grundlagen pädagogischen Denkens und Handelns',
            'user_id' => 4,
-           'created_at' => Carbon\Carbon::now(),
-           'updated_at' => Carbon\Carbon::now(),
         ]);
 
         DB::table('seminar_user')->insert([
            'seminar_name' => 'Grundlagen pädagogischen Denkens und Handelns',
            'user_id' => 3,
-           'created_at' => Carbon\Carbon::now(),
-           'updated_at' => Carbon\Carbon::now(),
         ]);
 
         DB::table('seminar_user')->insert([
            'seminar_name' => 'Geschichte(n) und Theorien (früh-)kindlicher Bildung und Entwicklung',
            'user_id' => 4,
-           'created_at' => Carbon\Carbon::now(),
-           'updated_at' => Carbon\Carbon::now(),
+        ]);
+
+        DB::table('seminar_user')->insert([
+           'seminar_name' => 'Grundlagen pädagogischen Denkens und Handelns',
+           'user_id' => 1,
+        ]);
+
+        DB::table('seminar_user')->insert([
+           'seminar_name' => 'Geschichte(n) und Theorien (früh-)kindlicher Bildung und Entwicklung',
+           'user_id' => 1,
         ]);
 
     }
