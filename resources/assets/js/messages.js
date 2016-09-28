@@ -1,5 +1,6 @@
 if( $('#message-new')[0] )
 {
+
     /*
      * Setup Message WYSIWYG editor.
      */

@@ -116,13 +116,13 @@ class SeminarController extends Controller
 
         $students = Seminar::getAllUsersByRole($name, 'Student');
 
-        return view('seminar.partials.users.index')
-                                        ->with('seminar_name', $name)
-                                        ->with('sections', $sections)
-                                        ->with('admins', $admins)
-                                        ->with('teachers', $teachers)
-                                        ->with('mentors', $mentors)
-                                        ->with('students', $students);
+        return view('seminar.users.index')
+                                    ->with('seminar_name', $name)
+                                    ->with('sections', $sections)
+                                    ->with('admins', $admins)
+                                    ->with('teachers', $teachers)
+                                    ->with('mentors', $mentors)
+                                    ->with('students', $students);
     }
 
     /**

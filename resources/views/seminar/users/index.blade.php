@@ -16,10 +16,12 @@
 
     <div class="ui warning message">
         <div class="header">
-            Es wird lediglich das Hinzufügen von LSF Accounts unterstützt!
+            Es können nur LSF Accounts hinzugefügt werden!
         </div>
         <p>
-            Im Moment unterstützt die App lediglich das Hinzufügen von LSF Accounts über deren Benutzernamen. <b>Beim erstmaligen Anmelden werden diese authentifiziert und verifiziert. Danach werden hier alle Informationen angezeigt.</b> Eine komplette Benutzerverwaltung ist für die kommende Version vorgesehen.
+            Im Moment unterstützt die App lediglich das Hinzufügen von LSF Accounts über deren Benutzernamen. Entweder geben Sie jeden Namen einzeln ein oder laden eine Stud.IP 3 CSV Datei hoch. Diese können Sie über die <a href="http://docs.studip.de/help/3.5/de/Basis/VeranstaltungenVerwaltenTeilnehmer" target="_blank">Stud.IP 3 Teilnehmerverwaltung</a> exportieren.
+            <br>
+            <b>Die Verifikation erfolgt erst wenn die Benutzer/innen sich das erste Mal anmelden.</b> Danach können Sie den Namen und die E-Mail Adresse hier einsehen. Eine komplette Benutzerverwaltung ist für die kommende Version vorgesehen.
         </p>
     </div>
 
@@ -38,10 +40,12 @@
 
 <h2>Dozent/innen</h2>
 
-<table id="teacher-user-table" class="ui @if( count($teachers) != 1 ) definition @endif teal table">
+<table id="teacher-user-table" class="ui @if( count($admins) + count($teachers) !== 1 ) definition @endif teal table">
   <thead class="full-width">
     <tr>
-      @if( count($teachers) != 1 ) <th></th> @endif
+      @if( count($admins) + count($teachers) !== 1 )
+          <th></th>
+      @endif
       <th>LSF Account</th>
       <th>Name</th>
       <th>E-Mail Adresse</th>
@@ -55,7 +59,7 @@
 
             <tr class="disabled">
 
-                @if( ( count($admins) + count($teachers) ) != 1 )
+                @if( ( count($admins) + count($teachers) ) !== 1 )
                     <td></td>
                 @endif
 
@@ -79,7 +83,7 @@
 
             <tr @if( $teacher->username === Auth::user()->username ) class="disabled" @endif>
 
-                @if( ( count($admins) + count($teachers) ) != 1 )
+                @if( ( count($admins) + count($teachers) ) !== 1 )
                     <td class="collapsing">
                         @if( $teacher->username != Auth::user()->username )
                             <div class="ui fitted slider checkbox">
@@ -93,7 +97,7 @@
 
                 <td>{{ $teacher->firstname . ' ' . $teacher->lastname }}</td>
 
-                <td>{{ $teacher->email }}</td>
+                <td><a href="mailto:{{ $teacher->email }}">{{ $teacher->email }}</a></td>
 
                 <td class="center aligned">
                     @if($teacher->created_at != $teacher->updated_at)
@@ -107,7 +111,9 @@
   <tfoot class="full-width">
     <tr>
 
-      @if( ( count($admins) + count($teachers) ) != 1 ) <th></th> @endif
+      @if( ( count($admins) + count($teachers) ) !== 1 )
+          <th></th>
+      @endif
 
       <th colspan="4">
 
@@ -125,7 +131,7 @@
 
         </form>
 
-        <form id="teacher-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Admin', 'except_ids' => Auth::user()->id]) }}">
+        <form id="teacher-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Teacher', 'except_ids' => Auth::user()->id]) }}">
 
             {{ method_field('DELETE') }}
 
@@ -143,10 +149,12 @@
 
 <h2>Mentor/innen</h2>
 
-<table id="mentor-user-table" class="ui @if( count($mentors) != 0 ) definition @endif orange table">
+<table id="mentor-user-table" class="ui @if( count($mentors) !== 0 ) definition @endif orange table">
   <thead class="full-width">
     <tr>
-      @if( count($mentors) != 0 ) <th></th> @endif
+      @if( count($mentors) !== 0 )
+          <th></th>
+      @endif
       <th>LSF Account</th>
       <th>Name</th>
       <th>E-Mail Adresse</th>
@@ -158,7 +166,7 @@
 
             <tr>
 
-                @if( count($mentors) != 0 )
+                @if( count($mentors) !== 0 )
                     <td class="collapsing">
                         <div class="ui fitted slider checkbox">
                             <input type="checkbox" value="{{$mentor->id}}">
@@ -170,7 +178,7 @@
 
                 <td>{{ $mentor->firstname . ' ' . $mentor->lastname }}</td>
 
-                <td>{{ $mentor->email }}</td>
+                <td><a href="mailto:{{ $mentor->email }}">{{ $mentor->email }}</a></td>
 
                 <td class="center aligned">
                     @if($mentor->created_at != $mentor->updated_at)
@@ -184,7 +192,9 @@
   <tfoot class="full-width">
     <tr>
 
-      @if( count($mentors) != 0 ) <th></th> @endif
+      @if( count($mentors) !== 0 )
+          <th></th>
+      @endif
 
       <th colspan="4">
 
@@ -202,7 +212,7 @@
 
         </form>
 
-        <form id="mentor-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Teacher', 'except_ids' => Auth::user()->id]) }}">
+        <form id="mentor-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Mentor', 'except_ids' => Auth::user()->id]) }}">
 
             {{ method_field('DELETE') }}
 
@@ -220,10 +230,10 @@
 
 <h2>Student/innen</h2>
 
-<table id="student-user-table"  class="ui @if( count($students) != 0 ) definition @endif green table">
+<table id="student-user-table"  class="ui @if( count($students) !== 0 ) definition @endif green table">
   <thead class="full-width">
     <tr>
-      @if( count($students) != 0 ) <th></th> @endif
+      @if( count($students) !== 0 ) <th></th> @endif
       <th>LSF Account</th>
       <th>Name</th>
       <th>E-Mail Adresse</th>
@@ -235,7 +245,7 @@
 
             <tr>
 
-                @if( count($students) != 0 )
+                @if( count($students) !== 0 )
                     <td class="collapsing">
                         <div class="ui fitted slider checkbox">
                             <input type="checkbox" value="{{$student->id}}">
@@ -247,7 +257,7 @@
 
                 <td>{{ $student->firstname . ' ' . $student->lastname }}</td>
 
-                <td>{{ $student->email }}</td>
+                <td><a href="mailto:{{ $student->email }}">{{ $student->email }}</a></td>
 
                 <td class="center aligned">
                     @if($student->created_at != $student->updated_at)
@@ -261,7 +271,7 @@
   <tfoot class="full-width">
     <tr>
 
-      @if( count($students) != 0 ) <th></th> @endif
+      @if( count($students) !== 0 ) <th></th> @endif
 
       <th colspan="4">
         <div class="ui right floated small primary labeled icon button user-new">
@@ -297,10 +307,16 @@
 
 </main>
 
-{{-- Include Modals for create and edit users. --}}
-@if ( Auth::user()->role === 'Admin' )
+{{-- @include ADMIN BACKEND --------------------------------------------------}}
+@if( Seminar::authorizedEditor($seminar_name) )
 
-    @include('seminar.partials.users.create')
+    {{-- Load create and edit Modals --}}
+
+    @include('seminar.users.create')
+
+    @include('seminar.messages.create')
+
+    @include('seminar.messages.edit')
 
 @endif
 

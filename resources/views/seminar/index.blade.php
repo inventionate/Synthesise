@@ -5,19 +5,21 @@
 
 @section('content')
 
-<main id="main-content-dashboard" class="ui stackable page grid">
+<main id="main-content-seminar" class="ui container grid">
 
 	<h1 class="hide">Seminar Dashboard</h1>
 
 	<div class="one column row">
 		<div class="column">
 
-			@include('seminar.partials.messages.index')
+			@include('seminar.messages.index')
 
 		</div>
 	</div>
 
-	<div class="ui section divider"></div>
+	@if ( count($messages) !== 0  )
+		<div class="ui section divider"></div>
+	@endif
 
 	<div class="two column row">
 		<div class="column">
@@ -50,13 +52,13 @@
 </main>
 
 	{{-- @include ADMIN BACKEND --------------------------------------------------}}
-	@if( Auth::user()->role === 'Admin' || Auth::user()->role === 'Teacher')
+	@if( Seminar::authorizedEditor($seminar_name) )
 
 		{{-- Load create and edit Modals --}}
 
-		@include('seminar.partials.messages.create')
+		@include('seminar.messages.create')
 
-		@include('seminar.partials.messages.edit')
+		@include('seminar.messages.edit')
 
 	@endif
 @stop

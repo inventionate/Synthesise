@@ -1,16 +1,14 @@
-<form role="form" method="POST" action="{{ url('message') }}" id="message-edit-modal" class="ui modal form message-validator">
-
-    {{ method_field('PATCH') }}
+<form role="form" method="POST" action="{{ action('MessageController@store') }}" id="message-new-modal" class="ui modal form message-validator">
 
     {{ csrf_field() }}
 
     <div class="header">
-        Nachricht bearbeiten
+        Neue Nachricht
     </div>
 
     <div class="content">
 
-        @include('seminar.partials.messages.formfields')
+        @include('seminar.messages.formfields')
 
     </div>
 
@@ -21,7 +19,7 @@
         </div>
 
         <div class="ui right green labeled submit icon button">
-            Aktualisieren
+            Erstellen
             <i class="checkmark icon"></i>
         </div>
 
