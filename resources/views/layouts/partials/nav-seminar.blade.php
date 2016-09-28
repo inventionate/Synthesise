@@ -29,6 +29,6 @@
     </div>
 </div>
 
-<a class="item @if ( Request::segment(1) === 'hgf' ) active @endif" href="{{ route('faq') }}">Häufig gestellte Fragen</a>
+<a class="item @if ( urldecode(Request::segment(2)) === $seminar_name && Request::segment(3) === 'faq' ) active @endif" href="{{ route('seminar-faqs', ['name' => $seminar_name]) }}">Häufig gestellte Fragen</a>
 
 <a class="item @if ( Request::is('kontakt') ) active @endif" href="{{ route('kontakt') }}">Kontakt</a>

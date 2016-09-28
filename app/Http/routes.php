@@ -89,6 +89,12 @@ Route::group(['prefix' => 'seminar'], function () {
         'uses' => 'SeminarController@settings',
     ]);
 
+    // FAQ Index
+    Route::get('/{name}/faq/{letter?}', [
+        'as' => 'seminar-faqs',
+        'uses' => 'SeminarController@faqs',
+    ])
+    ->where('letter', '[A-Z]{1,1}');
 
 });
 
@@ -141,33 +147,6 @@ Route::post('online-lektionen/{videoname}/{sequenceNumber}/postnotes', [
 ])
 ->where('sequenceNumber', '[0-9]+');
 
-/*
-|-------------------------------------------------------------------------------
-| FAQ
-|-------------------------------------------------------------------------------
-*/
-
-// Index
-Route::get('faq/{letter?}', [
-    'as' => 'faq',
-    'uses' => 'FaqController@index',
-])
-->where('letter', '[A-Z]{1,1}');
-
-// Store FAQ
-Route::post('faq', [
-    'uses' => 'FaqController@store',
-]);
-
-// Update FAQ
-Route::match(['put', 'patch'], 'faq/{id}', [
-    'uses' => 'FaqController@update',
-]);
-
-// Remove FAQ
-Route::delete('faq/{id}', [
-    'uses' => 'FaqController@destroy',
-]);
 
 /*
 |-------------------------------------------------------------------------------
@@ -263,4 +242,25 @@ Route::delete('deletemanyusers', [
 // Remove All Users
 Route::delete('deleteallusers', [
     'uses' => 'UserController@destroyAll',
+]);
+
+/*
+|-------------------------------------------------------------------------------
+| FAQ control
+|-------------------------------------------------------------------------------
+*/
+
+// Store FAQ
+Route::post('faq', [
+    'uses' => 'FaqController@store',
+]);
+
+// Update FAQ
+Route::match(['put', 'patch'], 'faq/{id}', [
+    'uses' => 'FaqController@update',
+]);
+
+// Remove FAQ
+Route::delete('faq/{id}', [
+    'uses' => 'FaqController@destroy',
 ]);

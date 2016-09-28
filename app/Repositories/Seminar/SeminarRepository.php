@@ -6,6 +6,7 @@ use Synthesise\Seminar;
 use Synthesise\Section;
 use Synthesise\User;
 use Auth;
+use File;
 
 /**
  * User Repository mit Queries und Logik.
@@ -63,10 +64,59 @@ class SeminarRepository implements SeminarInterface
         $seminar->module = $module;
         $seminar->description = $description;
         $seminar->image_path = $image_path;
-        $seminar->available_from = $available_from;
-        $seminar->available_to = $available_to;
+        $seminar->available_from = date('Y-m-d', strtotime($available_from));
+        $seminar->available_to = date('Y-m-d', strtotime($available_to));
         $seminar->authorized_editors = $authorized_users;
 
+        $seminar->save();
+
+    }
+
+    /**
+     * Update a Seminar.
+     *
+     * @param     string    $title
+     * @param     string    $author
+     * @param     string    $subject
+     * @param     string    $module
+     * @param     string    $description
+     * @param     image     $image
+     * @param     date      $available_from
+     * @param     date      $available_to
+     *
+     */
+    public function update($title, $author, $subject, $module, $description, $image, $available_from, $available_to)
+    {
+
+        // Find Seminar.
+        $seminar = Seminar::findOrFail($title);
+
+        // Update values.
+        $seminar->author = $author;
+        $seminar->subject = $subject;
+        $seminar->module = $module;
+        $seminar->description = $description;
+        $seminar->available_from = date('Y-m-d', strtotime($available_from));
+        $seminar->available_to = date('Y-m-d', strtotime($available_to));
+
+        // Check new image.
+        if( $image !== null )
+        {
+            // Remove old image.
+            if ( Seminar::where('image_path', $seminar->image_path)->count() === 1 )
+            {
+                File::delete(public_path($seminar->image_path));
+            }
+
+            // Save new image.
+            $image_saved = $image->move(public_path('img/seminars/'), md5_file($image) . '.' . $image->getClientOriginalExtension());
+
+            $image_path = 'img/seminars/' . $image_saved->getFilename();
+
+            $seminar->image_path = $image_path;
+        }
+
+        // Save updated Seminar.
         $seminar->save();
 
     }

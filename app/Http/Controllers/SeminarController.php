@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Seminar;
 use Lection;
 use User;
+use FAQ;
+use JavaScript;
 
 class SeminarController extends Controller
 {
@@ -96,6 +98,42 @@ class SeminarController extends Controller
     }
 
     /**
+     * Update a Seminar.
+     *
+     * @param  Request  $request
+     *
+     * @return Redirect
+     */
+    public function update(Request $request, $name)
+    {
+
+        // Validation
+        $this->validate($request, [
+            'author' => 'required|string',
+            'subject' => 'required|string',
+            'module' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'image',
+            'available_from' => 'required|date',
+            'available_to' => 'required|date',
+        ]);
+
+        $title = $name;
+        $author = $request->author;
+        $subject = $request->subject;
+        $module = $request->module;
+        $description = $request->description;
+        $image = $request->file('image');
+        $available_from = $request->available_from;
+        $available_to = $request->available_to;
+
+        Seminar::update($title, $author, $subject, $module, $description, $image, $available_from, $available_to);
+
+        return back()->withInput();
+
+    }
+
+    /**
      * Deletes seminar.
      *
      * @return Redirect
@@ -157,4 +195,48 @@ class SeminarController extends Controller
                                     ->with('seminar', $seminar)
                                     ->with('sections', $sections);
     }
+
+    /**
+     * List all FAQs.
+     * @info:   Use parameters for filter and search the list in strict REST!
+     *
+     * @param string $letter
+     *
+     * @return View
+     */
+    public function faqs($name, $letter = null)
+    {
+
+        // Get Seminar name
+        $seminar_name = $name;
+
+        // Get all sections.
+        $sections = Seminar::getAllSections($name);
+
+        // Get all FAQs.
+        $answers = FAQ::getAll();
+
+        // Get all FAQ letters.
+        $letters = FAQ::getLetters();
+
+        // Get all FAQ subjects.
+        $subjects = FAQ::getSubjects();
+
+        // Get all Subjects by letter.
+        $answersByLetter = FAQ::getByLetter($letter);
+
+        // Push subjetcs to JavaScript.
+        JavaScript::put([
+            'subjects' => $subjects
+        ]);
+
+        return view('seminar.faq.index')
+                                ->with('seminar_name', $seminar_name)
+                                ->with('sections', $sections)
+                                ->with('answersByLetter', $answersByLetter)
+                                ->with('letter', $letter)
+                                ->with('letters', $letters)
+                                ->with('answers', $answers);
+    }
+
 }

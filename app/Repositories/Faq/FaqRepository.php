@@ -34,16 +34,14 @@ class FaqRepository implements FaqInterface
   }
 
   /**
-   * Gibt die jeweiligen Bereiche (Anfangsbuchstaben) zurück.
+   * Collection of dictinct areas
    *
-   * @return 		string Alle vorhandenen Buchstabenbereiche.
+   * @return    collection
    */
   public function getLetters()
   {
-      # String aller Buchstaben
-      $letters = preg_replace('/(.)(?=.*?\1)/', '', implode('', FAQ::lists('area')->sort()->toArray()));
 
-      return $letters;
+      return FAQ::select('area')->distinct()->get()->sort();
   }
 
   /**
@@ -62,23 +60,28 @@ class FaqRepository implements FaqInterface
   /**
    * Store FAQ.
    *
+   * @param 		string $seminar_name
    * @param 		string subject
    * @param 		string question
    * @param 		string answer
    */
-  public function store($subject, $question, $answer)
+  public function store($seminar_name, $subject, $question, $answer)
   {
 
-    // Neue Nachrichteninstanz generieren
+    // Neue FAQ.
     $faq = new FAQ;
 
+    // Generate area.
     $area = strtoupper(substr($subject, 0,1));
 
+    // Add attributes.
+    $faq->seminar_name = $seminar_name;
     $faq->area = $area;
     $faq->subject = $subject;
     $faq->question = $question;
     $faq->answer = $answer;
 
+    // Save FAQ.
     $faq->save();
 
   }
@@ -114,7 +117,7 @@ class FaqRepository implements FaqInterface
    *
    * @return 		array Alle vorhandenen Buchstabenbereiche.
    */
-  public function destroy($id)
+  public function delete($id)
   {
       // Find and delete FAQ.
       FAQ::find($id)->delete();

@@ -21,8 +21,6 @@ class UserController extends Controller
         $this->middleware(['auth', 'admin']);
     }
 
-
-
     /**
      * Redirect by role.
      *

@@ -1,33 +1,31 @@
 @extends('layouts.default')
 
 @section('title')
-  <title>Erziehungswissenschaftliche Grundfragen –
-  Häufig gestellte Fragen</title>
+  <title>e:t:p:M – Seminar HGF</title>
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui centered page grid">
+<main id="main-content-seminar-faqs" class="ui grid container">
 
-    <div class="center aligned fourteen wide column">
+    <div class="center aligned sixteen wide column">
 
         <h1>Häufig gestellte Fragen
             @if( $letter != null)
-                für {{ substr(URL::current(),strlen(url('/faq/'))+1,1) }}
+                für {{ $letter }}
             @endif
         </h1>
 
         <p>Bitte wählen Sie einen Fragebereich aus. Sollte sich Ihre Frage nach der Lektüre der hier aufgelisteten Antworten nicht geklärt haben, <a href="{{ url('kontakt') }}">wenden Sie sich bitte direkt an uns</a>. Wir versuchen den »Häufig gestellte Fragen« Katalog ständig zu erweitern und freuen und über Ihre Anregungen und Mitarbeit.</p>
 
-        {{-- @todo Inline PHP Code in Controller auslagern. --}}
-        {{-- @todo PRINT CSS bearbeiten --}}
-        <div class="ui pagination menu">
-            @for($i = 0; $i < strlen($letters); $i++ )
-                <a class="item @if ($letter === substr($letters,$i,1) ) active @endif" href="{{ url('/faq/' . substr($letters,$i,1)) }}">
-                    {{ substr($letters,$i,1) }}
-                </a>
-            @endfor
+        <div class="ui centered pagination menu">
 
-            @if ( Auth::user()->role === 'Admin' )
+            @foreach ( $letters as $pagination_letter )
+                <a class="item @if ($pagination_letter->area === $letter ) active @endif" href="{{ route('seminar-faqs', ['name' => $seminar_name, 'letter' => $pagination_letter->area]) }}">
+                    {{ $pagination_letter->area }}
+                </a>
+            @endforeach
+
+            @if ( Seminar::authorizedEditor($seminar_name) )
 
                 <div class="item">
                     <button id="faq-new" class="ui teal icon button" data-tooltip="Eine neue HGF hinzufügen.">
@@ -42,17 +40,17 @@
     </div>
 
     @if( $letter != null)
-        <div class="left aligned ten wide column">
+        <div class="centered twelve wide column">
             <div id="faq-accordion" class="ui styled fluid accordion">
                 @foreach($answersByLetter as $answers)
                     <div class="title">
                         <div class="ui grid">
-                            <div class="@if ( Auth::user()->role === 'Admin' ) thirteen wide @endif trigger column">
+                            <div class="@if ( Seminar::authorizedEditor($seminar_name) ) thirteen wide @endif trigger column">
                                 <i class="dropdown icon"></i>
                                 {{ $answers->subject }}
                             </div>
 
-                            @if ( Auth::user()->role === 'Admin' )
+                            @if ( Seminar::authorizedEditor($seminar_name) )
                             <div class="three wide column">
                                 <div class="ui small teal icon buttons">
 
@@ -90,10 +88,10 @@
 </main>
 
 {{-- Include Modals for create and edit faqs. --}}
-@if ( Auth::user()->role === 'Admin' )
+@if ( Seminar::authorizedEditor($seminar_name) )
 
-    @include('faq.partials.create')
-    @include('faq.partials.edit')
+    @include('seminar.faq.create')
+    @include('seminar.faq.edit')
 
 @endif
 

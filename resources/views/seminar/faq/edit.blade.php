@@ -10,7 +10,7 @@
 
     <div class="content">
 
-        @include('faq.partials.formfields')
+        @include('seminar.faq.formfields')
 
     </div>
     <div class="actions">

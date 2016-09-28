@@ -3,8 +3,7 @@
 namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Synthesise\Repositories\Facades\Faq as FAQ;
-use JavaScript;
+use FAQ;
 
 class FaqController extends Controller
 {
@@ -16,41 +15,7 @@ class FaqController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-
-        $this->middleware('admin', ['only' => [
-          'store',
-          'update',
-          'destroy'
-      ]]);
-
-    }
-
-    /**
-     * List all FAQs.
-     * @info:   Use parameters for filter and search the list in strict REST!
-     *
-     * @param string $letter
-     *
-     * @return View
-     */
-    public function index($letter = null)
-    {
-        $answers = FAQ::getAll();
-        $letters = FAQ::getLetters();
-        $subjects = FAQ::getSubjects();
-
-        $answersByLetter = FAQ::getByLetter($letter);
-
-        JavaScript::put([
-            'subjects' => $subjects
-        ]);
-
-        return view('faq.index')
-                                ->with('answersByLetter', $answersByLetter)
-                                ->with('letter', $letter)
-                                ->with('letters', $letters)
-                                ->with('answers', $answers);
+        $this->middleware(['auth', 'admin']);
     }
 
     /**
@@ -64,10 +29,13 @@ class FaqController extends Controller
     {
         // Validation
         $this->validate($request, [
+            'seminar_name' => 'required|string',
             'subject' => 'required|unique:faqs|string',
             'question' => 'required|string',
             'answer' => 'required|string'
         ]);
+
+        $seminar_name = $request->seminar_name;
 
         $subject = $request->subject;
 
@@ -75,11 +43,11 @@ class FaqController extends Controller
 
         $answer = $request->answer;
 
-        FAQ::store($subject, $question, $answer);
+        $faq = FAQ::store($seminar_name, $subject, $question, $answer);
 
         $area = strtoupper(substr($subject,0,1));
 
-        return redirect()->route('faq', ['letter' => $area]);
+        return redirect()->route('seminar-faqs', ['name' => $seminar_name,'letter' => $area]);
 
     }
 
@@ -95,10 +63,13 @@ class FaqController extends Controller
 
         // Validation
         $this->validate($request, [
+            'seminar_name' => 'required|string',
             'subject' => 'required|unique:faqs|string',
             'question' => 'required|string',
             'answer' => 'required|string'
         ]);
+
+        $seminar_name = $request->seminar_name;
 
         $subject = $request->subject;
 
@@ -110,7 +81,7 @@ class FaqController extends Controller
 
         $area = strtoupper(substr($subject,0,1));
 
-        return redirect()->route('faq', ['letter' => $area]);
+        return redirect()->route('seminar-faqs', ['name' => $seminar_name, 'letter' => $area]);
 
     }
 
@@ -123,7 +94,7 @@ class FaqController extends Controller
      */
     public function destroy($id)
     {
-        FAQ::destroy($id);
+        FAQ::delete($id);
 
         return back()->withInput();
     }
