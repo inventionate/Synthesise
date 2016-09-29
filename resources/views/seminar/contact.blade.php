@@ -11,6 +11,19 @@
 
 	<h1 class="hide">Kontakt</h1>
 
+	@if ( Seminar::AuthorizedEditor($seminar_name) )
+
+		<div class="ui info message">
+			<div class="header">
+				Festlegen der Feedback E-Mail Adresse und der inahltlichen Kontaktadressen
+			</div>
+			<p>
+				Sie können Die Feedbackadresse in den <a href="{{ route('seminar-settings', ['name' => $seminar_name]) }}">Seminareinstellungen</a> konfigurieren. Die E-Mail Adressen für inhaltliche Fragen werden automatisch in Abhängigkeit der verwendeten online-Lektionen generiert.
+			</p>
+		</div>
+
+	@endif
+
 	<div class="left aligned two column row">
 
 		<div class="ten wide column">
@@ -43,7 +56,7 @@
 			@endif
 
 			<h2 class="ui header">Technische Probleme</h2>
-			<p>Bei technischen Problemen nutzen Sie bitte dieses Formular. Die Nachricht wird direkt an Fabian Mundt gesendet. Er wird Ihnen eine <strong>Antwort an Ihre E-Mail Adresse der Pädagogischen Hochschule Karlsruhe</strong> senden.</p>
+			<p>Bei technischen Problemen nutzen Sie bitte dieses Formular. Die Nachricht wird direkt an Fabian Mundt gesendet. <b>Die Antwort wird an Ihre E-Mail Adresse der Pädagogischen Hochschule Karlsruhe gesendet.</b></p>
 
 			<form role="form" method="POST" action="{{ url('contact/support') }}" class="ui form" id="feedback">
 
