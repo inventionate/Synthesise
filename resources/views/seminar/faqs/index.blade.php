@@ -51,7 +51,7 @@
                             </div>
 
                             @if ( Seminar::authorizedEditor($seminar_name) )
-                            <div class="three wide column">
+                            <div class="three wide center aligned column">
                                 <div class="ui small teal icon buttons">
 
                                    <button class="ui button faq-edit" data-id="{{ $answers->id }}" data-tooltip="HGF ändern."><i class="edit icon"></i>

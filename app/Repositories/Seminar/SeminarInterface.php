@@ -42,4 +42,6 @@ interface SeminarInterface
 
     public function getDisqusShortname($name);
 
+    public function getAllInfoblocks($name);
+
 }

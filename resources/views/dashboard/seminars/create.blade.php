@@ -8,7 +8,7 @@
 
     <div class="content">
 
-        @include('dashboard.partials.seminar.formfields')
+        @include('dashboard.seminars.formfields')
 
     </div>
 

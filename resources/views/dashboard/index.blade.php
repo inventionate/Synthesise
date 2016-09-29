@@ -29,7 +29,7 @@
 	  Seminare
   </h2>
 
-	@include('dashboard.partials.seminar.index')
+	@include('dashboard.seminars.index')
 
 	@if ( Auth::user()->role === 'Admin')
 
@@ -38,28 +38,28 @@
 		  Administrator/innen
 		</h2>
 
-		@include('dashboard.partials.admin.index')
+		@include('dashboard.admins.index')
 
 		<h2 id="system-settings" class="ui horizontal divider header">
 		  <i class="settings icon"></i>
 		  Allgemeine Einstellungen
 		</h2>
 
-		@include('dashboard.partials.settings')
+		@include('dashboard.settings')
 
 		<h2 id="system-analytics" class="ui horizontal divider header">
 		  <i class="bar chart icon"></i>
 		  Analytics
 		</h2>
 
-		@include('dashboard.partials.analytics')
+		@include('dashboard.analytics')
 
 		<h2 id="support" class="ui horizontal divider header">
 		  <i class="fire extinguisher icon"></i>
 		  Support
 		</h2>
 
-		@include('dashboard.partials.support')
+		@include('dashboard.support')
 
 	@endif
 
@@ -68,10 +68,10 @@
 
 @if ( Auth::user()->role === 'Admin')
 
-	@include('dashboard.partials.seminar.create')
+	@include('dashboard.seminars.create')
 
-	@include('dashboard.partials.admin.create')
-	@include('dashboard.partials.admin.edit')
+	@include('dashboard.admins.create')
+	@include('dashboard.admins.edit')
 
 @endif
 

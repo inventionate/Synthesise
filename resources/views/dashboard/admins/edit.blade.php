@@ -1,14 +1,16 @@
-<form role="form" method="POST" action="{{ action('UserController@store') }}" id="admin-new-modal" class="ui modal form admin-validator">
+<form role="form" method="POST" action="{{ url('user') }}" id="admin-edit-modal" class="ui modal form admin-validator">
+
+    {{ method_field('PATCH') }}
 
     {{ csrf_field() }}
 
     <div class="header">
-        Administrator/in hinzufügen
+        Administrator/in bearbeiten
     </div>
 
     <div class="content">
 
-        @include('dashboard.partials.admin.formfields')
+        @include('dashboard.admins.formfields')
 
     </div>
 
@@ -19,7 +21,7 @@
         </div>
 
         <button type="submit" class="ui right green labeled submit icon button">
-            Erstellen
+            Aktualisieren
             <i class="checkmark icon"></i>
         </button>
 

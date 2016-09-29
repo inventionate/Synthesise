@@ -23,16 +23,16 @@
 
 	<div class="two column row">
 		<div class="column">
-			@include('seminar.partials.current-lection')
+			@include('seminar.lections.current')
 		</div>
 		<section class="column">
-			@include('seminar.partials.general-info')
+			@include('seminar.general-info')
 		</section>
 	</div>
 
 	<div class="one column row">
 		<div class="column">
-			@include('seminar.partials.all-lections')
+			@include('seminar.lections.index')
 		</div>
 	</div>
 
@@ -45,7 +45,7 @@
 		</div>
 	</div>
 
-	<div class="two column row">
+	<div id="infoblocks" class="two column row">
 		@include('seminar.infoblocks.index')
 	</div>
 

@@ -115,11 +115,17 @@
 
 							@if ( Seminar::authorizedEditor($seminar_name) )
 								<td class="edit">
-									<div class="ui teal small icon button" data-name="{{ $lection->name }}" data-author="{{ $lection->author }}" data-section="{{ $section->name }}" data-available="{{ $lection->available_from }}">
+									<button class="ui teal small icon button" data-name="{{ $lection->name }}" data-author="{{ $lection->author }}" data-section="{{ $section->name }}" data-available="{{ $lection->available_from }}">
 
 										<i class="edit icon"></i>
 
-									</div>
+									</button>
+
+									<button class="ui teal small icon button" data-name="{{ $lection->name }}" data-author="{{ $lection->author }}" data-section="{{ $section->name }}" data-available="{{ $lection->available_from }}">
+
+										<i class="close icon"></i>
+
+									</button>
 								</td>
 							@endif
 

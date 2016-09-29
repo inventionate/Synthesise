@@ -83,7 +83,9 @@
 
             @if ( Seminar::authorizedEditor($seminar_name) )
 
-                <a class="ui icon teal button"><i class="edit icon"></i> Editieren</a>
+                <button class="ui icon teal button">
+                    <i class="edit icon"></i>
+                </button>
 
             @endif
 

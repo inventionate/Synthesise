@@ -51,6 +51,9 @@ class SeminarController extends Controller
         // Get Disqus shortname.
         $disqus_shortname = Seminar::getDisqusShortname($name);
 
+        // Get all infoblocks
+        $infoblocks = Seminar::getAllInfoblocks($name);
+
         // Push Disqus shortname to JavaScript.
         JavaScript::put([
             'disqus_shortname' => $disqus_shortname
@@ -68,7 +71,8 @@ class SeminarController extends Controller
                                     ->with('lections', $lections)
                                     ->with('current_lection', $current_lection)
                                     ->with('current_lection_paper', $current_paper)
-                                    ->with('disqus', $disqus);
+                                    ->with('disqus', $disqus)
+                                    ->with('infoblocks', $infoblocks);
 	}
 
     /**

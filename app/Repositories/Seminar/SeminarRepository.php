@@ -376,11 +376,23 @@ class SeminarRepository implements SeminarInterface
      *
      * @param     string    $name
      *
-     * @return    array
+     * @return    string
      */
     public function getDisqusShortname($name) {
 
         return Seminar::findOrFail($name)->disqus_shortname;
+
+    }
+
+    /* Get all seminar infoblocks.
+     *
+     * @param     string    $name
+     *
+     * @return    collection
+     */
+    public function getAllInfoblocks($name) {
+
+        return Seminar::findOrFail($name)->infoblocks()->get();
 
     }
 
