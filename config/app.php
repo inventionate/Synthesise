@@ -214,7 +214,7 @@ return [
         'View'          => Illuminate\Support\Facades\View::class,
 
         /*
-         * Repositories Facades...
+         * Repository Facades...
          */
         'FAQ'           => Synthesise\Repositories\Facades\Faq::class,
         'Note'          => Synthesise\Repositories\Facades\Note::class,
@@ -227,7 +227,7 @@ return [
         'Infoblock'     => Synthesise\Repositories\Facades\Infoblock::class,
 
         /*
-         * Extensions Facades...
+         * Extension Facades...
          */
         'LDAP'          => Synthesise\Extensions\Facades\Ldap::class,
         'Parser'        => Synthesise\Extensions\Facades\Parser::class,
