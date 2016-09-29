@@ -88,7 +88,7 @@
 
             <div class="field">
                 <label for="seminar_disqus">Disqus™ Kurzname</label>
-                <input id="seminar_disqus" name="disqus_shortname" placeholder="Wenn Sie Disqus™ verwenden wollen, geben Sie den entsprechenden Kurznamen an." type="text">
+                <input id="seminar_disqus" name="disqus_shortname" placeholder="Wenn Sie Disqus™ verwenden wollen, geben Sie den entsprechenden Kurznamen an." type="text" value="{{ $seminar->disqus_shortname }}">
             </div>
 
             <button type="submit" class="ui green right labeled icon submit button right floated">
