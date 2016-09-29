@@ -30,6 +30,7 @@ class SeminarTableSeeder extends Seeder
             'info_path' => NULL,
             'available_from' => '2015-12-16',
             'available_to' => '2017-02-17',
+            'disqus_shortname' => 'etpm',
         ));
 
         // FRÜHPÄDAGOGIK
@@ -45,6 +46,7 @@ class SeminarTableSeeder extends Seeder
             'info_path' => NULL,
             'available_from' => '2015-12-16',
             'available_to' => '2016-02-17',
+            'disqus_shortname' => NULL
         ));
 
     }

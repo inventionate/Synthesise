@@ -46,19 +46,31 @@
 
 							{{-- Lections info --}}
 							<td class="online-lektion">
-								<div class="ui fluid labeled button @if( ! (Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif" tabindex="0">
+								@if ( $disqus )
+									<div class="ui fluid labeled button @if( ! (Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif" tabindex="0">
 
-									<a href="{{ route('lektion', [rawurlencode($lection->name), 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
+										<a href="{{ route('lektion', [rawurlencode($lection->name), 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
 
-										<i class="video icon"></i>
+											<i class="video icon"></i>
 
-										{{ $lection->name }}</a>
+											{{ $lection->name }}</a>
 
-									</a>
+										</a>
 
-									<a class="ui left pointing label @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
-										<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($lection->name) }}">0</span>
-									</a>
+										<div class="ui left pointing label @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
+											<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($lection->name) }}">0</span>
+										</div>
+									@else
+
+										<a href="{{ route('lektion', [rawurlencode($lection->name), 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else disabled red @endif">
+
+											<i class="video icon"></i>
+
+											{{ $lection->name }}</a>
+
+										</a>
+
+									@endif
 
 								</div>
 							</td>

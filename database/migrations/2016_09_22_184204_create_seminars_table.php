@@ -25,6 +25,7 @@ class CreateSeminarsTable extends Migration
             $table->text('info_path')->nullable();
             $table->date('available_from');
             $table->date('available_to');
+            $table->string('disqus_shortname', 64)->nullable();
             $table->timestamps();
         });
     }

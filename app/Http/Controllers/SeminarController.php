@@ -48,6 +48,18 @@ class SeminarController extends Controller
         // Get current paper.
         $current_paper = Seminar::getCurrentPaper($name);
 
+        // Get Disqus shortname.
+        $disqus_shortname = Seminar::getDisqusShortname($name);
+
+        // Push Disqus shortname to JavaScript.
+        JavaScript::put([
+            'disqus_shortname' => $disqus_shortname
+        ]);
+
+        // Get Disqus.
+
+        $disqus = $disqus_shortname !== null;
+
 		return view('seminar.index')
                                     ->with('seminar_name', $name)
                                     ->with('authorized_editors', $authorized_editors)
@@ -55,7 +67,8 @@ class SeminarController extends Controller
                                     ->with('sections', $sections)
                                     ->with('lections', $lections)
                                     ->with('current_lection', $current_lection)
-                                    ->with('current_lection_paper', $current_paper);
+                                    ->with('current_lection_paper', $current_paper)
+                                    ->with('disqus', $disqus);
 	}
 
     /**
@@ -79,7 +92,8 @@ class SeminarController extends Controller
             'image' => 'required|image',
             'available_from' => 'required|date',
             'available_to' => 'required|date',
-            'authorized_users' => 'array'
+            'authorized_users' => 'array',
+            'disqus_shortname' => 'string'
         ]);
 
         $title = $request->title;
@@ -92,8 +106,9 @@ class SeminarController extends Controller
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $authorized_users = $request->authorized_users;
+        $disqus_shortname = $request->disqus_shortname;
 
-        Seminar::store($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
+        Seminar::store($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users, $disqus_shortname);
 
         return back()->withInput();
 
@@ -119,6 +134,7 @@ class SeminarController extends Controller
             'image' => 'image',
             'available_from' => 'required|date',
             'available_to' => 'required|date',
+            'disqus_shortname' => 'string'
         ]);
 
         $title = $name;
@@ -130,8 +146,9 @@ class SeminarController extends Controller
         $image = $request->file('image');
         $available_from = $request->available_from;
         $available_to = $request->available_to;
+        $disqus_shortname = $request->disqus_shortname;
 
-        Seminar::update($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to);
+        Seminar::update($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $disqus_shortname);
 
         return back()->withInput();
 

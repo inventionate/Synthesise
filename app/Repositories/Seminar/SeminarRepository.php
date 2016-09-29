@@ -40,9 +40,10 @@ class SeminarRepository implements SeminarInterface
      * @param     date      $available_from
      * @param     date      $available_to
      * @param     array     $authorized_users
+     * @param     string    $disqus_shortname
      *
      */
-    public function store($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users)
+    public function store($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users, $disqus_shortname)
     {
 
         // Save image.
@@ -70,6 +71,14 @@ class SeminarRepository implements SeminarInterface
         $seminar->available_to = date('Y-m-d', strtotime($available_to));
         $seminar->authorized_editors = $authorized_users;
 
+        // Check Disqus
+        if( empty($disqus_shortname) )
+        {
+            $disqus_shortname = NULL;
+        }
+
+        $seminar->disqus_shortname = $disqus_shortname;
+
         $seminar->save();
 
     }
@@ -86,9 +95,10 @@ class SeminarRepository implements SeminarInterface
      * @param     image     $image
      * @param     date      $available_from
      * @param     date      $available_to
+     * @param     string    $disqus_shortname
      *
      */
-    public function update($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to)
+    public function update($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $disqus_shortname)
     {
 
         // Find Seminar.
@@ -102,6 +112,14 @@ class SeminarRepository implements SeminarInterface
         $seminar->description = $description;
         $seminar->available_from = date('Y-m-d', strtotime($available_from));
         $seminar->available_to = date('Y-m-d', strtotime($available_to));
+
+        // Check Disqus
+        if( empty($disqus_shortname) )
+        {
+            $disqus_shortname = NULL;
+        }
+
+        $seminar->disqus_shortname = $disqus_shortname;
 
         // Check new image.
         if( $image !== null )
@@ -351,6 +369,18 @@ class SeminarRepository implements SeminarInterface
         $lection_authors = $lections->pluck('author', 'contact')->all();
 
         return $lection_authors;
+
+    }
+
+    /* Get seminar Disqus shortname.
+     *
+     * @param     string    $name
+     *
+     * @return    array
+     */
+    public function getDisqusShortname($name) {
+
+        return Seminar::findOrFail($name)->disqus_shortname;
 
     }
 

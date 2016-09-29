@@ -23,11 +23,13 @@ class Seminar extends Model
         'subject',
         'module',
         'author',
+        'contact',
         'authorized_editors',
         'image_path',
         'info_path',
         'available_from',
-        'available_to'
+        'available_to',
+        'disqus_shortname',
     ];
 
     /**

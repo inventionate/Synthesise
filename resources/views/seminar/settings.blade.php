@@ -86,10 +86,15 @@
 
             </div>
 
-        <button type="submit" class="ui green right labeled icon submit button right floated">
-            Speichern
-            <i class="checkmark icon"></i>
-        </button>
+            <div class="field">
+                <label for="seminar_disqus">Disqus™ Kurzname</label>
+                <input id="seminar_disqus" name="disqus_shortname" placeholder="Wenn Sie Disqus™ verwenden wollen, geben Sie den entsprechenden Kurznamen an." type="text">
+            </div>
+
+            <button type="submit" class="ui green right labeled icon submit button right floated">
+                Speichern
+                <i class="checkmark icon"></i>
+            </button>
 
         </form>
 

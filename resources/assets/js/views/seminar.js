@@ -26,6 +26,22 @@ if( $('#main-content-seminar')[0] || $('#main-content-seminar-users')[0] || $('#
     });
 }
 
+if( $('#main-content-seminar')[0] )
+{
+
+    if ( disqus_shortname !== null )
+    {
+
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    }
+
+}
+
 if( $('#main-content-seminar-users')[0] )
 {
 
