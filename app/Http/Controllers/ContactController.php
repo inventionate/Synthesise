@@ -1,9 +1,9 @@
 <?php namespace Synthesise\Http\Controllers;
 
-use Synthesise\Http\Requests\FeedbackRequest;
-use Synthesise\Http\Requests\SupportRequest;
-use Synthesise\Repositories\Facades\User;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+
+use User;
+use Mail;
 
 class ContactController extends Controller {
 
@@ -18,36 +18,30 @@ class ContactController extends Controller {
     }
 
 	/**
-	 * Kontaktformulare anzeigen.
-	 *
-	 * @return View
-	 */
-	public function index()
-	{
-		return view('contact');
-	}
-
-	/**
 	 * Eine Kontaktnachricht senden.
 	 *
 	 * @return    Redirect
 	 */
-	public function sendFeedback(FeedbackRequest $request)
+	public function sendFeedback(Request $request)
 	{
 		$email = User::getEmail();
 
 		$name = User::getUsername();
 
+		$feedback_mail = $request->feedback_mail;
+
+		$seminar_name = $request->seminar_name;
+
 		$data = [
 			'content' => $request->nachricht,
 			'name' => $name
 		];
-		Mail::send('emails.feedback', $data, function($message) use ($email,$name)
+		Mail::send('emails.feedback', $data, function($message) use ($email, $name, $feedback_mail, $seminar_name)
 		{
 			$message->from($email, $name);
-			$message->to('hoyer@ph-karlsruhe.de', 'Timo Hoyer')->subject('Eine neue Anfrage über die e:t:p:M Web-App');
+			$message->to($feedback_mail)->subject('Eine neue e:t:p:M Synthesise Anfrage');
 		});
-		return redirect('kontakt')->with('feedback_success',true);
+		return back()->with('feedback_success',true);
 	}
 
 	/**
@@ -55,22 +49,24 @@ class ContactController extends Controller {
 	*
 	* @return    Redirect
 	*/
-	public function sendSupport(SupportRequest $request)
+	public function sendSupport(Request $request)
 	{
 		$email = User::getEmail();
 
 		$name = User::getUsername();
 
+		$support_mail = $request->support_mail;
+
 		$data = [
 			'content' => $request->nachricht,
 			'name' => $name
 		];
-		Mail::send('emails.support', $data, function($message) use ($email,$name)
+		Mail::send('emails.support', $data, function($message) use ($email, $name, $support_mail)
 		{
 			$message->from($email, $name);
-			$message->to('mundt@ph-karlsruhe.de', 'Fabian Mundt')->subject('Eine neue Supportanfrage über die e:t:p:M Web-App');
+			$message->to($support_mail)->subject('Eine neue e:t:p:M Synthesise Supportanfrage');
 		});
-		return redirect('kontakt')->with('support_success',true);
+		return back()->with('support_success',true);
 	}
 
 }

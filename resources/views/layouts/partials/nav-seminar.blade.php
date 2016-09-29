@@ -31,4 +31,4 @@
 
 <a class="item @if ( urldecode(Request::segment(2)) === $seminar_name && Request::segment(3) === 'faq' ) active @endif" href="{{ route('seminar-faqs', ['name' => $seminar_name]) }}">Häufig gestellte Fragen</a>
 
-<a class="item @if ( Request::is('kontakt') ) active @endif" href="{{ route('kontakt') }}">Kontakt</a>
+<a class="item @if ( urldecode(Request::segment(2)) === $seminar_name && Request::segment(3) === 'contact' ) active @endif" href="{{ route('seminar-contact', ['name' => $seminar_name]) }}">Kontakt</a>

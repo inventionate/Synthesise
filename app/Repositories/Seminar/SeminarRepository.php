@@ -32,6 +32,7 @@ class SeminarRepository implements SeminarInterface
      *
      * @param     string    $title
      * @param     string    $author
+     * @param     string    $contact
      * @param     string    $subject
      * @param     string    $module
      * @param     string    $description
@@ -41,7 +42,7 @@ class SeminarRepository implements SeminarInterface
      * @param     array     $authorized_users
      *
      */
-    public function store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users)
+    public function store($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users)
     {
 
         // Save image.
@@ -60,6 +61,7 @@ class SeminarRepository implements SeminarInterface
 
         $seminar->name = $title;
         $seminar->author = $author;
+        $seminar->contact = $contact;
         $seminar->subject = $subject;
         $seminar->module = $module;
         $seminar->description = $description;
@@ -77,6 +79,7 @@ class SeminarRepository implements SeminarInterface
      *
      * @param     string    $title
      * @param     string    $author
+     * @param     string    $contact
      * @param     string    $subject
      * @param     string    $module
      * @param     string    $description
@@ -85,7 +88,7 @@ class SeminarRepository implements SeminarInterface
      * @param     date      $available_to
      *
      */
-    public function update($title, $author, $subject, $module, $description, $image, $available_from, $available_to)
+    public function update($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to)
     {
 
         // Find Seminar.
@@ -93,6 +96,7 @@ class SeminarRepository implements SeminarInterface
 
         // Update values.
         $seminar->author = $author;
+        $seminar->contact = $contact;
         $seminar->subject = $subject;
         $seminar->module = $module;
         $seminar->description = $description;
@@ -310,6 +314,44 @@ class SeminarRepository implements SeminarInterface
         $users = Seminar::findOrFail($name)->users()->get()->where('role', $role);
 
         return $users;
+    }
+
+    /* Get seminar feedback mail.
+     *
+     * @param     string    $name
+     *
+     * @return    string
+     */
+    public function getFeedbackMail($name)
+    {
+        return Seminar::findOrFail($name)->contact;
+    }
+
+    /* Get seminar author.
+     *
+     * @param     string    $name
+     *
+     * @return    string
+     */
+    public function getAuthor($name)
+    {
+        return Seminar::findOrFail($name)->author;
+    }
+
+    /* Get seminar lection authors.
+     *
+     * @param     string    $name
+     *
+     * @return    array
+     */
+    public function getAllLectionAuthors($name) {
+
+        $lections = $this->getAllLections($name);
+
+        $lection_authors = $lections->pluck('author', 'contact')->all();
+
+        return $lection_authors;
+
     }
 
 }

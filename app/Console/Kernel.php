@@ -14,7 +14,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \Synthesise\Console\Commands\Inspire::class,
-        \Synthesise\Console\Commands\UpdateUserTable::class,
     ];
 
     /**

@@ -17,13 +17,13 @@
     <div class="required fields">
 
         <div class="field">
-            <label for="db_host">Piwik Server</label>
-            <input ref="db_host" type="text" placeholder="Bitte geben Sie die URL einer Piwik Installation ein." value="{{ $piwik_url }}">
+            <label for="piwik_db_host">Piwik Server</label>
+            <input id="piwik_db_host" type="text" placeholder="Bitte geben Sie die URL einer Piwik Installation ein." value="{{ $piwik_url }}" readonly>
         </div>
 
         <div class="field">
-            <label for="db_name">Piwik Site ID</label>
-            <input ref="db_name" type="text" placeholder="Bitte geben Sie ihre Piwik Site ID ein." value="{{ $piwik_site_id }}">
+            <label for="piwik_db_name">Piwik Site ID</label>
+            <input id="piwik_db_name" type="text" placeholder="Bitte geben Sie ihre Piwik Site ID ein." value="{{ $piwik_site_id }}" readonly>
         </div>
 
     </div>
@@ -40,6 +40,6 @@
         </div>
     @endif
 
-    <button class="ui positive fluid submit button" type="submit">Speichern</button>
+    {{-- <button class="ui positive fluid submit button" type="submit">Speichern</button> --}}
 
 </form>

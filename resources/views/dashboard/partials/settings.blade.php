@@ -1,3 +1,12 @@
+<div class="ui info message">
+    <div class="header">
+        Kontaktieren Sie für Änderungen der Einstellungen den Systemadministartor
+    </div>
+    <p>
+        Änderungen am System sind Momentan nur über Veränderungen der .env Datei möglich. Hierzu muss das System in den Maintenance Modus versetzt werden. Kontaktieren Sie für diesen Vorgang bitte Ihren <a href="#support">Systemadministartor</a> oder führen Sie die Änderungen gemäß der <a href="https://laravel.com/docs/5.3/configuration" target="_blank">Laravel Dokumentation</a> durch.
+    </p>
+</div>
+
 <form class="ui equal width form">
 
     <h3 class="ui dividing header">Datenbank</h3>
@@ -5,23 +14,23 @@
     <div class="required fields">
 
         <div class="field">
-            <label for="db_host">Datenbank Server</label>
-            <input ref="db_host" type="text" placeholder="Bitte geben Sie die URL des Datenbankservers ein." value="{{ $db_host }}">
+            <label for="synthesise_db_host">Datenbank Server</label>
+            <input id="synthesise_db_host" type="text" placeholder="Bitte geben Sie die URL des Datenbankservers ein." value="{{ $db_host }}" readonly>
         </div>
 
         <div class="field">
-            <label for="db_name">Datenbank Name</label>
-            <input ref="db_name" type="text" placeholder="Bitte geben Sie den Namen der Datenbank ein." value="{{ $db_database }}">
+            <label for="synthesise_db_name">Datenbank Name</label>
+            <input id="synthesise_db_name" type="text" placeholder="Bitte geben Sie den Namen der Datenbank ein." value="{{ $db_database }}" readonly>
         </div>
 
         <div class="field">
-            <label for="db_username">Datenbank Benutzer/innename</label>
-            <input ref="db_username" type="text" placeholder="Bitte geben Sie den Namen des/der Benutzer/in ein." value="{{ $db_username }}">
+            <label for="synthesise_db_username">Datenbank Benutzer/innename</label>
+            <input id="synthesise_db_username" type="text" placeholder="Bitte geben Sie den Namen des/der Benutzer/in ein." value="{{ $db_username }}" readonly>
         </div>
 
         <div class="field">
-            <label for="db_password">Datenbank Password</label>
-            <input ref="db_password" type="password" placeholder="Bitte geben Sie das Datenbankpasswort ein" value="{{ bcrypt( $db_password ) }}">
+            <label for="synthesise_db_password">Datenbank Password</label>
+            <input id="synthesise_db_password" type="password" placeholder="Bitte geben Sie das Datenbankpasswort ein" value="{{ bcrypt( $db_password ) }}" readonly>
         </div>
 
     </div>
@@ -43,18 +52,18 @@
     <div class="required fields">
 
         <div class="field">
-            <label for="ldap_domain">LDAP Server</label>
-            <input ref="ldap_domain" type="text" placeholder="Bitte geben Sie die LDAP-Server URL ein." value="{{ $ldap_domain }}">
+            <label for="synthesise_ldap_domain">LDAP Server</label>
+            <input id="synthesise_ldap_domain" type="text" placeholder="Bitte geben Sie die LDAP-Server URL ein." value="{{ $ldap_domain }}" readonly>
         </div>
 
         <div class="field">
-            <label for="ldap_port">LDAP Port</label>
-            <input ref="ldap_port" type="text" placeholder="Bitte geben Sie den LDAP Port ein." value="{{ $ldap_port }}">
+            <label for="synthesise_ldap_port">LDAP Port</label>
+            <input id="synthesise_ldap_port" type="text" placeholder="Bitte geben Sie den LDAP Port ein." value="{{ $ldap_port }}" readonly>
         </div>
 
         <div class="field">
-            <label for="ldap_base_dn">LDAP Base DN</label>
-            <input ref="ldap_base_dn" type="text" placeholder="Bitte geben Sie die LDAP Base DN ein." value="{{ $ldap_base_dn }}">
+            <label for="synthesise_ldap_base_dn">LDAP Base DN</label>
+            <input id="synthesise_ldap_base_dn" type="text" placeholder="Bitte geben Sie die LDAP Base DN ein." value="{{ $ldap_base_dn }}" readonly>
         </div>
 
     </div>
@@ -62,13 +71,13 @@
     <div class="required fields">
 
         <div class="field">
-            <label for="ldap_bind_dn">LDAP Bind DN</label>
-            <input ref="ldap_bind_dn" type="text" placeholder="Bitte geben Sie die LDAP Bind-DN ein." value="{{ $ldap_bind_dn }}">
+            <label for="synthesise_ldap_bind_dn">LDAP Bind DN</label>
+            <input id="synthesise_ldap_bind_dn" type="text" placeholder="Bitte geben Sie die LDAP Bind-DN ein." value="{{ $ldap_bind_dn }}" readonly>
         </div>
 
         <div class="field">
-            <label for="ldap_bind_password">LDAP Bind Passwort</label>
-            <input ref="ldap_bind_password" type="password" placeholder="Bitte geben Sie das LDAP Bind-Passwort ein." value="{{ bcrypt( $ldap_bind_pwd ) }}">
+            <label for="synthesise_ldap_bind_password">LDAP Bind Passwort</label>
+            <input id="synthesise_ldap_bind_password" type="password" placeholder="Bitte geben Sie das LDAP Bind-Passwort ein." value="{{ bcrypt( $ldap_bind_pwd ) }}" readonly>
         </div>
 
     </div>
@@ -85,6 +94,6 @@
         </div>
     @endif
 
-    <button class="ui positive fluid submit button" type="submit">Speichern</button>
+    {{-- <button class="ui positive fluid submit button" type="submit">Speichern</button> --}}
 
 </form>

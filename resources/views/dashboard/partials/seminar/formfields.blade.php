@@ -1,39 +1,44 @@
 <div class="required field">
-    <label for="title">Titel</label>
-    <input name="title" placeholder="Bitte geben Sie einen Titel ein." ref="title" type="text">
+    <label for="seminar_title">Titel</label>
+    <input id="seminar_title" name="title" placeholder="Bitte geben Sie einen Titel ein." type="text">
 </div>
 
 <div class="required fields">
 
     <div class="field">
-        <label for="author">Autor</label>
-        <input name="author" placeholder="Bitte geben Sie den Autor ein." ref="author" type="text">
+        <label for="seminar_author">Autor</label>
+        <input id="seminar_author" name="author" placeholder="Bitte geben Sie den Autor ein." type="text">
     </div>
 
     <div class="field">
-        <label for="subject">Disziplin</label>
-        <input name="subject" placeholder="Bitte geben Sie eine Disziplin ein." ref="subject" type="text">
+        <label for="seminar_contact">Kontakt E-Mail Adresse</label>
+        <input id="seminar_contact" name="contact" placeholder="Bitte geben Sie den E-Mail Adresse als Kontakt ein." type="text">
     </div>
 
     <div class="field">
-        <label for="module">Modul</label>
-        <input name="module" placeholder="Bitte geben Sie ein Modul ein." ref="module" type="text">
+        <label for="seminar_subject">Disziplin</label>
+        <input id="seminar_subject" name="subject" placeholder="Bitte geben Sie eine Disziplin ein." type="text">
+    </div>
+
+    <div class="field">
+        <label for="seminar_module">Modul</label>
+        <input id="seminar_module" name="module" placeholder="Bitte geben Sie ein Modul ein." type="text">
     </div>
 
 </div>
 
 <div class="required field">
-    <label for="description">Beschreibung</label>
-    <textarea name="description" placeholder="Bitte geben Sie eine kurze Beschreibung ein." ref="description" maxlength="500" rows="3"></textarea>
+    <label for="seminar_description">Beschreibung</label>
+    <textarea id="seminar_description" name="description" placeholder="Bitte geben Sie eine kurze Beschreibung ein." maxlength="500" rows="3"></textarea>
 </div>
 
 <div class="required field">
-    <label for="image">Titelbild hochladen</label>
+    <label for="seminar_image">Titelbild hochladen</label>
     <div class="ui action input">
-            <label for="filepath" class="hide">Dateipfad</label>
-            <input type="text" placeholder="Bitte laden Sie ein Titelbild hoch." name="filepath" readonly>
+            <label for="seminar_filepath" class="hide">Dateipfad</label>
+            <input id="seminar_filepath" type="text" placeholder="Bitte laden Sie ein Titelbild hoch." name="filepath" readonly>
 
-            <input type="file" name="image">
+            <input id="seminar_image" type="file" name="image">
 
             <div class="ui primary icon button" data-tooltip="Laden Sie ein Titelbild hoch.">
                 <i class="cloud upload icon"></i>
@@ -44,21 +49,21 @@
 <div class="required fields">
 
     <div class="field">
-        <label for="available_from">Verfügbar ab</label>
+        <label for="seminar_available_from">Verfügbar ab</label>
         <div class="ui calendar">
             <div class="ui input left icon">
                 <i class="calendar icon"></i>
-                <input name="available_from" type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_from">
+                <input name="available_from" type="text" placeholder="Bitte geben Sie ein Datum ein." id="seminar_available_from">
             </div>
         </div>
     </div>
 
     <div class="field">
-        <label for="available_to">Verfügbar bis</label>
+        <label for="seminar_available_to">Verfügbar bis</label>
         <div class="ui calendar">
             <div class="ui input left icon">
                 <i class="calendar icon"></i>
-                <input name="available_to" type="text" placeholder="Bitte geben Sie ein Datum ein." ref="available_to">
+                <input name="available_to" type="text" placeholder="Bitte geben Sie ein Datum ein." id="seminar_available_to">
             </div>
         </div>
     </div>
@@ -66,13 +71,13 @@
 </div>
 
 <div class="field">
-        <label for="authorized_users">Benutzer, die das Seminar administrieren dürfen</label>
+        <label for="seminar_authorized_users">Benutzer, die das Seminar administrieren dürfen</label>
 
         <div class="ui info message">
             Die Person, die das Seminar erstellt, ist automatisch Administrator/in.
         </div>
 
-        <select name="authorized_users[]" ref="authorized_users" multiple class="ui dropdown">
+        <select name="authorized_users[]" id="seminar_authorized_users" multiple class="ui dropdown">
 
         <option value="">Zusätzliche Administrator/in oder Lehrperson auswählen</option>
 

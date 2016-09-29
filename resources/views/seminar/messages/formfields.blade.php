@@ -1,16 +1,16 @@
 <div class="field">
-    <label for="seminar_name" class="hide">Seminarname</label>
-    <input name="seminar_name" ref="seminar_name" type="text" value="{{ $seminar_name }}" class="hide">
+    <label for="messages_seminar_name" class="hide">Seminarname</label>
+    <input id="messages_seminar_name" name="seminar_name" type="text" value="{{ $seminar_name }}" class="hide">
 </div>
 
 <div class="required field">
-    <label for="title">Titel</label>
-    <input name="title" placeholder="Bitte geben Sie einen Titel ein." ref="title" type="text">
+    <label for="messages_title">Titel</label>
+    <input id="messages_title" name="title" placeholder="Bitte geben Sie einen Titel ein." type="text">
 </div>
 
 <div class="required field">
-    <label for="content">Inhalt</label>
-    <textarea name="content" placeholder="Bitte geben Sie Ihre Nachricht ein." maxlength="1000" ref="content" class="message-wysiwyg"></textarea>
+    <label for="messages_content">Inhalt</label>
+    <textarea id="messages_content" name="content" placeholder="Bitte geben Sie Ihre Nachricht ein." maxlength="1000" class="message-wysiwyg"></textarea>
 </div>
 
 <div class="inline fields" ref="colour">

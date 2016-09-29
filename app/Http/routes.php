@@ -96,6 +96,12 @@ Route::group(['prefix' => 'seminar'], function () {
     ])
     ->where('letter', '[A-Z]{1,1}');
 
+    // Contact
+    Route::get('/{name}/contact', [
+        'as' => 'seminar-contact',
+        'uses' => 'SeminarController@contact',
+    ]);
+
 });
 
 /*
@@ -146,29 +152,6 @@ Route::post('online-lektionen/{videoname}/{sequenceNumber}/postnotes', [
     'uses' => 'LectionController@postNotes',
 ])
 ->where('sequenceNumber', '[0-9]+');
-
-
-/*
-|-------------------------------------------------------------------------------
-| Contact
-|-------------------------------------------------------------------------------
-*/
-
-// Index
-Route::get('kontakt', [
-    'as' => 'kontakt',
-    'uses' => 'ContactController@index',
-]);
-
-// Send feedback
-Route::post('kontakt/feedback', [
-    'uses' => 'ContactController@sendFeedback',
-]);
-
-// Send support
-Route::post('kontakt/support', [
-    'uses' => 'ContactController@sendSupport',
-]);
 
 /*
 |-------------------------------------------------------------------------------
@@ -263,4 +246,22 @@ Route::match(['put', 'patch'], 'faq/{id}', [
 // Remove FAQ
 Route::delete('faq/{id}', [
     'uses' => 'FaqController@destroy',
+]);
+
+/*
+|-------------------------------------------------------------------------------
+| Contact control
+|-------------------------------------------------------------------------------
+*/
+
+// Send feedback
+Route::post('contact/feedback', [
+    'as' => 'feedback',
+    'uses' => 'ContactController@sendFeedback',
+]);
+
+// Send support
+Route::post('contact/support', [
+    'as' => 'support',
+    'uses' => 'ContactController@sendSupport',
 ]);

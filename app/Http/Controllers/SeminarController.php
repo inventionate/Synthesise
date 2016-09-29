@@ -72,6 +72,7 @@ class SeminarController extends Controller
         $this->validate($request, [
             'title' => 'required|string',
             'author' => 'required|string',
+            'contact' => 'required|email',
             'subject' => 'required|string',
             'module' => 'required|string',
             'description' => 'required|string',
@@ -83,6 +84,7 @@ class SeminarController extends Controller
 
         $title = $request->title;
         $author = $request->author;
+        $contact = $request->contact;
         $subject = $request->subject;
         $module = $request->module;
         $description = $request->description;
@@ -91,7 +93,7 @@ class SeminarController extends Controller
         $available_to = $request->available_to;
         $authorized_users = $request->authorized_users;
 
-        Seminar::store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
+        Seminar::store($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
 
         return back()->withInput();
 
@@ -110,6 +112,7 @@ class SeminarController extends Controller
         // Validation
         $this->validate($request, [
             'author' => 'required|string',
+            'contact' => 'required|email',
             'subject' => 'required|string',
             'module' => 'required|string',
             'description' => 'required|string',
@@ -120,6 +123,7 @@ class SeminarController extends Controller
 
         $title = $name;
         $author = $request->author;
+        $contact = $request->contact;
         $subject = $request->subject;
         $module = $request->module;
         $description = $request->description;
@@ -127,7 +131,7 @@ class SeminarController extends Controller
         $available_from = $request->available_from;
         $available_to = $request->available_to;
 
-        Seminar::update($title, $author, $subject, $module, $description, $image, $available_from, $available_to);
+        Seminar::update($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to);
 
         return back()->withInput();
 
@@ -198,8 +202,8 @@ class SeminarController extends Controller
 
     /**
      * List all FAQs.
-     * @info:   Use parameters for filter and search the list in strict REST!
      *
+     * @param string $name
      * @param string $letter
      *
      * @return View
@@ -238,5 +242,42 @@ class SeminarController extends Controller
                                 ->with('letters', $letters)
                                 ->with('answers', $answers);
     }
+
+    /**
+	 * Show seminar contact forms.
+	 *
+     * @param string $name
+     *
+	 * @return View
+	 */
+	public function contact($name)
+	{
+
+        // Get seminar name
+        $seminar_name = $name;
+
+        // Get seminar author.
+        $author = Seminar::getAuthor($name);
+
+        // Get all sections.
+        $sections = Seminar::getAllSections($name);
+
+        // Get feedback mail.
+        $feedback_mail = Seminar::getFeedbackMail($name);
+
+        // Get feedback mail.
+        $lection_authors = Seminar::getAllLectionAuthors($name);
+
+        // Get support mail.
+        $support_mail = 'mundt@ph-kalrsruhe.de';
+
+		return view('seminar.contact')
+                            ->with('seminar_name', $seminar_name)
+                            ->with('sections', $sections)
+                            ->with('author', $author)
+                            ->with('lection_authors', $lection_authors)
+                            ->with('feedback_mail', $feedback_mail)
+                            ->with('support_mail', $support_mail);
+	}
 
 }

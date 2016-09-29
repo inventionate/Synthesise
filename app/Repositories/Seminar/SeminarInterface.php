@@ -8,9 +8,9 @@ interface SeminarInterface
 
     public function get($name);
 
-    public function store($title, $author, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
+    public function store($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users);
 
-    public function update($title, $author, $subject, $module, $description, $image, $available_from, $available_to);
+    public function update($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to);
 
     public function delete($name);
 
@@ -33,5 +33,11 @@ interface SeminarInterface
     public function getCurrentPaper($name);
 
     public function getAllUsersByRole($name, $role);
+
+    public function getFeedbackMail($name);
+
+    public function getAuthor($name);
+
+    public function getAllLectionAuthors($name);
 
 }
