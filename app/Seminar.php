@@ -87,4 +87,12 @@ class Seminar extends Model
         return $this->hasMany('Synthesise\Faq', 'seminar_name');
     }
 
+    /**
+     * Datenbankrelation Seminar hat viele Infoblocks.
+     */
+    public function infoblocks()
+    {
+        return $this->hasMany('Synthesise\Infoblock', 'seminar_name');
+    }
+
 }
