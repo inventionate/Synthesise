@@ -90,8 +90,8 @@
 {{-- Include Modals for create and edit faqs. --}}
 @if ( Seminar::authorizedEditor($seminar_name) )
 
-    @include('seminar.faq.create')
-    @include('seminar.faq.edit')
+    @include('seminar.faqs.create')
+    @include('seminar.faqs.edit')
 
 @endif
 

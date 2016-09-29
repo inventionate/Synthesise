@@ -251,7 +251,7 @@ class SeminarController extends Controller
             'subjects' => $subjects
         ]);
 
-        return view('seminar.faq.index')
+        return view('seminar.faqs.index')
                                 ->with('seminar_name', $seminar_name)
                                 ->with('sections', $sections)
                                 ->with('answersByLetter', $answersByLetter)

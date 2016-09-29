@@ -8,7 +8,7 @@
 
     <div class="content">
 
-        @include('seminar.faq.formfields')
+        @include('seminar.faqs.formfields')
 
     </div>
 

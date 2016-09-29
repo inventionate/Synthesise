@@ -124,13 +124,21 @@ if( $('#main-content-seminar-faqs')[0] )
     if( $('.faq-edit')[0] )
     {
         $('#faq-edit-modal')
-            .modal({detachable: false})
+            .modal({
+                detachable: false,
+                onHidden    : function() {
+
+                    $('#faq-edit-modal').attr('action',  $('#faq-edit-modal').attr('action').slice(0, -3));
+
+                },
+            })
             .modal('attach events', '.faq-edit', 'show');
 
         $('.faq-edit').click(function() {
 
             // Get FAQ resource ID.
             var id = $(this).attr("data-id");
+            // action="//localhost:3000/faq/
 
             // Add ID to form update url.
             $('#faq-edit-modal').attr('action', $('#faq-edit-modal').attr('action') + '/' + id);

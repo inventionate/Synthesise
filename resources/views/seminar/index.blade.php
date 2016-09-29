@@ -46,7 +46,7 @@
 	</div>
 
 	<div class="two column row">
-		@include('seminar.partials.additional-infos')
+		@include('seminar.infoblocks.index')
 	</div>
 
 </main>
