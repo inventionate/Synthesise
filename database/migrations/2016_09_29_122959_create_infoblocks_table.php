@@ -16,13 +16,13 @@ class CreateInfoblocksTable extends Migration
             $table->increments('id');
             $table->string('name', 128);
             $table->text('content');
-            $table->text('image_path');
-            $table->text('link_url');
+            $table->text('image_path')->nullable();
+            $table->text('link_url')->nullable();
             $table->string('seminar_name', 256);
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

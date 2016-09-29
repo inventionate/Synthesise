@@ -41,19 +41,25 @@ if( $('#main-content-seminar-faqs')[0] )
 
     // Recieve the used subjects.
     // var subjects is provided by Laravel.
-    var rule_subject;
-    var rules_to_add = [];
 
-    for (i = 0; i < subjects.length; i++) {
+    var createUniqueSubjectsRules = function (form_subjects) {
 
-         rule_subject = {
-                 'type'    : 'unique[' + subjects[i] +  ']',
-                 'prompt'  : 'Der Breich existiert bereits.'
-             };
+        var rule_subject;
+        var rules_to_add = [];
 
-         rules_to_add.push(rule_subject);
+        for (i = 0; i < form_subjects.length; i++) {
 
-     }
+             rule_subject = {
+                     'type'    : 'unique[' + form_subjects[i] +  ']',
+                     'prompt'  : 'Der Breich existiert bereits.'
+                 };
+
+             rules_to_add.push(rule_subject);
+
+         }
+
+         return rules_to_add;
+    };
 
      // Init basic validation rules.
      var rules = {
@@ -84,16 +90,18 @@ if( $('#main-content-seminar-faqs')[0] )
      };
 
      // Add dynamic validation rules (guarantee unique subjects).
-     rules.subject.rules = rules.subject.rules.concat(rules_to_add);
+     var rules_new = jQuery.extend({}, rules);
 
-    // Attach FAQ Modal Validation.
-     $('.faq-validator')
+     rules_new.subject.rules.concat( createUniqueSubjectsRules(subjects) );
+
+    // Attach FAQ new modal validation.
+     $('.faq-new-validator')
          .form({
              inline: true,
              onSuccess: function() {
                  $(this).modal('hide');
              },
-             fields: rules
+             fields: rules_new
          });
 
     /*
@@ -144,6 +152,30 @@ if( $('#main-content-seminar-faqs')[0] )
 
             // Set FAQ Modal answer.
             $('#faq-edit-modal').find('textarea[name="answer"]').trumbowyg( 'html', faq_answer.html().trim() );
+
+            var rules_edit = jQuery.extend({}, rules);
+
+            // Delete current subject from list for edit
+            var faq_subject_index = subjects.indexOf(faq_subject);
+
+            // Remove edited subjects from array.
+            var subjects_edit = subjects.slice();
+
+            subjects_edit.splice(faq_subject_index, 1);
+
+            // Generate rules.
+            rules_edit.subject.rules.concat( createUniqueSubjectsRules(subjects_edit) );
+
+            // Attach FAQ edit modal validation.
+            $('.faq-edit-validator')
+                .form({
+                    inline: true,
+                    onSuccess: function() {
+                        $(this).modal('hide');
+                    },
+                    fields: rules_edit
+                });
+
         });
     }
 }

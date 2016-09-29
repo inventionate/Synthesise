@@ -37,7 +37,7 @@ class FaqTableSeeder extends Seeder
             'area' => 'B',
             'subject' => 'Belegungspflicht',
             'question' => 'Ist die M1-Veranstaltung eine Pflichtveranstaltung?',
-            'answer' => 'Das Besuch der Veranstaltung ist verpflichtend. Das Bestehen der Akademischen Vorprüfung ist Voraussetzung für das Weiterstudium an der PH Karlsruhe.</p>
+            'answer' => '<p>Das Besuch der Veranstaltung ist verpflichtend. Das Bestehen der Akademischen Vorprüfung ist Voraussetzung für das Weiterstudium an der PH Karlsruhe.</p>
 			<h5>Prüfungsordnung 2011: § 4 Akademische Vorprüfung</h5>
 			<ol>
 			<li>Die Akademische Vorprüfung bildet den Abschluss der ersten Modulstufe. Die Akademische Vorprüfung ist bis zum Ende des zweiten Semesters abzulegen. Wer die Vorprüfung einschließlich etwaiger Wiederholungen bis zum Ende des vierten Fachsemesters nicht bestanden hat, verliert den Prüfungsanspruch, es sei denn, er bzw. sie hat die Fristüberschreitung nicht zu vertreten.</li>
@@ -50,7 +50,7 @@ class FaqTableSeeder extends Seeder
         Faq::create(array(
             'area' => 'B',
             'subject' => 'Belegungszeitraum',
-            'question' => 'Bis zu welchem Semester muss ich die M1-Veranstaltung besucht bzw. die Klausur bestanden haben?',
+            'question' => '<p>Bis zu welchem Semester muss ich die M1-Veranstaltung besucht bzw. die Klausur bestanden haben?',
             'answer' => '</p><h5>Prüfungsordnung 2011: § 4 Akademische Vorprüfung</h5>
 			<ol>
 			<li>Die Akademische Vorprüfung bildet den Abschluss der ersten Modulstufe. Die Akademische Vorprüfung ist bis zum Ende des zweiten Semesters abzulegen. Wer die Vorprüfung einschließlich etwaiger Wiederholungen bis zum Ende des vierten Fachsemesters nicht bestanden hat, verliert den Prüfungsanspruch, es sei denn, er bzw. sie hat die Fristüberschreitung nicht zu vertreten.</li>
@@ -61,7 +61,7 @@ class FaqTableSeeder extends Seeder
         Faq::create(array(
             'area' => 'D',
             'subject' => 'Durchgefallen',
-            'question' => 'Was passiert, wenn ich die Klausur nicht bestehe?',
+            'question' => '<p>Was passiert, wenn ich die Klausur nicht bestehe?',
             'answer' => 'Die Klausur kann im folgenden Semester einmal wiederholt werden. Im Sommersemester werden von den einzelnen Fachgebieten Repetitorien (Wiederholungsveranstaltungen) angeboten.</p>
 			<h5>Prüfungsordnung 2011: § 4 Akademische Vorprüfung</h5>
 			<ol>
@@ -164,7 +164,7 @@ class FaqTableSeeder extends Seeder
             'area' => 'K',
             'subject' => 'Klausurwiederholung',
             'question' => 'Was geschieht, wenn ich die Klausur nicht bestanden habe?',
-            'answer' => 'Die Klausur (bestehend aus drei Teilen) kann im folgenden Semester einmal wiederholt werden. Im Sommersemester werden von den einzelnen Fachgebieten Repetitorien (Wiederholungsveranstaltungen) angeboten, die sinnvollerweise zu besuchen sind.
+            'answer' => '<p>Die Klausur (bestehend aus drei Teilen) kann im folgenden Semester einmal wiederholt werden. Im Sommersemester werden von den einzelnen Fachgebieten Repetitorien (Wiederholungsveranstaltungen) angeboten, die sinnvollerweise zu besuchen sind.
 			<h5>Prüfungsordnung 2011: § 4 Akademische Vorprüfung</h5>
 			<ol>
 			<li>Die Akademische Vorprüfung bildet den Abschluss der ersten Modulstufe. Die Akademische Vorprüfung ist bis zum Ende des zweiten Semesters abzulegen. Wer die Vorprüfung einschließlich etwaiger Wiederholungen bis zum Ende des vierten Fachsemesters nicht bestanden hat, verliert den Prüfungsanspruch, es sei denn, er bzw. sie hat die Fristüberschreitung nicht zu vertreten.</li>
@@ -218,7 +218,7 @@ class FaqTableSeeder extends Seeder
             'area' => 'N',
             'subject' => 'Notizfunktion',
             'question' => 'Was ist die Notizfunktion des Videoplayers?',
-            'answer' => 'Mit Hilfe der Notizfunktion der Web-App können Sie ihr individuelles Skript für jede online-Lektion erstellen. Sobald Sie auf ein sog. »Fähnchen« (rote Punkte auf der Videotimeline) klicken können Sie zu diesem eine Notiz verfassen (max. 500 Zeichen). Diese Notiz wird verschlüsselt gespeichert. D. h., nur Sie haben Zugriff darauf. Es ist auch problemlos möglich, die Notiz im Nachhinein zu verändern. Dazu einfach erneut auf das entsprechende Fähnchen klicken. Über »Notizen herunterladen« können Sie sich alle Notizen als PDF herunterladen, um diese z. B. handschriflich zu bearbeiten.<br><br>
+            'answer' => '<p>Mit Hilfe der Notizfunktion der Web-App können Sie ihr individuelles Skript für jede online-Lektion erstellen. Sobald Sie auf ein sog. »Fähnchen« (rote Punkte auf der Videotimeline) klicken können Sie zu diesem eine Notiz verfassen (max. 500 Zeichen). Diese Notiz wird verschlüsselt gespeichert. D. h., nur Sie haben Zugriff darauf. Es ist auch problemlos möglich, die Notiz im Nachhinein zu verändern. Dazu einfach erneut auf das entsprechende Fähnchen klicken. Über »Notizen herunterladen« können Sie sich alle Notizen als PDF herunterladen, um diese z. B. handschriflich zu bearbeiten.<br><br>
             Sie können Ihre Notizen auch semantisch auszeichnen. Das Eingabefeld interpretiert alle grudnlegenden HTML Tags:
             <dl>
                 <dt>Fett</dt>
@@ -310,13 +310,13 @@ class FaqTableSeeder extends Seeder
             'area' => 'T',
             'subject' => 'Textbearbeitung',
             'question' => 'Wie sollte ich die Texte und die online-Lektionen bearbeiten?',
-            'answer' => '</p><ol>
+            'answer' => '<p><ol>
 			<li>Notieren Sie sich offene Fragen, Verständnisschwierigkeiten, Ungereimtheiten. Versuchen Sie zunächst eigenhändig, Unklarheiten zu beseitigen. Ungeklärt bleibende Fragen können in den Mentoriaten aufgeworfen werden.</li>
 			<li>Notieren Sie sich Personennamen, von denen in den online-Lektionen und den Texten die Rede ist. Recherchieren Sie, wer sich hinter den Namen verbirgt.</li>
 			<li>Zeichnen Sie den Argumentationsgang von online-Lektion und Text (am besten Absatz für Absatz) schriftlich nach.</li>
 			<li>Fassen Sie in eigenen Sätzen Kernaussagen zusammen.</li>
 			<li>Halten Sie inhaltliche Zusammenhänge, Übereinstimmungen und Abweichungen zwischen dem Text und den online-Lektionen fest.</li>
-			</ol><p>',
+			</ol></p>',
             'seminar_name' => 'Grundlagen pädagogischen Denkens und Handelns',
         ));
 

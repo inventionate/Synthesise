@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ url('faq') }}" id="faq-edit-modal" class="ui modal form faq-validator">
+<form role="form" method="POST" action="{{ url('faq') }}" id="faq-edit-modal" class="ui modal form faq-edit-validator">
 
     {{ method_field('PATCH') }}
 

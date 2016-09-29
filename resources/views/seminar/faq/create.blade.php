@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ action('FaqController@store') }}" id="faq-new-modal" class="ui modal form faq-validator">
+<form role="form" method="POST" action="{{ action('FaqController@store') }}" id="faq-new-modal" class="ui modal form faq-new-validator">
 
     {{ csrf_field() }}
 
