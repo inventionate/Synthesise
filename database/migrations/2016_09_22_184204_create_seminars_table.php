@@ -22,6 +22,10 @@ class CreateSeminarsTable extends Migration
             $table->string('contact', 32);
             $table->text('authorized_editors');
             $table->text('image_path');
+            $table->text('info_intro')->nullable();
+            $table->text('info_lections')->nullable();
+            $table->text('info_texts')->nullable();
+            $table->text('info_exam')->nullable();
             $table->text('info_path')->nullable();
             $table->date('available_from');
             $table->date('available_to');

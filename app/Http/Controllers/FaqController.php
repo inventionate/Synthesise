@@ -15,7 +15,7 @@ class FaqController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'admin']);
+        $this->middleware(['auth', 'admin.teacher']);
     }
 
     /**

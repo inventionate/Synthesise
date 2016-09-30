@@ -7,6 +7,7 @@ use Synthesise\Section;
 use Synthesise\User;
 use Auth;
 use File;
+use Storage;
 
 /**
  * User Repository mit Queries und Logik.
@@ -37,13 +38,18 @@ class SeminarRepository implements SeminarInterface
      * @param     string    $module
      * @param     string    $description
      * @param     image     $image
+     * @param     string    $info_intro;
+     * @param     string    $info_lections;
+     * @param     string    $info_texts;
+     * @param     string    $info_exam;
+     * @param     string    $info_path;
      * @param     date      $available_from
      * @param     date      $available_to
      * @param     array     $authorized_users
      * @param     string    $disqus_shortname
      *
      */
-    public function store($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users, $disqus_shortname)
+    public function store($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $authorized_users, $disqus_shortname)
     {
 
         // Save image.
@@ -67,6 +73,12 @@ class SeminarRepository implements SeminarInterface
         $seminar->module = $module;
         $seminar->description = $description;
         $seminar->image_path = $image_path;
+        $seminar->info_intro = $info_intro;
+        $seminar->info_lections = $info_lections;
+        $seminar->info_texts = $info_texts;
+        $seminar->info_exam = $info_exam;
+        //@TODO vereinfachen!
+        $seminar->info = $info;
         $seminar->available_from = date('Y-m-d', strtotime($available_from));
         $seminar->available_to = date('Y-m-d', strtotime($available_to));
         $seminar->authorized_editors = $authorized_users;
@@ -93,12 +105,17 @@ class SeminarRepository implements SeminarInterface
      * @param     string    $module
      * @param     string    $description
      * @param     image     $image
+     * @param     string    $info_intro;
+     * @param     string    $info_lections;
+     * @param     string    $info_texts;
+     * @param     string    $info_exam;
+     * @param     string    $info;
      * @param     date      $available_from
      * @param     date      $available_to
      * @param     string    $disqus_shortname
      *
      */
-    public function update($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $disqus_shortname)
+    public function update($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $disqus_shortname)
     {
 
         // Find Seminar.
@@ -110,6 +127,10 @@ class SeminarRepository implements SeminarInterface
         $seminar->subject = $subject;
         $seminar->module = $module;
         $seminar->description = $description;
+        $seminar->info_intro = $info_intro;
+        $seminar->info_lections = $info_lections;
+        $seminar->info_texts = $info_texts;
+        $seminar->info_exam = $info_exam;
         $seminar->available_from = date('Y-m-d', strtotime($available_from));
         $seminar->available_to = date('Y-m-d', strtotime($available_to));
 
@@ -127,6 +148,7 @@ class SeminarRepository implements SeminarInterface
             // Remove old image.
             if ( Seminar::where('image_path', $seminar->image_path)->count() === 1 )
             {
+                // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
                 File::delete(public_path($seminar->image_path));
             }
 
@@ -136,6 +158,25 @@ class SeminarRepository implements SeminarInterface
             $image_path = 'img/seminars/' . $image_saved->getFilename();
 
             $seminar->image_path = $image_path;
+        }
+
+        // Check new image.
+        if( $info !== null )
+        {
+            // Remove old info.
+            if ( Seminar::where('info_path', $seminar->info_path)->count() === 1 )
+            {
+                // Checken, ob das hier so geht oder doch besser File!
+                Storage::delete($seminar->info_path);
+            }
+
+            // Save new info.
+            $info_saved = $info->move(storage_path('app/public'), md5_file($info) . '.' . $info->getClientOriginalExtension());
+
+            // @TODO Das geht mit der Laravel 5.3 Storage Facade einfacher!
+            $info_path = 'storage/app/public/' . $info_saved->getFilename();
+
+            $seminar->info_path = $info_path;
         }
 
         // Save updated Seminar.

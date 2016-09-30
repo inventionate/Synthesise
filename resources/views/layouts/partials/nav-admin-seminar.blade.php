@@ -15,7 +15,7 @@
 </div>
 
 <div class="item">
-    <button class="ui teal button" id="info-new">Neue weiterführende Information</button>
+    <button class="ui teal button" id="infoblock-new">Neue weiterführende Information</button>
 </div>
 
 <div class="item">

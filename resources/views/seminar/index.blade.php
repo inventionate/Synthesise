@@ -26,7 +26,7 @@
 			@include('seminar.lections.current')
 		</div>
 		<section class="column">
-			@include('seminar.general-info')
+			@include('seminar.general-infos.index')
 		</section>
 	</div>
 
@@ -59,6 +59,12 @@
 		@include('seminar.messages.create')
 
 		@include('seminar.messages.edit')
+
+		@include('seminar.general-infos.edit')
+
+		@include('seminar.infoblocks.create')
+
+		@include('seminar.infoblocks.edit')
 
 	@endif
 @stop

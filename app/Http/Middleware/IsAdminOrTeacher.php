@@ -4,7 +4,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
 
-class IsAdmin {
+class IsAdminOrTeacher {
 
 	/**
 	* The Guard implementation.
@@ -34,7 +34,7 @@ class IsAdmin {
 	public function handle($request, Closure $next)
 	{
 		// Wenn diese Abfrage WAHR ist wird auf das Dashboard weitergeleitet.
-		if( $this->auth->user()->role != 'Admin' )
+		if( !in_array($this->auth->user()->role, ['Admin', 'Teacher']) )
 		{
 			return new RedirectResponse(url('/'));
 		}

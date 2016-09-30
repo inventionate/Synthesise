@@ -19,6 +19,8 @@ require('./piwik-analytics.js');
 require('./navigation.js');
 require('./cookie-bar.js');
 require('./messages.js');
+require('./infoblocks.js');
+require('./lections.js');
 
 /*
  * View specific scripts

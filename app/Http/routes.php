@@ -153,16 +153,6 @@ Route::post('online-lektionen/{videoname}/{sequenceNumber}/postnotes', [
 ])
 ->where('sequenceNumber', '[0-9]+');
 
-/*
-|-------------------------------------------------------------------------------
-| Analytics
-|-------------------------------------------------------------------------------
-*/
-
-// Index
-Route::get('analytics', [
-    'uses' => 'AnalyticsController@index',
-]);
 
 /*
 |-------------------------------------------------------------------------------
@@ -264,4 +254,15 @@ Route::post('contact/feedback', [
 Route::post('contact/support', [
     'as' => 'support',
     'uses' => 'ContactController@sendSupport',
+]);
+
+/*
+|-------------------------------------------------------------------------------
+| Info control
+|-------------------------------------------------------------------------------
+*/
+
+// Send feedback
+Route::match(['put', 'patch'], 'info/{id}', [
+    'uses' => 'InfoController@update',
 ]);

@@ -30,6 +30,9 @@ class SeminarController extends Controller
 	public function index($name)
 	{
 
+        // Get Seminar.
+        $seminar = Seminar::get($name);
+
         // Get authorized users.
 		$authorized_editors = Seminar::getAuthorizedEditors($name);
 
@@ -65,6 +68,7 @@ class SeminarController extends Controller
 
 		return view('seminar.index')
                                     ->with('seminar_name', $name)
+                                    ->with('seminar', $seminar)
                                     ->with('authorized_editors', $authorized_editors)
                                     ->with('messages', $messages)
                                     ->with('sections', $sections)
@@ -107,12 +111,17 @@ class SeminarController extends Controller
         $module = $request->module;
         $description = $request->description;
         $image = $request->file('image');
+        $info_intro = NULL;
+        $info_lections = NUL;
+        $info_texts = NULL;
+        $info_exam = NULL;
+        $info = NULL;
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $authorized_users = $request->authorized_users;
         $disqus_shortname = $request->disqus_shortname;
 
-        Seminar::store($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $authorized_users, $disqus_shortname);
+        Seminar::store($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $authorized_users, $disqus_shortname);
 
         return back()->withInput();
 
@@ -136,6 +145,11 @@ class SeminarController extends Controller
             'module' => 'required|string',
             'description' => 'required|string',
             'image' => 'image',
+            'info_intro' => 'required|string',
+            'info_lections' => 'required|string',
+            'info_texts' => 'required|string',
+            'info_exam' => 'required|string',
+            'info' => 'file',
             'available_from' => 'required|date',
             'available_to' => 'required|date',
             'disqus_shortname' => 'string'
@@ -148,11 +162,16 @@ class SeminarController extends Controller
         $module = $request->module;
         $description = $request->description;
         $image = $request->file('image');
+        $info_intro = $request->info_intro;
+        $info_lections = $request->info_lections;
+        $info_texts = $request->info_texts;
+        $info_exam = $request->info_exam;
+        $info = $request->file('info_path');;
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $disqus_shortname = $request->disqus_shortname;
 
-        Seminar::update($title, $author, $contact, $subject, $module, $description, $image, $available_from, $available_to, $disqus_shortname);
+        Seminar::update($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $disqus_shortname);
 
         return back()->withInput();
 

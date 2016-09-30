@@ -29,6 +29,6 @@ class Kernel extends HttpKernel
          'auth' => \Synthesise\Http\Middleware\Authenticate::class,
          'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
          'guest' => \Synthesise\Http\Middleware\RedirectIfAuthenticated::class,
-         'admin' => \Synthesise\Http\Middleware\IsAdmin::class,
+         'admin.teacher' => \Synthesise\Http\Middleware\IsAdminOrTeacher::class,
      ];
 }

@@ -91,6 +91,36 @@
                 <input id="seminar_disqus" name="disqus_shortname" placeholder="Wenn Sie Disqus™ verwenden wollen, geben Sie den entsprechenden Kurznamen an." type="text" value="{{ $seminar->disqus_shortname }}">
             </div>
 
+            {{-- Hidden general info input --}}
+            <div class="hide fields">
+
+                <div class="field">
+                    <label for="info_intro">Informationen: Einleitung</label>
+                    <input id="info_intro" name="info_intro" type="text" value="{{ $seminar->info_intro }}" readonly>
+                </div>
+
+                <div class="field">
+                    <label for="info_lections">Informationen: online-Lektionen</label>
+                    <input id="info_lections" name="info_lections" type="text" value="{{ $seminar->info_lections }}" readonly>
+                </div>
+
+                <div class="field">
+                    <label for="info_texts">Informationen: Texte</label>
+                    <input id="info_texts" name="info_texts" type="text" value="{{ $seminar->info_texts }}" readonly>
+                </div>
+
+                <div class="field">
+                    <label for="info_exam">Informationen: Prüfung</label>
+                    <input id="info_exam" name="info_exam" type="text" value="{{ $seminar->info_exam }}" readonly>
+                </div>
+
+                <div class="field">
+                    <label for="info">Informationen: Infodokument</label>
+                    <input id="info" name="info" type="file"  readonly>
+                </div>
+
+            </div>
+
             <button type="submit" class="ui green right labeled icon submit button right floated">
                 Speichern
                 <i class="checkmark icon"></i>
