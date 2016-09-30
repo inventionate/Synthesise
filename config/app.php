@@ -225,6 +225,7 @@ return [
         'Sequence'      => Synthesise\Repositories\Facades\Sequence::class,
         'User'          => Synthesise\Repositories\Facades\User::class,
         'Infoblock'     => Synthesise\Repositories\Facades\Infoblock::class,
+        'Paper'         => Synthesise\Repositories\Facades\Paper::class,
 
         /*
          * Extension Facades...

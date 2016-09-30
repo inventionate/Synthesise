@@ -1,16 +1,16 @@
-<form role="form" method="POST" action="{{ url('faq') }}" id="faq-edit-modal" class="ui modal form faq-edit-validator">
+<form role="form" method="POST" action="{{ url('section') }}" id="section-edit-modal" class="ui modal form section-validator" enctype="multipart/form-data">
 
     {{ method_field('PATCH') }}
 
     {{ csrf_field() }}
 
     <div class="header">
-        »Häufig gestellte Frage« bearbeiten
+        Themenbereich bearbeiten
     </div>
 
     <div class="content">
 
-        @include('seminar.faqs.formfields')
+        @include('seminar.sections.formfields')
 
     </div>
     <div class="actions">

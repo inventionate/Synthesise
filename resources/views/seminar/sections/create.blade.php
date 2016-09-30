@@ -1,25 +1,24 @@
-<form role="form" method="POST" action="{{ url('faq') }}" id="faq-edit-modal" class="ui modal form faq-edit-validator">
-
-    {{ method_field('PATCH') }}
+<form role="form" method="POST" action="{{ action('SectionController@store') }}" id="section-new-modal" class="ui modal form section-validator" enctype="multipart/form-data">
 
     {{ csrf_field() }}
 
     <div class="header">
-        »Häufig gestellte Frage« bearbeiten
+        Neuen Themenbereich erstellen
     </div>
 
     <div class="content">
 
-        @include('seminar.faqs.formfields')
+        @include('seminar.sections.formfields')
 
     </div>
+
     <div class="actions">
         <div class="ui black cancel button">
             Abbrechen
         </div>
 
         <div class="ui right green labeled icon submit button">
-            Aktualisieren
+            Erstellen
             <i class="checkmark icon"></i>
         </div>
     </div>

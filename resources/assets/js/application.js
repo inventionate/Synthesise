@@ -27,7 +27,7 @@ require('./lections.js');
  */
 require('./views/dashboard.js');
 require('./views/seminar.js');
-require('./views/faq.js');
+require('./views/lection.js');
 
 /*
  * Vue JS Framework.

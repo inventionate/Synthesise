@@ -31,6 +31,9 @@ use Synthesise\Repositories\User\UserRepository;
 use Synthesise\Infoblock;
 use Synthesise\Repositories\Infoblock\InfoblockRepository;
 
+use Synthesise\Paper;
+use Synthesise\Repositories\Infoblock\PaperRepository;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -80,6 +83,10 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind('infoblock', function () {
             return new InfoblockRepository(new Infoblock());
+        });
+
+        $this->app->bind('paper', function () {
+            return new PaperRepository(new Paper());
         });
 
     }

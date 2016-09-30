@@ -6,7 +6,7 @@
 
 		@if ( count($lections) === 0 )
 			<div class="ui warning message">
-				Bisher wurden dem Seminar keine online-Lektionen zugewiesen. Bitte erstellen Sie eine neue online-Lektion oder fügen Sie bestehende hinzu, indem Sie »Neue online-Lektion« im Administrationsmenü anklicken.
+				Bisher wurden keine Themenbereiche erstellt und keine online-Lektionen zugewiesen. Bitte erstellen Sie einen neuen Themenbereich und eine neue online-Lektion. Klicken sie hierzu auf »Neuer Themenbereich« und anschließend auf »Neue online-Lektion« im Administrationsmenü.
 			</div>
 		@else
 
@@ -37,16 +37,24 @@
 						<tr>
 
 							{{-- Section info --}}
-							<td class="themenbereich" rowspan="{{ count( Section::getAllLections($section->name) ) }}">
+							<td class="themenbereich" rowspan="{{ count( Section::getAllLections($section->id) ) }}">
 
-								{{ $section->name }}
+								<div class="ui small header">
+									{{ $section->name }}
+								</div>
+
+								{{-- @TODO further_reading_path verwenden für den DownloadController!!! --}}
+
+								<a class="ui small basic blue icon button" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $section->name]) }}">
+									<i class="list icon"></i> Weiterführende Literatur
+								</a>
 
 							</td>
 							{{-- @TODO Mit Laravel 5.3 lässt sich das vereinfachen: $loop Variable! --}}
 							<div class="hide">
 								{{ $i = 0 }}
 							</div>
-							@foreach ( Section::getAllLections($section->name) as $lection )
+							@foreach ( Section::getAllLections($section->id) as $lection )
 
 								@if ($i > 0) <tr> @endif
 
@@ -82,12 +90,12 @@
 								</td>
 
 								{{-- Available date info --}}
-								<td class="seminar-datum">
+								<td class="center aligned seminar-datum">
 									{{ date('d.m.Y',strtotime($lection->available_from)) }}
 								</td>
 
 								{{-- Material --}}
-								<td class="materialien">
+								<td class="center aligned materialien">
 									<div class="ui icon small blue buttons">
 
 										<div class="ui right pointing dropdown button">
@@ -108,12 +116,6 @@
 
 											<i class="write square icon"></i>
 
-										</a>
-
-										{{-- @TODO further_reading_path verwenden für den DownloadController!!! --}}
-
-										<a class="ui button" v-on:click="trackEvent('Weiterführende Literaturhinweise', '{{ $section->name }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $section->name]) }}">
-											<i class="list icon"></i>
 										</a>
 
 									</div>

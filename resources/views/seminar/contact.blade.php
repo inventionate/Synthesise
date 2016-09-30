@@ -109,15 +109,7 @@
 {{-- @include ADMIN BACKEND --------------------------------------------------}}
 @if( Seminar::authorizedEditor($seminar_name) )
 
-	{{-- Load create and edit Modals --}}
-
-	@include('seminar.messages.create')
-
-	@include('seminar.messages.edit')
-
-	@include('seminar.infoblocks.create')
-
-	@include('seminar.infoblocks.edit')
+	@include('seminar.modals')
 
 @endif
 

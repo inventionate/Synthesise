@@ -14,20 +14,6 @@ class Section extends Model
 	protected $table = 'sections';
 
 	/**
-	 * Hauptschlüssel festlegen um die ORM Suche zu vereinfachen.
-	 *
-	 * @var 		string
-	 */
-	protected $primaryKey ='name';
-
-	/**
-     * Hauptschlüssel als nicht numerisch definieren und automatisches Inkrementieren deaktivieren.
-     *
-     * @var boolean
-     */
-    public $incrementing = false;
-
-	/**
 	 * Die veränderbaren Tabellenspalten.
 	 *
 	 * @var 		array
@@ -54,6 +40,6 @@ class Section extends Model
 	 */
 	public function lections()
 	{
-		return $this->belongsToMany('Synthesise\Lection', 'lection_section',  'section_name', 'lection_name');
+		return $this->belongsToMany('Synthesise\Lection', 'lection_section',  'section_id', 'lection_name');
 	}
 }

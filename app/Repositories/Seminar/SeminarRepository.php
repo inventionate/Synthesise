@@ -316,9 +316,9 @@ class SeminarRepository implements SeminarInterface
         $sections = $this->getAllSections($name);
 
         $lections = collect();
-
         foreach ( $sections as $section) {
-            $lections->push(   Section::find($section->name)->lections()->get() );
+
+            $lections->push(   Section::find($section->id)->lections()->get() );
         }
 
         return $lections->flatten();

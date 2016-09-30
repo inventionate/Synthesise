@@ -21,9 +21,9 @@ class Lection extends Model
     protected $fillable = [
         'name',
         'author',
+        'contact',
         'authorized_editors',
         'image_path',
-        'section_name',
         'available_from',
         'available_to'
     ];

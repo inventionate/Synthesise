@@ -5,7 +5,7 @@
 
 @section('content')
 
-<main id="main-content-seminar" class="ui container grid">
+<main id="main-content-seminar" class="ui grid container">
 
 	<h1 class="hide">Seminar Dashboard</h1>
 
@@ -32,7 +32,6 @@
 
 	<div class="one column row">
 		<div class="column">
-
 			@include('seminar.lections.index')
 		</div>
 	</div>
@@ -59,17 +58,7 @@
 	{{-- @include ADMIN BACKEND --------------------------------------------------}}
 	@if( Seminar::authorizedEditor($seminar_name) )
 
-		{{-- Load create and edit Modals --}}
-
-		@include('seminar.general-infos.edit')
-
-		@include('seminar.messages.create')
-
-		@include('seminar.messages.edit')
-
-		@include('seminar.infoblocks.create')
-
-		@include('seminar.infoblocks.edit')
+		@include('seminar.modals')
 
 	@endif
 @stop

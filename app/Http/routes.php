@@ -89,7 +89,7 @@ Route::group(['prefix' => 'seminar'], function () {
         'uses' => 'SeminarController@settings',
     ]);
 
-    // FAQ Index
+    // FAQs
     Route::get('/{name}/faq/{letter?}', [
         'as' => 'seminar-faqs',
         'uses' => 'SeminarController@faqs',
@@ -275,4 +275,25 @@ Route::match(['put', 'patch'], 'infoblock/{id}', [
 // Remove Infoblock.
 Route::delete('infoblock/{id}', [
     'uses' => 'InfoblockController@destroy',
+]);
+
+/*
+|-------------------------------------------------------------------------------
+| Lection control
+|-------------------------------------------------------------------------------
+*/
+
+// Store Lection.
+Route::post('lection', [
+    'uses' => 'LectionController@store',
+]);
+
+// Update Infoblock.
+Route::match(['put', 'patch'], 'lection/{name}', [
+    'uses' => 'LectionController@update',
+]);
+
+// Remove Infoblock.
+Route::delete('lection/{name}', [
+    'uses' => 'LectionController@destroy',
 ]);

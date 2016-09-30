@@ -1,16 +1,16 @@
-<form role="form" method="POST" action="{{ url('faq') }}" id="faq-edit-modal" class="ui modal form faq-edit-validator">
+<form role="form" method="POST" action="{{ url('lection') }}" id="lection-edit-modal" class="ui modal form lection-validator" enctype="multipart/form-data">
 
     {{ method_field('PATCH') }}
 
     {{ csrf_field() }}
 
     <div class="header">
-        »Häufig gestellte Frage« bearbeiten
+        online-Lektion bearbeiten
     </div>
 
     <div class="content">
 
-        @include('seminar.faqs.formfields')
+        @include('seminar.lections.formfields')
 
     </div>
     <div class="actions">

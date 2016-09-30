@@ -7,6 +7,11 @@
 </div>
 
 <div class="item">
+    <button class="ui teal button" id="lection-new">Neuer Themenbereich</button>
+</div>
+
+
+<div class="item">
     <button class="ui teal button" id="lection-new">Neue online-Lektion</button>
 </div>
 

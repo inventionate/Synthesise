@@ -1,4 +1,4 @@
-<a class="item @if ( urldecode(Request::segment(2)) === $seminar_name && in_array(Request::segment(3), [null, 'users', 'settings' ]) ) active @endif" href="{{ route('seminar', ['name' => $seminar_name]) }}">{{ $seminar_name }}</a>
+<a class="item seminar-name @if ( urldecode(Request::segment(2)) === $seminar_name && in_array(Request::segment(3), [null, 'users', 'settings' ]) ) active @endif" href="{{ route('seminar', ['name' => $seminar_name]) }}">{{ $seminar_name }}</a>
 
 <div class="ui dropdown item">
 
@@ -14,7 +14,7 @@
                 {{ $section->name }}
             </div>
 
-            @foreach ( Section::getAllLections($section->name) as $lection )
+            @foreach ( Section::getAllLections($section->id) as $lection )
 
                 <a class="item" href="{{ route('lektion',[$lection->name, 1]) }}">{{ $lection->name }}</a>
 

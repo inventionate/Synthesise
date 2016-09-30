@@ -15,7 +15,7 @@ class CreateLectionSectionTable extends Migration
         Schema::create('lection_section', function (Blueprint $table) {
             $table->increments('id');
             $table->string('lection_name', 128);
-            $table->string('section_name', 128);
+            $table->string('section_id', 128);
         });
     }
 
