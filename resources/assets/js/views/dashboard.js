@@ -171,7 +171,14 @@ if( $('#main-content-dashboard')[0] )
      * Create new message resource form.
      */
     $('#admin-edit-modal')
-        .modal({detachable: false})
+        .modal({
+            detachable: false,
+            onHidden    : function() {
+
+                $('#admin-edit-modal').attr('action',  $('#admin-edit-modal').attr('action').slice(0, -3));
+
+            },
+        })
         .modal('attach events', '.admin-edit', 'show');
 
     $('.admin-edit').click(function() {

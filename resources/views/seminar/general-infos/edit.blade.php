@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ action('SeminarController@update', ['name' => $seminar_name]) }}" id="info-edit-modal" class="ui modal form info-validator">
+<form role="form" method="POST" action="{{ action('SeminarController@update', ['name' => $seminar_name]) }}" id="info-edit-modal" class="ui modal form info-validator" enctype="multipart/form-data">
 
     {{ method_field('PATCH') }}
 

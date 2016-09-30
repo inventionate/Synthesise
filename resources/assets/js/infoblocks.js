@@ -22,7 +22,7 @@ if( $('#infoblock-new')[0] )
 
      // Init basic validation rules.
      var rules = {
-         title: {
+         name: {
              rules: [
                  {
                      type    : 'empty',
@@ -34,7 +34,23 @@ if( $('#infoblock-new')[0] )
              rules: [
                  {
                      type    : 'empty',
-                     prompt  : 'Bitte geben Sie eine Nachricht ein.'
+                     prompt  : 'Bitte geben Sie einen Informationstext ein.'
+                 }
+             ]
+         },
+         link_url: {
+             rules: [
+                 {
+                     type    : 'url',
+                     prompt  : 'Bitte geben Sie eine URL ein.'
+                 }
+             ]
+         },
+         filepath: {
+             rules: [
+                 {
+                     type    : 'empty',
+                     prompt  : 'Bitte laden Sie ein Bild hoch.'
                  }
              ]
          }
@@ -69,38 +85,50 @@ if( $('#infoblock-new')[0] )
      */
     if( $('.infoblock-edit')[0] )
     {
+
         $('#infoblock-edit-modal')
-            .modal({detachable: false})
-            .modal('attach events', '.message-edit', 'show');
+            .modal({
+                detachable: false,
+                onHidden    : function() {
 
-        $('.message-edit').click(function() {
+                    $('#infoblock-edit-modal').attr('action',  $('#infoblock-edit-modal').attr('action').slice(0, -3));
 
-            // Get FAQ resource ID.
+                },
+            })
+            .modal('attach events', '.infoblock-edit', 'show');
+
+        $('.infoblock-edit').click(function() {
+
+            // Get infoblock ID.
             var id = $(this).attr("data-id");
 
             // Add ID to form update url.
-            $('#message-edit-modal').attr('action', $('#message-edit-modal').attr('action') + '/' + id);
+            $('#infoblock-edit-modal').attr('action', $('#infoblock-edit-modal').attr('action') + '/' + id);
 
-            // Get message title.
-            var message_title = $(this).parents(':eq(1)').find('.header').text().trim();
+            // Get infoblock name.
+            var infoblock_name = $(this).attr("data-name");
 
-            // Get message content.
-            var message_content = $(this).parents(':eq(1)').clone();
-            message_content.find('.header').remove();
-            message_content.find('.buttons').remove();
-            message_content.find('form').remove();
+            // Get infoblock content.
+            var infoblock_content = $(this).attr("data-content");
 
-            // Get message colour.
-            var message_colour = $(this).parents(':eq(1)').attr('class').split(' ')[2];
+            // Get infoblock link_url.
+            var infoblock_link_url = $(this).attr("data-link-url");
 
-            // Set message modal title.
-            $('#message-edit-modal').find('input[name="title"]').val( message_title );
+            // Get infoblock image_path.
+            var infoblock_image_path = $(this).attr("data-image-path");
 
-            // Set message modal content.
-            $('#message-edit-modal').find('textarea[name="content"]').trumbowyg( 'html', message_content.html().trim() );
+            // Set infoblock name.
+            $('#infoblock-edit-modal').find('input[name="name"]').val( infoblock_name );
 
-            // Set message modal colour.
-            $('#message-edit-modal').find('input[value=' + message_colour + ']').prop("checked", true);
+            // Set infoblock content.
+            $('#infoblock-edit-modal').find('textarea[name="content"]').trumbowyg( 'html',  infoblock_content );
+
+            // Set infoblock link_url.
+            $('#infoblock-edit-modal').find('input[name="link_url"]').val( infoblock_link_url );
+
+            // Set infoblock image_path.
+            $('#infoblock-edit-modal').find('input[name="filepath"]').val( infoblock_image_path );
+
         });
     }
 }

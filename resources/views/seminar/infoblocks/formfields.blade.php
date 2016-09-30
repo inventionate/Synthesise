@@ -30,3 +30,10 @@
             </div>
     </div>
 </div>
+
+{{-- Hidden form fields --}}
+
+<div class="hide field">
+    <label for="infoblocks_seminar_name">Seminarname</label>
+    <input id="infoblocks_seminar_name" name="seminar_name" type="text" value="{{ $seminar_name }}" readonly>
+</div>

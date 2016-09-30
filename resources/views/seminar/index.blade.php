@@ -40,7 +40,7 @@
 
 		<div class="one column row">
 			<div class="column">
-				<h2 class="ui horizontal divider header">
+				<h2 id="infoblocks" class="ui horizontal divider header">
 					<i class="info circle icon"></i>
 					Weiterführende Informationen
 				</h2>

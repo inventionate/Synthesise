@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ action('InfoblockController@store') }}" id="infoblock-new-modal" class="ui modal form infoblock-validator">
+<form role="form" method="POST" action="{{ action('InfoblockController@store') }}" id="infoblock-new-modal" class="ui modal form infoblock-validator" enctype="multipart/form-data">
 
     {{ csrf_field() }}
 

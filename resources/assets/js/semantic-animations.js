@@ -8,18 +8,15 @@ $('.dropdown').dropdown();
 
 $('.ui.accordion').accordion();
 
-$('input:text, .ui.button', '.ui.action.input')
-	.on('click', function(e) {
-    	$('input:file', $(e.target).parents()).click();
-	})
-;
+// Semantic UI file upload integration.
+$('.ui.action.input input:text, .ui.action.input .ui.button').click(function() {
+    	$(this).siblings('input:file').click();
+	});
 
-$('input:file', '.ui.action.input')
-	.on('change', function(e) {
-    	var name = e.target.files[0].name;
-    	$('input:text', $(e.target).parent()).val(name);
-	})
-;
+$('.ui.action.input input:file').change(function() {
+    	var name = $(this).val().split('\\').pop();
+    	$(this).siblings('input:text').val(name);
+	});
 
 $('.special.cards .image').dimmer({
   on: 'hover'

@@ -70,7 +70,14 @@ if( $('#message-new')[0] )
     if( $('.message-edit')[0] )
     {
         $('#message-edit-modal')
-            .modal({detachable: false})
+            .modal({
+                detachable: false,
+                onHidden    : function() {
+
+                    $('#message-edit-modal').attr('action',  $('#message-edit-modal').attr('action').slice(0, -3));
+
+                },
+            })
             .modal('attach events', '.message-edit', 'show');
 
         $('.message-edit').click(function() {

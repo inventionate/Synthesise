@@ -7,5 +7,9 @@ namespace Synthesise\Repositories\Infoblock;
  */
 interface InfoblockInterface
 {
-    
+    public function store($name, $content, $link_url, $image, $seminar_name);
+
+    public function update($id, $name, $content, $link_url, $image, $seminar_name);
+
+    public function delete($id);
 }
