@@ -18,7 +18,7 @@
 				Festlegen der Feedback E-Mail Adresse und der inahltlichen Kontaktadressen
 			</div>
 			<p>
-				Sie können Die Feedbackadresse in den <a href="{{ route('seminar-settings', ['name' => $seminar_name]) }}">Seminareinstellungen</a> konfigurieren. Die E-Mail Adressen für inhaltliche Fragen werden automatisch in Abhängigkeit der verwendeten online-Lektionen generiert.
+				Sie können die Feedbackadresse in den <a href="{{ route('seminar-settings', ['name' => $seminar_name]) }}">Seminareinstellungen</a> konfigurieren. Die E-Mail Adressen für inhaltliche Fragen werden automatisch in Abhängigkeit der verwendeten online-Lektionen generiert.
 			</p>
 		</div>
 
@@ -31,7 +31,7 @@
 
 			<p>Bei Fragen zur Gestaltung der Gesamtveranstaltung nutzen Sie bitte dieses Formular. Die Nachricht wird direkt an {{ $author }} gesendet. <b>Die Antwort wird an Ihre E-Mail Adresse der Pädagogischen Hochschule Karlsruhe gesendet.</b></p>
 
-			<form role="form" method="POST" action="{{ url('contact/feedback') }}" class="ui form" id="feedback">
+			<form role="form" method="POST" action="{{ url('contact/feedback') }}" class="ui form segment" id="feedback">
 
 				{{ csrf_field() }}
 
@@ -58,7 +58,7 @@
 			<h2 class="ui header">Technische Probleme</h2>
 			<p>Bei technischen Problemen nutzen Sie bitte dieses Formular. Die Nachricht wird direkt an Fabian Mundt gesendet. <b>Die Antwort wird an Ihre E-Mail Adresse der Pädagogischen Hochschule Karlsruhe gesendet.</b></p>
 
-			<form role="form" method="POST" action="{{ url('contact/support') }}" class="ui form" id="feedback">
+			<form role="form" method="POST" action="{{ url('contact/support') }}" class="ui attached form segment" id="feedback">
 
 				{{ csrf_field() }}
 
@@ -75,6 +75,11 @@
 				<input class="ui fluid submit button" type="submit" value="Abschicken">
 
 			</form>
+
+			<div class="ui bottom attached info message">
+				<i class="icon bug"></i>
+					Bitte nutzen Sie auch den <a href="https://github.com/inventionate/Synthesise/issues" target="_blank">GitHub Issue Tracker</a>, um Probleme zu melden. Vielen Dank für Ihre Hilfe!
+			</div>
 
 			@if (Session::has('support_errors'))
 				<div class="ui floating error message shake">Bitte geben Sie eine Nachricht ein.</div>
@@ -100,4 +105,20 @@
 		</div>
 	</div>
 </main>
+
+{{-- @include ADMIN BACKEND --------------------------------------------------}}
+@if( Seminar::authorizedEditor($seminar_name) )
+
+	{{-- Load create and edit Modals --}}
+
+	@include('seminar.messages.create')
+
+	@include('seminar.messages.edit')
+
+	@include('seminar.infoblocks.create')
+
+	@include('seminar.infoblocks.edit')
+
+@endif
+
 @stop

@@ -139,7 +139,11 @@
 
         @include('seminar.messages.create')
 
-        @include('seminar.messages.edit')
+		@include('seminar.messages.edit')
+
+		@include('seminar.infoblocks.create')
+
+		@include('seminar.infoblocks.edit')
 
     @endif
 @stop
