@@ -23,6 +23,14 @@ if( $('#main-content-dashboard')[0] )
                 }
             ]
         },
+        contact: {
+            rules: [
+                {
+                    type    : 'email',
+                    prompt  : 'Bitte eine E-Mail Adresse eingeben.'
+                }
+            ]
+        },
         subject: {
             rules: [
                 {
@@ -70,7 +78,7 @@ if( $('#main-content-dashboard')[0] )
                     prompt  : 'Bitte ein Enddatum eingeben.'
                 }
             ]
-        },
+        }
      };
 
     // Attach message modal validation.

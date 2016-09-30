@@ -4,7 +4,7 @@ namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class InfoController extends Controller
+class InfoblockController extends Controller
 {
     /**
      * Create a new controller instance.

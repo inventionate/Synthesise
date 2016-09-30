@@ -36,14 +36,18 @@
 		</div>
 	</div>
 
-	<div class="one column row">
-		<div class="column">
-			<h2 class="ui horizontal divider header">
-				<i class="info circle icon"></i>
-				Weiterführende Informationen
-			</h2>
+	@if ( count($infoblocks) !== 0 )
+
+		<div class="one column row">
+			<div class="column">
+				<h2 class="ui horizontal divider header">
+					<i class="info circle icon"></i>
+					Weiterführende Informationen
+				</h2>
+			</div>
 		</div>
-	</div>
+
+	@endif
 
 	<div id="infoblocks" class="two column row">
 		@include('seminar.infoblocks.index')
@@ -56,11 +60,11 @@
 
 		{{-- Load create and edit Modals --}}
 
+		@include('seminar.general-infos.edit')
+
 		@include('seminar.messages.create')
 
 		@include('seminar.messages.edit')
-
-		@include('seminar.general-infos.edit')
 
 		@include('seminar.infoblocks.create')
 

@@ -15,7 +15,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["dozent", "root"],
-            'image_path' => 'img/seminars/griechisch_roemische_antike.jpg',
+            'image_path' => 'storage/seminars/griechisch_roemische_antike.jpg',
             'available_from' => '2015-10-21',
             'available_to' => '2017-02-17',
         ));
@@ -26,7 +26,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'img/seminars/mittelalter.jpg',
+            'image_path' => 'storage/seminars/mittelalter.jpg',
             'available_from' => '2015-10-28',
             'available_to' => '2016-02-17',
         ));
@@ -37,7 +37,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'img/seminars/fruehe_neuzeit.jpg',
+            'image_path' => 'storage/seminars/fruehe_neuzeit.jpg',
             'available_from' => '2015-11-04',
             'available_to' => '2016-02-17',
         ));
@@ -48,7 +48,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Prof. Dr. Rainer Bolle',
             'contact' => 'bolle@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'img/seminars/jean_jacques_rousseau.jpg',
+            'image_path' => 'storage/seminars/jean_jacques_rousseau.jpg',
             'available_from' => '2015-11-11',
             'available_to' => '2016-02-17',
         ));
@@ -59,7 +59,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Prof. Dr. Gabriele Weigand',
             'contact' => 'weigand@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'img/seminars/johann_heinrich_pestalozzi.jpg',
+            'image_path' => 'storage/seminars/johann_heinrich_pestalozzi.jpg',
             'available_from' => '2015-11-18',
             'available_to' => '2016-02-17',
         ));
@@ -70,7 +70,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Prof. Dr. Gabriele Weigand',
             'contact' => 'weigand@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'img/seminars/wilhelm_von_humboldt.jpg',
+            'image_path' => 'storage/seminars/wilhelm_von_humboldt.jpg',
             'available_from' => '2015-11-25',
             'available_to' => '2016-02-17',
         ));
@@ -81,7 +81,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Dr. Albert Berger',
             'contact' => 'berger@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'img/seminars/erziehung_und_unterricht.jpg',
+            'image_path' => 'storage/seminars/erziehung_und_unterricht.jpg',
             'available_from' => '2015-12-02',
             'available_to' => '2016-02-17',
         ));
@@ -92,7 +92,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Dr. Albert Berger',
             'contact' => 'berger@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'img/seminars/heterogenitaet.jpg',
+            'image_path' => 'storage/seminars/heterogenitaet.jpg',
             'available_from' => '2015-12-9',
             'available_to' => '2016-02-17',
         ));
@@ -103,7 +103,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'img/seminars/wozu_ist_die_bildung_da.jpg',
+            'image_path' => 'storage/seminars/wozu_ist_die_bildung_da.jpg',
             'available_from' => '2015-12-16',
             'available_to' => '2016-02-17',
         ));
@@ -114,7 +114,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => '',
+            'image_path' => 'storage/seminars/bildung_und_gluek.jpg',
             'available_from' => '2015-12-23',
             'available_to' => '2016-02-17',
         ));
@@ -125,7 +125,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => '',
+            'image_path' => 'storage/seminars/bildung_und_gerechtigkeit.jpg',
             'available_from' => '2015-12-31',
             'available_to' => '2014-02-28',
         ));

@@ -41,7 +41,7 @@ if( $('#main-content-seminar')[0] )
     }
 
     /*
-     * Setup Message WYSIWYG editor.
+     * Setup Info WYSIWYG editor.
      */
     $('.info-wysiwyg').trumbowyg({
         lang: 'de',
@@ -56,7 +56,7 @@ if( $('#main-content-seminar')[0] )
     );
 
     /*
-     * Setup Message JS Validator.
+     * Setup Info JS Validator.
      */
 
      // Init basic validation rules.
@@ -95,7 +95,7 @@ if( $('#main-content-seminar')[0] )
          }
      };
 
-    // Attach message modal validation.
+    // Attach info modal validation.
      $('.info-validator')
          .form({
              inline: true,
@@ -124,7 +124,7 @@ if( $('#main-content-seminar-users')[0] )
 {
 
     /*
-     * Create new message resource form.
+     * Create new info resource form.
      */
     $('#user-new-modal')
         .modal({

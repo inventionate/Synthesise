@@ -26,7 +26,7 @@ class SeminarTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["dozent", "root"],
-            'image_path' => 'img/seminars/title_1.jpg',
+            'image_path' => 'storage/seminars/title_1.jpg',
             'info_intro' => '<p>
             Die Lehrveranstaltung »Grundlagen pädagogischen Denkens und Handelns« führt in Themen und Fragestellungen der Allgemeinen und Historischen Erziehungswissenschaft ein. Sie setzt sich folgendermaßen zusammen:</p>',
             'info_lections' => '<p>
@@ -62,7 +62,7 @@ class SeminarTableSeeder extends Seeder
             'author' => 'Prof. Dr. Ulrich Wehner',
             'contact' => 'wehner@ph-karlsruhe.de',
             'authorized_editors' => ["dozent", "root"],
-            'image_path' => 'img/seminars/title_2.jpg',
+            'image_path' => 'storage/seminars/title_2.jpg',
             'info_intro' => NULL,
             'info_lections' => NULL,
             'info_texts' => NULL,

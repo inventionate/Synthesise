@@ -41,7 +41,7 @@ if( $('#infoblock-new')[0] )
      };
 
     // Attach message modal validation.
-     $('.message-validator')
+     $('.infoblock-validator')
          .form({
              inline: true,
              onSuccess: function() {
@@ -53,7 +53,7 @@ if( $('#infoblock-new')[0] )
     /*
      * Create new message resource form.
      */
-    $('#message-new-modal')
+    $('#infoblock-new-modal')
         .modal({
             detachable  : false,
             onHidden    : function() {
@@ -62,14 +62,14 @@ if( $('#infoblock-new')[0] )
             },
 
         })
-        .modal('attach events', '#message-new', 'show');
+        .modal('attach events', '#infoblock-new', 'show');
 
     /*
      * Update message resource form.
      */
-    if( $('.message-edit')[0] )
+    if( $('.infoblock-edit')[0] )
     {
-        $('#message-edit-modal')
+        $('#infoblock-edit-modal')
             .modal({detachable: false})
             .modal('attach events', '.message-edit', 'show');
 

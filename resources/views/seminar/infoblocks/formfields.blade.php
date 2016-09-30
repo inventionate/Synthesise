@@ -13,7 +13,7 @@
 </div>
 
 <div class="required field">
-    <label for="infoblocks_link_url">Inhalt</label>
+    <label for="infoblocks_link_url">Weiterführende Internetadresse </label>
     <input id="infoblocks_link_url" name="link_url" placeholder="Bitte geben Sie einen Link ein." type="text">
 </div>
 

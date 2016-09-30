@@ -258,11 +258,21 @@ Route::post('contact/support', [
 
 /*
 |-------------------------------------------------------------------------------
-| Info control
+| Infoblock control
 |-------------------------------------------------------------------------------
 */
 
-// Send feedback
-Route::match(['put', 'patch'], 'info/{id}', [
-    'uses' => 'InfoController@update',
+// Store Infoblock.
+Route::post('infoblock', [
+    'uses' => 'InfoblockController@store',
+]);
+
+// Update Infoblock.
+Route::match(['put', 'patch'], 'infoblock/{id}', [
+    'uses' => 'InfoblockController@update',
+]);
+
+// Remove Infoblock.
+Route::delete('infoblock/{id}', [
+    'uses' => 'InfoblockController@destroy',
 ]);

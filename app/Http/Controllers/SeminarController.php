@@ -112,7 +112,7 @@ class SeminarController extends Controller
         $description = $request->description;
         $image = $request->file('image');
         $info_intro = NULL;
-        $info_lections = NUL;
+        $info_lections = NULL;
         $info_texts = NULL;
         $info_exam = NULL;
         $info = NULL;
