@@ -5,6 +5,7 @@ namespace Synthesise\Repositories\Infoblock;
 use Illuminate\Database\Eloquent\Model;
 
 use Synthesise\Infoblock;
+use File;
 
 class InfoblockRepository implements InfoblockInterface
 {
