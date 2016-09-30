@@ -32,6 +32,7 @@
 
 	<div class="one column row">
 		<div class="column">
+
 			@include('seminar.lections.index')
 		</div>
 	</div>
