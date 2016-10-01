@@ -43,17 +43,17 @@ if( $('#main-content-seminar')[0] )
         }());
     }
 
-    require('./views/seminar/general-infos.js');
+    require('./general-infos.js');
 
-    require('./views/seminar/sections.js');
+    require('./sections.js');
 
-    require('./views/seminar/lections.js');
+    require('./lections.js');
 
 }
 
 // Require partials and subpages
-require('./views/seminar/infoblocks.js');
-require('./views/seminar/messages.js');
-require('./views/seminar/faqs.js');
-require('./views/seminar/settings.js');
-require('./views/seminar/users.js');
+require('./infoblocks.js');
+require('./messages.js');
+require('./faqs.js');
+require('./settings.js');
+require('./users.js');

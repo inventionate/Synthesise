@@ -4,6 +4,7 @@ namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Lection;
 use User;
 use Auth;
 
@@ -25,6 +26,29 @@ class LectionController extends Controller
         # Benutzer abfragen
         # Alle Amdinistratoren hinzufügen
         # Eigener Nutzername hinzufügen
+    }
+
+    /**
+     * Attach lection to section.
+     *
+     * @return Redirect
+     */
+    public function attach(Request $request)
+    {
+        // Validation
+        $this->validate($request, [
+            'section_id' => 'required|integer',
+            'name' => 'required|string',
+        ]);
+
+        $section_id = $request->section_id;
+
+        $name = $request->name;
+
+        Lection::attachToSection($section_id, $name);
+
+        return back()->withInput();
+
     }
 
     public function update()

@@ -12,6 +12,17 @@ class LectionRepository implements LectionInterface
 {
 
     /**
+     * Attach lection to section.
+     *
+     * @param int       $section_id
+     * @param string    $name
+     */
+    public function attachToSection($section_id, $name)
+    {
+        return Lection::findOrFail($name)->sections()->attach($section_id);
+    }
+
+    /**
      * Get all lections.
      *
      * @return    collection
@@ -35,7 +46,7 @@ class LectionRepository implements LectionInterface
         $lection = Lection::findOrFail($name);
 
         $lection->sections()->attach($section_name);
-        
+
     }
 
   /**

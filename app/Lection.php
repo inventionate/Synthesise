@@ -73,6 +73,6 @@ class Lection extends Model
      */
     public function sections()
     {
-        return $this->belongsToMany('Synthesise\Section', 'lection_section', 'lection_name', 'section_name');
+        return $this->belongsToMany('Synthesise\Section', 'lection_section', 'lection_name', 'section_id');
     }
 }

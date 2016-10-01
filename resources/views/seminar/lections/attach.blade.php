@@ -1,6 +1,4 @@
-<form role="form" method="POST" action="{{ action('LectionController@attach') }} }}" id="lection-attach-modal" class="ui modal form">
-
-    {{ method_field('PATCH') }}
+<form role="form" method="POST" action="{{ action('LectionController@attach') }}" id="lection-attach-modal" class="ui modal form">
 
     {{ csrf_field() }}
 
@@ -61,10 +59,10 @@
             Abbrechen
         </div>
 
-        <div class="ui right green labeled icon submit button">
+        <button class="ui right green labeled icon submit button" type="submit">
             Aktualisieren
             <i class="checkmark icon"></i>
-        </div>
+        </button>
     </div>
 
 </form>
