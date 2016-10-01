@@ -18,16 +18,12 @@ require('./piwik-analytics.js');
  */
 require('./navigation.js');
 require('./cookie-bar.js');
-require('./messages.js');
-require('./infoblocks.js');
-require('./lections.js');
 
 /*
  * View specific scripts
  */
-require('./views/dashboard.js');
-require('./views/seminar.js');
-require('./views/lection.js');
+require('./views/dashboard/index.js');
+require('./views/seminar/index.js');
 
 /*
  * Vue JS Framework.
