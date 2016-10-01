@@ -12,4 +12,5 @@ interface InfoblockInterface
     public function update($id, $name, $content, $link_url, $image, $seminar_name);
 
     public function delete($id);
+
 }

@@ -14,6 +14,8 @@ interface SeminarInterface
 
     public function delete($name);
 
+    public function deleteDocument($name);
+
     public function getAllWithUserCount();
 
     public function getAuthorizedEditors($name);

@@ -197,7 +197,6 @@ class SeminarRepository implements SeminarInterface
 
         $seminar = Seminar::findOrFail($name);
 
-
         // Remove image.
         if ( Seminar::where('image_path', $seminar->image_path)->count() === 1 && $seminar->image_path !== null )
         {
@@ -229,6 +228,30 @@ class SeminarRepository implements SeminarInterface
                 User::findOrFail($user->user_id)->delete();
             }
         }
+
+    }
+
+    /**
+     * Delete seminars info document.
+     *
+     * @param   string  $name
+     */
+    public function deleteDocument($name) {
+
+        $seminar = Seminar::findOrFail($name);
+
+        // Remove info.
+        if ( Seminar::where('info_path', $seminar->info_path)->count() === 1 && $seminar->info_path !== null )
+        {
+            // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
+            File::delete( $seminar->info_path );
+        }
+
+
+        // Delete seminar.
+        $seminar->info_path = NULL;
+
+        $seminar->save();
 
     }
 

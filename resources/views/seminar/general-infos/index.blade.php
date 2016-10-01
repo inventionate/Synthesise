@@ -69,9 +69,17 @@
 
                 @if ( $seminar->info_path !== null )
 
-                    <button class="ui icon teal button" id="info-delete">
-                        <i class="close icon"></i> Dokument löschen
-                    </button>
+                    <form role="form" method="POST" action="{{ action('SeminarController@destroyDocument', ['name' => $seminar_name]) }}">
+
+                        {{ method_field('DELETE') }}
+
+                        {{ csrf_field() }}
+
+                        <button class="ui teal icon button" type="submit">
+                            <i class="close icon"></i> Dokument löschen
+                        </button>
+
+                    </form>
 
                 @endif
 

@@ -77,6 +77,11 @@ Route::group(['prefix' => 'seminar'], function () {
         'uses' => 'SeminarController@destroy',
     ]);
 
+    // Delete document
+    Route::delete('/{name}', [
+        'uses' => 'SeminarController@destroyDocument',
+    ]);
+
     // Seminar Users
     Route::get('/{name}/users', [
         'as' => 'seminar-users',

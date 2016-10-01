@@ -175,7 +175,7 @@ class SeminarController extends Controller
         $info_lections = $request->info_lections;
         $info_texts = $request->info_texts;
         $info_exam = $request->info_exam;
-        $info = $request->file('info_path');;
+        $info = $request->file('info');;
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $disqus_shortname = $request->disqus_shortname;
@@ -328,5 +328,18 @@ class SeminarController extends Controller
                             ->with('feedback_mail', $feedback_mail)
                             ->with('support_mail', $support_mail);
 	}
+
+    /**
+     * Deletes seminars info document.
+     *
+     * @return Redirect
+     */
+    public function destroyDocument($name)
+    {
+
+        Seminar::deleteDocument($name);
+
+        return back()->withInput();
+    }
 
 }
