@@ -10,6 +10,8 @@ interface LectionInterface
 
     public function attachToSection($section_id, $name);
 
+    public function detachFromSection($section_id, $name);
+
     public function getAll();
 
     public function attach($name, $section_name);

@@ -23,6 +23,17 @@ class LectionRepository implements LectionInterface
     }
 
     /**
+     * Detach lection from section.
+     *
+     * @param int       $section_id
+     * @param string    $name
+     */
+    public function detachFromSection($section_id, $name)
+    {
+        return Lection::findOrFail($name)->sections()->detach($section_id);
+    }
+
+    /**
      * Get all lections.
      *
      * @return    collection

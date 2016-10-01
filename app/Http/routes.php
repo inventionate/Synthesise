@@ -319,6 +319,11 @@ Route::post('lection', [
     'uses' => 'LectionController@attach',
 ]);
 
+// Detach Lection.
+Route::delete('lection/{name}/{section_id}', [
+    'uses' => 'LectionController@detach',
+]);
+
 // Update Lection.
 Route::match(['put', 'patch'], 'lection/{name}', [
     'uses' => 'LectionController@update',

@@ -64,7 +64,7 @@
 									<button class="ui small teal icon button section-edit" data-id="{{ $section->id }}" data-name="{{ $section->name }}" data-filepath="{{
 									substr($section->further_reading_path, 17) }}"><i class="edit icon"></i></button>
 
-									<form id="section-delete" class="section-delete" role="form" method="POST" action="{{ action('SectionController@destroy', ['id' => $section->id]) }}">
+									<form class="section-delete" role="form" method="POST" action="{{ action('SectionController@destroy', ['id' => $section->id]) }}">
 
 				                        {{ method_field('DELETE') }}
 
@@ -159,11 +159,17 @@
 
 											</button>
 
-											<button class="ui teal small icon button" data-name="{{ $lection->name }}" data-author="{{ $lection->author }}" data-section="{{ $section->name }}" data-available="{{ $lection->available_from }}">
+											<form class="lection-delete" role="form" method="POST" action="{{ action('LectionController@detach', ['name' => $lection->name, 'section_id' => $section->id]) }}">
 
-												<i class="close icon"></i>
+						                        {{ method_field('DELETE') }}
 
-											</button>
+						                        {{ csrf_field() }}
+
+						                        <button class="ui small teal icon button" type="submit">
+						                            <i class="close icon"></i>
+						                        </button>
+
+						                    </form>
 										</td>
 									@endif
 

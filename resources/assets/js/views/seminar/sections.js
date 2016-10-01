@@ -89,7 +89,7 @@
  /*
   * Show delete section warning.
   */
- $('#section-delete').submit(function( event ) {
+ $('.section-delete').submit(function( event ) {
 
      var form = this;
 
