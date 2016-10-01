@@ -7,6 +7,11 @@ namespace Synthesise\Repositories\Lection;
  */
 interface LectionInterface
 {
+
+    public function getAll();
+
+    public function attach($name, $section_name);
+
     public function available($videoname);
 
     public function getSection($videoname);

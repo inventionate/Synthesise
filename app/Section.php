@@ -22,7 +22,6 @@ class Section extends Model
 		'name',
 		'further_reading_path',
 		'seminar_name',
-		'lection_name'
 	];
 
 	/**

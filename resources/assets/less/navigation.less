@@ -55,11 +55,26 @@
     z-index: 10;
     background-color: fade(@white, 80%);
     .item {
-        padding-top: 0.75rem;
-        padding-bottom: 0.75rem;
+        padding-top: 1.1rem;
+        padding-bottom: 1.1rem;
+    }
+    .item.complex {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    .or::before {
+        width:2.3em;
+        height:2.15em;
+        line-height: 2;
+        left: -50%;
+        top: 43%;
     }
     .item:first-child {
-        font-weight: bold;
-        border-right: none;
+        // font-weight: bold;
+        // border-right: none;
+        margin-left: 0.75rem;
+    }
+    .item:last-child {
+        margin-right: 0.75rem;
     }
 }

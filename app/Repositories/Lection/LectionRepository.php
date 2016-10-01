@@ -10,6 +10,34 @@ use DB;
 
 class LectionRepository implements LectionInterface
 {
+
+    /**
+     * Get all lections.
+     *
+     * @return    collection
+     */
+    public function getAll()
+    {
+        return Lection::all();
+    }
+
+    /**
+     * Attach lection to seminar.
+     *
+     * @param   string      $name
+     * @param   string      $section_name
+     *
+     * @return  collection
+     */
+    public function attach($name, $section_name)
+    {
+
+        $lection = Lection::findOrFail($name);
+
+        $lection->sections()->attach($section_name);
+        
+    }
+
   /**
    * Checkt die Verfügbarkeit eines Videos.
    *

@@ -42,8 +42,12 @@ class SeminarController extends Controller
         // Get all sections.
         $sections = Seminar::getAllSections($name);
 
-        // Get all lections.
+        // Get all seminar lections.
         $lections = Seminar::getAllLections($name);
+
+        // Get all existing lections.
+
+        $all_lections = Lection::getAll();
 
         // Get current lection.
         $current_lection = Seminar::getCurrentLection($name);
@@ -62,6 +66,9 @@ class SeminarController extends Controller
             'disqus_shortname' => $disqus_shortname
         ]);
 
+        // Get teachers by seminar.
+		$teachers = Seminar::getAllUsers($name, 'Teacher');
+
         // Get Disqus.
 
         $disqus = $disqus_shortname !== null;
@@ -73,10 +80,12 @@ class SeminarController extends Controller
                                     ->with('messages', $messages)
                                     ->with('sections', $sections)
                                     ->with('lections', $lections)
+                                    ->with('all_lections', $all_lections)
                                     ->with('current_lection', $current_lection)
                                     ->with('current_lection_paper', $current_paper)
                                     ->with('disqus', $disqus)
-                                    ->with('infoblocks', $infoblocks);
+                                    ->with('infoblocks', $infoblocks)
+                                    ->with('teachers', $teachers);
 	}
 
     /**

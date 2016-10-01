@@ -44,4 +44,6 @@ interface SeminarInterface
 
     public function getAllInfoblocks($name);
 
+    public function getAllUsers($name, $role);
+
 }

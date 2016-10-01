@@ -1,6 +1,8 @@
 <nav id="mainnav" role="navigation">
     <div class="ui grid container">
 
+        {{-- @TODO Responsives Menü erstellen!!! --}}
+
         {{-- COMPUTER NAVIGATION --}}
         <div class="computer only row">
             <div class="column">
@@ -22,7 +24,7 @@
 
                 @if ( in_array(Auth::user()->role, ['Admin', 'Teacher']) )
 
-                    <div id="admin-actions" class="ui fixed tiny secondary menu">
+                    <div id="admin-actions" class="ui fixed tiny fitted secondary menu">
 
                         @if ( Request::is('/') )
 

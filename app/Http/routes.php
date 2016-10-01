@@ -279,6 +279,27 @@ Route::delete('infoblock/{id}', [
 
 /*
 |-------------------------------------------------------------------------------
+| Section control
+|-------------------------------------------------------------------------------
+*/
+
+// Store Section.
+Route::post('section', [
+    'uses' => 'SectionController@store',
+]);
+
+// Update Section.
+Route::match(['put', 'patch'], 'section/{name}', [
+    'uses' => 'SectionController@update',
+]);
+
+// Remove Section.
+Route::delete('section/{name}', [
+    'uses' => 'SectionController@destroy',
+]);
+
+/*
+|-------------------------------------------------------------------------------
 | Lection control
 |-------------------------------------------------------------------------------
 */
@@ -288,12 +309,17 @@ Route::post('lection', [
     'uses' => 'LectionController@store',
 ]);
 
-// Update Infoblock.
+// Attach Lection.
+Route::post('lection', [
+    'uses' => 'LectionController@attach',
+]);
+
+// Update Lection.
 Route::match(['put', 'patch'], 'lection/{name}', [
     'uses' => 'LectionController@update',
 ]);
 
-// Remove Infoblock.
+// Remove Lection.
 Route::delete('lection/{name}', [
     'uses' => 'LectionController@destroy',
 ]);

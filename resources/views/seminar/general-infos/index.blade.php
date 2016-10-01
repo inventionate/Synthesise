@@ -53,7 +53,7 @@
                     </p>
 
 
-                    <a class="ui @if ( !Seminar::authorizedEditor($seminar_name) ) fluid @endif blue icon labeled button" v-on:click="trackEvents('Informationsdokument', 'Allgemeine Informationen und Termine')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
+                    <a class="ui fluid blue icon labeled button" v-on:click="trackEvents('Informationsdokument', 'Allgemeine Informationen und Termine')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
 
                 @endif
 
@@ -61,9 +61,19 @@
 
             @if ( Seminar::authorizedEditor($seminar_name) )
 
+                <div class="ui hidden divider"></div>
+
                 <button class="ui icon teal button" id="info-edit">
-                    <i class="edit icon"></i> Informationen bearbeiten
+                    <i class="edit icon"></i> Informationen Bearbeiten
                 </button>
+
+                @if ( $seminar->info_path !== null )
+
+                    <button class="ui icon teal button" id="info-delete">
+                        <i class="close icon"></i> Dokument löschen
+                    </button>
+
+                @endif
 
             @endif
 

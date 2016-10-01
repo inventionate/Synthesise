@@ -4,7 +4,7 @@ namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Synthesise\Http\Requests;
+use Section;
 
 class SectionController extends Controller
 {
@@ -18,18 +18,70 @@ class SectionController extends Controller
         $this->middleware(['auth', 'admin.teacher']);
     }
 
-    public function store()
+    /**
+     * Stores a new section.
+     *
+     * @param   Request  $request
+     *
+     * @return Redirect
+     */
+    public function store(Request $request)
     {
-        # code...
+        // Validation
+        $this->validate($request, [
+            'name'                  => 'required|string',
+            'seminar_name'          => 'required|string',
+            'further_reading'       => 'required|file',
+        ]);
+
+        $name = $request->name;
+
+        $seminar_name = $request->seminar_name;
+
+        $further_reading = $request->file('further_reading');
+
+        Section::store($name, $seminar_name, $further_reading);
+
+        return back()->withInput();
     }
 
-    public function update()
+    /**
+     * Update section.
+     *
+     * @param   Request $request
+     * @param   int     $id
+     *
+     * @return  Redirect
+     */
+    public function update(Request $request, $id)
     {
-        # code...
+        // Validation
+        $this->validate($request, [
+            'name'                  => 'required|string',
+            'seminar_name'          => 'required|string',
+            'further_reading'       => 'file',
+        ]);
+
+        $name = $request->name;
+
+        $seminar_name = $request->seminar_name;
+
+        $further_reading = $request->file('further_reading');
+
+        Section::update($id, $name, $seminar_name, $further_reading);
+
+        return back()->withInput();
     }
 
-    public function delete()
+    /**
+     * Destroy section
+     *
+     * @return Redirect
+     */
+    public function destroy($id)
     {
-        # code...
+        Section::delete($id);
+
+        return back()->withInput();
     }
 }

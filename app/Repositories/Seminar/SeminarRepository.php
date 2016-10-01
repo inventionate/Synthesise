@@ -456,4 +456,17 @@ class SeminarRepository implements SeminarInterface
 
     }
 
+    /* Get all seminar teachers.
+     *
+     * @param     string    $name
+     * @param     string    $role
+     *
+     * @return    collection
+     */
+    public function getAllUsers($name, $role) {
+
+        return Seminar::findOrFail($name)->users()->where('role', $role)->get();
+
+    }
+
 }

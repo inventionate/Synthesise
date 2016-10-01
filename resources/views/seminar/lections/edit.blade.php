@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ url('lection') }}" id="lection-edit-modal" class="ui modal form lection-validator" enctype="multipart/form-data">
+<form role="form" method="POST" action="{{ url('lection') }}" id="lection-edit-modal" class="ui modal equal width form lection-validator" enctype="multipart/form-data">
 
     {{ method_field('PATCH') }}
 

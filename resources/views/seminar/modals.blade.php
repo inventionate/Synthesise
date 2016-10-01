@@ -10,6 +10,12 @@
 
 @include('seminar.infoblocks.edit')
 
+@include('seminar.sections.create')
+
+@include('seminar.sections.edit')
+
 @include('seminar.lections.create')
 
 @include('seminar.lections.edit')
+
+@include('seminar.lections.attach')
