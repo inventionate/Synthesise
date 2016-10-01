@@ -315,12 +315,12 @@ Route::post('lection', [
 ]);
 
 // Attach Lection.
-Route::post('lection', [
+Route::post('lection/attach', [
     'uses' => 'LectionController@attach',
 ]);
 
 // Detach Lection.
-Route::delete('lection/{name}/{section_id}', [
+Route::delete('lection/detach/{name}/{section_id}', [
     'uses' => 'LectionController@detach',
 ]);
 

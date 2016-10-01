@@ -12,9 +12,11 @@ interface LectionInterface
 
     public function detachFromSection($section_id, $name);
 
-    public function getAll();
+    public function store($name, $section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
 
-    public function attach($name, $section_name);
+    public function update($name, $section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
+
+    public function getAll();
 
     public function available($videoname);
 

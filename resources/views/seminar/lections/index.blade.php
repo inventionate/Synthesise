@@ -2,8 +2,6 @@
 
 	<div class="column">
 
-{{-- Bearbeiten der lektion nur dann, wenn man autorisiert ist!!! --}}
-
 		<h2 class="ui header">Ablaufplan</h2>
 
 		@if ( count($sections) === 0 )
@@ -153,11 +151,18 @@
 
 									@if ( Seminar::authorizedEditor($seminar_name) )
 										<td class="edit">
-											<button class="ui teal small icon button" data-name="{{ $lection->name }}" data-author="{{ $lection->author }}" data-section="{{ $section->name }}" data-available="{{ $lection->available_from }}">
 
-												<i class="edit icon"></i>
+											{{-- Check if user is authorized editor. --}}
 
-											</button>
+											@if ( in_array(Auth::user()->username, $lection->authorized_editors) )
+
+												<button class="ui teal small icon button" data-name="{{ $lection->name }}" data-author="{{ $lection->author }}" data-section="{{ $section->name }}" data-available="{{ $lection->available_from }}">
+
+													<i class="edit icon"></i>
+
+												</button>
+
+											@endif
 
 											<form class="lection-delete" role="form" method="POST" action="{{ action('LectionController@detach', ['name' => $lection->name, 'section_id' => $section->id]) }}">
 

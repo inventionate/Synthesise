@@ -21,15 +21,53 @@ class LectionController extends Controller
         $this->middleware(['auth', 'admin.teacher']);
     }
 
-    public function store()
+    /**
+     * Store new lection.
+     *
+     * @param Request   $request
+     *
+     * @return Redirect
+     */
+    public function store(Request $request)
     {
-        # Benutzer abfragen
-        # Alle Amdinistratoren hinzufügen
-        # Eigener Nutzername hinzufügen
+        // Validation
+        $this->validate($request, [
+            // 'name'              => 'required|string',
+            // 'section_id'        => 'required|integer',
+            // 'author'            => 'required|string',
+            // 'contact'           => 'required|email',
+            // 'text'              => 'required|file',
+            // 'text_name'         => 'required|string',
+            // 'text_author'       => 'required|string',
+            // 'image'             => 'required|image',
+            // 'available_from'    => 'required|date',
+            // 'available_to'      => 'required|date',
+            // 'authorized_users'  => 'required|array',
+            // 'seminar_name'      => 'required|string',
+        ]);
+
+        $name              = $request->name;
+        $section_id        = $request->section_id;
+        $author            = $request->author;
+        $contact           = $request->contact;
+        $text              = $request->file('text');
+        $text_name         = $request->text_name;
+        $text_author       = $request->text_author;
+        $image             = $request->file('image');
+        $available_from    = $request->available_from;
+        $available_to      = $request->available_to;
+        $authorized_users  = $request->authorized_users;
+        $seminar_name      = $request->seminar_name;
+
+        Lection::store($name, $section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
+
+        return back()->withInput();
     }
 
     /**
      * Attach lection to section.
+     *
+     * @param Request   $request
      *
      * @return Redirect
      */
@@ -68,9 +106,44 @@ class LectionController extends Controller
 
     }
 
-    public function update()
+    /**
+     * Update an existing lection.
+     *
+     * @param Request   $request
+     * @param string    $name
+     *
+     * @return Redirect
+     */
+    public function update(Request $request, $name)
     {
-        # code...
+        // Validati on
+        $this->validate($request, [
+            'section_id'        => 'required|integer',
+            'author'            => 'required|string',
+            'contact'           => 'required|mail',
+            'text'              => 'file',
+            'text_author'       => 'string',
+            'image'             => 'image',
+            'available_from'    => 'required|date',
+            'available_to'      => 'required|date',
+            'authorized_users'  => 'required|array',
+            'seminar_name'      => 'required|string',
+        ]);
+
+        $section_id        = $request->section_id;
+        $author            = $request->author;
+        $contact           = $request->contact;
+        $text              = $request->file('text');
+        $text_author       = $request->text_author;
+        $image             = $request->file('image');
+        $available_from    = $request->available_from;
+        $available_to      = $request->available_to;
+        $authorized_users  = $request->authorized_users;
+        $seminar_name      = $request->seminar_name;
+
+        Lection::update($name, $section_id, $author, $contact, $text, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
+
+        return back()->withInput();
     }
 
     public function delete()

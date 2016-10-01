@@ -46,7 +46,7 @@
 
 <div class="required fields">
 
-    <div class="required field">
+    <div class="field">
         <label for="lections_text">Text</label>
         <div class="ui action input">
                 <label for="lections_text_filepath" class="hide">Dateipfad</label>
@@ -59,6 +59,18 @@
                 </div>
         </div>
     </div>
+
+    <div class="field">
+        <label for="lections_text_name">Autor des Textes</label>
+        <input id="lections_text_name" name="text_name" placeholder="Bitte geben Sie den Titel des Textes ein." type="text">
+    </div>
+
+    <div class="field">
+        <label for="lections_text_author">Autor des Textes</label>
+        <input id="lections_text_author" name="text_author" placeholder="Bitte geben Sie den/die Autor/in des Textes ein." type="text">
+    </div>
+
+</div>
 
     <div class="required field">
         <label for="lections_image">Titelbild</label>
@@ -73,8 +85,6 @@
                 </div>
         </div>
     </div>
-
-</div>
 
 <div class="required fields">
 

@@ -5,6 +5,10 @@ namespace Synthesise\Repositories\Lection;
 use Illuminate\Database\Eloquent\Model;
 
 use Synthesise\Lection;
+use Paper;
+use User;
+
+// Old
 use Parser;
 use DB;
 
@@ -34,6 +38,113 @@ class LectionRepository implements LectionInterface
     }
 
     /**
+     * Store new lection.
+     *
+     * @param   string  $name
+     * @param   int     $section_id
+     * @param   string  $author
+     * @param   mail    $contact
+     * @param   file    $text
+     * @param   string  $text_name
+     * @param   string  $text_author
+     * @param   image   $image
+     * @param   date    $available_from
+     * @param   date    $available_to
+     * @param   array   $authorized_users
+     * @param   string  $seminar_name
+     */
+    public function store($name, $section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name)
+    {
+        // Save image.
+        $image_saved = $image->move(storage_path('app/public/lections'), md5_file($image) . '.' . $image->getClientOriginalExtension());
+
+        $image_path = 'storage/lections' . $image_saved->getFilename();
+
+        // Save text.
+        $text_saved = $text->move(storage_path('app/public/lections'), md5_file($text) . '.' . $text->getClientOriginalExtension());
+
+        $text_path = 'storage/lections' . $text_saved->getFilename();
+
+        if ( is_null($authorized_users) )
+        {
+            $authorized_users = [];
+        }
+
+        // Add admins
+        $authorized_users = array_merge($authorized_users, User::getAllByRole('Admin')->pluck('username')->toArray());
+
+        // Save lection.
+        $lection = new Lection();
+
+        $lection->name              = $name;
+        $lection->author            = $author;
+        $lection->contact           = $contact;
+        $lection->image_path        = $image_path;
+        $lection->available_from    = $available_from;
+        $lection->available_to      = $available_to;
+        $lection->authorized_editors  = $authorized_users;
+
+        $lection->save();
+
+        // Save text.
+        Paper::store($text_name, $text_path, $text_author, $name);
+
+        // Attach lection.
+        $this->attachToSection($section_id, $name);
+    }
+
+    /**
+     * Update an existing lection.
+     *
+     * @param   string  $name
+     * @param   int     $section_id
+     * @param   string  $author
+     * @param   mail    $contact
+     * @param   file    $text
+     * @param   string  $text_name
+     * @param   string  $text_author
+     * @param   image   $image
+     * @param   date    $available_from
+     * @param   date    $available_to
+     * @param   array   $authorized_users
+     * @param   string  $seminar_name
+     */
+    public function update($name, $section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name)
+    {
+
+        // @TODO
+
+        // Save image.
+        $image_saved = $image->move(storage_path('app/public/lections'), md5_file($image) . '.' . $image->getClientOriginalExtension());
+
+        $image_path = 'storage/lections' . $image_saved->getFilename();
+
+        // Save text.
+        $text_saved = $text->move(storage_path('app/public/lections'), md5_file($text) . '.' . $text->getClientOriginalExtension());
+
+        $text_path = 'storage/lections' . $text_saved->getFilename();
+
+        // Save lection.
+        $lection = new Lection();
+
+        $lection->name              = $name;
+        $lection->author            = $author;
+        $lection->contact           = $contact;
+        $lection->image_path        = $image_path;
+        $lection->available_from    = $available_from;
+        $lection->available_to      = $available_to;
+        $lection->authorized_users  = $authorized_users;
+
+        $lection->save();
+
+        // Save text.
+        Paper::store($text_name, $text_path, $text_author, $name);
+
+        // Attach lection.
+        $this->attachToSection($section_id, $name);
+    }
+
+    /**
      * Get all lections.
      *
      * @return    collection
@@ -41,23 +152,6 @@ class LectionRepository implements LectionInterface
     public function getAll()
     {
         return Lection::all();
-    }
-
-    /**
-     * Attach lection to seminar.
-     *
-     * @param   string      $name
-     * @param   string      $section_name
-     *
-     * @return  collection
-     */
-    public function attach($name, $section_name)
-    {
-
-        $lection = Lection::findOrFail($name);
-
-        $lection->sections()->attach($section_name);
-
     }
 
   /**

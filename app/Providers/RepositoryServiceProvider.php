@@ -32,7 +32,7 @@ use Synthesise\Infoblock;
 use Synthesise\Repositories\Infoblock\InfoblockRepository;
 
 use Synthesise\Paper;
-use Synthesise\Repositories\Infoblock\PaperRepository;
+use Synthesise\Repositories\Paper\PaperRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

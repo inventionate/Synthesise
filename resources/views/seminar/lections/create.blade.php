@@ -28,10 +28,11 @@
             Abbrechen
         </div>
 
-        <div class="ui right green labeled icon submit button">
+{{-- Button wieder zu div, sobald der Validator läuft!!! --}}
+        <button class="ui right green labeled icon submit button" type="submit">
             Erstellen
             <i class="checkmark icon"></i>
-        </div>
+        </button>
     </div>
 
 </form>

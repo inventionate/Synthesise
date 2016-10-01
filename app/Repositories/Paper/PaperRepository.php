@@ -11,9 +11,25 @@ use Synthesise\Paper;
  */
 class PaperRepository implements PaperInterface
 {
+    /**
+     * Store new lection.
+     *
+     * @param   string  $name
+     * @param   string  $author
+     * @param   $path   $string
+     * @param   string  $lection_name
+     */
+    public function store($name, $author, $path, $lection_name) {
 
-  public function get($id) {
-      return "Hello!";
-  }
+        $paper = new Paper;
+
+        $paper->name = $name;
+        $paper->author = $author;
+        $paper->path = $path;
+        $paper->lection_name = $lection_name;
+
+        $paper->save();
+
+    }
 
 }

@@ -24,3 +24,5 @@
        })
        .modal('attach events', '#lection-attach', 'show'
    );
+
+   // EDIT REQUIRES TO DISABLE NAME FIELD!!!! PRIMARY ID!!!
