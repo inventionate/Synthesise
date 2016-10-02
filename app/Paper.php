@@ -12,20 +12,6 @@ class Paper extends Model {
 	protected $table = 'papers';
 
 	/**
-	 * Hauptschlüssel festlegen um die ORM Suche zu vereinfachen.
-	 *
-	 * @var 		string
-	 */
-	protected $primaryKey ='name';
-
-	/**
-     * Hauptschlüssel als nicht numerisch definieren und automatisches Inkrementieren deaktivieren.
-     *
-     * @var boolean
-     */
-    public $incrementing = false;
-
-	/**
 	 * Die veränderbaren Tabellenspalten.
 	 *
 	 * @var 		array
@@ -36,6 +22,20 @@ class Paper extends Model {
 		'path',
 		'lection_name'
 	];
+
+	/**
+     * Hauptschlüssel festlegen um die ORM Suche zu vereinfachen.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'name';
+
+    /**
+     * Hauptschlüssel als nicht numerisch definieren und automatisches Inkrementieren deaktivieren.
+     *
+     * @var boolean
+     */
+    public $incrementing = false;
 
 	/**
 	 * Datenbankrelation Paper gehört zu Lection.

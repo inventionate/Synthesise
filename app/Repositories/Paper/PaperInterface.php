@@ -8,6 +8,8 @@ namespace Synthesise\Repositories\Paper;
 interface PaperInterface
 {
 
-  public function store($name, $author, $path, $lection_name);
+  public function store($text, $name, $author, $lection_name);
+
+  public function update($text, $name, $author, $lection_name);
 
 }

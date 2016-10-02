@@ -32,18 +32,18 @@ class LectionController extends Controller
     {
         // Validation
         $this->validate($request, [
-            // 'name'              => 'required|string',
-            // 'section_id'        => 'required|integer',
-            // 'author'            => 'required|string',
-            // 'contact'           => 'required|email',
-            // 'text'              => 'required|file',
-            // 'text_name'         => 'required|string',
-            // 'text_author'       => 'required|string',
-            // 'image'             => 'required|image',
-            // 'available_from'    => 'required|date',
-            // 'available_to'      => 'required|date',
-            // 'authorized_users'  => 'required|array',
-            // 'seminar_name'      => 'required|string',
+            'name'              => 'required|string',
+            'section_id'        => 'required|integer',
+            'author'            => 'required|string',
+            'contact'           => 'required|email',
+            'text'              => 'required|file',
+            'text_name'         => 'required|string',
+            'text_author'       => 'required|string',
+            'image'             => 'required|image',
+            'available_from'    => 'required|date',
+            'available_to'      => 'required|date',
+            'authorized_users'  => 'array',
+            'seminar_name'      => 'required|string',
         ]);
 
         $name              = $request->name;
@@ -119,21 +119,25 @@ class LectionController extends Controller
         // Validati on
         $this->validate($request, [
             'section_id'        => 'required|integer',
+            'old_section_id'    => 'required|integer',
             'author'            => 'required|string',
-            'contact'           => 'required|mail',
+            'contact'           => 'required|email',
             'text'              => 'file',
-            'text_author'       => 'string',
+            'text_name'         => 'required|string',
+            'text_author'       => 'required|string',
             'image'             => 'image',
             'available_from'    => 'required|date',
             'available_to'      => 'required|date',
-            'authorized_users'  => 'required|array',
+            'authorized_users'  => 'array',
             'seminar_name'      => 'required|string',
         ]);
 
         $section_id        = $request->section_id;
+        $old_section_id    = $request->old_section_id;
         $author            = $request->author;
         $contact           = $request->contact;
         $text              = $request->file('text');
+        $text_name         = $request->text_name;
         $text_author       = $request->text_author;
         $image             = $request->file('image');
         $available_from    = $request->available_from;
@@ -141,7 +145,7 @@ class LectionController extends Controller
         $authorized_users  = $request->authorized_users;
         $seminar_name      = $request->seminar_name;
 
-        Lection::update($name, $section_id, $author, $contact, $text, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
+        Lection::update($name, $section_id, $old_section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
 
         return back()->withInput();
     }

@@ -61,17 +61,20 @@ class SeminarController extends Controller
         // Get all infoblocks
         $infoblocks = Seminar::getAllInfoblocks($name);
 
-        // Push Disqus shortname to JavaScript.
-        JavaScript::put([
-            'disqus_shortname' => $disqus_shortname
-        ]);
-
         // Get teachers by seminar.
 		$teachers = Seminar::getAllUsers($name, 'Teacher');
 
-        // Get Disqus.
+        // Get teachers by seminar.
+		$admins = User::getAllByRole('Admin')->pluck('username');
 
+        // Get Disqus.
         $disqus = $disqus_shortname !== null;
+
+        // Push Disqus shortname to JavaScript.
+        JavaScript::put([
+            'disqus_shortname' => $disqus_shortname,
+            'admins' => $admins
+        ]);
 
 		return view('seminar.index')
                                     ->with('seminar_name', $name)

@@ -156,8 +156,15 @@
 
 											@if ( in_array(Auth::user()->username, $lection->authorized_editors) )
 
-												<button class="ui teal small icon button" data-name="{{ $lection->name }}" data-author="{{ $lection->author }}" data-section="{{ $section->name }}" data-available="{{ $lection->available_from }}">
-
+												<button class="ui teal small icon button lection-edit" data-name="{{ $lection->name }}"
+												data-author="{{ $lection->author }}"
+												data-contact="{{ $lection->contact }}" data-section-id="{{ $section->id }}"
+												data-text-path="{{ Lection::getPaper($lection->name)->path }}"
+												data-text-name="{{ Lection::getPaper($lection->name)->name }}"
+												data-text-author="{{ Lection::getPaper($lection->name)->author }}"
+												data-image-path="{{ $lection->image_path }}" data-available-from="{{ $lection->available_from }}"
+												data-available-to="{{ $lection->available_to }}"
+												data-authorized-users="{{ json_encode($lection->authorized_editors) }}">
 													<i class="edit icon"></i>
 
 												</button>

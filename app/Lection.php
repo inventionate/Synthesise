@@ -51,7 +51,6 @@ class Lection extends Model
      */
     public $incrementing = false;
 
-
     /**
      * Datenbankrelation Lection hat ein Paper.
      */

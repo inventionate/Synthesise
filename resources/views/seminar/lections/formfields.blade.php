@@ -1,3 +1,7 @@
+<div class="ui red message">
+    Der Name der online-Lektion kann nicht mehr verändert werden und muss eindeutig sein!
+</div>
+
 <div class="required field">
     <label for="lections_name">Name</label>
     <input id="lections_name" name="name" placeholder="Bitte geben Sie einen Namen ein." type="text">
@@ -12,7 +16,7 @@
 
         <i class="dropdown icon"></i>
 
-        <div class="default text">Themenbereich</div>
+        <div class="default text">Themenbereich wählen.</div>
 
         <div class="menu">
 
@@ -61,7 +65,7 @@
     </div>
 
     <div class="field">
-        <label for="lections_text_name">Autor des Textes</label>
+        <label for="lections_text_name">Titel des Textes</label>
         <input id="lections_text_name" name="text_name" placeholder="Bitte geben Sie den Titel des Textes ein." type="text">
     </div>
 
@@ -114,7 +118,7 @@
         <label for="seminar_authorized_users">Benutzer, die die online Lektion bearbeiten dürfen</label>
 
         <div class="ui info message">
-            Die Person, die das Seminar erstellt, ist automatisch Administrator/in.
+            Alle Administrator/innen und die Person, die das Seminar erstellt, dürfen die online-Lektion bearbeiten.
         </div>
 
         <select name="authorized_users[]" id="seminar_authorized_users" multiple class="ui dropdown">

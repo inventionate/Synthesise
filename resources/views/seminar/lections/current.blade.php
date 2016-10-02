@@ -4,7 +4,7 @@
         <div class="column">
 
 			<h2 class="ui header">Aktuelle online-Lektion</h2>
-
+			
 			@if( $current_lection !== null)
 
 				<div class="ui fluid card">
