@@ -20,10 +20,12 @@ class LectionRepository implements LectionInterface
      *
      * @param int       $section_id
      * @param string    $name
+     * @param date      $available_from
+     * @param date      $available_to
      */
-    public function attachToSection($section_id, $name)
+    public function attachToSection($section_id, $name, $available_from, $available_to)
     {
-        return Lection::findOrFail($name)->sections()->attach($section_id);
+        return Lection::findOrFail($name)->sections()->attach($section_id, ['available_from' => $available_from, 'available_to' => $available_to]);
     }
 
     /**
@@ -48,8 +50,8 @@ class LectionRepository implements LectionInterface
      * @param   string  $text_name
      * @param   string  $text_author
      * @param   image   $image
-     * @param   date    $available_from
-     * @param   date    $available_to
+     * @param   string  $available_from
+     * @param   string  $available_to
      * @param   array   $authorized_users
      * @param   string  $seminar_name
      */
@@ -75,8 +77,6 @@ class LectionRepository implements LectionInterface
         $lection->author            = $author;
         $lection->contact           = $contact;
         $lection->image_path        = $image_path;
-        $lection->available_from    = date('Y-m-d', strtotime($available_from));
-        $lection->available_to      = date('Y-m-d', strtotime($available_to));
         $lection->authorized_editors  = $authorized_users;
 
         $lection->save();
@@ -85,7 +85,10 @@ class LectionRepository implements LectionInterface
         Paper::store($text, $text_name, $text_author, $name);
 
         // Attach lection.
-        $this->attachToSection($section_id, $name);
+        $available_from    = date('Y-m-d', strtotime($available_from));
+        $available_to      = date('Y-m-d', strtotime($available_to));
+
+        $this->attachToSection($section_id, $name, $available_from, $available_to);
     }
 
     /**
@@ -100,8 +103,8 @@ class LectionRepository implements LectionInterface
      * @param   string  $text_name
      * @param   string  $text_author
      * @param   image   $image
-     * @param   date    $available_from
-     * @param   date    $available_to
+     * @param   string  $available_from
+     * @param   string  $available_to
      * @param   array   $authorized_users
      * @param   string  $seminar_name
      */
@@ -121,8 +124,6 @@ class LectionRepository implements LectionInterface
         // Update values.
         $lection->author              = $author;
         $lection->contact             = $contact;
-        $lection->available_from      = date('Y-m-d', strtotime($available_from));
-        $lection->available_to        = date('Y-m-d', strtotime($available_to));
         $lection->authorized_editors  = $authorized_users;
 
         // Check new image.
@@ -151,12 +152,13 @@ class LectionRepository implements LectionInterface
 
         // Attach lection.
 
-        if( $section_id !== $old_section_id)
-        {
-            $this->detachFromSection($old_section_id, $name);
+        $this->detachFromSection($old_section_id, $name);
 
-            $this->attachToSection($section_id, $name);
-        }
+        // Attach lection.
+        $available_from    = date('Y-m-d', strtotime($available_from));
+        $available_to      = date('Y-m-d', strtotime($available_to));
+
+        $this->attachToSection($section_id, $name, $available_from, $available_to);
     }
 
     /**
@@ -169,16 +171,33 @@ class LectionRepository implements LectionInterface
         return Lection::all();
     }
 
+    /**
+     * Get specific lection.
+     *
+     * @param 	string $name
+     * @param 	string $seminar_name
+     *
+     * @return    collection
+     */
+    public function get($name, $seminar_name)
+    {
+        return Lection::findOrFail($name)->sections()->where('seminar_name', $seminar_name)->get();
+    }
+
   /**
-   * Checkt die Verfügbarkeit eines Videos.
+   * Check if lection is available.
    *
-   * @param 		string $videoname
+   * @param 	string $name
+   * @param 	string $seminar_name
    *
-   * @return    true|false Gibt wahr oder falsch bzgl. der Verfügbarkeit zurück.
+   * @return    boolean
    */
-  public function available($videoname)
+  public function available($name, $seminar_name)
   {
-      if ($this->unlockDate($videoname) <= date('Y-m-d')) {
+      $lection = $this->get($name, $seminar_name);
+
+      if ( $lection->first()->pivot->available_to <= date('Y-m-d') )
+      {
           return true;
       } else {
           return false;
@@ -186,51 +205,22 @@ class LectionRepository implements LectionInterface
   }
 
   /**
-   * Fragt die Sektion eines Videos ab.
+   * Get section of lection.
    *
-   * @param     string $videoname
+   * @param     string $name
+   * @param     string $seminar_name
    *
    * @return    string Aktuelle Sektion.
    */
-  public function getSection($videoname)
+  public function getSection($name, $seminar_name)
   {
-      return Lection::find($videoname)->section;
-  }
-  /**
-   * Fragt ab ab welchem Datum das Video freigeschaltet ist.
-   *
-   * @param     string $videoname
-   *
-   * @return    string Datum ab wann das Video verfügbar ist.
-   */
-  public function unlockDate($videoname)
-  {
-      return Lection::find($videoname)->available_from;
+      $lection = $this->get($name, $seminar_name);
+
+      return $lection->first()->name;
   }
 
-  /**
-   * Fragt ab bis zu welchem Datum das Video freigeschaltet ist.
-   *
-   * @param     string $videoname
-   *
-   * @return    string Datum bis wann das Video verfügbar ist.
-   */
-  public function finalDate($videoname)
-  {
-      return Lection::find($videoname)->available_to;
-  }
 
-  /**
-   * Onlinestatus abfragen.
-   *
-   * @param     string $videoname
-   *
-   * @return    true|false
-   */
-  public function getOnline($videoname)
-  {
-      return Lection::find($videoname)->online;
-  }
+
 
   /**
    * Das aktuelle Video abfragen.

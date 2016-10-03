@@ -53,6 +53,30 @@
 
         </div>
 
+        <div class="required fields">
+
+            <div class="field">
+                <label for="seminar_available_from">Verfügbar ab</label>
+                <div class="ui calendar">
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input name="available_from" type="text" placeholder="Bitte geben Sie ein Datum ein." id="seminar_available_from">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="seminar_available_to">Verfügbar bis</label>
+                <div class="ui calendar">
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input name="available_to" type="text" placeholder="Bitte geben Sie ein Datum ein." id="seminar_available_to">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
     <div class="actions">
         <div class="ui black cancel button">

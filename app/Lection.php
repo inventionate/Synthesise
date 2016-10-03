@@ -24,8 +24,6 @@ class Lection extends Model
         'contact',
         'authorized_editors',
         'image_path',
-        'available_from',
-        'available_to'
     ];
 
     /**
@@ -72,6 +70,6 @@ class Lection extends Model
      */
     public function sections()
     {
-        return $this->belongsToMany('Synthesise\Section', 'lection_section', 'lection_name', 'section_id');
+        return $this->belongsToMany('Synthesise\Section', 'lection_section', 'lection_name', 'section_id')->withPivot('available_from', 'available_to');
     }
 }

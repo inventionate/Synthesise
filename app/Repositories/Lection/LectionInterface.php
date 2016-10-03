@@ -8,7 +8,7 @@ namespace Synthesise\Repositories\Lection;
 interface LectionInterface
 {
 
-    public function attachToSection($section_id, $name);
+    public function attachToSection($section_id, $name, $available_from, $available_to);
 
     public function detachFromSection($section_id, $name);
 
@@ -18,15 +18,14 @@ interface LectionInterface
 
     public function getAll();
 
-    public function available($videoname);
+    public function get($name, $seminar_name);
 
-    public function getSection($videoname);
+    public function available($name, $seminar_name);
 
-    public function unlockDate($videoname);
+    public function getSection($name, $seminar_name);
 
-    public function finalDate($videoname);
 
-    public function getOnline($videoname);
+
 
     public function getCurrentVideo();
 

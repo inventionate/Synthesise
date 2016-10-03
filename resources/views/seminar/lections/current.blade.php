@@ -4,7 +4,7 @@
         <div class="column">
 
 			<h2 class="ui header">Aktuelle online-Lektion</h2>
-			
+
 			@if( $current_lection !== null)
 
 				<div class="ui fluid card">
@@ -17,11 +17,11 @@
 					</div>
 
 					<div class="ui three blue bottom attached buttons">
-					  <a class="ui button" href="ROUTE">
+					  <a class="ui button" href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => $current_lection->name, 'sequence' => 1]) }}">
 					    <i class="play icon"></i>
 					    Ansehen
 					  </a>
-					  <a class="ui button" data-name="{{ $current_lection->name }}" href="{{ action('LectionController@getNotesPDF', [$current_lection->name]) }}">
+					  <a class="ui button" data-name="{{ $current_lection->name }}" href="# NOTES">
 					    <i class="square write icon"></i>
 					    Notizen
 					  </a>

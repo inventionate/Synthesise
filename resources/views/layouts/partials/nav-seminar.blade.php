@@ -16,7 +16,7 @@
 
             @foreach ( Section::getAllLections($section->id) as $lection )
 
-                <a class="item" href="{{ route('lektion',[$lection->name, 1]) }}">{{ $lection->name }}</a>
+                <a class="item" href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => rawurlencode($lection->name), 'sequence' => 1]) }}">{{ $lection->name }}</a>
 
             @endforeach
 

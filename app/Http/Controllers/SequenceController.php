@@ -49,68 +49,6 @@ class SequenceController extends Controller
     }
 
     /**
-     * Online-Lektion anzeigen.
-     *
-     * @param string $videoname
-     *
-     * @return View
-     */
-    public function index($videoname, $sequenceNumber)
-    {
-        // @TODO Parameter Hotfix optimitzation
-        $videoname = urldecode($videoname);
-        $sequenceNumber = intval($sequenceNumber);
-
-        // CUEPOINT ANZEIGE ---------------------------------------------
-
-        // Position der Cuepoints abfragen
-        $cuepoints = Video::getCuepoints($videoname, $sequenceNumber);
-
-        // Gruppenzugehörigkeit des Videos abfragen
-        $section = Video::getSection($videoname);
-
-        // Angehängte Texte abfragen
-        $papers = Video::getPapers($videoname);
-
-        // Alle Videos abfragen
-        $videos = Video::getVideos();
-
-        // Verfügbarkeit des Videos abfragen
-        $available = Video::available($videoname);
-
-        // Rolle des Benutzers abfragen
-        $role = Auth::user()->role;
-
-        // Onlinestatus des Videos abfragen
-        $online = Video::getOnline($videoname);
-
-        // Videopfad generieren
-        // @todo Hier eine Abfrage, je nach Gerät (Qualität automatisch festlegen)
-        $videopath = '/video/'.Parser::normalizeName($videoname).'_'.$sequenceNumber;
-
-        // Marker generieren
-        $markers = Video::getMarkers($videoname, $sequenceNumber);
-
-        // Sequenzen abfragen
-        $sequences = Video::getSequences($videoname);
-
-        // Standardausgabe VIEW -----------------------------------------
-        return view('lection')
-                            ->with('available', $available)
-                            ->with('role', $role)
-                            ->with('cuepoints', $cuepoints)
-                            ->with('online', $online)
-                            ->with('section', $section)
-                            ->with('videos', $videos)
-                            ->with('papers', $papers)
-                            ->with('videoname', $videoname)
-                            ->with('videopath', $videopath)
-                            ->with('markers', $markers)
-                            ->with('sequenceNumber', $sequenceNumber)
-                            ->with('sequences', $sequences);
-    }
-
-    /**
      * Notizen für die Lektion als PDF anzeigen.
      *
      * @param string $videoname

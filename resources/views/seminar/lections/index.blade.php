@@ -89,9 +89,9 @@
 									{{-- Lections info --}}
 									<td class="online-lektion">
 										@if ( $disqus )
-											<div class="ui fluid labeled button @if( ! (Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif" tabindex="0">
+											<div class="ui fluid labeled button @if( ! (Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif" tabindex="0">
 
-												<a href="{{ route('lektion', [rawurlencode($lection->name), 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
+												<a href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => rawurlencode($lection->name), 'sequence' => 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
 
 													<i class="video icon"></i>
 
@@ -99,12 +99,12 @@
 
 												</a>
 
-												<div class="ui left pointing label @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
+												<div class="ui left pointing label @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else red @endif">
 													<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($lection->name) }}">0</span>
 												</div>
 											@else
 
-												<a href="{{ route('lektion', [rawurlencode($lection->name), 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else disabled red @endif">
+												<a href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => rawurlencode($lection->name), 'sequence' => 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else disabled red @endif">
 
 													<i class="video icon"></i>
 
@@ -119,7 +119,7 @@
 
 									{{-- Available date info --}}
 									<td class="center aligned seminar-datum">
-										{{ date('d.m.Y',strtotime($lection->available_from)) }}
+										{{ date('d.m.Y',strtotime($lection->pivot->available_from)) }}
 									</td>
 
 									{{-- Material --}}
@@ -140,7 +140,7 @@
 												</div>
 											</div>
 
-											<a class="ui @if( ! (Lection::available($lection->name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif button" v-on:click="trackEvent('Notizen', '{{ $lection->name }}')" href="{{ action('LectionController@getNotesPDF', [rawurlencode($lection->name)]) }}">
+											<a class="ui @if( ! (Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif button" v-on:click="trackEvent('Notizen', '{{ $lection->name }}')" href="#NOTES">
 
 												<i class="write square icon"></i>
 
@@ -162,8 +162,8 @@
 												data-text-path="{{ Lection::getPaper($lection->name)->path }}"
 												data-text-name="{{ Lection::getPaper($lection->name)->name }}"
 												data-text-author="{{ Lection::getPaper($lection->name)->author }}"
-												data-image-path="{{ $lection->image_path }}" data-available-from="{{ $lection->available_from }}"
-												data-available-to="{{ $lection->available_to }}"
+												data-image-path="{{ $lection->image_path }}" data-available-from="{{ $lection->pivot->available_from }}"
+												data-available-to="{{ $lection->pivot->available_to }}"
 												data-authorized-users="{{ json_encode($lection->authorized_editors) }}">
 													<i class="edit icon"></i>
 

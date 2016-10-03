@@ -16,6 +16,8 @@ class CreateLectionSectionTable extends Migration
             $table->increments('id');
             $table->string('lection_name', 128);
             $table->string('section_id', 128);
+            $table->date('available_from');
+            $table->date('available_to');
         });
     }
 

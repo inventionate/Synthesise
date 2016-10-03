@@ -54,6 +54,8 @@ Route::get('/', [
 |-------------------------------------------------------------------------------
 */
 
+/* @TODO: seminar in seminars umbenenen und aus index show machen! */
+
 Route::group(['prefix' => 'seminar'], function () {
 
     // Homepage
@@ -107,6 +109,12 @@ Route::group(['prefix' => 'seminar'], function () {
         'uses' => 'SeminarController@contact',
     ]);
 
+    Route::get('/{name}/lections/{lection_name}/{sequence}', [
+        'as' => 'lection',
+        'uses' => 'LectionController@show',
+    ])
+    ->where('sequence', '[0-9]+');
+
 });
 
 /*
@@ -114,49 +122,49 @@ Route::group(['prefix' => 'seminar'], function () {
 | Online-Lections
 |-------------------------------------------------------------------------------
 */
-
-// Index
-Route::get('online-lektionen/{videoname}/{sequenceNumber}', [
-    'as' => 'lektion',
-    'uses' => 'LectionController@index',
-])
-->where('sequenceNumber', '[0-9]+');
-
-// Sequence Redurection
-// @todo Überprüfen, ob es keine elegantere Lösung gibt.
-Route::get('online-lektionen/{videoname}', [
-    'uses' => 'LectionController@redirectSequence',
-]);
-
-// PDF notes
-Route::get('online-lektionen/{videoname}/1/getnotespdf', [
-    'uses' => 'LectionController@getNotesPDF',
-])
-->where('sequenceNumber', '[0-9]+');
-
-// PDF flagnames
-Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflagnamespdf', [
-    'uses' => 'LectionController@getFlagnamesPDF',
-])
-->where('sequenceNumber', '[0-9]+');
-
-// AJAX: flagnames
-Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflags', [
-    'uses' => 'LectionController@getFlags',
-])
-->where('sequenceNumber', '[0-9]+');
-
-// AJAX: notes
-Route::get('online-lektionen/{videoname}/{sequenceNumber}/getnotes', [
-    'uses' => 'LectionController@getNotes',
-])
-->where('sequenceNumber', '[0-9]+');
-
-// AJAX: notes
-Route::post('online-lektionen/{videoname}/{sequenceNumber}/postnotes', [
-    'uses' => 'LectionController@postNotes',
-])
-->where('sequenceNumber', '[0-9]+');
+//
+// // Index
+// Route::get('online-lektionen/{videoname}/{sequenceNumber}', [
+//     'as' => 'lektion',
+//     'uses' => 'LectionController@index',
+// ])
+// ->where('sequenceNumber', '[0-9]+');
+//
+// // Sequence Redurection
+// // @todo Überprüfen, ob es keine elegantere Lösung gibt.
+// Route::get('online-lektionen/{videoname}', [
+//     'uses' => 'LectionController@redirectSequence',
+// ]);
+//
+// // PDF notes
+// Route::get('online-lektionen/{videoname}/1/getnotespdf', [
+//     'uses' => 'LectionController@getNotesPDF',
+// ])
+// ->where('sequenceNumber', '[0-9]+');
+//
+// // PDF flagnames
+// Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflagnamespdf', [
+//     'uses' => 'LectionController@getFlagnamesPDF',
+// ])
+// ->where('sequenceNumber', '[0-9]+');
+//
+// // AJAX: flagnames
+// Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflags', [
+//     'uses' => 'LectionController@getFlags',
+// ])
+// ->where('sequenceNumber', '[0-9]+');
+//
+// // AJAX: notes
+// Route::get('online-lektionen/{videoname}/{sequenceNumber}/getnotes', [
+//     'uses' => 'LectionController@getNotes',
+// ])
+// ->where('sequenceNumber', '[0-9]+');
+//
+// // AJAX: notes
+// Route::post('online-lektionen/{videoname}/{sequenceNumber}/postnotes', [
+//     'uses' => 'LectionController@postNotes',
+// ])
+// ->where('sequenceNumber', '[0-9]+');
 
 
 /*
@@ -188,7 +196,6 @@ Route::match(['put', 'patch'], 'message/{id}', [
 Route::delete('message/{id}', [
     'uses' => 'MessageController@destroy',
 ]);
-
 
 /*
 |-------------------------------------------------------------------------------

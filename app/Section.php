@@ -39,6 +39,6 @@ class Section extends Model
 	 */
 	public function lections()
 	{
-		return $this->belongsToMany('Synthesise\Lection', 'lection_section',  'section_id', 'lection_name');
+		return $this->belongsToMany('Synthesise\Lection', 'lection_section',  'section_id', 'lection_name')->withPivot('available_from', 'available_to');
 	}
 }

@@ -16,8 +16,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["dozent", "root"],
             'image_path' => 'storage/lections/griechisch_roemische_antike.jpg',
-            'available_from' => '2015-10-21',
-            'available_to' => '2017-02-17',
         ));
 
         Lection::create(array(
@@ -27,8 +25,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/mittelalter.jpg',
-            'available_from' => '2015-10-28',
-            'available_to' => '2016-02-17',
         ));
 
         Lection::create(array(
@@ -38,8 +34,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/fruehe_neuzeit.jpg',
-            'available_from' => '2015-11-04',
-            'available_to' => '2016-02-17',
         ));
 
         Lection::create(array(
@@ -49,8 +43,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'bolle@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/jean_jacques_rousseau.jpg',
-            'available_from' => '2015-11-11',
-            'available_to' => '2016-02-17',
         ));
 
         Lection::create(array(
@@ -60,8 +52,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'weigand@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/johann_heinrich_pestalozzi.jpg',
-            'available_from' => '2015-11-18',
-            'available_to' => '2016-02-17',
         ));
 
         Lection::create(array(
@@ -71,8 +61,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'weigand@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/wilhelm_von_humboldt.jpg',
-            'available_from' => '2015-11-25',
-            'available_to' => '2016-02-17',
         ));
 
         Lection::create(array(
@@ -82,8 +70,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'berger@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/erziehung_und_unterricht.jpg',
-            'available_from' => '2015-12-02',
-            'available_to' => '2016-02-17',
         ));
 
         Lection::create(array(
@@ -93,8 +79,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'berger@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/heterogenitaet.jpg',
-            'available_from' => '2015-12-9',
-            'available_to' => '2016-02-17',
         ));
 
         Lection::create(array(
@@ -104,8 +88,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/wozu_ist_die_bildung_da.jpg',
-            'available_from' => '2015-12-16',
-            'available_to' => '2016-02-17',
         ));
 
         Lection::create(array(
@@ -115,8 +97,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/bildung_und_gluek.jpg',
-            'available_from' => '2015-12-23',
-            'available_to' => '2016-02-17',
         ));
 
         Lection::create(array(
@@ -126,8 +106,6 @@ class LectionTableSeeder extends Seeder
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/bildung_und_gerechtigkeit.jpg',
-            'available_from' => '2015-12-31',
-            'available_to' => '2014-02-28',
         ));
     }
 }

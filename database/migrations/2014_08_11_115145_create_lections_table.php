@@ -19,8 +19,6 @@ class CreateLectionsTable extends Migration
             $table->string('contact', 32);
             $table->text('authorized_editors');
             $table->text('image_path');
-            $table->date('available_from');
-            $table->date('available_to');
             $table->timestamps();
         });
     }
