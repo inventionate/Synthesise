@@ -5,7 +5,6 @@ namespace Synthesise\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Lection;
-use Seminar;
 
 class LectionController extends Controller
 {
@@ -20,64 +19,6 @@ class LectionController extends Controller
         $this->middleware(['auth']);
 
         $this->middleware('admin.teacher')->only(['store', 'update', 'delete', 'attach', 'detach']);
-    }
-
-    /**
-     * Show current online-lection.
-     *
-     * @param string    $name
-     * @param string    $lection_name
-     * @param string    $videoname
-     *
-     * @return View
-     */
-    public function index($name, $lection_name, $sequence)
-    {
-
-        // CUEPOINT ANZEIGE ---------------------------------------------
-
-        // Position der Cuepoints abfragen
-        // $cuepoints = Sequence::getCuepoints($lection_name, $sequence);
-
-        // Gruppenzugehörigkeit des Videos abfragen
-        $section = Lection::getSection($lection_name, $name);
-
-        // Get all sections.
-        $sections = Seminar::getAllSections($name);
-
-        // Angehängte Texte abfragen
-        $paper = true;#Lection::getPaper($lection_name);
-
-        // Alle Videos abfragen
-        // $videos = Video::getVideos();
-
-        // Verfügbarkeit des Videos abfragen
-        $available = Lection::available($lection_name, $name);
-
-        // Videopfad generieren
-        // @todo Hier eine Abfrage, je nach Gerät (Qualität automatisch festlegen)
-        // $videopath = '/video/'.Parser::normalizeName($videoname).'_'.$sequenceNumber;
-
-        // Marker generieren
-        // $markers = Video::getMarkers($videoname, $sequenceNumber);
-
-        // Sequenzen abfragen
-        // $sequences = Video::getSequences($videoname);
-
-        // Standardausgabe VIEW -----------------------------------------
-        return view('seminar.lection.index')
-                            ->with('lection_name', $lection_name)
-                            ->with('available', $available)
-                            // ->with('cuepoints', $cuepoints
-                            ->with('section', $section)
-                            ->with('sections', $sections)
-                            ->with('paper', $paper)
-                            ->with('seminar_name', $name);
-                            // ->with('videoname', $videoname)
-                            // ->with('videopath', $videopath)
-                            // ->with('markers', $markers)
-                            // ->with('sequenceNumber', $sequenceNumber)
-                            // ->with('sequences', $sequences);
     }
 
     /**

@@ -29,7 +29,7 @@ class SeminarController extends Controller
 	 *
 	 * @return View
 	 */
-	public function index($name)
+	public function show($name)
 	{
 
         // Get Seminar.
@@ -69,7 +69,7 @@ class SeminarController extends Controller
 		$admins = User::getAllByRole('Admin')->pluck('username');
 
         // Get Disqus.
-        $disqus = $disqus_shortname !== null;
+        $disqus = ( $disqus_shortname !== null );
 
         // Push Disqus shortname to JavaScript.
         JavaScript::put([
@@ -77,7 +77,7 @@ class SeminarController extends Controller
             'admins' => $admins
         ]);
 
-		return view('seminar.index')
+		return view('seminar.show')
                                     ->with('seminar_name', $name)
                                     ->with('seminar', $seminar)
                                     ->with('authorized_editors', $authorized_editors)
@@ -158,10 +158,10 @@ class SeminarController extends Controller
             'module' => 'required|string',
             'description' => 'required|string',
             'image' => 'image',
-            'info_intro' => 'required|string',
-            'info_lections' => 'required|string',
-            'info_texts' => 'required|string',
-            'info_exam' => 'required|string',
+            'info_intro' => 'string',
+            'info_lections' => 'string',
+            'info_texts' => 'string',
+            'info_exam' => 'string',
             'info' => 'file',
             'available_from' => 'required|date',
             'available_to' => 'required|date',
@@ -201,6 +201,19 @@ class SeminarController extends Controller
         Seminar::delete($name);
 
         return redirect('/')->withInput();
+    }
+
+    /**
+     * Deletes seminars info document.
+     *
+     * @return Redirect
+     */
+    public function destroyDocument($name)
+    {
+
+        Seminar::deleteDocument($name);
+
+        return back()->withInput();
     }
 
     /**
@@ -362,16 +375,95 @@ class SeminarController extends Controller
 	}
 
     /**
-     * Deletes seminars info document.
+     * Show online-lection.
      *
-     * @return Redirect
+     * @param string    $name
+     * @param string    $lection_name
+     * @param string    $videoname
+     *
+     * @return View
      */
-    public function destroyDocument($name)
+    public function lection($name, $lection_name, $sequence)
     {
+        // Gruppenzugehörigkeit des Videos abfragen
+        $section = Lection::getSection($lection_name, $name);
 
-        Seminar::deleteDocument($name);
+        // Get all sections.
+        $sections = Seminar::getAllSections($name);
 
-        return back()->withInput();
+        // Get all seminar lections.
+        $lections = Seminar::getAllLections($name);
+
+        // Angehängte Texte abfragen
+        $paper = true;#Lection::getPaper($lection_name);
+
+        // Verfügbarkeit des Videos abfragen
+        $available_all_authorized = ( Lection::available($lection_name, $name) || Seminar::authorizedEditor($name) || Seminar::authorizedMentor($name) );
+
+        $sequence_count = Lection::getSequenceCount($lection_name);
+
+        $sequence_count_spelled = Lection::getSequenceCountSpelled($lection_name);
+
+        $sequences = Lection::getSequences($lection_name);
+
+
+        // Position der Cuepoints abfragen
+        // $cuepoints = Sequence::getCuepoints($lection_name, $sequence);
+
+        // Alle Videos abfragen
+        // $videos = Video::getVideos();
+
+        // Videopfad generieren
+        // @todo Hier eine Abfrage, je nach Gerät (Qualität automatisch festlegen)
+        // $videopath = '/video/'.Parser::normalizeName($videoname).'_'.$sequenceNumber;
+
+        // Marker generieren
+        // $markers = Video::getMarkers($videoname, $sequenceNumber);
+
+        // Get teachers by seminar.
+		$teachers = Seminar::getAllUsers($name, 'Teacher');
+
+        // Get teachers by seminar.
+		$admins = User::getAllByRole('Admin')->pluck('username');
+
+        // Get all existing lections.
+        $all_lections = Lection::getAllNotAttached($name);
+
+        // Get Disqus shortname.
+        $disqus_shortname = Seminar::getDisqusShortname($name);
+
+        // Get Disqus.
+        $disqus = ( $disqus_shortname !== null );
+
+        // Push Disqus shortname to JavaScript.
+        JavaScript::put([
+            'disqus_shortname' => $disqus_shortname,
+            'admins' => $admins
+        ]);
+
+        // Standardausgabe VIEW -----------------------------------------
+        return view('seminar.lections.show')
+                            ->with('lection_name', $lection_name)
+                            ->with('available_all_authorized', $available_all_authorized)
+                            // ->with('cuepoints', $cuepoints
+                            ->with('section', $section)
+                            ->with('sections', $sections)
+                            ->with('lections', $lections)
+                            ->with('lections', $disqus)
+                            ->with('paper', $paper)
+                            ->with('seminar_name', $name)
+                            ->with('teachers', $teachers)
+                            ->with('admins', $admins)
+                            ->with('disqus', $disqus)
+                            ->with('all_lections', $all_lections)
+                            ->with('sequence_id', $sequence)
+                            ->with('sequence_count', $sequence_count)
+                            ->with('sequence_count_spelled', $sequence_count_spelled)
+                            ->with('sequences', $sequences);
+                            // ->with('videoname', $videoname)
+                            // ->with('videopath', $videopath)
+                            // ->with('markers', $markers)
+                            // ->with('sequenceNumber', $sequenceNumber);
     }
 
 }

@@ -325,6 +325,8 @@
 {{-- @include ADMIN BACKEND --------------------------------------------------}}
 @if( Seminar::authorizedEditor($seminar_name) )
 
+    @include('seminar.users.create')
+
     {{-- Load create and edit Modals --}}
     @include('seminar.modals')
 

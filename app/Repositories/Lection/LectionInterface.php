@@ -26,7 +26,11 @@ interface LectionInterface
 
     public function getSection($name, $seminar_name);
 
+    public function getSequenceCount($name);
 
+    public function getSequenceCountSpelled($name);
+
+    public function getSequences($videoname);
 
 
     public function getCurrentVideo();
@@ -42,6 +46,4 @@ interface LectionInterface
     public function getFirstCuepointId($videoname, $seqenceNumber);
 
     public function getAllFlagnamesAsHTML($videoname, $seqenceNumber);
-
-    public function getSequences($videoname);
 }

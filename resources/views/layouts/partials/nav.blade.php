@@ -12,7 +12,7 @@
 
                     <a class="etpM item @if ( Request::is('/') ) active @endif" href="{{ route('dashboard') }}" >e:t:p:M</a>
 
-                    @if ( Request::segment(1) === 'seminar' )
+                    @if ( Request::segment(1) === 'seminars' )
 
                         @include('layouts.partials.nav-seminar')
 
@@ -30,7 +30,7 @@
 
                             @include('layouts.partials.nav-admin')
 
-                        @elseif( Request::segment(1) === 'seminar' )
+                        @elseif( Request::segment(1) === 'seminars' )
 
                             @include('layouts.partials.nav-admin-seminar')
 

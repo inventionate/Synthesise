@@ -21,6 +21,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 1,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Griechisch-römische Antike'
@@ -29,6 +30,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 2,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Mittelalter'
@@ -37,6 +39,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 3,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Frühe Neuzeit'
@@ -45,6 +48,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 4,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Jean-Jacques Rousseau'
@@ -53,6 +57,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 5,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Johann Heinrich Pestalozzi'
@@ -61,6 +66,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 6,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Wilhelm von Humboldt'
@@ -69,6 +75,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 7,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Erziehung und Unterricht'
@@ -77,6 +84,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 8,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Heterogenität'
@@ -85,6 +93,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 9,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Wozu ist die Bildung da?'
@@ -93,6 +102,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 10,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Bildung und Glück'
@@ -101,6 +111,7 @@ class SequenceTableSeeder extends Seeder
         Sequence::create(array(
             'id' => 11,
             'name' => null,
+            'position' => 1,
             'video' => true,
             'path' => '',
             'lection_name' => 'Bildung und Gerechtigkeit'

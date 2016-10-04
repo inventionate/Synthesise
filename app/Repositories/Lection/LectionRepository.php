@@ -249,6 +249,55 @@ class LectionRepository implements LectionInterface
       return $lection->first()->name;
   }
 
+  /**
+   * Get amount of sequences as spelled word.
+   *
+   * @param     string $name
+   *
+   * @return    string Sequence count.
+   */
+  public function getSequenceCount($name)
+  {
+
+      $sequence_count = Lection::findOrFail($name)->sequences()->count();
+
+      return $sequence_count;
+  }
+
+  /**
+   * Get amount of sequences as spelled word.
+   *
+   * @param     string $name
+   *
+   * @return    string Spelled sequence count.
+   */
+  public function getSequenceCountSpelled($name)
+  {
+
+      $sequence_count = $this->getSequenceCount($name);
+
+      $sequence_formatter = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
+
+      $sequence_count_spelled = $sequence_formatter->format($sequence_count);
+
+      return $sequence_count_spelled;
+  }
+
+  /**
+   * Get all sequences.
+   *
+   * @param     string $name
+   *
+   * @return    collection
+   */
+  public function getSequences($name)
+  {
+      return Lection::findOrFail($name)->sequences()->get();
+  }
+
+
+
+
 
 
 
@@ -374,17 +423,4 @@ class LectionRepository implements LectionInterface
       return json_encode($markers);
   }
 
-  /**
-   * Gibt die Sequenzen zurück.
-   *
-   * @param     string $videoname
-   *
-   * @return    array Sequenzennummern und Sequenznamen.
-   */
-  public function getSequences($videoname)
-  {
-      $sequenceNumbers = Lection::where('videoname', $videoname)->select('sequence_id', 'sequence_name')->get()->toArray();
-
-      return $sequenceNumbers;
-  }
 }

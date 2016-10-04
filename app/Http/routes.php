@@ -54,12 +54,12 @@ Route::get('/', [
 |-------------------------------------------------------------------------------
 */
 
-Route::group(['prefix' => 'seminar'], function () {
+Route::group(['prefix' => 'seminars'], function () {
 
     // Homepage
     Route::get('/{name}', [
         'as' => 'seminar',
-        'uses' => 'SeminarController@index',
+        'uses' => 'SeminarController@show',
     ]);
 
     // Store
@@ -107,9 +107,9 @@ Route::group(['prefix' => 'seminar'], function () {
         'uses' => 'SeminarController@contact',
     ]);
 
-    Route::get('/{name}/lection/{lection_name}/{sequence}', [
+    Route::get('/{name}/lections/{lection_name}/{sequence}', [
         'as' => 'lection',
-        'uses' => 'LectionController@index',
+        'uses' => 'SeminarController@lection',
     ])
     ->where('sequence', '[0-9]+');
 

@@ -15,6 +15,7 @@ class CreateSequencesTable extends Migration
         Schema::create('sequences', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 128)->nullable();
+            $table->integer('position');
             $table->boolean('video');
             $table->text('path');
             $table->string('lection_name', 256);

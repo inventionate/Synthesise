@@ -52,7 +52,7 @@
                 <label for="seminar_image">Titelbild hochladen</label>
                 <div class="ui action input">
                     <label for="seminar_filepath" class="hide">Dateipfad</label>
-                        <input id="seminar_filepath" type="text" placeholder="Bitte laden Sie ein Titelbild hoch." name="filepath" readonly value="{{ substr($seminar->image_path, 13) }}">
+                        <input id="seminar_filepath" type="text" placeholder="Bitte laden Sie ein Titelbild hoch." name="filepath" readonly value="{{ substr($seminar->image_path, 17) }}">
 
                         <input id="seminar_image" type="file" name="image">
 

@@ -4,6 +4,17 @@ if( $('#main-content-seminar')[0] ||
     $('#main-content-seminar-users')[0] || $('#main-content-seminar-settings')[0] || $('#main-content-seminar-faqs')[0] ||
     $('#main-content-seminar-lection')[0])
 {
+
+    if ( disqus_shortname !== null )
+    {
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    }
+
     /*
      * Show delete all admins warning.
      */
@@ -42,17 +53,6 @@ if( $('#main-content-seminar')[0] ||
 // Seminar index specific code.
 if( $('#main-content-seminar')[0] )
 {
-
-    if ( disqus_shortname !== null )
-    {
-
-        (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-        }());
-    }
 
     require('./general-infos.js');
 
