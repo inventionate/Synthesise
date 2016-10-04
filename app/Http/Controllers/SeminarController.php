@@ -406,9 +406,12 @@ class SeminarController extends Controller
 
         $sequences = Lection::getSequences($lection_name);
 
+        $current_sequence = Lection::getSequence($lection_name, $sequence);
 
-        // Position der Cuepoints abfragen
         // $cuepoints = Sequence::getCuepoints($lection_name, $sequence);
+
+
+
 
         // Alle Videos abfragen
         // $videos = Video::getVideos();
@@ -417,8 +420,11 @@ class SeminarController extends Controller
         // @todo Hier eine Abfrage, je nach Gerät (Qualität automatisch festlegen)
         // $videopath = '/video/'.Parser::normalizeName($videoname).'_'.$sequenceNumber;
 
-        // Marker generieren
-        // $markers = Video::getMarkers($videoname, $sequenceNumber);
+        // Get all markers.
+        $markers = Lection::getMarkers($lection_name, $sequence);
+
+        // Get image path.
+        $poster_path = Lection::getImagePath($lection_name);
 
         // Get teachers by seminar.
 		$teachers = Seminar::getAllUsers($name, 'Teacher');
@@ -445,11 +451,10 @@ class SeminarController extends Controller
         return view('seminar.lections.show')
                             ->with('lection_name', $lection_name)
                             ->with('available_all_authorized', $available_all_authorized)
-                            // ->with('cuepoints', $cuepoints
+                            ->with('markers', $markers)
                             ->with('section', $section)
                             ->with('sections', $sections)
                             ->with('lections', $lections)
-                            ->with('lections', $disqus)
                             ->with('paper', $paper)
                             ->with('seminar_name', $name)
                             ->with('teachers', $teachers)
@@ -459,11 +464,9 @@ class SeminarController extends Controller
                             ->with('sequence_id', $sequence)
                             ->with('sequence_count', $sequence_count)
                             ->with('sequence_count_spelled', $sequence_count_spelled)
-                            ->with('sequences', $sequences);
-                            // ->with('videoname', $videoname)
-                            // ->with('videopath', $videopath)
-                            // ->with('markers', $markers)
-                            // ->with('sequenceNumber', $sequenceNumber);
+                            ->with('sequences', $sequences)
+                            ->with('current_sequence', $current_sequence)
+                            ->with('poster_path', $poster_path);
     }
 
 }

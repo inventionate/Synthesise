@@ -15,7 +15,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["dozent", "root"],
-            'image_path' => 'storage/lections/griechisch_roemische_antike.jpg',
+            'image_path' => 'storage/lections/05c0f9b0886187ff0aa358a28a220eab.jpg',
         ));
 
         Lection::create(array(
@@ -24,7 +24,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/mittelalter.jpg',
+            'image_path' => 'storage/lections/0c7ee036f23da8617aeb60f0fdeaafc6.jpg',
         ));
 
         Lection::create(array(
@@ -33,7 +33,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/fruehe_neuzeit.jpg',
+            'image_path' => 'storage/lections/00b86a956babb9a1064c1a10ea0af402.jpg',
         ));
 
         Lection::create(array(
@@ -42,7 +42,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Prof. Dr. Rainer Bolle',
             'contact' => 'bolle@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/jean_jacques_rousseau.jpg',
+            'image_path' => 'storage/lections/5bf570118e42fabc8f1983279cfd08ca.jpg',
         ));
 
         Lection::create(array(
@@ -51,7 +51,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Prof. Dr. Gabriele Weigand',
             'contact' => 'weigand@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/johann_heinrich_pestalozzi.jpg',
+            'image_path' => 'storage/lections/011b4914e0902130c9e024e0d7e9a698.jpg',
         ));
 
         Lection::create(array(
@@ -60,7 +60,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Prof. Dr. Gabriele Weigand',
             'contact' => 'weigand@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/wilhelm_von_humboldt.jpg',
+            'image_path' => 'storage/lections/a91289c764dc78ee005e99c5347b1898.jpg',
         ));
 
         Lection::create(array(
@@ -69,7 +69,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Dr. Albert Berger',
             'contact' => 'berger@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/erziehung_und_unterricht.jpg',
+            'image_path' => 'storage/lections/c4462b9da9f3d4c0345c08302cfc128f.jpg',
         ));
 
         Lection::create(array(
@@ -78,7 +78,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Dr. Albert Berger',
             'contact' => 'berger@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/heterogenitaet.jpg',
+            'image_path' => 'storage/lections/e592fbdded4303f3efb049a5355f9ccd.jpg',
         ));
 
         Lection::create(array(
@@ -87,7 +87,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/wozu_ist_die_bildung_da.jpg',
+            'image_path' => 'storage/lections/163c367720acbc5a8b2ae14620af33ee.jpg',
         ));
 
         Lection::create(array(
@@ -96,7 +96,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/bildung_und_gluek.jpg',
+            'image_path' => 'storage/lections/4277805616381a351892818adff76822.jpg',
         ));
 
         Lection::create(array(
@@ -105,7 +105,7 @@ class LectionTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["root"],
-            'image_path' => 'storage/lections/bildung_und_gerechtigkeit.jpg',
+            'image_path' => 'storage/lections/fa910e021bb0d4d9427950cf6dc55908.jpg',
         ));
     }
 }

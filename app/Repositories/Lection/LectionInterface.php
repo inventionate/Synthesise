@@ -30,7 +30,17 @@ interface LectionInterface
 
     public function getSequenceCountSpelled($name);
 
-    public function getSequences($videoname);
+    public function getSequences($name);
+
+    public function getSequence($name, $sequence);
+
+    public function getMarkers($name, $sequence);
+
+    public function getImagePath($name);
+
+
+
+
 
 
     public function getCurrentVideo();

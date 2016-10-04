@@ -295,6 +295,53 @@ class LectionRepository implements LectionInterface
       return Lection::findOrFail($name)->sequences()->get();
   }
 
+  /**
+   * Get sequence.
+   *
+   * @param     string $name
+   * @param     int     $sequence
+   *
+   * @return    collection
+   */
+  public function getSequence($name, $sequence)
+  {
+      return Lection::findOrFail($name)->sequences()->where('position', $sequence)->first();
+  }
+
+  /**
+   * Get all markers.
+   *
+   * @param     string  $name
+   * @param     int     $sequence
+   *
+   * @return    json
+   */
+  public function getMarkers($name, $sequence)
+  {
+      // {time: 60, text: "this"}
+
+      $cuepoints = Lection::findOrFail($name)->sequences()->where('position', $sequence)->first()->cuepoints()->get();
+
+      $markers = [];
+
+      foreach ($cuepoints as $cuepoint) {
+          array_push($markers, ['time' => $cuepoint['cuepoint'], 'text' => $cuepoint['content']]);
+      }
+
+      return json_encode($markers);
+  }
+
+  /**
+   * Get image path.
+   *
+   * @param     string $name
+   *
+   * @return    collection
+   */
+  public function getImagePath($name)
+  {
+      return Lection::findOrFail($name)->image_path;
+  }
 
 
 
@@ -398,29 +445,6 @@ class LectionRepository implements LectionInterface
       }
 
       return Parser::htmlMarkup($videoname, $content);
-  }
-
-  /**
-   * Gibt alle Marker als JS-Objekte zurück.
-   *
-   * @param     string  $videoname
-   * @param     int     $sequenceNumber
-   *
-   * @return    json Markertitel und Markerposition.
-   */
-  public function getMarkers($videoname, $sequenceNumber)
-  {
-      // {time: 60, text: "this"}
-
-    $cuepoints = Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
-
-      $markers = [];
-
-      foreach ($cuepoints as $cuepoint) {
-          array_push($markers, ['time' => $cuepoint['cuepoint'], 'text' => $cuepoint['content']]);
-      }
-
-      return json_encode($markers);
   }
 
 }

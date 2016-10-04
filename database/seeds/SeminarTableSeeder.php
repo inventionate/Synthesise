@@ -26,7 +26,7 @@ class SeminarTableSeeder extends Seeder
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["dozent", "root"],
-            'image_path' => 'storage/seminars/title_1.jpg',
+            'image_path' => 'storage/seminars/2f85bce36f69738b5fa85b25e6e9a728.jpg',
             'info_intro' => '<p>
             Die Lehrveranstaltung »Grundlagen pädagogischen Denkens und Handelns« führt in Themen und Fragestellungen der Allgemeinen und Historischen Erziehungswissenschaft ein. Sie setzt sich folgendermaßen zusammen:</p>',
             'info_lections' => '<p>
@@ -47,7 +47,7 @@ class SeminarTableSeeder extends Seeder
             Der Teil der Allgemeinen und Historischen Erziehungswissenschaft setzt sich aus Single Choice- und Multiple Choice-Aufgaben zusammen. Die Klausurmodalitäten werden rechtzeitig in einer Vorlesung (siehe Präsenzveranstaltungen) besprochen.<br>
             Weitere allgemeine Informationen zur Akademischen Vorprüfung finden Sie auf der Website des <a href="http://www.ph-karlsruhe.de/studium-lehre/studien-service-zentrum/pruefungsaemter/">Prüfungsamts</a>.
           </p>',
-            'info_path' => NULL,
+            'info_path' => 'storage/seminars/1c2ca656bbb88d73e53e836581bcc2d8.pdf',
             'available_from' => '2015-12-16',
             'available_to' => '2017-02-17',
             'disqus_shortname' => 'etpm',
@@ -62,7 +62,7 @@ class SeminarTableSeeder extends Seeder
             'author' => 'Prof. Dr. Ulrich Wehner',
             'contact' => 'wehner@ph-karlsruhe.de',
             'authorized_editors' => ["dozent", "root"],
-            'image_path' => 'storage/seminars/title_2.jpg',
+            'image_path' => 'storage/seminars/59d1c268a763eb7d28cdefa5274b1d2a.jpg',
             'info_intro' => NULL,
             'info_lections' => NULL,
             'info_texts' => NULL,

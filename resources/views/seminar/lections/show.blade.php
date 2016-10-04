@@ -40,8 +40,10 @@
 
 				@endif
 
-				{{-- Vue.js Komponente laden und die entsprechenden Variablen (Props) übergeben. --}}
-				{{-- <interactive-video name="{{ $videoname }}" path="{{ $videopath }}" markers="{{ $markers }}" poster="/img/ol_title.jpg" v-bind:notes="true"></interactive-video> --}}
+				{{ $poster_path }}
+
+				{{-- Vue.js component including variables (props). --}}
+				<interactive-video name="{{ $current_sequence->name }}" path="{{ $current_sequence->path }}" cuepoints="{{ $markers }}" poster="{{ $poster_path }}" v-bind:notes="true"></interactive-video>
 
 			</div>
 		</div>
