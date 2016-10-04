@@ -7,6 +7,16 @@
 @section('content')
 <main id="main-content-seminar-lection" class="ui grid container vue">
 
+	@if ( Seminar::authorizedEditor($seminar_name) )
+
+		<div class="sixteen wide column">
+			<div class="ui blue message">
+				In der momentanen Version ist der Sequenz-Editor deaktiviert. Neue Video- oder Interaktionssequenzen können Sie nur mithilfe des technischen Supports erstellen.
+			</div>
+		</div>
+
+	@endif
+
 	@if( $available_all_authorized )
 
         <h1 class="ui header">{{ $section . ' – ' . $lection_name }}</h1>
@@ -46,18 +56,48 @@
 			</div>
 		</div>
 
+		{{-- DISQUS UMGEBUNG --}}
+		@if ( $disqus )
+
+			<div class="one column row">
+
+				<div id="disqus_thread" class="column"></div>
+
+			</div>
+
+		@endif
+
+		{{-- ADDITIONAL CONTENT --}}
+		<section id="additional-content" class="two column row">
+
+			<div class="column">
+
+				<header>
+					<h3 class="hide">Texte und Notizen</h3>
+				</header>
+
+					<a class="ui fluid labeled icon blue button" v-on:click="trackEvents('Text', '{{ $paper->name }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->name]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->name }}</a>
+
+			</div>
+			<div class="column">
+
+				<a class="ui fluid labeled icon blue button" v-on:click="trackEvents()" href="getNotesPDF"><i class="square write icon"></i> Notizen herunterladen</a>
+			</div>
+
+		</section>
+
 	@else
 		<div class="one column row">
 			<div class="column">
 
-			<div class="ui red message">
-	            Die online-Lektion ist noch nicht verfügbar. Bitte wählen Sie eine verfügbare online-Lektion aus.
-	        </div>
+				<div class="ui red message">
+		            Die online-Lektion ist noch nicht verfügbar. Bitte wählen Sie eine verfügbare online-Lektion aus.
+		        </div>
 
-			@include('seminar.lections.index')
+				@include('seminar.lections.index')
 
+			</div>
 		</div>
-	</div>
 
 	@endif
 

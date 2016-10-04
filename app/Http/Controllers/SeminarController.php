@@ -400,6 +400,9 @@ class SeminarController extends Controller
         // Verfügbarkeit des Videos abfragen
         $available_all_authorized = ( Lection::available($lection_name, $name) || Seminar::authorizedEditor($name) || Seminar::authorizedMentor($name) );
 
+        // Get paper.
+        $paper = Lection::getPaper($lection_name);
+
         $sequence_count = Lection::getSequenceCount($lection_name);
 
         $sequence_count_spelled = Lection::getSequenceCountSpelled($lection_name);
@@ -407,18 +410,6 @@ class SeminarController extends Controller
         $sequences = Lection::getSequences($lection_name);
 
         $current_sequence = Lection::getSequence($lection_name, $sequence);
-
-        // $cuepoints = Sequence::getCuepoints($lection_name, $sequence);
-
-
-
-
-        // Alle Videos abfragen
-        // $videos = Video::getVideos();
-
-        // Videopfad generieren
-        // @todo Hier eine Abfrage, je nach Gerät (Qualität automatisch festlegen)
-        // $videopath = '/video/'.Parser::normalizeName($videoname).'_'.$sequenceNumber;
 
         // Get all markers.
         $markers = Lection::getMarkers($lection_name, $sequence);
@@ -444,6 +435,7 @@ class SeminarController extends Controller
         // Push Disqus shortname to JavaScript.
         JavaScript::put([
             'disqus_shortname' => $disqus_shortname,
+            'disqus_identifier' => $name . ' – ' . $lection_name,
             'admins' => $admins
         ]);
 
@@ -466,7 +458,8 @@ class SeminarController extends Controller
                             ->with('sequence_count_spelled', $sequence_count_spelled)
                             ->with('sequences', $sequences)
                             ->with('current_sequence', $current_sequence)
-                            ->with('poster_path', $poster_path);
+                            ->with('poster_path', $poster_path)
+                            ->with('paper', $paper);
     }
 
 }

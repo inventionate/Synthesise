@@ -38,22 +38,6 @@ interface LectionInterface
 
     public function getImagePath($name);
 
+    public function getPaper($name);
 
-
-
-
-
-    public function getCurrentVideo();
-
-    public function getVideos();
-
-    public function getPaper($videoname);
-
-    public function getFlagnames($videoname, $seqenceNumber);
-
-    public function getCuepoints($videoname, $seqenceNumber);
-
-    public function getFirstCuepointId($videoname, $seqenceNumber);
-
-    public function getAllFlagnamesAsHTML($videoname, $seqenceNumber);
 }

@@ -343,39 +343,6 @@ class LectionRepository implements LectionInterface
       return Lection::findOrFail($name)->image_path;
   }
 
-
-
-
-
-
-  /**
-   * Das aktuelle Video abfragen.
-   *
-   * @return    array|false Gibt entweder das aktuelle Video oder false zurück.
-   */
-  public function getCurrentVideo()
-  {
-      $video = DB::table('videos')->where('available_from', '<=', date('Y-m-d'))->orderBy('available_from', 'desc')->first();
-
-      if (empty($video)) {
-          return false;
-      } else {
-          return $video;
-      }
-  }
-
-  /**
-   * Gibt alle Videos zurück.
-   *
-   * @return    array Alle Videos.
-   *
-   * @todo 			Verallgemeinern, da auf 11 Videos zugeschnitten. Statt ->take(11) eher ->all().
-   */
-  public function getVideos()
-  {
-      return Lection::all()->take(11);
-  }
-
   /**
    * Gibt die zu einem Video zugehörigen Papers aus.
    *
@@ -385,66 +352,6 @@ class LectionRepository implements LectionInterface
    */
   public function getPaper($name)
   {
-      return Lection::findOrFail($name)->paper;
+      return Lection::findOrFail($name)->paper()->first();
   }
-
-  /**
-   * Gibt die zu einem Video zugehörigen Fähncheninhalte aus.
-   *
-   * @param     string $videoname
-   *
-   * @return    array
-   */
-  public function getFlagnames($videoname, $sequenceNumber)
-  {
-      return Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->lists('content');
-  }
-
-  /**
-   * Gibt die zu einem Video zugehörigen Cuepoints (Zeitpunkte) aus.
-   *
-   * @param     string  $videoname
-   * @param     int     $sequenceNumber
-   *
-   * @return    array
-   */
-  public function getCuepoints($videoname, $sequenceNumber)
-  {
-      return Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
-  }
-
-  /**
-   * Gibt die ID des ersten Cuepoints eines Videos aus.
-   *
-   * @param     string  $videoname
-   * @param     int     $sequenceNumber
-   *
-   * @return    int
-   */
-  public function getFirstCuepointId($videoname, $sequenceNumber)
-  {
-      return Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->first()->id;
-  }
-
-  /**
-   * Gibt alle Fähncheninhalte als HTML aus.
-   *
-   * @uses 			Parser::htmlMarkup um das HTML Markup zu generieren.
-   *
-   * @param     string $videoname
-   *
-   * @return    string HTML Markup aller Fähncheninhalte.
-   */
-  public function getAllFlagnamesAsHTML($videoname, $sequenceNumber)
-  {
-      $cuepoints = Lection::findOrFail($videoname)->cuepoints()->where('video_sequence_id', $sequenceNumber)->get();
-      $content = '';
-
-      foreach ($cuepoints as $cuepoint) {
-          $content .= '<h2 style="height:250px;">'.$cuepoint->content.'</h2>';
-      }
-
-      return Parser::htmlMarkup($videoname, $content);
-  }
-
 }
