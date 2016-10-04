@@ -79,7 +79,18 @@ class AuthController extends Controller
 
         if ($ldap) {
             if (Auth::attempt($credentials, $rememberme)) {
-                return redirect()->intended('/');
+
+                // Checl how many seminars.
+
+                if( Auth::user()->seminars()->count() === 1 && Auth::user()->role !== 'Admin' )
+                {
+                    return redirect()->route('seminar', ['name' => Auth::user()->seminars()->pluck('name')->first()]);
+                }
+                else {
+                    return redirect()->intended('/');
+                }
+
+
             } else {
                 // 4. Wenn Anmeldung problematisch Datenbank-Passwort aktualisieren mit LDAP Passwort ( über den eindeutigen uid user->save() )
         $user = User::findByUsername($credentials['username']);
@@ -93,7 +104,13 @@ class AuthController extends Controller
           $user->save();
             Auth::attempt($credentials, $rememberme);
 
-            return redirect()->intended('/');
+            if( Auth::user()->seminars()->count() === 1 && Auth::user()->role !== 'Admin' )
+            {
+                return redirect()->route('seminar', ['name' => Auth::user()->seminars()->pluck('name')->first()]);
+            }
+            else {
+                return redirect()->intended('/');
+            }
         } else {
             // @todo Fehlermedleungen verbessern
           // HIER MUSS DANN AUSGEGEBEN WERDEN, DASS KEINE BERECHTIGUNG BESTEHT (ABER DIE ANGABEN STIMMEN)
@@ -104,7 +121,13 @@ class AuthController extends Controller
         }
         // Für Nicht-LDAP Accounts eine weitere prüfung durchführen
         elseif (Auth::attempt($credentials, $rememberme)) {
-            return redirect()->intended('/');
+            if( Auth::user()->seminars()->count() === 1 && Auth::user()->role !== 'Admin' )
+            {
+                return redirect()->route('seminar', ['name' => Auth::user()->seminars()->pluck('name')->first()]);
+            }
+            else {
+                return redirect()->intended('/');
+            }
         } else {
             return redirect('login')->with('login_errors', true)->withInput();
         }

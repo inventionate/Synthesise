@@ -47,6 +47,10 @@
 
 		@include('dashboard.settings')
 
+	@endif
+
+	@if ( in_array(Auth::user()->role, ['Admin', 'Teacher']) )
+
 		<h2 id="system-analytics" class="ui horizontal divider header">
 		  <i class="bar chart icon"></i>
 		  Analytics

@@ -263,7 +263,7 @@ class SeminarRepository implements SeminarInterface
      */
     public function getAllWithUserCount() {
 
-        return Seminar::withCount('users')->get();
+        return Auth::user()->seminars()->withCount('users')->get();
     }
 
     /**
