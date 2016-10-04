@@ -2,8 +2,7 @@
 
 namespace Synthesise\Http\Controllers;
 
-use Illuminate\Support\Facades\Response;
-use Synthesise\Extensions\Facades\Parser;
+use Illuminate\Http\Request;
 
 class DownloadController extends Controller
 {
@@ -26,10 +25,11 @@ class DownloadController extends Controller
      *
      * @return Response Die angeforderte Datei aus dem storage Ordner.
      */
-    public function getFile($type, $file)
+    public function getFile(Request $request)
     {
-        $filepath = Parser::normalizeName('app/'.$type.'/'.$file).'.'.$type;
+        $path = $request->path;
+        $name = $request->name;
 
-        return Response::download(storage_path($filepath), $file.'.'.$type);
+        return response()->download($path, $name);
     }
 }

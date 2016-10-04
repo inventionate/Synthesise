@@ -53,7 +53,7 @@
                     </p>
 
 
-                    <a class="ui fluid blue icon labeled button" v-on:click="trackEvents('Informationsdokument', 'Allgemeine Informationen und Termine')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => 'Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
+                    <a class="ui fluid blue icon labeled button" v-on:click="trackEvents('Informationsdokument', 'Allgemeine Informationen und Termine')" href="{{ action('DownloadController@getFile', ['path' => $seminar->info_path , 'name' => $seminar_name . ': Allgemeine Informationen und Termine']) }}">Allgemeine Informationen und Termine <i class="download icon"></i></a>
 
                 @endif
 

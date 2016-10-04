@@ -51,9 +51,7 @@
 									{{ $section->name }}
 								</div>
 
-								{{-- @TODO further_reading_path verwenden für den DownloadController!!! --}}
-
-								<a class="ui small basic blue icon button" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $section->name]) }}">
+								<a class="ui small basic blue icon button" href="{{ action('DownloadController@getFile', ['path' => $section->further_reading_path , 'name' => 'Weiterführende Literatur: ' . $section->name]) }}">
 									<i class="list icon"></i> Weiterführende Literatur
 								</a>
 
@@ -131,7 +129,7 @@
 												<i class="file text icon"></i>
 
 												<div class="menu">
-													<a class="item" v-on:click="trackEvent('Text', '{{ Lection::getPaper($lection->name)->name }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => Lection::getPaper($lection->name)->name]) }}">
+													<a class="item" v-on:click="trackEvent('Text', '{{ Lection::getPaper($lection->name)->name }}')" href="{{ action('DownloadController@getFile', ['path' => Lection::getPaper($lection->name)->path , 'name' => Lection::getPaper($lection->name)->name]) }}">
 
 														<small>{{ Lection::getPaper($lection->name)->author }}</small>
 														<br>

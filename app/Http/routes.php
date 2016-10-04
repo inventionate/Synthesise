@@ -168,7 +168,7 @@ Route::group(['prefix' => 'seminars'], function () {
 */
 
 // Handle
-Route::get('download/{type}/{file}', 'DownloadController@getFile');
+Route::get('download', 'DownloadController@getFile');
 
 /*
 |-------------------------------------------------------------------------------

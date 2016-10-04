@@ -2,9 +2,9 @@
 
 namespace Synthesise\Http\Controllers;
 
-use Synthesise\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Synthesise\Repositories\Facades\Message;
+
+use Message;
 
 class MessageController extends Controller
 {

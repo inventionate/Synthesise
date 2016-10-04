@@ -76,7 +76,7 @@
 					<h3 class="hide">Texte und Notizen</h3>
 				</header>
 
-					<a class="ui fluid labeled icon blue button" v-on:click="trackEvents('Text', '{{ $paper->name }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $paper->name]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->name }}</a>
+					<a class="ui fluid labeled icon blue button" v-on:click="trackEvents('Text', '{{ $paper->name }}')" href="{{ action('DownloadController@getFile', ['path' => $paper->path , 'name' => $paper->name]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->name }}</a>
 
 			</div>
 			<div class="column">
