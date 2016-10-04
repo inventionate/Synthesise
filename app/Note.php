@@ -21,7 +21,8 @@ class Note extends Model {
 		'note',
 		'user_id',
 		'cuepoint_id',
-		'sequence_id'
+		'lection_name',
+		'seminar_name'
 	];
 
 	/**
@@ -43,12 +44,20 @@ class Note extends Model {
 	}
 
 	/**
-	* Datenbankrelation Note gehört zu SDO_Sequence.
+	* Datenbankrelation Note gehört zu lection.
 	*
 	*/
-	public function sequence()
+	public function lection()
 	{
-		return $this->belongsTo('Synthesise\Sequence','sequence_id');
+		return $this->belongsTo('Synthesise\Lection','lection_name');
 	}
+
+	/**
+     * Datenbankrelation Note gehört zu seminar.
+     */
+    public function seminar()
+    {
+        return $this->belongsTo('Synthesise\Seminar', 'seminar_name');
+    }
 
 }

@@ -8,7 +8,7 @@
 
             <div class="field">
                 <label for="note-content" class="hide">Notizen</label>
-                <textarea disabled="disabled"  id="note-content" placeholder="Wählen Sie ein »Fähnchen« und geben Sie Ihre Notizen ein." maxlength="500" ref="note-content" v-model="content" debounce="500"></textarea>
+                <textarea disabled="disabled" id="note-content" placeholder="Wählen Sie ein »Fähnchen« und geben Sie Ihre Notizen ein." maxlength="500" v-bind:value="value" v-on:input="onInput"></textarea>
             </div>
 
         </form>
@@ -21,7 +21,13 @@
 
 <script>
     export default {
-        props: ['content'],
+        props: ['value'],
+
+        computed: {
+            localContent() {
+                return this.content;
+            }
+        },
 
         mounted() {
             // jQuery laden
@@ -34,11 +40,9 @@
             $('#notes-progress').progress();
         },
 
-        watch: {
-            content() {
-                // @ todo: $dispatch und $broadcast sind deprecated in Vue 2!
-                // Es gibt bereits einen Alternativvorschlag mit .on/.emit und mit Vuex. Ich präferiere momentan Variante 1.
-                    this.$dispatch('changedContent', this.content);
+        methods: {
+            onInput: function (event) {
+                this.$emit('input', event.target.value)
             }
         }
     }

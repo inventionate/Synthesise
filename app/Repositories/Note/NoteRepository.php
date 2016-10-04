@@ -13,73 +13,67 @@ use Crypt;
 class NoteRepository implements NoteInterface
 {
 
-  /**
-   * ID der Note abfragen.
-   *
-   * @param 		int $userId
-   * @param 		int $cuepointId
-   *
-   * @return 		int ID der Notiz.
-   */
-  public function getNoteId($userId, $cuepointId)
-  {
-      return Note::where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('id')->first();
-  }
 
   /**
-   * Notiz abfragen.
+   * Get note by user id and cuepoint id.
    *
-   * @param 		int $userId
-   * @param 		int $cuepointId
+   * @param 		int $user_id
+   * @param 		int $cuepoint_id
+   * @param 		int $lection_name
+   * @param 		int $seminar_name
    *
-   * @return 		string Inhalt der Notiz.
+   * @return 		string
    */
-  public function getContent($userId, $cuepointId)
+  public function get($user_id, $cuepoint_id, $lection_name, $seminar_name)
   {
-      $note = Note::where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note')->all();
+      $note = Note::where('user_id', '=', $user_id)->where('cuepoint_id', '=', $cuepoint_id)->where('lection_name', '=', $lection_name)->where('seminar_name', '=', $seminar_name)->pluck('note')->first();
 
-      if (empty($note)) {
-          return '';
-      } else {
-          return Crypt::decrypt(Note::where('user_id', '=', $userId)->where('cuepoint_id', '=', $cuepointId)->pluck('note'));
+      if ( $note !== null )
+      {
+          $note = Crypt::decrypt($note);
       }
+
+      return $note;
   }
 
   /**
-   * Inhalt einer Notiz aktualisieren.
+   * Get note by user id and cuepoint id.
    *
-   * @param 		string $noteContent
-   * @param 		int $userId
-   * @param 		int $cuepointId
-   * @param 		string $videoname
+   * @param 		int $user_id
+   * @param 		int $cuepoint_id
+   * @param 		int $lection_name
+   * @param 		int $seminar_name
+   * @param 		int $note_content
+   *
+   * @return 		string
    */
-  public function updateContent($noteContent, $userId, $cuepointId, $videoname)
+  public function store($user_id, $cuepoint_id, $lection_name, $seminar_name, $note_content)
   {
-      $noteId = self::getNoteId($userId, $cuepointId);
-    // Abfragen ob Note existiert
-    if (empty($noteId)) {
-        // Neue Notiz generieren
-      $note = new $this->noteModel();
-      // Notiz mit Inhalt füllen
-      $note->note = Crypt::encrypt($noteContent);
-        $note->user_id = $userId;
-        $note->cuepoint_id = $cuepointId;
-        $note->video_videoname = $videoname;
-      // Notiz speichern
+      $note = new Note;
+
+      $note->note = Crypt::encrypt($note_content);
+      $note->user_id = $user_id;
+      $note->cuepoint_id = $cuepoint_id;
+      $note->lection_name = $lection_name;
+      $note->seminar_name = $seminar_name;
+
       $note->save();
-    } else {
-        // Die zu aktualisierende Notiz aufrufen
-      $note = Note::find($noteId);
-      // Überprüfen ob die Notiz gelöscht werden kann
-      if ($noteContent != '[#empty#]') {
-          // Inhalt verändern
-        $note->note = Crypt::encrypt($noteContent);
-        // Neuen Inhalt speichern
-        $note->save();
-      } elseif ($noteContent === '[#empty#]') {
-          // Notiz löschen
-        $note->delete();
-      }
-    }
   }
+
+  public function update($user_id, $cuepoint_id, $lection_name, $seminar_name, $note_content)
+  {
+      $note = Note::where('user_id', '=', $user_id)->where('cuepoint_id', '=', $cuepoint_id)->where('lection_name', '=', $lection_name)->where('seminar_name', '=', $seminar_name)->first();
+
+      $note->note = Crypt::encrypt($note_content);
+
+      $note->save();
+  }
+
+  public function delete($user_id, $cuepoint_id, $lection_name, $seminar_name)
+  {
+      $note = Note::where('user_id', '=', $user_id)->where('cuepoint_id', '=', $cuepoint_id)->where('lection_name', '=', $lection_name)->where('seminar_name', '=', $seminar_name)->first();
+
+      $note->delete();
+  }
+
 }

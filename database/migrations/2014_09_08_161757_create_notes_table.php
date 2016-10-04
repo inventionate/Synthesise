@@ -18,7 +18,8 @@ class CreateNotesTable extends Migration {
 			$table->text('note');
 			$table->integer('user_id');
 			$table->integer('cuepoint_id');
-			$table->integer('sequence_id');
+			$table->string('lection_name', 128);
+			$table->string('seminar_name', 256);
 			$table->timestamps();
 		});
 	}

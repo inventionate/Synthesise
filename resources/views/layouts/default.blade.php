@@ -66,7 +66,16 @@
 
 		{{-- @include ANALYTICS --------------------------------------------------}}
 		@if ( !Config::get('app.debug') )
+
 			@include('layouts.partials.analytics')
+
+		@else
+			<script type="text/javascript">
+
+			  	var _paq = _paq || [];
+
+			</script>
+
 		@endif
 	</body>
 </html>

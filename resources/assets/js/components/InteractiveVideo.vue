@@ -60,13 +60,15 @@
 
         <img src="/img/etpm_logo_r.png" alt="etpM Logo">
 
-        <interactive-video-notes v-if="notes" v-bind:content="noteContent"></interactive-video-notes>
+        <interactive-video-notes v-if="notes" v-model="noteContent" v-on:input="updateNote(name, markerID, $event)"></interactive-video-notes>
 
     </div>
 </template>
 
 <script>
     import InteractiveVideoNotes from './InteractiveVideoNotes.vue';
+
+    import _ from 'lodash';
 
     export default {
 
@@ -81,16 +83,9 @@
         data() {
             return {
                 markerID: 0,
-                noteContent: ''
+                noteContent: '',
+                createNote: true
             };
-        },
-
-        created() {
-            var self = this;
-
-            this.$on('changedContent', function(updatedContent) {
-                this.updateNote(self.name, self.markerID, updatedContent);
-            });
         },
 
         mounted() {
@@ -123,7 +118,7 @@
                 require('./videojs-markers.js');
 
                 $('#videoplayer').append(
-                    "<source type='video/mp4' src='" + path + ".mp4' /> <source type='video/webm' src='" + path + ".webm' />"
+                    "<source type='video/mp4' src='/" + path + "'> <source type='video/webm' src='/" + path.substring(0, path.length-4) + ".webm'>"
                 );
 
                 // Video.JS konfigurieren
@@ -133,7 +128,7 @@
                     'preload': 'auto',
                     'fluid': true,
                     'playbackRates': [1, 1.5, 2],
-                    'poster': poster,
+                    'poster': '/' + poster,
                     plugins: {
                         markers: {
                             markerTip: {
@@ -214,10 +209,22 @@
                 // Aktualisierungsprozess sichtbar machen, indem die Prozessbar aktiviert wird.
                 $('#notes-progress').removeClass('disabled');
                 $('#notes-form').addClass('loading');
+
                 // AJAX Abfrage starten.
-                this.$http.get(document.URL + '/getnotes/', {params: { cuepointNumber: id }}).then((response) => {
+                this.$http.get(document.URL + '/note', {
+                    params: { cuepoint_id: id }
+                }).then((response) => {
 
                     self.noteContent = response.text();
+
+                    if ( response.text() )
+                    {
+                        self.createNote = false;
+                    }
+                    else
+                    {
+                        self.createNote = true;
+                    }
 
                     $('#note-content').val(response.text());
                     $('#notes-progress').addClass('disabled');
@@ -230,44 +237,89 @@
                 });
             },
 
-            // @toto Notizfunktion verbessern!
-            updateNote(name, id, content) {
+            updateNote: _.debounce(function (name, id, content) {
 
-                this.noteContent = content;
+                var self = this;
 
                 $('#notes-progress').removeClass('disabled');
 
                 // Fix für leere Nachrichten.
-                if ( content === '' )
+                if ( content )
                 {
-                    content = '[#empty#]';
+
+                    if ( self.createNote )
+                    {
+
+                        console.log(content);
+
+                        // Create new note.
+                        this.$http.post(document.URL + '/note', {
+                            note: content,
+                            cuepoint_id: id
+                        }).then((response) => {
+
+                            // Die Aktivität des Prozesses lässt sich sicher auch über eine Vue Variable lösen!
+                            $('#notes-progress').addClass('disabled');
+
+                            // Analytics Nachricht.
+                             _paq.push(['trackEvent', 'Notiz', 'verändert', this.name + ': Fähnchen ' + this.id]);
+
+                        }, (response) => {
+
+                            console.error('AJAX POST Error: ', response.status);
+
+                        });
+                    }
+                    else
+                    {
+
+                        // Update existing note.
+                        this.$http.patch(document.URL + '/note', {
+                            note: content,
+                            cuepoint_id: id
+                        }).then((response) => {
+
+                            // Die Aktivität des Prozesses lässt sich sicher auch über eine Vue Variable lösen!
+                            $('#notes-progress').addClass('disabled');
+
+                            // Analytics Nachricht.
+                             _paq.push(['trackEvent', 'Notiz', 'verändert', this.name + ': Fähnchen ' + this.id]);
+
+                        }, (response) => {
+
+                            console.error('AJAX POST Error: ', response.status);
+
+                        });
+
+                    }
+
+                }
+                else
+                {
+
+                    // Delete note.
+                    this.$http.delete(document.URL + '/note', {
+                        params: { cuepoint_id: id }
+                    }).then((response) => {
+
+                        // Create new note.
+                        self.createNote = true;
+
+                        // Die Aktivität des Prozesses lässt sich sicher auch über eine Vue Variable lösen!
+                        $('#notes-progress').addClass('disabled');
+
+                        // Analytics Nachricht.
+                         _paq.push(['trackEvent', 'Notiz', 'verändert', this.name + ': Fähnchen ' + this.id]);
+
+                    }, (response) => {
+
+                        console.error('AJAX DELETE Error: ', response.status);
+
+                    });
+
                 }
 
-                // AJAX Post.
-                this.$http.post(document.URL + '/postnotes', {
-                    note: content,
-                    cuepointNumber: id
-                }).then((response) => {
-
-                    // Die Aktivität des Prozesses lässt sich sicher auch über eine Vue Variable lösen!
-                    $('#notes-progress').addClass('disabled');
-
-                    // Analytics Nachricht.
-                     _paq.push(['trackEvent', 'Notiz', 'verändert', this.name + ': Fähnchen ' + this.id]);
-
-                     // Content zurücksetzen.
-                     this.content = '';
-
-                }, (response) => {
-
-                    console.error('AJAX POST Error: ', response.status);
-
-                    // Content zurücksetzen.
-                    this.content = '';
-
-                });
-
-            }
+            }, 500)
 
         },
 

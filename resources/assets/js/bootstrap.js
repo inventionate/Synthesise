@@ -25,7 +25,9 @@ require('vue-resource');
  */
 
 Vue.http.interceptors.push((request, next) => {
-    request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
+    // request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
+    // In Laravel 5.3 there is a Laravel JS object.
+    request.headers['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 
     next();
 });

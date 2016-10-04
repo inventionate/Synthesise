@@ -41,12 +41,4 @@ class Sequence extends Model
         return $this->belongsTo('Synthesise\Lection', 'lection_name');
     }
 
-    /**
-     * Datenbankrelation Sequence hat viele Notes.
-     */
-    public function notes()
-    {
-        return $this->hasMany('Synthesise\Note', 'sequence_id');
-    }
-
 }

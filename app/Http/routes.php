@@ -107,63 +107,59 @@ Route::group(['prefix' => 'seminars'], function () {
         'uses' => 'SeminarController@contact',
     ]);
 
+    // Lection
     Route::get('/{name}/lections/{lection_name}/{sequence}', [
         'as' => 'lection',
         'uses' => 'SeminarController@lection',
     ])
     ->where('sequence', '[0-9]+');
 
+    // Notes
+
+    // // PDF notes
+    // Route::get('online-lektionen/{videoname}/1/getnotespdf', [
+    //     'uses' => 'LectionController@getNotesPDF',
+    // ])
+    // ->where('sequenceNumber', '[0-9]+');
+    //
+    // // PDF flagnames
+    // Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflagnamespdf', [
+    //     'uses' => 'LectionController@getFlagnamesPDF',
+    // ])
+    // ->where('sequenceNumber', '[0-9]+');
+    //
+    // // AJAX: flagnames
+    // Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflags', [
+    //     'uses' => 'LectionController@getFlags',
+    // ])
+    // ->where('sequenceNumber', '[0-9]+');
+    //
+
+    // Post note (AJAX)
+    Route::post('/{name}/lections/{lection_name}/{sequence}/note', [
+        'uses' => 'NoteController@store',
+    ])
+    ->where('sequence', '[0-9]+');
+
+    // Get note (AJAX).
+    Route::get('/{name}/lections/{lection_name}/{sequence}/note', [
+        'uses' => 'NoteController@get',
+    ])
+    ->where('sequence', '[0-9]+');
+
+    // Update note (AJAX).
+    Route::match(['put', 'patch'], '/{name}/lections/{lection_name}/{sequence}/note', [
+        'uses' => 'NoteController@update',
+    ])
+    ->where('sequence', '[0-9]+');
+
+    // Destroy note (AJAX)
+    Route::delete('/{name}/lections/{lection_name}/{sequence}/note', [
+        'uses' => 'NoteController@destroy',
+    ])
+    ->where('sequence', '[0-9]+');
+
 });
-
-/*
-|-------------------------------------------------------------------------------
-| Online-Lections
-|-------------------------------------------------------------------------------
-*/
-//
-// // Index
-// Route::get('online-lektionen/{videoname}/{sequenceNumber}', [
-//     'as' => 'lektion',
-//     'uses' => 'LectionController@index',
-// ])
-// ->where('sequenceNumber', '[0-9]+');
-//
-// // Sequence Redurection
-// // @todo Überprüfen, ob es keine elegantere Lösung gibt.
-// Route::get('online-lektionen/{videoname}', [
-//     'uses' => 'LectionController@redirectSequence',
-// ]);
-//
-// // PDF notes
-// Route::get('online-lektionen/{videoname}/1/getnotespdf', [
-//     'uses' => 'LectionController@getNotesPDF',
-// ])
-// ->where('sequenceNumber', '[0-9]+');
-//
-// // PDF flagnames
-// Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflagnamespdf', [
-//     'uses' => 'LectionController@getFlagnamesPDF',
-// ])
-// ->where('sequenceNumber', '[0-9]+');
-//
-// // AJAX: flagnames
-// Route::get('online-lektionen/{videoname}/{sequenceNumber}/getflags', [
-//     'uses' => 'LectionController@getFlags',
-// ])
-// ->where('sequenceNumber', '[0-9]+');
-//
-// // AJAX: notes
-// Route::get('online-lektionen/{videoname}/{sequenceNumber}/getnotes', [
-//     'uses' => 'LectionController@getNotes',
-// ])
-// ->where('sequenceNumber', '[0-9]+');
-//
-// // AJAX: notes
-// Route::post('online-lektionen/{videoname}/{sequenceNumber}/postnotes', [
-//     'uses' => 'LectionController@postNotes',
-// ])
-// ->where('sequenceNumber', '[0-9]+');
-
 
 /*
 |-------------------------------------------------------------------------------

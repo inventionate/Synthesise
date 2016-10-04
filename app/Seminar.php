@@ -95,4 +95,12 @@ class Seminar extends Model
         return $this->hasMany('Synthesise\Infoblock', 'seminar_name');
     }
 
+    /**
+     * Datenbankrelation Lection hat viele Notes.
+     */
+    public function notes()
+    {
+        return $this->hasMany('Synthesise\Note', 'seminar_name');
+    }
+
 }

@@ -5,9 +5,7 @@
  */
 interface NoteInterface
 {
-  public function getNoteId($userId, $cuepointId);
+    public function get($user_id, $cuepoint_id, $lection_name, $seminar_name);
 
-  public function getContent($userId, $cuepointId);
-
-  public function updateContent($noteContent, $userId, $cuepointId, $videoname);
+    public function store($user_id, $cuepoint_id, $lection_name, $seminar_name, $note_content);
 }

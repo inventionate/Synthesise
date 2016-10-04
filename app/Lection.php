@@ -72,4 +72,12 @@ class Lection extends Model
     {
         return $this->belongsToMany('Synthesise\Section', 'lection_section', 'lection_name', 'section_id')->withPivot('available_from', 'available_to');
     }
+
+    /**
+     * Datenbankrelation Lection hat viele Notes.
+     */
+    public function notes()
+    {
+        return $this->hasMany('Synthesise\Note', 'lection_name');
+    }
 }
