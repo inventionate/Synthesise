@@ -5,6 +5,9 @@ namespace Synthesise\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Lection;
+use User;
+use Auth;
+use PDF;
 
 class LectionController extends Controller
 {
@@ -151,6 +154,21 @@ class LectionController extends Controller
         Lection::update($name, $section_id, $old_section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
 
         return back()->withInput();
+    }
+
+    /**
+     * Get notes as PDF document.
+     *
+     * @param Request   $request
+     * @param string    $name
+     *
+     * @return Redirect
+     */
+    public function getNotesPDF($name, $lection_name, $sequence)
+    {
+        $allnotes = User::getAllNotes(Auth::user()->id, $lection_name, $name);
+
+        return PDF::loadHTML($allnotes)->setPaper('a4')->setWarnings(false)->download('Meine Notizen für '.$lection_name);
     }
 
     public function delete()

@@ -250,8 +250,6 @@
                     if ( self.createNote )
                     {
 
-                        console.log(content);
-
                         // Create new note.
                         this.$http.post(document.URL + '/note', {
                             note: content,

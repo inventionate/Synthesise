@@ -20,8 +20,7 @@ class DownloadController extends Controller
     /**
      * Laden und standardisieren der angeforderten Dateien.
      *
-     * @param string $type Dateityp (PDF, JPG,…).
-     * @param string $file Dateiname.
+     * @param request $request
      *
      * @return Response Die angeforderte Datei aus dem storage Ordner.
      */

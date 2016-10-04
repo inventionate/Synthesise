@@ -348,10 +348,11 @@ class LectionRepository implements LectionInterface
    *
    * @param     string $name
    *
-   * @return    array
+   * @return    collection
    */
   public function getPaper($name)
   {
       return Lection::findOrFail($name)->paper()->first();
   }
+
 }

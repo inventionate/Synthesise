@@ -8,6 +8,4 @@ namespace Synthesise\Repositories\Sequence;
 interface SequenceInterface
 {
 
-  public function get($id);
-
 }

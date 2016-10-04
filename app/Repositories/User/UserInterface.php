@@ -5,7 +5,7 @@
  */
 interface UserInterface
 {
-  public function getAllNotes($userId, $videoname);
+  public function getAllNotes($user_id, $lection_name, $seminar_name);
 
   public function getUsername();
 

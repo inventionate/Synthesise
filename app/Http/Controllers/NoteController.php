@@ -36,12 +36,9 @@ class NoteController extends Controller
 
         $cuepoint_id = $request->cuepoint_id;
 
-        $note = Note::get($user_id, $cuepoint_id, $lection_name, $name);
+        $note = Note::get($user_id, $cuepoint_id, $lection_name, $name, $sequence);
 
-        if ( $request->ajax() )
-        {
-            return $note;
-        }
+        return $note;
     }
 
     /**
@@ -62,7 +59,7 @@ class NoteController extends Controller
         $cuepoint_id = $request->cuepoint_id;
         $note = $request->note;
 
-        Note::store($user_id, $cuepoint_id, $lection_name, $name, $note);
+        Note::store($user_id, $cuepoint_id, $lection_name, $name, $note, $sequence);
 
     }
 
@@ -84,7 +81,7 @@ class NoteController extends Controller
         $cuepoint_id = $request->cuepoint_id;
         $note = $request->note;
 
-        Note::update($user_id, $cuepoint_id, $lection_name, $name, $note);
+        Note::update($user_id, $cuepoint_id, $lection_name, $name, $note, $sequence);
 
     }
 
@@ -104,6 +101,6 @@ class NoteController extends Controller
 
         $cuepoint_id = $request->cuepoint_id;
 
-        $note = Note::delete($user_id, $cuepoint_id, $lection_name, $name);
+        $note = Note::delete($user_id, $cuepoint_id, $lection_name, $name, $sequence);
     }
 }

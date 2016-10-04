@@ -20,24 +20,27 @@ class UserRepository implements UserInterface
   /**
    * Alle vorhandenen Notizen eines Benutzers ausgeben.
    *
-   * @uses 			Parser::htmlMarkup um das HTML Markup zu generieren.
+   * @uses 		Parser::htmlMarkup um das HTML Markup zu generieren.
    *
-   * @param    	int $userId
-   * @param 		string $videoname
+   * @param     int $userId
+   * @param 	string lection_name
+   * @param 	string seminar_name
+   *
    * @return    string Gibt alle Notizen als HTML Markup zurück.
    */
-  public function getAllNotes($userId, $videoname)
+  public function getAllNotes($user_id, $lection_name, $seminar_name)
   {
     // Notizen des Benutzers für das Video laden
-    $notes = User::find($userId)->notes()->where('video_videoname',$videoname)->orderBy('cuepoint_id')->get();
+    $notes = User::findOrFail($user_id)->notes()->where('lection_name', $lection_name)->where('seminar_name', $seminar_name)->orderBy('cuepoint_id')->get();
 
 
-    $title = 'Notizen zu ' . $videoname;
+    $title = 'Notizen zu ' . $lection_name;
 
     $content = '';
 
-    foreach ($notes as $note) {
-      $content .= '<h2>' . Cuepoint::find($note->cuepoint_id)->content . '</h2>';
+    foreach ($notes as $note)
+    {
+      $content .= '<h2>' . Cuepoint::findOrFail($note->cuepoint_id)->content . '</h2>';
       $content .= '<p>' . Crypt::decrypt($note->note) . '</p>';
       $content .= '<h3 style="height:250px">Ergänzungen:</h3>';
     }
