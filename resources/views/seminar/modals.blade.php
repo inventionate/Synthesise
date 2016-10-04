@@ -1,7 +1,5 @@
 {{-- Load create and edit Modals --}}
 
-@include('seminar.general-infos.edit')
-
 @include('seminar.messages.create')
 
 @include('seminar.messages.edit')

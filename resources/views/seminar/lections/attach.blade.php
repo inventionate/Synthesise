@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ action('LectionController@attach') }}" id="lection-attach-modal" class="ui modal form">
+<form role="form" method="POST" action="{{ action('LectionController@attach') }}" id="lection-attach-modal" class="ui equal width modal form">
 
     {{ csrf_field() }}
 
@@ -44,6 +44,8 @@
                 <option value="">Online-Lektion auswählen.</option>
 
                 @foreach( $all_lections as $all_lection )
+
+                    {{-- Only not attached lections! --}}
 
                     <option value="{{ $all_lection->name}}">{{ $all_lection->name}}</option>
 

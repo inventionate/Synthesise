@@ -31,7 +31,7 @@ class LectionController extends Controller
      *
      * @return View
      */
-    public function show($name, $lection_name, $sequence)
+    public function index($name, $lection_name, $sequence)
     {
 
         // CUEPOINT ANZEIGE ---------------------------------------------
@@ -65,7 +65,7 @@ class LectionController extends Controller
         // $sequences = Video::getSequences($videoname);
 
         // Standardausgabe VIEW -----------------------------------------
-        return view('seminar.lections.show')
+        return view('seminar.lection.index')
                             ->with('lection_name', $lection_name)
                             ->with('available', $available)
                             // ->with('cuepoints', $cuepoints

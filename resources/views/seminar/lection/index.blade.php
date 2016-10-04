@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<main id="main-content-seminar-lections" class="ui stackable page grid vue">
+<main id="main-content-seminar-lection" class="ui stackable page grid vue">
 
 	@if( $available )
 
@@ -22,4 +22,13 @@
 	@endif
 
 </main>
+
+{{-- @include ADMIN BACKEND --------------------------------------------------}}
+@if( Seminar::authorizedEditor($seminar_name) )
+
+    {{-- Load create and edit Modals --}}
+    @include('seminar.modals')
+
+@endif
+
 @stop

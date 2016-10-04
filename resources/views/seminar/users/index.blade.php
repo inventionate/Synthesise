@@ -326,12 +326,7 @@
 @if( Seminar::authorizedEditor($seminar_name) )
 
     {{-- Load create and edit Modals --}}
-
-    @include('seminar.users.create')
-
-    @include('seminar.messages.create')
-
-    @include('seminar.messages.edit')
+    @include('seminar.modals')
 
 @endif
 

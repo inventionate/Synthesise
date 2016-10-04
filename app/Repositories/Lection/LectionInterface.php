@@ -18,6 +18,8 @@ interface LectionInterface
 
     public function getAll();
 
+    public function getAllNotAttached($seminar_name);
+
     public function get($name, $seminar_name);
 
     public function available($name, $seminar_name);

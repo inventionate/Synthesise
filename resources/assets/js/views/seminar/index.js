@@ -1,7 +1,8 @@
 // General code for all seminar (sub)pages.
 
 if( $('#main-content-seminar')[0] ||
-    $('#main-content-seminar-users')[0] || $('#main-content-seminar-settings')[0] || $('#main-content-seminar-faqs')[0])
+    $('#main-content-seminar-users')[0] || $('#main-content-seminar-settings')[0] || $('#main-content-seminar-faqs')[0] ||
+    $('#main-content-seminar-lection')[0])
 {
     /*
      * Show delete all admins warning.
@@ -26,6 +27,16 @@ if( $('#main-content-seminar')[0] ||
             }
         });
     });
+
+    // Require partial modals
+
+    require('./messages.js');
+
+    require('./lections.js');
+
+    require('./sections.js');
+
+    require('./infoblocks.js');
 }
 
 // Seminar index specific code.
@@ -45,15 +56,10 @@ if( $('#main-content-seminar')[0] )
 
     require('./general-infos.js');
 
-    require('./sections.js');
-
-    require('./lections.js');
-
 }
 
-// Require partials and subpages
-require('./infoblocks.js');
-require('./messages.js');
+// Require subpages
 require('./faqs.js');
 require('./settings.js');
 require('./users.js');
+require('./lection.js');

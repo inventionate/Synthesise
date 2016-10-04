@@ -48,8 +48,7 @@ class SeminarController extends Controller
         $lections = Seminar::getAllLections($name);
 
         // Get all existing lections.
-
-        $all_lections = Lection::getAll();
+        $all_lections = Lection::getAllNotAttached($name);
 
         // Get current lection.
         $current_lection = Seminar::getCurrentLection($name);
@@ -223,13 +222,17 @@ class SeminarController extends Controller
 
         $students = Seminar::getAllUsersByRole($name, 'Student');
 
+        // Get all existing lections.
+        $all_lections = Lection::getAllNotAttached($name);
+
         return view('seminar.users.index')
                                     ->with('seminar_name', $name)
                                     ->with('sections', $sections)
                                     ->with('admins', $admins)
                                     ->with('teachers', $teachers)
                                     ->with('mentors', $mentors)
-                                    ->with('students', $students);
+                                    ->with('students', $students)
+                                    ->with('all_lections', $all_lections);
     }
 
     /**
@@ -248,10 +251,18 @@ class SeminarController extends Controller
         // Get all sections.
         $sections = Seminar::getAllSections($name);
 
+        // Get teachers by seminar.
+		$teachers = Seminar::getAllUsers($name, 'Teacher');
+
+        // Get all existing lections.
+        $all_lections = Lection::getAllNotAttached($name);
+
         return view('seminar.settings')
                                     ->with('seminar_name', $name)
                                     ->with('seminar', $seminar)
-                                    ->with('sections', $sections);
+                                    ->with('sections', $sections)
+                                    ->with('teachers', $teachers)
+                                    ->with('all_lections', $all_lections);
     }
 
     /**
@@ -283,6 +294,12 @@ class SeminarController extends Controller
         // Get all Subjects by letter.
         $answersByLetter = FAQ::getByLetter($letter);
 
+        // Get teachers by seminar.
+		$teachers = Seminar::getAllUsers($name, 'Teacher');
+
+        // Get all existing lections.
+        $all_lections = Lection::getAllNotAttached($name);
+
         // Push subjetcs to JavaScript.
         JavaScript::put([
             'subjects' => $subjects
@@ -294,7 +311,9 @@ class SeminarController extends Controller
                                 ->with('answersByLetter', $answersByLetter)
                                 ->with('letter', $letter)
                                 ->with('letters', $letters)
-                                ->with('answers', $answers);
+                                ->with('answers', $answers)
+                                ->with('teachers', $teachers)
+                                ->with('all_lections', $all_lections);
     }
 
     /**
@@ -325,13 +344,21 @@ class SeminarController extends Controller
         // Get support mail.
         $support_mail = 'mundt@ph-kalrsruhe.de';
 
+        // Get teachers by seminar.
+		$teachers = Seminar::getAllUsers($name, 'Teacher');
+
+        // Get all existing lections.
+        $all_lections = Lection::getAllNotAttached($name);
+
 		return view('seminar.contact')
                             ->with('seminar_name', $seminar_name)
                             ->with('sections', $sections)
                             ->with('author', $author)
                             ->with('lection_authors', $lection_authors)
                             ->with('feedback_mail', $feedback_mail)
-                            ->with('support_mail', $support_mail);
+                            ->with('support_mail', $support_mail)
+                            ->with('teachers', $teachers)
+                            ->with('all_lections', $all_lections);
 	}
 
     /**

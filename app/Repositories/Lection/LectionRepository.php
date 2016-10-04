@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Synthesise\Lection;
 use Paper;
 use User;
+use Seminar;
 
 // Old
 use Parser;
@@ -172,6 +173,26 @@ class LectionRepository implements LectionInterface
     }
 
     /**
+     * Get all not attached lections.
+     *
+     * @param    string    $seminar_name
+     *
+     * @return   collection
+     */
+    public function getAllNotAttached($seminar_name)
+    {
+        // All lections.
+        $all_lections = $this->getAll();
+
+        // All lections of a specific seminar.
+        $seminar_lections = Seminar::getAllLections($seminar_name);
+
+        $available_lections = $all_lections->diff($seminar_lections);
+
+        return $available_lections;
+    }
+
+    /**
      * Get specific lection.
      *
      * @param 	string $name
@@ -194,12 +215,21 @@ class LectionRepository implements LectionInterface
    */
   public function available($name, $seminar_name)
   {
+
+    //   @TODO: Verifizieren, dass jedes Seminar jede Lektion maximal einmal verwenden kann!!!!
+
       $lection = $this->get($name, $seminar_name);
 
-      if ( $lection->first()->pivot->available_to <= date('Y-m-d') )
+      $available_from = $lection->first()->pivot->available_from;
+
+      $available_to = $lection->first()->pivot->available_to;
+
+      if ( $available_from <= date('Y-m-d') && $available_to >= date('Y-m-d'))
       {
           return true;
-      } else {
+      }
+      else
+      {
           return false;
       }
   }

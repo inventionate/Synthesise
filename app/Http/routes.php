@@ -54,8 +54,6 @@ Route::get('/', [
 |-------------------------------------------------------------------------------
 */
 
-/* @TODO: seminar in seminars umbenenen und aus index show machen! */
-
 Route::group(['prefix' => 'seminar'], function () {
 
     // Homepage
@@ -109,9 +107,9 @@ Route::group(['prefix' => 'seminar'], function () {
         'uses' => 'SeminarController@contact',
     ]);
 
-    Route::get('/{name}/lections/{lection_name}/{sequence}', [
+    Route::get('/{name}/lection/{lection_name}/{sequence}', [
         'as' => 'lection',
-        'uses' => 'LectionController@show',
+        'uses' => 'LectionController@index',
     ])
     ->where('sequence', '[0-9]+');
 

@@ -58,6 +58,8 @@
 	{{-- @include ADMIN BACKEND --------------------------------------------------}}
 	@if( Seminar::authorizedEditor($seminar_name) )
 
+		@include('seminar.general-infos.edit')
+		
 		@include('seminar.modals')
 
 	@endif

@@ -87,11 +87,11 @@
 
 </main>
 
-{{-- Include Modals for create and edit faqs. --}}
-@if ( Seminar::authorizedEditor($seminar_name) )
+{{-- @include ADMIN BACKEND --------------------------------------------------}}
+@if( Seminar::authorizedEditor($seminar_name) )
 
-    @include('seminar.faqs.create')
-    @include('seminar.faqs.edit')
+    {{-- Load create and edit Modals --}}
+    @include('seminar.modals')
 
 @endif
 
