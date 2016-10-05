@@ -361,7 +361,7 @@ class SeminarRepository implements SeminarInterface
 
         $current_lection = $lections->filter(function ($lection) {
 
-            return ($lection->available_from <= date('Y-m-d') && $lection->available_to >= date('Y-m-d'));
+            return ($lection->pivot->available_from <= date('Y-m-d') && $lection->pivot->available_to >= date('Y-m-d'));
 
         })->sortByDesc('available_from')->first();
 

@@ -145,7 +145,7 @@
        $('.lection-edit').click(function() {
 
            // Get infoblock ID.
-           var id = encodeURI($(this).attr("data-name"));
+           var id = encodeURIComponent($(this).attr("data-name"));
 
            id_length = id.length;
 

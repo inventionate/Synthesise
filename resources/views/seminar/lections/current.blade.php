@@ -17,11 +17,11 @@
 					</div>
 
 					<div class="ui three blue bottom attached buttons">
-					  <a class="ui button" href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => $current_lection->name, 'sequence' => 1]) }}">
+					  <a class="ui button" href="{{  URL::current() . '/lections/' . rawurlencode($current_lection->name) . '/1/' }}">
 					    <i class="play icon"></i>
 					    Ansehen
 					  </a>
-					  <a class="ui button" data-name="{{ $current_lection->name }}" href="# NOTES">
+					  <a class="ui button track-event" data-type="Notizen" data-name="{{ $seminar_name . ' – ' . $current_lection->name }}" href="{{ URL::current() . '/lections/' . rawurlencode($current_lection->name) . '/1/pdfnotes' }}">
 					    <i class="square write icon"></i>
 					    Notizen
 					  </a>
@@ -29,10 +29,7 @@
 					    <i class="file text icon"></i>
 					    Literatur
 						<div class="menu">
-
-							{{-- Die Trackingdata neu behandeln!!! --}}
-
-							<a class="item" v-on:click="trackEvent('Text', '{{ $current_lection_paper->name }}')" href="{{ action('DownloadController@getFile', ['type' => 'pdf' , 'file' => $current_lection_paper->name]) }}">{{ $current_lection_paper->author }}: {{ $current_lection_paper->name }}</a>
+							<a class="item track-event" data-type="Text" data-name="{{ $current_lection_paper->name }}" href="{{ action('DownloadController@getFile', ['path' => $current_lection_paper->path , 'name' => $current_lection_paper->name]) }}">{{ $current_lection_paper->author }}: {{ $current_lection_paper->name }}</a>
 						</div>
 					  </div>
 					</div>

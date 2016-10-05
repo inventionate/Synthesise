@@ -143,7 +143,7 @@ Route::group(['prefix' => 'seminars'], function () {
         'as' => 'pdfnotes',
         'uses' => 'LectionController@getNotesPDF',
     ])
-    ->where('sequenceNumber', '[0-9]+');
+    ->where('sequence', '[0-9]+');
 
 });
 

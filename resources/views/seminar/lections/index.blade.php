@@ -51,7 +51,7 @@
 									{{ $section->name }}
 								</div>
 
-								<a class="ui small basic blue icon button" href="{{ action('DownloadController@getFile', ['path' => $section->further_reading_path , 'name' => 'Weiterführende Literatur: ' . $section->name]) }}">
+								<a class="ui small basic blue icon button track-event" data-type="Weiterführende Literatur" data-name="{{ $section->name }}" href="{{ action('DownloadController@getFile', ['path' => $section->further_reading_path , 'name' => 'Weiterführende Literatur: ' . $section->name]) }}">
 									<i class="list icon"></i> Weiterführende Literatur
 								</a>
 
@@ -129,7 +129,7 @@
 												<i class="file text icon"></i>
 
 												<div class="menu">
-													<a class="item" v-on:click="trackEvent('Text', '{{ Lection::getPaper($lection->name)->name }}')" href="{{ action('DownloadController@getFile', ['path' => Lection::getPaper($lection->name)->path , 'name' => Lection::getPaper($lection->name)->name]) }}">
+													<a class="item track-event"  data-type="Text" data-name=" {{ Lection::getPaper($lection->name)->name }}" href="{{ action('DownloadController@getFile', ['path' => Lection::getPaper($lection->name)->path , 'name' => Lection::getPaper($lection->name)->name]) }}">
 
 														<small>{{ Lection::getPaper($lection->name)->author }}</small>
 														<br>
@@ -138,7 +138,7 @@
 												</div>
 											</div>
 
-											<a class="ui @if( ! (Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif button" v-on:click="trackEvent('Notizen', '{{ $lection->name }}')" href="#NOTES">
+											<a class="ui @if( ! (Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )) disabled @endif button track-event" data-type="Notizen" data-name="{{ $lection->name }}" href="{{ route('pdfnotes', ['name' => $seminar_name, 'lection_name' => $lection->name, 'sequence' => 1]) }}">
 
 												<i class="write square icon"></i>
 
