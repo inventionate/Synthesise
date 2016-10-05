@@ -5,7 +5,7 @@ if( $('#main-content-seminar')[0] ||
     $('#main-content-seminar-lection')[0])
 {
 
-    if ( disqus_shortname !== null )
+    if (typeof disqus_shortname !== 'undefined' )
     {
         (function () {
         var s = document.createElement('script'); s.async = true;
