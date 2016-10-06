@@ -87,7 +87,7 @@
       }
 
       function getPosition(marker){
-         return (setting.markerTip.time(marker) / (Math.round(player.duration() * 100) / 100)) * 100;
+         return (setting.markerTip.time(marker) / player.duration()) * 100;
       }
 
       function createMarkerDiv(marker, duration) {
@@ -182,10 +182,11 @@
             markerTip.find('.vjs-tip-inner').text(setting.markerTip.text(marker));
 
             // margin-left needs to minus the padding length to align correctly with the marker
-            // Synthesise updated pixel math
+            // Synthesise fix tip dimensions.
             markerTip.css({"left" : getPosition(marker) + '%',
-                           "margin-left" : -parseFloat(markerTip.css("width"))/2 - 3.5 + 'px',
-                           "visibility"  : "visible"});
+                            "width": '160px',
+                            "margin-left" : '-82.5px',
+                            "visibility"  : "visible"});
 
          }).on('mouseout',function(){
             markerTip.css("visibility", "hidden");
