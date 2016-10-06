@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui stackable container grid">
+<main id="main-content-{{ Request::segment(1) }}" class="ui stackable container grid vue">
     <!-- Besser mit Segmenten arbeiten  -->
     <div class="one column row">
     	<div class="center aligned column">
@@ -89,7 +89,7 @@
         </div>
         <div class="nine wide column">
 
-            <interactive-video name="Promo Video" path="/video/promo" markers="{{
+            <interactive-video name="Demo Video" path="video/promo.mp4" markers="{{
                 json_encode([
                     ['time' => 30, 'text' => 'Völkerwanderung'],
                     ['time' => 75, 'text' => 'Aufstieg des Christentums'],

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<main id="main-content-{{ Request::segment(1) }}" class="ui grid container">
+<main id="main-content-audiocollage" class="ui grid container">
     <!-- Besser mit Segmenten arbeiten  -->
     <div class="one column row">
     	<div class="center aligned column">
@@ -25,7 +25,7 @@
     <div class="ui horizontal header divider"><i class="ui video play outline icon"></i></div>
 
     <div class="one column row">
-        <div class="column">
+        <div class="center aligned column">
 
             <audio id="audiocollage" controls preload="auto">
                 <source src="/audio/audiocollage.ogg" type='audio/ogg' />
@@ -79,11 +79,5 @@
 @stop
 
 @section('scripts')
-    <script>
-        var videoplayer = videojs('videoplayer');
 
-        $('#playdemo').on('click', function () {
-            videoplayer.play();
-        });
-    </script>
 @stop
