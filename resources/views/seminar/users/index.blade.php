@@ -16,10 +16,10 @@
 
     <div class="ui warning message">
         <div class="header">
-            Es können nur LSF Accounts hinzugefügt werden!
+            Es können nur LSF Benutzernamen hinzugefügt werden!
         </div>
         <p>
-            Im Moment unterstützt die App lediglich das Hinzufügen von LSF Accounts über deren Benutzernamen. Entweder geben Sie jeden Namen einzeln ein oder laden eine Stud.IP 3 CSV Datei hoch. Diese können Sie über die <a href="http://docs.studip.de/help/3.5/de/Basis/VeranstaltungenVerwaltenTeilnehmer" target="_blank">Stud.IP 3 Teilnehmerverwaltung</a> exportieren.
+            Im Moment unterstützt die App lediglich das Hinzufügen von LSF Benutzernamen über deren Benutzernamen. Entweder geben Sie jeden Namen einzeln ein oder laden eine Stud.IP 3 CSV Datei hoch. Diese können Sie über die <a href="http://docs.studip.de/help/3.5/de/Basis/VeranstaltungenVerwaltenTeilnehmer" target="_blank">Stud.IP 3 Teilnehmerverwaltung</a> exportieren.
             <br>
             <b>Die Verifikation erfolgt erst wenn die Benutzer/innen sich das erste Mal anmelden.</b> Danach können Sie den Namen und die E-Mail Adresse hier einsehen. Eine komplette Benutzerverwaltung ist für die kommende Version vorgesehen.
         </p>
@@ -46,7 +46,7 @@
       @if( count($admins) + count($teachers) !== 1 )
           <th></th>
       @endif
-      <th>LSF Account</th>
+      <th>LSF Benutzername</th>
       <th>Name</th>
       <th>E-Mail Adresse</th>
       <th>Verifiziert</th>
@@ -160,7 +160,7 @@
       @if( count($mentors) !== 0 )
           <th></th>
       @endif
-      <th>LSF Account</th>
+      <th>LSF Benutzername</th>
       <th>Name</th>
       <th>E-Mail Adresse</th>
       <th>Verifiziert</th>
@@ -244,7 +244,7 @@
   <thead class="full-width">
     <tr>
       @if( count($students) !== 0 ) <th></th> @endif
-      <th>LSF Account</th>
+      <th>LSF Benutzername</th>
       <th>Name</th>
       <th>E-Mail Adresse</th>
       <th>Verifiziert</th>

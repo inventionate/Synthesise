@@ -17,17 +17,41 @@ class InfoblockRepository implements InfoblockInterface
      * @param   string      $content
      * @param   string      $link_url
      * @param   file        $image
+     * @param   file        $text
      * @param   string      $smeinar_name
      *
      * @return  collection
      */
-    public function store($name, $content, $link_url, $image, $seminar_name)
+    public function store($name, $content, $link_url, $image, $text, $seminar_name)
     {
 
-        // Save image.
-        $image_saved = $image->move(storage_path('app/public/seminars/infoblocks'), md5_file($image) . '.' . $image->getClientOriginalExtension());
+        if ( is_null($image) )
+        {
+            $image_path = NULL;
+        }
+        else
+        {
+            // Save image.
+            $image_saved = $image->move(storage_path('app/public/seminars/infoblocks'), md5_file($image) . '.' . $image->getClientOriginalExtension());
 
-        $image_path = 'storage/seminars/infoblocks/' . $image_saved->getFilename();
+            $image_path = 'storage/seminars/infoblocks/' . $image_saved->getFilename();
+        }
+
+        if ( is_null($text) )
+        {
+            $text_path = NULL;
+        }
+        else
+        {
+            $text_saved = $text->move(storage_path('app/public/seminars/infoblocks'), md5_file($text) . '.' . $text->getClientOriginalExtension());
+
+            $text_path = 'storage/seminars/infoblocks/' . $text_saved->getFilename();
+        }
+
+        if ( $link_url === '' )
+        {
+            $link_url = NULL;
+        }
 
         // Save infoblock.
         $infoblock = new Infoblock();
@@ -35,6 +59,7 @@ class InfoblockRepository implements InfoblockInterface
         $infoblock->name = $name;
         $infoblock->content = $content;
         $infoblock->image_path = $image_path;
+        $infoblock->text_path = $text_path;
         $infoblock->link_url = $link_url;
         $infoblock->seminar_name = $seminar_name;
 
@@ -49,11 +74,12 @@ class InfoblockRepository implements InfoblockInterface
      * @param   string      $content
      * @param   string      $link_url
      * @param   file        $image
+     * @param   file        $text
      * @param   string      $smeinar_name
      *
      * @return  collection
      */
-    public function update($id, $name, $content, $link_url, $image, $seminar_name)
+    public function update($id, $name, $content, $link_url, $image, $text, $seminar_name)
     {
 
         // Find infoblock.
@@ -75,6 +101,29 @@ class InfoblockRepository implements InfoblockInterface
             $image_path = 'storage/seminars/infoblocks/' . $image_saved->getFilename();
 
             $infoblock->image_path = $image_path;
+        }
+
+        // Check new text.
+        if( $text !== null )
+        {
+            // Remove old image.
+            if ( Infoblock::where('text_path', $infoblock->text_path)->count() === 1 )
+            {
+                // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
+                File::delete( $infoblock->text_path );
+            }
+
+            // Save new image.
+            $text_saved = $text->move(storage_path('app/public/seminars/infoblocks'), md5_file($text) . '.' . $text->getClientOriginalExtension());
+
+            $text_path = 'storage/seminars/infoblocks/' . $text_saved->getFilename();
+
+            $infoblock->text_path = $text_path;
+        }
+
+        if ( $link_url === '' )
+        {
+            $link_url = NULL;
         }
 
         $infoblock->name = $name;
@@ -102,6 +151,12 @@ class InfoblockRepository implements InfoblockInterface
         {
             // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
             File::delete( $infoblock->image_path );
+        }
+
+        if ( Infoblock::where('text_path', $infoblock->text_path)->count() === 1 && $infoblock->text_path !== null )
+        {
+            // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
+            File::delete( $infoblock->text_path );
         }
 
         $infoblock->delete();

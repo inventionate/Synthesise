@@ -13,16 +13,25 @@
 
             <div class="ui clearing divider"></div>
 
-
             <div class="ui clearing basic segment">
-                <a class="ui right floated icon basic button" href="{{ $infoblock->link_url }}" target="_blank">
-                    <i class="external icon"></i>
-                    Webiste besuchen
-                </a>
+
+                @if ( $infoblock->link_url !== null )
+                    <a class="ui right floated icon basic button" href="{{ $infoblock->link_url }}" target="_blank">
+                        <i class="external icon"></i>
+                        Webiste besuchen
+                    </a>
+                @endif
+
+                @if ( $infoblock->text_path !== null )
+                    <a class="ui right floated icon basic button" href="{{ action('DownloadController@getFile', ['path' => $infoblock->text_path, 'name' => $infoblock->name]) }}" target="_blank">
+                        <i class="download icon"></i>
+                        Text herunterladen
+                    </a>
+                @endif
 
                 @if ( Seminar::authorizedEditor($seminar_name) )
 
-                    <button class="ui small teal icon button infoblock-edit" data-id="{{ $infoblock->id }}" data-name="{{ $infoblock->name }}" data-content="{{ $infoblock->content }}" data-link-url="{{ $infoblock->link_url }}" data-image-path="{{ $infoblock->image_path }}">
+                    <button class="ui small teal icon button infoblock-edit" data-id="{{ $infoblock->id }}" data-name="{{ $infoblock->name }}" data-content="{{ $infoblock->content }}" data-link-url="{{ $infoblock->link_url }}" data-image-path="{{ $infoblock->image_path }}" data-text-path="{{ $infoblock->text_path }}">
                         <i class="edit icon"></i>
                     </button>
 

@@ -48,7 +48,19 @@
 							<td class="themenbereich" rowspan="{{ count( Section::getAllLections($section->id) ) }}">
 
 								<div class="ui small header">
+
 									{{ $section->name }}
+
+									<div class="sub header">
+
+										@foreach (Section::getAllAuthors($section->id) as $author )
+
+											<span class="author">{{ $author }}</span>
+
+										@endforeach
+
+									</div>
+
 								</div>
 
 								<a class="ui small basic blue icon button track-event" data-type="Weiterführende Literatur" data-name="{{ $section->name }}" href="{{ action('DownloadController@getFile', ['path' => $section->further_reading_path , 'name' => 'Weiterführende Literatur: ' . $section->name]) }}">

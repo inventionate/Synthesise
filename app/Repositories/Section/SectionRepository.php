@@ -24,6 +24,22 @@ class SectionRepository implements SectionInterface
         return Section::findOrFail($name)->lections()->get();
     }
 
+    /* Get section authors.
+     *
+     * @param     string    $name
+     *
+     * @return    array
+     */
+    public function getAllAuthors($name) {
+
+        $lections = $this->getAllLections($name);
+
+        $authors = $lections->pluck('author')->unique()->all();
+
+        return $authors;
+
+    }
+
     /**
      * Store new section.
      *

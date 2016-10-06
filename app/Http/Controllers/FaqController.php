@@ -64,7 +64,7 @@ class FaqController extends Controller
         // Validation
         $this->validate($request, [
             'seminar_name' => 'required|string',
-            'subject' => 'required|unique:faqs|string',
+            'subject' => 'required|string',
             'question' => 'required|string',
             'answer' => 'required|string'
         ]);

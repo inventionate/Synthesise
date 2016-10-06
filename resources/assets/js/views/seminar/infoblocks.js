@@ -37,23 +37,15 @@ if( $('#infoblock-new')[0] )
                      prompt  : 'Bitte geben Sie einen Informationstext ein.'
                  }
              ]
-         },
-         link_url: {
-             rules: [
-                 {
-                     type    : 'url',
-                     prompt  : 'Bitte geben Sie eine URL ein.'
-                 }
-             ]
-         },
-         filepath: {
-             rules: [
-                 {
-                     type    : 'empty',
-                     prompt  : 'Bitte laden Sie ein Bild hoch.'
-                 }
-             ]
-         }
+         }//,
+        //  link_url: {
+        //      rules: [
+        //          {
+        //              type    : 'url',
+        //              prompt  : 'Bitte geben Sie eine URL ein.'
+        //          }
+        //      ]
+        //  }
      };
 
     // Attach message modal validation.
@@ -115,7 +107,10 @@ if( $('#infoblock-new')[0] )
             var infoblock_link_url = $(this).attr("data-link-url");
 
             // Get infoblock image_path.
-            var infoblock_image_path = $(this).attr("data-image-path");
+            var infoblock_image_path = $(this).attr("data-image-path").substr(28);
+
+            // Get infoblock text_path.
+            var infoblock_text_path = $(this).attr("data-text-path").substr(28);
 
             // Set infoblock name.
             $('#infoblock-edit-modal').find('input[name="name"]').val( infoblock_name );
@@ -128,6 +123,9 @@ if( $('#infoblock-new')[0] )
 
             // Set infoblock image_path.
             $('#infoblock-edit-modal').find('input[name="filepath"]').val( infoblock_image_path );
+
+            // Set infoblock text_path.
+            $('#infoblock-edit-modal').find('input[name="textpath"]').val( infoblock_text_path );
 
         });
     }

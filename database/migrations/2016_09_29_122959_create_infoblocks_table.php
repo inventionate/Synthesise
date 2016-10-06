@@ -17,6 +17,7 @@ class CreateInfoblocksTable extends Migration
             $table->string('name', 128);
             $table->text('content');
             $table->text('image_path')->nullable();
+            $table->text('text_path')->nullable();
             $table->text('link_url')->nullable();
             $table->string('seminar_name', 256);
             $table->timestamps();

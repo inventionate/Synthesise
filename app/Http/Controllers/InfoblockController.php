@@ -34,8 +34,9 @@ class InfoblockController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'content' => 'required|string',
-            'link_url' => 'required|url',
-            'image' => 'required|image',
+            'link_url' => 'url',
+            'image' => 'image',
+            'text' => 'file',
             'seminar_name' => 'required|string',
         ]);
 
@@ -43,9 +44,10 @@ class InfoblockController extends Controller
         $content = $request->content;
         $link_url = $request->link_url;
         $image = $request->file('image');
+        $text = $request->file('text');
         $seminar_name = $request->seminar_name;
 
-        Infoblock::store($name, $content, $link_url, $image, $seminar_name);
+        Infoblock::store($name, $content, $link_url, $image, $image, $seminar_name);
 
         return back()->withInput();
 
@@ -66,8 +68,9 @@ class InfoblockController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'content' => 'required|string',
-            'link_url' => 'required|url',
+            'link_url' => 'url',
             'image' => 'image',
+            'text' => 'file',
             'seminar_name' => 'required|string',
         ]);
 
@@ -75,9 +78,10 @@ class InfoblockController extends Controller
         $content = $request->content;
         $link_url = $request->link_url;
         $image = $request->file('image');
+        $text = $request->file('text');
         $seminar_name = $request->seminar_name;
 
-        Infoblock::update($id, $name, $content, $link_url, $image, $seminar_name);
+        Infoblock::update($id, $name, $content, $link_url, $image, $text, $seminar_name);
 
         return Redirect::to(URL::previous() . "#infoblocks");
 

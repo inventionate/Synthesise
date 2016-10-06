@@ -27,7 +27,8 @@ class DownloadController extends Controller
     public function getFile(Request $request)
     {
         $path = $request->path;
-        $name = $request->name;
+
+        $name = $request->name . '.' . pathinfo($path)['extension'];
 
         return response()->download($path, $name);
     }

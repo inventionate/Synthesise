@@ -12,7 +12,7 @@
 						<img class="ui image" src="{{ asset( $current_lection->image_path ) }}" alt="Titelbild online-Lektion"  class="img-responsive img-thumbnail">
 				    </div>
 					<div class="content">
-						<div class="header">{{ $current_lection->name }} von {{ $current_lection->author }}</div>
+						<div class="header">»{{ $current_lection->name }}« von {{ $current_lection->author }}</div>
 						<div class="description">Die Bearbeitung der online-Lektion und der Literatur ist eine verpflichtende Arbeitsgrundlage für den Besuch der Mentoriate.</div>
 					</div>
 

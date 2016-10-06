@@ -6,7 +6,7 @@
 
         @foreach ($messages as $message)
 
-            <div class="ui message {{ $message->colour }} @if ( Auth::user()->role === 'Admin' ) message-system-edit @endif" role="alert">
+            <div class="ui message {{ $message->colour }} @if ( Seminar::authorizedEditor($seminar_name) ) message-system-edit @endif" role="alert">
 
                 <div class="header">
                     {{ $message->title }}
@@ -14,7 +14,7 @@
 
                 {!! $message->content !!}
 
-                @if ( Auth::user()->role === 'Admin' )
+                @if ( Seminar::authorizedEditor($seminar_name) )
                     <div class="ui small teal icon buttons">
 
                        <button class="ui button message-edit" data-id="{{ $message->id }}" data-tooltip="Nachricht ändern."><i class="edit icon"></i>

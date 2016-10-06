@@ -19,6 +19,6 @@
 
 {{-- Hidden fields --}}
 <div class="hide field">
-    <label for="sections_seminar_name" class="hide">LSF Account</label>
+    <label for="sections_seminar_name" class="hide">LSF Benutzername</label>
     <input id="sections_seminar_name" name="seminar_name" type="text" value="{{ $seminar_name }}">
 </div>

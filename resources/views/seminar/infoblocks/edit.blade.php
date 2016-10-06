@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ url('infoblock') }}" id="infoblock-edit-modal" class="ui modal form infoblock-validator" enctype="multipart/form-data">
+<form role="form" method="POST" action="{{ url('infoblock') }}" id="infoblock-edit-modal" class="ui modal equal width form infoblock-validator" enctype="multipart/form-data">
 
     {{ method_field('PATCH') }}
 

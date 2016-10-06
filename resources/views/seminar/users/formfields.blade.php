@@ -1,6 +1,6 @@
 <div class="field">
-    <label for="users_username" class="hide">LSF Account</label>
-    <input id="users_username" name="username" placeholder="Bitte geben Sie einen LSF Account ein." type="text">
+    <label for="users_username" class="hide">LSF Benutzername</label>
+    <input id="users_username" name="username" placeholder="Bitte geben Sie einen LSF Benutzernamen ein." type="text">
 </div>
 
 <div class="field">
