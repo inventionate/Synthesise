@@ -1674,7 +1674,7 @@ class CuepointTableSeeder extends Seeder
 
         Cuepoint::create(array(
             'cuepoint' => '1330',
-            'sequence_id' => 1,
+            'sequence_id' => 11,
             'content' => 'Gerechtigkeitsbildung durch aktive Partizipation',
         ));
     }

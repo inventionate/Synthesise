@@ -55,7 +55,7 @@
 <template>
     <div id="interactive-video">
 
-        <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered">
+        <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid">
         </video>
 
         <img src="/img/etpm_logo_r.png" alt="etpM Logo">
