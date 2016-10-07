@@ -2,15 +2,10 @@
 /doc
 /public/video
 /public/audio
-/storage/app/users
-/storage/app/pdf
-/storage/framework
 /tests/_output
+/public/build
 /public/css
 /public/js
-/public/build
-/public/img/seminars
-/resources/assets/semantic
 .atom
 .tags
 .tags1

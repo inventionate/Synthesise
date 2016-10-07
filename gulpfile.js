@@ -2,6 +2,8 @@ var elixir = require('laravel-elixir');
 require('laravel-elixir-vue-2');
 require('laravel-elixir-modernizr');
 
+elixir.config.sourcemaps = false;
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
