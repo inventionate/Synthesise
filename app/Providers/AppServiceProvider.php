@@ -14,9 +14,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Share Piwik URL and setSiteId
-        $piwik_url = env('PIWIK_URL');
-
-        $piwik_site_id = env('PIWIK_SITE_ID');
+        $piwik_url = config('auth.analytics.baseUrl');
+        $piwik_site_id = config('auth.analytics.site_id');
 
         View::share('piwik_url', $piwik_url);
         View::share('piwik_site_id', $piwik_site_id);

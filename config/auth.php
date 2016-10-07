@@ -133,8 +133,9 @@ return [
     */
 
     'analytics' => [
-        'baseUrl' => 'https://etpm-analytics.ph-karlsruhe.de/',
-        'tokenAuth' => '22050cb4e8db16196138632a000ed946',
+        'baseUrl' => env('PIWIK_URL'),
+        'site_id' => env('PIWIK_SITE_ID'),
+        'tokenAuth' => env('PIWIK_TOKEN'),
     ],
 
 ];

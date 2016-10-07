@@ -34,25 +34,25 @@ class DashboardController extends Controller {
 
 		// Database settings.
 
-		$db_host = env('DB_HOST');
+		$db_host = config('database.connections.mysql.host');
 
-		$db_username = env('DB_USERNAME');
+		$db_username = config('database.connections.mysql.username');
 
-		$db_password = env('DB_PASSWORD');
+		$db_password = config('database.connections.mysql.password');
 
-		$db_database = env('DB_DATABASE');
+		$db_database = config('database.connections.mysql.database');
 
 		// LDAP settings.
 
-		$ldap_domain = env('LDAP_DOMAIN');
+		$ldap_domain = config('auth.ldap.domain');
 
-		$ldap_base_dn = env('LDAP_BASE_DN');
+		$ldap_base_dn = config('auth.ldap.baseDn');
 
-		$ldap_bind_dn = env('LDAP_BIND_DN');
+		$ldap_bind_dn = config('auth.ldap.bindDn');
 
-		$ldap_bind_pwd = env('LDAP_BIND_PWD');
+		$ldap_bind_pwd = config('auth.ldap.bindPwd');
 
-		$ldap_port = env('LDAP_PORT');
+		$ldap_port = config('auth.ldap.port');
 
 		//@TODO Überprüfung der Verbindungen durchführen!
 
