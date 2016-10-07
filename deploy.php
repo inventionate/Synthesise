@@ -7,7 +7,7 @@ require 'recipe/laravel.php';
 
 // Set configurations
 set('repository', 'git@github.com:inventionate/Synthesise.git');
-set('shared_files', ['.env.production']);
+set('shared_files', ['.env']);
 set('shared_dirs', [
     'storage/app',
     'storage/framework/cache',

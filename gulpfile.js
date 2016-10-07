@@ -44,7 +44,15 @@ elixir( function (mix) {
             "public/css/application.css",
             "public/js/application.js",
             "public/js/vendor/modernizr-custom.js"
-        ]);
+        ])
+        .copy(
+            "node_modules/semantic-ui-css/themes/default/assets/fonts",
+            "public/build/css/themes/default/assets/fonts"
+        )
+        .copy(
+            "node_modules/video.js/dist/font",
+            "public/build/css/font"
+        );
     } else {
         mix.browserSync({
             proxy: 'etpm.dev'

@@ -5,7 +5,7 @@
  *
  * @author   Taylor Otwell <taylorotwell@gmail.com>
  */
-if (__DIR__ != '/srv/www/vhosts/etpm.ph-karlsruhe.de') {
+if (__DIR__ !== '/srv/www/vhosts/etpm.ph-karlsruhe.de') {
 
     /*
     |--------------------------------------------------------------------------
@@ -34,10 +34,12 @@ if (__DIR__ != '/srv/www/vhosts/etpm.ph-karlsruhe.de') {
     */
 
     $app = require_once __DIR__.'/../bootstrap/app.php';
-} else {
-    require '/home/etpm/bootstrap/autoload.php';
+}
+else
+{
+    require '/home/etpm/current/bootstrap/autoload.php';
 
-    $app = require_once '/home/etpm/bootstrap/app.php';
+    $app = require_once '/home/etpm/current/bootstrap/app.php';
 }
 
 /*

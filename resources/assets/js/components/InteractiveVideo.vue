@@ -211,7 +211,7 @@
                 $('#notes-form').addClass('loading');
 
                 // AJAX Abfrage starten.
-                this.$http.get(document.URL + '/note', {
+                this.$http.get(document.URL + 'note', {
                     params: { cuepoint_id: id }
                 }).then((response) => {
 
@@ -251,7 +251,7 @@
                     {
 
                         // Create new note.
-                        this.$http.post(document.URL + '/note', {
+                        this.$http.post(document.URL + 'note', {
                             note: content,
                             cuepoint_id: id
                         }).then((response) => {
@@ -272,7 +272,7 @@
                     {
 
                         // Update existing note.
-                        this.$http.patch(document.URL + '/note', {
+                        this.$http.patch(document.URL + 'note', {
                             note: content,
                             cuepoint_id: id
                         }).then((response) => {
@@ -296,7 +296,7 @@
                 {
 
                     // Delete note.
-                    this.$http.delete(document.URL + '/note', {
+                    this.$http.delete(document.URL + 'note', {
                         params: { cuepoint_id: id }
                     }).then((response) => {
 
