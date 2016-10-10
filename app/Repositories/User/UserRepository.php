@@ -133,10 +133,11 @@ class UserRepository implements UserInterface
    * @param 	string role
    * @param 	string firstname
    * @param 	string lastname
+   * @param 	string email
    * @param 	string password
    * @param     array seminar_names
    */
-  public function store($username, $role, $firstname, $lastname, $password, $seminar_names)
+  public function store($username, $role, $firstname, $lastname, $email, $password, $seminar_names = null)
   {
 
     // Neue Nachrichteninstanz generieren
@@ -153,6 +154,9 @@ class UserRepository implements UserInterface
     if ( $lastname !== null ) {
         $user->lastname = $lastname;
     }
+    if ( $email !== null ) {
+        $user->email = $email;
+    }
     if ( $password !== null ) {
         $user->password = $password;
     }
@@ -160,10 +164,12 @@ class UserRepository implements UserInterface
     $user->save();
 
     // Attach to seminar.
-
-    foreach ( $seminar_names as $seminar_name )
+    if ( $seminar_names !== null )
     {
-        $user->seminars()->attach($seminar_name);
+        foreach ( $seminar_names as $seminar_name )
+        {
+            $user->seminars()->attach($seminar_name);
+        }
     }
 
   }
@@ -175,9 +181,10 @@ class UserRepository implements UserInterface
    * @param 		string role
    * @param 		string firstname
    * @param 		string lastname
+   * @param         string email
    * @param 		string password
    */
-  public function update($id, $username, $role, $firstname, $lastname, $password)
+  public function update($id, $username, $role, $firstname, $lastname, $email, $password)
   {
 
     // Find user to update.
@@ -188,6 +195,7 @@ class UserRepository implements UserInterface
     $toBeUpdatedUser->role = $role;
     $toBeUpdatedUser->firstname = $firstname;
     $toBeUpdatedUser->lastname = $lastname;
+    $toBeUpdatedUser->email = $email;
 
     // Nur neu setzen, wenn ein anderes Passwort gewählt wurde.
     if( !Hash::check($toBeUpdatedUser->password, $password) ) {
@@ -246,7 +254,9 @@ class UserRepository implements UserInterface
   /**
    * Delete all User of a specific role.
    *
-   * @param         int $id
+   * @param         role    $role
+   * @param         array   $except_ids
+   * @param         array   $seminar_names
    *
    */
   public function deleteAll($role, $except_ids, $seminar_names)
@@ -266,6 +276,20 @@ class UserRepository implements UserInterface
             $user->delete();
         }
     }
+  }
+
+  /**
+   * Delete all User of a specific role.
+   *
+   * @param         string  $username
+   * @param         string  $seminar_name
+   *
+   */
+  public function attachToSeminar($username, $seminar_name)
+  {
+      $user = $this->findByUsername($username);
+
+      $user->seminars()->attach($seminar_name);
   }
 
 }

@@ -62,12 +62,13 @@ class Ldap implements LdapContract
     /**
      * LDAP Authentifizierung.
      *
-     * @param 	 $username
-     * @param 	 $password
+     * @param 	 string      $username
+     * @param 	 string      $password
+     * @param    string      $matnum
      *
      * @return array|false Benutzervorname und Benutzernachname oder FALSE.
      */
-    public function authenticate($username, $password)
+    public function authenticate($username = null, $password, $matnum = null)
     {
         // Verbindung zum LDAP Server aufbauen
         $handle = ldap_connect($this->domain, $this->port);
@@ -82,20 +83,33 @@ class Ldap implements LdapContract
         if ($bind) {
 
             // Nutzer suchen
-            // @TODO Klären, ob auch die Matrikelnummer verwendet werden kann!!!
-            $check_user = ldap_search($handle, $this->baseDn, 'cn='.$username);
+            if ( is_null($username) )
+            {
+                $check_user = ldap_search($handle, $this->baseDn, 'phmatnum='.'3140563');
+            }
+            elseif ( is_null($matnum) )
+            {
+                $check_user = ldap_search($handle, $this->baseDn, 'cn='.$username);
+            }
+            else
+            {
+                return false;
+            }
 
             // Nutzerdaten laden
             $user_data = ldap_get_entries($handle, $check_user);
-            if (isset($user_data[0])) {
+            if (isset($user_data[0]))
+            {
                 // Der @ Operator setzt die Variable auf 'undefined' wenn sie nicht erzeugt werden kann
-                if (@ldap_bind($handle, $user_data[0]['dn'], $password)) {
+                if (@ldap_bind($handle, $user_data[0]['dn'], $password))
+                {
+
                     $data = array_dot($user_data);
 
                     return [
-                        // @TODO Matrikelnummer abfragen
                         'firstname' => $data['0.givenname.0'],
                         'lastname' => $data['0.sn.0'],
+                        'email' => $data['0.phmail.0'],
                     ];
                 } else {
                     return false;

@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ action('UserController@store') }}" id="admin-new-modal" class="ui modal form admin-validator">
+<form role="form" method="POST" action="{{ action('UserController@store') }}" id="admin-new-modal" class="ui modal equal width form admin-validator">
 
     {{ csrf_field() }}
 

@@ -28,6 +28,14 @@ var rules = {
             }
         ]
     },
+    email: {
+        rules: [
+            {
+                type    : 'email',
+                prompt  : 'Bitte E-Mail Adresse eingeben.'
+            }
+        ]
+    },
     password: {
         rules: [
             {

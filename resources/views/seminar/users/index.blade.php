@@ -25,18 +25,30 @@
         </p>
     </div>
 
-    @if (count($errors) > 0)
-    <div class="ui error message">
-        <div class="header">
-            Fehler beim Erstellen der Benutzer/innen!
+    @if ( count($errors) > 0 )
+        <div class="ui error message">
+            <div class="header">
+                Fehler beim Erstellen der Benutzer/innen!
+            </div>
+            <ul class="list">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-        <ul class="list">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    @endif
+
+    @if ( session('status') )
+
+        <div class="ui warning message">
+            <div class="header">
+                Informationen zur Änderung von Benuter/innenrollen
+            </div>
+            <p>
+                {{ session('status') }}
+            </p>
+        </div>
+    @endif
 
 <h2 class="ui header" id="manage-teachers">Dozent/innen</h2>
 

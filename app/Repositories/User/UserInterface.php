@@ -17,9 +17,9 @@ interface UserInterface
 
   public function getAllByRole($role);
 
-  public function store($username, $role, $firstname, $lastname, $password, $seminar_names);
+  public function store($username, $role, $firstname, $lastname, $password, $email, $seminar_names);
 
-   public function update($id, $username, $role, $firstname, $lastname, $password);
+   public function update($id, $username, $role, $firstname, $lastname, $password, $email);
 
   public function exportUsernamesOfFile($users);
 
@@ -28,4 +28,6 @@ interface UserInterface
   public function deleteMany($ids, $seminar_names);
 
   public function deleteAll($role, $except_ids, $seminar_names);
+
+  public function attachToSeminar($username, $seminar_name);
 }

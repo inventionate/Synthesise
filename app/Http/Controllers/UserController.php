@@ -74,6 +74,8 @@ class UserController extends Controller
 
         $lastname = $request->lastname;
 
+        $email = $request->email;
+
         $password = $request->password;
 
         $seminar_names = $request->seminar_names;
@@ -87,10 +89,10 @@ class UserController extends Controller
         ];
 
         $rules = [
-            'username'          => 'unique:users|string',
+            'username'          => 'string',
             'users'             => 'file',
             'role'              => 'required|string',
-            'seminar_names'     => 'required|array'
+            'seminar_names'     => 'array'
         ];
 
         // Usernames
@@ -117,7 +119,8 @@ class UserController extends Controller
 
                 $rules = array_add(
                 $rules,
-                $username, 'unique:users,username|string'
+                // $username, 'unique:users,username|string'
+                $username, 'string'
                 );
 
             }
@@ -136,17 +139,41 @@ class UserController extends Controller
         // User storage.
         if( $username_single !== "" ) {
 
-            User::store($username_single, $role, $firstname, $lastname, $password, $seminar_names);
+            $user = User::findByUsername($username_single);
+
+            if ( is_null($user) )
+            {
+                User::store($username_single, $role, $firstname, $lastname, $email, $password, $seminar_names);
+            }
+            elseif ( is_null($user->seminars()->get()->find($seminar_names[0])) )
+            {
+                User::attachToSeminar($username_single, $seminar_names[0]);
+
+                if( $user->role !== $role )
+                {
+                    return back()->with('status', 'Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support. Die Person wurde gemäß der vorhandenen Rolle hinzugefügt.');
+                }
+
+            }
 
         }
 
-        //@TODO Error Handling, wenn versucht wird den identischen Nutezr noch mal zu erstellen!
+        // @TODO Error Handling, wenn versucht wird den identischen Nutezr noch mal zu erstellen!
 
         if( $users !== null ) {
 
             foreach ($usernames as $username) {
 
-                User::store($username, $role, $seminar_names);
+                $user = User::findByUsername($username);
+
+                if ( is_null($user) )
+                {
+                    User::store($username, $role, null, null, null, null, $seminar_names);
+                }
+                else
+                {
+                    User::attachToSeminar($username, $seminar_names[0]);
+                }
 
             }
 
@@ -173,6 +200,7 @@ class UserController extends Controller
             'role' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
+            'email' => 'required',
         ]);
 
         $username = $request->username;
@@ -183,9 +211,11 @@ class UserController extends Controller
 
         $lastname = $request->lastname;
 
+        $email = $request->email;
+
         $password = $request->password;
 
-        User::update($id, $username, $role, $firstname, $lastname, $password);
+        User::update($id, $username, $role, $firstname, $lastname, $email, $password);
 
         // Rediret
         return $this->redirectByRole($role);
@@ -203,6 +233,7 @@ class UserController extends Controller
 
         User::delete($id);
 
+        // Only Admins can be destroyed at the moment.
         $role = 'Admin';
 
         return $this->redirectByRole($role);

@@ -8,19 +8,32 @@
     <input id="admin_role" name="role" value="Admin">
 </div>
 
-<div class="field">
-    <label for="admin_firstname">Vorname</label>
-    <input id="admin_firstname" name="firstname" placeholder="Bitte geben Sie einen Vornamen ein." type="text">
+<div class="required fields">
+
+    <div class="field">
+        <label for="admin_firstname">Vorname</label>
+        <input id="admin_firstname" name="firstname" placeholder="Bitte geben Sie einen Vornamen ein." type="text">
+    </div>
+
+    <div class="field">
+        <label for="admin_lastname">Nachname</label>
+        <input id="admin_lastname" name="lastname" placeholder="Bitte geben Sie einen Nachnamen ein." type="text">
+    </div>
+
 </div>
 
-<div class="field">
-    <label for="admin_lastname">Nachname</label>
-    <input id="admin_lastname" name="lastname" placeholder="Bitte geben Sie einen Nachnamen ein." type="text">
-</div>
+<div class="required fields">
 
-<div class="field">
-      <label for="admin_password">Password</label>
-      <input id="admin_password" name="password" type="password" placeholder="Bitte geben Sie ein Passwort ein.">
+    <div class="field">
+          <label for="admin_email">E-Mail</label>
+          <input id="admin_email" name="email" type="text" placeholder="Bitte geben Sie eine E-Mail Adresse ein.">
+    </div>
+
+    <div class="field">
+          <label for="admin_password">Password</label>
+          <input id="admin_password" name="password" type="password" placeholder="Bitte geben Sie ein Passwort ein.">
+    </div>
+
 </div>
 
 <div class="field">

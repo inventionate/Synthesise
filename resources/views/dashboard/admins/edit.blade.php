@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ url('user') }}" id="admin-edit-modal" class="ui modal form admin-validator">
+<form role="form" method="POST" action="{{ url('user') }}" id="admin-edit-modal" class="ui modal equal width form admin-validator">
 
     {{ method_field('PATCH') }}
 
