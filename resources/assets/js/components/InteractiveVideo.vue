@@ -55,7 +55,7 @@
 <template>
     <div id="interactive-video">
 
-        <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid">
+        <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" width="640" height="264">
         </video>
 
         <img src="/img/etpm_logo_r.png" alt="etpM Logo">
@@ -95,15 +95,13 @@
             window.$ = $;
             window.jQuery = $;
 
-            // Dynamisch die Inhalte hinzufügen.
-            // Löst das Problem, dass nicht barebietet Inhalte verarbeitet werden.
+            // Load content dynamically.
             this.initVideoJS(
                 this.path,
                 this.name,
                 this.poster,
                 this.markers
             );
-
         },
 
         methods: {
@@ -178,6 +176,7 @@
                     .on('durationchange', function () {
                         return _paq.push(["trackEvent", "Video", "Geschwindigkeit verändert", self.name]);
                     });
+
                 });
             },
 
