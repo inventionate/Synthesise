@@ -117,5 +117,32 @@ class SequenceTableSeeder extends Seeder
             'lection_name' => 'Bildung und Gerechtigkeit'
         ));
 
+        Sequence::create(array(
+            'id' => 12,
+            'name' => null,
+            'position' => 1,
+            'video' => true,
+            'path' => 'storage/videos/78e76f1db464ac8c65b0d57ba9c9f278.mp4',
+            'lection_name' => 'Erziehung und Bildung als Gegenstand wissenschaftlicher Praxis'
+        ));
+
+        Sequence::create(array(
+            'id' => 13,
+            'name' => null,
+            'position' => 1,
+            'video' => true,
+            'path' => 'storage/videos/656bb764fdc5f6489b54863fee8b65b4.mp4',
+            'lection_name' => 'Was meint Erziehung?'
+        ));
+
+        Sequence::create(array(
+            'id' => 14,
+            'name' => null,
+            'position' => 1,
+            'video' => true,
+            'path' => 'storage/videos/abac9d002bed1107e503fb9fffaf4137.mp4',
+            'lection_name' => 'Bildung gegen Intoleranz und Erziehung zu Toleranz'
+        ));
+
     }
 }

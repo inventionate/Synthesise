@@ -47,10 +47,10 @@ class SeminarTableSeeder extends Seeder
             Der Teil der Allgemeinen und Historischen Erziehungswissenschaft setzt sich aus Single Choice- und Multiple Choice-Aufgaben zusammen. Die Klausurmodalitäten werden rechtzeitig in einer Vorlesung (siehe Präsenzveranstaltungen) besprochen.<br>
             Weitere allgemeine Informationen zur Akademischen Vorprüfung finden Sie auf der Website des <a href="http://www.ph-karlsruhe.de/studium-lehre/studien-service-zentrum/pruefungsaemter/">Prüfungsamts</a>.
           </p>',
-            'info_path' => 'storage/seminars/1c2ca656bbb88d73e53e836581bcc2d8.pdf',
-            'available_from' => '2015-12-16',
-            'available_to' => '2017-02-17',
-            'disqus_shortname' => 'etpm',
+            'info_path' => NULL,
+            'available_from' => '2016-10-25',
+            'available_to' => '2017-02-08',
+            'disqus_shortname' => NULL,
         ));
 
         // FRÜHPÄDAGOGIK
@@ -68,8 +68,8 @@ class SeminarTableSeeder extends Seeder
             'info_texts' => NULL,
             'info_exam' => NULL,
             'info_path' => NULL,
-            'available_from' => '2015-12-16',
-            'available_to' => '2016-02-17',
+            'available_from' => '2016-10-30',
+            'available_to' => '2017-03-01',
             'disqus_shortname' => NULL
         ));
 

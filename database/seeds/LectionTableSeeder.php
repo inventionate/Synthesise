@@ -107,5 +107,32 @@ class LectionTableSeeder extends Seeder
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/fa910e021bb0d4d9427950cf6dc55908.jpg',
         ));
+
+        Lection::create(array(
+            'id' => 12,
+            'name' => 'Erziehung und Bildung als Gegenstand wissenschaftlicher Praxis',
+            'author' => 'Prof. Dr. Ulrich Wehner',
+            'contact' => 'wehner@ph-karlsruhe.de',
+            'authorized_editors' => ["root"],
+            'image_path' => 'storage/lections/4cfea3f5ecec51df10054def56ac06cb.jpg',
+        ));
+
+        Lection::create(array(
+            'id' => 13,
+            'name' => 'Was meint Erziehung?',
+            'author' => 'Prof. Dr. Ulrich Wehner',
+            'contact' => 'wehner@ph-karlsruhe.de',
+            'authorized_editors' => ["root"],
+            'image_path' => 'storage/lections/469b55328f69dea805b3a31c6c62ba95.jpg',
+        ));
+
+        Lection::create(array(
+            'id' => 14,
+            'name' => 'Bildung gegen Intoleranz und Erziehung zu Toleranz',
+            'author' => 'Prof. Dr. Ulrich Wehner',
+            'contact' => 'wehner@ph-karlsruhe.de',
+            'authorized_editors' => ["root"],
+            'image_path' => 'storage/lections/e24e5212e66d2267db805ceddc5ee843.jpg',
+        ));
     }
 }

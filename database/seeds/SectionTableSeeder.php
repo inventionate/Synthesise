@@ -45,5 +45,21 @@ class SectionTableSeeder extends Seeder
             'seminar_name' => 'Grundlagen pädagogischen Denkens und Handelns',
         ));
 
+        // FRÜHPÄDAGOGIK
+
+        Section::create(array(
+            'id' => 5,
+            'name' => 'Wissenschaft – Erziehung – Bildung',
+            'further_reading_path' => 'storage/sections/73e676555fc9f572155b44678e95f429.pdf',
+            'seminar_name' => 'Geschichte(n) und Theorien (früh-)kindlicher Bildung und Entwicklung',
+        ));
+
+        Section::create(array(
+            'id' => 6,
+            'name' => 'Anwendungsbeispiele',
+            'further_reading_path' => 'storage/sections/73e676555fc9f572155b44678e95f429.pdf',
+            'seminar_name' => 'Geschichte(n) und Theorien (früh-)kindlicher Bildung und Entwicklung',
+        ));
+
     }
 }

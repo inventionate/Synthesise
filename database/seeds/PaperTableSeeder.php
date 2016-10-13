@@ -93,5 +93,29 @@ class PaperTableSeeder extends Seeder
             'path' => 'storage/papers/57697ffbb139e4367ddfe309e824c6ea.pdf',
             'lection_name' => 'Bildung und Gerechtigkeit',
         ));
+
+        // FRÜHPÄDAGOGIK
+
+        Paper::create(array(
+            'name' => 'Die erste Vorlesung über Pädagogik',
+            'author' => 'Johann Friedrich Herbart',
+            'path' => 'storage/papers/57697ffbb139e4367ddfe309e824c6ea.pdf',
+            'lection_name' => 'Erziehung und Bildung als Gegenstand wissenschaftlicher Praxis',
+        ));
+
+        Paper::create(array(
+            'name' => 'Die Zeigestruktur der Erziehung',
+            'author' => 'Klaus Prange',
+            'path' => 'storage/papers/57697ffbb139e4367ddfe309e824c6ea.pdf',
+            'lection_name' => 'Was meint Erziehung?',
+        ));
+
+        Paper::create(array(
+            'name' => 'Bildungsgerechtigkeit',
+            'author' => 'Krassimir Stojanov',
+            'path' => 'storage/papers/57697ffbb139e4367ddfe309e824c6ea.pdf',
+            'lection_name' => 'Bildung gegen Intoleranz und Erziehung zu Toleranz',
+        ));
+
     }
 }

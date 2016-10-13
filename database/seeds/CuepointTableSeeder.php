@@ -1677,5 +1677,354 @@ class CuepointTableSeeder extends Seeder
             'sequence_id' => 11,
             'content' => 'Gerechtigkeitsbildung durch aktive Partizipation',
         ));
+
+
+        // NOTE WISSENSCHAFT -------------------------------------------------
+
+        Cuepoint::create(array(
+            'cuepoint' => '38',
+            'sequence_id' => 12,
+            'content' => 'Wissenschaft in empirischer Ausprägung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '70',
+            'sequence_id' => 12,
+            'content' => 'PISA-Schock',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '100',
+            'sequence_id' => 12,
+            'content' => 'Entdeckte Kindheit',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '96',
+            'sequence_id' => 12,
+            'content' => 'Wissenschaft und Praxis',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '149',
+            'sequence_id' => 12,
+            'content' => 'Gesellschaft und Wissenschaft',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '244',
+            'sequence_id' => 12,
+            'content' => 'Das Wechselspiel von Gesellschaft und Wissenschaft',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '270',
+            'sequence_id' => 12,
+            'content' => 'Der wissenschaftliche Blick',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '469',
+            'sequence_id' => 12,
+            'content' => 'Ziel von Wissenschaft',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '496',
+            'sequence_id' => 12,
+            'content' => 'Analytische und normative wissenschaftliche Zugänge',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '517',
+            'sequence_id' => 12,
+            'content' => 'Der analytisch-beschreibende Zugang',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '541',
+            'sequence_id' => 12,
+            'content' => 'Der normativ-programmatische Zugang',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '619',
+            'sequence_id' => 12,
+            'content' => 'Kritik an analytischen Zugängen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '687',
+            'sequence_id' => 12,
+            'content' => 'Kritik an normativen Zugängen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '780 ',
+            'sequence_id' => 12,
+            'content' => 'Theorietyp 1 und 2 in Beziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '810',
+            'sequence_id' => 12,
+            'content' => 'Beispiel: Erziehung im Dritten Reich',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1022',
+            'sequence_id' => 12,
+            'content' => 'Pädagogische Grundlagentheorie: Erziehung identifizieren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1044',
+            'sequence_id' => 12,
+            'content' => 'Praktische Pädagogik: Erziehung bewerten ',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1085',
+            'sequence_id' => 12,
+            'content' => 'Systematische Kombination beider Theorietypen notwendig',
+        ));
+
+        // NOTE ERZIEHUNG -------------------------------------------------
+
+        Cuepoint::create(array(
+            'cuepoint' => '44',
+            'sequence_id' => 13,
+            'content' => 'Erziehung als anthropologisches Grundphänomen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '71',
+            'sequence_id' => 13,
+            'content' => 'Wolfgang Sünkels »Allgemeine Theorie der Erziehung«',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '134',
+            'sequence_id' => 13,
+            'content' => '»Wolfskinder«',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '155',
+            'sequence_id' => 13,
+            'content' => 'Hospitalismusforschung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '212',
+            'sequence_id' => 13,
+            'content' => 'Zum Satz der Kulturalität',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '247',
+            'sequence_id' => 13,
+            'content' => 'Kulturalität jenseits von Menschen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '317',
+            'sequence_id' => 13,
+            'content' => 'Unterschiede zwischen Menschen und Tieren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '354',
+            'sequence_id' => 13,
+            'content' => 'Zum Satz der Mortalität',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '394',
+            'sequence_id' => 13,
+            'content' => 'das nichtgenetische Erbe',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '438',
+            'sequence_id' => 13,
+            'content' => 'Disposition zu einer Tätigkeit',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '526',
+            'sequence_id' => 13,
+            'content' => 'Kritische Auseinandersetzung mit Sünkels Theorie der Erziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '567',
+            'sequence_id' => 13,
+            'content' => 'Filmausschnitt »Benjamin Button«',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '763',
+            'sequence_id' => 13,
+            'content' => 'Interpretation »Benjamin Button«',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '832',
+            'sequence_id' => 13,
+            'content' => 'Von der Notwendigkeit der Ergänzung des Satzes der Natalität',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '889',
+            'sequence_id' => 13,
+            'content' => 'Zum Satz der Natalität',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '961',
+            'sequence_id' => 13,
+            'content' => 'Natalität – zwei Lehrstücke biologischer Anthropologie',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1009',
+            'sequence_id' => 13,
+            'content' => 'Jenseits von »Nesthockern« und »Nestflüchtern«',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1071',
+            'sequence_id' => 13,
+            'content' => 'Menschliche Säuglinge als »Traglinge«',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1299',
+            'sequence_id' => 13,
+            'content' => 'Konsequenzen aus der Bestimmung des Säuglings als »Tragling«',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1519',
+            'sequence_id' => 13,
+            'content' => 'Relevanz der evolutionsbiologischen Ausführungen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1575',
+            'sequence_id' => 13,
+'content' => 'Satz der Natalität und die Sorgestruktur von Erziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1671',
+            'sequence_id' => 13,
+            'content' => 'Natalität als Moment einer lebensalterssensiblen Anthropologie',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1732',
+            'sequence_id' => 13,
+            'content' => 'Enges vs. weites Verständnis von Erziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1759',
+            'sequence_id' => 13,
+            'content' => 'Erziehungsbegriff begrenzen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1786',
+            'sequence_id' => 13,
+            'content' => 'Grundriss einer operativen Pädagogik',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1177',
+            'sequence_id' => 13,
+            'content' => 'Universitäten',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1836',
+            'sequence_id' => 13,
+            'content' => 'Zur Zeigestruktur von Erziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1863',
+            'sequence_id' => 13,
+            'content' => 'Vermittlung ohne Aneignung?',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1881',
+            'sequence_id' => 13,
+            'content' => 'Aneignung ohne Vermittlung?',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1902',
+            'sequence_id' => 13,
+            'content' => 'Zur funktionellen Gleichwertigkeit der Aktivitäten Aneignung und Vermittlung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1949',
+            'sequence_id' => 13,
+            'content' => 'Zur triangulären Struktur von Erziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1991',
+            'sequence_id' => 13,
+            'content' => 'Intentionale Erziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2003',
+            'sequence_id' => 13,
+            'content' => 'Funktionelle Erziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2043',
+            'sequence_id' => 1,
+            'content' => 'Die Zeigestruktur von Erziehung nach Klaus Prange',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2094',
+            'sequence_id' => 13,
+            'content' => 'Zeiträume der Erziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2126',
+            'sequence_id' => 13,
+            'content' => 'Erziehung in der Gestalt von Lehre',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2153',
+            'sequence_id' => 13,
+            'content' => 'Erziehung in der Gestalt von Gelegenheitserziehung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2177',
+            'sequence_id' => 13,
+            'content' => 'Erziehung in der Gestalt von direktivem Appellieren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2188',
+            'sequence_id' => 13,
+            'content' => 'Erziehung in der Gestalt von Evokation',
+        ));
+
+        // NOTE TOLERANZ
     }
 }
