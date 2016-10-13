@@ -92,22 +92,29 @@ class LectionSectionTableSeeder extends Seeder
         DB::table('lection_section')->insert([
            'lection_name' => 'Erziehung und Bildung als Gegenstand wissenschaftlicher Praxis',
            'section_id' => 5,
-           'available_from' => '2015-12-31',
+           'available_from' => '2016-11-08',
            'available_to' => '2017-02-03',
         ]);
 
         DB::table('lection_section')->insert([
            'lection_name' => 'Was meint Erziehung?',
            'section_id' => 5,
-           'available_from' => '2015-12-31',
+           'available_from' => '2016-11-22',
            'available_to' => '2017-02-03',
         ]);
 
         DB::table('lection_section')->insert([
-           'lection_name' => 'Bildung gegen Intoleranz und Erziehung zu Toleranz',
+           'lection_name' => 'Bildung und Gerechtigkeit',
            'section_id' => 6,
-           'available_from' => '2015-12-31',
-           'available_to' => '2017-02-03',
+           'available_from' => '2017-01-10',
+           'available_to' => '2017-03-31',
+        ]);
+
+        DB::table('lection_section')->insert([
+           'lection_name' => 'Bildung gegen Intoleranz und Erziehung zu Toleranz',
+           'section_id' => 7,
+           'available_from' => '2017-01-24',
+           'available_to' => '2017-03-31',
         ]);
 
     }

@@ -56,7 +56,14 @@ class SectionTableSeeder extends Seeder
 
         Section::create(array(
             'id' => 6,
-            'name' => 'Anwendungsbeispiele',
+            'name' => '(Bildungs-)Theoretisches Grundwissen zur Kindheitspädagogik',
+            'further_reading_path' => 'storage/sections/73e676555fc9f572155b44678e95f429.pdf',
+            'seminar_name' => 'Geschichte(n) und Theorien (früh-)kindlicher Bildung und Entwicklung',
+        ));
+
+        Section::create(array(
+            'id' => 7,
+            'name' => 'Gegenwartsdiskurse',
             'further_reading_path' => 'storage/sections/73e676555fc9f572155b44678e95f429.pdf',
             'seminar_name' => 'Geschichte(n) und Theorien (früh-)kindlicher Bildung und Entwicklung',
         ));
