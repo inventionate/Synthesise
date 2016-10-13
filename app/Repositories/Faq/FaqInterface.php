@@ -5,13 +5,13 @@
  */
 interface FaqInterface
 {
-  public function getAll();
+  public function getAll($seminar_name);
 
-  public function getByLetter($letter);
+  public function getByLetter($seminar_name, $letter);
 
-  public function getLetters();
+  public function getLetters($seminar_name);
 
-  public function getSubjects();
+  public function getSubjects($seminar_name);
 
   public function store($seminar_name, $subject, $question, $answer);
 

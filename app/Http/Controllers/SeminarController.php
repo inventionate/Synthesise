@@ -296,16 +296,16 @@ class SeminarController extends Controller
         $sections = Seminar::getAllSections($name);
 
         // Get all FAQs.
-        $answers = FAQ::getAll();
+        $answers = FAQ::getAll($name);
 
         // Get all FAQ letters.
-        $letters = FAQ::getLetters();
+        $letters = FAQ::getLetters($name);
 
         // Get all FAQ subjects.
-        $subjects = FAQ::getSubjects();
+        $subjects = FAQ::getSubjects($name);
 
         // Get all Subjects by letter.
-        $answersByLetter = FAQ::getByLetter($letter);
+        $answersByLetter = FAQ::getByLetter($name, $letter);
 
         // Get teachers by seminar.
 		$teachers = Seminar::getAllUsers($name, 'Teacher');

@@ -10,7 +10,7 @@
     <div class="center aligned sixteen wide column">
 
         <h1>Häufig gestellte Fragen
-            @if( $letter != null)
+            @if( $letter !== null)
                 für {{ $letter }}
             @endif
         </h1>

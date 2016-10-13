@@ -14,45 +14,52 @@ class FaqRepository implements FaqInterface
   /**
    * Gibt alle FAQs alphabetisch sortiert zurück.
    *
-   * @return 		array Alle FAQ-Einträgen.
+   * @param     string  $seminar_name
+   *
+   * @return 	array Alle FAQ-Einträgen.
    */
-  public function getAll()
+  public function getAll($seminar_name)
   {
-      return FAQ::all()->sortBy('area');
+      return FAQ::all()->where('seminar_name', $seminar_name)->sortBy('area');
   }
 
   /**
    * Gibt die FAQs eines bestimmten Bereichs (Anfangsbuchstabe) zurück.
    *
+   * @param         string $seminar_name
    * @param 		string $letter Ein Buchstabe.
    *
    * @return 		array Alle FAQ-Einträgen eines bestimmten Bereichs.
    */
-  public function getByLetter($letter)
+  public function getByLetter($seminar_name, $letter)
   {
-      return FAQ::where('area', $letter)->get();
+      return FAQ::where('area', $letter)->where('seminar_name', $seminar_name)->get();
   }
 
   /**
    * Collection of dictinct areas
    *
+   * @param     string $seminar_name
+   *
    * @return    collection
    */
-  public function getLetters()
+  public function getLetters($seminar_name)
   {
 
-      return FAQ::select('area')->distinct()->get()->sort();
+      return FAQ::select('area')->where('seminar_name', $seminar_name)->distinct()->get()->sort();
   }
 
   /**
    * Gibt die jeweiligen Bereiche zurück.
    *
+   * @param         string $seminar_name
+   *
    * @return 		array Alle vorhandenen Themen.
    */
-  public function getSubjects()
+  public function getSubjects($seminar_name)
   {
       # String aller Buchstaben
-      $subjects = FAQ::lists('subject')->toArray();
+      $subjects = FAQ::lists('subject')->where('seminar_name', $seminar_name)->toArray();
 
       return $subjects;
   }
