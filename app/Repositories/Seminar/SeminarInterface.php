@@ -24,6 +24,10 @@ interface SeminarInterface
 
     public function authorizedMentor($name);
 
+    public function setAuthorizedEditor($name, $username);
+
+    public function deleteAuthorizedEditor($name, $username);
+
     public function getCurrentLection($name);
 
     public function getAllSections($name);

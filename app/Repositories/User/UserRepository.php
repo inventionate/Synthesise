@@ -10,6 +10,7 @@ use Auth;
 use Parser;
 use Excel;
 use Hash;
+use Seminar;
 
 /**
  * User Repository mit Queries und Logik.
@@ -146,6 +147,12 @@ class UserRepository implements UserInterface
     $user->username = $username;
     $user->role = $role;
 
+    // If an Admin is stored, add it as authorized seminar editor.
+    if ( $role === 'Teacher' )
+    {
+        Seminar::setAuthorizedEditor($seminar_names[0], $username);
+    }
+
     // Diese Werte müssen nicht zwingend gesetzt werden, weil sie per LDAP eingetragen werden.
     // @TODO: Bei der Abstraktion des Benutzersystems berücksichtigen!
     if ( $firstname !== null ) {
@@ -243,6 +250,12 @@ class UserRepository implements UserInterface
             // Remove relation.
             $user->seminars()->detach($seminar_names);
 
+            // Delete authorization.
+            if ( $user->role === 'Teacher' )
+            {
+                Seminar::deleteAuthorizedEditor($seminar_names, $user->username);
+            }
+
             // If only one relation delete user.
             if( $user->seminars_count === 1)
             {
@@ -270,8 +283,14 @@ class UserRepository implements UserInterface
         // Remove relation.
         $user->seminars()->detach($seminar_names);
 
+        // Delete authorization.
+        if ( $user->role === 'Teacher' )
+        {
+            Seminar::deleteAuthorizedEditor($seminar_names, $user->username);
+        }
+
         // If only one relation delete user.
-        if( $user->seminars_count === 1)
+        if ( $user->seminars_count === 1 )
         {
             $user->delete();
         }

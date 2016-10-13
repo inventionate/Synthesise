@@ -64,7 +64,7 @@ class SeminarRepository implements SeminarInterface
         }
         else
         {
-            array_push($authorized_users, 'root');
+            $authorized_users[] = 'root';
         }
 
         // Save new seminar.
@@ -489,6 +489,48 @@ class SeminarRepository implements SeminarInterface
     public function getAllUsers($name, $role) {
 
         return Seminar::findOrFail($name)->users()->where('role', $role)->get();
+
+    }
+
+    /* Set user as authorized Editor.
+     *
+     * @param     string    $name
+     * @param     string    $username
+     *
+     */
+    public function setAuthorizedEditor($name, $username) {
+
+        $seminar = Seminar::findOrFail($name);
+
+        $authorized_editors = $seminar->authorized_editors;
+
+        $authorized_editors[] = $username;
+
+        $seminar->authorized_editors = $authorized_editors;
+
+        $seminar->save();
+
+    }
+
+
+    /* Delete user as authorized Editor.
+     *
+     * @param     string    $name
+     * @param     string    $username
+     *
+     */
+    public function deleteAuthorizedEditor($name, $username) {
+
+
+        $seminar = Seminar::findOrFail($name);
+
+        $authorized_editors = $seminar->authorized_editors;
+
+        $authorized_editors = array_diff($authorized_editors, [$username]);
+
+        $seminar->authorized_editors = $authorized_editors;
+
+        $seminar->save();
 
     }
 
