@@ -104,9 +104,9 @@ class PaperTableSeeder extends Seeder
         ));
 
         Paper::create(array(
-            'name' => 'Die Zeigestruktur der Erziehung',
+            'name' => 'Modus in rebus: die Moral des Zeigens',
             'author' => 'Klaus Prange',
-            'path' => 'storage/papers/57697ffbb139e4367ddfe309e824c6ea.pdf',
+            'path' => 'storage/papers/3b83fb37a031606409b865ebc18e7a77.pdf',
             'lection_name' => 'Was meint Erziehung?',
         ));
 

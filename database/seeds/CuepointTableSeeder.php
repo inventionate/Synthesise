@@ -2026,5 +2026,156 @@ class CuepointTableSeeder extends Seeder
         ));
 
         // NOTE TOLERANZ
+
+        Cuepoint::create(array(
+            'cuepoint' => '26',
+            'sequence_id' => 14,
+            'content' => 'Eine relativ junge Zielbestimmung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '87',
+            'sequence_id' => 14,
+            'content' => 'Eine umstrittene Tugend',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '142',
+            'sequence_id' => 14,
+            'content' => 'Toleranz als Bestandteil eines Strebens nach Gerechtigkeit',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '180',
+            'sequence_id' => 14,
+            'content' => 'Gegner von Toleranz',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '223',
+            'sequence_id' => 14,
+            'content' => 'Zum Begriff der Toleranz',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '261',
+            'sequence_id' => 14,
+            'content' => 'Das paradoxe Grundschema von Toleranz',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '293',
+            'sequence_id' => 14,
+            'content' => 'Beispiele für Ablehnung und Toleranz',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '379',
+            'sequence_id' => 14,
+            'content' => 'Intolerante Personen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '514',
+            'sequence_id' => 14,
+            'content' => 'Fazit Intoleranz',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '609',
+            'sequence_id' => 14,
+            'content' => 'Vier Konzeptionen von Toleranz',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '667',
+            'sequence_id' => 14,
+            'content' => 'Lisette und der Kinderstreit',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '899',
+            'sequence_id' => 14,
+            'content' => 'Erlaubniskonzeption',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1030',
+            'sequence_id' => 14,
+            'content' => 'Koexistenzkonzeption',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1173',
+            'sequence_id' => 14,
+            'content' => 'Konsequenzen der Koexistenzkonzeption',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1257',
+            'sequence_id' => 14,
+            'content' => 'Wertschätzungskonzeption',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1352',
+            'sequence_id' => 14,
+            'content' => 'Respektkonzeption',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1421',
+            'sequence_id' => 14,
+            'content' => 'Gerechtigkeit und Toleranz',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1488',
+            'sequence_id' => 14,
+            'content' => 'Fazit Respektkonzeption',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1692',
+            'sequence_id' => 14,
+            'content' => 'Glück und Toleranz',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1893',
+            'sequence_id' => 14,
+            'content' => 'No to Racism',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1976',
+            'sequence_id' => 14,
+            'content' => 'Pädagogisches Fazit',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2028',
+            'sequence_id' => 14,
+            'content' => 'Erste Schritte auf dem Weg zur Toleranz',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2090',
+            'sequence_id' => 14,
+            'content' => 'Kindlicher Egozentrismus',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2314',
+            'sequence_id' => 14,
+            'content' => 'Partizipatorischer Erziehungsstil',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '2462',
+            'sequence_id' => 14,
+            'content' => 'Umgang mit Jugendlichen',
+        ));
+
     }
 }
