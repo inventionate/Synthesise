@@ -6,7 +6,7 @@
         {{-- COMPUTER NAVIGATION --}}
         @if ( !Agent::isMobile() )
 
-        <div class="computer only row">
+        <div class="row">
             <div class="column">
                 <div id="user-actions" class="ui fixed huge inverted green menu">
 
@@ -50,7 +50,7 @@
         {{-- MOBILE NAVIGATION --}}
         @if ( Agent::isMobile() )
 
-        <div class="mobile tablet only row">
+        <div class="row">
 
             <div class="column">
 
