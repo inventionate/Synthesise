@@ -99,7 +99,7 @@ class PaperTableSeeder extends Seeder
         Paper::create(array(
             'name' => 'Die erste Vorlesung über Pädagogik',
             'author' => 'Johann Friedrich Herbart',
-            'path' => 'storage/papers/57697ffbb139e4367ddfe309e824c6ea.pdf',
+            'path' => 'storage/papers/55a1fd903fa4a3edc56226e47eab8889.pdf',
             'lection_name' => 'Erziehung und Bildung als Gegenstand wissenschaftlicher Praxis',
         ));
 

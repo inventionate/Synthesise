@@ -57,7 +57,7 @@ class SectionTableSeeder extends Seeder
         Section::create(array(
             'id' => 6,
             'name' => '(Bildungs-)Theoretisches Grundwissen zur Kindheitspädagogik',
-            'further_reading_path' => 'storage/sections/73e676555fc9f572155b44678e95f429.pdf',
+            'further_reading_path' => 'storage/sections/7f2ca05de38a3b3d04c4e02b75806046.pdf',
             'seminar_name' => 'Geschichte(n) und Theorien (früh-)kindlicher Bildung und Entwicklung',
         ));
 
@@ -66,6 +66,13 @@ class SectionTableSeeder extends Seeder
             'name' => 'Gegenwartsdiskurse',
             'further_reading_path' => 'storage/sections/73e676555fc9f572155b44678e95f429.pdf',
             'seminar_name' => 'Geschichte(n) und Theorien (früh-)kindlicher Bildung und Entwicklung',
+        ));
+
+        Section::create(array(
+            'id' => 8,
+            'name' => 'Zahlzeichensysteme',
+            'further_reading_path' => 'storage/sections/73e676555fc9f572155b44678e95f429.pdf',
+            'seminar_name' => 'Zahlentheorie und Zahlbereiche',
         ));
 
     }

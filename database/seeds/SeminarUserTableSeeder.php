@@ -39,5 +39,10 @@ class SeminarUserTableSeeder extends Seeder
            'user_id' => 1,
         ]);
 
+        DB::table('seminar_user')->insert([
+           'seminar_name' => 'Zahlentheorie und Zahlbereiche',
+           'user_id' => 1,
+        ]);
+
     }
 }

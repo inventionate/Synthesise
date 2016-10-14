@@ -120,7 +120,7 @@
                 );
 
                 // Video.JS konfigurieren
-                videojs('videoplayer',{
+                var synthesise_player = videojs('videoplayer',{
                     'controls': true,
                     'autoplay': false,
                     'preload': 'auto',
@@ -140,6 +140,7 @@
                     }
                 })
                 .ready( function () {
+                    window.synthesise_player = synthesise_player;
                     this
                     .one('loadeddata', function () {
                         // Anzahl der Marker.

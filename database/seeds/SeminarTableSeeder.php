@@ -73,5 +73,25 @@ class SeminarTableSeeder extends Seeder
             'disqus_shortname' => NULL
         ));
 
+        // MATHEMATIK
+        Seminar::create(array(
+            'name' => 'Zahlentheorie und Zahlbereiche',
+            'subject' => 'Mathematik',
+            'description' => 'Hier geht es um die Einfühung in die Grundlagen der Mathematik.',
+            'module' => 'M1',
+            'author' => 'Prof. Dr. Mutfried Hartmann',
+            'contact' => 'mutfried.hartmann@ph-karlsruhe.de',
+            'authorized_editors' => ["root"],
+            'image_path' => 'storage/seminars/63377e139e0464e8244d0b026efd0b84.jpg',
+            'info_intro' => NULL,
+            'info_lections' => NULL,
+            'info_texts' => NULL,
+            'info_exam' => NULL,
+            'info_path' => NULL,
+            'available_from' => '2016-10-30',
+            'available_to' => '2017-03-01',
+            'disqus_shortname' => 'etpm'
+        ));
+
     }
 }

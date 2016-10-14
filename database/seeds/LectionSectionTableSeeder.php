@@ -117,5 +117,26 @@ class LectionSectionTableSeeder extends Seeder
            'available_to' => '2017-03-31',
         ]);
 
+        DB::table('lection_section')->insert([
+           'lection_name' => 'Zahldarstellungen und Stellenwertsysteme',
+           'section_id' => 8,
+           'available_from' => '2017-01-24',
+           'available_to' => '2017-03-31',
+        ]);
+
+        DB::table('lection_section')->insert([
+           'lection_name' => 'Addition und Subtraktion',
+           'section_id' => 8,
+           'available_from' => '2017-01-24',
+           'available_to' => '2017-03-31',
+        ]);
+
+        DB::table('lection_section')->insert([
+           'lection_name' => 'Multiplikation und Division',
+           'section_id' => 8,
+           'available_from' => '2017-01-24',
+           'available_to' => '2017-03-31',
+        ]);
+
     }
 }

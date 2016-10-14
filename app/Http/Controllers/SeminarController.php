@@ -434,6 +434,8 @@ class SeminarController extends Controller
 
         // Push Disqus shortname to JavaScript.
         JavaScript::put([
+            'sequence' => $sequence,
+            'lection_name' => $lection_name,
             'disqus_shortname' => $disqus_shortname,
             'disqus_identifier' => $name . ' – ' . $lection_name,
             'admins' => $admins

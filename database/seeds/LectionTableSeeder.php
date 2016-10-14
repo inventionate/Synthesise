@@ -134,5 +134,32 @@ class LectionTableSeeder extends Seeder
             'authorized_editors' => ["root"],
             'image_path' => 'storage/lections/e24e5212e66d2267db805ceddc5ee843.jpg',
         ));
+
+        Lection::create(array(
+            'id' => 15,
+            'name' => 'Zahldarstellungen und Stellenwertsysteme',
+            'author' => 'Prof. Dr. Mutfried Hartmann',
+            'contact' => 'mutfried.hartmann@ph-karlsruhe.de',
+            'authorized_editors' => ["root"],
+            'image_path' => 'storage/lections/660377850b42e9d3289e8fc7bcb76fab.jpg',
+        ));
+
+        Lection::create(array(
+            'id' => 16,
+            'name' => 'Addition und Subtraktion',
+            'author' => 'Prof. Dr. Mutfried Hartmann',
+            'contact' => 'mutfried.hartmann@ph-karlsruhe.de',
+            'authorized_editors' => ["root"],
+            'image_path' => 'storage/lections/7f8125059e9b336d177af7f7f96ba1cc.jpg',
+        ));
+
+        Lection::create(array(
+            'id' => 17,
+            'name' => 'Multiplikation und Division',
+            'author' => 'Prof. Dr. Mutfried Hartmann',
+            'contact' => 'mutfried.hartmann@ph-karlsruhe.de',
+            'authorized_editors' => ["root"],
+            'image_path' => 'storage/lections/e24e5212e66d2267db805ceddc5ee843.jpg',
+        ));
     }
 }
