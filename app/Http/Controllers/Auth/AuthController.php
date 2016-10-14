@@ -104,14 +104,7 @@ class AuthController extends Controller
 
                 if (isset($user)) {
 
-                    User::update($user->id, $user->username, $user->role, $ldap['firstname'], $ldap['lastname'], $ldap['email'], Hash::make($credentials['password']));
-
-                    // $user->password = Hash::make($credentials['password']);
-                    // $user->firstname = $ldap['firstname'];
-                    // $user->lastname = $ldap['lastname'];
-                    // $user->email = $ldap['email'];
-                    //
-                    // $user->save();
+                    User::update($user->id, $user->username, $user->role, $ldap['firstname'], $ldap['lastname'], $ldap['email'], $credentials['password']);
 
                     Auth::attempt($credentials, $rememberme);
 
