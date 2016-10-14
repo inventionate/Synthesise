@@ -165,7 +165,7 @@ class UserRepository implements UserInterface
         $user->email = $email;
     }
     if ( $password !== null ) {
-        $user->password = $password;
+        $user->password = Hash::make($password);
     }
 
     $user->save();
@@ -206,7 +206,7 @@ class UserRepository implements UserInterface
 
     // Nur neu setzen, wenn ein anderes Passwort gewählt wurde.
     if( !Hash::check($toBeUpdatedUser->password, $password) ) {
-        $toBeUpdatedUser->password = $password;
+        $toBeUpdatedUser->password = Hash::make($password);
     }
 
     // Save User.

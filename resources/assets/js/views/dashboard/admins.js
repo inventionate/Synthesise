@@ -126,13 +126,13 @@ $('.admin-edit').click(function() {
         root_user = false;
     }
 
-    $('#admin-edit-modal').find('input[name="username"]').prop( 'disabled', root_user );
+    $('#admin-edit-modal').find('input[name="username"]').prop( 'readonly', root_user );
 
      // Set firstname
-    $('#admin-edit-modal').find('input[name="firstname"]').prop( 'disabled', root_user );
+    $('#admin-edit-modal').find('input[name="firstname"]').prop( 'readonly', root_user );
 
     // Set lastname
-    $('#admin-edit-modal').find('input[name="lastname"]').prop( 'disabled', root_user );
+    $('#admin-edit-modal').find('input[name="lastname"]').prop( 'readonly', root_user );
 
 });
 
