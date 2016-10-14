@@ -4,7 +4,7 @@
     </div>
 
     <p>
-        Der »root«-User wird während des Installationsvorgangs eingerichtet. Sie können lediglich das Passwort verändern. Beim »root«-User handelt es sich um einen Super-User, der die Rechte hat alle Inhalte zu verändern. Dieser Status wurd durch den Spion symbolisiert. Andere Administratoren werde durch ein Doktorsymbol gekennzeichnet und können beliebig konfiguriert werden. 
+        Der »root«-User wird während des Installationsvorgangs eingerichtet. Sie können lediglich das Passwort verändern. Beim »root«-User handelt es sich um einen Super-User, der die Rechte hat alle Inhalte zu verändern. Dieser Status wurd durch den Spion symbolisiert. Andere Administratoren werde durch ein Doktorsymbol gekennzeichnet und können beliebig konfiguriert werden.
     </p>
 </div>
 
@@ -31,7 +31,7 @@
 
                 <div class="ui two buttons">
 
-                    <button class="ui teal icon button admin-edit" data-id="{{ $admin->id }}" data-username="{{ $admin->username }}" data-firstname="{{ $admin->firstname }}" data-lastname="{{ $admin->lastname }}" data-password="{{ bcrypt($admin->password) }}"><i class="edit icon"></i></button>
+                    <button class="ui teal icon button admin-edit" data-id="{{ $admin->id }}" data-username="{{ $admin->username }}" data-firstname="{{ $admin->firstname }}" data-lastname="{{ $admin->lastname }}" data-email="{{ $admin->email }}" data-password="{{ bcrypt($admin->password) }}"><i class="edit icon"></i></button>
 
                     <form class="admin-delete" role="form" method="POST" action="{{ action('UserController@destroy', ['id' => $admin->id]) }}">
 

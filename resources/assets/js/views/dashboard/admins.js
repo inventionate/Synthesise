@@ -70,7 +70,7 @@ $('#admin-new-modal')
     .modal('attach events', '#admin-new', 'show');
 
 /*
- * Create new message resource form.
+ * Create admin edit form.
  */
 $('#admin-edit-modal')
     .modal({
@@ -100,6 +100,9 @@ $('.admin-edit').click(function() {
     // Get lastname.
     var admin_lastname = $(this).attr("data-lastname");
 
+    // Get email.
+    var admin_email = $(this).attr("data-email");
+
     // Get password.
     var admin_password = $(this).attr("data-password");
 
@@ -111,6 +114,9 @@ $('.admin-edit').click(function() {
 
     // Set lastname
     $('#admin-edit-modal').find('input[name="lastname"]').val( admin_lastname );
+
+    // Set email
+    $('#admin-edit-modal').find('input[name="email"]').val( admin_email );
 
     // Set password
     $('#admin-edit-modal').find('input[name="password"]').val( admin_password );
