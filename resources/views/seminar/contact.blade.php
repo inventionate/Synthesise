@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<main id="main-content-seminar-contact" class="ui grid container">
+<main id="main-content-seminar-contact" class="ui grid stackable container">
 
 	<h1 class="hide">Kontakt</h1>
 

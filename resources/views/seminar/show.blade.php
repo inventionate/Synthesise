@@ -21,8 +21,8 @@
 		<div class="ui section divider"></div>
 	@endif
 
-	<div class="two column row">
-		<div class="column">
+	<div class="stackable two column row">
+		<div class="stackable column">
 			@include('seminar.lections.current')
 		</div>
 		<section class="column">

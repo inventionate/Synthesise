@@ -74,6 +74,14 @@
 
 			  	var _paq = _paq || [];
 
+				@if ( Agent::isMobile() )
+
+					$('.left.sidebar').first().sidebar('attach events', '.toggle.button');
+
+					$('.toggle.button').removeClass('disabled');
+
+				@endif
+
 			</script>
 
 		@endif
