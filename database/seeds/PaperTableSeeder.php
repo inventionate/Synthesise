@@ -117,5 +117,26 @@ class PaperTableSeeder extends Seeder
             'lection_name' => 'Bildung gegen Intoleranz und Erziehung zu Toleranz',
         ));
 
+        Paper::create(array(
+            'name' => 'Bildungsgerechtigkeit',
+            'author' => 'Krassimir Stojanov',
+            'path' => 'storage/papers/57697ffbb139e4367ddfe309e824c6ea.pdf',
+            'lection_name' => 'Zahldarstellungen und Stellenwertsysteme',
+        ));
+
+        Paper::create(array(
+            'name' => 'Bildungsgerechtigkeit',
+            'author' => 'Krassimir Stojanov',
+            'path' => 'storage/papers/57697ffbb139e4367ddfe309e824c6ea.pdf',
+            'lection_name' => 'Addition und Subtraktion',
+        ));
+
+        Paper::create(array(
+            'name' => 'Bildungsgerechtigkeit',
+            'author' => 'Krassimir Stojanov',
+            'path' => 'storage/papers/57697ffbb139e4367ddfe309e824c6ea.pdf',
+            'lection_name' => 'Multiplikation und Division',
+        ));
+
     }
 }

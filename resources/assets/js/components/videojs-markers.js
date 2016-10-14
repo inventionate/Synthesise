@@ -124,6 +124,7 @@
 
          return markerDiv;
       }
+
       function updateMarkers() {
          // update UI for markers whose time changed
 
@@ -171,7 +172,6 @@
          // sort again
          sortMarkersList();
       }
-
 
       // attach hover event handler
       function registerMarkerTipHandler(markerDiv) {
@@ -303,8 +303,11 @@
          if (setting.breakOverlay.display) {
             initializeOverlay();
          }
-         onTimeUpdate();
-         player.on("timeupdate", onTimeUpdate);
+
+        //  Prevent problems with interactive video system.
+        // @TODO refactor for dynamic system.
+        //  onTimeUpdate();
+        //  player.on("timeupdate", onTimeUpdate);
       }
 
       // setup the plugin after we loaded video's meta data
@@ -365,7 +368,7 @@
             addMarkers(newMarkers);
          },
          destroy: function(){
-            // unregister the plugins and clean up even handlers
+            // unregister the plugins and clean up event handlers
             player.markers.removeAll();
             breakOverlay.remove();
             markerTip.remove();

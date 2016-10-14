@@ -2177,5 +2177,546 @@ class CuepointTableSeeder extends Seeder
             'content' => 'Umgang mit Jugendlichen',
         ));
 
+        // NOTE ZAHLDARSTELLUNGEN ----------------------------------------------
+
+        Cuepoint::create(array(
+            'cuepoint' => '22',
+            'sequence_id' => 15,
+            'content' => 'Was sind Zahlen?',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '71',
+            'sequence_id' => 15,
+            'content' => 'Peano-Axiome',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '136',
+            'sequence_id' => 15,
+            'content' => 'japanisches Zählen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '213',
+            'sequence_id' => 15,
+            'content' => 'Das Bündeln',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1',
+            'sequence_id' => 16,
+            'content' => 'Das römische Zahlzeichensystem',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '100',
+            'sequence_id' => 16,
+            'content' => 'Die römischen Zahlen, ein Additionssystem',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '152',
+            'sequence_id' => 16,
+            'content' => 'Regeln für das römische Zahlensystem',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '188',
+            'sequence_id' => 16,
+            'content' => 'Übungen zu römischen Zahlen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '243',
+            'sequence_id' => 16,
+            'content' => 'Urpsrung der subtraktiven Schreibweise',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '326',
+            'sequence_id' => 16,
+            'content' => 'Ausnahmen der subtraktiven Schreibweise',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1',
+            'sequence_id' => 17,
+            'content' => 'systematisches Bündeln',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1',
+            'sequence_id' => 18,
+            'content' => 'Vom Bündeln zur ',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '10',
+            'sequence_id' => 18,
+            'content' => '1. Repräsentationsebene: enaktive Repräsentation',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '101',
+            'sequence_id' => 18,
+            'content' => 'Die Bedeutung der Null',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '161',
+            'sequence_id' => 18,
+            'content' => 'Stufenzahlen & Ziffern',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1',
+            'sequence_id' => 19,
+            'content' => 'g-adische Systeme',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '103',
+            'sequence_id' => 19,
+            'content' => 'Zahlbeispiele',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '171',
+            'sequence_id' => 19,
+            'content' => 'Zahlbezeichnungen in anderen Systemen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '210',
+            'sequence_id' => 19,
+            'content' => 'Satz über Stufenzahlen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '300',
+            'sequence_id' => 19,
+            'content' => '1. Beweis des Satzes über Stufenzahlen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '364',
+            'sequence_id' => 19,
+            'content' => '2. Beweis des Satzes über Stufenzahlen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '1',
+            'sequence_id' => 20,
+            'content' => 'Größenvergleich im Stellenwertsystem',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '30',
+            'sequence_id' => 20,
+            'content' => 'Die Eindeutigkeit der Stellenwertdarstellung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '77',
+            'sequence_id' => 20,
+            'content' => 'Die ersten n Potenzen einer Zahl g',
+        ));
+
+        // NOTE ADDITION UND SUBTRAKTION --------------------------------------
+
+        Cuepoint::create(array(
+            'cuepoint' => '21',
+            'sequence_id' => 21,
+            'content' => 'Das gewohnte Stellenwertsystem mit der Basis 10',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '54',
+            'sequence_id' => 21,
+            'content' => 'Arabische Ziffern',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '76',
+            'sequence_id' => 21,
+            'content' => '»Liber Abaci« (1202/1228)',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '99',
+            'sequence_id' => 21,
+            'content' => '»Margarita Philosophica« (1503)',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '122',
+            'sequence_id' => 21,
+            'content' => 'Das schriftliche Rechnen setzt sich durch',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '180',
+            'sequence_id' => 21,
+            'content' => 'Das Binärsystem (Basis 2)',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '228',
+            'sequence_id' => 21,
+            'content' => 'Das Duodezimalsystem (Basis 12)',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '320',
+            'sequence_id' => 21,
+            'content' => 'Historische Bezüge',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '381',
+            'sequence_id' => 21,
+            'content' => 'Das Hexadezimalsystem (Basis 16)',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '430',
+            'sequence_id' => 21,
+            'content' => 'Das Hexagesimalsystem (Basis 60)',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '5',
+            'sequence_id' => 22,
+            'content' => 'Wechsel in ein anderes Zahlsystem',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '103',
+            'sequence_id' => 22,
+            'content' => 'Idee: Tabellenkalkulation',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '121',
+            'sequence_id' => 22,
+            'content' => 'Der Satz über die g-adische Darstellung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '160',
+            'sequence_id' => 22,
+            'content' => 'Namensgebung der Stufenzahlen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '5',
+            'sequence_id' => 23,
+            'content' => 'Unterschiedliche Sprachkonventionen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '50',
+            'sequence_id' => 23,
+            'content' => 'Gleitkommadarstellung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '108',
+            'sequence_id' => 23,
+            'content' => 'Die japanische Zahlwortbildung',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '0',
+            'sequence_id' => 24,
+            'content' => 'Flexible Interpretation der Stellenwertschreibweise',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '42',
+            'sequence_id' => 24,
+            'content' => 'Beispiel: 10234',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '0',
+            'sequence_id' => 25,
+            'content' => 'Addition in Stellenwertsystemen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '40',
+            'sequence_id' => 25,
+            'content' => 'Addieren im Hexadezimalsystem',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '139',
+            'sequence_id' => 25,
+            'content' => '»Die Kraft der 5«',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '196',
+            'sequence_id' => 25,
+            'content' => 'Halbschriftliche Verfahren der Addition',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '220',
+            'sequence_id' => 25,
+            'content' => 'Stellenweise addieren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '243',
+            'sequence_id' => 25,
+            'content' => 'Schrittweise addieren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '273',
+            'sequence_id' => 25,
+            'content' => 'Gegensinniges Verändern',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '302',
+            'sequence_id' => 25,
+            'content' => 'Beispiele im Hexadezimalsystem',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '374',
+            'sequence_id' => 25,
+            'content' => 'Schriftliche Addition',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '392',
+            'sequence_id' => 25,
+            'content' => 'Objektebene',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '430',
+            'sequence_id' => 25,
+            'content' => 'Stellenwerttafel',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '468',
+            'sequence_id' => 25,
+            'content' => 'Stellenwertschreibweise',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '495',
+            'sequence_id' => 25,
+            'content' => 'Merkmale des schriftlichen Rechnens',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '0',
+            'sequence_id' => 26,
+            'content' => 'Subtraktion in Stellenwertsystemen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '100',
+            'sequence_id' => 26,
+            'content' => 'Halbschriftliche Verfahren der Subtraktion',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '110',
+            'sequence_id' => 26,
+            'content' => 'Stellenweise subtrahieren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '134',
+            'sequence_id' => 26,
+            'content' => 'Schrittweise subtrahieren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '151',
+            'sequence_id' => 26,
+            'content' => 'Gegensinniges Verändern',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '193',
+            'sequence_id' => 26,
+            'content' => 'Übertrag durch Entbündeln (bzw. Borgen)',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '265',
+            'sequence_id' => 26,
+            'content' => 'Übertrag durch Auffüllen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '308',
+            'sequence_id' => 26,
+            'content' => 'Übertrag durch Erweitern',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '335',
+            'sequence_id' => 26,
+            'content' => 'Mögliche Schwierigkeiten beim Entbündeln',
+        ));
+
+        // NOTE MULTIPLIKATION UND DIVISION -----------------------------------
+
+        Cuepoint::create(array(
+            'cuepoint' => '21',
+            'sequence_id' => 27,
+            'content' => 'Die Analyse der Multiplikation',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '58',
+            'sequence_id' => 27,
+            'content' => 'Multiplikation in anderen Systemen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '81',
+            'sequence_id' => 27,
+            'content' => 'Ein Beispiel im 3er-System',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '120',
+            'sequence_id' => 27,
+            'content' => 'Multiplikation mit der Basis g',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '171',
+            'sequence_id' => 27,
+            'content' => 'Kleines Einmaleins im 6er System',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '329',
+            'sequence_id' => 27,
+            'content' => 'Muster entdecken',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '351',
+            'sequence_id' => 27,
+            'content' => 'Kleines duales Einmaleins',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '368',
+            'sequence_id' => 27,
+            'content' => 'Kleines hexadezimales Einmaleins',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '391',
+            'sequence_id' => 27,
+            'content' => '»Phänomenale Quadratzahlen«',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '475',
+            'sequence_id' => 27,
+            'content' => 'Einstellig × mehrstellig',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '505',
+            'sequence_id' => 27,
+            'content' => 'Multiplikation zweier zweistelliger Zahlen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '0',
+            'sequence_id' => 28,
+            'content' => 'Das Distributivgesetz als Schlüssel',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '62',
+            'sequence_id' => 28,
+            'content' => 'Schritte zum Normalverfahren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '130',
+            'sequence_id' => 28,
+            'content' => 'Alternative Schreibweisen',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '156',
+            'sequence_id' => 28,
+            'content' => 'Bemerkung zum Normalverfahren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '0',
+            'sequence_id' => 29,
+            'content' => 'Divisionsalgorithmus handlungsorientiert',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '19',
+            'sequence_id' => 29,
+            'content' => 'Beispiel – 2382:3',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '92',
+            'sequence_id' => 29,
+            'content' => 'Divisionsalgorithmus mit Hilfe einer Stellenwerttafel',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '199',
+            'sequence_id' => 29,
+            'content' => 'Halbschriftliches Dividieren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '304',
+            'sequence_id' => 29,
+            'content' => 'Multiplikative Schreibweise beim halbschriftlichen Dividieren',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '0',
+            'sequence_id' => 30,
+            'content' => 'Division nach Adam Ries',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '0',
+            'sequence_id' => 31,
+            'content' => 'Division im Hexadezimalsystem',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '0',
+            'sequence_id' => 32,
+            'content' => 'Polynomdivision',
+        ));
+
+        Cuepoint::create(array(
+            'cuepoint' => '58',
+            'sequence_id' => 32,
+            'content' => 'Schriftliche Polynomdivision',
+        ));
+
+
     }
 }

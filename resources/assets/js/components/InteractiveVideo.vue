@@ -12,6 +12,11 @@
             width: 5rem;
             opacity: 0.85;
         }
+
+        #infomessage {
+            display: none;
+        }
+
         #video-notes {
             height: 0.5em;
             textarea {
@@ -60,6 +65,10 @@
 
         <img src="/img/etpm_logo_r.png" alt="etpM Logo">
 
+        <div id="infomessage" class="ui huge left corner red label">
+            <i class="pause icon"></i>
+        </div>
+
         <interactive-video-notes v-if="notes" v-model="noteContent" v-on:input="updateNote(name, markerID, $event)"></interactive-video-notes>
 
     </div>
@@ -69,6 +78,8 @@
     import InteractiveVideoNotes from './InteractiveVideoNotes.vue';
 
     import _ from 'lodash';
+
+    // @TODO Fix no cuepoints bug!
 
     export default {
 
@@ -155,7 +166,6 @@
 
                     })
                     // Piwik Analytics integrieren
-                    // @todo Funktionalität prüfen!
                     .on('play', function () {
                         return _paq.push(["trackEvent", "Video", "Abgespielt", self.name]);
                     })
@@ -211,7 +221,7 @@
                 $('#notes-form').addClass('loading');
 
                 // AJAX Abfrage starten.
-                this.$http.get(document.URL + 'note', {
+                this.$http.get(document.URL + '/note', {
                     params: { cuepoint_id: id }
                 }).then((response) => {
 
@@ -251,7 +261,7 @@
                     {
 
                         // Create new note.
-                        this.$http.post(document.URL + 'note', {
+                        this.$http.post(document.URL + '/note', {
                             note: content,
                             cuepoint_id: id
                         }).then((response) => {
@@ -272,7 +282,7 @@
                     {
 
                         // Update existing note.
-                        this.$http.patch(document.URL + 'note', {
+                        this.$http.patch(document.URL + '/note', {
                             note: content,
                             cuepoint_id: id
                         }).then((response) => {
@@ -296,7 +306,7 @@
                 {
 
                     // Delete note.
-                    this.$http.delete(document.URL + 'note', {
+                    this.$http.delete(document.URL + '/note', {
                         params: { cuepoint_id: id }
                     }).then((response) => {
 
