@@ -92,7 +92,7 @@
 								{{ $i = 0 }}
 							</div>
 
-								@foreach ( Section::getAllLections($section->id) as $lection )
+								@foreach ( Section::getAllLections($section->id)->sortBy('available_from') as $lection )
 
 									@if ($i > 0) <tr> @endif
 
