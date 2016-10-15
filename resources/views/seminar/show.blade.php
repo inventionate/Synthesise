@@ -49,7 +49,7 @@
 
 	@endif
 
-	<div id="infoblocks" class="two column row">
+	<div id="infoblocks" class="stackable two column row">
 		@include('seminar.infoblocks.index')
 	</div>
 

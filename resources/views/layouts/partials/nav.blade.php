@@ -8,6 +8,7 @@
 
         <div class="computer tablet row">
             <div class="column">
+
                 <div id="user-actions" class="ui fixed huge inverted green menu">
 
                     {{-- @TODO Den Link in Abhängigkeit von der Anzahl der Seminare setzen! --}}
@@ -86,7 +87,17 @@
 
                 <div class="ui left vertical inverted sidebar labeled icon menu">
 
-                  <a class="item @if ( urldecode(Request::segment(2)) === $seminar_name && in_array(Request::segment(3), [null, 'users', 'settings' ]) ) active @endif" href="{{ route('seminar', ['name' => $seminar_name]) }}"><i class="home icon"></i> Dashboard</a>
+
+                @if ( Auth::user()->seminars()->count() > 1 )
+
+                    <a class="item" href="{{ url('/') }}"><i class="university icon"></i> Dashboard</a>
+
+                @endif
+
+                @if ( Request::segment(1) === 'seminars' )
+
+
+                  <a class="item @if ( urldecode(Request::segment(2)) === $seminar_name && in_array(Request::segment(3), [null, 'users', 'settings' ]) ) active @endif" href="{{ route('seminar', ['name' => $seminar_name]) }}"><i class="home icon"></i> Seminar</a>
 
                   @if ( Request::segment(1) === 'seminars' )
 
@@ -124,6 +135,10 @@
                       <a class="item @if ( urldecode(Request::segment(2)) === $seminar_name && Request::segment(3) === 'contact' ) active @endif" href="{{ route('seminar-contact', ['name' => $seminar_name]) }}"><i class="send icon"></i> Kontakt</a>
 
                   @endif
+
+                @endif
+
+                    <a class="item" href="{{ url('logout') }}"><i class="power icon"></i> Abmelden</a></div>
 
                 </div>
 
