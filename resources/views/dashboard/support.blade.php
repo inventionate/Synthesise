@@ -8,7 +8,7 @@
             </div>
           </div>
         </div>
-        <img src="http://imgs.xkcd.com/comics/fixing_problems.png">
+        <img src="https://imgs.xkcd.com/comics/fixing_problems.png">
       </div>
       <div class="content">
         <a class="header">Fabian Mundt</a>
