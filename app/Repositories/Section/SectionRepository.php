@@ -21,7 +21,7 @@ class SectionRepository implements SectionInterface
      */
     public function getAllLections($name)
     {
-        return Section::findOrFail($name)->lections()->get();
+        return Section::findOrFail($name)->lections()->orderBy('available_from')->get();
     }
 
     /* Get section authors.
