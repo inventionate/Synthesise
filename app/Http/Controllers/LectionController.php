@@ -62,16 +62,6 @@ class LectionController extends Controller
         $authorized_users  = $request->authorized_users;
         $seminar_name      = $request->seminar_name;
 
-        // Authorisierten Nutzer hinzufügen!
-
-        if ( is_null($authorized_users) )
-        {
-            $authorized_users = [Auth::user()->username];
-        }
-        else {
-            $authorized_users = array_push($authorized_users, Auth::user()->username);
-        }
-
         Lection::store($name, $section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
 
         return back()->withInput();
@@ -160,15 +150,6 @@ class LectionController extends Controller
         $available_to      = $request->available_to;
         $authorized_users  = $request->authorized_users;
         $seminar_name      = $request->seminar_name;
-
-        // Authorisierten Benutzer hinzufügen, sofern er eine Änderung vornimmt!
-        if ( is_null($authorized_users) )
-        {
-            $authorized_users = [Auth::user()->username];
-        }
-        else {
-            $authorized_users = array_push($authorized_users, Auth::user()->username);
-        }
 
         Lection::update($name, $section_id, $old_section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Synthesise\Section;
 use File;
+use App;
 
 /**
  * User Repository mit Queries und Logik.
@@ -21,7 +22,16 @@ class SectionRepository implements SectionInterface
      */
     public function getAllLections($name)
     {
-        return Section::findOrFail($name)->lections()->orderBy('available_from')->get();
+
+        // MySQL 5.5 order is other than MySQL 5.7!
+        if ( App::environment() === "dev" )
+        {
+            return Section::findOrFail($name)->lections()->get();
+        }
+        else
+        {
+            return Section::findOrFail($name)->lections()->orderBy('available_from', 'desc')->get();
+        }
     }
 
     /* Get section authors.

@@ -19,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('piwik_url', $piwik_url);
         View::share('piwik_site_id', $piwik_site_id);
+
+        // Share Version
+        $synthesise_version = config('app.synthesise_version');
+
+        View::share('synthesise_version', $synthesise_version);
     }
 
     /**

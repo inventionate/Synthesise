@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-<title>EW M1 – Login</title>
+<title>e:t:p:M® – Login</title>
 @stop
 
 @section('content')

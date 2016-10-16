@@ -74,13 +74,17 @@
 
 			  	var _paq = _paq || [];
 
-				@if ( Agent::isMobile() )
+			</script>
 
-					$('.left.sidebar').first().sidebar('attach events', '.toggle.button');
+		@endif
 
-					$('.toggle.button').removeClass('disabled');
+		@if ( Agent::isMobile() )
 
-				@endif
+			<script type="text/javascript">
+
+				$('.left.sidebar').first().sidebar('attach events', '.toggle.button');
+
+				$('.toggle.button').removeClass('disabled');
 
 			</script>
 

@@ -8,10 +8,8 @@ use Synthesise\Lection;
 use Paper;
 use User;
 use Seminar;
+use Auth;
 
-// Old
-use Parser;
-use DB;
 
 class LectionRepository implements LectionInterface
 {
@@ -63,13 +61,20 @@ class LectionRepository implements LectionInterface
 
         $image_path = 'storage/lections/' . $image_saved->getFilename();
 
+        // Check if no users selected.
         if ( is_null($authorized_users) )
         {
             $authorized_users = [];
         }
 
-        // Add admins
+        // Add admins.
         $authorized_users = array_merge($authorized_users, User::getAllByRole('Admin')->pluck('username')->toArray());
+
+        // Add Auth::user.
+        if ( ! in_array(Auth::user()->username, $authorized_users) )
+        {
+            $authorized_users = array_merge($authorized_users, [Auth::user()->username]);
+        }
 
         // Save lection.
         $lection = new Lection();
@@ -114,13 +119,20 @@ class LectionRepository implements LectionInterface
         // Find lection.
         $lection = Lection::findOrFail($name);
 
+        // Check if no users selected.
         if ( is_null($authorized_users) )
         {
             $authorized_users = [];
         }
 
-        // Add admins
+        // Add admins.
         $authorized_users = array_merge($authorized_users, User::getAllByRole('Admin')->pluck('username')->toArray());
+
+        // Add Auth::user.
+        if ( ! in_array(Auth::user()->username, $authorized_users) )
+        {
+            $authorized_users = array_merge($authorized_users, [Auth::user()->username]);
+        }
 
         // Update values.
         $lection->author              = $author;
