@@ -67,16 +67,16 @@ class LoginController extends Controller
 
         //LDAP Authentifizierung
         // 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
-        if (App::environment('testing', 'dev')) {
-            $ldap = true;
-        } else {
+        // if (App::environment('testing', 'dev')) {
+        //     $ldap = true;
+        // } else {
             $ldap = $this->ldap->authenticate($credentials['username'], $credentials['password']);
-        }
+        // }
 
         if ($ldap) {
             if (Auth::attempt($credentials, $rememberme)) {
 
-                // Checl how many seminars.
+                // Check how many seminars.
 
                 if (Auth::user()->seminars()->count() === 1 && Auth::user()->role !== 'Admin') {
                     return redirect()->route('seminar', ['name' => Auth::user()->seminars()->pluck('name')->first()]);

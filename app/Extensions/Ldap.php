@@ -3,7 +3,7 @@
 namespace Synthesise\Extensions;
 
 use Synthesise\Extensions\Contracts\Ldap as LdapContract;
-use Synthesuse\Exceptions\LdapException;
+use Synthesise\Exceptions\LdapException;
 
 class Ldap implements LdapContract
 {

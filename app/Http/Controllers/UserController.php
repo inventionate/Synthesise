@@ -13,8 +13,6 @@ class UserController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -24,31 +22,21 @@ class UserController extends Controller
     /**
      * Redirect by role.
      *
-     * @param  string  $role
+     * @param string $role
      *
      * @return Redirect
      */
     private function redirectByRole($role)
     {
-
-        if ( $role === 'Admin' )
-        {
-            return Redirect::to(URL::previous() . "#manage-admins");
-        }
-        elseif ( $role === 'Teacher')
-        {
-            return Redirect::to(URL::previous() . "#manage-teachers");
-        }
-        elseif ( $role === 'Mentor')
-        {
-            return Redirect::to(URL::previous() . "#manage-mentors");
-        }
-        elseif ( $role === 'Student')
-        {
-            return Redirect::to(URL::previous() . "#manage-students");
-        }
-        else
-        {
+        if ($role === 'Admin') {
+            return Redirect::to(URL::previous().'#manage-admins');
+        } elseif ($role === 'Teacher') {
+            return Redirect::to(URL::previous().'#manage-teachers');
+        } elseif ($role === 'Mentor') {
+            return Redirect::to(URL::previous().'#manage-mentors');
+        } elseif ($role === 'Student') {
+            return Redirect::to(URL::previous().'#manage-students');
+        } else {
             return back()->withInput();
         }
     }
@@ -56,7 +44,7 @@ class UserController extends Controller
     /**
      * Store a newly created User.
      *
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Redirect
      */
@@ -82,22 +70,20 @@ class UserController extends Controller
 
         // Validation
         $fields = [
-            'username'      => $username_single,
-            'users'         => $users,
-            'role'          => $role,
-            'seminar_names'  => $seminar_names
+            'username' => $username_single,
+            'users' => $users,
+            'role' => $role,
+            'seminar_names' => $seminar_names,
         ];
 
         $rules = [
-            'username'          => 'string',
-            'users'             => 'file',
-            'role'              => 'required|string',
-            'seminar_names'     => 'array'
+            'username' => 'string',
+            'role' => 'required|string',
+            'seminar_names' => 'array',
         ];
 
         // Usernames
-        if( $users !== null ) {
-
+        if ($users !== null) {
             $fields = array_add(
                 $fields,
                 'extension', strtolower($users->getClientOriginalExtension())
@@ -105,13 +91,13 @@ class UserController extends Controller
 
             $rules = array_add(
                 $rules,
+                'users', 'file',
                 'extension', 'in:csv'
             );
 
-            $usernames = User::exportUsernamesOfFile( $users->getRealPath() );
+            $usernames = User::exportUsernamesOfFile($users->getRealPath());
 
             foreach ($usernames as $username) {
-
                 $fields = array_add(
                 $fields,
                 $username, $username
@@ -122,12 +108,12 @@ class UserController extends Controller
                 // $username, 'unique:users,username|string'
                 $username, 'string'
                 );
-
             }
-
         }
 
         // Validation
+        // @TODO check if it could be refactored
+        // Example: storeMultipleUsers and storeUser etc.
         $validator = Validator::make($fields, $rules);
 
         if ($validator->fails()) {
@@ -137,51 +123,36 @@ class UserController extends Controller
         }
 
         // User storage.
-        if( $username_single !== "" ) {
-
+        if ($username_single !== '') {
             $user = User::findByUsername($username_single);
 
-            if ( is_null($user) )
-            {
+            if (is_null($user)) {
                 User::store($username_single, $role, $firstname, $lastname, $email, $password, $seminar_names);
-            }
-            elseif ( is_null($user->seminars()->get()->find($seminar_names[0])) )
-            {
+            } elseif (is_null($user->seminars()->get()->find($seminar_names[0]))) {
                 User::attachToSeminar($username_single, $seminar_names[0]);
 
-                if( $user->role !== $role )
-                {
+                if ($user->role !== $role) {
                     return back()->with('status', 'Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support. Die Person wurde gemäß der vorhandenen Rolle hinzugefügt.');
                 }
-
             }
-
         }
 
         // @TODO Error Handling, wenn versucht wird den identischen Nutezr noch mal zu erstellen!
 
-        if( $users !== null ) {
-
+        if ($users !== null) {
             foreach ($usernames as $username) {
-
                 $user = User::findByUsername($username);
 
-                if ( is_null($user) )
-                {
+                if (is_null($user)) {
                     User::store($username, $role, null, null, null, null, $seminar_names);
-                }
-                else
-                {
+                } else {
                     User::attachToSeminar($username, $seminar_names[0]);
                 }
-
             }
-
         };
 
         // Rediret
         return $this->redirectByRole($role);
-
     }
 
     /**
@@ -230,26 +201,23 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-
         User::delete($id);
 
         // Only Admins can be destroyed at the moment.
         $role = 'Admin';
 
         return $this->redirectByRole($role);
-
     }
 
     /**
      * Remove multiple Users from storage.
      *
-     * @param request   $request.
+     * @param request $request.
      *
      * @return Redirect
      */
     public function destroyMany(Request $request)
     {
-
         $ids = $request->id;
 
         $role = $request->role;
@@ -260,20 +228,18 @@ class UserController extends Controller
 
         // Rediret
         return $this->redirectByRole($role);
-
     }
 
     /**
      * Remove multiple Users from storage.
      *
-     * @param string   $role
-     * @param array    $except_ids
+     * @param string $role
+     * @param array  $except_ids
      *
      * @return Redirect
      */
     public function destroyAll(Request $request)
     {
-
         $role = $request->role;
 
         $except_ids = $request->except_ids;
@@ -286,7 +252,5 @@ class UserController extends Controller
 
         // Rediret
         return $this->redirectByRole($role);
-
     }
-
 }

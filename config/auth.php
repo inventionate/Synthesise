@@ -116,7 +116,7 @@ return [
 
     'ldap' => [
         'domain' => env('LDAP_DOMAIN', ''),
-        'port' => env('LDAP_PORT', ''),
+        'port' => env('LDAP_PORT', 389),
         'baseDn' => env('LDAP_BASE_DN', ''),
         'bindDn' => env('LDAP_BIND_DN', ''),
         'bindPwd' => env('LDAP_BIND_PWD', ''),
