@@ -21,7 +21,15 @@
 
                     @endif
 
-                    <div class="right item"><a class="ui inverted submit button" href="{{ url('logout') }}">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} @if ( Auth::user()->role != 'Student' ) (<b>{{ Auth::user()->role }}</b>) @endif abmelden</a></div>
+                    <div class="right item">
+                    <form id="logout" role="form" method="POST" action="{{ action('Auth\LoginController@logout') }}">
+
+                        {{ csrf_field() }}
+
+                        <button class="ui inverted submit button" type="submit">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} @if ( Auth::user()->role != 'Student' ) (<b>{{ Auth::user()->role }}</b>) @endif abmelden</button>
+
+                    </form>
+                    </div>
 
                 </div>
 
@@ -138,7 +146,13 @@
 
                 @endif
 
-                    <a class="item" href="{{ url('logout') }}"><i class="power icon"></i> Abmelden</a></div>
+                <form id="logout" role="form" method="POST" action="{{ action('Auth\LoginController@logout') }}">
+
+                    {{ csrf_field() }}
+
+                    <button class="item" type="submit"><i class="power icon"></i> Abmelden</button>
+
+                </form>
 
                 </div>
 
