@@ -3,6 +3,7 @@
 namespace Synthesise\Extensions;
 
 use Synthesise\Extensions\Contracts\Ldap as LdapContract;
+use Synthesuse\Exceptions\LdapException;
 
 class Ldap implements LdapContract
 {
@@ -62,9 +63,9 @@ class Ldap implements LdapContract
     /**
      * LDAP Authentifizierung.
      *
-     * @param 	 string      $username
-     * @param 	 string      $password
-     * @param    string      $matnum
+     * @param string $username
+     * @param string $password
+     * @param string $matnum
      *
      * @return array|false Benutzervorname und Benutzernachname oder FALSE.
      */
@@ -77,33 +78,25 @@ class Ldap implements LdapContract
         ldap_set_option($handle, LDAP_OPT_PROTOCOL_VERSION, 3);
 
         // Authentifiezierung
-        $bind = ldap_bind($handle, $this->bindDn, $this->bindPwd);
+        $bind = @ldap_bind($handle, $this->bindDn, $this->bindPwd);
 
         // Überprüfen, ob das Binden erfolgreich war
         if ($bind) {
 
             // Nutzer suchen
-            if ( is_null($username) )
-            {
+            if (is_null($username)) {
                 $check_user = ldap_search($handle, $this->baseDn, 'phmatnum='.'3140563');
-            }
-            elseif ( is_null($matnum) )
-            {
+            } elseif (is_null($matnum)) {
                 $check_user = ldap_search($handle, $this->baseDn, 'cn='.$username);
-            }
-            else
-            {
+            } else {
                 return false;
             }
 
             // Nutzerdaten laden
             $user_data = ldap_get_entries($handle, $check_user);
-            if (isset($user_data[0]))
-            {
+            if (isset($user_data[0])) {
                 // Der @ Operator setzt die Variable auf 'undefined' wenn sie nicht erzeugt werden kann
-                if (@ldap_bind($handle, $user_data[0]['dn'], $password))
-                {
-
+                if (@ldap_bind($handle, $user_data[0]['dn'], $password)) {
                     $data = array_dot($user_data);
 
                     return [
@@ -115,6 +108,8 @@ class Ldap implements LdapContract
                     return false;
                 }
             }
+        } else {
+            throw new LdapException('LDAP Verbindungsfehler');
         }
     }
 }

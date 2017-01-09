@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Synthesise\Seminar;
 use Synthesise\Section;
 use Synthesise\User;
+use Synthesise\Lection;
 use Auth;
 use File;
 
@@ -341,7 +342,7 @@ class SeminarRepository implements SeminarInterface
         $lections = collect();
         foreach ( $sections as $section) {
 
-            $lections->push(   Section::find($section->id)->lections()->get() );
+            $lections->push( Section::find($section->id)->lections()->get() );
         }
 
         return $lections->flatten();
@@ -359,11 +360,14 @@ class SeminarRepository implements SeminarInterface
 
         $lections = $this->getAllLections($name);
 
-        $current_lection = $lections->filter(function ($lection) {
+        $available_lections = $lections->filter(function ($lection) {
 
             return ($lection->pivot->available_from <= date('Y-m-d') && $lection->pivot->available_to >= date('Y-m-d'));
 
-        })->sortByDesc('available_from')->first();
+        })->pluck('name');
+
+
+        $current_lection = Lection::whereIn('name', $available_lections)->join('lection_section', 'name', '=', 'lection_section.lection_name')->orderBy('available_from', 'desc')->first();
 
         return $current_lection;
 
