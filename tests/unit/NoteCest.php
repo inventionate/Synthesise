@@ -7,7 +7,7 @@ class NoteCest
     /**
    * Testet, ob ein Note Objekt generiert werden kann.
    */
-  public function testCreateANewNote(UnitTester $I)
+  public function createANewNote(UnitTester $I)
   {
       $I->wantTo('create a new Note');
 
@@ -17,7 +17,7 @@ class NoteCest
   /**
    * Testet, ob die Datenbankverknüpfuung Note-Cuepoint definiert wurde.
    */
-  public function testCheckIfBelongsToCuepointExits(UnitTester $I)
+  public function checkIfBelongsToCuepointExits(UnitTester $I)
   {
       $I->wantTo('check if Note belongs to Cuepoint');
 
@@ -28,7 +28,7 @@ class NoteCest
   /**
    * Testet, ob die Datenbankverknüpfuung Note-User definiert wurde.
    */
-  public function testCheckIfBelongsToUserExits(UnitTester $I)
+  public function checkIfBelongsToUserExits(UnitTester $I)
   {
       $I->wantTo('check if Note belongs to User');
 
@@ -37,12 +37,22 @@ class NoteCest
   }
 
   /**
-   * Testet, ob die Datenbankverknüpfuung Note-Video definiert wurde.
+   * Testet, ob die Datenbankverknüpfuung Note-Lection definiert wurde.
    */
-  public function testCheckIfBelongsToPaperExits(UnitTester $I)
+  public function checkIfBelongsToLectionExits(UnitTester $I)
   {
-      $I->wantTo('check if Note belongs to Video');
+      $I->wantTo('check if Note belongs to Lection');
       $note = new Note();
-      $I->seeMethod($note, 'video');
+      $I->seeMethod($note, 'lection');
+  }
+
+  /**
+   * Testet, ob die Datenbankverknüpfuung Note-Seminar definiert wurde.
+   */
+  public function checkIfBelongsToSeminarExits(UnitTester $I)
+  {
+      $I->wantTo('check if Note belongs to Seminar');
+      $note = new Note();
+      $I->seeMethod($note, 'seminar');
   }
 }

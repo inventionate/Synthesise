@@ -51,12 +51,12 @@ class Seminar extends Model
     /**
      * Hauptschlüssel als nicht numerisch definieren und automatisches Inkrementieren deaktivieren.
      *
-     * @var boolean
+     * @var bool
      */
     public $incrementing = false;
 
     /**
-     * Datenbankrelation Seminar hat viele Lections.
+     * Datenbankrelation Seminar hat viele Sections.
      */
     public function sections()
     {
@@ -102,5 +102,4 @@ class Seminar extends Model
     {
         return $this->hasMany('Synthesise\Note', 'seminar_name');
     }
-
 }

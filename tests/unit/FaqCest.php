@@ -1,5 +1,7 @@
 <?php
 
+use Synthesise\Faq as FAQ;
+
 class FaqCest
 {
     /**
@@ -10,5 +12,14 @@ class FaqCest
       $I->wantTo('create a new FAQ');
 
       $I->canCreate('Faq');
+  }
+
+  /**
+   * Testet, ob die Datenbankverknüpfuung FAQ-Seminar definiert wurde.
+   */
+  public function checkBelongsToSeminar(UnitTester $I)
+  {
+      $faq = new FAQ();
+      $I->seeMethod($faq, 'seminar');
   }
 }

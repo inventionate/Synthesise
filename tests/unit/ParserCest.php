@@ -57,7 +57,7 @@ class ParserCest
 
       $parsed = str_replace(array("\r", "\n", ' ', "\t"), array('', '', '', ''), $parser->htmlMarkup($title, $content));
 
-      $html = str_replace(array("\r", "\n", ' ', "\t"), array('', '', '', ''), '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">h1,h2,h3 {font-family: sans-serif;}p {font-family: serif;}#header {position: fixed;top: -25px;left: 0px;right: 0px;text-align: right;font-size: 12px;}#footer {position: fixed;bottom: 0px;left: 0px;right: 0px;height: 40px;text-align: right;font-size: 14px;}.pagenum:before {content: counter(page);}</style></head><body><h1>Fähnchen zu Rites de Passage</h1><div id="header"><p>Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns – WS 2013/2014 – PH Karlsruhe</p></div><h2>Arnold van Gennep</h2><div id="footer"><p>Seite <span class="pagenum"></span></p></div></body></html>');
+      $html = str_replace(array("\r", "\n", ' ', "\t"), array('', '', '', ''), '<html><head><metahttp-equiv="Content-Type"content="text/html;charset=UTF-8"/><styletype="text/css">h1,h2,h3{font-family:sans-serif;}p{font-family:serif;}#header{position:fixed;top:-25px;left:0px;right:0px;text-align:right;font-size:12px;}#footer{position:fixed;bottom:0px;left:0px;right:0px;height:40px;text-align:right;font-size:14px;}.pagenum:before{content:counter(page);}</style></head><body><h1>FähnchenzuRitesdePassage</h1><divid="header"><p>e:t:p:M®Synthesise–PädagogischeHochschuleKarlsruhe</p></div><h2>ArnoldvanGennep</h2><divid="footer"><p>Seite<spanclass="pagenum"></span></p></div></body></html>');
 
       $I->AssertEquals($html, $parsed);
   }

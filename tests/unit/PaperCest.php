@@ -7,7 +7,7 @@ class PaperCest
     /**
    * Testet, ob ein Paper Objekt generiert werden kann.
    */
-  public function testCreateANewPaper(UnitTester $I)
+  public function createANewPaper(UnitTester $I)
   {
       $I->wantTo('create a new Paper');
 
@@ -15,13 +15,13 @@ class PaperCest
   }
 
   /**
-   * Testet, ob die Datenbankverknüpfuung Paper-Video definiert wurde.
+   * Testet, ob die Datenbankverknüpfuung Paper-Lection definiert wurde.
    */
-  public function testCheckVideoRelationship(UnitTester $I)
+  public function checkIfLectionRelationshipExists(UnitTester $I)
   {
-      $I->wantTo('check if Paper belongs to Video');
+      $I->wantTo('check if Paper belongs to Lection');
 
       $paper = new Paper();
-      $I->seeMethod($paper, 'video');
+      $I->seeMethod($paper, 'lection');
   }
 }

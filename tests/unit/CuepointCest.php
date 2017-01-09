@@ -22,11 +22,11 @@ class CuepointCest
     }
 
     /**
-     * Testet, ob die Datenbankverknüpfuung Cuepoint-Video definiert wurde.
+     * Testet, ob die Datenbankverknüpfuung Cuepoint-Sequence definiert wurde.
      */
-    public function checkBelongsToVideo(UnitTester $I)
+    public function checkBelongsToSequence(UnitTester $I)
     {
         $cuepoint = new Cuepoint();
-        $I->seeMethod($cuepoint, 'video');
+        $I->seeMethod($cuepoint, 'sequence');
     }
 }
