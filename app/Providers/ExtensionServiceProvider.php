@@ -23,7 +23,7 @@ class ExtensionServiceProvider extends ServiceProvider
     public function register()
     {
         // LDAP
-        $this->app->bind(['Synthesise\Extensions\Contracts\Ldap', 'Synthesise\Extensions\Ldap'], function () {
+        $this->app->bind('ldap', function () {
 
             $domain = $this->app['config']->get('auth.ldap.domain');
 

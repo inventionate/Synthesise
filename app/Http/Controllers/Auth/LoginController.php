@@ -5,7 +5,7 @@ namespace Synthesise\Http\Controllers\Auth;
 use Synthesise\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Synthesise\Extensions\Contracts\Ldap;
+use Ldap;
 use User;
 use App;
 use Auth;
@@ -25,22 +25,10 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * The LDAP implementation.
-     *
-     * @var Ldap
-     */
-    protected $ldap;
-
-    /**
      * Create a new authentication controller instance.
-     *
-     * @param \Illuminate\Contracts\Auth\Guard $auth
-     * @param  $ldap
      */
-    public function __construct(Ldap $ldap)
+    public function __construct()
     {
-        $this->ldap = $ldap;
-
         $this->middleware('guest', ['except' => 'logout']);
     }
 
@@ -70,7 +58,7 @@ class LoginController extends Controller
         if (App::environment('testing', 'dev')) {
             $ldap = true;
         } else {
-            $ldap = $this->ldap->authenticate($credentials['username'], $credentials['password']);
+            $ldap = Ldap::authenticate($credentials['username'], $credentials['password']);
         }
 
         if ($ldap) {

@@ -34,9 +34,7 @@ if (__DIR__ !== '/srv/www/vhosts/etpm.ph-karlsruhe.de') {
     */
 
     $app = require_once __DIR__.'/../bootstrap/app.php';
-}
-else
-{
+} else {
     require '/home/etpm/current/bootstrap/autoload.php';
 
     $app = require_once '/home/etpm/current/bootstrap/app.php';
@@ -55,7 +53,6 @@ else
 */
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
