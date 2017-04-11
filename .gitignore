@@ -3,9 +3,10 @@
 /public/video
 /public/audio
 /tests/_output
-/public/build
 /public/css
 /public/js
+/public/fonts
+/public/images
 .atom
 .tags
 .tags1

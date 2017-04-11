@@ -122,6 +122,8 @@
                 // Video.js laden
                 var videojs = require('video.js');
                 window.videojs = videojs;
+                // CSS laden
+                require('video.js/dist/video-js.css');
                 // Video.js Markers laden
                 // Eigener Fork, der das Rundungsproblem behebt und die Marker damit an die richtige Stelle setzt!
                 require('./videojs-markers.js');

@@ -18,6 +18,10 @@ window.$ = window.jQuery = require('jquery');
 window.Vue = require('vue');
 require('vue-resource');
 
+// Eventuell auf Axios umsteigen (von vue-resource)
+// window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
  * the outgoing requests issued by this application. The CSRF middleware
@@ -39,12 +43,16 @@ $.ajaxSetup({
 });
 
 require('sweetalert');
+require('sweetalert/dist/sweetalert.css');
 
 require('jquery-cookiebar');
+require('jquery-cookiebar/jquery.cookiebar.css');
 
 require('trumbowyg');
+require('trumbowyg/dist/ui/trumbowyg.css');
 require('trumbowyg/dist/langs/de.min.js');
-$.trumbowyg.svgPath = '/css/icons/icons.svg';
+//$.trumbowyg.svgPath = '/css/icons/icons.svg';
 
 
 require('semantic-ui-css/semantic.js');
+require('semantic-ui-css/semantic.css');

@@ -1,19 +1,22 @@
 @import "../layout";
+
 #main-content-login {
     background-image: url("/img/bg.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     padding-top: 5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem !important;
     margin-top: 0 !important;
     box-shadow: 0 2px 10px #888;
 }
+
 #main-content-login + .ui.divider {
     .hide;
 }
+
 #main-content-login {
     h1 {
-        background-image: url("../../img/etpm_logo_r_shadow.png");
+        background-image: url("/img/etpm_logo_r_shadow.png");
         background-repeat: no-repeat;
         background-size: 125px;
         width: 125px;
@@ -22,13 +25,16 @@
         margin: 0 auto;
         text-indent: -9999px;
     }
+
     h2 {
         font-size: 2em;
         text-shadow: 0 0 3px @white, 0 0 3px @white, 0 0 3px @white;
     }
+
     h3 {
         text-shadow: 0 0 3px @white, 0 0 3px @white, 0 0 3px @white;
     }
+
     #rememberme + label {
         color: @white;
     }
