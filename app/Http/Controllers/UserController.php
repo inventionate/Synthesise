@@ -134,6 +134,8 @@ class UserController extends Controller
                 if ($user->role !== $role) {
                     return back()->with('status', 'Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support. Die Person wurde gemäß der vorhandenen Rolle hinzugefügt.');
                 }
+            } elseif ($user->role !== $role) {
+                return back()->with('status', 'Sie wollen eine Person mit einer anderen Rolle hinzufügen, die bereits Zugriff auf das Seminar hat. Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support.');
             }
         }
 
@@ -145,8 +147,14 @@ class UserController extends Controller
 
                 if (is_null($user)) {
                     User::store($username, $role, null, null, null, null, $seminar_names);
-                } else {
+                } elseif (is_null($user->seminars()->get()->find($seminar_names[0]))) {
                     User::attachToSeminar($username, $seminar_names[0]);
+
+                    if ($user->role !== $role) {
+                        return back()->with('status', 'Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support. Die Person wurde gemäß der vorhandenen Rolle hinzugefügt.');
+                    }
+                } elseif ($user->role !== $role) {
+                    return back()->with('status', 'Sie wollen eine Person mit einer anderen Rolle hinzufügen, die bereits Zugriff auf das Seminar hat. Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support.');
                 }
             }
         };
