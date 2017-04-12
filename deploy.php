@@ -34,8 +34,8 @@ server('dev', 'etpm-dev.ph-karlsruhe.de')
 
 // desc('Restart PHP-FPM service');
 task('symlink:public', function () {
-    run('ln -s {{deploy_path}}/current/public/.htaccess /home/etpm-dev/public');
-    run('ln -s {{deploy_path}}/current/public/* /home/etpm-dev/public');
+    run('ln -sf {{deploy_path}}/current/public/.htaccess /home/etpm-dev/public');
+    run('ln -sf {{deploy_path}}/current/public/* /home/etpm-dev/public');
 });
 after('deploy:symlink', 'symlink:public');
 
