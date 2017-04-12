@@ -36,6 +36,7 @@ server('dev', 'etpm-dev.ph-karlsruhe.de')
 task('symlink:public', function () {
     run('ln -sf {{deploy_path}}/current/public/.htaccess /home/etpm-dev/public');
     run('ln -sf {{deploy_path}}/current/public/* /home/etpm-dev/public');
+    run('ln -sf {{deploy_path}}/shared/storage/app/public /home/etpm-dev/public/storage');
 });
 after('deploy:symlink', 'symlink:public');
 
