@@ -42526,7 +42526,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('img', {
     attrs: {
-      "src": "/img/etpm_logo_r.png",
+      "src": "/images/etpm_logo_r.png",
       "alt": "etpM Logo"
     }
   }), _vm._v(" "), _vm._m(0), _vm._v(" "), (_vm.notes) ? _c('interactive-video-notes', {
@@ -44229,7 +44229,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * Boot JavaScript environment.
  */
 __webpack_require__("./resources/assets/js/bootstrap.js");
-alert("Hello");
 
 /*
  * Init Semantic UI.
