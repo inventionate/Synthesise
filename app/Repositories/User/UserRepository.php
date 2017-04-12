@@ -1,10 +1,9 @@
-<?php namespace Synthesise\Repositories\User;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
+namespace Synthesise\Repositories\User;
 
 use Synthesise\Cuepoint;
 use Synthesise\User;
-
 use Crypt;
 use Auth;
 use Parser;
@@ -17,8 +16,7 @@ use Seminar;
  */
 class UserRepository implements UserInterface
 {
-
-  /**
+    /**
    * Alle vorhandenen Notizen eines Benutzers ausgeben.
    *
    * @uses 		Parser::htmlMarkup um das HTML Markup zu generieren.
@@ -31,24 +29,22 @@ class UserRepository implements UserInterface
    */
   public function getAllNotes($user_id, $lection_name, $seminar_name)
   {
-    // Notizen des Benutzers für das Video laden
+      // Notizen des Benutzers für das Video laden
     $notes = User::findOrFail($user_id)->notes()->where('lection_name', $lection_name)->where('seminar_name', $seminar_name)->orderBy('cuepoint_id')->get();
 
+      $title = 'Notizen zu '.$lection_name;
 
-    $title = 'Notizen zu ' . $lection_name;
+      $content = '';
 
-    $content = '';
+      foreach ($notes as $note) {
+          $content .= '<h2>'.Cuepoint::findOrFail($note->cuepoint_id)->content.'</h2>';
+          $content .= '<p>'.Crypt::decrypt($note->note).'</p>';
+          $content .= '<h3 style="height:250px">Ergänzungen:</h3>';
+      }
 
-    foreach ($notes as $note)
-    {
-      $content .= '<h2>' . Cuepoint::findOrFail($note->cuepoint_id)->content . '</h2>';
-      $content .= '<p>' . Crypt::decrypt($note->note) . '</p>';
-      $content .= '<h3 style="height:250px">Ergänzungen:</h3>';
-    }
+      $html = Parser::htmlMarkup($title, $content);
 
-    $html = Parser::htmlMarkup($title, $content);
-
-    return $html;
+      return $html;
   }
 
   /**
@@ -58,36 +54,35 @@ class UserRepository implements UserInterface
    */
   public function getUsername()
   {
-    return Auth::user()->firstname . ' ' . Auth::user()->lastname;
+      return Auth::user()->firstname.' '.Auth::user()->lastname;
   }
 
   /**
-  * E-Mail eines eingeloggten Benutzers ausgeben. Setzt einen eingeloggten Benutzer voraus.
-  *
-  * @return    string E-Mail Adresse.
-  */
+   * E-Mail eines eingeloggten Benutzers ausgeben. Setzt einen eingeloggten Benutzer voraus.
+   *
+   * @return    string E-Mail Adresse.
+   */
   public function getEmail()
   {
-    // @todo E-Mail in Datenbank ablegen! Da ab sofort Studierende eine andere Adresse als Dozierende haben (noch nicht alle)!
-    return substr(Auth::user()->username, 0 , -2) . '@ph-karlsruhe.de';
+      // @todo E-Mail in Datenbank ablegen! Da ab sofort Studierende eine andere Adresse als Dozierende haben (noch nicht alle)!
+    return substr(Auth::user()->username, 0, -2).'@ph-karlsruhe.de';
   }
 
   /**
-   * Durchsucht die Datenbank nach einem übergebenen Nutzernamen
+   * Durchsucht die Datenbank nach einem übergebenen Nutzernamen.
    *
    * @param 		string $username
    * @param 		array $columns
+   *
    * @return		string|null Benutzername oder null, falls kein passender Eintrag gefunden wurde.
    */
   public function findByUsername($username, $columns = array('*'))
   {
-      if ( ! is_null($user = User::whereUsername($username)->first($columns))) {
-      return $user;
-    }
-    else
-    {
-      return null;
-    }
+      if (!is_null($user = User::whereUsername($username)->first($columns))) {
+          return $user;
+      } else {
+          return;
+      }
   }
 
   /**
@@ -97,7 +92,7 @@ class UserRepository implements UserInterface
    */
   public function getAll()
   {
-    return User::all()->sortBy('lastname');
+      return User::all()->sortBy('lastname');
   }
 
   /**
@@ -107,7 +102,7 @@ class UserRepository implements UserInterface
    */
   public function getAllByRole($role)
   {
-    return User::where('role', $role)->get();
+      return User::where('role', $role)->get();
   }
 
   /**
@@ -117,14 +112,12 @@ class UserRepository implements UserInterface
    */
   public function exportUsernamesOfFile($users)
   {
-
-      $usernames = array_flatten(Excel::load($users, function($reader) {
+      $usernames = array_flatten(Excel::load($users, function ($reader) {
           // Getting all usernames
           $reader->select(['nutzernamen']);
       })->toArray());
 
       return $usernames;
-
   }
 
   /**
@@ -142,43 +135,39 @@ class UserRepository implements UserInterface
   {
 
     // Neue Nachrichteninstanz generieren
-    $user = new User;
+    $user = new User();
 
-    $user->username = $username;
-    $user->role = $role;
+      $user->username = $username;
+      $user->role = $role;
 
     // If an Admin is stored, add it as authorized seminar editor.
-    if ( $role === 'Teacher' )
-    {
+    if ($role === 'Teacher') {
         Seminar::setAuthorizedEditor($seminar_names[0], $username);
     }
 
     // Diese Werte müssen nicht zwingend gesetzt werden, weil sie per LDAP eingetragen werden.
     // @TODO: Bei der Abstraktion des Benutzersystems berücksichtigen!
-    if ( $firstname !== null ) {
+    if ($firstname !== null) {
         $user->firstname = $firstname;
     }
-    if ( $lastname !== null ) {
-        $user->lastname = $lastname;
-    }
-    if ( $email !== null ) {
-        $user->email = $email;
-    }
-    if ( $password !== null ) {
-        $user->password = Hash::make($password);
-    }
+      if ($lastname !== null) {
+          $user->lastname = $lastname;
+      }
+      if ($email !== null) {
+          $user->email = $email;
+      }
+      if ($password !== null) {
+          $user->password = Hash::make($password);
+      }
 
-    $user->save();
+      $user->save();
 
     // Attach to seminar.
-    if ( $seminar_names !== null )
-    {
-        foreach ( $seminar_names as $seminar_name )
-        {
+    if ($seminar_names !== null) {
+        foreach ($seminar_names as $seminar_name) {
             $user->seminars()->attach($seminar_name);
         }
     }
-
   }
 
   /**
@@ -199,30 +188,28 @@ class UserRepository implements UserInterface
 
     // New Values.
     $toBeUpdatedUser->username = $username;
-    $toBeUpdatedUser->role = $role;
-    $toBeUpdatedUser->firstname = $firstname;
-    $toBeUpdatedUser->lastname = $lastname;
-    $toBeUpdatedUser->email = $email;
+      $toBeUpdatedUser->role = $role;
+      $toBeUpdatedUser->firstname = $firstname;
+      $toBeUpdatedUser->lastname = $lastname;
+      $toBeUpdatedUser->email = $email;
 
     // Nur neu setzen, wenn ein anderes Passwort gewählt wurde.
-    if( !Hash::check($toBeUpdatedUser->password, $password) ) {
+    if (!Hash::check($toBeUpdatedUser->password, $password)) {
         $toBeUpdatedUser->password = Hash::make($password);
     }
 
     // Save User.
     $toBeUpdatedUser->save();
-
   }
 
-  /**
-   * Delete User.
-   *
-   * @param         int $id
-   *
-   */
+   /**
+    * Delete User.
+    *
+    * @param         int $id
+    */
    public function delete($id)
-    {
-        // Find User.
+   {
+       // Find User.
         $user = User::findOrFail($id);
 
         // Detach relations.
@@ -230,13 +217,12 @@ class UserRepository implements UserInterface
 
         // Delete user.
         $user->delete();
-    }
+   }
 
     /**
      * Delete many Users.
      *
-     * @param         int $ids
-     *
+     * @param int $ids
      */
     public function deleteMany($ids, $seminar_names)
     {
@@ -245,20 +231,17 @@ class UserRepository implements UserInterface
         $users = User::whereIn('id', $ids)->withCount('seminars')->get();
 
         // Detach from seminar.
-        foreach ( $users as $user )
-        {
+        foreach ($users as $user) {
             // Remove relation.
             $user->seminars()->detach($seminar_names);
 
             // Delete authorization.
-            if ( $user->role === 'Teacher' )
-            {
+            if ($user->role === 'Teacher') {
                 Seminar::deleteAuthorizedEditor($seminar_names, $user->username);
             }
 
             // If only one relation delete user.
-            if( $user->seminars_count === 1)
-            {
+            if ($user->seminars_count === 1) {
                 $user->delete();
             }
         }
@@ -270,28 +253,24 @@ class UserRepository implements UserInterface
    * @param         role    $role
    * @param         array   $except_ids
    * @param         array   $seminar_names
-   *
    */
   public function deleteAll($role, $except_ids, $seminar_names)
   {
-    // Find and delete Users.
+      // Find and delete Users.
     $users = User::where('role', $role)->whereNotIn('id', [$except_ids])->withCount('seminars')->get();
 
     // Detach from seminar.
-    foreach ( $users as $user )
-    {
+    foreach ($users as $user) {
         // Remove relation.
         $user->seminars()->detach($seminar_names);
 
         // Delete authorization.
-        if ( $user->role === 'Teacher' )
-        {
+        if ($user->role === 'Teacher') {
             Seminar::deleteAuthorizedEditor($seminar_names, $user->username);
         }
 
         // If only one relation delete user.
-        if ( $user->seminars_count === 1 )
-        {
+        if ($user->seminars_count === 1) {
             $user->delete();
         }
     }
@@ -302,7 +281,6 @@ class UserRepository implements UserInterface
    *
    * @param         string  $username
    * @param         string  $seminar_name
-   *
    */
   public function attachToSeminar($username, $seminar_name)
   {
@@ -310,5 +288,4 @@ class UserRepository implements UserInterface
 
       $user->seminars()->attach($seminar_name);
   }
-
 }
