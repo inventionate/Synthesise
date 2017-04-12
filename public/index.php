@@ -1,7 +1,5 @@
 <?php
 
-//var_dump(__DIR__.'/../bootstrap/autoload.php');
-
 /*
  * Laravel - A PHP Framework For Web Artisans.
  *

@@ -5,6 +5,7 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Configuration
+set('keep_releases', '3');
 
 set('ssh_type', 'native');
 set('ssh_multiplexing', true);
@@ -23,25 +24,20 @@ server('production', 'etpm.ph-karlsruhe.de')
     ->set('deploy_path', '/home/etpm/test')
     ->pty(true);
 
-server('nightly', 'etpm-dev.ph-karlsruhe.de')
+server('dev', 'etpm-dev.ph-karlsruhe.de')
     ->user('etpm-dev')
     ->identityFile()
-    ->set('deploy_path', '/home/etpm-dev/nightly')
+    ->set('deploy_path', '/home/etpm-dev')
     ->pty(true);
 
 // Tasks
 
 // desc('Restart PHP-FPM service');
-// task('php-fpm:restart', function () {
-//     // The user must have rights for restart service
-//     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart php-fpm.service
-//     run('sudo systemctl restart php-fpm.service');
-// });
-// after('deploy:symlink', 'php-fpm:restart');
+task('symlink:public', function () {
+    run('ln -s {{deploy_path}}/current/public/.htaccess /home/etpm-dev/public');
+    run('ln -s {{deploy_path}}/current/public/* /home/etpm-dev/public');
+});
+after('deploy:symlink', 'symlink:public');
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
-
-// Migrate database before symlink new release.
-// Checken, ob das nötig ist!!!
-// before('deploy:symlink', 'artisan:migrate');
