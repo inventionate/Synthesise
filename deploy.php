@@ -21,7 +21,7 @@ add('writable_dirs', []);
 server('production', 'etpm.ph-karlsruhe.de')
     ->user('etpm')
     ->identityFile()
-    ->set('deploy_path', '/home/etpm/test')
+    ->set('deploy_path', '/home/etpm')
     ->pty(true);
 
 server('dev', 'etpm-dev.ph-karlsruhe.de')
