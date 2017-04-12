@@ -2,6 +2,33 @@
  * Setup Seminar JS Validator.
  */
 
+ // Add new semantic ui form validation rule.
+ $.fn.form.settings.rules.unique = function(value, title) {
+    return( value != title);
+ };
+
+ // Recieve the used titles.
+ // var seminar_titles is provided by Laravel.
+
+ var createUniqueTitleRules = function (form_titles) {
+
+    var rule_title;
+    var rules_to_add = [];
+
+    for (i = 0; i < form_titles.length; i++) {
+
+         rule_title = {
+                 'type'    : 'unique[' + form_titles[i] +  ']',
+                 'prompt'  : 'Dieses Seminar existiert bereits.'
+             };
+
+         rules_to_add.push(rule_title);
+
+     }
+
+     return rules_to_add;
+ };
+
 //  Init basic validation rules.
 var rules = {
     title: {
@@ -78,6 +105,11 @@ var rules = {
     }
  };
 
+ // Add dynamic validation rules (guarantee unique titles).
+ var rules_new = jQuery.extend({}, rules);
+
+rules_new.title.rules = rules_new.title.rules.concat( createUniqueTitleRules(seminar_titles) );
+
 // Attach message modal validation.
  $('.seminar-validator')
      .form({
@@ -85,7 +117,7 @@ var rules = {
          onSuccess: function() {
              $(this).modal('hide');
          },
-         fields: rules
+         fields: rules_new
      });
 
 /*

@@ -1,6 +1,6 @@
-<?php namespace Synthesise\Repositories\Seminar;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
+namespace Synthesise\Repositories\Seminar;
 
 use Synthesise\Seminar;
 use Synthesise\Section;
@@ -14,63 +14,57 @@ use File;
  */
 class SeminarRepository implements SeminarInterface
 {
-
     /**
      * Get seminar.
      *
-     * @param   string      $name
+     * @param string $name
      *
-     * @return  collection
+     * @return collection
      */
-    public function get($name) {
-
+    public function get($name)
+    {
         return Seminar::findOrFail($name);
-
     }
 
     /**
      * Store a new Seminar.
      *
-     * @param     string    $title
-     * @param     string    $author
-     * @param     string    $contact
-     * @param     string    $subject
-     * @param     string    $module
-     * @param     string    $description
-     * @param     image     $image
-     * @param     string    $info_intro;
-     * @param     string    $info_lections;
-     * @param     string    $info_texts;
-     * @param     string    $info_exam;
-     * @param     string    $info;
-     * @param     date      $available_from
-     * @param     date      $available_to
-     * @param     array     $authorized_users
-     * @param     string    $disqus_shortname
-     *
+     * @param string $title
+     * @param string $author
+     * @param string $contact
+     * @param string $subject
+     * @param string $module
+     * @param string $description
+     * @param image  $image
+     * @param string $info_intro;
+     * @param string $info_lections;
+     * @param string $info_texts;
+     * @param string $info_exam;
+     * @param string $info;
+     * @param date   $available_from
+     * @param date   $available_to
+     * @param array  $authorized_users
+     * @param string $disqus_shortname
      */
     public function store($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $authorized_users, $disqus_shortname)
     {
 
         // Save image.
-        $image_saved = $image->move(storage_path('app/public/seminars'), md5_file($image) . '.' . $image->getClientOriginalExtension());
+        $image_saved = $image->move(storage_path('app/public/seminars'), md5_file($image).'.'.$image->getClientOriginalExtension());
 
-        $image_path = 'storage/seminars/' . $image_saved->getFilename();
+        $image_path = 'storage/seminars/'.$image_saved->getFilename();
 
         // Add root user.
 
-        if( is_null($authorized_users) )
-        {
+        if (is_null($authorized_users)) {
             $authorized_users = ['root'];
-        }
-        else
-        {
+        } else {
             $authorized_users[] = 'root';
         }
 
         // Save new seminar.
 
-        $seminar = new Seminar;
+        $seminar = new Seminar();
 
         $seminar->name = $title;
         $seminar->author = $author;
@@ -89,36 +83,33 @@ class SeminarRepository implements SeminarInterface
         $seminar->authorized_editors = $authorized_users;
 
         // Check Disqus
-        if( empty($disqus_shortname) )
-        {
-            $disqus_shortname = NULL;
+        if (empty($disqus_shortname)) {
+            $disqus_shortname = null;
         }
 
         $seminar->disqus_shortname = $disqus_shortname;
 
         $seminar->save();
-
     }
 
     /**
      * Update a Seminar.
      *
-     * @param     string    $title
-     * @param     string    $author
-     * @param     string    $contact
-     * @param     string    $subject
-     * @param     string    $module
-     * @param     string    $description
-     * @param     image     $image
-     * @param     string    $info_intro;
-     * @param     string    $info_lections;
-     * @param     string    $info_texts;
-     * @param     string    $info_exam;
-     * @param     string    $info;
-     * @param     date      $available_from
-     * @param     date      $available_to
-     * @param     string    $disqus_shortname
-     *
+     * @param string $title
+     * @param string $author
+     * @param string $contact
+     * @param string $subject
+     * @param string $module
+     * @param string $description
+     * @param image  $image
+     * @param string $info_intro;
+     * @param string $info_lections;
+     * @param string $info_texts;
+     * @param string $info_exam;
+     * @param string $info;
+     * @param date   $available_from
+     * @param date   $available_to
+     * @param string $disqus_shortname
      */
     public function update($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $disqus_shortname)
     {
@@ -140,76 +131,68 @@ class SeminarRepository implements SeminarInterface
         $seminar->available_to = date('Y-m-d', strtotime($available_to));
 
         // Check Disqus
-        if( empty($disqus_shortname) )
-        {
-            $disqus_shortname = NULL;
+        if (empty($disqus_shortname)) {
+            $disqus_shortname = null;
         }
 
         $seminar->disqus_shortname = $disqus_shortname;
 
         // Check new image.
-        if( $image !== null )
-        {
+        if ($image !== null) {
             // Remove old image.
-            if ( Seminar::where('image_path', $seminar->image_path)->count() === 1 )
-            {
+            if (Seminar::where('image_path', $seminar->image_path)->count() === 1) {
                 // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-                File::delete( $seminar->image_path );
+                File::delete($seminar->image_path);
             }
 
             // Save new image.
-            $image_saved = $image->move(storage_path('app/public/seminars'), md5_file($image) . '.' . $image->getClientOriginalExtension());
+            $image_saved = $image->move(storage_path('app/public/seminars'), md5_file($image).'.'.$image->getClientOriginalExtension());
 
-            $image_path = 'storage/seminars/' . $image_saved->getFilename();
+            $image_path = 'storage/seminars/'.$image_saved->getFilename();
 
             $seminar->image_path = $image_path;
         }
 
         // Check new image.
-        if( $info !== null )
-        {
+        if ($info !== null) {
             // Remove old info.
-            if ( Seminar::where('info_path', $seminar->info_path)->count() === 1 )
-            {
+            if (Seminar::where('info_path', $seminar->info_path)->count() === 1) {
                 // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-                File::delete( $seminar->info_path );
+                File::delete($seminar->info_path);
             }
 
             // Save new info.
-            $info_saved = $info->move(storage_path('app/public/seminars'), md5_file($info) . '.' . $info->getClientOriginalExtension());
+            $info_saved = $info->move(storage_path('app/public/seminars'), md5_file($info).'.'.$info->getClientOriginalExtension());
 
             // @TODO Das geht mit der Laravel 5.3 Storage Facade einfacher!
-            $info_path = 'storage/seminars/' . $info_saved->getFilename();
+            $info_path = 'storage/seminars/'.$info_saved->getFilename();
 
             $seminar->info_path = $info_path;
         }
 
         // Save updated Seminar.
         $seminar->save();
-
     }
 
     /**
      * Delete seminar.
      *
-     * @param   string  $name
+     * @param string $name
      */
-    public function delete($name) {
-
+    public function delete($name)
+    {
         $seminar = Seminar::findOrFail($name);
 
         // Remove image.
-        if ( Seminar::where('image_path', $seminar->image_path)->count() === 1 && $seminar->image_path !== null )
-        {
+        if (Seminar::where('image_path', $seminar->image_path)->count() === 1 && $seminar->image_path !== null) {
             // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-            File::delete( $seminar->image_path );
+            File::delete($seminar->image_path);
         }
 
         // Remove info.
-        if ( Seminar::where('info_path', $seminar->info_path)->count() === 1 && $seminar->info_path !== null )
-        {
+        if (Seminar::where('info_path', $seminar->info_path)->count() === 1 && $seminar->info_path !== null) {
             // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-            File::delete( $seminar->info_path );
+            File::delete($seminar->info_path);
         }
 
         $users = $seminar->users()->withCount('seminars')->get();
@@ -221,128 +204,111 @@ class SeminarRepository implements SeminarInterface
         $seminar->delete();
 
         // Delete users
-        foreach ( $users as $user )
-        {
+        foreach ($users as $user) {
             // If only one relation and not admin delete user.
-            if( $user->seminars_count === 1 && $user->role !== 'Admin')
-            {
+            if ($user->seminars_count === 1 && $user->role !== 'Admin') {
                 User::findOrFail($user->user_id)->delete();
             }
         }
-
     }
 
     /**
      * Delete seminars info document.
      *
-     * @param   string  $name
+     * @param string $name
      */
-    public function deleteDocument($name) {
-
+    public function deleteDocument($name)
+    {
         $seminar = Seminar::findOrFail($name);
 
         // Remove info.
-        if ( Seminar::where('info_path', $seminar->info_path)->count() === 1 && $seminar->info_path !== null )
-        {
+        if (Seminar::where('info_path', $seminar->info_path)->count() === 1 && $seminar->info_path !== null) {
             // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-            File::delete( $seminar->info_path );
+            File::delete($seminar->info_path);
         }
 
-
         // Delete seminar.
-        $seminar->info_path = NULL;
+        $seminar->info_path = null;
 
         $seminar->save();
-
     }
 
     /**
      * Retrieve all seminars including related user amount.
      *
-     * @return    collection    All seminars.
-     *
+     * @return collection All seminars.
      */
-    public function getAllWithUserCount() {
-
+    public function getAllWithUserCount()
+    {
         return Auth::user()->seminars()->withCount('users')->get();
     }
 
     /**
      * Retrieve all authorized editors for one seminar.
      *
-     * @param   string      $name
+     * @param string $name
      *
-     * @return  collection  All seminars.
-     *
+     * @return collection All seminars.
      */
-    public function getAuthorizedEditors($name) {
-
+    public function getAuthorizedEditors($name)
+    {
         return $users = Seminar::findOrFail($name)->authorized_editors;
-
     }
 
     /**
      * Check if the authenticated user is authorized.
      *
-     * @param   string      $name
+     * @param string $name
      *
-     * @return  boolean     Authorized or not.
-     *
+     * @return bool Authorized or not.
      */
-    public function authorizedEditor($name) {
-
+    public function authorizedEditor($name)
+    {
         $authorized_editors = $this->getAuthorizedEditors($name);
 
-        return in_array( Auth::user()->username, $authorized_editors );
-
+        return in_array(Auth::user()->username, $authorized_editors);
     }
 
     /**
      * Check if the authenticated user is authorized mentor.
      *
-     * @param   string      $name
+     * @param string $name
      *
-     * @return  boolean     Authorized or not.
-     *
+     * @return bool Authorized or not.
      */
-    public function authorizedMentor($name) {
-
+    public function authorizedMentor($name)
+    {
         return Auth::user()->role === 'Mentor';
-
     }
 
     /**
      * Get all sections.
      *
-     * @param   string      $name
+     * @param string $name
      *
-     * @return  collection  All seminar lections.
+     * @return collection All seminar lections.
      */
     public function getAllSections($name)
     {
-
         $sections = Seminar::find($name)->sections()->get();
 
         return $sections;
-
     }
 
     /**
      * Get all online-lections.
      *
-     * @param   string      $name
+     * @param string $name
      *
-     * @return  collection  All seminar lections.
+     * @return collection All seminar lections.
      */
     public function getAllLections($name)
     {
-
         $sections = $this->getAllSections($name);
 
         $lections = collect();
-        foreach ( $sections as $section) {
-
-            $lections->push( Section::find($section->id)->lections()->get() );
+        foreach ($sections as $section) {
+            $lections->push(Section::find($section->id)->lections()->get());
         }
 
         return $lections->flatten();
@@ -351,13 +317,12 @@ class SeminarRepository implements SeminarInterface
     /**
      * Get the current online-lection.
      *
-     * @param   string      $name
+     * @param string $name
      *
-     * @return  collection  Current seminar lection.
+     * @return collection Current seminar lection.
      */
     public function getCurrentLection($name)
     {
-
         $lections = $this->getAllLections($name);
 
         $available_lections = $lections->filter(function ($lection) {
@@ -366,17 +331,15 @@ class SeminarRepository implements SeminarInterface
 
         })->pluck('name');
 
-
         $current_lection = Lection::whereIn('name', $available_lections)->join('lection_section', 'name', '=', 'lection_section.lection_name')->orderBy('available_from', 'desc')->first();
 
         return $current_lection;
-
     }
 
     /**
      * Gibt alle Messages nach ihrem Aktualisierungsdatum sortiert zurück.
      *
-     * @return 		collection Alle Message-Einträgen.
+     * @return collection Alle Message-Einträgen.
      */
     public function getAllMessages($name)
     {
@@ -386,21 +349,17 @@ class SeminarRepository implements SeminarInterface
     /**
      * Get current paper.
      *
-     * @param     string $name
+     * @param string $name
      *
-     * @return    array
+     * @return array
      */
     public function getCurrentPaper($name)
     {
-
         $current_lection = $this->getCurrentLection($name);
 
-        if ( is_null($current_lection) )
-        {
+        if (is_null($current_lection)) {
             $current_paper = null;
-        }
-        else
-        {
+        } else {
             $current_paper = $current_lection->paper()->first();
         }
 
@@ -449,14 +408,13 @@ class SeminarRepository implements SeminarInterface
      *
      * @return    array
      */
-    public function getAllLectionAuthors($name) {
-
+    public function getAllLectionAuthors($name)
+    {
         $lections = $this->getAllLections($name);
 
         $lection_authors = $lections->pluck('author', 'contact')->all();
 
         return $lection_authors;
-
     }
 
     /* Get seminar Disqus shortname.
@@ -465,10 +423,9 @@ class SeminarRepository implements SeminarInterface
      *
      * @return    string
      */
-    public function getDisqusShortname($name) {
-
+    public function getDisqusShortname($name)
+    {
         return Seminar::findOrFail($name)->disqus_shortname;
-
     }
 
     /* Get all seminar infoblocks.
@@ -477,10 +434,9 @@ class SeminarRepository implements SeminarInterface
      *
      * @return    collection
      */
-    public function getAllInfoblocks($name) {
-
+    public function getAllInfoblocks($name)
+    {
         return Seminar::findOrFail($name)->infoblocks()->get();
-
     }
 
     /* Get all seminar teachers.
@@ -490,10 +446,9 @@ class SeminarRepository implements SeminarInterface
      *
      * @return    collection
      */
-    public function getAllUsers($name, $role) {
-
+    public function getAllUsers($name, $role)
+    {
         return Seminar::findOrFail($name)->users()->where('role', $role)->get();
-
     }
 
     /* Set user as authorized Editor.
@@ -502,8 +457,8 @@ class SeminarRepository implements SeminarInterface
      * @param     string    $username
      *
      */
-    public function setAuthorizedEditor($name, $username) {
-
+    public function setAuthorizedEditor($name, $username)
+    {
         $seminar = Seminar::findOrFail($name);
 
         $authorized_editors = $seminar->authorized_editors;
@@ -513,9 +468,7 @@ class SeminarRepository implements SeminarInterface
         $seminar->authorized_editors = $authorized_editors;
 
         $seminar->save();
-
     }
-
 
     /* Delete user as authorized Editor.
      *
@@ -523,9 +476,8 @@ class SeminarRepository implements SeminarInterface
      * @param     string    $username
      *
      */
-    public function deleteAuthorizedEditor($name, $username) {
-
-
+    public function deleteAuthorizedEditor($name, $username)
+    {
         $seminar = Seminar::findOrFail($name);
 
         $authorized_editors = $seminar->authorized_editors;
@@ -535,7 +487,17 @@ class SeminarRepository implements SeminarInterface
         $seminar->authorized_editors = $authorized_editors;
 
         $seminar->save();
-
     }
 
+    /**
+     * Gibt alle Titelnamen zurück.
+     *
+     * @return array Alle vorhandenen Seminartitel.
+     */
+    public function getAllTitles()
+    {
+        $seminar_titles = Seminar::all()->pluck('name')->toArray();
+
+        return $seminar_titles;
+    }
 }

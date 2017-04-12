@@ -1,11 +1,12 @@
-<?php namespace Synthesise\Repositories\Seminar;
+<?php
+
+namespace Synthesise\Repositories\Seminar;
 
 /**
  * Ein Interface für Seminar.
  */
 interface SeminarInterface
 {
-
     public function get($name);
 
     public function store($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $authorized_users, $disqus_shortname);
@@ -52,4 +53,5 @@ interface SeminarInterface
 
     public function getAllUsers($name, $role);
 
+    public function getAllTitles();
 }

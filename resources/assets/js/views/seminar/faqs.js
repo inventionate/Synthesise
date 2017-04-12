@@ -91,7 +91,7 @@ if( $('#main-content-seminar-faqs')[0] )
      // Add dynamic validation rules (guarantee unique subjects).
      var rules_new = jQuery.extend({}, rules);
 
-     rules_new.subject.rules.concat( createUniqueSubjectsRules(subjects) );
+     rules_new.subject.rules = rules_new.subject.rules.concat( createUniqueSubjectsRules(subjects) );
 
     // Attach FAQ new modal validation.
      $('.faq-new-validator')
