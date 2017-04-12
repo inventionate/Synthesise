@@ -60,15 +60,15 @@
     <div class="three column row">
 
         <div class="column">
-            <img src="/img/ac_book.jpg" class="ui centered circular image">
+            <img src="/images/ac_book.jpg" class="ui centered circular image">
         </div>
 
         <div class="column">
-            <img src="/img/ac_building.jpg" class="ui centered circular image">
+            <img src="/images/ac_building.jpg" class="ui centered circular image">
         </div>
 
         <div class="column">
-            <img src="/img/ac_pupils.jpg" class="ui centered circular image">
+            <img src="/images/ac_pupils.jpg" class="ui centered circular image">
         </div>
 
     </div>

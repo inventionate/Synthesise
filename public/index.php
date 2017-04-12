@@ -1,44 +1,40 @@
 <?php
 
-/**
+//var_dump(__DIR__.'/../bootstrap/autoload.php');
+
+/*
  * Laravel - A PHP Framework For Web Artisans.
  *
  * @author   Taylor Otwell <taylorotwell@gmail.com>
  */
-if (__DIR__ !== '/srv/www/vhosts/etpm.ph-karlsruhe.de') {
 
-    /*
-    |--------------------------------------------------------------------------
-    | Register The Auto Loader
-    |--------------------------------------------------------------------------
-    |
-    | Composer provides a convenient, automatically generated class loader
-    | for our application. We just need to utilize it! We'll require it
-    | into the script here so that we do not have to worry about the
-    | loading of any our classes "manually". Feels great to relax.
-    |
-    */
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader
+| for our application. We just need to utilize it! We'll require it
+| into the script here so that we do not have to worry about the
+| loading of any our classes "manually". Feels great to relax.
+|
+*/
 
-    require __DIR__.'/../bootstrap/autoload.php';
+require __DIR__.'/../bootstrap/autoload.php';
 
-    /*
-    |--------------------------------------------------------------------------
-    | Turn On The Lights
-    |--------------------------------------------------------------------------
-    |
-    | We need to illuminate PHP development, so let's turn on the lights.
-    | This bootstraps the framework and gets it ready for use, then it
-    | will load up this application so that we can run it and send
-    | the responses back to the browser and delight these users.
-    |
-    */
+/*
+|--------------------------------------------------------------------------
+| Turn On The Lights
+|--------------------------------------------------------------------------
+|
+| We need to illuminate PHP development, so let's turn on the lights.
+| This bootstraps the framework and gets it ready for use, then it
+| will load up this application so that we can run it and send
+| the responses back to the browser and delight these users.
+|
+*/
 
-    $app = require_once __DIR__.'/../bootstrap/app.php';
-} else {
-    require '/home/etpm/current/bootstrap/autoload.php';
-
-    $app = require_once '/home/etpm/current/bootstrap/app.php';
-}
+$app = require_once __DIR__.'/../bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------

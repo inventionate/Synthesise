@@ -96,14 +96,14 @@
                     ['time' => 125, 'text' => 'Hoch- und Spätmittelalter'],
                     ])
             }}"
-            poster="/img/ol_title.jpg" v-bind:notes="false"></interactive-video>
+            poster="/images/ol_title.jpg" v-bind:notes="false"></interactive-video>
 
         </div>
         </div>
 
         <div class="row">
         <div class="nine wide column">
-            <img class="ui image" src="/img/notizfunktion.png">
+            <img class="ui image" src="/images/notizfunktion.png">
         </div>
         <div class="seven wide column">
             <h2 class="ui header">Notizfunktion</h2>
@@ -121,13 +121,13 @@
             </p>
         </div>
         <div class="nine wide column">
-            <img class="ui huge image" src="/img/sequenzen.png" alt="Sequenzen" />
+            <img class="ui huge image" src="/images/sequenzen.png" alt="Sequenzen" />
         </div>
         </div>
 
         <div class="row">
         <div class="nine wide column">
-            <img class="ui image" src="/img/disqus.png" alt="disqus">
+            <img class="ui image" src="/images/disqus.png" alt="disqus">
         </div>
         <div class="seven wide column">
             <h2 class="ui header">Diskussionsräume</h2>
@@ -148,28 +148,28 @@
             <h3 class="ui header">Basierend auf modernen Open Source Technologien</h3>
             <div class="ui list">
               <div class="item">
-                <img class="ui avatar image" src="/img/laravel_logo.png" alt="Laravel Logo">
+                <img class="ui avatar image" src="/images/laravel_logo.png" alt="Laravel Logo">
                 <div class="content">
                   <a class="header" href="http://laravel.com" target="_blank">Laravel</a>
                   <div class="description">»The PHP Framework For Web Artisans«</div>
                 </div>
               </div>
               <div class="item">
-                <img class="ui avatar image" src="/img/vue_logo.png" alt="Vue.js Logo">
+                <img class="ui avatar image" src="/images/vue_logo.png" alt="Vue.js Logo">
                 <div class="content">
                   <a class="header" href="http://vuejs.org" target="_blank">Vue.js</a>
                   <div class="description">»A Library For Building Modern Web Interfaces«</div>
                 </div>
               </div>
               <div class="item">
-                <img class="ui avatar image" src="/img/videojs_logo.png" alt="Video.js Logo">
+                <img class="ui avatar image" src="/images/videojs_logo.png" alt="Video.js Logo">
                 <div class="content">
                   <a class="header" href="http://videojs.com/" target="_blank">Video.js</a>
                   <div class="description">»The Player Framework«</div>
                 </div>
               </div>
               <div class="item">
-                <img class="ui avatar image" src="/img/semantic_ui_logo.png" alt="Semantic UI Logo">
+                <img class="ui avatar image" src="/images/semantic_ui_logo.png" alt="Semantic UI Logo">
                 <div class="content">
                   <a class="header" href="http://semantic-ui.com/" target="_blank">Semantic UI</a>
                   <div class="description">»A UI Component Framework Designed For Theming«</div>
@@ -178,7 +178,7 @@
             </div>
         </div>
         <div class="nine wide column">
-            <img class="ui huge image" src="/img/responsive_webapp.png" alt="Responsive Web-App">
+            <img class="ui huge image" src="/images/responsive_webapp.png" alt="Responsive Web-App">
         </div>
         </div>
 
@@ -191,7 +191,7 @@
     <div class="ui stackable relaxed grid">
 
         <div class="nine wide column">
-            <img class="ui image" src="/img/texte.png" alt="Texte">
+            <img class="ui image" src="/images/texte.png" alt="Texte">
         </div>
         <div class="seven wide column">
             <h2 class="ui header">Primär- und Sekundärliteratur</h2>
@@ -241,7 +241,7 @@
         </div>
 
         <div class="nine wide column">
-            <img class="ui image" src="/img/etpm_schema.png" alt="Texte">
+            <img class="ui image" src="/images/etpm_schema.png" alt="Texte">
         </div>
 
     </div>
@@ -255,7 +255,7 @@
     <div class="ui stackable relaxed grid">
 
         <div class="nine wide column">
-            <img class="ui image" src="/img/mentoring.jpg" alt="Mentoring" />
+            <img class="ui image" src="/images/mentoring.jpg" alt="Mentoring" />
         </div>
         <div class="seven wide column">
             <h2 class="ui header">Mentoring Zertifikat</h2>
@@ -281,11 +281,11 @@
             </p>
         </div>
         <div class="nine wide column">
-            <img class="ui bordered image" src="/img/evaluation.jpg" alt="Evaluation" />
+            <img class="ui bordered image" src="/images/evaluation.jpg" alt="Evaluation" />
         </div>
 
         <div class="nine wide column">
-            <img class="ui bordered image" src="/img/analytics.jpg" alt="Analytics" />
+            <img class="ui bordered image" src="/images/analytics.jpg" alt="Analytics" />
         </div>
         <div class="seven wide column">
             <h2 class="ui header">Analytics</h2>
@@ -301,11 +301,11 @@
 
     <div class="stackable relaxed centered row">
         <div class="center aligned five wide column">
-            <img class="ui small avatar image" src="/img/hoyer.jpg">
+            <img class="ui small avatar image" src="/images/hoyer.jpg">
             <h3 class="ui header"><a href="mailto:hoyer@ph-karlsruhe.de">Apl. Prof. Dr. Timo Hoyer</a></h3>
         </div>
         <div class="center aligned five wide column">
-            <img class="ui small avatar image" src="/img/mundt.jpg">
+            <img class="ui small avatar image" src="/images/mundt.jpg">
             <h3 class="ui header"><a href="mailto:mundt@ph-karlsruhe.de">Fabian Mundt, M.A.</a></h3>
         </div>
     </div>

@@ -1,19 +1,24 @@
 @import "typography";
 @import "colour";
+
 #mainnav {
     #user-actions {
         height: 3.75rem;
     }
+
     .menu:first-child {
         background-color: fade(@green,90%);
     }
+
     .ui.dropdown.item .menu {
         background-color: @white;
     }
+
     .item {
         padding-top: 1.25rem;
         padding-bottom: 1.25rem;
     }
+
     .seminar-name {
         display: inline-block;
         min-width: 0;
@@ -22,26 +27,31 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     .right.item::before {
         background: none;
     }
+
     .etpM-branding {
         .text.hidden;
         width: 45px;
         margin-left: 5px;
         background-size: 150px;
-        background-image: url("/img/etpm_logo_long.png");
+        background-image: url("/images/etpm_logo_long.png");
         transition: width 1s ease;
         background-repeat: no-repeat;
         border-left: none;
     }
+
     .etpM-branding:hover {
         width: 155px;
     }
+
     .mobile.row {
         .button {
             margin-top: 1rem;
         }
+
         .etpM {
             font-size: 2rem;
             font-weight: 400;
@@ -54,35 +64,40 @@
     height: 1em;
     display: block;
     font-size: 1.71428571em;
-    margin: 0em auto 0.5rem;
+    margin: 0 auto 0.5rem;
 }
 
 #admin-actions {
     border: 1px solid rgba(34, 36, 38, 0.15);
-    box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
+    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
     margin-top: 3.75rem;
     z-index: 10;
     background-color: fade(@white, 80%);
+
     .item {
         padding-top: 1.1rem;
         padding-bottom: 1.1rem;
     }
+
     .item.complex {
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
     }
+
     .or::before {
-        width:2.3em;
-        height:2.15em;
+        width: 2.3em;
+        height: 2.15em;
         line-height: 2;
         left: -50%;
         top: 43%;
     }
+
     .item:first-child {
         // font-weight: bold;
         // border-right: none;
         margin-left: 0.75rem;
     }
+
     .item:last-child {
         margin-right: 0.75rem;
     }

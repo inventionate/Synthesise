@@ -1,12 +1,6 @@
 /bootstrap/compiled.php
 /doc
-/public/video
-/public/audio
 /tests/_output
-/public/css
-/public/js
-/public/fonts
-/public/images
 .atom
 .tags
 .tags1

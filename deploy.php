@@ -15,22 +15,18 @@ add('shared_files', []);
 add('shared_dirs', []);
 
 add('writable_dirs', []);
-// set('shared_files', ['.env']);
-// set('shared_dirs', [
-//     'storage/app',
-//     'storage/framework/cache',
-//     'storage/framework/sessions',
-//     'storage/framework/views',
-//     'storage/logs',
-// ]);
-// set('writable_dirs', ['bootstrap/cache', 'storage']);
 
 // Servers
-
 server('production', 'etpm.ph-karlsruhe.de')
     ->user('etpm')
     ->identityFile()
     ->set('deploy_path', '/home/etpm/test')
+    ->pty(true);
+
+server('nightly', 'etpm-dev.ph-karlsruhe.de')
+    ->user('etpm-dev')
+    ->identityFile()
+    ->set('deploy_path', '/home/etpm-dev/nightly')
     ->pty(true);
 
 // Tasks

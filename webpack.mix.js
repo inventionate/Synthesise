@@ -18,5 +18,7 @@ mix.js('resources/assets/js/application.js', 'public/js')
         "node_modules/video.js/dist/video-js.swf",
         "public"
     )
-    .version();
-    //.browserSync('my-domain.dev');
+    .version()
+    .browserSync({
+        proxy: 'etpm.dev'
+    });

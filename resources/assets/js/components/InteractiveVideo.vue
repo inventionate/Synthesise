@@ -63,7 +63,7 @@
         <video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" width="640" height="264">
         </video>
 
-        <img src="/img/etpm_logo_r.png" alt="etpM Logo">
+        <img src="/images/etpm_logo_r.png" alt="etpM Logo">
 
         <div id="infomessage" class="ui huge left corner red label">
             <i class="pause icon"></i>
