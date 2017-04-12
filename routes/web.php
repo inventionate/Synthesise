@@ -76,7 +76,7 @@ Route::group(['prefix' => 'seminars'], function () {
     ]);
 
     // Delete document
-    Route::delete('/{name}', [
+    Route::delete('/{name}/infodocument', [
         'uses' => 'SeminarController@destroyDocument',
     ]);
 

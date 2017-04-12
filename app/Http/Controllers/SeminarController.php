@@ -3,7 +3,6 @@
 namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Seminar;
 use Lection;
 use User;
@@ -14,8 +13,6 @@ class SeminarController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -25,18 +22,18 @@ class SeminarController extends Controller
     }
 
     /**
-	 * List Seminar.
-	 *
-	 * @return View
-	 */
-	public function show($name)
-	{
+     * List Seminar.
+     *
+     * @return View
+     */
+    public function show($name)
+    {
 
         // Get Seminar.
         $seminar = Seminar::get($name);
 
         // Get authorized users.
-		$authorized_editors = Seminar::getAuthorizedEditors($name);
+        $authorized_editors = Seminar::getAuthorizedEditors($name);
 
         // Get all messages.
         $messages = Seminar::getAllMessages($name);
@@ -63,21 +60,21 @@ class SeminarController extends Controller
         $infoblocks = Seminar::getAllInfoblocks($name);
 
         // Get teachers by seminar.
-		$teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsers($name, 'Teacher');
 
         // Get teachers by seminar.
-		$admins = User::getAllByRole('Admin')->pluck('username');
+        $admins = User::getAllByRole('Admin')->pluck('username');
 
         // Get Disqus.
-        $disqus = ( $disqus_shortname !== null );
+        $disqus = ($disqus_shortname !== null);
 
         // Push Disqus shortname to JavaScript.
         JavaScript::put([
             'disqus_shortname' => $disqus_shortname,
-            'admins' => $admins
+            'admins' => $admins,
         ]);
 
-		return view('seminar.show')
+        return view('seminar.show')
                                     ->with('seminar_name', $name)
                                     ->with('seminar', $seminar)
                                     ->with('authorized_editors', $authorized_editors)
@@ -90,12 +87,12 @@ class SeminarController extends Controller
                                     ->with('disqus', $disqus)
                                     ->with('infoblocks', $infoblocks)
                                     ->with('teachers', $teachers);
-	}
+    }
 
     /**
      * Store a newly created Seminar.
      *
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Redirect
      */
@@ -114,7 +111,7 @@ class SeminarController extends Controller
             'available_from' => 'required|date',
             'available_to' => 'required|date',
             'authorized_users' => 'array',
-            'disqus_shortname' => 'string'
+            'disqus_shortname' => 'string',
         ]);
 
         $title = $request->title;
@@ -124,11 +121,11 @@ class SeminarController extends Controller
         $module = $request->module;
         $description = $request->description;
         $image = $request->file('image');
-        $info_intro = NULL;
-        $info_lections = NULL;
-        $info_texts = NULL;
-        $info_exam = NULL;
-        $info = NULL;
+        $info_intro = null;
+        $info_lections = null;
+        $info_texts = null;
+        $info_exam = null;
+        $info = null;
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $authorized_users = $request->authorized_users;
@@ -137,13 +134,12 @@ class SeminarController extends Controller
         Seminar::store($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $authorized_users, $disqus_shortname);
 
         return back()->withInput();
-
     }
 
     /**
      * Update a Seminar.
      *
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Redirect
      */
@@ -165,7 +161,7 @@ class SeminarController extends Controller
             'info' => 'file',
             'available_from' => 'required|date',
             'available_to' => 'required|date',
-            'disqus_shortname' => 'string'
+            'disqus_shortname' => 'string',
         ]);
 
         $title = $name;
@@ -179,7 +175,7 @@ class SeminarController extends Controller
         $info_lections = $request->info_lections;
         $info_texts = $request->info_texts;
         $info_exam = $request->info_exam;
-        $info = $request->file('info');;
+        $info = $request->file('info');
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $disqus_shortname = $request->disqus_shortname;
@@ -187,7 +183,6 @@ class SeminarController extends Controller
         Seminar::update($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $disqus_shortname);
 
         return back()->withInput();
-
     }
 
     /**
@@ -197,7 +192,6 @@ class SeminarController extends Controller
      */
     public function destroy($name)
     {
-
         Seminar::delete($name);
 
         return redirect('/')->withInput();
@@ -210,7 +204,6 @@ class SeminarController extends Controller
      */
     public function destroyDocument($name)
     {
-
         Seminar::deleteDocument($name);
 
         return back()->withInput();
@@ -265,7 +258,7 @@ class SeminarController extends Controller
         $sections = Seminar::getAllSections($name);
 
         // Get teachers by seminar.
-		$teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsers($name, 'Teacher');
 
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
@@ -308,14 +301,14 @@ class SeminarController extends Controller
         $answersByLetter = FAQ::getByLetter($name, $letter);
 
         // Get teachers by seminar.
-		$teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsers($name, 'Teacher');
 
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
 
         // Push subjetcs to JavaScript.
         JavaScript::put([
-            'subjects' => $subjects
+            'subjects' => $subjects,
         ]);
 
         return view('seminar.faqs.index')
@@ -330,14 +323,14 @@ class SeminarController extends Controller
     }
 
     /**
-	 * Show seminar contact forms.
-	 *
+     * Show seminar contact forms.
+     *
      * @param string $name
      *
-	 * @return View
-	 */
-	public function contact($name)
-	{
+     * @return View
+     */
+    public function contact($name)
+    {
 
         // Get seminar name
         $seminar_name = $name;
@@ -358,12 +351,12 @@ class SeminarController extends Controller
         $support_mail = 'mundt@ph-kalrsruhe.de';
 
         // Get teachers by seminar.
-		$teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsers($name, 'Teacher');
 
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
 
-		return view('seminar.contact')
+        return view('seminar.contact')
                             ->with('seminar_name', $seminar_name)
                             ->with('sections', $sections)
                             ->with('author', $author)
@@ -372,14 +365,14 @@ class SeminarController extends Controller
                             ->with('support_mail', $support_mail)
                             ->with('teachers', $teachers)
                             ->with('all_lections', $all_lections);
-	}
+    }
 
     /**
      * Show online-lection.
      *
-     * @param string    $name
-     * @param string    $lection_name
-     * @param string    $videoname
+     * @param string $name
+     * @param string $lection_name
+     * @param string $videoname
      *
      * @return View
      */
@@ -398,7 +391,7 @@ class SeminarController extends Controller
         $paper = true;#Lection::getPaper($lection_name);
 
         // Verfügbarkeit des Videos abfragen
-        $available_all_authorized = ( Lection::available($lection_name, $name) || Seminar::authorizedEditor($name) || Seminar::authorizedMentor($name) );
+        $available_all_authorized = (Lection::available($lection_name, $name) || Seminar::authorizedEditor($name) || Seminar::authorizedMentor($name));
 
         // Get paper.
         $paper = Lection::getPaper($lection_name);
@@ -411,6 +404,10 @@ class SeminarController extends Controller
 
         $current_sequence = Lection::getSequence($lection_name, $sequence);
 
+        if (is_null($current_sequence->name)) {
+            $current_sequence->name = $lection_name;
+        }
+
         // Get all markers.
         $markers = Lection::getMarkers($lection_name, $sequence);
 
@@ -418,10 +415,10 @@ class SeminarController extends Controller
         $poster_path = Lection::getImagePath($lection_name);
 
         // Get teachers by seminar.
-		$teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsers($name, 'Teacher');
 
         // Get teachers by seminar.
-		$admins = User::getAllByRole('Admin')->pluck('username');
+        $admins = User::getAllByRole('Admin')->pluck('username');
 
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
@@ -430,15 +427,15 @@ class SeminarController extends Controller
         $disqus_shortname = Seminar::getDisqusShortname($name);
 
         // Get Disqus.
-        $disqus = ( $disqus_shortname !== null );
+        $disqus = ($disqus_shortname !== null);
 
         // Push Disqus shortname to JavaScript.
         JavaScript::put([
             'sequence' => $sequence,
             'lection_name' => $lection_name,
             'disqus_shortname' => $disqus_shortname,
-            'disqus_identifier' => $name . ' – ' . $lection_name,
-            'admins' => $admins
+            'disqus_identifier' => $name.' – '.$lection_name,
+            'admins' => $admins,
         ]);
 
         // Standardausgabe VIEW -----------------------------------------
@@ -463,5 +460,4 @@ class SeminarController extends Controller
                             ->with('poster_path', $poster_path)
                             ->with('paper', $paper);
     }
-
 }
