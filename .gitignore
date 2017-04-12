@@ -17,4 +17,5 @@ Homestead.yaml
 .tags1
 .env
 .env.production
+.env.dev
 composer.lock
