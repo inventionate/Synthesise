@@ -988,3 +988,6 @@ FileETag None
 
 # Disable PHP OPcache
 php_flag opcache.enable 0
+
+# Upgrade memory
+php_value memory_limit 1024M
