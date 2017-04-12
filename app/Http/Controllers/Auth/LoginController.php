@@ -5,7 +5,7 @@ namespace Synthesise\Http\Controllers\Auth;
 use Synthesise\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Ldap;
+use LDAP;
 use User;
 use App;
 use Auth;
@@ -58,7 +58,7 @@ class LoginController extends Controller
         if (App::environment('testing', 'dev')) {
             $ldap = true;
         } else {
-            $ldap = Ldap::authenticate($credentials['username'], $credentials['password']);
+            $ldap = LDAP::authenticate($credentials['username'], $credentials['password']);
         }
 
         if ($ldap) {
