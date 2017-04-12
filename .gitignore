@@ -1,6 +1,17 @@
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
 /bootstrap/compiled.php
 /doc
 /tests/_output
+/public/video
+/public/audio
 .atom
 .tags
 .tags1
