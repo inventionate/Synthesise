@@ -95,6 +95,55 @@
          fields: rules
      });
 
+/*
+ * Setup Lection Attach JS Validator.
+ */
+// Init basic validation rules.
+    var rules_attach = {
+          section_id: {
+              rules: [
+                  {
+                      type    : 'empty',
+                      prompt  : 'Bitte wählen Sie einen Themenbereich.'
+                  }
+              ]
+          },
+          name: {
+              rules: [
+                  {
+                      type    : 'empty',
+                      prompt  : 'Bitte wählen Sie eine online-Lektion.'
+                  }
+              ]
+          },
+          available_from: {
+              rules: [
+                  {
+                      type    : 'empty',
+                      prompt  : 'Bitte definieren Sie ein Datum.'
+                  }
+              ]
+          },
+          available_to: {
+              rules: [
+                  {
+                      type    : 'empty',
+                      prompt  : 'Bitte definieren Sie ein Datum.'
+                  }
+              ]
+          }
+      };
+
+     // Attach message modal validation.
+      $('.lection-attach-validator')
+          .form({
+              inline: true,
+              onSuccess: function() {
+                  $(this).modal('hide');
+              },
+              fields: rules_attach
+          });
+
  /*
   * New lection modal.
   */

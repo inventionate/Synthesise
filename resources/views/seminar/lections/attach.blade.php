@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ action('LectionController@attach') }}" id="lection-attach-modal" class="ui equal width modal form">
+<form role="form" method="POST" action="{{ action('LectionController@attach') }}" id="lection-attach-modal" class="ui equal width modal form lection-attach-validator">
 
     {{ csrf_field() }}
 
