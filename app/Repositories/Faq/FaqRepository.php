@@ -2,7 +2,6 @@
 
 namespace Synthesise\Repositories\Faq;
 
-use Illuminate\Database\Eloquent\Model;
 use Synthesise\Faq as FAQ;
 
 /**
@@ -10,8 +9,7 @@ use Synthesise\Faq as FAQ;
  */
 class FaqRepository implements FaqInterface
 {
-
-  /**
+    /**
    * Gibt alle FAQs alphabetisch sortiert zurück.
    *
    * @param     string  $seminar_name
@@ -37,7 +35,7 @@ class FaqRepository implements FaqInterface
   }
 
   /**
-   * Collection of dictinct areas
+   * Collection of dictinct areas.
    *
    * @param     string $seminar_name
    *
@@ -45,7 +43,6 @@ class FaqRepository implements FaqInterface
    */
   public function getLetters($seminar_name)
   {
-
       return FAQ::select('area')->where('seminar_name', $seminar_name)->distinct()->get()->sort();
   }
 
@@ -58,8 +55,7 @@ class FaqRepository implements FaqInterface
    */
   public function getSubjects($seminar_name)
   {
-      # String aller Buchstaben
-      $subjects = FAQ::lists('subject')->where('seminar_name', $seminar_name)->toArray();
+      $subjects = FAQ::all()->where('seminar_name', $seminar_name)->pluck('subject')->toArray();
 
       return $subjects;
   }
@@ -76,21 +72,20 @@ class FaqRepository implements FaqInterface
   {
 
     // Neue FAQ.
-    $faq = new FAQ;
+    $faq = new FAQ();
 
     // Generate area.
-    $area = strtoupper(substr($subject, 0,1));
+    $area = strtoupper(substr($subject, 0, 1));
 
     // Add attributes.
     $faq->seminar_name = $seminar_name;
-    $faq->area = $area;
-    $faq->subject = $subject;
-    $faq->question = $question;
-    $faq->answer = $answer;
+      $faq->area = $area;
+      $faq->subject = $subject;
+      $faq->question = $question;
+      $faq->answer = $answer;
 
     // Save FAQ.
     $faq->save();
-
   }
 
   /**
@@ -103,10 +98,9 @@ class FaqRepository implements FaqInterface
    */
   public function update($id, $subject, $question, $answer)
   {
-
       $faq = FAQ::find($id);
 
-      $area = strtoupper(substr($subject, 0,1));
+      $area = strtoupper(substr($subject, 0, 1));
 
       $faq->area = $area;
       $faq->subject = $subject;
@@ -114,7 +108,6 @@ class FaqRepository implements FaqInterface
       $faq->answer = $answer;
 
       $faq->save();
-
   }
 
   /**
@@ -129,5 +122,4 @@ class FaqRepository implements FaqInterface
       // Find and delete FAQ.
       FAQ::find($id)->delete();
   }
-
 }
