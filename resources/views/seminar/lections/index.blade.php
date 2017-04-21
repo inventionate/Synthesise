@@ -88,9 +88,7 @@
 
 							</td>
 
-								@foreach ( Section::getAllLections($section->id)->sortBy('available_from') as $lection )
-
-
+								@foreach ( Section::getAllLections($section->id) as $lection )
 
 									@if ( !$loop->first ) <tr> @endif
 
@@ -111,7 +109,6 @@
 													<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($lection->name) }}">0</span>
 												</div>
 											@else
-
 												<a href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => rawurlencode($lection->name), 'sequence' => 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) ) green @else disabled red @endif">
 
 													<i class="video icon"></i>
@@ -119,7 +116,6 @@
 													{{ $lection->name }}</a>
 
 												</a>
-
 											@endif
 
 										</div>
