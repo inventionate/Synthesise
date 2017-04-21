@@ -400,16 +400,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.38",
+            "version": "v1.2.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "00476c7470729f3d3541bc75e93d6fd5708961bf"
+                "reference": "ee994af8b5d67b07d2a489cb4ae2edd93d4f1a3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/00476c7470729f3d3541bc75e93d6fd5708961bf",
-                "reference": "00476c7470729f3d3541bc75e93d6fd5708961bf",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/ee994af8b5d67b07d2a489cb4ae2edd93d4f1a3a",
+                "reference": "ee994af8b5d67b07d2a489cb4ae2edd93d4f1a3a",
                 "shasum": ""
             },
             "require": {
@@ -444,7 +444,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2017-04-03T20:28:04+00:00"
+            "time": "2017-04-14T19:58:14+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -609,16 +609,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.18",
+            "version": "v5.4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d15ded55b5e690199393ea93a57edcbae20d1ffc"
+                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d15ded55b5e690199393ea93a57edcbae20d1ffc",
-                "reference": "d15ded55b5e690199393ea93a57edcbae20d1ffc",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/02444b7450350db17a7607c8a52f7268ebdb0dad",
+                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad",
                 "shasum": ""
             },
             "require": {
@@ -734,7 +734,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-04-10T19:27:41+00:00"
+            "time": "2017-04-16T13:33:34+00:00"
         },
         {
             "name": "league/flysystem",
@@ -1329,16 +1329,16 @@
         },
         {
             "name": "php-ffmpeg/php-ffmpeg",
-            "version": "0.9.2",
+            "version": "0.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-FFMpeg/PHP-FFMpeg.git",
-                "reference": "7cff2ecb23d48f927981ad8cee0583d41eb8d620"
+                "reference": "09774fced3b58b4deac1897b95c2c2cd341e917a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-FFMpeg/PHP-FFMpeg/zipball/7cff2ecb23d48f927981ad8cee0583d41eb8d620",
-                "reference": "7cff2ecb23d48f927981ad8cee0583d41eb8d620",
+                "url": "https://api.github.com/repos/PHP-FFMpeg/PHP-FFMpeg/zipball/09774fced3b58b4deac1897b95c2c2cd341e917a",
+                "reference": "09774fced3b58b4deac1897b95c2c2cd341e917a",
                 "shasum": ""
             },
             "require": {
@@ -1404,7 +1404,7 @@
                 "video",
                 "video processing"
             ],
-            "time": "2017-02-27T15:08:47+00:00"
+            "time": "2017-04-12T17:55:10+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -3216,16 +3216,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe"
+                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/5a5a9fc8025a08d8919be87d6884d5a92520cefe",
-                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/8e6e04167378abf1ddb4d3522d8755c5fd90d102",
+                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102",
                 "shasum": ""
             },
             "require": {
@@ -3254,7 +3254,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-01-26T22:05:40+00:00"
+            "time": "2017-04-12T18:52:22+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -4165,16 +4165,16 @@
         },
         {
             "name": "react/dns",
-            "version": "v0.4.7",
+            "version": "v0.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/dns.git",
-                "reference": "e09ca286e3e18fea93317315dd7fc59d7963af8a"
+                "reference": "86d3da64ebfbecddf6b940c6e69daa67c0f21a05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/dns/zipball/e09ca286e3e18fea93317315dd7fc59d7963af8a",
-                "reference": "e09ca286e3e18fea93317315dd7fc59d7963af8a",
+                "url": "https://api.github.com/repos/reactphp/dns/zipball/86d3da64ebfbecddf6b940c6e69daa67c0f21a05",
+                "reference": "86d3da64ebfbecddf6b940c6e69daa67c0f21a05",
                 "shasum": ""
             },
             "require": {
@@ -4203,7 +4203,7 @@
                 "dns",
                 "dns-resolver"
             ],
-            "time": "2017-03-31T16:21:48+00:00"
+            "time": "2017-04-16T11:20:57+00:00"
         },
         {
             "name": "react/event-loop",

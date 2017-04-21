@@ -87,14 +87,12 @@
 								@endif
 
 							</td>
-							{{-- @TODO Mit Laravel 5.3 lässt sich das vereinfachen: $loop Variable! --}}
-							<div class="hide">
-								{{ $i = 0 }}
-							</div>
 
 								@foreach ( Section::getAllLections($section->id)->sortBy('available_from') as $lection )
 
-									@if ($i > 0) <tr> @endif
+
+
+									@if ( !$loop->first ) <tr> @endif
 
 									{{-- Lections info --}}
 									<td class="online-lektion">
@@ -197,9 +195,6 @@
 
 									</tr>
 
-									<div class="hide">
-										{{ $i += 1  }}
-									</div>
 								@endforeach
 
 						</tr>
