@@ -89,9 +89,9 @@ if( $('#main-content-seminar-faqs')[0] )
      };
 
      // Add dynamic validation rules (guarantee unique subjects).
-     var rules_new = jQuery.extend({}, rules);
+     var rules_new = $.extend(true, {}, rules);
 
-     rules_new.subject.rules = rules_new.subject.rules.concat( createUniqueSubjectsRules(subjects) );
+    rules_new.subject.rules = rules_new.subject.rules.concat( createUniqueSubjectsRules(subjects) );
 
     // Attach FAQ new modal validation.
      $('.faq-new-validator')
@@ -160,7 +160,7 @@ if( $('#main-content-seminar-faqs')[0] )
             // Set FAQ Modal answer.
             $('#faq-edit-modal').find('textarea[name="answer"]').trumbowyg( 'html', faq_answer.html().trim() );
 
-            var rules_edit = jQuery.extend({}, rules);
+            var rules_edit = $.extend(true, {}, rules);
 
             // Delete current subject from list for edit
             var faq_subject_index = subjects.indexOf(faq_subject);
@@ -171,7 +171,7 @@ if( $('#main-content-seminar-faqs')[0] )
             subjects_edit.splice(faq_subject_index, 1);
 
             // Generate rules.
-            rules_edit.subject.rules.concat( createUniqueSubjectsRules(subjects_edit) );
+            rules_edit.subject.rules = rules_edit.subject.rules.concat( createUniqueSubjectsRules(subjects_edit) );
 
             // Attach FAQ edit modal validation.
             $('.faq-edit-validator')

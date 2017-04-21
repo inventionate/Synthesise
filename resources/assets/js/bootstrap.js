@@ -51,7 +51,8 @@ require('jquery-cookiebar/jquery.cookiebar.css');
 require('trumbowyg');
 require('trumbowyg/dist/ui/trumbowyg.css');
 require('trumbowyg/dist/langs/de.min.js');
-//$.trumbowyg.svgPath = '/css/icons/icons.svg';
+require('trumbowyg/dist/ui/icons.svg');
+$.trumbowyg.svgPath = '/fonts/vendor/trumbowyg/dist/ui/icons.svg';
 
 
 require('semantic-ui-css/semantic.js');

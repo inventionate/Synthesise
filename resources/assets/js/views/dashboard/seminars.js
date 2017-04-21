@@ -106,7 +106,7 @@ var rules = {
  };
 
  // Add dynamic validation rules (guarantee unique titles).
- var rules_new = jQuery.extend({}, rules);
+ var rules_new = $.extend(true, {}, rules);
 
 rules_new.title.rules = rules_new.title.rules.concat( createUniqueTitleRules(seminar_titles) );
 
