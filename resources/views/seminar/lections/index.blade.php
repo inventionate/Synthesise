@@ -123,7 +123,7 @@
 
 									{{-- Available date info --}}
 									<td class="center aligned seminar-datum">
-										{{ date('d.m.Y',strtotime($lection->pivot->available_from)) }} bis {{ date('d.m.Y',strtotime($lection->pivot->available_to)) }}
+										{{ date('d.m.y',strtotime($lection->pivot->available_from)) }} – {{ date('d.m.y',strtotime($lection->pivot->available_to)) }}
 									</td>
 
 									{{-- Material --}}
