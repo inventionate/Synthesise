@@ -187,6 +187,8 @@
 
                    $('#lection-edit-modal').find('input[name="name"]').prop( 'disabled', false );
 
+                   $('#lection-edit-modal #seminar_authorized_users').dropdown('clear');
+
                },
            })
            .modal('attach events', '.lection-edit', 'show');
