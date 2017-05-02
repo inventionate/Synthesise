@@ -45,7 +45,7 @@ class SeminarController extends Controller
         $lections = Seminar::getAllLections($name);
 
         // Get all existing lections.
-       $all_lections = Lection::getAllNotAttached($name);
+        $all_lections = Lection::getAllNotAttached($name);
 
         // Get current lection.
         $current_lection = Seminar::getCurrentLection($name);

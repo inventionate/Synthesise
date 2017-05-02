@@ -28,7 +28,7 @@
 						@if( Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) )
 							<th>Studierendenzugang</th>
 						@else
-							<th>Zugänglich ab</th>
+							<th>Zugang</th>
 						@endif
 
 						<th>Literatur & Notizen</th>
@@ -123,7 +123,7 @@
 
 									{{-- Available date info --}}
 									<td class="center aligned seminar-datum">
-										{{ date('d.m.Y',strtotime($lection->pivot->available_from)) }}
+										{{ date('d.m.Y',strtotime($lection->pivot->available_from)) }} bis {{ date('d.m.Y',strtotime($lection->pivot->available_to)) }}
 									</td>
 
 									{{-- Material --}}
