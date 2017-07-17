@@ -4,11 +4,11 @@ Synthesise is a web-based "Learning Space". The application is optimised for Ble
 
 ### Installation
 
-JUst fork this GitHub repositiry and configure the `.env` files.
+Just fork this GitHub repositiry and configure the `.env` files.
 
 ### Deploy
 
-There is a Deployer pre-configuration.  
+There is a Deployer pre-configuration.
 
 ### Issues
 
