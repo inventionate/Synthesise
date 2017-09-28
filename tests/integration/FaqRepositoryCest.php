@@ -1,52 +1,28 @@
 <?php
 
-use _data\Factories as Factories;
-
 class FaqRepositoryCest
 {
-    /**
-     * Eine fiktive Beispielfaq.
-     *
-     * @var array
-     */
-    protected $faqAttributes;
-
-    /**
-     * Bereitet die virtuelle Datenbank und virtuelle E-Mails vor.
-     *
-     * Migriert alle Strukturen in eine virtuelle SQLite Datenbank und
-     * setzt die E-Mail auf 'pretend' um sie in der Logfile zu verzeichnen.
-     */
-    public function _before()
-    {
-        $this->faqAttributes = Factories::$faqAttributes;
-    }
 
     public function testGetFaqLetters(IntegrationTester $I)
     {
         $I->wantTo('get FAQ letters');
-       /*
-        * Beispieldatensatz generieren
-        *
-        */
-        $this->faqAttributes['id'] = 1;
-        $this->faqAttributes['area'] = 'A';
-        $I->haveRecord('faqs', $this->faqAttributes);
-        $this->faqAttributes['id'] = 2;
-        $this->faqAttributes['area'] = 'V';
-        $I->haveRecord('faqs', $this->faqAttributes);
+        /*
+         * Beispieldatensatz generieren
+         *
+         */
+        $I->haveMultiple('Synthesise\Faq', 2, ['seminar_name' => 'Raum und Mensch']);
 
         /*
-        * Abfrage durchführen
-        *
-        */
-        $areas = FAQ::getLetters();
+         * Abfrage durchführen
+         *
+         */
+        $areas = FAQ::getLetters('Raum und Mensch');
 
-      /*
-       * Testergebnis auswerten
-       *
-       */
-        $I->AssertEquals('AV', $areas);
+        /*
+         * Testergebnis auswerten
+         *
+         */
+        $I->AssertEquals(2, count($areas));
     }
 
     /**
@@ -56,71 +32,50 @@ class FaqRepositoryCest
     {
         $I->wantTo('get all flags');
 
-      /*
-       * Beispieldatensatz generieren
-       *
-       */
-      $this->faqAttributes['id'] = 1;
-        $this->faqAttributes['area'] = 'Z';
-        $I->haveRecord('faqs', $this->faqAttributes);
-        $this->faqAttributes['id'] = 2;
-        $this->faqAttributes['area'] = 'V';
-        $I->haveRecord('faqs', $this->faqAttributes);
-        $this->faqAttributes['id'] = 3;
-        $this->faqAttributes['area'] = 'F';
-        $I->haveRecord('faqs', $this->faqAttributes);
-        $this->faqAttributes['id'] = 4;
-        $this->faqAttributes['area'] = 'A';
-        $I->haveRecord('faqs', $this->faqAttributes);
+        /*
+         * Beispieldatensatz generieren
+         *
+         */
+        $I->haveMultiple('Synthesise\Faq', 33, ['seminar_name' => 'Raum und Mensch']);
 
-      /*
-       * Abfrage durchführen
-       *
-       */
-      $entries = FAQ::getAll();
+        /*
+         * Abfrage durchführen
+         *
+         */
+        $entries = FAQ::getAll('Raum und Mensch');
 
-      /*
-       * Testergebnis auswerten
-       *
-       */
-      $I->AssertEquals(count($entries), 4);
+        /*
+         * Testergebnis auswerten
+         *
+         */
+        $I->AssertEquals(count($entries), 33);
     }
 
-    // /**
-    //  * Testet die Abfrage in Abhängigkeit eines Buchstabens (area)
-    //  *
-    //  */
+    /**
+     * Testet die Abfrage in Abhängigkeit eines Buchstabens (area)
+     *
+    */
     public function testGetFaqsByLetter(IntegrationTester $I)
     {
         $I->wantTo('get flags by letter');
 
-      /*
-       * Beispieldatensatz generieren
-       *
-       */
-      $this->faqAttributes['id'] = 1;
-        $this->faqAttributes['area'] = 'A';
-        $I->haveRecord('faqs', $this->faqAttributes);
-        $this->faqAttributes['id'] = 2;
-        $this->faqAttributes['area'] = 'A';
-        $I->haveRecord('faqs', $this->faqAttributes);
-        $this->faqAttributes['id'] = 3;
-        $this->faqAttributes['area'] = 'X';
-        $I->haveRecord('faqs', $this->faqAttributes);
-        $this->faqAttributes['id'] = 4;
-        $this->faqAttributes['area'] = 'B';
-        $I->haveRecord('faqs', $this->faqAttributes);
+        /*
+         * Beispieldatensatz generieren
+         *
+         */
+        $I->haveMultiple('Synthesise\Faq', 12, ['seminar_name' => 'Raum und Mensch', 'area' => 'Z']);
+        $I->haveMultiple('Synthesise\Faq', 54, ['seminar_name' => 'Raum und Mensch', 'area' => 'V']);
 
       /*
        * Abfrage durchführen
        *
        */
-      $entries = FAQ::getByLetter('A');
+      $entries = FAQ::getByLetter('Raum und Mensch', 'Z');
 
       /*
        * Testergebnis auswerten
        *
        */
-      $I->AssertEquals(count($entries), 2);
+      $I->AssertEquals(count($entries), 12);
     }
 }

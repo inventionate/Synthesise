@@ -331,6 +331,7 @@ CREATE TABLE `faqs` (
   `subject` text COLLATE utf8_unicode_ci NOT NULL,
   `question` text COLLATE utf8_unicode_ci NOT NULL,
   `answer` text COLLATE utf8_unicode_ci NOT NULL,
+  `seminar_name` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)

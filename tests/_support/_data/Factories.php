@@ -56,22 +56,6 @@ trait Factories
         ];
 
     /**
-     * Test Dummy "FAQ" definieren.
-     *
-     * @var array
-     */
-    public static $faqAttributes =
-        [
-            'id' => 1,
-            'area' => 'A',
-            'subject' => 'Allgemeine Fragen',
-            'question' => 'Wo geht die Sonne auf?',
-            'answer' => 'Im Morgenland.',
-            'created_at' => '2014-09-17 17:00:00',
-            'updated_at' => '2014-09-17 17:00:00',
-        ];
-
-    /**
      * Test Dummy "Video" definieren.
      *
      * @var array
@@ -106,18 +90,4 @@ trait Factories
             'updated_at' => '2014-09-17 17:00:00',
         ];
 
-    /**
-     * Test Dummy "Message" definieren.
-     *
-     * @var array
-     */
-    public static $messageAttributes =
-        [
-            'id' => 1,
-            'title' => 'Das ist ein IT',
-            'content' => 'Sie führen einen Integration Test durch!',
-            'colour' => 'green',
-            'created_at' => '2014-09-17 17:00:00',
-            'updated_at' => '2014-09-17 17:00:00',
-        ];
 }
