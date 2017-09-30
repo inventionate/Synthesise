@@ -113,7 +113,7 @@
         </div>
         </div>
 
-        <div class="row">
+        {{-- <div class="row">
         <div class="seven wide column">
             <h2 class="ui header">Sequenzen</h2>
             <p>
@@ -123,9 +123,9 @@
         <div class="nine wide column">
             <img class="ui huge image" src="/images/sequenzen.png" alt="Sequenzen" />
         </div>
-        </div>
+        </div> --}}
 
-        <div class="row">
+        {{-- <div class="row">
         <div class="nine wide column">
             <img class="ui image" src="/images/disqus.png" alt="disqus">
         </div>
@@ -135,7 +135,7 @@
                 Die Web-App ermöglicht die Integraton von <b>disqus™</b> Diskussionräumen. Je nach Intention können diese entweder anonym verwendet werden, oder aber personalisiert und über die Anwendung hinausweisend.
             </p>
         </div>
-        </div>
+        </div> --}}
 
         <div class="row">
         <div class="seven wide column">
