@@ -38,6 +38,29 @@ task('symlink:public', function () {
     run('ln -sf {{deploy_path}}/current/public/* {{deploy_path}}/public');
     run('ln -sf {{deploy_path}}/shared/storage/app/public {{deploy_path}}/public/storage');
 });
+
+/**
+ * Main task
+ */
+desc('Deploy your project');
+task('deploy', [
+    'deploy:info',
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:shared',
+    'deploy:vendors',
+    'deploy:writable',
+    'artisan:view:clear',
+    'artisan:cache:clear',
+    'artisan:config:cache',
+    'artisan:optimize',
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
+]);
+
 after('deploy:symlink', 'symlink:public');
 
 // [Optional] if deploy fails automatically unlock.

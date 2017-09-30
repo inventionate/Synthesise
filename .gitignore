@@ -19,7 +19,6 @@ Homestead.yaml
 .env.production
 .env.dev
 .DS_Store
-composer.lock
 Homestead.json
 Homestead.yaml
 npm-debug.log
