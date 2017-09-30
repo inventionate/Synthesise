@@ -84,9 +84,8 @@ class SectionRepository implements SectionInterface
         if( $further_reading !== null )
         {
             // Remove old image.
-            if ( Seminar::where('further_reading_path', $section->further_reading_path)->count() === 1 )
+            if ( Section::where('further_reading_path', $section->further_reading_path)->count() === 1 )
             {
-                // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
                 File::delete( $section->further_reading_path );
             }
 
