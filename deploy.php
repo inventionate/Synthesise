@@ -18,17 +18,17 @@ add('shared_dirs', []);
 add('writable_dirs', []);
 
 // Servers
-server('production', 'etpm.ph-karlsruhe.de')
+host('etpm.ph-karlsruhe.de')
+    ->stage('production')
     ->user('etpm')
-    ->identityFile()
-    ->set('deploy_path', '/home/etpm')
-    ->pty(true);
+    ->identityFile('~/.ssh/id_rsa')
+    ->set('deploy_path', '/home/etpm');
 
-server('dev', 'etpm-dev.ph-karlsruhe.de')
+host('etpm-dev.ph-karlsruhe.de')
+    ->stage('dev')
     ->user('etpm-dev')
-    ->identityFile()
-    ->set('deploy_path', '/home/etpm-dev')
-    ->pty(true);
+    ->identityFile('~/.ssh/id_rsa')
+    ->set('deploy_path', '/home/etpm-dev');
 
 // Tasks
 
