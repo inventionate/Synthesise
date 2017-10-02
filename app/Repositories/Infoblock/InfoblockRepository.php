@@ -91,7 +91,6 @@ class InfoblockRepository implements InfoblockInterface
             // Remove old image.
             if ( Infoblock::where('image_path', $infoblock->image_path)->count() === 1 )
             {
-                // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
                 File::delete( $infoblock->image_path );
             }
 
@@ -109,7 +108,6 @@ class InfoblockRepository implements InfoblockInterface
             // Remove old image.
             if ( Infoblock::where('text_path', $infoblock->text_path)->count() === 1 )
             {
-                // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
                 File::delete( $infoblock->text_path );
             }
 
@@ -149,13 +147,11 @@ class InfoblockRepository implements InfoblockInterface
 
         if ( Infoblock::where('image_path', $infoblock->image_path)->count() === 1 && $infoblock->image_path !== null )
         {
-            // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
             File::delete( $infoblock->image_path );
         }
 
         if ( Infoblock::where('text_path', $infoblock->text_path)->count() === 1 && $infoblock->text_path !== null )
         {
-            // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
             File::delete( $infoblock->text_path );
         }
 
