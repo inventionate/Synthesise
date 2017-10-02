@@ -8,7 +8,6 @@ class MessageRepositoryCest
      */
     public function testDeleteMessage(IntegrationTester $I)
     {
-        $I->wantTo('delete a Message');
 
         // Beispieldatensatz generieren
         $I->have('Synthesise\Message', ['id' => 1, 'content' => 'Das ist eine Nachricht.']);
@@ -25,8 +24,6 @@ class MessageRepositoryCest
      */
     public function testStoreMessage(IntegrationTester $I)
     {
-        $I->wantTo('store a Message');
-
         // Abfrage durchführen
         Message::store('Neues Seminar', 'Neuer Titel', 'Eine neue Nachricht', 'yellow');
 
@@ -39,8 +36,6 @@ class MessageRepositoryCest
      */
     public function testUpdateMessage(IntegrationTester $I)
     {
-        $I->wantTo('update a Message');
-
         // Beispieldatensatz generieren
         $I->have('Synthesise\Message', [
             'id' => 1,

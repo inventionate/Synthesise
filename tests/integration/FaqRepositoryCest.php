@@ -5,8 +5,6 @@ class FaqRepositoryCest
 
     public function testGetFaqLetters(IntegrationTester $I)
     {
-        $I->wantTo('get FAQ letters');
-
         // Beispieldatensatz generieren
         $I->haveMultiple('Synthesise\Faq', 2, ['seminar_name' => 'Raum und Mensch']);
 
@@ -22,8 +20,6 @@ class FaqRepositoryCest
      */
     public function testGetAllFaqs(IntegrationTester $I)
     {
-        $I->wantTo('get all faqs');
-
         // Beispieldatensatz generieren
         $I->haveMultiple('Synthesise\Faq', 33, ['seminar_name' => 'Raum und Mensch']);
 
@@ -40,8 +36,6 @@ class FaqRepositoryCest
     */
     public function testGetFaqsByLetter(IntegrationTester $I)
     {
-        $I->wantTo('get flags by letter');
-
         // Beispieldatensatz generieren
         $I->haveMultiple('Synthesise\Faq', 12, ['seminar_name' => 'Raum und Mensch', 'area' => 'Z']);
         $I->haveMultiple('Synthesise\Faq', 54, ['seminar_name' => 'Raum und Mensch', 'area' => 'V']);

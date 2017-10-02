@@ -1,6 +1,6 @@
 <?php
 
-class SeminarRepositoryCest
+class SectionRepositoryCest
 {
 
 }

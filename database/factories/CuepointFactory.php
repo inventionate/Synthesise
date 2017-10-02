@@ -14,8 +14,8 @@ use Faker\Generator as Faker;
 $factory->define(Synthesise\Cuepoint::class, function (Faker $faker) {
 
     return [
-        'cuepoint'    => rand(),
+        'cuepoint'    => $faker->unique()->randomDigitNotNull(),
         'content'     => $faker->realText(123),
-        'sequence_id' => rand(),
+        'sequence_id' => $faker->randomDigitNotNull(),
     ];
 });

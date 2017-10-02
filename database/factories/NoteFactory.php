@@ -11,12 +11,13 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Synthesise\Paper::class, function (Faker $faker) {
+$factory->define(Synthesise\Note::class, function (Faker $faker) {
 
     return [
-        'name'         => $faker->unique()->realText(64),
-        'author'       => $faker->name,
-        'path'         => 'path/to/text',
-        'lection_name' => $faker->realText(100),
+        'note'         => Crypt::encrypt($faker->realText(64)),
+        'user_id'      => $faker->unique()->randomDigitNotNull(),
+        'cuepoint_id'  => $faker->unique()->randomDigitNotNull(),
+        'lection_name' => $faker->realText(64),
+        'seminar_name' => $faker->realText(176),
     ];
 });

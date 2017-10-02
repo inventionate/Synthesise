@@ -8,8 +8,6 @@ class InfoblockRepositoryCest
      */
     public function testDeleteInfoblock(IntegrationTester $I)
     {
-        $I->wantTo('delete an Infoblock');
-
         // Beispieldatensatz generieren
         $I->have('Synthesise\Infoblock', ['id' => 1]);
 
@@ -25,8 +23,6 @@ class InfoblockRepositoryCest
      */
     public function testStoreInfoblock(IntegrationTester $I)
     {
-        $I->wantTo('store an Infoblock');
-
         // Speichern durchführen
         Infoblock::store('New Infoblock', 'Hello again.', 'http://link/url', NULL, NULL, 'Other Seminar');
 
@@ -39,8 +35,6 @@ class InfoblockRepositoryCest
      */
     public function testUpdateInfoblock(IntegrationTester $I)
     {
-        $I->wantTo('update an Infoblock');
-
         // Beispieldatensatz generieren
         $I->have('Synthesise\Infoblock', ['id' => 1, 'name' => 'Das ist ein Titel']);
 

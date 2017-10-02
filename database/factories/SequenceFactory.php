@@ -15,7 +15,7 @@ $factory->define(Synthesise\Sequence::class, function (Faker $faker) {
 
     return [
         'name'         => $faker->realText(64),
-        'position'     => rand(),
+        'position'     => $faker->randomDigitNotNull(),
         'video'        => TRUE,
         'path'         => 'sample/path',
         'lection_name' => $faker->realText(64),

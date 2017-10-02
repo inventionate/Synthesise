@@ -1,139 +1,90 @@
 <?php
 
-use Synthesise\Repositories\Facades\Note;
-use Illuminate\Support\Facades\Crypt;
-use _data\Factories as Factories;
-
 class NoteRepositoryCest
 {
-    /**
-     * Eine fiktive Beispielnotiz.
-     *
-     * @var array
-     */
-    protected $noteAttributes;
 
     /**
-     * Bereitet die virtuelle Datenbank und virtuelle E-Mails vor.
-     *
-     * Migriert alle Strukturen in eine virtuelle SQLite Datenbank und
-     * setzt die E-Mail auf 'pretend' um sie in der Logfile zu verzeichnen.
+     * Testet den Abruf einer Notiz.
      */
-    public function _before()
+    public function testGet(IntegrationTester $I)
     {
-        $this->noteAttributes = Factories::$noteAttributes;
-    }
+        // Beispieldatensatz generieren
+        $I->have('Synthesise\Lection', ['id' => 1, 'name' => 'Space Lection']);
 
-    /**
-     * Testet, ob die Notiz ID ausgelesen werden kann.
-     */
-    public function test_find_note_id(IntegrationTester $I)
-    {
-        $I->wantTo('find Note ID');
+        $I->have('Synthesise\Sequence', ['id' => 1, 'lection_name' => 'Space Lection', 'position' => 1]);
 
-      // Beispieldatensatz generieren
-      $this->noteAttributes['user_id'] = 1;
-        $this->noteAttributes['cuepoint_id'] = 1;
-        $I->haveRecord('notes', $this->noteAttributes);
+        $I->have('Synthesise\Cuepoint', ['id' => 1, 'sequence_id' => 1]);
 
-      // Methode aufrufen
-      $noteId = Note::getNoteId(1, 1);
+        $I->have('Synthesise\Note', ['user_id' => 1, 'cuepoint_id' => 1, 'lection_name' => 'Space Lection', 'seminar_name' => 'Sample Seminar', 'note' => Crypt::encrypt('A note!')]);
 
-      // Testen
-      $I->AssertEquals($noteId[0], 1);
-    }
+        // Methode aufrufen
+        $note = Note::get(1, 1, 'Space Lection', 'Sample Seminar', 1);
 
-    /**
-     * testet, ob der Inhalt einer Notiz ausgelesen werden kann.
-     */
-    public function test_read_note_content(IntegrationTester $I)
-    {
-        $I->wantTo('read Note content');
-
-      // Beispieldatensatz generieren
-      $this->noteAttributes['id'] = 1;
-        $this->noteAttributes['note'] = Crypt::encrypt('Darkside');
-        $this->noteAttributes['user_id'] = 1;
-        $this->noteAttributes['cuepoint_id'] = 1;
-        $I->haveRecord('notes', $this->noteAttributes);
-        $this->noteAttributes['id'] = 2;
-        $this->noteAttributes['note'] = Crypt::encrypt('Lightside');
-        $this->noteAttributes['user_id'] = 2;
-        $this->noteAttributes['cuepoint_id'] = 1;
-        $I->haveRecord('notes', $this->noteAttributes);
-        $this->noteAttributes['id'] = 3;
-        $this->noteAttributes['note'] = Crypt::encrypt('no side');
-        $this->noteAttributes['user_id'] = 1;
-        $this->noteAttributes['cuepoint_id'] = 2;
-        $I->haveRecord('notes', $this->noteAttributes);
-
-      // Methode aufrufen
-      $noteContent = Note::getContent(1, 2);
-
-      // Testen
-      $I->AssertEquals($noteContent, 'no side');
+        // Testen
+        $I->AssertEquals($note, 'A note!');
     }
 
     /**
      * Testet das Speichern einer neuen Notiz.
      */
-    public function test_save_new_note(IntegrationTester $I)
+    public function testStoreNewNote(IntegrationTester $I)
     {
-        $I->wantTo('save new Note');
+        // Beispieldatensatz generieren
+        $I->have('Synthesise\Lection', ['name' => 'Lection']);
 
-      // Neue Notiz speichern
-      $newNote = Note::updateContent('Der neue Inhalt.', 1, 1, 'Sozialgeschichte 1');
+        $I->have('Synthesise\Sequence', ['lection_name' => 'Lection', 'position' => 1]);
 
-      // Notiz abfragen
-      $noteContent = Note::getContent(1, 1);
+        $I->have('Synthesise\Cuepoint', ['id' => 1, 'sequence_id' => 1]);
 
-      // Testen
-      $I->AssertEquals($noteContent, 'Der neue Inhalt.');
+        // Methode aufrufen
+        Note::store(1, 1, 'Lection', 'Seminar', 'Cool!', 1);
+
+        // Record checken
+        $I->seeRecord('Synthesise\Note');
     }
 
     /**
      * Testet das Updaten einer Notiz.
      */
-    public function test_update_note_content(IntegrationTester $I)
+    public function testUpdateNote(IntegrationTester $I)
     {
-        $I->wantTo('update Note content');
+        // Beispieldatensatz generieren
+        $I->have('Synthesise\Lection', ['name' => 'Lection']);
 
-      // Beispieldatensatz generieren
-      $this->noteAttributes['note'] = Crypt::encrypt('Lightside');
-        $this->noteAttributes['user_id'] = 1;
-        $this->noteAttributes['cuepoint_id'] = 1;
-        $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
-        $I->haveRecord('notes', $this->noteAttributes);
+        $I->have('Synthesise\Sequence', ['lection_name' => 'Lection', 'position' => 1]);
 
-      // Neue Notiz speichern
-      $updatedNote = Note::updateContent('Der neue Inhalt.', 1, 1, 'Sozialgeschichte 1');
+        $I->have('Synthesise\Cuepoint', ['id' => 1, 'sequence_id' => 1]);
 
-      // Notiz abfragen
-      $noteContent = Note::getContent(1, 1);
+        $I->have('Synthesise\Note', ['user_id' => 1, 'cuepoint_id' => 1, 'lection_name' => 'Lection', 'seminar_name' => 'Sample Seminar', 'note' => Crypt::encrypt('A note!')]);
 
-      // Testen
-      $I->AssertEquals($noteContent, 'Der neue Inhalt.');
+        // Methode aufrufen
+        Note::update(1, 1, 'Lection', 'Sample Seminar', 'New Content', 1);
+
+        // Record abfragen
+        $note = $I->grabRecord('Synthesise\Note', ['user_id' => 1, 'cuepoint_id' => 1, 'lection_name' => 'Lection', 'seminar_name' => 'Sample Seminar']);
+
+        // Überprüfen
+        $I->assertEquals(Crypt::decrypt($note->note), 'New Content');
     }
 
     /**
      * Testet das Löschen einer leeren Notiz.
      */
-    public function test_remove_an_empty_note_from_database(IntegrationTester $I)
+    public function testDeleteNote(IntegrationTester $I)
     {
-        $I->wantTo('remove an empty Note from database');
+        // Beispieldatensatz generieren
+        $I->have('Synthesise\Lection', ['name' => 'Lection']);
 
-      // Beispieldatensatz generieren
-      $this->noteAttributes['id'] = 1;
-        $this->noteAttributes['note'] = Crypt::encrypt('Lightside');
-        $this->noteAttributes['user_id'] = 1;
-        $this->noteAttributes['cuepoint_id'] = 1;
-        $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
-        $I->haveRecord('notes', $this->noteAttributes);
+        $I->have('Synthesise\Sequence', ['lection_name' => 'Lection', 'position' => 1]);
 
-      // Neue Notiz speichern
-      $updatedNote = Note::updateContent('', 1, 1, 'Sozialgeschichte 1');
+        $I->have('Synthesise\Cuepoint', ['id' => 1, 'sequence_id' => 1]);
 
-      // Testen
-      $I->dontSeeRecord('notes', $this->noteAttributes);
+        $I->have('Synthesise\Note', ['user_id' => 1, 'cuepoint_id' => 1, 'lection_name' => 'Lection', 'seminar_name' => 'Sample Seminar', 'note' => Crypt::encrypt('A note!')]);
+
+        // Methode aufrufen
+        Note::delete(1, 1, 'Lection', 'Sample Seminar', 1);
+
+        // Testen, ob Notiz gelöscht wurde
+        $I->dontSeeRecord('Synthesise\Note');
     }
 }

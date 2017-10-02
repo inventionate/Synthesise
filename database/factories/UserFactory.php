@@ -11,12 +11,14 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Synthesise\Paper::class, function (Faker $faker) {
+$factory->define(Synthesise\User::class, function (Faker $faker) {
 
     return [
-        'name'         => $faker->unique()->realText(64),
-        'author'       => $faker->name,
-        'path'         => 'path/to/text',
-        'lection_name' => $faker->realText(100),
+        'username'  => $faker->unique()->name,
+        'password'  => $faker->password,
+        'firstname' => $faker->firstName,
+        'lastname'  => $faker->lastName,
+        'role'      => 'admin',
+        'email'     => $faker->email,
     ];
 });
