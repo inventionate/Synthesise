@@ -228,8 +228,6 @@ class LectionRepository implements LectionInterface
   public function available($name, $seminar_name)
   {
 
-    //   @TODO: Verifizieren, dass jedes Seminar jede Lektion maximal einmal verwenden kann!!!!
-
       $lection = $this->get($name, $seminar_name);
 
       $available_from = $lection->first()->pivot->available_from;
@@ -311,7 +309,7 @@ class LectionRepository implements LectionInterface
    * Get sequence.
    *
    * @param     string $name
-   * @param     int     $sequence
+   * @param     int    $sequence
    *
    * @return    collection
    */

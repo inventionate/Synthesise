@@ -6,22 +6,14 @@ class FaqRepositoryCest
     public function testGetFaqLetters(IntegrationTester $I)
     {
         $I->wantTo('get FAQ letters');
-        /*
-         * Beispieldatensatz generieren
-         *
-         */
+
+        // Beispieldatensatz generieren
         $I->haveMultiple('Synthesise\Faq', 2, ['seminar_name' => 'Raum und Mensch']);
 
-        /*
-         * Abfrage durchführen
-         *
-         */
+        // Abfrage durchführen
         $areas = FAQ::getLetters('Raum und Mensch');
 
-        /*
-         * Testergebnis auswerten
-         *
-         */
+        // Testergebnis auswerten
         $I->AssertEquals(2, count($areas));
     }
 
@@ -30,24 +22,15 @@ class FaqRepositoryCest
      */
     public function testGetAllFaqs(IntegrationTester $I)
     {
-        $I->wantTo('get all flags');
+        $I->wantTo('get all faqs');
 
-        /*
-         * Beispieldatensatz generieren
-         *
-         */
+        // Beispieldatensatz generieren
         $I->haveMultiple('Synthesise\Faq', 33, ['seminar_name' => 'Raum und Mensch']);
 
-        /*
-         * Abfrage durchführen
-         *
-         */
+        // Abfrage durchführen
         $entries = FAQ::getAll('Raum und Mensch');
 
-        /*
-         * Testergebnis auswerten
-         *
-         */
+        // Testergebnis auswerten
         $I->AssertEquals(count($entries), 33);
     }
 
@@ -59,23 +42,14 @@ class FaqRepositoryCest
     {
         $I->wantTo('get flags by letter');
 
-        /*
-         * Beispieldatensatz generieren
-         *
-         */
+        // Beispieldatensatz generieren
         $I->haveMultiple('Synthesise\Faq', 12, ['seminar_name' => 'Raum und Mensch', 'area' => 'Z']);
         $I->haveMultiple('Synthesise\Faq', 54, ['seminar_name' => 'Raum und Mensch', 'area' => 'V']);
 
-      /*
-       * Abfrage durchführen
-       *
-       */
-      $entries = FAQ::getByLetter('Raum und Mensch', 'Z');
+        // Abfrage durchführen
+        $entries = FAQ::getByLetter('Raum und Mensch', 'Z');
 
-      /*
-       * Testergebnis auswerten
-       *
-       */
-      $I->AssertEquals(count($entries), 12);
+        // Testergebnis auswerten
+        $I->AssertEquals(count($entries), 12);
     }
 }

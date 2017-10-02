@@ -56,26 +56,6 @@ trait Factories
         ];
 
     /**
-     * Test Dummy "Video" definieren.
-     *
-     * @var array
-     */
-    public static $videoAttributes =
-        [
-            'id' => 1,
-            'videoname' => '9 Leben!',
-            'section' => 'Dokumentarfilm',
-            'author' => 'Paul Hewson',
-            'online' => true,
-            'sequence_id' => 1,
-            'sequence_name' => null,
-            'available_from' => '2014-09-17',
-            'available_to' => '2014-09-17',
-            'created_at' => '2014-09-17 17:00:00',
-            'updated_at' => '2014-09-17 17:00:00',
-        ];
-
-    /**
      * Test Dummy "Paper" definieren.
      *
      * @var array
