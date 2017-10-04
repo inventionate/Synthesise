@@ -120,18 +120,23 @@ class SeminarController extends Controller
         $subject = $request->subject;
         $module = $request->module;
         $description = $request->description;
-        $image_path = $request->file('image')->store('public/seminars');
+        $image_path = $request->file('image');
+        if( !is_null($image_path) )
+        {
+            $image_path->store('public/seminars');
+        }
         $info_intro = null;
         $info_lections = null;
         $info_texts = null;
         $info_exam = null;
+        $info_dates = null;
         $info_path = null;
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $authorized_users = $request->authorized_users;
         $disqus_shortname = $request->disqus_shortname;
 
-        Seminar::store($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_path, $available_from, $available_to, $authorized_users, $disqus_shortname);
+        Seminar::store($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_dates, $info_path, $available_from, $available_to, $authorized_users, $disqus_shortname);
 
         return back()->withInput();
     }
@@ -158,6 +163,7 @@ class SeminarController extends Controller
             'info_lections' => 'string',
             'info_texts' => 'string',
             'info_exam' => 'string',
+            'info_dates' => 'string',
             'info' => 'file',
             'available_from' => 'required|date',
             'available_to' => 'required|date',
@@ -170,17 +176,26 @@ class SeminarController extends Controller
         $subject = $request->subject;
         $module = $request->module;
         $description = $request->description;
-        $image_path = $request->file('image')->store('public/seminars');
+        $image_path = $request->file('image');
+        if( !is_null($image_path) )
+        {
+            $image_path->store('public/seminars');
+        }
         $info_intro = $request->info_intro;
         $info_lections = $request->info_lections;
         $info_texts = $request->info_texts;
         $info_exam = $request->info_exam;
-        $info_path = $request->file('info')->store('public/seminars');
+        $info_dates = $request->info_dates;
+        $info_path = $request->file('info');
+        if( !is_null($image_path) )
+        {
+            $info_path->store('public/seminars');
+        }
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $disqus_shortname = $request->disqus_shortname;
 
-        Seminar::update($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_path, $available_from, $available_to, $disqus_shortname);
+        Seminar::update($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_dates, $info_path, $available_from, $available_to, $disqus_shortname);
 
         return back()->withInput();
     }

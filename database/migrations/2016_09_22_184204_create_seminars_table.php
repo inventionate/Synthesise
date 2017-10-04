@@ -26,6 +26,7 @@ class CreateSeminarsTable extends Migration
             $table->text('info_lections')->nullable();
             $table->text('info_texts')->nullable();
             $table->text('info_exam')->nullable();
+            $table->text('info_dates')->nullable();
             $table->text('info_path')->nullable();
             $table->date('available_from');
             $table->date('available_to');

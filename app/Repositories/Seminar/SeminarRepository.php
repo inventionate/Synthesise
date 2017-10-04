@@ -40,13 +40,14 @@ class SeminarRepository implements SeminarInterface
      * @param string $info_lections
      * @param string $info_texts
      * @param string $info_exam
+     * @param string $info_dates
      * @param string $info_path
      * @param date   $available_from
      * @param date   $available_to
      * @param array  $authorized_users
      * @param string $disqus_shortname
      */
-    public function store($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_path, $available_from, $available_to, $authorized_users, $disqus_shortname)
+    public function store($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_dates, $info_path, $available_from, $available_to, $authorized_users, $disqus_shortname)
     {
         // Add root user.
         if (is_null($authorized_users)) {
@@ -70,6 +71,7 @@ class SeminarRepository implements SeminarInterface
         $seminar->info_lections = $info_lections;
         $seminar->info_texts = $info_texts;
         $seminar->info_exam = $info_exam;
+        $seminar->info_dates = $info_dates;
         $seminar->info_path = $info_path;
         $seminar->available_from = date('Y-m-d', strtotime($available_from));
         $seminar->available_to = date('Y-m-d', strtotime($available_to));
@@ -99,12 +101,13 @@ class SeminarRepository implements SeminarInterface
      * @param string $info_lections
      * @param string $info_texts
      * @param string $info_exam
+     * @param string $info_dates
      * @param string $info_path
      * @param date   $available_from
      * @param date   $available_to
      * @param string $disqus_shortname
      */
-    public function update($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_path, $available_from, $available_to, $disqus_shortname)
+    public function update($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_dates, $info_path, $available_from, $available_to, $disqus_shortname)
     {
 
         // Find Seminar.
@@ -120,6 +123,7 @@ class SeminarRepository implements SeminarInterface
         $seminar->info_lections = $info_lections;
         $seminar->info_texts = $info_texts;
         $seminar->info_exam = $info_exam;
+        $seminar->info_dates = $info_dates;
         $seminar->available_from = date('Y-m-d', strtotime($available_from));
         $seminar->available_to = date('Y-m-d', strtotime($available_to));
 

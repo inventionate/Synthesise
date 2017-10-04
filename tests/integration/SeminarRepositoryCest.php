@@ -26,7 +26,7 @@ class SeminarRepositoryCest {
     public function testStoreNewSeminar(IntegrationTester $I)
     {
         // Recieve data.
-        Seminar::store('New Seminar', 'Timo', 'timo@pul@si.so', 'Coole sachen.', 'M1', 'Viel Text.', 'path/to/image.jpg', 'Some Text.', 'More text.', 'More text.', 'Even more text.', 'path/to/text.pdf', '2018-01-01', '2019-01-01', NULL, NULL);
+        Seminar::store('New Seminar', 'Timo', 'timo@pul@si.so', 'Coole sachen.', 'M1', 'Viel Text.', 'path/to/image.jpg', 'Some Text.', 'More text.', 'More text.', 'Even more text.', 'And more more more.', 'path/to/text.pdf', '2018-01-01', '2019-01-01', NULL, NULL);
 
         // Test seminar.
         $I->seeRecord('Synthesise\Seminar', ['name' => 'New Seminar']);
@@ -42,7 +42,7 @@ class SeminarRepositoryCest {
         $I->have('Synthesise\Seminar', ['name' => 'New Seminar']);
 
         // Recieve data.
-        Seminar::update('New Seminar', 'Timo', 'timo@pul@si.so', 'Coole sachen.', 'M1', 'Viel Text.', 'path/to/image.jpg', 'Some Text.', 'More text.', 'More text.', 'Even more text.', 'path/to/text.pdf', '2018-01-01', '2019-01-01', NULL, NULL);
+        Seminar::update('New Seminar', 'Timo', 'timo@pul@si.so', 'Coole sachen.', 'M1', 'Viel Text.', 'path/to/image.jpg', 'Some Text.', 'More text.', 'More text.', 'Even more text.', 'And more more more', 'path/to/text.pdf', '2018-01-01', '2019-01-01', NULL, NULL);
 
         // Test seminar.
         $I->seeRecord('Synthesise\Seminar', ['author' => 'Timo']);

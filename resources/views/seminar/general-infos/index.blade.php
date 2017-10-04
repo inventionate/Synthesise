@@ -41,6 +41,13 @@
                     <div class="content">
                         {!! $seminar->info_exam !!}
                     </div>
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        Termine
+                    </div>
+                    <div class="content">
+                        {!! $seminar->info_dates !!}
+                    </div>
 
                 </div>
 
