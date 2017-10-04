@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ action('MessageController@store') }}" id="message-new-modal" class="ui modal form message-validator">
+<form role="form" method="POST" action="{{ action('MessageController@store') }}" id="message-new-modal" class="ui modal form message-validator" enctype="multipart/form-data">
 
     {{ csrf_field() }}
 

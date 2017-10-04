@@ -25,7 +25,7 @@ class MessageRepositoryCest
     public function testStoreMessage(IntegrationTester $I)
     {
         // Abfrage durchführen
-        Message::store('Neues Seminar', 'Neuer Titel', 'Eine neue Nachricht', 'yellow');
+        Message::store('Neues Seminar', 'Neuer Titel', 'Eine neue Nachricht', 'yellow', 'path/to/file');
 
         // Testergebnis auswerten
         $I->seeRecord('Synthesise\Message', ['seminar_name' => 'Neues Seminar', 'title' => 'Neuer Titel', 'content' => 'Eine neue Nachricht', 'colour' => 'yellow']);
@@ -41,11 +41,11 @@ class MessageRepositoryCest
             'id' => 1,
             'title' => 'Das ist ein Titel',
             'content' => 'Das ist eine Nachricht.',
-            'colour' => 'yellow'
+            'colour' => 'yellow',
         ]);
 
         // Abfrage durchführen
-        Message::update(1, 'Titel Neu', 'Eine neue Nachricht', 'red');
+        Message::update(1, 'Titel Neu', 'Eine neue Nachricht', 'red', NULL);
 
         // Testergebnis auswerten
         $I->seeRecord('Synthesise\Message', ['id' => 1, 'title' => 'Titel Neu', 'content' => 'Eine neue Nachricht', 'colour' => 'red']);

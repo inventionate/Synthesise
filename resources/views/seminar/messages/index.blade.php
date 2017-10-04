@@ -14,6 +14,20 @@
 
                 {!! $message->content !!}
 
+                @if ( $message->file_path !== null )
+
+                    <div class="ui clearing divider"></div>
+
+
+                        <a class="ui icon basic button" href="{{ action('DownloadController@getFile', ['path' => $message->file_path, 'name' => $message->title]) }}" target="_blank">
+                            <i class="download icon"></i>
+                            Datei herunterladen
+                        </a>
+
+
+
+                @endif
+
                 @if ( Seminar::authorizedEditor($seminar_name) )
                     <div class="ui small teal icon buttons">
 

@@ -13,6 +13,20 @@
     <textarea id="messages_content" name="content" placeholder="Bitte geben Sie Ihre Nachricht ein." maxlength="1000" class="message-wysiwyg"></textarea>
 </div>
 
+<div class=" field">
+    <label for="message_file">Datei hochladen</label>
+    <div class="ui action input">
+        <label for="message_filepath" class="hide">Dateipfad</label>
+            <input id="message_filepath" type="text" placeholder="Laden Sie eine Datei hoch." name="filepath" readonly>
+
+            <input id="message_file" type="file" name="file">
+
+            <div class="ui primary icon button" data-tooltip="Laden Sie ein Titelbild hoch.">
+                <i class="cloud upload icon"></i>
+            </div>
+    </div>
+</div>
+
 <div class="inline fields" ref="colour">
     <label for="colour">Hintergrundfarbe wählen:</label>
     <div class="field">

@@ -18,6 +18,7 @@ class CreateMessagesTable extends Migration {
 			$table->string('title', 256);
 			$table->text('content');
 			$table->string('colour', 20);
+			$table->string('file_path', 256)->nullable();
 			$table->string('seminar_name', 256);
 			$table->timestamps();
 		});

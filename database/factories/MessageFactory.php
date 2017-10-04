@@ -17,6 +17,7 @@ $factory->define(Synthesise\Message::class, function (Faker $faker) {
         'title' => $faker->realText(20),
         'content' => $faker->realText(100),
         'colour' => str_random(7),
+        'file_path' => 'path/to/file',
         'seminar_name' => $faker->realText(16)
     ];
 });

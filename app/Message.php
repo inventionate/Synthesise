@@ -21,6 +21,7 @@ class Message extends Model {
 		'title',
 		'content',
 		'colour',
+		'file_path',
 		'seminar_name'
 	];
 

@@ -42,11 +42,16 @@ class MessageController extends Controller
 
         $content = $request->content;
 
-        # @TODO Datei hochladen!
-
         $colour = $request->colour;
 
-        Message::store($seminar_name, $title, $content, $colour);
+        $file_path = $request->file('file');
+
+        if ( !is_null($file_path) )
+        {
+            $file_path = $file_path->store('public/seminars/messages');
+        }
+
+        Message::store($seminar_name, $title, $content, $colour, $file_path);
 
         return back()->withInput();
     }
@@ -65,7 +70,8 @@ class MessageController extends Controller
         $this->validate($request, [
             'title' => 'required|string',
             'content' => 'required|string',
-            'colour' => 'required|alpha'
+            'colour' => 'required|alpha',
+            'file' => 'file'
         ]);
 
         $title = $request->title;
@@ -74,7 +80,9 @@ class MessageController extends Controller
 
         $colour = $request->colour;
 
-        Message::update($id, $title, $content, $colour);
+        $file_path = $request->file('file')->store('public/seminars/messages');
+
+        Message::update($id, $title, $content, $colour, $file_path);
 
         return back()->withInput();
     }

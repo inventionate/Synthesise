@@ -28,6 +28,10 @@ class DownloadController extends Controller
     {
         $path = $request->path;
 
+        // Public durch storage ersetzen.
+        $path = str_replace('public', 'storage', $path);
+
+
         $name = $request->name . '.' . pathinfo($path)['extension'];
 
         return response()->download($path, $name);
