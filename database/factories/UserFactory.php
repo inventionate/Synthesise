@@ -18,7 +18,7 @@ $factory->define(Synthesise\User::class, function (Faker $faker) {
         'password'  => $faker->password,
         'firstname' => $faker->firstName,
         'lastname'  => $faker->lastName,
-        'role'      => 'admin',
+        'role'      => 'Admin',
         'email'     => $faker->email,
     ];
 });

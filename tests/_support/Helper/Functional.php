@@ -28,6 +28,6 @@ class Functional extends \Codeception\Module
         $this->Data->seedNotes($I);
         $this->Data->seedPapers($I);
         $this->Data->seedUsers($I);
-        $this->Data->seedVideos($I);
+        $this->Data->seedLections($I);
     }
 }

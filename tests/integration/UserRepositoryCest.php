@@ -118,7 +118,7 @@ class UserRepositoryCest
     public function testGetAllUsersByRole(IntegrationTester $I)
     {
         // Fake data.
-        $I->haveMultiple('Synthesise\User', 999);
+        $I->haveMultiple('Synthesise\User', 999, ['role' => 'Student']);
 
         $I->haveMultiple('Synthesise\User', 99, ['role' => 'Admin']);
 

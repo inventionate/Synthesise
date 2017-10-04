@@ -10,186 +10,213 @@ use Illuminate\Support\Facades\Hash;
 class TestDatabaseSeeder
 {
 
-  /**
-   * Beispielcuepoints generieren.
-   *
-   * @param     FunctionalTester $I
-   */
-  public function seedCuepoints(\FunctionalTester $I)
-  {
+    /**
+     * Beispielcuepoints generieren.
+     *
+     * @param     FunctionalTester $I
+     */
+    public function seedCuepoints(\FunctionalTester $I)
+    {
 
-      $I->have('Synthesise\Cuepoint', ['id' => 1, 'cuepoint' => 100, 'video_videoname' => 'Sozialgeschichte 1', 'video_sequence_id' => 1, 'content' => 'Fähnchen 1']);
+        $I->have('Synthesise\Cuepoint', [
+          'id'          => 1,
+          'cuepoint'    => 100,
+          'sequence_id' => 1,
+          'content'     => 'Fähnchen 1'
+        ]);
 
-      $this->cuepointAttributes['id'] = 2;
-      $this->cuepointAttributes['cuepoint'] = '300';
-      $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $this->cuepointAttributes['video_sequence_id'] = 1;
-      $this->cuepointAttributes['content'] = 'Fähnchen 2';
-      $I->haveRecord('cuepoints', $this->cuepointAttributes);
+        $I->have('Synthesise\Cuepoint', [
+          'id'          => 2,
+          'cuepoint'    => 300,
+          'sequence_id' => 1,
+          'content'     => 'Fähnchen 2'
+        ]);
 
-      $this->cuepointAttributes['id'] = 3;
-      $this->cuepointAttributes['cuepoint'] = '700';
-      $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $this->cuepointAttributes['video_sequence_id'] = 1;
-      $this->cuepointAttributes['content'] = 'Fähnchen 3';
-      $I->haveRecord('cuepoints', $this->cuepointAttributes);
-  }
+        $I->have('Synthesise\Cuepoint', [
+          'id'          => 3,
+          'cuepoint'    => 700,
+          'sequence_id' => 1,
+          'content'     => 'Fähnchen 3'
+        ]);
+    }
 
-  /**
-   * Beispiel-FAQs generieren.
-   *
-   * @param     FunctionalTester $I
-   */
-  public function seedFaqs(\FunctionalTester $I)
-  {
-      $this->faqAttributes['id'] = 1;
-      $this->faqAttributes['area'] = 'A';
-      $this->faqAttributes['subject'] = 'Anwesenheit';
-      $this->faqAttributes['question'] = 'Besteht Anwesenheitspflicht in den Präsenzveranstaltungen?';
-      $this->faqAttributes['answer'] = 'Es besteht keine Verpflichtung. Die regelmäßige Teilnahme wird dringend empfohlen.';
-      $I->haveRecord('faqs', $this->faqAttributes);
+    /**
+     * Beispiel-FAQs generieren.
+     *
+     * @param     FunctionalTester $I
+     */
+    public function seedFaqs(\FunctionalTester $I)
+    {
+        $I->have('Synthesise\Faq', [
+          'id'           => 1,
+          'area'         => 'A',
+          'subject'      => 'Anwesenheit',
+          'question'     => 'Besteht Anwesenheitspflicht in den Präsenzveranstaltungen?',
+          'answer'       => 'Es besteht keine Verpflichtung. Die regelmäßige Teilnahme wird dringend empfohlen.',
+          'seminar_name' => 'Sozialgeschichte 1'
+        ]);
 
-      $this->faqAttributes['id'] = 2;
-      $this->faqAttributes['area'] = 'B';
-      $this->faqAttributes['subject'] = 'Belegungspflicht';
-      $this->faqAttributes['question'] = 'Ist die M1-Veranstaltung eine Pflichtveranstaltung?';
-      $this->faqAttributes['answer'] = 'Das Besuch der Veranstaltung ist verpflichtend. Das Bestehen der Akademischen Vorprüfung ist Voraussetzung für das Weiterstudium an der PH Karlsruhe.</p>
-    <h5>Prüfungsordnung 2011: § 4 Akademische Vorprüfung</h5>
-    <ol>
-    <li>Die Akademische Vorprüfung bildet den Abschluss der ersten Modulstufe. Die Akademische Vorprüfung ist bis zum Ende des zweiten Semesters abzulegen. Wer die Vorprüfung einschließlich etwaiger Wiederholungen bis zum Ende des vierten Fachsemesters nicht bestanden hat, verliert den Prüfungsanspruch, es sei denn, er bzw. sie hat die Fristüberschreitung nicht zu vertreten.</li>
-    <li>Die Akademische Vorprüfung wird in den Studienbereichen BW, 1. HF und dem 2. HF abgelegt.</li>
-    <li>Wer alle in Absatz 2 genannten studienbegleitenden Modulprüfungen bestanden hat, hat die Akademische Vorprüfung bestanden. Die studienbegleitenden Modulprüfungen, die gemäß Absatz 2 die Akademische Vorprüfung bilden, können gemäß § 18 jeweils einmal wiederholt werden.</li>
-    </ol><p>';
-      $I->haveRecord('faqs', $this->faqAttributes);
+        $I->have('Synthesise\Faq', [
+          'id'           => 2,
+          'area'         => 'B',
+          'subject'      => 'Belegungspflicht',
+          'question'     => 'Ist die M1-Veranstaltung eine Pflichtveranstaltung?',
+          'answer'       => 'Das Besuch der Veranstaltung ist verpflichtend. Das Bestehen der Akademischen Vorprüfung ist Voraussetzung für das Weiterstudium an der PH Karlsruhe.</p>
+        <h5>Prüfungsordnung 2011: § 4 Akademische Vorprüfung</h5>
+        <ol>
+        <li>Die Akademische Vorprüfung bildet den Abschluss der ersten Modulstufe. Die Akademische Vorprüfung ist bis zum Ende des zweiten Semesters abzulegen. Wer die Vorprüfung einschließlich etwaiger Wiederholungen bis zum Ende des vierten Fachsemesters nicht bestanden hat, verliert den Prüfungsanspruch, es sei denn, er bzw. sie hat die Fristüberschreitung nicht zu vertreten.</li>
+        <li>Die Akademische Vorprüfung wird in den Studienbereichen BW, 1. HF und dem 2. HF abgelegt.</li>
+        <li>Wer alle in Absatz 2 genannten studienbegleitenden Modulprüfungen bestanden hat, hat die Akademische Vorprüfung bestanden. Die studienbegleitenden Modulprüfungen, die gemäß Absatz 2 die Akademische Vorprüfung bilden, können gemäß § 18 jeweils einmal wiederholt werden.</li>
+        </ol><p>',
+          'seminar_name' => 'Sozialgeschichte 1'
+        ]);
 
-      $this->faqAttributes['id'] = 3;
-      $this->faqAttributes['area'] = 'W';
-      $this->faqAttributes['subject'] = 'Weiterführende Literatur';
-      $this->faqAttributes['question'] = 'Welche Bedeutung haben die allgemeinen und weiterführenden Literaturhinweise?';
-      $this->faqAttributes['answer'] = 'Die aufgeführte Literatur kann, wie die in den online-Lektionen eingeblendeten Buchtitel, zur Vertiefung der in der Vorlesung behandelten Themen herangezogen werden. Es sind Empfehlungen für das weitere Studium. Die Inhalte der Studien sind kein Gegenstand der Klausur.';
-      $I->haveRecord('faqs', $this->faqAttributes);
-  }
+        $I->have('Synthesise\Faq', [
+          'id'           => 3,
+          'area'         => 'W',
+          'subject'      => 'Weiterführende Literatur',
+          'question'     => 'Welche Bedeutung haben die allgemeinen und weiterführenden Literaturhinweise?',
+          'answer'       => 'Die aufgeführte Literatur kann, wie die in den online-Lektionen eingeblendeten Buchtitel, zur Vertiefung der in der Vorlesung behandelten Themen herangezogen werden. Es sind Empfehlungen für das weitere Studium. Die Inhalte der Studien sind kein Gegenstand der Klausur.',
+          'seminar_name' => 'Sozialgeschichte 1'
+        ]);
+    }
 
-  /**
-   * Beispiel-Messages generieren.
-   *
-   * @param     FunctionalTester $I
-   */
-  public function seedMessages(\FunctionalTester $I)
-  {
-      $this->messageAttributes['id'] = 1;
-      $this->messageAttributes['title'] = 'Titel';
-      $this->messageAttributes['content'] = 'Das ist eine normale Informationsnachricht.';
-      $this->messageAttributes['colour'] = 'green';
-      $I->haveRecord('messages', $this->messageAttributes);
+    /**
+     * Beispiel-Messages generieren.
+     *
+     * @param     FunctionalTester $I
+     */
+    public function seedMessages(\FunctionalTester $I)
+    {
 
-      $this->messageAttributes['id'] = 2;
-      $this->messageAttributes['title'] = 'Titel';
-      $this->messageAttributes['content'] = 'Das ist eine warnende Informationsnachricht.';
-      $this->messageAttributes['colour'] = 'red';
-      $I->haveRecord('messages', $this->messageAttributes);
+        $I->have('Synthesise\Message', [
+            'id'           => 1,
+            'title'        => 'Titel',
+            'content'      => 'Das ist eine normale Informationsnachricht.',
+            'colour'       => 'green',
+            'seminar_name' => 'Sozialgeschichte 1'
+        ]);
 
-      $this->messageAttributes['id'] = 3;
-      $this->messageAttributes['title'] = 'Titel';
-      $this->messageAttributes['content'] = 'Das ist eine kritische Informationsnachricht.';
-      $this->messageAttributes['colour'] = 'purple';
-      $I->haveRecord('messages', $this->messageAttributes);
-  }
+        $I->have('Synthesise\Message', [
+            'id'           => 2,
+            'title'        => 'Titel',
+            'content'      => 'Das ist eine warnende Informationsnachricht.',
+            'colour'       => 'red',
+            'seminar_name' => 'Sozialgeschichte 1'
+        ]);
+
+        $I->have('Synthesise\Message', [
+            'id'           => 3,
+            'title'        => 'Titel',
+            'content'      => 'Das ist eine kritische Informationsnachricht.',
+            'colour'       => 'purple',
+            'seminar_name' => 'Sozialgeschichte 1'
+        ]);
+    }
 
   /**
    * Beispiel-Notes generieren.
    *
    * @param     FunctionalTester $I
    */
-  public function seedNotes(\FunctionalTester $I)
-  {
-      $this->noteAttributes['id'] = 1;
-      $this->noteAttributes['note'] = Crypt::encrypt('Das ist die ERSTE Notiz.');
-      $this->noteAttributes['user_id'] = 1;
-      $this->noteAttributes['cuepoint_id'] = 1;
-      $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('notes', $this->noteAttributes);
+    public function seedNotes(\FunctionalTester $I)
+    {
+        $I->have('Synthesise\Note', [
+            'id'           => 1,
+            'note'         => Crypt::encrypt('Das ist die ERSTE Notiz.'),
+            'user_id'      => 1,
+            'cuepoint_id'  => 1,
+            'lection_name' => 'Mittelalter',
+            'seminar_name' => 'Sozialgeschichte 1'
+        ]);
 
-      $this->noteAttributes['id'] = 2;
-      $this->noteAttributes['note'] = Crypt::encrypt('Das ist die ZWEITE Notiz.');
-      $this->noteAttributes['user_id'] = 1;
-      $this->noteAttributes['cuepoint_id'] = 2;
-      $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('notes', $this->noteAttributes);
+        $I->have('Synthesise\Note', [
+            'id'           => 2,
+            'note'         => Crypt::encrypt('Das ist die ZWEITE Notiz.'),
+            'user_id'      => 1,
+            'cuepoint_id'  => 2,
+            'lection_name' => 'Mittelalter',
+            'seminar_name' => 'Sozialgeschichte 1'
+        ]);
 
-      $this->noteAttributes['id'] = 3;
-      $this->noteAttributes['note'] = Crypt::encrypt('Das ist die DRITTE Notiz.');
-      $this->noteAttributes['user_id'] = 2;
-      $this->noteAttributes['cuepoint_id'] = 1;
-      $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('notes', $this->noteAttributes);
-  }
+        $I->have('Synthesise\Note', [
+            'id'           => 3,
+            'note'         => Crypt::encrypt('Das ist die DRITTE Notiz.'),
+            'user_id'      => 2,
+            'cuepoint_id'  => 1,
+            'lection_name' => 'Mittelalter',
+            'seminar_name' => 'Sozialgeschichte 1'
+        ]);
+    }
 
   /**
    * Beispiel-Papers generieren.
    *
    * @param     FunctionalTester $I
    */
-  public function seedPapers(\FunctionalTester $I)
-  {
-      $this->paperAttributes['id'] = 1;
-      $this->paperAttributes['papername'] = 'Zeit-Raum Studium!';
-      $this->paperAttributes['author'] = 'Fabian Mundt';
-      $this->paperAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('papers', $this->paperAttributes);
-  }
+    public function seedPapers(\FunctionalTester $I)
+    {
+        $I->have('Synthesise\Paper', [
+            'id'           => 1,
+            'name'         => 'Zeit-Raum Studium!',
+            'author'       => 'Fabian Mundt',
+            'path'         => 'path/to/text',
+            'lection_name' => 'Mittelalter'
+        ]);
+    }
 
   /**
-   * Beispiel-Videos generieren.
+   * Beispiel-Lektionen generieren.
    *
    * @param     FunctionalTester $I
    */
-  public function seedVideos(\FunctionalTester $I)
-  {
-      $this->videoAttributes['id'] = 1;
-      $this->videoAttributes['videoname'] = 'Sozialgeschichte 1';
-      $this->videoAttributes['section'] = 'Sozialgeschichte der Menschheit';
-      $this->videoAttributes['author'] = 'Will Turner';
-      $this->videoAttributes['online'] = '0';
-      $this->videoAttributes['sequence_id'] = 1;
-      $this->videoAttributes['sequence_name'] = null;
-      $this->videoAttributes['available_from'] = '2000-09-10';
-      $this->videoAttributes['available_to'] = '3000-02-08';
-      $I->haveRecord('videos', $this->videoAttributes);
-  }
+    public function seedLections(\FunctionalTester $I)
+    {
+        $I->have('Synthesise\Lection', [
+            'name'               => 'Mittelalter',
+            'author'             => 'Timo Hoyer',
+            'contact'            => 'hoyer@ph-karlsruhe.de',
+            'authorized_editors' => 'hoyerka',
+            'image_path'         => 'path/to/image',
+        ]);
+    }
 
   /**
    * Beispiel-User generieren.
    *
    * @param     FunctionalTester $I
    */
-  public function seedUsers(\FunctionalTester $I)
-  {
-      $this->userAttributes['id'] = 1;
-      $this->userAttributes['username'] = 'studentka';
-      $this->userAttributes['password'] = Hash::make('Zelda');
-      $this->userAttributes['firstname'] = 'Test';
-      $this->userAttributes['lastname'] = 'Student';
-      $this->userAttributes['email'] = 'test@test.de';
-      $this->userAttributes['role'] = 'Student';
-      $I->haveRecord('users', $this->userAttributes);
+    public function seedUsers(\FunctionalTester $I)
+    {
+        $I->have('Synthesise\User', [
+            'id'        => 1,
+            'username'  => 'studentka',
+            'password'  => Hash::make('Zelda'),
+            'firstname' => 'Test',
+            'lastname'  => 'Student',
+            'role'      => 'Student',
+            'email'     => 'test@test.de'
+        ]);
 
-      $this->userAttributes['id'] = 2;
-      $this->userAttributes['username'] = 'teacherka';
-      $this->userAttributes['password'] = Hash::make('Hyrule');
-      $this->userAttributes['firstname'] = 'Test';
-      $this->userAttributes['lastname'] = 'Teacher';
-      $this->userAttributes['email'] = 'test@test.de';
-      $this->userAttributes['role'] = 'Teacher';
-      $I->haveRecord('users', $this->userAttributes);
+        $I->have('Synthesise\User', [
+            'id'        => 2,
+            'username'  => 'teacherka',
+            'password'  => Hash::make('Hyrule'),
+            'firstname' => 'Test',
+            'lastname'  => 'Teacher',
+            'role'      => 'Teacher',
+            'email'     => 'test@test.de'
+        ]);
 
-      $this->userAttributes['id'] = 3;
-      $this->userAttributes['username'] = 'adminka';
-      $this->userAttributes['password'] = Hash::make('Link');
-      $this->userAttributes['firstname'] = 'Test';
-      $this->userAttributes['lastname'] = 'Admin';
-      $this->userAttributes['email'] = 'test@test.de';
-      $this->userAttributes['role'] = 'Admin';
-      $I->haveRecord('users', $this->userAttributes);
-  }
+        $I->have('Synthesise\User', [
+            'id'        => 3,
+            'username'  => 'adminka',
+            'password'  => Hash::make('Link'),
+            'firstname' => 'Test',
+            'lastname'  => 'Admin',
+            'role'      => 'Admin',
+            'email'     => 'test@test.de'
+        ]);
+
+    }
 }
