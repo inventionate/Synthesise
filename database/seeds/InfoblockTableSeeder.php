@@ -19,7 +19,7 @@ class InfoblockTableSeeder extends Seeder
             'content'       => 'Das Buch führt in die Sozialgeschichte der Erziehung ein. Timo Hoyer spannt den Bogen von der Antike bis zur Moderne und beschreibt vor dem Hintergrund der politischen und kulturellen Situation die Entwicklung der privaten und schulischen Erziehung. Der als Studienlektüre konzipierte Band erzählt zugleich die Geschichte der Familie, der Kindheit und Jugend und des deutschen Schulsystems. Die Einführung bietet Studierenden der Erziehungswissenschaft Grundlagen, um die aktuellen pädagogischen Reformdebatten einordnen und bewerten zu können.',
             'image_path'    => 'storage/seminars/infoblocks/ab285f2c4fc50d96a8f4f540b0e6651b.jpg',
             'link_url'      => 'http://www.wbg-wissenverbindet.de/shop/ProductDisplay?storeId=10151&urlLangId=-3&productId=179103&urlRequestType=Base&langId=-3&catalogId=10001',
-            'seminar_name'  => 'Grundlagen pädagogischen Denkens und Handelns',
+            'seminar_name'  => 'Grundfragen pädagogischen Denkens und Handelns',
         ));
 
         Infoblock::create(array(
@@ -28,7 +28,7 @@ class InfoblockTableSeeder extends Seeder
             Historische Quellen, Zeitzeugen, Experten, Schülerinnen und Schüler lassen die Vergangenheit,Gegenwart und Zukunft der Bildung in Karlsruhe lebendig werden.</p>',
             'image_path'    => 'storage/seminars/infoblocks/4ed8a0a06f45e0a8b40987e93542e667.jpg',
             'link_url'      => 'http://etpm.ph-karlsruhe.de/audiocollage',
-            'seminar_name'  => 'Grundlagen pädagogischen Denkens und Handelns',
+            'seminar_name'  => 'Grundfragen pädagogischen Denkens und Handelns',
         ));
 
     }

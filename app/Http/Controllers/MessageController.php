@@ -32,6 +32,7 @@ class MessageController extends Controller
             'seminar_name' => 'required|string',
             'title' => 'required|string',
             'content' => 'required|string',
+            'file' => 'file',
             'colour' => 'required|alpha'
         ]);
 
@@ -40,6 +41,8 @@ class MessageController extends Controller
         $title = $request->title;
 
         $content = $request->content;
+
+        # @TODO Datei hochladen!
 
         $colour = $request->colour;
 

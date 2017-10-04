@@ -5,6 +5,7 @@ namespace Synthesise\Repositories\Paper;
 use Illuminate\Database\Eloquent\Model;
 
 use Synthesise\Paper;
+use Storage;
 
 /**
  * User Repository mit Queries und Logik.
@@ -14,17 +15,12 @@ class PaperRepository implements PaperInterface
     /**
      * Store new lection.
      *
-     * @param   file    $text
+     * @param   string  $text_path
      * @param   string  $name
      * @param   string  $author
      * @param   string  $lection_name
      */
-    public function store($text, $name, $author, $lection_name) {
-
-        // Save text.
-        $text_saved = $text->move(storage_path('app/public/papers'), md5_file($text) . '.' . $text->getClientOriginalExtension());
-
-        $text_path = 'storage/papers/' . $text_saved->getFilename();
+    public function store($text_path, $name, $author, $lection_name) {
 
         $paper = new Paper;
 
@@ -40,32 +36,28 @@ class PaperRepository implements PaperInterface
     /**
      * Store new lection.
      *
-     * @param   file    $text
+     * @param   string  $text_path
      * @param   string  $name
      * @param   string  $author
      * @param   string  $lection_name
      */
-    public function update($text, $name, $author, $lection_name) {
+    public function update($text_path, $name, $author, $lection_name) {
 
         // Find paper.
 
         $paper = Paper::findOrFail($name);
 
         // Check new text.
-        if( $text !== null )
+        if( $text_path !== null )
         {
             // Remove old image.
             if ( Paper::where('path', $paper->path)->count() === 1 )
             {
-                // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-                File::delete( $paper->path );
+                Storage::delete( $paper->path );
             }
 
-            $text_saved = $text->move(storage_path('app/public/papers'), md5_file($text) . '.' . $text->getClientOriginalExtension());
+            $paper->path = $text_path;
 
-            $text_path = 'storage/papers/' . $text_saved->getFilename();
-
-            $text->path = $text_path;
         }
 
         $paper->name = $name;

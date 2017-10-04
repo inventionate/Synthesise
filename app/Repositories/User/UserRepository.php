@@ -64,15 +64,17 @@ class UserRepository implements UserInterface
    */
   public function getEmail()
   {
-      // @todo E-Mail in Datenbank ablegen! Da ab sofort Studierende eine andere Adresse als Dozierende haben (noch nicht alle)!
-    return substr(Auth::user()->username, 0, -2).'@ph-karlsruhe.de';
+    // Altes System, demnächst löschen:
+    //return substr(Auth::user()->username, 0, -2).'@ph-karlsruhe.de';
+
+    return Auth::user()->email;
   }
 
   /**
    * Durchsucht die Datenbank nach einem übergebenen Nutzernamen.
    *
-   * @param 		string $username
-   * @param 		array $columns
+   * @param 		string    $username
+   * @param 		array     $columns
    *
    * @return		string|null Benutzername oder null, falls kein passender Eintrag gefunden wurde.
    */
@@ -222,7 +224,8 @@ class UserRepository implements UserInterface
     /**
      * Delete many Users.
      *
-     * @param int $ids
+     * @param   array  $ids
+     * @param   array  $seminar_names
      */
     public function deleteMany($ids, $seminar_names)
     {
@@ -241,7 +244,7 @@ class UserRepository implements UserInterface
             }
 
             // If only one relation delete user.
-            if ($user->seminars_count === 1) {
+            if ($user->seminars_count == 1) {
                 $user->delete();
             }
         }
@@ -257,7 +260,7 @@ class UserRepository implements UserInterface
   public function deleteAll($role, $except_ids, $seminar_names)
   {
       // Find and delete Users.
-    $users = User::where('role', $role)->whereNotIn('id', [$except_ids])->withCount('seminars')->get();
+    $users = User::where('role', $role)->whereNotIn('id', $except_ids)->withCount('seminars')->get();
 
     // Detach from seminar.
     foreach ($users as $user) {
@@ -270,7 +273,7 @@ class UserRepository implements UserInterface
         }
 
         // If only one relation delete user.
-        if ($user->seminars_count === 1) {
+        if ($user->seminars_count == 1) {
             $user->delete();
         }
     }

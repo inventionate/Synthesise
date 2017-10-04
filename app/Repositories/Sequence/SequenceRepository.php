@@ -12,8 +12,4 @@ use Synthesise\Sequence;
 class SequenceRepository implements SequenceInterface
 {
 
-  public function get($id) {
-      return "Hello!";
-  }
-
 }

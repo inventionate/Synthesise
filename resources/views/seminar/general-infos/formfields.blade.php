@@ -14,8 +14,15 @@
 </div>
 
 <div class="required field">
-    <label for="info_exam">Hinsweise zu den online-Lektionen</label>
+    <label for="info_exam">Hinsweise zur Prüfung</label>
     <textarea id="info_exam" name="info_exam" placeholder="Bitte geben Sie Hinweise zur Prüfung ein." maxlength="2000" class="info-wysiwyg">{{ $seminar->info_exam }}</textarea>
+</div>
+
+<div class="required field">
+    <label for="info_exam">Hinsweise zu den Terminen</label>
+    <textarea id="info_dates" name="info_dates" placeholder="Bitte geben Sie Hinweise zu den Terminen ein." maxlength="2000" class="info-wysiwyg">{{ $seminar->info_dates }}</textarea>
+
+    <!--@TODO TERMINE HINZUFÜGEN!-->
 </div>
 
 <div class="field">

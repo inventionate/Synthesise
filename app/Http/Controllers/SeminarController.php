@@ -120,18 +120,18 @@ class SeminarController extends Controller
         $subject = $request->subject;
         $module = $request->module;
         $description = $request->description;
-        $image = $request->file('image');
+        $image_path = $request->file('image')->store('public/seminars');
         $info_intro = null;
         $info_lections = null;
         $info_texts = null;
         $info_exam = null;
-        $info = null;
+        $info_path = null;
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $authorized_users = $request->authorized_users;
         $disqus_shortname = $request->disqus_shortname;
 
-        Seminar::store($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $authorized_users, $disqus_shortname);
+        Seminar::store($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_path, $available_from, $available_to, $authorized_users, $disqus_shortname);
 
         return back()->withInput();
     }
@@ -170,17 +170,17 @@ class SeminarController extends Controller
         $subject = $request->subject;
         $module = $request->module;
         $description = $request->description;
-        $image = $request->file('image');
+        $image_path = $request->file('image')->store('public/seminars');
         $info_intro = $request->info_intro;
         $info_lections = $request->info_lections;
         $info_texts = $request->info_texts;
         $info_exam = $request->info_exam;
-        $info = $request->file('info');
+        $info_path = $request->file('info')->store('public/seminars');
         $available_from = $request->available_from;
         $available_to = $request->available_to;
         $disqus_shortname = $request->disqus_shortname;
 
-        Seminar::update($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $disqus_shortname);
+        Seminar::update($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_path, $available_from, $available_to, $disqus_shortname);
 
         return back()->withInput();
     }

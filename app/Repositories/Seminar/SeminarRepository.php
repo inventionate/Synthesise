@@ -7,7 +7,7 @@ use Synthesise\Section;
 use Synthesise\User;
 use Synthesise\Lection;
 use Auth;
-use File;
+use Storage;
 
 /**
  * User Repository mit Queries und Logik.
@@ -35,27 +35,20 @@ class SeminarRepository implements SeminarInterface
      * @param string $subject
      * @param string $module
      * @param string $description
-     * @param image  $image
-     * @param string $info_intro;
-     * @param string $info_lections;
-     * @param string $info_texts;
-     * @param string $info_exam;
-     * @param string $info;
+     * @param string $image_path
+     * @param string $info_intro
+     * @param string $info_lections
+     * @param string $info_texts
+     * @param string $info_exam
+     * @param string $info_path
      * @param date   $available_from
      * @param date   $available_to
      * @param array  $authorized_users
      * @param string $disqus_shortname
      */
-    public function store($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $authorized_users, $disqus_shortname)
+    public function store($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_path, $available_from, $available_to, $authorized_users, $disqus_shortname)
     {
-
-        // Save image.
-        $image_saved = $image->move(storage_path('app/public/seminars'), md5_file($image).'.'.$image->getClientOriginalExtension());
-
-        $image_path = 'storage/seminars/'.$image_saved->getFilename();
-
         // Add root user.
-
         if (is_null($authorized_users)) {
             $authorized_users = ['root'];
         } else {
@@ -77,7 +70,7 @@ class SeminarRepository implements SeminarInterface
         $seminar->info_lections = $info_lections;
         $seminar->info_texts = $info_texts;
         $seminar->info_exam = $info_exam;
-        $seminar->info_path = $info;
+        $seminar->info_path = $info_path;
         $seminar->available_from = date('Y-m-d', strtotime($available_from));
         $seminar->available_to = date('Y-m-d', strtotime($available_to));
         $seminar->authorized_editors = $authorized_users;
@@ -101,17 +94,17 @@ class SeminarRepository implements SeminarInterface
      * @param string $subject
      * @param string $module
      * @param string $description
-     * @param image  $image
-     * @param string $info_intro;
-     * @param string $info_lections;
-     * @param string $info_texts;
-     * @param string $info_exam;
-     * @param string $info;
+     * @param string $image_path
+     * @param string $info_intro
+     * @param string $info_lections
+     * @param string $info_texts
+     * @param string $info_exam
+     * @param string $info_path
      * @param date   $available_from
      * @param date   $available_to
      * @param string $disqus_shortname
      */
-    public function update($title, $author, $contact, $subject, $module, $description, $image, $info_intro, $info_lections, $info_texts, $info_exam, $info, $available_from, $available_to, $disqus_shortname)
+    public function update($title, $author, $contact, $subject, $module, $description, $image_path, $info_intro, $info_lections, $info_texts, $info_exam, $info_path, $available_from, $available_to, $disqus_shortname)
     {
 
         // Find Seminar.
@@ -138,35 +131,28 @@ class SeminarRepository implements SeminarInterface
         $seminar->disqus_shortname = $disqus_shortname;
 
         // Check new image.
-        if ($image !== null) {
+        if ($image_path !== null) {
             // Remove old image.
             if (Seminar::where('image_path', $seminar->image_path)->count() === 1) {
-                // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-                File::delete($seminar->image_path);
+
+                Storage::delete( $seminar->image_path );
+
             }
 
             // Save new image.
-            $image_saved = $image->move(storage_path('app/public/seminars'), md5_file($image).'.'.$image->getClientOriginalExtension());
-
-            $image_path = 'storage/seminars/'.$image_saved->getFilename();
-
             $seminar->image_path = $image_path;
         }
 
         // Check new image.
-        if ($info !== null) {
+        if ($info_path !== null) {
             // Remove old info.
             if (Seminar::where('info_path', $seminar->info_path)->count() === 1) {
-                // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-                File::delete($seminar->info_path);
+
+                Storage::delete( $seminar->info_path );
+
             }
 
             // Save new info.
-            $info_saved = $info->move(storage_path('app/public/seminars'), md5_file($info).'.'.$info->getClientOriginalExtension());
-
-            // @TODO Das geht mit der Laravel 5.3 Storage Facade einfacher!
-            $info_path = 'storage/seminars/'.$info_saved->getFilename();
-
             $seminar->info_path = $info_path;
         }
 
@@ -185,14 +171,16 @@ class SeminarRepository implements SeminarInterface
 
         // Remove image.
         if (Seminar::where('image_path', $seminar->image_path)->count() === 1 && $seminar->image_path !== null) {
-            // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-            File::delete($seminar->image_path);
+
+            Storage::delete( $seminar->image_path );
+
         }
 
         // Remove info.
         if (Seminar::where('info_path', $seminar->info_path)->count() === 1 && $seminar->info_path !== null) {
-            // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-            File::delete($seminar->info_path);
+
+            Storage::delete( $seminar->info_path );
+
         }
 
         $users = $seminar->users()->withCount('seminars')->get();
@@ -223,8 +211,9 @@ class SeminarRepository implements SeminarInterface
 
         // Remove info.
         if (Seminar::where('info_path', $seminar->info_path)->count() === 1 && $seminar->info_path !== null) {
-            // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-            File::delete($seminar->info_path);
+
+            Storage::delete( $seminar->info_path );
+
         }
 
         // Delete seminar.

@@ -43,11 +43,11 @@ class InfoblockController extends Controller
         $name = $request->name;
         $content = $request->content;
         $link_url = $request->link_url;
-        $image = $request->file('image');
-        $text = $request->file('text');
+        $image_path = $request->file('image')->store('public/seminars/infoblocks');
+        $text_path = $request->file('text')->store('public/seminars/infoblocks');
         $seminar_name = $request->seminar_name;
 
-        Infoblock::store($name, $content, $link_url, $image, $image, $seminar_name);
+        Infoblock::store($name, $content, $link_url, $image_path, $text_path, $seminar_name);
 
         return back()->withInput();
 
@@ -77,11 +77,11 @@ class InfoblockController extends Controller
         $name = $request->name;
         $content = $request->content;
         $link_url = $request->link_url;
-        $image = $request->file('image');
-        $text = $request->file('text');
+        $image_path = $request->file('image')->store('public/seminars/infoblocks');
+        $text_path = $request->file('text')->store('public/seminars/infoblocks');
         $seminar_name = $request->seminar_name;
 
-        Infoblock::update($id, $name, $content, $link_url, $image, $text, $seminar_name);
+        Infoblock::update($id, $name, $content, $link_url, $image_path, $text_path, $seminar_name);
 
         return Redirect::to(URL::previous() . "#infoblocks");
 

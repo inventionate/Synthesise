@@ -5,203 +5,224 @@ use _data\Factories as Factories;
 class UserRepositoryCest
 {
     /**
-   * Ein fiktiver Beispielnutzer.
-   *
-   * @var     array
-   */
-  protected $userAttributes;
+     * Test store new user.
+     */
+    public function testStoreNewUser(IntegrationTester $I)
+    {
 
-  /**
-   * Ein fiktiver Cuepoint.
-   *
-   * @var     array
-   */
-  protected $cuepointAttributes;
+        // Store new user.
+        User::store('Kate', 'Student', 'First', 'Last', 'mail@me.de', Hash::make('cool'), NULL);
 
-  /**
-   * Eine fiktiver Notiz.
-   *
-   * @var     array
-   */
-  protected $noteAttributes;
+        // Test attachement.
+        $I->seeRecord('Synthesise\User', ['username' => 'Kate']);
+    }
 
-  /**
-   * Bereitet die virtuelle Datenbank und virtuelle E-Mails vor.
-   *
-   * Migriert alle Strukturen in eine virtuelle SQLite Datenbank und
-   * setzt die E-Mail auf 'pretend' um sie in der Logfile zu verzeichnen.
-   */
-  public function _before()
-  {
-      $this->userAttributes = Factories::$userAttributes;
-      $this->cuepointAttributes = Factories::$cuepointAttributes;
-      $this->noteAttributes = Factories::$noteAttributes;
-  }
+    /**
+     * Test update user.
+     */
+    public function testUpdateUser(IntegrationTester $I)
+    {
+        // Fake data.
+        $I->have('Synthesise\User');
 
-  /**
-   * Testet das Suchen eines Nutzers anhand seines Nutzernamens.
-   */
-  public function test_find_user_by_username(IntegrationTester $I)
-  {
-      $I->wantTo('find a user by username');
+        // Store new user.
+        User::update(1, 'Kate', 'Student', 'First', 'Last', 'mail@me.de', Hash::make('cool'));
 
-    // Beispieldatensatz generieren
-    $this->userAttributes['username'] = 'otard';
-      $this->userAttributes['firstname'] = 'Baron';
-      $I->haveRecord('users', $this->userAttributes);
+        // Test attachement.
+        $I->seeRecord('Synthesise\User', ['username' => 'Kate']);
+    }
 
-    // Methode aufrufen
-    $user = User::findByUsername('otard');
+    /**
+     * Test get username.
+     */
+    public function testGetUsername(IntegrationTester $I)
+    {
+        // Fake data.
+        $I->have('Synthesise\User', ['username' => 'Bob', 'firstname' => 'Jonathan', 'lastname' => 'Archer', 'password' => Hash::make('123')]);
 
-    // Assert
-    $I->AssertEquals($user->firstname, 'Baron');
-  }
+        $I->amLoggedAs(['username' => 'Bob', 'password' => '123']);
 
-  /**
-   * Testet die HTML Ausgabe gespeicherter Notizen.
-   */
-  public function testGetNoteAsHTML(IntegrationTester $I)
-  {
-      $I->wantTo('create a HTML output of a note');
-    // Beispieldatensatz generieren
-    $this->userAttributes['id'] = 1;
-      $I->haveRecord('users', $this->userAttributes);
+        // Get name.
+        $username = User::getUsername();
 
-      $this->cuepointAttributes['id'] = 1;
-      $this->cuepointAttributes['content'] = 'Fähnchen 1';
-      $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('cuepoints', $this->cuepointAttributes);
+        // Test.
+        $I->assertEquals($username, 'Jonathan Archer');
+    }
 
-      $this->noteAttributes['user_id'] = 1;
-      $this->noteAttributes['cuepoint_id'] = 1;
-      $this->noteAttributes['note'] = Crypt::encrypt('Erste Notiz.');
-      $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('notes', $this->noteAttributes);
+    /**
+     * Test get email.
+     */
+    public function testGetEmail(IntegrationTester $I)
+    {
+        // Fake data.
+        $I->have('Synthesise\User', ['username' => 'Bob', 'firstname' => 'Jonathan', 'lastname' => 'Archer', 'email' => 'hello@me.de', 'password' => Hash::make('123')]);
 
-    // Methode aufrufen
-    $usernotes = User::getAllNotes('1', 'Sozialgeschichte 1');
+        $I->amLoggedAs(['username' => 'Bob', 'password' => '123']);
 
-      $title = 'Notizen zu Sozialgeschichte 1';
-      $content = '<h2>Fähnchen 1</h2><p>Erste Notiz.</p><h3 style="height:250px">Ergänzungen:</h3>';
+        // Get name.
+        $email = User::getEmail();
 
-      $html = Parser::htmlMarkup($title, $content);
+        // Test.
+        $I->assertEquals($email, 'hello@me.de');
+    }
 
-    // Testen
-    $I->AssertEquals($usernotes, $html);
-  }
+    /**
+     * Test find by username.
+     */
+    public function testFindUserByUsername(IntegrationTester $I)
+    {
+        // Fake data.
+        $I->have('Synthesise\User', ['username' => 'Bob', 'firstname' => 'Jonathan', 'lastname' => 'Archer', 'email' => 'hello@me.de', 'password' => Hash::make('123')]);
 
-  /**
-   * Testet die sortierte HTML Ausgabe mehrerer gespeicherten Notizen.
-   */
-  public function testGetAllNotesOrderedAsHTML(IntegrationTester $I)
-  {
-      $I->wantTo('Get an ordered HTML output of all notes');
+        // Find user by username.
+        $user = User::findByUsername('Bob');
 
-    // Beispieldatensatz generieren
-    $this->userAttributes['id'] = 1;
-      $I->haveRecord('users', $this->userAttributes);
+        // Test.
+        $I->assertEquals($user->firstname, 'Jonathan');
 
-      $this->cuepointAttributes['id'] = 1;
-      $this->cuepointAttributes['content'] = 'Fähnchen 1';
-      $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('cuepoints', $this->cuepointAttributes);
-      $this->cuepointAttributes['id'] = 2;
-      $this->cuepointAttributes['content'] = 'Fähnchen 2';
-      $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('cuepoints', $this->cuepointAttributes);
-      $this->cuepointAttributes['id'] = 3;
-      $this->cuepointAttributes['content'] = 'Fähnchen 3';
-      $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('cuepoints', $this->cuepointAttributes);
+    }
 
-      $this->noteAttributes['id'] = 1;
-      $this->noteAttributes['user_id'] = 1;
-      $this->noteAttributes['cuepoint_id'] = 1;
-      $this->noteAttributes['note'] = Crypt::encrypt('Erster Cuepoint.');
-      $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('notes', $this->noteAttributes);
-      $this->noteAttributes['id'] = 2;
-      $this->noteAttributes['user_id'] = 1;
-      $this->noteAttributes['cuepoint_id'] = 3;
-      $this->noteAttributes['note'] = Crypt::encrypt('Dritter Cuepoint.');
-      $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('notes', $this->noteAttributes);
-      $this->noteAttributes['id'] = 3;
-      $this->noteAttributes['user_id'] = 1;
-      $this->noteAttributes['cuepoint_id'] = 2;
-      $this->noteAttributes['note'] = Crypt::encrypt('Zweiter Cuepoint.');
-      $this->noteAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $I->haveRecord('notes', $this->noteAttributes);
+    /**
+     * Test don't find by username.
+     */
+    public function testDontFindUserByUsername(IntegrationTester $I)
+    {
+        // Fake data.
+        $I->have('Synthesise\User', ['username' => 'Bob', 'firstname' => 'Jonathan', 'lastname' => 'Archer', 'email' => 'hello@me.de', 'password' => Hash::make('123')]);
 
-    // Methode aufrufen
-    $usernotes = User::getAllNotes('1', 'Sozialgeschichte 1');
+        // Find user by username.
+        $user = User::findByUsername('Bobby');
 
-      $title = 'Notizen zu Sozialgeschichte 1';
-      $content = '<h2>Fähnchen 1</h2><p>Erster Cuepoint.</p><h3 style="height:250px">Ergänzungen:</h3><h2>Fähnchen 2</h2><p>Zweiter Cuepoint.</p><h3 style="height:250px">Ergänzungen:</h3><h2>Fähnchen 3</h2><p>Dritter Cuepoint.</p><h3 style="height:250px">Ergänzungen:</h3>';
+        // Test.
+        $I->assertNull($user);
+    }
 
-      $html = Parser::htmlMarkup($title, $content);
+    /**
+     * Test get all users.
+     */
+    public function testGetAllUsers(IntegrationTester $I)
+    {
+        // Fake data.
+        $I->haveMultiple('Synthesise\User', 999);
 
-    // Testen
-    $I->AssertEquals($usernotes, $html);
-  }
+        // Find user by username.
+        $users = User::getAll();
 
-  /**
-   * Testet die Abfrage des Nutzernamens.
-   */
-  public function testGetUsername(IntegrationTester $I)
-  {
-      $I->wantTo('get username of authenticated user');
+        // Test.
+        $I->assertEquals($users->count(), 999);
+    }
 
-    // ARRANGE
-    $this->userAttributes['id'] = 1;
-      $this->userAttributes['username'] = 'dark';
-      $this->userAttributes['firstname'] = 'Darth';
-      $this->userAttributes['lastname'] = 'Vader';
-      $this->userAttributes['password'] = Hash::make('Deathstar');
-      $I->haveRecord('users', $this->userAttributes);
+    /**
+     * Test get all users by role.
+     */
+    public function testGetAllUsersByRole(IntegrationTester $I)
+    {
+        // Fake data.
+        $I->haveMultiple('Synthesise\User', 999);
 
-    // Benutzer authentifizieren
-    $I->dontSeeAuthentication();
-      $I->amLoggedAs(['username' => 'dark', 'password' => 'Deathstar']);
-      $I->seeAuthentication();
+        $I->haveMultiple('Synthesise\User', 99, ['role' => 'Admin']);
 
-    // ACT
-    $username = User::getUsername();
+        // Find user by username.
+        $users = User::getAllByRole('Admin');
 
-    // ASSERT
-    $I->AssertEquals($username, 'Darth Vader');
+        // Test.
+        $I->assertEquals($users->count(), 99);
+    }
 
-      $I->logout();
-      $I->dontSeeAuthentication();
-  }
+    /**
+     * Test delete an users.
+     */
+    public function testDeleteAnUser(IntegrationTester $I)
+    {
+        // Fake data.
+        $I->have('Synthesise\User', ['id' => 1]);
 
-  /**
-   * Testet die Abfrage der E-Mail.
-   */
-  public function testGetEmail(IntegrationTester $I)
-  {
-      $I->wantTo('get the e-mail of the authenticated user');
+        // Delete user.
+        User::delete(1);
 
-    // ARRANGE
-    $this->userAttributes['id'] = 1;
-      $this->userAttributes['username'] = 'dark01ka';
-      $this->userAttributes['firstname'] = 'Darth';
-      $this->userAttributes['lastname'] = 'Vader';
-      $this->userAttributes['password'] = Hash::make('Deathstar');
-      $I->haveRecord('users', $this->userAttributes);
+        // Test.
+        $I->dontSeeRecord('Synthesise\User', ['id' => 1]);
+    }
 
-    // Benutzer authentifizieren
-    $I->dontSeeAuthentication();
-      $I->amLoggedAs(['username' => 'dark01ka', 'password' => 'Deathstar']);
-      $I->seeAuthentication();
 
-    // ACT
-    $username = User::getEmail();
+    /**
+     * Test delete many users.
+     */
+    public function testDeleteManyUsers(IntegrationTester $I)
+    {
 
-    // ASSERT
-    $I->AssertEquals($username, 'dark01@ph-karlsruhe.de');
+        // Fake data.
+        $I->have('Synthesise\Seminar', ['name' => 'Sem 1']);
 
-      $I->logout();
-      $I->dontSeeAuthentication();
-  }
+        User::store('Bob', 'Admin', 'Bobby', 'Eaton', 'new@me.de', Hash::make('123'), $seminar_names = ['Sem 1']);
+
+        // Delete users.
+        User::deleteMany([1], ['Sem 1']);
+
+        // Test.
+        $I->dontSeeRecord('Synthesise\User', ['username' => 'Bob']);
+    }
+
+    /**
+     * Test delete all users by role.
+     */
+    public function testDeleteAllUsersByRole(IntegrationTester $I)
+    {
+
+        // Fake data.
+        $I->have('Synthesise\Seminar', ['name' => 'Sem 1']);
+
+        User::store('Bob 1', 'Admin', 'Bobby', 'Eaton', 'new@me.de', Hash::make('123'), $seminar_names = ['Sem 1']);
+
+        User::store('Bob 2', 'Student', 'Bobby', 'Eaton', 'new@me.de', Hash::make('123'), $seminar_names = ['Sem 1']);
+
+        User::store('Bob 3', 'Student', 'Bobby', 'Eaton', 'new@me.de', Hash::make('123'), $seminar_names = ['Sem 1']);
+
+        // Delete users.
+        User::deleteAll('Student', [], ['Sem 1']);
+
+        // Test.
+        $I->seeRecord('Synthesise\User', ['username' => 'Bob 1']);
+        $I->dontSeeRecord('Synthesise\User', ['username' => 'Bob 2']);
+        $I->dontSeeRecord('Synthesise\User', ['username' => 'Bob 3']);
+    }
+
+    /**
+     * Test attach to seminar.
+     */
+    public function testAttachUserToSeminar(IntegrationTester $I)
+    {
+
+        // Fake data.
+        $I->have('Synthesise\Seminar', ['name' => 'Sem 1']);
+
+        $I->have('Synthesise\User', ['username' => 'Kate']);
+
+        // Delete users.
+        User::attachToSeminar('Kate', 'Sem 1');
+
+        $attached_seminars = User::findByUsername('Kate')->seminars()->count();
+
+        // Test attachement.
+        $I->assertEquals($attached_seminars, 1);
+    }
+
+    /**
+     * Test get all user notes.
+     */
+    public function testGetAllUserNotes(IntegrationTester $I)
+    {
+        // Fake Data
+        $I->have('Synthesise\User', ['id' => 1]);
+        $I->have('Synthesise\Lection', ['name' => 'Lec']);
+        $I->have('Synthesise\Cuepoint', ['id' => 1]);
+        $I->have('Synthesise\Seminar', ['name' => 'Sem']);
+        $I->have('Synthesise\Note', ['user_id' => 1, 'cuepoint_id' => 1, 'lection_name' => 'Lec', 'seminar_name' => 'Sem', 'note' => Crypt::encrypt('Hope is there!')]);
+
+        // Get notes.
+        $notes = User::getAllNotes(1, 'Lec', 'Sem');
+
+        // Test notes.
+        $I->assertTrue(str_contains($notes, 'Hope is there!'));
+    }
 }

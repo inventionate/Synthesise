@@ -9,6 +9,7 @@ use Paper;
 use User;
 use Seminar;
 use Auth;
+use Storage;
 
 
 class LectionRepository implements LectionInterface
@@ -45,21 +46,17 @@ class LectionRepository implements LectionInterface
      * @param   int     $section_id
      * @param   string  $author
      * @param   mail    $contact
-     * @param   file    $text
+     * @param   string  $text_path
      * @param   string  $text_name
      * @param   string  $text_author
-     * @param   image   $image
+     * @param   string  $image_path
      * @param   string  $available_from
      * @param   string  $available_to
      * @param   array   $authorized_users
      * @param   string  $seminar_name
      */
-    public function store($name, $section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name)
+    public function store($name, $section_id, $author, $contact, $text_path, $text_name, $text_author, $image_path, $available_from, $available_to, $authorized_users, $seminar_name)
     {
-        // Save image.
-        $image_saved = $image->move(storage_path('app/public/lections'), md5_file($image) . '.' . $image->getClientOriginalExtension());
-
-        $image_path = 'storage/lections/' . $image_saved->getFilename();
 
         // Check if no users selected.
         if ( is_null($authorized_users) )
@@ -79,16 +76,16 @@ class LectionRepository implements LectionInterface
         // Save lection.
         $lection = new Lection();
 
-        $lection->name              = $name;
-        $lection->author            = $author;
-        $lection->contact           = $contact;
-        $lection->image_path        = $image_path;
+        $lection->name                = $name;
+        $lection->author              = $author;
+        $lection->contact             = $contact;
+        $lection->image_path          = $image_path;
         $lection->authorized_editors  = $authorized_users;
 
         $lection->save();
 
         // Save text.
-        Paper::store($text, $text_name, $text_author, $name);
+        Paper::store($text_path, $text_name, $text_author, $name);
 
         // Attach lection.
         $available_from    = date('Y-m-d', strtotime($available_from));
@@ -105,16 +102,16 @@ class LectionRepository implements LectionInterface
      * @param   int     $old_section_id
      * @param   string  $author
      * @param   mail    $contact
-     * @param   file    $text
+     * @param   string  $text_path
      * @param   string  $text_name
      * @param   string  $text_author
-     * @param   image   $image
+     * @param   string  $image_path
      * @param   string  $available_from
      * @param   string  $available_to
      * @param   array   $authorized_users
      * @param   string  $seminar_name
      */
-    public function update($name, $section_id, $old_section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name)
+    public function update($name, $section_id, $old_section_id, $author, $contact, $text_path, $text_name, $text_author, $image_path, $available_from, $available_to, $authorized_users, $seminar_name)
     {
         // Find lection.
         $lection = Lection::findOrFail($name);
@@ -140,20 +137,15 @@ class LectionRepository implements LectionInterface
         $lection->authorized_editors  = $authorized_users;
 
         // Check new image.
-        if( $image !== null )
+        if( $image_path !== null )
         {
             // Remove old image.
             if ( Lection::where('image_path', $lection->image_path)->count() === 1 )
             {
-                // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-                File::delete( $lection->image_path );
+                Storage::delete( $lection->image_path );
             }
 
             // Save new image.
-            $image_saved = $image->move(storage_path('app/public/lections'), md5_file($image) . '.' . $image->getClientOriginalExtension());
-
-            $image_path = 'storage/lections/' . $image_saved->getFilename();
-
             $lection->image_path = $image_path;
         }
 
@@ -161,7 +153,7 @@ class LectionRepository implements LectionInterface
         $lection->save();
 
         // Save text.
-        Paper::update($text, $text_name, $text_author, $name);
+        Paper::update($text_path, $text_name, $text_author, $name);
 
         // Attach lection.
 

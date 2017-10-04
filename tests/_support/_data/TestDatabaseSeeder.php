@@ -9,71 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class TestDatabaseSeeder
 {
-    /**
-   * Ein fiktives Beispielvideo.
-   *
-   * @var     array
-   */
-  protected $videoAttributes;
-
-  /**
-   * Ein fiktiver Beispieltext .
-   *
-   * @var     array
-   */
-  protected $paperAttributes;
-
-  /**
-   * Eine fiktive Beispielnotiz.
-   *
-   * @var     array
-   */
-  protected $noteAttributes;
-
-  /**
-   * Ein fiktiver Beispielcuepoint.
-   *
-   * @var     array
-   */
-  protected $cuepointAttributes;
-
-  /**
-   * Ein fiktiver Beispielnutzer.
-   *
-   * @var     array
-   */
-  protected $userAttributes;
-
-  /**
-   * Eine fiktive Beispielnachricht.
-   *
-   * @var     array
-   */
-  protected $messageAttributes;
-
-  /**
-   * Ein fiktives Beispiel-FAQ.
-   *
-   * @var     array
-   */
-  protected $faqAttributes;
-
-  /**
-   * Bereitet die virtuelle Datenbank und virtuelle E-Mails vor.
-   *
-   * Migriert alle Strukturen in eine virtuelle SQLite Datenbank und
-   * setzt die E-Mail auf 'pretend' um sie in der Logfile zu verzeichnen.
-   */
-  public function __construct()
-  {
-      $this->userAttributes = Factories::$userAttributes;
-      $this->faqAttributes = Factories::$faqAttributes;
-      $this->videoAttributes = Factories::$videoAttributes;
-      $this->paperAttributes = Factories::$paperAttributes;
-      $this->noteAttributes = Factories::$noteAttributes;
-      $this->cuepointAttributes = Factories::$cuepointAttributes;
-      $this->messageAttributes = Factories::$messageAttributes;
-  }
 
   /**
    * Beispielcuepoints generieren.
@@ -82,12 +17,8 @@ class TestDatabaseSeeder
    */
   public function seedCuepoints(\FunctionalTester $I)
   {
-      $this->cuepointAttributes['id'] = 1;
-      $this->cuepointAttributes['cuepoint'] = '100';
-      $this->cuepointAttributes['video_videoname'] = 'Sozialgeschichte 1';
-      $this->cuepointAttributes['video_sequence_id'] = 1;
-      $this->cuepointAttributes['content'] = 'Fähnchen 1';
-      $I->haveRecord('cuepoints', $this->cuepointAttributes);
+
+      $I->have('Synthesise\Cuepoint', ['id' => 1, 'cuepoint' => 100, 'video_videoname' => 'Sozialgeschichte 1', 'video_sequence_id' => 1, 'content' => 'Fähnchen 1']);
 
       $this->cuepointAttributes['id'] = 2;
       $this->cuepointAttributes['cuepoint'] = '300';

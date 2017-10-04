@@ -38,9 +38,9 @@ class SectionController extends Controller
 
         $seminar_name = $request->seminar_name;
 
-        $further_reading = $request->file('further_reading');
+        $further_reading_path = $request->file('further_reading')->store('public/sections');
 
-        Section::store($name, $seminar_name, $further_reading);
+        Section::store($name, $seminar_name, $further_reading_path);
 
         return back()->withInput();
     }
@@ -66,9 +66,9 @@ class SectionController extends Controller
 
         $seminar_name = $request->seminar_name;
 
-        $further_reading = $request->file('further_reading');
+        $further_reading_path = $request->file('further_reading')->store('public/sections');
 
-        Section::update($id, $name, $seminar_name, $further_reading);
+        Section::update($id, $name, $seminar_name, $further_reading_path);
 
         return back()->withInput();
     }

@@ -5,8 +5,7 @@ namespace Synthesise\Repositories\Section;
 use Illuminate\Database\Eloquent\Model;
 
 use Synthesise\Section;
-use File;
-use App;
+use Storage;
 
 /**
  * User Repository mit Queries und Logik.
@@ -16,24 +15,25 @@ class SectionRepository implements SectionInterface
     /**
      * Get all lections of a section.
      *
-     * @param     string $name
+     * @param     int   $id
      *
      * @return    array
      */
-    public function getAllLections($name)
+    public function getAllLections($id)
     {
-        return Section::findOrFail($name)->lections()->orderBy('available_from')->get();
+        return Section::findOrFail($id)->lections()->orderBy('available_from')->get();
     }
 
-    /* Get section authors.
+    /**
+     * Get section authors.
      *
-     * @param     string    $name
+     * @param     int    $id
      *
      * @return    array
      */
-    public function getAllAuthors($name) {
+    public function getAllAuthors($id) {
 
-        $lections = $this->getAllLections($name);
+        $lections = $this->getAllLections($id);
 
         $authors = $lections->pluck('author')->unique()->all();
 
@@ -46,18 +46,12 @@ class SectionRepository implements SectionInterface
      *
      * @param     string    $name
      * @param     string    $seminar_name
-     * @param     file      $further_reading
+     * @param     string    $further_reading
      *
      */
-    public function store($name, $seminar_name, $further_reading)
+    public function store($name, $seminar_name, $further_reading_path)
     {
-        // Save further_reading.
-        $further_reading_saved = $further_reading->move(storage_path('app/public/sections'), md5_file($further_reading) . '.' . $further_reading->getClientOriginalExtension());
-
-        $further_reading_path = 'storage/sections/' . $further_reading_saved->getFilename();
-
         // Save new seminar.
-
         $section = new Section;
 
         $section->name = $name;
@@ -72,28 +66,24 @@ class SectionRepository implements SectionInterface
      *
      * @param     string    $name
      * @param     string    $seminar_name
-     * @param     file      $further_reading
+     * @param     string    $further_reading
      *
      */
-    public function update($id, $name, $seminar_name, $further_reading)
+    public function update($id, $name, $seminar_name, $further_reading_path)
     {
         // Find section.
         $section = Section::findOrFail($id);
 
         // Check new image.
-        if( $further_reading !== null )
+        if( $further_reading_path !== null )
         {
             // Remove old image.
             if ( Section::where('further_reading_path', $section->further_reading_path)->count() === 1 )
             {
-                File::delete( $section->further_reading_path );
+                Storage::delete( $section->further_reading_path );
             }
 
             // Save further_reading.
-            $further_reading_saved = $further_reading->move(storage_path('app/public/sections'), md5_file($further_reading) . '.' . $further_reading->getClientOriginalExtension());
-
-            $further_reading_path = 'storage/sections/' . $further_reading_saved->getFilename();
-
             $section->further_reading_path = $further_reading_path;
         }
 
@@ -117,8 +107,7 @@ class SectionRepository implements SectionInterface
 
         if ( Section::where('further_reading_path', $section->further_reading_path)->count() === 1 && $section->further_reading_path !== null )
         {
-            // @TODO: Sobald Laravel 5.3 verwendet werden kann, alles auf Storage umstellen! Hierzu kann ein symbolischer Link erstellt werden: 'php artisan storage:link'
-            File::delete( $section->further_reading_path );
+            Storage::delete( $section->further_reading_path );
         }
 
         // Detach all lections.

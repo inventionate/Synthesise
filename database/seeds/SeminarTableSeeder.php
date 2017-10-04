@@ -19,16 +19,16 @@ class SeminarTableSeeder extends Seeder
         // AHEW
 
         Seminar::create(array(
-            'name' => 'Grundlagen pädagogischen Denkens und Handelns',
+            'name' => 'Grundfragen pädagogischen Denkens und Handelns',
             'subject' => 'Allgemeine und Historische Erziehungswissenschaft',
-            'description' => 'Hier geht es um die Grundlagen von Erziehung und Bildung.',
+            'description' => 'Hier geht es um die Grundfragen zu Erziehung und Bildung.',
             'module' => 'M1',
             'author' => 'Apl. Prof. Dr. Timo Hoyer',
             'contact' => 'hoyer@ph-karlsruhe.de',
             'authorized_editors' => ["dozent", "root"],
             'image_path' => 'storage/seminars/2f85bce36f69738b5fa85b25e6e9a728.jpg',
             'info_intro' => '<p>
-            Die Lehrveranstaltung »Grundlagen pädagogischen Denkens und Handelns« führt in Themen und Fragestellungen der Allgemeinen und Historischen Erziehungswissenschaft ein. Sie setzt sich folgendermaßen zusammen:</p>',
+            Die Lehrveranstaltung »Erziehungswissenschaftliche Grundfragen pädagogischen Denkens und Handelns« führt in Themen und Fragestellungen der Allgemeinen und Historischen Erziehungswissenschaft ein. Sie setzt sich folgendermaßen zusammen:</p>',
             'info_lections' => '<p>
                 Die online-Lektionen vermitteln in verdichteter, visualisierter Form Theoriezugänge zu elementaren Themenfeldern und Forschungszweigen der Allgemeinen und Historischen Erziehungswissenschaft.<br>
                 Die einzelnen Lektionen werden in festgelegten, zumeist wöchentlichen Abständen zugänglich gemacht (Daten der Freischaltung siehe unter »Zugänglich ab« in der Tabelle weiter unten). Die einmal freigeschalteten Lektionen bleiben bis zum Tag der Prüfung geöffnet und können jederzeit angeschaut werden.<br>

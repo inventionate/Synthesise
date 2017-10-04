@@ -5,7 +5,7 @@ namespace Synthesise\Repositories\Infoblock;
 use Illuminate\Database\Eloquent\Model;
 
 use Synthesise\Infoblock;
-use File;
+use Storage;
 
 class InfoblockRepository implements InfoblockInterface
 {
@@ -16,37 +16,14 @@ class InfoblockRepository implements InfoblockInterface
      * @param   string      $name
      * @param   string      $content
      * @param   string      $link_url
-     * @param   file        $image
-     * @param   file        $text
+     * @param   string      $image_path
+     * @param   string      $text_path
      * @param   string      $smeinar_name
      *
      * @return  collection
      */
-    public function store($name, $content, $link_url, $image, $text, $seminar_name)
+    public function store($name, $content, $link_url, $image_path, $text_path, $seminar_name)
     {
-
-        if ( is_null($image) )
-        {
-            $image_path = NULL;
-        }
-        else
-        {
-            // Save image.
-            $image_saved = $image->move(storage_path('app/public/seminars/infoblocks'), md5_file($image) . '.' . $image->getClientOriginalExtension());
-
-            $image_path = 'storage/seminars/infoblocks/' . $image_saved->getFilename();
-        }
-
-        if ( is_null($text) )
-        {
-            $text_path = NULL;
-        }
-        else
-        {
-            $text_saved = $text->move(storage_path('app/public/seminars/infoblocks'), md5_file($text) . '.' . $text->getClientOriginalExtension());
-
-            $text_path = 'storage/seminars/infoblocks/' . $text_saved->getFilename();
-        }
 
         if ( $link_url === '' )
         {
@@ -73,49 +50,41 @@ class InfoblockRepository implements InfoblockInterface
      * @param   string      $name
      * @param   string      $content
      * @param   string      $link_url
-     * @param   file        $image
-     * @param   file        $text
+     * @param   string      $image_path
+     * @param   string      $text_path
      * @param   string      $smeinar_name
      *
      * @return  collection
      */
-    public function update($id, $name, $content, $link_url, $image, $text, $seminar_name)
+    public function update($id, $name, $content, $link_url, $image_path, $text_path, $seminar_name)
     {
 
         // Find infoblock.
         $infoblock = Infoblock::findOrFail($id);
 
         // Check new image.
-        if( $image !== null )
+        if( $image_path !== null )
         {
             // Remove old image.
             if ( Infoblock::where('image_path', $infoblock->image_path)->count() === 1 )
             {
-                File::delete( $infoblock->image_path );
+                Storage::delete( $infoblock->image_path );
             }
 
             // Save new image.
-            $image_saved = $image->move(storage_path('app/public/seminars/infoblocks'), md5_file($image) . '.' . $image->getClientOriginalExtension());
-
-            $image_path = 'storage/seminars/infoblocks/' . $image_saved->getFilename();
-
             $infoblock->image_path = $image_path;
         }
 
         // Check new text.
-        if( $text !== null )
+        if( $text_path !== null )
         {
             // Remove old image.
             if ( Infoblock::where('text_path', $infoblock->text_path)->count() === 1 )
             {
-                File::delete( $infoblock->text_path );
+                Storage::delete( $infoblock->text_path );
             }
 
-            // Save new image.
-            $text_saved = $text->move(storage_path('app/public/seminars/infoblocks'), md5_file($text) . '.' . $text->getClientOriginalExtension());
-
-            $text_path = 'storage/seminars/infoblocks/' . $text_saved->getFilename();
-
+            // Save new text.
             $infoblock->text_path = $text_path;
         }
 
@@ -147,12 +116,12 @@ class InfoblockRepository implements InfoblockInterface
 
         if ( Infoblock::where('image_path', $infoblock->image_path)->count() === 1 && $infoblock->image_path !== null )
         {
-            File::delete( $infoblock->image_path );
+            Storage::delete( $infoblock->image_path );
         }
 
         if ( Infoblock::where('text_path', $infoblock->text_path)->count() === 1 && $infoblock->text_path !== null )
         {
-            File::delete( $infoblock->text_path );
+            Storage::delete( $infoblock->text_path );
         }
 
         $infoblock->delete();

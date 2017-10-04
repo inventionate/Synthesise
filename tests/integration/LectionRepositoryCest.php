@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Http\UploadedFile;
+
 class LectionRepositoryCest
 {
 
     /**
-     * Testet das Abfragen aller Lektionen
+     * Test to get all lections.
      */
     public function testGetAllLections(IntegrationTester $I)
     {
@@ -195,6 +197,57 @@ class LectionRepositoryCest
 
         // Testergebnis auswerten
         $I->assertEquals($paper->name, 'Wie wir die soziale Welt machen');
+    }
+
+    /**
+     * Test to store a new lection.
+     */
+    public function testStoreLection(IntegrationTester $I)
+    {
+        // Fake files.
+        $text_path = UploadedFile::fake()->create('Test.pdf')->store('test');
+        $image_path = UploadedFile::fake()->image('Test.jpg')->store('test');
+
+        // Authenticate
+        $I->have('Synthesise\User', ['username' => 'Bob', 'password' => Hash::make('123')]);
+        $I->amLoggedAs(['username' => 'Bob', 'password' => '123']);
+
+        // Store new lection
+        Lection::store('New Lection', 1, 'Martina', 'mail@mail.net', $text_path, 'New Text', 'Theodore', $image_path, '2017-01-01', '2017-05-01', NULL, 'New Seminar');
+
+        // Check result.
+        $I->seeRecord('Synthesise\Lection', ['name' => 'New Lection']);
+
+        //dd('lections/' . $text_md5 . '.jpg');
+
+        // Delete fake files
+        Storage::deleteDirectory('test');
+    }
+
+    /**
+     * Test to update a lection.
+     */
+    public function testUpdateLection(IntegrationTester $I)
+    {
+        // Fake files.
+        $text_path = UploadedFile::fake()->create('Test.pdf')->store('test');
+        $image_path = UploadedFile::fake()->image('Test.jpg')->store('test');
+
+        // Authenticate
+        $I->have('Synthesise\User', ['username' => 'Bob', 'password' => Hash::make('123')]);
+        $I->amLoggedAs(['username' => 'Bob', 'password' => '123']);
+
+        // Store new lection
+        Lection::store('New Lection', 1, 'Martina', 'mail@mail.net', $text_path, 'New Text', 'Theodore', $image_path, '2017-01-01', '2017-05-01', NULL, 'New Seminar');
+
+        // Update stored Lection
+        Lection::update('New Lection', 1, 1, 'Hartmut', 'mail@mail.net', NULL, 'New Text', 'Theodore', NULL, '2017-01-01', '2017-05-01', NULL, 'New Seminar');
+
+        // Check result.
+        $I->seeRecord('Synthesise\Lection', ['author' => 'Hartmut']);
+
+        // Delete fake files
+        Storage::deleteDirectory('test');
     }
 
 }

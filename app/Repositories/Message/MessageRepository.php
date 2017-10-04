@@ -15,9 +15,10 @@ class MessageRepository implements MessageInterface
     /**
      * Eine neue Nachricht anlegen.
      *
-     * @param     int $id
-     * @param     string $message
-     * @param     string $type
+     * @param     int       $id
+     * @param     string    $message
+     * @param     string    $type
+     * @param     string    $file_path
      */
       public function store($seminar_name, $title, $content, $colour)
       {

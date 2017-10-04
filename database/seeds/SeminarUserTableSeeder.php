@@ -15,12 +15,12 @@ class SeminarUserTableSeeder extends Seeder
 
 
         DB::table('seminar_user')->insert([
-           'seminar_name' => 'Grundlagen pädagogischen Denkens und Handelns',
+           'seminar_name' => 'Grundfragen pädagogischen Denkens und Handelns',
            'user_id' => 4,
         ]);
 
         DB::table('seminar_user')->insert([
-           'seminar_name' => 'Grundlagen pädagogischen Denkens und Handelns',
+           'seminar_name' => 'Grundfragen pädagogischen Denkens und Handelns',
            'user_id' => 3,
         ]);
 
@@ -30,7 +30,7 @@ class SeminarUserTableSeeder extends Seeder
         ]);
 
         DB::table('seminar_user')->insert([
-           'seminar_name' => 'Grundlagen pädagogischen Denkens und Handelns',
+           'seminar_name' => 'Grundfragen pädagogischen Denkens und Handelns',
            'user_id' => 1,
         ]);
 

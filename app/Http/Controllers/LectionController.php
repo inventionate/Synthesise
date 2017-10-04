@@ -53,16 +53,16 @@ class LectionController extends Controller
         $section_id        = $request->section_id;
         $author            = $request->author;
         $contact           = $request->contact;
-        $text              = $request->file('text');
+        $text_path         = $request->file('text')->store('public/papers');
         $text_name         = $request->text_name;
         $text_author       = $request->text_author;
-        $image             = $request->file('image');
+        $image_path        = $request->file('image')->store('public/lections');
         $available_from    = $request->available_from;
         $available_to      = $request->available_to;
         $authorized_users  = $request->authorized_users;
         $seminar_name      = $request->seminar_name;
 
-        Lection::store($name, $section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
+        Lection::store($name, $section_id, $author, $contact, $text_path, $text_name, $text_author, $image_path, $available_from, $available_to, $authorized_users, $seminar_name);
 
         return back()->withInput();
     }
@@ -142,16 +142,16 @@ class LectionController extends Controller
         $old_section_id    = $request->old_section_id;
         $author            = $request->author;
         $contact           = $request->contact;
-        $text              = $request->file('text');
+        $text_path         = $request->file('text')->storage('public/papers');
         $text_name         = $request->text_name;
         $text_author       = $request->text_author;
-        $image             = $request->file('image');
+        $image_path        = $request->file('image')->storage('public/lections');
         $available_from    = $request->available_from;
         $available_to      = $request->available_to;
         $authorized_users  = $request->authorized_users;
         $seminar_name      = $request->seminar_name;
 
-        Lection::update($name, $section_id, $old_section_id, $author, $contact, $text, $text_name, $text_author, $image, $available_from, $available_to, $authorized_users, $seminar_name);
+        Lection::update($name, $section_id, $old_section_id, $author, $contact, $text_path, $text_name, $text_author, $image_path, $available_from, $available_to, $authorized_users, $seminar_name);
 
         return back()->withInput();
     }

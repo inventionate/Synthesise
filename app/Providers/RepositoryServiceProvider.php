@@ -25,6 +25,9 @@ use Synthesise\Repositories\Seminar\SeminarRepository;
 use Synthesise\Sequence;
 use Synthesise\Repositories\Sequence\SequenceRepository;
 
+use Synthesise\Cuepoint;
+use Synthesise\Repositories\Cuepoint\CuepointRepository;
+
 use Synthesise\User;
 use Synthesise\Repositories\User\UserRepository;
 
