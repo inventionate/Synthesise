@@ -210,6 +210,7 @@ class LectionRepositoryCest
 
         // Authenticate
         $I->have('Synthesise\User', ['username' => 'Bob', 'password' => Hash::make('123')]);
+
         $I->amLoggedAs(['username' => 'Bob', 'password' => '123']);
 
         // Store new lection

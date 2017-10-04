@@ -51,7 +51,7 @@ interface SeminarInterface
 
     public function getAllInfoblocks($name);
 
-    public function getAllUsers($name, $role);
+    public function getAllUsers($name);
 
     public function getAllTitles();
 }

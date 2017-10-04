@@ -20,7 +20,7 @@ $factory->define(Synthesise\Seminar::class, function (Faker $faker) {
         'module' => str_random(5),
         'author' => $faker->name,
         'contact' => $faker->email,
-        'authorized_editors' => $faker->name,
+        'authorized_editors' => [$faker->name],
         'image_path' => str_random(25),
         'info_intro' => NULL,
         'info_lections' => NULL,

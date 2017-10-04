@@ -60,7 +60,7 @@ class SeminarController extends Controller
         $infoblocks = Seminar::getAllInfoblocks($name);
 
         // Get teachers by seminar.
-        $teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
 
         // Get teachers by seminar.
         $admins = User::getAllByRole('Admin')->pluck('username');
@@ -258,7 +258,7 @@ class SeminarController extends Controller
         $sections = Seminar::getAllSections($name);
 
         // Get teachers by seminar.
-        $teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
 
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
@@ -301,7 +301,7 @@ class SeminarController extends Controller
         $answersByLetter = FAQ::getByLetter($name, $letter);
 
         // Get teachers by seminar.
-        $teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
 
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
@@ -351,7 +351,7 @@ class SeminarController extends Controller
         $support_mail = 'mundt@ph-kalrsruhe.de';
 
         // Get teachers by seminar.
-        $teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
 
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
@@ -415,7 +415,7 @@ class SeminarController extends Controller
         $poster_path = Lection::getImagePath($lection_name);
 
         // Get teachers by seminar.
-        $teachers = Seminar::getAllUsers($name, 'Teacher');
+        $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
 
         // Get teachers by seminar.
         $admins = User::getAllByRole('Admin')->pluck('username');

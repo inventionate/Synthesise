@@ -235,7 +235,7 @@ class SeminarRepository implements SeminarInterface
     /**
      * Retrieve all authorized editors for one seminar.
      *
-     * @param string $name
+     * @param   string  $name
      *
      * @return collection All seminars.
      */
@@ -431,13 +431,12 @@ class SeminarRepository implements SeminarInterface
     /* Get all seminar teachers.
      *
      * @param     string    $name
-     * @param     string    $role
      *
      * @return    collection
      */
-    public function getAllUsers($name, $role)
+    public function getAllUsers($name)
     {
-        return Seminar::findOrFail($name)->users()->where('role', $role)->get();
+        return Seminar::findOrFail($name)->users()->get();
     }
 
     /* Set user as authorized Editor.
