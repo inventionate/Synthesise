@@ -14,7 +14,7 @@
 	</header>
 
 	{{-- @TODO Für Mobilgeräte die Größe optimieren!!  --}}
-	<div class="ten wide column @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
+	<div class="twelve wide column @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
 
 		<form role="form" method="POST" action="{{ url('login') }}" class="ui  large form" id="login">
 
@@ -42,14 +42,14 @@
 
 				{{-- Anmelde Button --}}
 				<div class="field">
-					<input id="login" class="ui large fluid submit button" role="button" type="submit" value="Anmelden">
+					<input id="login-submit" class="ui large fluid submit button" role="button" type="submit" value="Anmelden">
 				</div>
 
 			</div>
 
 			{{-- Auto enable Remember me --}}
 			<label for="rememberme" class="hide">Angemeldet bleiben</label>
-			<input type="checkbox" class="hide" value="true">
+			<input type="checkbox" name="rememberme" class="hide" value="true">
 
 		</form>
 	</div>

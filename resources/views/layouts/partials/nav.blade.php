@@ -150,7 +150,7 @@
 
                     {{ csrf_field() }}
 
-                    <button class="item" type="submit"><i class="power icon"></i> Abmelden</button>
+                    <button class="item fluid" type="submit"><i class="power icon"></i> Abmelden</button>
 
                 </form>
 
