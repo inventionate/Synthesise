@@ -14,9 +14,9 @@
 	</header>
 
 	{{-- @TODO Für Mobilgeräte die Größe optimieren!!  --}}
-	<div class="eight wide column @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
+	<div class="ten wide column @if ( !(Session::has('login_errors')) && !(Session::has('errors')) ) scale @else shake @endif ">
 
-		<form role="form" method="POST" action="{{ url('login') }}" class="ui  form" id="login">
+		<form role="form" method="POST" action="{{ url('login') }}" class="ui  large form" id="login">
 
 			{{ csrf_field() }}
 
@@ -42,7 +42,7 @@
 
 				{{-- Anmelde Button --}}
 				<div class="field">
-					<input id="login" class="ui fluid submit button" role="button" type="submit" value="Anmelden">
+					<input id="login" class="ui large fluid submit button" role="button" type="submit" value="Anmelden">
 				</div>
 
 			</div>
