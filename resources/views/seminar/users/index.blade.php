@@ -219,7 +219,7 @@
           <i class="user icon"></i> Mentor/in hinzufügen
         </div>
 
-        <form id="mentor-user-delete-many" role="form" method="POST" action="{{ action('UserController@destroyMany') }}">
+        <form id="mentor-user-delete-many" role="form" method="POST" action="{{ action('UserController@destroyMany', ['seminar_names' => $seminar_name]) }}">
 
             {{ method_field('DELETE') }}
 
@@ -234,7 +234,7 @@
 
         </form>
 
-        <form id="mentor-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Mentor', 'except_ids' => Auth::user()->id]) }}">
+        <form id="mentor-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Mentor', 'except_ids' => Auth::user()->id, 'seminar_names' => $seminar_name]) }}">
 
             {{ method_field('DELETE') }}
 
@@ -300,7 +300,7 @@
           <i class="user icon"></i> Student/in hinzufügen
       </div>
 
-      <form id="student-user-delete-many" role="form" method="POST" action="{{ action('UserController@destroyMany') }}">
+      <form id="student-user-delete-many" role="form" method="POST" action="{{ action('UserController@destroyMany', ['seminar_names' => $seminar_name]) }}">
 
           {{ method_field('DELETE') }}
 
@@ -315,7 +315,7 @@
 
       </form>
 
-      <form id="student-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Student', 'except_ids' => Auth::user()->id]) }}">
+      <form id="student-user-delete-all" role="form" method="POST" action="{{ action('UserController@destroyAll', ['role' => 'Student', 'except_ids' => Auth::user()->id, 'seminar_names' => $seminar_name]) }}">
 
           {{ method_field('DELETE') }}
 

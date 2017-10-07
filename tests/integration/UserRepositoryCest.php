@@ -172,17 +172,17 @@ class UserRepositoryCest
         // Fake data.
         $I->have('Synthesise\Seminar', ['name' => 'Sem 1']);
 
-        User::store('Bob 1', 'Admin', 'Bobby', 'Eaton', 'new@me.de', Hash::make('123'), $seminar_names = ['Sem 1']);
+        $I->have('Synthesise\User', ['id' => 1, 'role' => 'Admin']);
 
-        User::store('Bob 2', 'Student', 'Bobby', 'Eaton', 'new@me.de', Hash::make('123'), $seminar_names = ['Sem 1']);
+        User::store('Bob 2', 'Student', 'Bobby', 'Eaton', 'new@me.de', Hash::make('123'), ['Sem 1']);
 
-        User::store('Bob 3', 'Student', 'Bobby', 'Eaton', 'new@me.de', Hash::make('123'), $seminar_names = ['Sem 1']);
+        User::store('Bob 3', 'Student', 'Bobby', 'Eaton', 'new@me.de', Hash::make('123'), ['Sem 1']);
 
         // Delete users.
-        User::deleteAll('Student', [], ['Sem 1']);
+        User::deleteAll('Student', '1', 'Sem 1');
 
         // Test.
-        $I->seeRecord('Synthesise\User', ['username' => 'Bob 1']);
+        $I->seeRecord('Synthesise\User', ['id' => 1]);
         $I->dontSeeRecord('Synthesise\User', ['username' => 'Bob 2']);
         $I->dontSeeRecord('Synthesise\User', ['username' => 'Bob 3']);
     }

@@ -252,8 +252,6 @@ class UserController extends Controller
 
         $except_ids = $request->except_ids;
 
-        $except_ids = $request->except_ids;
-
         $seminar_names = $request->seminar_names;
 
         User::deleteAll($role, $except_ids, $seminar_names);

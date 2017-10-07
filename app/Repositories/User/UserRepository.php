@@ -19,199 +19,199 @@ class UserRepository implements UserInterface
     /**
    * Alle vorhandenen Notizen eines Benutzers ausgeben.
    *
-   * @uses 		Parser::htmlMarkup um das HTML Markup zu generieren.
+   * @uses      Parser::htmlMarkup um das HTML Markup zu generieren.
    *
    * @param     int $userId
-   * @param 	string lection_name
-   * @param 	string seminar_name
+   * @param     string lection_name
+   * @param     string seminar_name
    *
    * @return    string Gibt alle Notizen als HTML Markup zurück.
    */
-  public function getAllNotes($user_id, $lection_name, $seminar_name)
-  {
-      // Notizen des Benutzers für das Video laden
-    $notes = User::findOrFail($user_id)->notes()->where('lection_name', $lection_name)->where('seminar_name', $seminar_name)->orderBy('cuepoint_id')->get();
+    public function getAllNotes($user_id, $lection_name, $seminar_name)
+    {
+        // Notizen des Benutzers für das Video laden
+        $notes = User::findOrFail($user_id)->notes()->where('lection_name', $lection_name)->where('seminar_name', $seminar_name)->orderBy('cuepoint_id')->get();
 
-      $title = 'Notizen zu '.$lection_name;
+        $title = 'Notizen zu '.$lection_name;
 
-      $content = '';
+        $content = '';
 
-      foreach ($notes as $note) {
-          $content .= '<h2>'.Cuepoint::findOrFail($note->cuepoint_id)->content.'</h2>';
-          $content .= '<p>'.Crypt::decrypt($note->note).'</p>';
-          $content .= '<h3 style="height:250px">Ergänzungen:</h3>';
-      }
+        foreach ($notes as $note) {
+            $content .= '<h2>'.Cuepoint::findOrFail($note->cuepoint_id)->content.'</h2>';
+            $content .= '<p>'.Crypt::decrypt($note->note).'</p>';
+            $content .= '<h3 style="height:250px">Ergänzungen:</h3>';
+        }
 
-      $html = Parser::htmlMarkup($title, $content);
+        $html = Parser::htmlMarkup($title, $content);
 
-      return $html;
-  }
+        return $html;
+    }
 
   /**
    * Benutzernamen ausgeben. Setzt einen eingeloggten Benutzer voraus.
    *
    * @return    string Benutzervorname und Benutzernachname.
    */
-  public function getUsername()
-  {
-      return Auth::user()->firstname.' '.Auth::user()->lastname;
-  }
+    public function getUsername()
+    {
+        return Auth::user()->firstname.' '.Auth::user()->lastname;
+    }
 
   /**
    * E-Mail eines eingeloggten Benutzers ausgeben. Setzt einen eingeloggten Benutzer voraus.
    *
    * @return    string E-Mail Adresse.
    */
-  public function getEmail()
-  {
-    // Altes System, demnächst löschen:
-    //return substr(Auth::user()->username, 0, -2).'@ph-karlsruhe.de';
+    public function getEmail()
+    {
+        // Altes System, demnächst löschen:
+        //return substr(Auth::user()->username, 0, -2).'@ph-karlsruhe.de';
 
-    return Auth::user()->email;
-  }
+        return Auth::user()->email;
+    }
 
   /**
    * Durchsucht die Datenbank nach einem übergebenen Nutzernamen.
    *
-   * @param 		string    $username
-   * @param 		array     $columns
+   * @param         string    $username
+   * @param         array     $columns
    *
-   * @return		string|null Benutzername oder null, falls kein passender Eintrag gefunden wurde.
+   * @return        string|null Benutzername oder null, falls kein passender Eintrag gefunden wurde.
    */
-  public function findByUsername($username, $columns = array('*'))
-  {
-      if (!is_null($user = User::whereUsername($username)->first($columns))) {
-          return $user;
-      } else {
-          return;
-      }
-  }
+    public function findByUsername($username, $columns = array('*'))
+    {
+        if (!is_null($user = User::whereUsername($username)->first($columns))) {
+            return $user;
+        } else {
+            return;
+        }
+    }
 
   /**
    * Get all users.
    *
    * @return    collection all users.
    */
-  public function getAll()
-  {
-      return User::all()->sortBy('lastname');
-  }
+    public function getAll()
+    {
+        return User::all()->sortBy('lastname');
+    }
 
   /**
    * Get all users by role.
    *
    * @return    collection all users.
    */
-  public function getAllByRole($role)
-  {
-      return User::where('role', $role)->get();
-  }
+    public function getAllByRole($role)
+    {
+        return User::where('role', $role)->get();
+    }
 
   /**
    * Store User.
    *
-   * @param 		file users
+   * @param         file users
    */
-  public function exportUsernamesOfFile($users)
-  {
-      $usernames = array_flatten(Excel::load($users, function ($reader) {
-          // Getting all usernames
-          $reader->select(['nutzernamen']);
-      })->toArray());
+    public function exportUsernamesOfFile($users)
+    {
+        $usernames = array_flatten(Excel::load($users, function ($reader) {
+            // Getting all usernames
+            $reader->select(['nutzernamen']);
+        })->toArray());
 
-      return $usernames;
-  }
+        return $usernames;
+    }
 
   /**
    * Store User.
    *
-   * @param 	string username
-   * @param 	string role
-   * @param 	string firstname
-   * @param 	string lastname
-   * @param 	string email
-   * @param 	string password
+   * @param     string username
+   * @param     string role
+   * @param     string firstname
+   * @param     string lastname
+   * @param     string email
+   * @param     string password
    * @param     array seminar_names
    */
-  public function store($username, $role, $firstname, $lastname, $email, $password, $seminar_names = null)
-  {
+    public function store($username, $role, $firstname, $lastname, $email, $password, $seminar_names = null)
+    {
 
-    // Neue Nachrichteninstanz generieren
-    $user = new User();
+        // Neue Nachrichteninstanz generieren
+        $user = new User();
 
-      $user->username = $username;
-      $user->role = $role;
+        $user->username = $username;
+        $user->role = $role;
 
-    // If an Admin is stored, add it as authorized seminar editor.
-    if ($role === 'Teacher') {
-        Seminar::setAuthorizedEditor($seminar_names[0], $username);
-    }
+        // If an Admin is stored, add it as authorized seminar editor.
+        if ($role === 'Teacher') {
+            Seminar::setAuthorizedEditor($seminar_names[0], $username);
+        }
 
-    // Diese Werte müssen nicht zwingend gesetzt werden, weil sie per LDAP eingetragen werden.
-    // @TODO: Bei der Abstraktion des Benutzersystems berücksichtigen!
-    if ($firstname !== null) {
-        $user->firstname = $firstname;
-    }
-      if ($lastname !== null) {
-          $user->lastname = $lastname;
-      }
-      if ($email !== null) {
-          $user->email = $email;
-      }
-      if ($password !== null) {
-          $user->password = Hash::make($password);
-      }
+        // Diese Werte müssen nicht zwingend gesetzt werden, weil sie per LDAP eingetragen werden.
+        // @TODO: Bei der Abstraktion des Benutzersystems berücksichtigen!
+        if ($firstname !== null) {
+            $user->firstname = $firstname;
+        }
+        if ($lastname !== null) {
+            $user->lastname = $lastname;
+        }
+        if ($email !== null) {
+            $user->email = $email;
+        }
+        if ($password !== null) {
+            $user->password = Hash::make($password);
+        }
 
-      $user->save();
+        $user->save();
 
-    // Attach to seminar.
-    if ($seminar_names !== null) {
-        foreach ($seminar_names as $seminar_name) {
-            $user->seminars()->attach($seminar_name);
+        // Attach to seminar.
+        if ($seminar_names !== null) {
+            foreach ($seminar_names as $seminar_name) {
+                $user->seminars()->attach($seminar_name);
+            }
         }
     }
-  }
 
   /**
    * Update User.
    *
-   * @param 		string username
-   * @param 		string role
-   * @param 		string firstname
-   * @param 		string lastname
+   * @param         string username
+   * @param         string role
+   * @param         string firstname
+   * @param         string lastname
    * @param         string email
-   * @param 		string password
+   * @param         string password
    */
-  public function update($id, $username, $role, $firstname, $lastname, $email, $password)
-  {
+    public function update($id, $username, $role, $firstname, $lastname, $email, $password)
+    {
 
-    // Find user to update.
-    $toBeUpdatedUser = User::findOrFail($id);
+        // Find user to update.
+        $toBeUpdatedUser = User::findOrFail($id);
 
-    // New Values.
-    $toBeUpdatedUser->username = $username;
-      $toBeUpdatedUser->role = $role;
-      $toBeUpdatedUser->firstname = $firstname;
-      $toBeUpdatedUser->lastname = $lastname;
-      $toBeUpdatedUser->email = $email;
+        // New Values.
+        $toBeUpdatedUser->username = $username;
+        $toBeUpdatedUser->role = $role;
+        $toBeUpdatedUser->firstname = $firstname;
+        $toBeUpdatedUser->lastname = $lastname;
+        $toBeUpdatedUser->email = $email;
 
-    // Nur neu setzen, wenn ein anderes Passwort gewählt wurde.
-    if (!Hash::check($toBeUpdatedUser->password, $password)) {
-        $toBeUpdatedUser->password = Hash::make($password);
+        // Nur neu setzen, wenn ein anderes Passwort gewählt wurde.
+        if (!Hash::check($toBeUpdatedUser->password, $password)) {
+            $toBeUpdatedUser->password = Hash::make($password);
+        }
+
+        // Save User.
+        $toBeUpdatedUser->save();
     }
-
-    // Save User.
-    $toBeUpdatedUser->save();
-  }
 
    /**
     * Delete User.
     *
     * @param         int $id
     */
-   public function delete($id)
-   {
-       // Find User.
+    public function delete($id)
+    {
+        // Find User.
         $user = User::findOrFail($id);
 
         // Detach relations.
@@ -219,7 +219,7 @@ class UserRepository implements UserInterface
 
         // Delete user.
         $user->delete();
-   }
+    }
 
     /**
      * Delete many Users.
@@ -257,27 +257,28 @@ class UserRepository implements UserInterface
    * @param         array   $except_ids
    * @param         array   $seminar_names
    */
-  public function deleteAll($role, $except_ids, $seminar_names)
-  {
-      // Find and delete Users.
-    $users = User::where('role', $role)->whereNotIn('id', $except_ids)->withCount('seminars')->get();
+    public function deleteAll($role, $except_ids, $seminar_names)
+    {
 
-    // Detach from seminar.
-    foreach ($users as $user) {
-        // Remove relation.
-        $user->seminars()->detach($seminar_names);
+        // Find and delete Users.
+        $users = User::where('role', $role)->whereNotIn('id', [$except_ids])->withCount('seminars')->get();
 
-        // Delete authorization.
-        if ($user->role === 'Teacher') {
-            Seminar::deleteAuthorizedEditor($seminar_names, $user->username);
-        }
+        // Detach from seminar.
+        foreach ($users as $user) {
+            // Remove relation.
+            $user->seminars()->detach($seminar_names);
 
-        // If only one relation delete user.
-        if ($user->seminars_count == 1) {
-            $user->delete();
+            // Delete authorization.
+            if ($user->role === 'Teacher') {
+                Seminar::deleteAuthorizedEditor($seminar_names, $user->username);
+            }
+
+            // If only one relation delete user.
+            if ($user->seminars_count == 1) {
+                $user->delete();
+            }
         }
     }
-  }
 
   /**
    * Delete all User of a specific role.
@@ -285,10 +286,10 @@ class UserRepository implements UserInterface
    * @param         string  $username
    * @param         string  $seminar_name
    */
-  public function attachToSeminar($username, $seminar_name)
-  {
-      $user = $this->findByUsername($username);
+    public function attachToSeminar($username, $seminar_name)
+    {
+        $user = $this->findByUsername($username);
 
-      $user->seminars()->attach($seminar_name);
-  }
+        $user->seminars()->attach($seminar_name);
+    }
 }
