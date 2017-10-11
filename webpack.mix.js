@@ -17,8 +17,6 @@ mix.js('resources/assets/js/application.js', 'public/js')
     .copy(
         "node_modules/video.js/dist/video-js.swf",
         "public"
-    ).browserSync('etpm.dev');
-
-if (mix.inProduction()) {
-    mix.version();
-}
+    )
+    .version()
+    .browserSync('etpm.dev');
