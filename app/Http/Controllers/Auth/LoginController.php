@@ -53,6 +53,9 @@ class LoginController extends Controller
         $credentials = $request->only('username', 'password');
         $rememberme = $request->rememberme;
 
+        // Regenerate session ID
+        $request->session()->regenerate();
+
         //LDAP Authentifizierung
         // 2. Wenn LDAP auth erfolgreich -> anmelden mit LDAP Daten
         if (App::environment('testing', 'dev')) {

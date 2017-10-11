@@ -40,16 +40,15 @@
 					</div>
 				</div>
 
+				{{-- Auto enable Remember me --}}
+				<input type="checkbox" name="rememberme" class="hide" value="true">
+
 				{{-- Anmelde Button --}}
 				<div class="field">
 					<input id="login-submit" class="ui large fluid submit button" role="button" type="submit" value="Anmelden">
 				</div>
 
 			</div>
-
-			{{-- Auto enable Remember me --}}
-			<label for="rememberme" class="hide">Angemeldet bleiben</label>
-			<input type="checkbox" name="rememberme" class="hide" value="true">
 
 		</form>
 	</div>
