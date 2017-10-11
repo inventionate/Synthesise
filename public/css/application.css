@@ -464,9 +464,10 @@ form.ui.modal .header {
 }
 #cookie-bar {
   opacity: 0.8;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
 }
 #cookie-bar p {
-  height: 35px;
   line-height: 35px;
 }
 #cookie-bar .cb-enable {
