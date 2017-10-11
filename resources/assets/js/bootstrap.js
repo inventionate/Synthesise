@@ -43,7 +43,6 @@ $.ajaxSetup({
 });
 
 require('sweetalert');
-require('sweetalert/dist/sweetalert.css');
 
 require('jquery-cookiebar');
 require('jquery-cookiebar/jquery.cookiebar.css');

@@ -1,5 +1,5 @@
 <style lang="less">
-    @import "../../less/colour";
+    @import "../../less/colour.less";
     #interactive-video {
         position: relative;
         padding-bottom: 7em;
@@ -53,8 +53,8 @@
             }
         }
     }
-    @import "../../less/video-js-skin";
-    @import "../../less/video-js-markers";
+    @import "../../less/video-js-skin.less";
+    @import "../../less/video-js-markers.less";
 </style>
 
 <template>

@@ -14,21 +14,20 @@
     "bootstrap-sass": "^3.3.7",
     "browser-sync": "^2.18.13",
     "browser-sync-webpack-plugin": "^1.2.0",
-    "cross-env": "^3.2.3",
+    "cross-env": "^5.0.1",
     "jquery": "^3.2.0",
     "jquery-cookiebar": "^1.0.5",
     "jquery-file-upload": "^4.0.5",
-    "laravel-mix": "1.*",
-    "less-loader": "^2.2.3",
+    "laravel-mix": "^1.0",
+    "less": "^3.0.0-alpha.3",
+    "less-loader": "^4.0.5",
     "lodash": "^4.17.4",
-    "run-sequence": "^1.2.2",
     "semantic-ui-css": "2.*",
     "sweetalert": "2.*",
     "trumbowyg": "^2.1.1",
     "video.js": "^6.2",
     "vue": "^2.4.4",
-    "vue-loader": "^9.4.2",
-    "vue-resource": "1.*",
-    "vue-template-compiler": "^2.0.1"
+    "vue-loader": "^13.2.1",
+    "vue-resource": "1.*"
   }
 }

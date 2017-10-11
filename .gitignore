@@ -17,7 +17,7 @@ Homestead.yaml
 .tags1
 .env
 .env.production
-.env.dev
+.env.phdev
 .DS_Store
 Homestead.json
 Homestead.yaml
