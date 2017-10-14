@@ -127,6 +127,8 @@
                 // Video.js Markers laden
                 // Eigener Fork, der das Rundungsproblem behebt und die Marker damit an die richtige Stelle setzt!
                 require('./videojs-markers.js');
+                // require('videojs-markers');
+                // require('videojs-markers/dist/videojs.markers.css');
 
                 $('#videoplayer').append(
                     "<source type='video/mp4' src='/" + path + "'> <source type='video/webm' src='/" + path.substring(0, path.length-4) + ".webm'>"
@@ -226,6 +228,8 @@
                 this.$http.get(document.URL + '/note', {
                     params: { cuepoint_id: id }
                 }).then((response) => {
+
+                    console.log(response.text());
 
                     self.noteContent = response.text();
 
