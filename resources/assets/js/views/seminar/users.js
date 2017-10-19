@@ -79,13 +79,11 @@ if( $('#main-content-seminar-users')[0] )
         swal({
             title: "Alle Dozent/innen löschen?",
             text: "Sie werden alle Dozent/innen – ausgenommen Ihnen selbst – für dieses Seminar löschen.",
-            type: "warning",
-            showCancelButton: true,
-            cancelButtonText: "Abbrechen",
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Ja, alle löschen!"
-        }, function( isConfirm ) {
-            if( isConfirm ) {
+            icon: "warning",
+            buttons: ["Abbrechen", "Ja, löschen!"]
+        }).
+        then((willDelete) => {
+            if( willDelete ) {
                 form.submit();
             }
         });
@@ -133,13 +131,11 @@ if( $('#main-content-seminar-users')[0] )
         swal({
             title: "Alle Mentor/innen löschen?",
             text: "Sie werden alle Mentor/innen für dieses Seminar löschen.",
-            type: "warning",
-            showCancelButton: true,
-            cancelButtonText: "Abbrechen",
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Ja, alle löschen!"
-        }, function( isConfirm ) {
-            if( isConfirm ) {
+            icon: "warning",
+            buttons: ["Abbrechen", "Ja, löschen!"]
+        }).
+        then((willDelete) => {
+            if( willDelete ) {
                 form.submit();
             }
         });
@@ -187,13 +183,11 @@ if( $('#main-content-seminar-users')[0] )
         swal({
             title: "Alle Student/innen löschen?",
             text: "Sie werden alle Student/innen für dieses Seminar löschen.",
-            type: "warning",
-            showCancelButton: true,
-            cancelButtonText: "Abbrechen",
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Ja, alle löschen!"
-        }, function( isConfirm ) {
-            if( isConfirm ) {
+            icon: "warning",
+            buttons: ["Abbrechen", "Ja, löschen!"]
+        }).
+        then((willDelete) => {
+            if( willDelete ) {
                 form.submit();
             }
         });

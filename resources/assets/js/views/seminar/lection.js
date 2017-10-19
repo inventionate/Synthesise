@@ -41,13 +41,11 @@ if( $('#main-content-seminar-lection')[0] )
             swal({
                 title: "Sequenz abgeschlossen!",
                 text: "Sie können direkt mit der nächsten fortfahren.",
-                type: "success",
+                icon: "success",
                 timer: 3000,
-                showCancelButton: true,
-                cancelButtonText: "Hier bleiben.",
-                confirmButtonText: "Ja, weitermachen!",
-                 closeOnConfirm: false
-            }, function(){
+                buttons: ["Hier bleiben.", "Ja, weitermachen!"]
+            }).
+            then(() => {
 
                 window.location = new_url;
 

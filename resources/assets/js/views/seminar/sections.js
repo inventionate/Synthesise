@@ -98,13 +98,11 @@
      swal({
          title: "Themenbereich löschen?",
          text: "Sie löschen den gesamten Themenbereich! Damit entfernen Sie auch die Verknüpfung zu allen zugeordneten online-Lektionen. Die online-Lektionen selbst werden nicht gelöscht und können zu neuen Themenbereichen hinzugefügt werden.",
-         type: "warning",
-         showCancelButton: true,
-         cancelButtonText: "Abbrechen",
-         confirmButtonColor: "#DD6B55",
-         confirmButtonText: "Ja, löschen!"
-     }, function( isConfirm ) {
-         if( isConfirm ) {
+         icon: "warning",
+         buttons: ["Abbrechen", "Ja, löschen!"]
+     }).
+     then((willDelete) => {
+         if( willDelete ) {
              form.submit();
          }
      });

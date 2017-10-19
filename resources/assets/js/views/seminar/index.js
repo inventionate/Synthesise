@@ -28,16 +28,15 @@ if( $('#main-content-seminar')[0] ||
         swal({
             title: "Seminar löschen?",
             text: "Sie löschen das gesamte Seminar. Lediglich die online-Lektionen und Texte bleiben in der Datenbank erhalten. Dieser Vorgang kann nicht rückgängig gemacht werden!",
-            type: "warning",
-            showCancelButton: true,
-            cancelButtonText: "Abbrechen",
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Ja, löschen!"
-        }, function( isConfirm ) {
-            if( isConfirm ) {
+            icon: "warning",
+            buttons: ["Abbrechen", "Ja, löschen!"]
+        }).
+        then((willDelete) => {
+            if( willDelete ) {
                 form.submit();
             }
         });
+        
     });
 
     // Require partial modals

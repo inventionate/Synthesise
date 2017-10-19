@@ -42,7 +42,7 @@ $.ajaxSetup({
         }
 });
 
-require('sweetalert');
+import swal from 'sweetalert';
 
 require('jquery-cookiebar');
 require('jquery-cookiebar/jquery.cookiebar.css');

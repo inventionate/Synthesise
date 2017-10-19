@@ -155,13 +155,11 @@ $('.admin-delete').submit(function( event ) {
     swal({
         title: "Administartor/in löschen?",
         text: "Sie sind im Begriff einen Administrator/ eine Administartorin vollständig zu löschen.",
-        type: "warning",
-        showCancelButton: true,
-        cancelButtonText: "Abbrechen",
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Ja, löschen!"
-    }, function( isConfirm ) {
-        if( isConfirm ) {
+        icon: "warning",
+        buttons: ["Abbrechen", "Ja, löschen!"]
+    }).
+    then((willDelete) => {
+        if( willDelete ) {
             form.submit();
         }
     });
