@@ -82,9 +82,9 @@ class MessageController extends Controller
 
         $file_path = $request->file('file');
 
-        if( $request->file('file') !== NULL )
+        if ( !is_null($file_path) )
         {
-            $file_path->store('public/seminars/messages');
+            $file_path = $file_path->store('public/seminars/messages');
         }
 
         Message::update($id, $title, $content, $colour, $file_path);

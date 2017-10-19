@@ -52,25 +52,27 @@ class MessageRepository implements MessageInterface
   public function update($id, $title, $content, $colour, $file_path)
   {
     // Zu aktualiserende Nachricht abfragen
-    $toBeUpdatedMessage = Message::findOrFail($id);
+    $message = Message::findOrFail($id);
+
     // Neue Werte zuweisen
-    $toBeUpdatedMessage->title = $title;
-    $toBeUpdatedMessage->content = $content;
-    $toBeUpdatedMessage->colour = $colour;
+    $message->title = $title;
+    $message->content = $content;
+    $message->colour = $colour;
 
     if( $file_path !== null )
     {
         // Remove old image.
-        if ( Message::where('file_path', $toBeUpdatedMessage->file_path)->count() === 1 )
+        if ( Message::where('file_path', $message->file_path)->count() === 1 )
         {
-            Storage::delete( $toBeUpdatedMessage->file_path );
+            Storage::delete( $message->file_path );
         }
+
+        // Save new image.
+        $message->file_path = $file_path;
     }
 
-    $toBeUpdatedMessage->file_path = $file_path;
-
     // Aktualisierte Notiz speichern
-    $toBeUpdatedMessage->save();
+    $message->save();
   }
 
   /**
@@ -81,15 +83,16 @@ class MessageRepository implements MessageInterface
   public function delete($id)
   {
     // Zu löschende Nachricht abfragen
-    $toBeDeletedMessage = Message::findOrFail($id);
+    $message = Message::findOrFail($id);
 
-    if (Message::where('file_path', $toBeDeletedMessage->file_path)->count() === 1 && $toBeDeletedMessage->file_path !== null) {
+    if (Message::where('file_path', $message->file_path)->count() === 1 && $message->file_path !== null)
+    {
 
-        Storage::delete( $toBeDeletedMessage->file_path );
+        Storage::delete( $message->file_path );
 
     }
     // Nachricht löschen
-    $toBeDeletedMessage->delete();
+    $message->delete();
   }
 
 }
