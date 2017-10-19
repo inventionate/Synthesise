@@ -137,7 +137,7 @@ class LectionRepository implements LectionInterface
         $lection->authorized_editors  = $authorized_users;
 
         // Check new image.
-        if( $image_path !== null )
+        if( !is_null($image_path) )
         {
             // Remove old image.
             if ( Lection::where('image_path', $lection->image_path)->count() === 1 )
@@ -153,16 +153,18 @@ class LectionRepository implements LectionInterface
         $lection->save();
 
         // Save text.
-        Paper::update($text_path, $text_name, $text_author, $name);
+        if( !is_null($text_path) )
+        {
+            Paper::update($text_path, $text_name, $text_author, $name);
+        }
 
-        // Attach lection.
-
+        // Detach lection.
         $this->detachFromSection($old_section_id, $name);
 
-        // Attach lection.
         $available_from    = date('Y-m-d', strtotime($available_from));
         $available_to      = date('Y-m-d', strtotime($available_to));
 
+        // Attach lection.
         $this->attachToSection($section_id, $name, $available_from, $available_to);
     }
 
