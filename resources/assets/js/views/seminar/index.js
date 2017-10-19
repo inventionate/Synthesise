@@ -2,7 +2,7 @@
 
 if( $('#main-content-seminar')[0] ||
     $('#main-content-seminar-users')[0] || $('#main-content-seminar-settings')[0] || $('#main-content-seminar-faqs')[0] ||
-    $('#main-content-seminar-lection')[0])
+    $('#main-content-seminar-lection')[0] || $('#main-content-seminar-contact')[0])
 {
 
     if (typeof disqus_shortname !== 'undefined' )

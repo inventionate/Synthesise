@@ -19,7 +19,7 @@ add('writable_dirs', []);
 
 // Servers
 host('etpm.ph-karlsruhe.de')
-    ->stage('production')
+    ->stage('prod')
     ->user('etpm')
     ->identityFile('~/.ssh/id_rsa')
     ->set('deploy_path', '/home/etpm');
