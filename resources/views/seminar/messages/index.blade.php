@@ -31,7 +31,7 @@
                 @if ( Seminar::authorizedEditor($seminar_name) )
                     <div class="ui small teal icon buttons">
 
-                       <button class="ui button message-edit" data-id="{{ $message->id }}" data-tooltip="Nachricht ändern."><i class="edit icon"></i>
+                       <button class="ui button message-edit" data-id="{{ $message->id }}" data-title="{{ $message->title }}" data-content="{{ $message->content }}" data-colour="{{ $message->colour }}" data-file-path="{{ $message->file_path }}" data-tooltip="Nachricht ändern."><i class="edit icon"></i>
                        </button>
 
 

@@ -89,25 +89,28 @@ if( $('#message-new')[0] )
             $('#message-edit-modal').attr('action', $('#message-edit-modal').attr('action') + '/' + id);
 
             // Get message title.
-            var message_title = $(this).parents(':eq(1)').find('.header').text().trim();
+            var message_title = $(this).attr("data-title");
 
             // Get message content.
-            var message_content = $(this).parents(':eq(1)').clone();
-            message_content.find('.header').remove();
-            message_content.find('.buttons').remove();
-            message_content.find('form').remove();
+            var message_content = $(this).attr("data-content");
 
             // Get message colour.
-            var message_colour = $(this).parents(':eq(1)').attr('class').split(' ')[2];
+            var message_colour = $(this).attr("data-colour");
+
+            // Get message file path.
+            var message_file_path = $(this).attr("data-file-path");
 
             // Set message modal title.
             $('#message-edit-modal').find('input[name="title"]').val( message_title );
 
             // Set message modal content.
-            $('#message-edit-modal').find('textarea[name="content"]').trumbowyg( 'html', message_content.html().trim() );
+            $('#message-edit-modal').find('textarea[name="content"]').trumbowyg( 'html', message_content );
 
             // Set message modal colour.
             $('#message-edit-modal').find('input[value=' + message_colour + ']').prop("checked", true);
+
+            // Set message file path.
+            $('#message-edit-modal').find('input[name="filepath"]').val( message_file_path );
         });
     }
 }
