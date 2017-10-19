@@ -363,7 +363,7 @@ class SeminarController extends Controller
         $lection_authors = Seminar::getAllLectionAuthors($name);
 
         // Get support mail.
-        $support_mail = 'mundt@ph-kalrsruhe.de';
+        $support_mail = 'mundt@ph-karlsruhe.de';
 
         // Get teachers by seminar.
         $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
