@@ -142,10 +142,24 @@ class LectionController extends Controller
         $old_section_id    = $request->old_section_id;
         $author            = $request->author;
         $contact           = $request->contact;
-        $text_path         = $request->file('text')->storage('public/papers');
+        $text_path         = $request->file('text');
+
+        if ( !is_null($text_path) )
+        {
+            $text_path = $text_path->storage('public/papers');
+        }
+
         $text_name         = $request->text_name;
         $text_author       = $request->text_author;
-        $image_path        = $request->file('image')->storage('public/lections');
+        $image_path        = $request->file('image');
+
+        $image_path = $request->file('image');
+
+        if ( !is_null($image_path) )
+        {
+            $image_path = $image_path->storage('public/lections');
+        }
+
         $available_from    = $request->available_from;
         $available_to      = $request->available_to;
         $authorized_users  = $request->authorized_users;
