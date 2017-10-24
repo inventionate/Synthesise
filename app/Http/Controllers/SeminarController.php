@@ -62,6 +62,9 @@ class SeminarController extends Controller
         // Get teachers by seminar.
         $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
 
+        // Get mentors by seminar.
+        $mentors = Seminar::getAllUsersByRole($name, 'Mentor');
+
         // Get teachers by seminar.
         $students = Seminar::getAllUsersByRole($name, 'Student');
 
@@ -98,6 +101,7 @@ class SeminarController extends Controller
                                     ->with('infoblocks', $infoblocks)
                                     ->with('teachers', $teachers)
                                     ->with('students', $students)
+                                    ->with('mentors', $mentors)
                                     ->with('verified_users_count', $verified_users_count);
     }
 

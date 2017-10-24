@@ -16,7 +16,7 @@
 			@if( Seminar::authorizedEditor($seminar_name) && $available )
 
 				<div class="ui green floating message">
-    				<p>Die Studierenden können auf die Seminarinhalte zugreifen. Bisher habe Sie {{ count($teachers) }} Mentoren und {{ count($students) }} Studierende eingetragen. Insgesamt konnten bislang {{ $verified_users_count }} Benutzer verifiziert werden.</p>
+    				<p>Die Studierenden können auf die Seminarinhalte zugreifen. Bisher habe Sie {{ count($mentors) }} Mentoren und {{ count($students) }} Studierende eingetragen. Insgesamt konnten bislang {{ $verified_users_count }} Benutzer verifiziert werden.</p>
 				</div>
 
 			@elseif( Seminar::authorizedEditor($seminar_name) )
