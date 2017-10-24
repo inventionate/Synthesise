@@ -432,15 +432,29 @@ class SeminarRepository implements SeminarInterface
         return Seminar::findOrFail($name)->infoblocks()->get();
     }
 
-    /* Get all seminar teachers.
-     *
-     * @param     string    $name
-     *
-     * @return    collection
-     */
+    /** Get all seminar users.
+    *
+    * @param     string    $name
+    *
+    * @return    collection
+    */
     public function getAllUsers($name)
     {
         return Seminar::findOrFail($name)->users()->get();
+    }
+
+    /** Get all verified seminar users.
+    *
+    * @param     string    $name
+    *
+    * @return    integer
+    */
+    public function getAllVerifiedUsersCount($name)
+    {
+        //@TODO: Verfifikationstest verbessern.
+        $verfified_users = Seminar::findOrFail($name)->users()->where('email', '!=', '')->count();
+
+        return $verfified_users;
     }
 
     /* Set user as authorized Editor.
@@ -491,5 +505,28 @@ class SeminarRepository implements SeminarInterface
         $seminar_titles = Seminar::all()->pluck('name')->toArray();
 
         return $seminar_titles;
+    }
+
+    /**
+     * Überprüft, ob ein Seminar verfügbar ist.
+     *
+     * @param   string  $name
+     *
+     * @return  boolean
+     */
+    public function available($name)
+    {
+        $seminar = Seminar::findOrFail($name);
+
+        if ($seminar->available_from < today() && $seminar->available_to > today())
+        {
+            $available = true;
+        }
+        else
+        {
+            $available = false;
+        }
+
+        return $available;
     }
 }

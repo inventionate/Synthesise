@@ -63,10 +63,19 @@ class SeminarController extends Controller
         $teachers = Seminar::getAllUsersByRole($name, 'Teacher');
 
         // Get teachers by seminar.
+        $students = Seminar::getAllUsersByRole($name, 'Student');
+
+        // Get all verified users.
+        $verified_users_count = Seminar::getAllVerifiedUsersCount($name);
+
+        // Get teachers by seminar.
         $admins = User::getAllByRole('Admin')->pluck('username');
 
         // Get Disqus.
         $disqus = ($disqus_shortname !== null);
+
+        // Get available.
+        $available = Seminar::available($name);
 
         // Push Disqus shortname to JavaScript.
         JavaScript::put([
@@ -77,6 +86,7 @@ class SeminarController extends Controller
         return view('seminar.show')
                                     ->with('seminar_name', $name)
                                     ->with('seminar', $seminar)
+                                    ->with('available', $available)
                                     ->with('authorized_editors', $authorized_editors)
                                     ->with('messages', $messages)
                                     ->with('sections', $sections)
@@ -86,7 +96,9 @@ class SeminarController extends Controller
                                     ->with('current_lection_paper', $current_paper)
                                     ->with('disqus', $disqus)
                                     ->with('infoblocks', $infoblocks)
-                                    ->with('teachers', $teachers);
+                                    ->with('teachers', $teachers)
+                                    ->with('students', $students)
+                                    ->with('verified_users_count', $verified_users_count);
     }
 
     /**

@@ -123,44 +123,82 @@ class UserController extends Controller
         }
 
         // User storage.
-        if ($username_single !== '') {
+        if ($username_single !== '')
+        {
             $user = User::findByUsername($username_single);
 
-            if (is_null($user)) {
+            if (is_null($user))
+            {
+
                 User::store($username_single, $role, $firstname, $lastname, $email, $password, $seminar_names);
-            } elseif (is_null($user->seminars()->get()->find($seminar_names[0]))) {
+
+            }
+            elseif (is_null($user->seminars()->get()->find($seminar_names[0])))
+            {
+
                 User::attachToSeminar($username_single, $seminar_names[0]);
 
-                if ($user->role !== $role) {
+                if ($user->role !== $role)
+                {
+
                     return back()->with('status', 'Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support. Die Person wurde gemäß der vorhandenen Rolle hinzugefügt.');
+
                 }
-            } elseif ($user->role !== $role) {
+            }
+            elseif ($user->role !== $role)
+            {
+
                 return back()->with('status', 'Sie wollen eine Person mit einer anderen Rolle hinzufügen, die bereits Zugriff auf das Seminar hat. Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support.');
+
             }
         }
 
-        // @TODO Error Handling, wenn versucht wird den identischen Nutezr noch mal zu erstellen!
+        $existing_users = false;
 
-        if ($users !== null) {
+        if ( $users !== null )
+        {
             foreach ($usernames as $username) {
                 $user = User::findByUsername($username);
 
-                if (is_null($user)) {
+                if ( is_null($user) )
+                {
+
                     User::store($username, $role, null, null, null, null, $seminar_names);
-                } elseif (is_null($user->seminars()->get()->find($seminar_names[0]))) {
+
+                }
+                elseif (is_null($user->seminars()->get()->find($seminar_names[0])))
+                {
+
                     User::attachToSeminar($username, $seminar_names[0]);
 
-                    if ($user->role !== $role) {
-                        return back()->with('status', 'Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support. Die Person wurde gemäß der vorhandenen Rolle hinzugefügt.');
+                    if ($user->role !== $role)
+                    {
+
+                        // return back()->with('status', 'Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support. Die Person wurde gemäß der vorhandenen Rolle hinzugefügt.');
+                        $existing_users = true;
+
                     }
-                } elseif ($user->role !== $role) {
-                    return back()->with('status', 'Sie wollen eine Person mit einer anderen Rolle hinzufügen, die bereits Zugriff auf das Seminar hat. Die Rolle der von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support.');
+
+                }
+                elseif ($user->role !== $role)
+                {
+
+                    // Hier lediglich vermerken, dass min. eine Person schon vorhanden war und nicht verändert wurde, dann erst am Ende den Redirect!
+                    $existing_users = true;
+
                 }
             }
-        };
+        }
 
         // Rediret
-        return $this->redirectByRole($role);
+        if ( $existing_users )
+        {
+            return $this->redirectByRole($role)->with('status', 'Sie wollen mindestens eine Person hinzufügen, die bereits Zugriff auf das Seminar hat oder der bereits eine feste Rolle zugewiesen wurde. Die Rolle von Personen kann nicht geändert werden! Bitte wenden Sie sich an den technischen Support.');
+        }
+        else
+        {
+            return $this->redirectByRole($role);
+        }
     }
 
     /**

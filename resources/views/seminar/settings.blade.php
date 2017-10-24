@@ -115,6 +115,11 @@
                 </div>
 
                 <div class="field">
+                    <label for="info_dates">Informationen: Termine</label>
+                    <input id="info_dates" name="info_dates" type="text" value="{{ $seminar->info_dates }}" readonly>
+                </div>
+
+                <div class="field">
                     <label for="info">Informationen: Infodokument</label>
                     <input id="info" name="info" type="file"  readonly>
                 </div>

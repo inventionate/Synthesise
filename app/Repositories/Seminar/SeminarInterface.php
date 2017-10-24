@@ -41,6 +41,8 @@ interface SeminarInterface
 
     public function getAllUsersByRole($name, $role);
 
+    public function getAllVerifiedUsersCount($name);
+
     public function getFeedbackMail($name);
 
     public function getAuthor($name);
@@ -54,4 +56,6 @@ interface SeminarInterface
     public function getAllUsers($name);
 
     public function getAllTitles();
+
+    public function available($name);
 }
