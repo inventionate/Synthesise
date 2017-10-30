@@ -142,7 +142,7 @@ Route::group(['prefix' => 'seminars'], function () {
     ])
     ->where('sequence', '[0-9]+');
 
-    // Destroy help points (AJAX)
+    // Destroy help points 
     Route::delete('/{name}/lections/{lection_name}/{sequence}/helppoint', [
         'uses' => 'SequenceController@deleteHelpPoints',
     ])

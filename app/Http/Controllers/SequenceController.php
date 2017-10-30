@@ -53,13 +53,15 @@ class SequenceController extends Controller
     * @param  string    $lection_name
     * @param  int       $sequence
     */
-    public function deleteHelpPoints($lection_name, $sequence)
+    public function deleteHelpPoints($name, $lection_name, $sequence)
     {
         $current_sequence = Lection::getSequence($lection_name, $sequence);
 
         $id = $current_sequence->id;
 
         Sequence::deleteHelpPoints($id);
+
+        return back();
     }
 
     // @TODO Speichern von neuen Sequencen inkl. Codierung umsetzen.

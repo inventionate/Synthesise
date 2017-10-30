@@ -115,6 +115,18 @@
 			<h1 class="ui header">Video Feedback</h1>
 			<div class="ui segment">
 				<canvas id="video-feedback" width="100" height="20"></canvas>
+
+				<form class="video-feedback-delete" role="form" method="POST" action="{{ action('SequenceController@deleteHelpPoints', ['name' => $seminar_name, 'lection_name' => $lection_name, 'sequence' => $sequence_id]) }}">
+
+					{{ method_field('DELETE') }}
+
+					{{ csrf_field() }}
+
+					<button class="ui small red icon button" type="submit">
+						Alle Werte löschen <i class="delete icon"></i>
+					</button>
+
+				</form>
 			</div>
 
 		</section>
