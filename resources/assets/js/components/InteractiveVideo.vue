@@ -213,8 +213,6 @@
 
                         var time_stamp = window.synthesise_player.currentTime();
 
-                        console.log( time_stamp );
-
                         // Save help point time stamp using AJAX.
                         self.$http.patch(document.URL + '/helppoint', {
                             help_point: time_stamp

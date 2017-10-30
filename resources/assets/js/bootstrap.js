@@ -56,3 +56,5 @@ $.trumbowyg.svgPath = '/fonts/vendor/trumbowyg/dist/ui/icons.svg';
 
 require('semantic-ui-css/semantic.js');
 require('semantic-ui-css/semantic.css');
+
+require('chart.js');

@@ -458,6 +458,8 @@ class SeminarController extends Controller
         // Get all help points.
         $help_points = Sequence::getHelpPoints($current_sequence->id);
 
+        // Hier noch in ein ansprechendes Format ändern. Man muss pro Zeitpunkt
+
         // Get Disqus shortname.
         $disqus_shortname = Seminar::getDisqusShortname($name);
 

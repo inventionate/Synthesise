@@ -15,14 +15,25 @@ class SequenceRepository implements SequenceInterface
     * Get help points
     *
     * @param 		int     $id
+    *
+    * @return 		array   Counted values.
     */
     public function getHelpPoints($id)
     {
         $sequence = Sequence::findOrFail($id);
 
-        $help_points = $sequence->help_points;
+        $help_points = json_decode($sequence->help_points);
 
-        return $help_points;
+        // Format and round values.
+        $help_points_rounded = array_map('intval', $help_points);
+
+        // Count rounded values.
+        $help_points_counted = array_count_values($help_points_rounded);
+
+        // Sort array by key.
+        ksort($help_points_counted);
+
+        return $help_points_counted;
     }
 
     /**

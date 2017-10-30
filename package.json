@@ -30,5 +30,8 @@
         "vue": "^2.4.4",
         "vue-loader": "^13.2.1",
         "vue-resource": "^0.9.3"
+    },
+    "dependencies": {
+        "chart.js": "^2.7.1"
     }
 }
