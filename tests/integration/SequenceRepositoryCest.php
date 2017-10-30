@@ -16,7 +16,7 @@ class SequenceRepositoryCest
         Sequence::updateHelpPoints(1, $help_point);
 
         // Überprüfen
-        $I->seeRecord('Synthesise\Sequence', ['id' => 1, 'help_points' => json_encode($help_point)]);
+        $I->seeRecord('Synthesise\Sequence', ['id' => 1, 'help_points' => json_encode([$help_point])]);
     }
 
     /**
@@ -64,7 +64,7 @@ class SequenceRepositoryCest
         $help_points = Sequence::getHelpPoints(1);
 
         // Überprüfen
-        $I->assertEquals(json_encode([3.2213314, 17.0209278, 39.2213314, 67.0209278]), $help_points);
+        $I->assertEquals([3 => 1, 17 => 1, 39 => 1, 67 => 1], $help_points);
     }
 
 }
