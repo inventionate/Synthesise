@@ -13,16 +13,14 @@
 		<div class="column">
 
 			{{-- Admin seminar infomrations. --}}
-			@if( Seminar::authorizedEditor($seminar_name) && $available )
+			@if( Seminar::authorizedEditor($seminar_name) && !$available )
 
-				<div class="ui green floating message">
+				{{--<div class="ui green floating message">
     				<p>Die Studierenden können auf die Seminarinhalte zugreifen. Bisher habe Sie {{ count($mentors) }} Mentoren und {{ count($students) }} Studierende eingetragen. Insgesamt konnten bislang {{ $verified_users_count }} Benutzer verifiziert werden.</p>
-				</div>
-
-			@elseif( Seminar::authorizedEditor($seminar_name) )
+				</div>--}}
 
 				<div class="ui red floating message">
-    				<p>Bisher haben die Studierenden keinen Zugriff auf die Seminarinhalte. Definieren Sie einen entsprechenden Zeitraum in den <a class="ui teal" href="{{ route( 'seminar-settings', ['name' => $seminar_name] ) }}">Seminareinstellungen</a>. Sie haben momentan {{ count($teachers) }} Mentoren und {{ count($students) }} Studierende eingetragen. Fügen Sie weitere Personen mit der <a class="ui teal" href="{{ route( 'seminar-users', ['name' => $seminar_name] ) }}">Teilnehmerverwaltung</a> hinzu.</p>
+    				<p>Bisher haben die Studierenden keinen Zugriff auf die Seminarinhalte. Definieren Sie einen entsprechenden Zeitraum in den <a class="ui teal" href="{{ route( 'seminar-settings', ['name' => $seminar_name] ) }}">Seminareinstellungen</a>. Sie haben momentan {{ count($mentors) }} Mentoren und {{ count($students) }} Studierende eingetragen. Fügen Sie weitere Personen mit der <a class="ui teal" href="{{ route( 'seminar-users', ['name' => $seminar_name] ) }}">Teilnehmerverwaltung</a> hinzu.</p>
 				</div>
 
 			@endif
