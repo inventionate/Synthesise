@@ -19,7 +19,8 @@ class CreateSequencesTable extends Migration
             $table->boolean('video');
             $table->text('path');
             $table->string('lection_name', 256);
-            $table->json('help_points')->nullable();
+            // $table->json wird nicht vom PH Server unterstützt.
+            $table->longtext('help_points')->nullable();
             $table->timestamps();
         });
     }
