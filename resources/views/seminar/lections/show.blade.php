@@ -6,8 +6,9 @@
 
 @section('scripts')
 
-	<script>
+	@if ( Seminar::authorizedEditor($seminar_name) )
 
+	<script>
 	Chart.defaults.global.elements.point.radius = 5;
 	Chart.defaults.global.elements.point.hoverRadius = 10;
 	Chart.defaults.global.elements.point.backgroundColor = 'red';
@@ -90,14 +91,7 @@
 
 	</script>
 
-
-	{{-- <script>
-        var videoplayer = videojs('videoplayer');
-
-        $('#playdemo').on('click', function () {
-            videoplayer.play();
-        });
-    </script> --}}
+	@endif
 
 @stop
 
