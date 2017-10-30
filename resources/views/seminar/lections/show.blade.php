@@ -107,16 +107,17 @@
 
 	@if ( Seminar::authorizedEditor($seminar_name) )
 
-		<div class="sixteen wide column">
+		<section class="sixteen wide column">
 			<div class="ui blue message">
 				In der momentanen Version ist der Sequenz-Editor deaktiviert. Neue Video- oder Interaktionssequenzen können Sie nur mithilfe des technischen Supports erstellen.
 			</div>
 
+			<h1 class="ui header">Video Feedback</h1>
 			<div class="ui segment">
 				<canvas id="video-feedback" width="100" height="20"></canvas>
 			</div>
 
-		</div>
+		</section>
 
 	@endif
 
