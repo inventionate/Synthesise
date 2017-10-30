@@ -22,7 +22,8 @@ class Sequence extends Model
         'name',
         'video',
         'path',
-        'lection_name'
+        'lection_name',
+        'help_points'
     ];
 
     /**

@@ -136,6 +136,18 @@ Route::group(['prefix' => 'seminars'], function () {
     ])
     ->where('sequence', '[0-9]+');
 
+    // Update help points (AJAX).
+    Route::match(['put', 'patch'], '/{name}/lections/{lection_name}/{sequence}/helppoint', [
+        'uses' => 'SequenceController@updateHelpPoints',
+    ])
+    ->where('sequence', '[0-9]+');
+
+    // Destroy help points (AJAX)
+    Route::delete('/{name}/lections/{lection_name}/{sequence}/helppoint', [
+        'uses' => 'SequenceController@deleteHelpPoints',
+    ])
+    ->where('sequence', '[0-9]+');
+
     // PDF notes
     Route::get('/{name}/lections/{lection_name}/{sequence}/pdfnotes', [
         'as' => 'pdfnotes',

@@ -7,12 +7,16 @@
 @section('content')
 <main id="main-content-seminar-lection" class="ui grid container vue">
 
+	
+
 	@if ( Seminar::authorizedEditor($seminar_name) )
 
 		<div class="sixteen wide column">
 			<div class="ui blue message">
 				In der momentanen Version ist der Sequenz-Editor deaktiviert. Neue Video- oder Interaktionssequenzen können Sie nur mithilfe des technischen Supports erstellen.
 			</div>
+
+
 		</div>
 
 	@endif

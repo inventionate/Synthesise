@@ -17,6 +17,13 @@
             display: none;
         }
 
+        #helpbutton {
+            display: none;
+            position: absolute;
+            top: 90px;
+            right: 11px;
+        }
+
         #video-notes {
             height: 0.5em;
             textarea {
@@ -67,6 +74,11 @@
 
         <div id="infomessage" class="ui huge left corner red label">
             <i class="pause icon"></i>
+        </div>
+
+        <div id="helpbutton" class="ui animated fade yellow button">
+                <div class="visible content"><i class="large warning sign icon"></i></div>
+                <div class="hidden content">unklar</div>
         </div>
 
         <interactive-video-notes v-if="notes" v-model="noteContent" v-on:input="updateNote(name, markerID, $event)"></interactive-video-notes>
@@ -169,6 +181,10 @@
                         self.observeMarkers(self.name);
 
                     })
+                    // Show help button
+                    .one('playing', function () {
+                        $('#helpbutton').show();
+                    })
                     // Piwik Analytics integrieren
                     .on('play', function () {
                         return _paq.push(["trackEvent", "Video", "Abgespielt", self.name]);
@@ -190,6 +206,20 @@
                     })
                     .on('durationchange', function () {
                         return _paq.push(["trackEvent", "Video", "Geschwindigkeit verändert", self.name]);
+                    });
+
+                    // Help Button
+                    $('#helpbutton').click(function () {
+
+                        var time_stamp = window.synthesise_player.currentTime();
+
+                        console.log( time_stamp );
+
+                        // Save help point time stamp using AJAX.
+                        self.$http.patch(document.URL + '/helppoint', {
+                            help_point: time_stamp
+                        });
+
                     });
 
                 });

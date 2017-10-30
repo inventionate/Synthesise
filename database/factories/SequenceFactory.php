@@ -19,5 +19,6 @@ $factory->define(Synthesise\Sequence::class, function (Faker $faker) {
         'video'        => TRUE,
         'path'         => 'sample/path',
         'lection_name' => $faker->realText(64),
+        'help_points'  => json_encode([rand(1,10), rand(1,20), rand(10, 30), rand(100, 150), rand(1, 100)]),
     ];
 });

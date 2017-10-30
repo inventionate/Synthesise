@@ -7,6 +7,7 @@ use Seminar;
 use Lection;
 use User;
 use FAQ;
+use Sequence;
 use JavaScript;
 
 class SeminarController extends Controller
@@ -454,6 +455,9 @@ class SeminarController extends Controller
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
 
+        // Get all help points.
+        $help_points = Sequence::getHelpPoints($current_sequence->id);
+
         // Get Disqus shortname.
         $disqus_shortname = Seminar::getDisqusShortname($name);
 
@@ -489,6 +493,7 @@ class SeminarController extends Controller
                             ->with('sequences', $sequences)
                             ->with('current_sequence', $current_sequence)
                             ->with('poster_path', $poster_path)
-                            ->with('paper', $paper);
+                            ->with('paper', $paper)
+                            ->with('help_points', $help_points);
     }
 }

@@ -8,4 +8,10 @@ namespace Synthesise\Repositories\Sequence;
 interface SequenceInterface
 {
 
+    public function getHelpPoints($id);
+
+    public function updateHelpPoints($id, $help_points);
+
+    public function deleteHelpPoints($id);
+
 }
