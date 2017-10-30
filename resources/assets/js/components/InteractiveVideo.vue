@@ -214,7 +214,7 @@
                         var time_stamp = window.synthesise_player.currentTime();
 
                         // Save help point time stamp using AJAX.
-                        self.$http.patch(document.URL + '/helppoint', {
+                        self.$http.patch(document.URL.replace(/\/$/, '') + '/helppoint', {
                             help_point: time_stamp
                         });
 
@@ -252,12 +252,14 @@
                 $('#notes-progress').removeClass('disabled');
                 $('#notes-form').addClass('loading');
 
+                // console.log(document.URL.replace(/\/$/, ''));
+
                 // AJAX Abfrage starten.
-                this.$http.get(document.URL + '/note', {
+                this.$http.get(document.URL.replace(/\/$/, '') + '/note', {
                     params: { cuepoint_id: id }
                 }).then((response) => {
 
-                    console.log(response.text());
+                    // console.log(response.text());
 
                     self.noteContent = response.text();
 
@@ -295,7 +297,7 @@
                     {
 
                         // Create new note.
-                        this.$http.post(document.URL + '/note', {
+                        this.$http.post(document.URL.replace(/\/$/, '') + '/note', {
                             note: content,
                             cuepoint_id: id
                         }).then((response) => {
@@ -316,7 +318,7 @@
                     {
 
                         // Update existing note.
-                        this.$http.patch(document.URL + '/note', {
+                        this.$http.patch(document.URL.replace(/\/$/, '') + '/note', {
                             note: content,
                             cuepoint_id: id
                         }).then((response) => {
@@ -340,7 +342,7 @@
                 {
 
                     // Delete note.
-                    this.$http.delete(document.URL + '/note', {
+                    this.$http.delete(document.URL.replace(/\/$/, '') + '/note', {
                         params: { cuepoint_id: id }
                     }).then((response) => {
 
