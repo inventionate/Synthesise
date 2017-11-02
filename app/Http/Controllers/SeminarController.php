@@ -423,7 +423,7 @@ class SeminarController extends Controller
         $paper = true;#Lection::getPaper($lection_name);
 
         // Verfügbarkeit des Videos abfragen
-        $available_all_authorized = (Lection::available($lection_name, $name) || Seminar::authorizedEditor($name) || Seminar::authorizedMentor($name));
+        $available_all_authorized = (Lection::available($lection_name, $name) || Seminar::authorizedEditor($name) || Seminar::authorizedMentor($name) || Seminar::authorizedTeacher($name));
 
         // Get paper.
         $paper = Lection::getPaper($lection_name);

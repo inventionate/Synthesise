@@ -275,6 +275,18 @@ class SeminarRepository implements SeminarInterface
     }
 
     /**
+     * Check if the authenticated user is authorized teacher.
+     *
+     * @param string $name
+     *
+     * @return bool Authorized or not.
+     */
+    public function authorizedTeacher($name)
+    {
+        return Auth::user()->role === 'Teacher';
+    }
+
+    /**
      * Get all sections.
      *
      * @param string $name

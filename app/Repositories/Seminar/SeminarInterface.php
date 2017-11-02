@@ -25,6 +25,8 @@ interface SeminarInterface
 
     public function authorizedMentor($name);
 
+    public function authorizedTeacher($name);
+
     public function setAuthorizedEditor($name, $username);
 
     public function deleteAuthorizedEditor($name, $username);
