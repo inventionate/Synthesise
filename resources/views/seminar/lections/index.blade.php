@@ -25,7 +25,7 @@
 
 						<th>online-Lektion</th>
 
-						@if( Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($name) )
+						@if( Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($seminar_name) )
 							<th>Studierendenzugang</th>
 						@else
 							<th>Zugang</th>
@@ -95,9 +95,9 @@
 									{{-- Lections info --}}
 									<td class="online-lektion">
 										@if ( $disqus )
-											<div class="ui fluid labeled button @if( ! (Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($name) )) disabled @endif" tabindex="0">
+											<div class="ui fluid labeled button @if( ! (Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($seminar_name) )) disabled @endif" tabindex="0">
 
-												<a href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => rawurlencode($lection->name), 'sequence' => 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($name) ) green @else red @endif">
+												<a href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => rawurlencode($lection->name), 'sequence' => 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($seminar_name) ) green @else red @endif">
 
 													<i class="video icon"></i>
 
@@ -105,11 +105,11 @@
 
 												</a>
 
-												<div class="ui left pointing label @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($name) ) green @else red @endif">
+												<div class="ui left pointing label @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($seminar_name) ) green @else red @endif">
 													<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($lection->name) }}">0</span>
 												</div>
 											@else
-												<a href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => rawurlencode($lection->name), 'sequence' => 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($name) ) green @else disabled red @endif">
+												<a href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => rawurlencode($lection->name), 'sequence' => 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($seminar_name) ) green @else disabled red @endif">
 
 													<i class="video icon"></i>
 
@@ -144,7 +144,7 @@
 												</div>
 											</div>
 
-											<a class="ui @if( ! (Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($name) )) disabled @endif button track-event" data-type="Notizen" data-name="{{ $lection->name }}" href="{{ route('pdfnotes', ['name' => $seminar_name, 'lection_name' => $lection->name, 'sequence' => 1]) }}">
+											<a class="ui @if( ! (Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($seminar_name) )) disabled @endif button track-event" data-type="Notizen" data-name="{{ $lection->name }}" href="{{ route('pdfnotes', ['name' => $seminar_name, 'lection_name' => $lection->name, 'sequence' => 1]) }}">
 
 												<i class="write square icon"></i>
 
