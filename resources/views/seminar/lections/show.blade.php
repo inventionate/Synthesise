@@ -30,7 +30,7 @@
 				yAxes: [{
 					ticks: {
 						beginAtZero: true,
-						stepSize: 1
+						stepSize: 5
 					}
 				}],
 				xAxes: [{

@@ -211,7 +211,7 @@
                     // Help Button
                     $('#helpbutton').click(function () {
 
-                        var time_stamp = window.synthesise_player.currentTime();
+                        var time_stamp = Math.round(window.synthesise_player.currentTime() / 30) * 30;
 
                         // Save help point time stamp using AJAX.
                         self.$http.patch(document.URL.replace(/\/$/, '') + '/helppoint', {
