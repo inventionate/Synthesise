@@ -50,7 +50,12 @@
         	},
 			legend: {
             	display: false
-            }
+            },
+			hover: {
+      			onHover: function(e, el) {
+        			$("#video-feedback").css("cursor", el[0] ? "pointer" : "default");
+				}
+			}
 		}
 	});
 
