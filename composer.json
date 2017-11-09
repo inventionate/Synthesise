@@ -13,8 +13,8 @@
 	"require": {
 		"php": ">=7.0.0",
 		"laravel/framework": "5.5.*",
-		"php-ffmpeg/php-ffmpeg": "0.9.*",
-		"doctrine/cache": "1.6.*",
+		"php-ffmpeg/php-ffmpeg": "0.*",
+		"doctrine/cache": "1.7.*",
 		"laracasts/utilities": "3.*",
 		"barryvdh/laravel-dompdf": "0.8.*",
 		"jenssegers/agent": "2.*",

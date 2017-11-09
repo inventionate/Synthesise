@@ -7,6 +7,24 @@
     <input id="lections_name" name="name" placeholder="Bitte geben Sie einen Namen ein." type="text">
 </div>
 
+<div class="ui red message">
+    Bitte veröffentlichen Sie lediglich mp4-Videos im H.264 Codec!
+</div>
+
+<div class="required field">
+    <label for="video_file">Video</label>
+    <div class="ui action input">
+            <label for="video_file_filepath" class="hide">Dateipfad</label>
+            <input id="video_file_filepath" type="text" placeholder="Bitte wählen Sie ein mp4 H.264 Video." name="video_filepath" readonly>
+
+            <input id="video_file" type="file" name="video">
+
+            <div class="ui primary icon button">
+                <i class="cloud upload icon"></i>
+            </div>
+    </div>
+</div>
+
 <div class="required field">
     <label for="lections_section">Themenbereich auswählen.</label>
 

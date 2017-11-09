@@ -17,10 +17,6 @@
 
         @else
 
-            <div class="ui blue message">
-                In der momentanen Version ist der Sequenz-Editor deaktiviert. Wenn Sie eine neue Lektion erstellen, können Sie nur mithilfe des technischen Supports neue Video- oder Interaktionssequenzen erstellen.
-            </div>
-
             @include('seminar.lections.formfields')
 
         @endif
