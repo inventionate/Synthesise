@@ -466,12 +466,15 @@ class SeminarController extends Controller
         // Get Disqus.
         $disqus = ($disqus_shortname !== null);
 
+        // Disqus identifier.
+        $disqus_identifier = rawurlencode($section.' – '.$lection_name);
+
         // Push Disqus shortname to JavaScript.
         JavaScript::put([
             'sequence' => $sequence,
             'lection_name' => $lection_name,
             'disqus_shortname' => $disqus_shortname,
-            'disqus_identifier' => $name.' – '.$lection_name,
+            'disqus_identifier' => $disqus_identifier,
             'admins' => $admins,
         ]);
 

@@ -4,102 +4,6 @@
 	<title>e:t:p:M® – {{{ $lection_name }}}</title>
 @stop
 
-@section('scripts')
-
-	@if ( Seminar::authorizedEditor($seminar_name) )
-
-	<script>
-	Chart.defaults.global.elements.point.radius = 5;
-	Chart.defaults.global.elements.point.hoverRadius = 10;
-	Chart.defaults.global.elements.point.backgroundColor = 'red';
-	Chart.defaults.global.elements.point.borderColor = 'black';
-
-	var ctx = document.getElementById("video-feedback").getContext('2d');
-	var video_feedback = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: {{ json_encode(array_keys($help_points)) }},
-			datasets: [{
-				label: 'Anzahl der Klicks',
-				data: {{ json_encode(array_values($help_points)) }},
-				borderWidth: 1
-			}]
-		},
-		options: {
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true,
-						stepSize: 5
-					}
-				}],
-				xAxes: [{
-					ticks: {
-						callback: function(value, index, values) {
-
-							var minutes = Math.floor(value / 60);
-
-							var seconds = value - minutes * 60;
-
-							var time =  minutes + ',' + seconds + 'min';
-
-							return time;
-						}
-					}
-				}]
-        	},
-			legend: {
-            	display: false
-            },
-			hover: {
-      			onHover: function(e, el) {
-        			$("#video-feedback").css("cursor", el[0] ? "pointer" : "default");
-				}
-			}
-		}
-	});
-
-	$("#video-feedback").click( function(evt) {
-
-	    var activePoints =  video_feedback.getElementsAtEvent(evt);
-
-		if ( 0 < activePoints.length )
-		{
-
-			var time_point = activePoints[0]._index;
-
-			var time_points = {{ json_encode(array_keys($help_points)) }};
-
-			if ( time_point > 0 )
-			{
-				window.synthesise_player.ready(function () {
-
-					window.synthesise_player.play();
-
-					window.synthesise_player.currentTime( time_points[time_point] );
-
-					window.synthesise_player.pause();
-
-				});
-			}
-		}
-		// else
-		// {
-		// 	window.synthesise_player.ready(function () {
-		//
-		// 		window.synthesise_player.pause();
-		//
-		// 	});
-		// }
-
-	});
-
-	</script>
-
-	@endif
-
-@stop
-
 @section('content')
 <main id="main-content-seminar-lection" class="ui grid container vue">
 
@@ -229,5 +133,101 @@
     @include('seminar.modals')
 
 @endif
+
+@stop
+
+@section('scripts')
+
+	@if ( Seminar::authorizedEditor($seminar_name) )
+
+	<script>
+	Chart.defaults.global.elements.point.radius = 5;
+	Chart.defaults.global.elements.point.hoverRadius = 10;
+	Chart.defaults.global.elements.point.backgroundColor = 'red';
+	Chart.defaults.global.elements.point.borderColor = 'black';
+
+	var ctx = document.getElementById("video-feedback").getContext('2d');
+	var video_feedback = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: {{ json_encode(array_keys($help_points)) }},
+			datasets: [{
+				label: 'Anzahl der Klicks',
+				data: {{ json_encode(array_values($help_points)) }},
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						stepSize: 5
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						callback: function(value, index, values) {
+
+							var minutes = Math.floor(value / 60);
+
+							var seconds = value - minutes * 60;
+
+							var time =  minutes + ',' + seconds + 'min';
+
+							return time;
+						}
+					}
+				}]
+        	},
+			legend: {
+            	display: false
+            },
+			hover: {
+      			onHover: function(e, el) {
+        			$("#video-feedback").css("cursor", el[0] ? "pointer" : "default");
+				}
+			}
+		}
+	});
+
+	$("#video-feedback").click( function(evt) {
+
+	    var activePoints =  video_feedback.getElementsAtEvent(evt);
+
+		if ( 0 < activePoints.length )
+		{
+
+			var time_point = activePoints[0]._index;
+
+			var time_points = {{ json_encode(array_keys($help_points)) }};
+
+			if ( time_point > 0 )
+			{
+				window.synthesise_player.ready(function () {
+
+					window.synthesise_player.play();
+
+					window.synthesise_player.currentTime( time_points[time_point] );
+
+					window.synthesise_player.pause();
+
+				});
+			}
+		}
+		// else
+		// {
+		// 	window.synthesise_player.ready(function () {
+		//
+		// 		window.synthesise_player.pause();
+		//
+		// 	});
+		// }
+
+	});
+
+	</script>
+
+	@endif
 
 @stop
