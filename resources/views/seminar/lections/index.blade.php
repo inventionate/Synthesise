@@ -209,7 +209,7 @@
 
 	@if ( $disqus )
 
-		<script id="dsq-count-scr" src="//etpm.disqus.com/count.js" async></script>
+		<script id="dsq-count-scr" src="//{{ $disqus_shortname }}.disqus.com/count.js" async></script>
 
 	@endif
 

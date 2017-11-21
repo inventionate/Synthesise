@@ -99,6 +99,7 @@ class SeminarController extends Controller
                                     ->with('current_lection', $current_lection)
                                     ->with('current_lection_paper', $current_paper)
                                     ->with('disqus', $disqus)
+                                    ->with('disqus_shortname', $disqus_shortname)
                                     ->with('infoblocks', $infoblocks)
                                     ->with('teachers', $teachers)
                                     ->with('students', $students)
