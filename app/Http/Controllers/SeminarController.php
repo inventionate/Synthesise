@@ -420,9 +420,6 @@ class SeminarController extends Controller
         // Get all seminar lections.
         $lections = Seminar::getAllLections($name);
 
-        // Angehängte Texte abfragen
-        $paper = true;#Lection::getPaper($lection_name);
-
         // Verfügbarkeit des Videos abfragen
         $available_all_authorized = (Lection::available($lection_name, $name) || Seminar::authorizedEditor($name) || Seminar::authorizedMentor($name) || Seminar::authorizedTeacher($name));
 
@@ -437,12 +434,25 @@ class SeminarController extends Controller
 
         $current_sequence = Lection::getSequence($lection_name, $sequence);
 
-        if (is_null($current_sequence->name)) {
-            $current_sequence->name = $lection_name;
-        }
+        if( is_null($current_sequence) )
+        {
+            $markers = NULL;
 
-        // Get all markers.
-        $markers = Lection::getMarkers($lection_name, $sequence);
+            $help_points = NULL;
+        }
+        else
+        {
+            // Get all markers.
+            $markers = Lection::getMarkers($lection_name, $sequence);
+
+            // Get all help points.
+            $help_points = Sequence::getHelpPoints($current_sequence->id);
+
+            // Set sequence name.
+            if (is_null($current_sequence->name)) {
+                $current_sequence->name = $lection_name;
+            }
+        }
 
         // Get image path.
         $poster_path = Lection::getImagePath($lection_name);
@@ -456,16 +466,13 @@ class SeminarController extends Controller
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
 
-        // Get all help points.
-        $help_points = Sequence::getHelpPoints($current_sequence->id);
-
         // Hier noch in ein ansprechendes Format ändern. Man muss pro Zeitpunkt
 
         // Get Disqus shortname.
         $disqus_shortname = Seminar::getDisqusShortname($name);
 
         // Get Disqus.
-        $disqus = ($disqus_shortname !== null);
+        $disqus = ($disqus_shortname !== NULL);
 
         // Disqus identifier.
         $disqus_identifier = rawurlencode($section.' – '.$lection_name);
