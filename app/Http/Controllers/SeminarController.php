@@ -436,12 +436,16 @@ class SeminarController extends Controller
 
         if( is_null($current_sequence) )
         {
+            $video_content = FALSE;
+
             $markers = NULL;
 
             $help_points = NULL;
         }
         else
         {
+            $video_content = TRUE;
+
             // Get all markers.
             $markers = Lection::getMarkers($lection_name, $sequence);
 
@@ -507,6 +511,7 @@ class SeminarController extends Controller
                             ->with('current_sequence', $current_sequence)
                             ->with('poster_path', $poster_path)
                             ->with('paper', $paper)
-                            ->with('help_points', $help_points);
+                            ->with('help_points', $help_points)
+                            ->with('video_content', $video_content);
     }
 }
