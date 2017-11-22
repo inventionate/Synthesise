@@ -348,15 +348,19 @@ class LectionRepository implements LectionInterface
   }
 
   /**
-   * Gibt die zu einem Video zugehörigen Papers aus.
-   *
-   * @param     string $name
-   *
-   * @return    collection
-   */
+  * Gibt das zu einem Video zugehörige Paper oder NULL aus.
+  *
+  * @param     string $name
+  *
+  * @return    collection
+  */
   public function getPaper($name)
   {
-      return Lection::findOrFail($name)->paper()->first();
+
+    $paper = Lection::findOrFail($name)->paper()->first();
+
+    return $paper;
+
   }
 
 }
