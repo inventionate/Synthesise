@@ -70,7 +70,7 @@
 				@endif
 
 				{{-- Vue.js component including variables (props). --}}
-				<interactive-video name="{{ $current_sequence->name }}" path="{{ $current_sequence->path }}" markers="{{ $markers }}" poster="{{ $poster_path }}" v-bind:notes="true"></interactive-video>
+				<interactive-video name="{{ $current_sequence->name }}" path="{{ str_replace_first('/', '', Storage::url($current_sequence->path)) }}" markers="{{ $markers }}" poster="{{ $poster_path }}" v-bind:notes="true"></interactive-video>
 
 			</div>
 		</div>
