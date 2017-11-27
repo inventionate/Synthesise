@@ -142,7 +142,7 @@ Route::group(['prefix' => 'seminars'], function () {
     ])
     ->where('sequence', '[0-9]+');
 
-    // Destroy help points 
+    // Destroy help points
     Route::delete('/{name}/lections/{lection_name}/{sequence}/helppoint', [
         'uses' => 'SequenceController@deleteHelpPoints',
     ])
@@ -329,4 +329,25 @@ Route::match(['put', 'patch'], 'lection/{name}', [
 // Remove Lection.
 Route::delete('lection/{name}', [
     'uses' => 'LectionController@destroy',
+]);
+
+/*
+|-------------------------------------------------------------------------------
+| Sequence control
+|-------------------------------------------------------------------------------
+*/
+
+// Store Lection.
+Route::post('sequence', [
+    'uses' => 'SequenceController@store',
+]);
+
+// Update Lection.
+Route::match(['put', 'patch'], 'sequence/{number}', [
+    'uses' => 'SequenceController@update',
+]);
+
+// Remove Lection.
+Route::delete('sequence/{number}', [
+    'uses' => 'SequenceController@destroy',
 ]);

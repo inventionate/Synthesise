@@ -106,7 +106,7 @@
 												</a>
 
 												<div class="ui left pointing label @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($seminar_name) ) green @else red @endif">
-													<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($lection->name) }}">0</span>
+													<span class="disqus-comment-count" data-disqus-identifier="{{ rawurlencode($section->name.' – '.$lection->name) }}">0</span>
 												</div>
 											@else
 												<a href="{{ route('lection', ['name' => $seminar_name, 'lection_name' => rawurlencode($lection->name), 'sequence' => 1]) }}" class="ui fluid left aligned basic button @if( Lection::available($lection->name, $seminar_name) || Seminar::authorizedEditor($seminar_name) || Seminar::authorizedMentor($seminar_name) || Seminar::authorizedTeacher($seminar_name) ) green @else disabled red @endif">
@@ -181,7 +181,7 @@
 
 						                        {{ csrf_field() }}
 
-						                        <button class="ui small teal icon button" type="submit">
+						                        <button class="ui small red icon button" type="submit">
 						                            <i class="close icon"></i>
 						                        </button>
 
@@ -204,3 +204,13 @@
 	</div>
 
 </section>
+
+@section('scripts')
+
+	@if ( $disqus )
+
+		<script id="dsq-count-scr" src="//{{ $disqus_shortname }}.disqus.com/count.js" async></script>
+
+	@endif
+
+@stop

@@ -4,9 +4,197 @@
 	<title>e:t:p:M® – {{{ $lection_name }}}</title>
 @stop
 
-@section('scripts')
+@section('content')
+<main id="main-content-seminar-lection" class="ui grid container vue">
+
+@if ( $video_content )
 
 	@if ( Seminar::authorizedEditor($seminar_name) )
+
+		<section class="sixteen wide column">
+
+			<h1 class="ui header">Video Feedback</h1>
+			<div class="ui segment">
+				<canvas id="video-feedback" width="100" height="20"></canvas>
+
+				<form class="video-feedback-delete" role="form" method="POST" action="{{ action('SequenceController@deleteHelpPoints', ['name' => $seminar_name, 'lection_name' => $lection_name, 'sequence' => $sequence_id]) }}">
+
+					{{ method_field('DELETE') }}
+
+					{{ csrf_field() }}
+
+					<button class="ui small red icon button" type="submit">
+						Alle Werte löschen <i class="delete icon"></i>
+					</button>
+
+				</form>
+			</div>
+
+		</section>
+
+	@endif
+
+	@if( $available_all_authorized )
+
+        <h1 class="ui header">{{ $section . ' – ' . $lection_name }}</h1>
+
+		{{-- MEDIAPLAYER --}}
+		<div class="one column row">
+			<div class="column">
+
+				{{-- Sequences Detection --}}
+				@if ( $sequence_count > 1  )
+
+					<div class="ui {{ $sequence_count_spelled }} top attached mini steps">
+
+					@foreach ($sequences as $sequence)
+
+						<div class="step @if ( $sequence->position == $sequence_id ) active @endif">
+							@if ( $sequence->video )
+								<i class="video icon"></i>
+							@else
+								<i class="puzzle icon"></i>
+							@endif
+							<div class="content">
+								<div class="title">
+									<a href="{{ route('lection', ['name' => $seminar_name ,'lection_name' => $lection_name, 'sequence' => $sequence->position]) }}">
+										{{ $sequence->name }}
+									</a>
+								</div>
+								<div class="description">
+									<div class="ui tiny icon buttons">
+  										<button class="ui teal button"><i class="edit icon"></i></button>
+  										<button class="ui red button"><i class="delete icon"></i></button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					@endforeach
+
+					</div>
+
+				@endif
+
+				{{-- Vue.js component including variables (props). --}}
+				<interactive-video name="{{ $current_sequence->name }}" path="{{ str_replace_first('/', '', Storage::url($current_sequence->path)) }}" markers="{{ $markers }}" poster="{{ $poster_path }}" v-bind:notes="true"></interactive-video>
+
+			</div>
+		</div>
+
+		{{-- DISQUS UMGEBUNG --}}
+		@if ( $disqus )
+
+			<div class="one column row">
+
+				<div id="disqus_thread" class="column"></div>
+
+			</div>
+
+		@endif
+
+		{{-- ADDITIONAL CONTENT --}}
+		<section id="additional-content" class="two column row">
+
+			<div class="column">
+
+				<header>
+					<h3 class="hide">Texte und Notizen</h3>
+				</header>
+
+				<a class="ui fluid labeled icon blue button track-event" data-type="Text" data-name="{{ $paper->name }}" href="{{ action('DownloadController@getFile', ['path' => $paper->path , 'name' => $paper->name]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->name }}</a>
+
+			</div>
+			<div class="column">
+
+				<a class="ui fluid labeled icon blue button track-event" data-type="Notizen" data-name="{{ $seminar_name . ' – ' . $lection_name }}" href="{{ URL::current() . '/pdfnotes' }}">
+
+					<i class="square write icon"></i> Notizen herunterladen
+
+				</a>
+			</div>
+
+		</section>
+
+	@else
+		<div class="one column row">
+			<div class="column">
+
+				<div class="ui red message">
+		            Die online-Lektion ist noch nicht verfügbar. Bitte wählen Sie eine verfügbare online-Lektion aus.
+		        </div>
+
+				@include('seminar.lections.index')
+
+			</div>
+		</div>
+
+	@endif
+
+@else
+
+	<section class="sixteen wide column">
+
+	{{-- Video Upload field --}}
+	<form action="{{ action('SequenceController@store', [ 'lection_name' => $lection_name]) }}" role="form" method="POST" class="ui equal width form" enctype="multipart/form-data">
+
+	  	{{ csrf_field() }}
+
+		<h3 class="ui header">
+	        Neue Sequenz hochladen
+	    </h3>
+
+		<div class="required fields">
+
+			<div class="field">
+			   <label for="lections_sequence_name">Titel der Sequenz</label>
+			   <input id="lections_sequence_name" name="sequence_name" placeholder="Bitte geben Sie den Titel der Videosequenz ein." type="text">
+		    </div>
+
+		    <div class="field">
+		        <label for="video">Videosequenz</label>
+		        <div class="ui action input">
+		                <label for="video_filepath" class="hide">Dateipfad</label>
+		                <input id="video_filepath" type="text" placeholder="Bitte wählen Sie einen Text." name="video_filepath" readonly>
+
+		                <input id="video" type="file" name="video">
+
+		                <div class="ui primary icon button">
+		                    <i class="cloud upload icon"></i>
+		                </div>
+		        </div>
+		    </div>
+
+		</div>
+
+	   </div>
+
+	    <div class="ui green right labeled submit icon button">
+	        Hochladen
+	        <i class="checkmark icon"></i>
+	    </div>
+
+  	</form>
+
+	</section>
+
+@endif
+
+</main>
+
+{{-- @include ADMIN BACKEND --------------------------------------------------}}
+@if( Seminar::authorizedEditor($seminar_name) )
+
+    {{-- Load create and edit Modals --}}
+    @include('seminar.modals')
+
+@endif
+
+@stop
+
+@section('scripts')
+
+	@if ( Seminar::authorizedEditor($seminar_name) && $video_content )
 
 	<script>
 	Chart.defaults.global.elements.point.radius = 5;
@@ -97,137 +285,5 @@
 	</script>
 
 	@endif
-
-@stop
-
-@section('content')
-<main id="main-content-seminar-lection" class="ui grid container vue">
-
-
-	@if ( Seminar::authorizedEditor($seminar_name) )
-
-		<section class="sixteen wide column">
-			<div class="ui blue message">
-				In der momentanen Version ist der Sequenz-Editor deaktiviert. Neue Video- oder Interaktionssequenzen können Sie nur mithilfe des technischen Supports erstellen.
-			</div>
-
-			<h1 class="ui header">Video Feedback</h1>
-			<div class="ui segment">
-				<canvas id="video-feedback" width="100" height="20"></canvas>
-
-				<form class="video-feedback-delete" role="form" method="POST" action="{{ action('SequenceController@deleteHelpPoints', ['name' => $seminar_name, 'lection_name' => $lection_name, 'sequence' => $sequence_id]) }}">
-
-					{{ method_field('DELETE') }}
-
-					{{ csrf_field() }}
-
-					<button class="ui small red icon button" type="submit">
-						Alle Werte löschen <i class="delete icon"></i>
-					</button>
-
-				</form>
-			</div>
-
-		</section>
-
-	@endif
-
-	@if( $available_all_authorized )
-
-        <h1 class="ui header">{{ $section . ' – ' . $lection_name }}</h1>
-
-		{{-- MEDIAPLAYER --}}
-		<div class="one column row">
-			<div class="column">
-
-				{{-- Sequences Detection --}}
-				@if ( $sequence_count > 1  )
-
-					<div class="ui {{ $sequence_count_spelled }} top attached small steps">
-
-					@foreach ($sequences as $sequence)
-
-						<div class="step @if ( $sequence->position == $sequence_id ) active @endif">
-							@if ( $sequence->video )
-								<i class="video icon"></i>
-							@endif
-							<div class="content">
-								<div class="title">
-									<a href="{{ route('lection', ['name' => $seminar_name ,'lection_name' => $lection_name, 'sequence' => $sequence->position]) }}">
-										{{ $sequence->name }}
-									</a>
-								</div>
-							</div>
-						</div>
-					@endforeach
-
-					</div>
-
-				@endif
-
-				{{-- Vue.js component including variables (props). --}}
-				<interactive-video name="{{ $current_sequence->name }}" path="{{ $current_sequence->path }}" markers="{{ $markers }}" poster="{{ $poster_path }}" v-bind:notes="true"></interactive-video>
-
-			</div>
-		</div>
-
-		{{-- DISQUS UMGEBUNG --}}
-		@if ( $disqus )
-
-			<div class="one column row">
-
-				<div id="disqus_thread" class="column"></div>
-
-			</div>
-
-		@endif
-
-		{{-- ADDITIONAL CONTENT --}}
-		<section id="additional-content" class="two column row">
-
-			<div class="column">
-
-				<header>
-					<h3 class="hide">Texte und Notizen</h3>
-				</header>
-
-				<a class="ui fluid labeled icon blue button track-event" data-type="Text" data-name="{{ $paper->name }}" href="{{ action('DownloadController@getFile', ['path' => $paper->path , 'name' => $paper->name]) }}"><i class="text file icon"></i> {{ $paper->author }}: {{ $paper->name }}</a>
-
-			</div>
-			<div class="column">
-
-				<a class="ui fluid labeled icon blue button track-event" data-type="Notizen" data-name="{{ $seminar_name . ' – ' . $lection_name }}" href="{{ URL::current() . '/pdfnotes' }}">
-
-					<i class="square write icon"></i> Notizen herunterladen
-
-				</a>
-			</div>
-
-		</section>
-
-	@else
-		<div class="one column row">
-			<div class="column">
-
-				<div class="ui red message">
-		            Die online-Lektion ist noch nicht verfügbar. Bitte wählen Sie eine verfügbare online-Lektion aus.
-		        </div>
-
-				@include('seminar.lections.index')
-
-			</div>
-		</div>
-
-	@endif
-
-</main>
-
-{{-- @include ADMIN BACKEND --------------------------------------------------}}
-@if( Seminar::authorizedEditor($seminar_name) )
-
-    {{-- Load create and edit Modals --}}
-    @include('seminar.modals')
-
-@endif
 
 @stop

@@ -3,6 +3,7 @@
 namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Seminar;
 use Lection;
 use User;
@@ -99,6 +100,7 @@ class SeminarController extends Controller
                                     ->with('current_lection', $current_lection)
                                     ->with('current_lection_paper', $current_paper)
                                     ->with('disqus', $disqus)
+                                    ->with('disqus_shortname', $disqus_shortname)
                                     ->with('infoblocks', $infoblocks)
                                     ->with('teachers', $teachers)
                                     ->with('students', $students)
@@ -419,9 +421,6 @@ class SeminarController extends Controller
         // Get all seminar lections.
         $lections = Seminar::getAllLections($name);
 
-        // Angehängte Texte abfragen
-        $paper = true;#Lection::getPaper($lection_name);
-
         // Verfügbarkeit des Videos abfragen
         $available_all_authorized = (Lection::available($lection_name, $name) || Seminar::authorizedEditor($name) || Seminar::authorizedMentor($name) || Seminar::authorizedTeacher($name));
 
@@ -436,12 +435,29 @@ class SeminarController extends Controller
 
         $current_sequence = Lection::getSequence($lection_name, $sequence);
 
-        if (is_null($current_sequence->name)) {
-            $current_sequence->name = $lection_name;
-        }
+        if( is_null($current_sequence) )
+        {
+            $video_content = FALSE;
 
-        // Get all markers.
-        $markers = Lection::getMarkers($lection_name, $sequence);
+            $markers = NULL;
+
+            $help_points = NULL;
+        }
+        else
+        {
+            $video_content = TRUE;
+
+            // Get all markers.
+            $markers = Lection::getMarkers($lection_name, $sequence);
+
+            // Get all help points.
+            $help_points = Sequence::getHelpPoints($current_sequence->id);
+
+            // Set sequence name.
+            if (is_null($current_sequence->name)) {
+                $current_sequence->name = $lection_name;
+            }
+        }
 
         // Get image path.
         $poster_path = Lection::getImagePath($lection_name);
@@ -455,23 +471,23 @@ class SeminarController extends Controller
         // Get all existing lections.
         $all_lections = Lection::getAllNotAttached($name);
 
-        // Get all help points.
-        $help_points = Sequence::getHelpPoints($current_sequence->id);
-
         // Hier noch in ein ansprechendes Format ändern. Man muss pro Zeitpunkt
 
         // Get Disqus shortname.
         $disqus_shortname = Seminar::getDisqusShortname($name);
 
         // Get Disqus.
-        $disqus = ($disqus_shortname !== null);
+        $disqus = ($disqus_shortname !== NULL);
+
+        // Disqus identifier.
+        $disqus_identifier = rawurlencode($section.' – '.$lection_name);
 
         // Push Disqus shortname to JavaScript.
         JavaScript::put([
             'sequence' => $sequence,
             'lection_name' => $lection_name,
             'disqus_shortname' => $disqus_shortname,
-            'disqus_identifier' => $name.' – '.$lection_name,
+            'disqus_identifier' => $disqus_identifier,
             'admins' => $admins,
         ]);
 
@@ -496,6 +512,7 @@ class SeminarController extends Controller
                             ->with('current_sequence', $current_sequence)
                             ->with('poster_path', $poster_path)
                             ->with('paper', $paper)
-                            ->with('help_points', $help_points);
+                            ->with('help_points', $help_points)
+                            ->with('video_content', $video_content);
     }
 }

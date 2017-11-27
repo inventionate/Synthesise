@@ -344,19 +344,25 @@ class LectionRepository implements LectionInterface
    */
   public function getImagePath($name)
   {
-      return Lection::findOrFail($name)->image_path;
+      $image_path = Lection::findOrFail($name)->image_path;
+
+      return str_replace_first('/', '', Storage::url($image_path));
   }
 
   /**
-   * Gibt die zu einem Video zugehörigen Papers aus.
-   *
-   * @param     string $name
-   *
-   * @return    collection
-   */
+  * Gibt das zu einem Video zugehörige Paper oder NULL aus.
+  *
+  * @param     string $name
+  *
+  * @return    collection
+  */
   public function getPaper($name)
   {
-      return Lection::findOrFail($name)->paper()->first();
+
+    $paper = Lection::findOrFail($name)->paper()->first();
+
+    return $paper;
+
   }
 
 }

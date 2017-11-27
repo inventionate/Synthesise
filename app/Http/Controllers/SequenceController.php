@@ -64,11 +64,30 @@ class SequenceController extends Controller
         return back();
     }
 
-    // @TODO Speichern von neuen Sequencen inkl. Codierung umsetzen.
-
-    public function store()
+    /**
+     * Store a newly created Sequence.
+     *
+     * @param Request   $request
+     * @param string    $lection_name
+     *
+     * @return Redirect
+     */
+    public function store(Request $request, $lection_name)
     {
-        # code...
+
+        // Validation
+        $this->validate($request, [
+            'sequence_name' => 'required|string',
+            'video' => 'required|mimetypes:video/avi,video/mpeg,video/quicktime,video/webm',
+        ]);
+
+        $sequence_name = $request->sequence_name;
+        // Store Video
+        $video_path = $request->file('video')->store('public/videos');
+
+        //Sequence::store($lection_name, $sequence_name, $video_path);
+
+        return back()->withInput();
     }
 
     public function update()
@@ -76,7 +95,7 @@ class SequenceController extends Controller
         # code...
     }
 
-    public function delete()
+    public function destroy()
     {
         # code...
     }

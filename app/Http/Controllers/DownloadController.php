@@ -4,6 +4,8 @@ namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Storage;
+
 class DownloadController extends Controller
 {
 
@@ -26,11 +28,8 @@ class DownloadController extends Controller
      */
     public function getFile(Request $request)
     {
-        $path = $request->path;
 
-        // Public durch storage ersetzen.
-        $path = str_replace('public', 'storage', $path);
-
+        $path = str_replace_first('/', '', Storage::url($request->path));
 
         $name = $request->name . '.' . pathinfo($path)['extension'];
 
