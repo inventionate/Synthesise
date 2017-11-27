@@ -181,7 +181,7 @@
 
 						                        {{ csrf_field() }}
 
-						                        <button class="ui small teal icon button" type="submit">
+						                        <button class="ui small red icon button" type="submit">
 						                            <i class="close icon"></i>
 						                        </button>
 

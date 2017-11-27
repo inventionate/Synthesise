@@ -3,7 +3,8 @@
 namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+
+use Storage;
 
 class DownloadController extends Controller
 {

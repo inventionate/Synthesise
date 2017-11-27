@@ -3,6 +3,7 @@
 namespace Synthesise\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Seminar;
 use Lection;
 use User;

@@ -344,7 +344,9 @@ class LectionRepository implements LectionInterface
    */
   public function getImagePath($name)
   {
-      return Lection::findOrFail($name)->image_path;
+      $image_path = Lection::findOrFail($name)->image_path;
+
+      return str_replace_first('/', '', Storage::url($image_path));
   }
 
   /**

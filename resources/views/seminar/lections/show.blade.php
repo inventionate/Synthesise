@@ -7,13 +7,11 @@
 @section('content')
 <main id="main-content-seminar-lection" class="ui grid container vue">
 
+@if ( $video_content )
 
 	@if ( Seminar::authorizedEditor($seminar_name) )
 
 		<section class="sixteen wide column">
-			<div class="ui blue message">
-				In der momentanen Version ist der Sequenz-Editor deaktiviert. Neue Video- oder Interaktionssequenzen können Sie nur mithilfe des technischen Supports erstellen.
-			</div>
 
 			<h1 class="ui header">Video Feedback</h1>
 			<div class="ui segment">
@@ -47,13 +45,15 @@
 				{{-- Sequences Detection --}}
 				@if ( $sequence_count > 1  )
 
-					<div class="ui {{ $sequence_count_spelled }} top attached small steps">
+					<div class="ui {{ $sequence_count_spelled }} top attached mini steps">
 
 					@foreach ($sequences as $sequence)
 
 						<div class="step @if ( $sequence->position == $sequence_id ) active @endif">
 							@if ( $sequence->video )
 								<i class="video icon"></i>
+							@else
+								<i class="puzzle icon"></i>
 							@endif
 							<div class="content">
 								<div class="title">
@@ -61,8 +61,15 @@
 										{{ $sequence->name }}
 									</a>
 								</div>
+								<div class="description">
+									<div class="ui tiny icon buttons">
+  										<button class="ui teal button"><i class="edit icon"></i></button>
+  										<button class="ui red button"><i class="delete icon"></i></button>
+									</div>
+								</div>
 							</div>
 						</div>
+
 					@endforeach
 
 					</div>
@@ -124,6 +131,55 @@
 
 	@endif
 
+@else
+
+	<section class="sixteen wide column">
+
+	{{-- Video Upload field --}}
+	<form action="{{ action('SequenceController@store', [ 'lection_name' => $lection_name]) }}" role="form" method="POST" class="ui equal width form" enctype="multipart/form-data">
+
+	  	{{ csrf_field() }}
+
+		<h3 class="ui header">
+	        Neue Sequenz hochladen
+	    </h3>
+
+		<div class="required fields">
+
+			<div class="field">
+			   <label for="lections_sequence_name">Titel der Sequenz</label>
+			   <input id="lections_sequence_name" name="sequence_name" placeholder="Bitte geben Sie den Titel der Videosequenz ein." type="text">
+		    </div>
+
+		    <div class="field">
+		        <label for="video">Videosequenz</label>
+		        <div class="ui action input">
+		                <label for="video_filepath" class="hide">Dateipfad</label>
+		                <input id="video_filepath" type="text" placeholder="Bitte wählen Sie einen Text." name="video_filepath" readonly>
+
+		                <input id="video" type="file" name="video">
+
+		                <div class="ui primary icon button">
+		                    <i class="cloud upload icon"></i>
+		                </div>
+		        </div>
+		    </div>
+
+		</div>
+
+	   </div>
+
+	    <div class="ui green right labeled submit icon button">
+	        Hochladen
+	        <i class="checkmark icon"></i>
+	    </div>
+
+  	</form>
+
+	</section>
+
+@endif
+
 </main>
 
 {{-- @include ADMIN BACKEND --------------------------------------------------}}
@@ -138,7 +194,7 @@
 
 @section('scripts')
 
-	@if ( Seminar::authorizedEditor($seminar_name) )
+	@if ( Seminar::authorizedEditor($seminar_name) && $video_content )
 
 	<script>
 	Chart.defaults.global.elements.point.radius = 5;
