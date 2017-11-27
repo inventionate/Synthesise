@@ -7,7 +7,7 @@
 @section('content')
 <main id="main-content-seminar-lection" class="ui grid container vue">
 
-@if ( $video_content )
+@if ( $sequence_content )
 
 	@if ( Seminar::authorizedEditor($seminar_name) )
 
@@ -131,53 +131,6 @@
 
 	@endif
 
-@else
-
-	<section class="sixteen wide column">
-
-	{{-- Video Upload field --}}
-	<form action="{{ action('SequenceController@store', [ 'lection_name' => $lection_name]) }}" role="form" method="POST" class="ui equal width form" enctype="multipart/form-data">
-
-	  	{{ csrf_field() }}
-
-		<h3 class="ui header">
-	        Neue Sequenz hochladen
-	    </h3>
-
-		<div class="required fields">
-
-			<div class="field">
-			   <label for="lections_sequence_name">Titel der Sequenz</label>
-			   <input id="lections_sequence_name" name="sequence_name" placeholder="Bitte geben Sie den Titel der Videosequenz ein." type="text">
-		    </div>
-
-		    <div class="field">
-		        <label for="video">Videosequenz</label>
-		        <div class="ui action input">
-		                <label for="video_filepath" class="hide">Dateipfad</label>
-		                <input id="video_filepath" type="text" placeholder="Bitte wählen Sie einen Text." name="video_filepath" readonly>
-
-		                <input id="video" type="file" name="video">
-
-		                <div class="ui primary icon button">
-		                    <i class="cloud upload icon"></i>
-		                </div>
-		        </div>
-		    </div>
-
-		</div>
-
-	   </div>
-
-	    <div class="ui green right labeled submit icon button">
-	        Hochladen
-	        <i class="checkmark icon"></i>
-	    </div>
-
-  	</form>
-
-	</section>
-
 @endif
 
 </main>
@@ -194,7 +147,7 @@
 
 @section('scripts')
 
-	@if ( Seminar::authorizedEditor($seminar_name) && $video_content )
+	@if ( Seminar::authorizedEditor($seminar_name) && $sequence_content )
 
 	<script>
 	Chart.defaults.global.elements.point.radius = 5;

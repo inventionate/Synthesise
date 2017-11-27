@@ -16,4 +16,8 @@
 
 @include('seminar.lections.edit')
 
+@include('seminar.sequences.create')
+
+@include('seminar.sequences.edit')
+
 @include('seminar.lections.attach')

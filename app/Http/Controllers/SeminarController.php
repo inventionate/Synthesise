@@ -437,7 +437,7 @@ class SeminarController extends Controller
 
         if( is_null($current_sequence) )
         {
-            $video_content = FALSE;
+            $sequence_content = FALSE;
 
             $markers = NULL;
 
@@ -445,7 +445,7 @@ class SeminarController extends Controller
         }
         else
         {
-            $video_content = TRUE;
+            $sequence_content = TRUE;
 
             // Get all markers.
             $markers = Lection::getMarkers($lection_name, $sequence);
@@ -489,6 +489,7 @@ class SeminarController extends Controller
             'disqus_shortname' => $disqus_shortname,
             'disqus_identifier' => $disqus_identifier,
             'admins' => $admins,
+            'sequence_content' => $sequence_content
         ]);
 
         // Standardausgabe VIEW -----------------------------------------
@@ -513,6 +514,6 @@ class SeminarController extends Controller
                             ->with('poster_path', $poster_path)
                             ->with('paper', $paper)
                             ->with('help_points', $help_points)
-                            ->with('video_content', $video_content);
+                            ->with('sequence_content', $sequence_content);
     }
 }

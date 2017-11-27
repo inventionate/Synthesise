@@ -53,41 +53,22 @@ function forEachObject(object, iterator, context) {
 
 /***/ }),
 
-/***/ "./node_modules/global/document.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
-    typeof window !== 'undefined' ? window : {}
-var minDoc = __webpack_require__(1);
-
-if (typeof document !== 'undefined') {
-    module.exports = document;
-} else {
-    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
-
-    if (!doccy) {
-        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
-    }
-
-    module.exports = doccy;
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
 /***/ "./node_modules/global/window.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {if (typeof window !== "undefined") {
-    module.exports = window;
+/* WEBPACK VAR INJECTION */(function(global) {var win;
+
+if (typeof window !== "undefined") {
+    win = window;
 } else if (typeof global !== "undefined") {
-    module.exports = global;
+    win = global;
 } else if (typeof self !== "undefined"){
-    module.exports = self;
+    win = self;
 } else {
-    module.exports = {};
+    win = {};
 }
+
+module.exports = win;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js")))
 
@@ -11270,7 +11251,7 @@ var _log = __webpack_require__("./node_modules/video.js/es5/utils/log.js");
 
 var _log2 = _interopRequireDefault(_log);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -11684,7 +11665,7 @@ exports['default'] = CloseButton;
 
 exports.__esModule = true;
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -16860,11 +16841,11 @@ var _fn = __webpack_require__("./node_modules/video.js/es5/utils/fn.js");
 
 var Fn = _interopRequireWildcard(_fn);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -18525,7 +18506,7 @@ exports['default'] = extendFn;
 
 exports.__esModule = true;
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -20087,11 +20068,11 @@ var _component = __webpack_require__("./node_modules/video.js/es5/component.js")
 
 var _component2 = _interopRequireDefault(_component);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -24244,11 +24225,11 @@ var _events = __webpack_require__("./node_modules/video.js/es5/utils/events.js")
 
 var Events = _interopRequireWildcard(_events);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -24980,7 +24961,7 @@ var _component = __webpack_require__("./node_modules/video.js/es5/component.js")
 
 var _component2 = _interopRequireDefault(_component);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -26180,11 +26161,11 @@ var _browser = __webpack_require__("./node_modules/video.js/es5/utils/browser.js
 
 var browser = _interopRequireWildcard(_browser);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -28239,11 +28220,11 @@ var _mediaError = __webpack_require__("./node_modules/video.js/es5/media-error.j
 
 var _mediaError2 = _interopRequireDefault(_mediaError);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -29622,7 +29603,7 @@ var _browser = __webpack_require__("./node_modules/video.js/es5/utils/browser.js
 
 var browser = _interopRequireWildcard(_browser);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -29944,7 +29925,7 @@ var _browser = __webpack_require__("./node_modules/video.js/es5/utils/browser.js
 
 var browser = _interopRequireWildcard(_browser);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -30100,7 +30081,7 @@ var _browser = __webpack_require__("./node_modules/video.js/es5/utils/browser.js
 
 var browser = _interopRequireWildcard(_browser);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -30277,7 +30258,7 @@ var _browser = __webpack_require__("./node_modules/video.js/es5/utils/browser.js
 
 var browser = _interopRequireWildcard(_browser);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -30441,7 +30422,7 @@ var _fn = __webpack_require__("./node_modules/video.js/es5/utils/fn.js");
 
 var Fn = _interopRequireWildcard(_fn);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -30913,7 +30894,7 @@ var _browser = __webpack_require__("./node_modules/video.js/es5/utils/browser.js
 
 var browser = _interopRequireWildcard(_browser);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -31013,7 +30994,7 @@ exports['default'] = TextTrackList;
 
 exports.__esModule = true;
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -31636,7 +31617,7 @@ var _log = __webpack_require__("./node_modules/video.js/es5/utils/log.js");
 
 var _log2 = _interopRequireDefault(_log);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -32161,7 +32142,7 @@ var _browser = __webpack_require__("./node_modules/video.js/es5/utils/browser.js
 
 var browser = _interopRequireWildcard(_browser);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -32398,7 +32379,7 @@ var _browser = __webpack_require__("./node_modules/video.js/es5/utils/browser.js
 
 var browser = _interopRequireWildcard(_browser);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -32552,7 +32533,7 @@ var _browser = __webpack_require__("./node_modules/video.js/es5/utils/browser.js
 
 var browser = _interopRequireWildcard(_browser);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -32886,7 +32867,7 @@ var _dom = __webpack_require__("./node_modules/video.js/es5/utils/dom.js");
 
 var Dom = _interopRequireWildcard(_dom);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -33052,7 +33033,7 @@ function bufferedPercent(buffered, duration) {
 exports.__esModule = true;
 exports['default'] = computedStyle;
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -33132,11 +33113,11 @@ exports.normalizeContent = normalizeContent;
 exports.appendContent = appendContent;
 exports.insertContent = insertContent;
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -34023,11 +34004,11 @@ var _log = __webpack_require__("./node_modules/video.js/es5/utils/log.js");
 
 var _log2 = _interopRequireDefault(_log);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -34676,7 +34657,7 @@ function newGUID() {
 exports.__esModule = true;
 exports.logByType = undefined;
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -35040,7 +35021,7 @@ function isPlain(value) {
 exports.__esModule = true;
 exports.setTextContent = exports.createStyleElement = undefined;
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -35283,11 +35264,11 @@ exports['default'] = toTitleCase;
 exports.__esModule = true;
 exports.isCrossOrigin = exports.getFileExtension = exports.getAbsoluteURL = exports.parseUrl = undefined;
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
@@ -35473,11 +35454,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 // Include the built-in techs
 
 
-var _window = __webpack_require__("./node_modules/global/window.js");
+var _window = __webpack_require__("./node_modules/video.js/node_modules/global/window.js");
 
 var _window2 = _interopRequireDefault(_window);
 
-var _document = __webpack_require__("./node_modules/global/document.js");
+var _document = __webpack_require__("./node_modules/video.js/node_modules/global/document.js");
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -36185,6 +36166,46 @@ exports['default'] = videojs;
 
 /***/ }),
 
+/***/ "./node_modules/video.js/node_modules/global/document.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
+    typeof window !== 'undefined' ? window : {}
+var minDoc = __webpack_require__(1);
+
+if (typeof document !== 'undefined') {
+    module.exports = document;
+} else {
+    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
+
+    if (!doccy) {
+        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
+    }
+
+    module.exports = doccy;
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/video.js/node_modules/global/window.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {if (typeof window !== "undefined") {
+    module.exports = window;
+} else if (typeof global !== "undefined") {
+    module.exports = global;
+} else if (typeof self !== "undefined"){
+    module.exports = self;
+} else {
+    module.exports = {};
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/videojs-vtt.js/lib/browser-index.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -36209,7 +36230,7 @@ exports['default'] = videojs;
 // forth between JSON. If we don't then it's not that big of a deal since we're
 // off browser.
 
-var window = __webpack_require__("./node_modules/videojs-vtt.js/node_modules/global/window.js");
+var window = __webpack_require__("./node_modules/global/window.js");
 
 var vttjs = module.exports = {
   WebVTT: __webpack_require__("./node_modules/videojs-vtt.js/lib/vtt.js"),
@@ -38028,27 +38049,6 @@ function VTTRegion() {
 
 module.exports = VTTRegion;
 
-
-/***/ }),
-
-/***/ "./node_modules/videojs-vtt.js/node_modules/global/window.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {var win;
-
-if (typeof window !== "undefined") {
-    win = window;
-} else if (typeof global !== "undefined") {
-    win = global;
-} else if (typeof self !== "undefined"){
-    win = self;
-} else {
-    win = {};
-}
-
-module.exports = win;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -48286,7 +48286,7 @@ module.exports = g;
 
 "use strict";
 
-var window = __webpack_require__("./node_modules/xhr/node_modules/global/window.js")
+var window = __webpack_require__("./node_modules/global/window.js")
 var isFunction = __webpack_require__("./node_modules/is-function/index.js")
 var parseHeaders = __webpack_require__("./node_modules/parse-headers/parse-headers.js")
 var xtend = __webpack_require__("./node_modules/xtend/immutable.js")
@@ -48521,27 +48521,6 @@ function getXml(xhr) {
 
 function noop() {}
 
-
-/***/ }),
-
-/***/ "./node_modules/xhr/node_modules/global/window.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {var win;
-
-if (typeof window !== "undefined") {
-    win = window;
-} else if (typeof global !== "undefined") {
-    win = global;
-} else if (typeof self !== "undefined"){
-    win = self;
-} else {
-    win = {};
-}
-
-module.exports = win;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
