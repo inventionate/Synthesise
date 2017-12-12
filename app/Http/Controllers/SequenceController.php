@@ -68,21 +68,25 @@ class SequenceController extends Controller
      * Store a newly created Sequence.
      *
      * @param Request   $request
-     * @param string    $lection_name
      *
      * @return Redirect
      */
-    public function store(Request $request, $lection_name)
+    public function store(Request $request)
     {
 
         // Validation
         $this->validate($request, [
+            'lection_name' => 'required|string',
             'sequence_name' => 'required|string',
             'video' => 'required|mimetypes:video/avi,video/mpeg,video/quicktime,video/webm',
         ]);
 
+        $lection_name = $request->lection_name;
         $sequence_name = $request->sequence_name;
         // Store Video
+
+        // Hier müsste das Video an eine Funktion übergeben werden, die es in das richtige Format konvertiert und an dem entsprechenden Ort speichert.
+
         $video_path = $request->file('video')->store('public/videos');
 
         //Sequence::store($lection_name, $sequence_name, $video_path);

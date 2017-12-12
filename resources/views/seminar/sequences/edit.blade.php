@@ -1,4 +1,5 @@
-<form role="form" method="POST" action="{{ action('SequenceController@update', [ 'lection_name' => $lection_name]) }}" id="sequence-edit-modal" class="ui modal form sequence-validator" enctype="multipart/form-data">
+{{-- Die Nummer muss per Klick generiert werden! --}}
+<form role="form" method="POST" action="{{ action('SequenceController@update', ['number' => 1]) }}" id="sequence-edit-modal" class="ui modal form sequence-validator" enctype="multipart/form-data">
 
     {{ method_field('PATCH') }}
 

@@ -14,4 +14,6 @@ interface SequenceInterface
 
     public function deleteHelpPoints($id);
 
+    public function store($lection_name, $sequence_name, $video_path);
+
 }

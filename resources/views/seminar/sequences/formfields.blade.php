@@ -1,3 +1,10 @@
+{{--Der Name der online-Lektion muss per Klick festgelegt werden. --}}
+
+<div class="hide field">
+   <label for="lection_name">Name der online-Lektion</label>
+   <input id="lection_name" name="name" placeholder="Bitte geben Sie den Namen der online-Lektion ein." type="text">
+</div>
+
 <div class="required field">
    <label for="sequences_name">Titel der Sequenz</label>
    <input id="sequences_name" name="name" placeholder="Bitte geben Sie den Titel der Videosequenz ein." type="text">

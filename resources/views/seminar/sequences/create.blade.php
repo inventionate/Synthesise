@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="{{ action('SequenceController@store', [ 'lection_name' => $lection_name]) }}" id="sequence-new-modal" class="ui modal form sequence-validator" enctype="multipart/form-data">
+<form role="form" method="POST" action="{{ action('SequenceController@store') }}" id="sequence-new-modal" class="ui modal form sequence-validator" enctype="multipart/form-data">
 
     {{ csrf_field() }}
 
